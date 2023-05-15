@@ -1,18 +1,4 @@
-/*
- * Copyright (C) 2015 Regents of the University of California
- *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU General Public License
- *   as published by the Free Software Foundation, version 2.
- *
- *   This program is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied
- * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- * See the GNU General Public License for more details.
- */
-
-#ifndef _ASM_RISCV_SBI_H
-#define _ASM_RISCV_SBI_H
+#pragma once
 
 #include <asm/sbidef.h>
 #include <common/type.h>
@@ -122,9 +108,8 @@ enum SBI_READY_FDT_TYPE {
     PLIC_ADDR,
     NR_IRQS
 };
+
 static inline uint32_t sbi_read_fdt(enum SBI_READY_FDT_TYPE type)
 {
     return SBI_CALL_1(SBI_FDT_READ, (int)type);
 }
-
-#endif

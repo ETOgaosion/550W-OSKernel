@@ -1,11 +1,9 @@
-#ifndef CONTEXT_H
-#define CONTEXT_H
+#pragma once
 
 #include <common/type.h>
 
 /* used to save register infomation */
-typedef struct regs_context
-{
+typedef struct regs_context {
     /* Saved main processor registers.*/
     reg_t regs[32];
 
@@ -17,10 +15,7 @@ typedef struct regs_context
 } regs_context_t;
 
 /* used to save register infomation in switch_to */
-typedef struct switchto_context
-{
+typedef struct switchto_context {
     /* Callee saved registers.*/
     reg_t regs[14];
 } switchto_context_t;
-
-#endif

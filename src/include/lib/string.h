@@ -1,9 +1,10 @@
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * * * * *
- *            Copyright (C) 2018 Institute of Computing Technology, CAS
- *               Author : Han Shukai (email : hanshukai@ict.ac.cn)
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * * * * *
- *                    string library like clib("string.h")
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * * * * *
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * *
+ * * * * * * Copyright (C) 2018 Institute of Computing Technology, CAS Author :
+ * Han Shukai (email : hanshukai@ict.ac.cn)
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * *
+ * * * * * * string library like clib("string.h")
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * *
+ * * * * * *
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +24,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * * * * * * */
-
-#ifndef INCLUDE_STRING_H_
-#define INCLUDE_STRING_H_
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  * * * * * *
+ * * * * * */
+#pragma once
 
 #include <common/type.h>
 
@@ -37,5 +37,3 @@ int strcmp(const char *str1, const char *str2);
 char *kstrcpy(char *dest, const char *src);
 char *kstrcat(char *dest, const char *src);
 int kstrlen(const char *src);
-
-#endif

@@ -1,11 +1,8 @@
-INCLUDES := -I. -I../include -I../arch/riscv/include
+INCLUDES := -I.. -I../include -I../arch/riscv/include
 
-target = $(shell ls *.c *.S | awk '{gsub(/\.c|\.S/, ".o"); print $0}')
+target = $(shell ls *.c | awk '{gsub(/\.c/, ".o"); print $0}')
 
 .PHONY: build clean
-
-%.o: %.S
-	$(GCC) $(CFLAGS) $(INCLUDES) -c $<
 
 %.o: %.c
 	$(GCC) $(CFLAGS) $(INCLUDES) -c $<

@@ -22,9 +22,7 @@
  *
  *===-----------------------------------------------------------------------===
  */
-
-#ifndef __STDARG_H
-#define __STDARG_H
+#pragma once
 
 #ifndef _VA_LIST
 typedef __builtin_va_list va_list;
@@ -48,5 +46,3 @@ typedef __builtin_va_list va_list;
 #define __GNUC_VA_LIST 1
 #endif
 typedef __builtin_va_list __gnuc_va_list;
-
-#endif /* __STDARG_H */
