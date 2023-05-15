@@ -1,9 +1,8 @@
-#ifndef _ELF_H
-#define _ELF_H
+#pragma once
 
-#include <lib/string.h>
 #include <asm/pgtable.h>
 #include <common/type.h>
+#include <lib/string.h>
 
 /* 64-bit ELF base types. */
 typedef uint64_t Elf64_Addr;
@@ -199,5 +198,3 @@ static inline uintptr_t load_elf(
 
     return ehdr->e_entry;
 }
-
-#endif  // _ELF_H

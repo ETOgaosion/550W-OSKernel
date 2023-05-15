@@ -1,5 +1,4 @@
-#ifndef ASSERT_H
-#define ASSERT_H
+#pragma once
 
 #include <lib/stdio.h>
 
@@ -16,5 +15,3 @@ static inline void _panic(const char* file_name,int lineno, const char* func_nam
             _panic(__FILE__, __LINE__,__FUNCTION__); \
         }                                            \
     }
-
-#endif /* ASSERT_H */

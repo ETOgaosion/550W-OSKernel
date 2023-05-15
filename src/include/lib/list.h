@@ -33,16 +33,12 @@
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * * * * * * * * * * * */
-
-#ifndef INCLUDE_LIST_H_
-#define INCLUDE_LIST_H_
-
+#pragma once
 #include <common/type.h>
 
 // double-linked list
 //   TODO: use your own list design!!
-typedef struct list_node
-{
+typedef struct list_node {
     pid_t pid;
     pid_t tid;
     uint64_t time;
@@ -52,5 +48,3 @@ typedef struct list_node
 } list_node_t;
 
 typedef list_node_t list_head;
-
-#endif

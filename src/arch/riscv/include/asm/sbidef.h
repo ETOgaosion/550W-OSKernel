@@ -1,5 +1,4 @@
-#ifndef _ASM_SBI_DEF_H
-#define _ASM_SBI_DEF_H
+#pragma once
 
 #define SBI_SET_TIMER 0
 #define SBI_CONSOLE_PUTCHAR 1
@@ -14,5 +13,3 @@
 #define SBI_SD_WRITE 10
 #define SBI_SD_READ 11
 #define SBI_FDT_READ 12
-
-#endif /* _ASM_SBI_DEF_H */

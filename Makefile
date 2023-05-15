@@ -4,15 +4,15 @@ user_dir		:= userspace
 target_dir		:= target
 # tools_dir	 := tools
 
-linkscript		:= $(linker_dir)/Qemu.ld
+linkscript		:= $(linker_dir)/riscv.lds
 vm550w_img		:= $(target_dir)/vm550w.img
-vm550w_bin		:= os.bin
+vm550w_bin		:= kernel-qemu
 vm550w_asm		:= $(target_dir)/vm550w_asm.txt
 dst				:= /mnt
 fs_img			:= fs.img
 
-modules := $(src_dir) $(user_dir)
-objects := $(src_dir)/*/*.o $(user_dir)/*.x
+modules := $(src_dir)
+objects := $(shell find $(src_dir) -name "*.o")
 
 .PHONY: build clean $(modules) run
 GDB := n
@@ -21,9 +21,10 @@ ifeq ($(MAKECMDGOALS), gdb)
 	GDB = y
 endif
 
-all : build
+all : clean build
 
 build: $(modules)
+	echo $(objects)
 	mkdir -p $(target_dir)
 	$(LD) $(LDFLAGS) -T $(linkscript) -o $(vm550w_img) $(objects)
 	$(OBJDUMP) -S $(vm550w_img) > $(vm550w_asm)
