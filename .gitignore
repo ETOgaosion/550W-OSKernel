@@ -3,7 +3,8 @@
 !userspace/testsuits-for-oskernel
 
 !.gitignore
-!*.bin
+!.clang-format
+!kernel-qemu
 
 !*.S
 !*.s

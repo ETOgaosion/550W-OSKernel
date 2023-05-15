@@ -1,8 +1,7 @@
-#ifndef PGTABLE_H
-#define PGTABLE_H
+#pragma once
 
-#include <common/type.h>
 #include <asm/sbi.h>
+#include <common/type.h>
 
 #define SATP_MODE_SV39 8
 #define SATP_MODE_SV48 9
@@ -19,48 +18,34 @@
  * Flush entire local TLB.  'sfence.vma' implicitly fences with the instruction
  * cache as well, so a 'fence.i' is not necessary.
  */
-static inline void local_flush_tlb_all(void)
-{
-    __asm__ __volatile__ ("sfence.vma" : : : "memory");
-}
+static inline void local_flush_tlb_all(void) { __asm__ __volatile__("sfence.vma" : : : "memory"); }
 
 /* Flush one page from local TLB */
-static inline void local_flush_tlb_page(unsigned long addr)
-{
-    __asm__ __volatile__ ("sfence.vma %0" : : "r" (addr) : "memory");
-}
+static inline void local_flush_tlb_page(unsigned long addr) { __asm__ __volatile__("sfence.vma %0" : : "r"(addr) : "memory"); }
 
-static inline void local_flush_icache_all(void)
-{
-    asm volatile ("fence.i" ::: "memory");
-}
+static inline void local_flush_icache_all(void) { asm volatile("fence.i" ::: "memory"); }
 
-static inline void flush_icache_all(void)
-{
+static inline void flush_icache_all(void) {
     local_flush_icache_all();
     sbi_remote_fence_i(NULL);
 }
 
-static inline void flush_tlb_all(void)
-{
+static inline void flush_tlb_all(void) {
     local_flush_tlb_all();
     sbi_remote_sfence_vma(NULL, 0, -1);
 }
-static inline void flush_tlb_page_all(unsigned long addr)
-{
+
+static inline void flush_tlb_page_all(unsigned long addr) {
     local_flush_tlb_page(addr);
     sbi_remote_sfence_vma(NULL, 0, -1);
 }
 
-static inline void set_satp(
-    unsigned mode, unsigned asid, unsigned long ppn)
-{
-    unsigned long __v =
-        (unsigned long)(((unsigned long)mode << SATP_MODE_SHIFT) | ((unsigned long)asid << SATP_ASID_SHIFT) | ppn);
+static inline void set_satp(unsigned mode, unsigned asid, unsigned long ppn) {
+    unsigned long __v = (unsigned long)(((unsigned long)mode << SATP_MODE_SHIFT) | ((unsigned long)asid << SATP_ASID_SHIFT) | ppn);
     __asm__ __volatile__("sfence.vma\ncsrw satp, %0" : : "rK"(__v) : "memory");
 }
 
-#define PGDIR_PA 0x5e000000lu  // use bootblock's page as PGDIR
+#define PGDIR_PA 0x5e000000lu // use bootblock's page as PGDIR
 
 /*
  * PTE format:
@@ -70,86 +55,66 @@ static inline void set_satp(
 
 #define _PAGE_ACCESSED_OFFSET 6
 
-#define _PAGE_PRESENT (1 << 0)
-#define _PAGE_READ (1 << 1)     /* Readable */
-#define _PAGE_WRITE (1 << 2)    /* Writable */
-#define _PAGE_EXEC (1 << 3)     /* Executable */
-#define _PAGE_USER (1 << 4)     /* User */
-#define _PAGE_GLOBAL (1 << 5)   /* Global */
-#define _PAGE_ACCESSED (1 << 6) /* Set by hardware on any access \
-                                 */
-#define _PAGE_DIRTY (1 << 7)    /* Set by hardware on any write */
-#define _PAGE_SOFT (1 << 8)     /* Reserved for software */
+#define _PAGE_PRESENT ((uint64_t)1 << 0)
+#define _PAGE_READ ((uint64_t)1 << 1)   /* Readable */
+#define _PAGE_WRITE ((uint64_t)1 << 2)  /* Writable */
+#define _PAGE_EXEC ((uint64_t)1 << 3)   /* Executable */
+#define _PAGE_USER ((uint64_t)1 << 4)   /* User */
+#define _PAGE_GLOBAL ((uint64_t)1 << 5) /* Global */
+#define _PAGE_ACCESSED (1 << 6)         /* Set by hardware on any access */
+#define _PAGE_DIRTY ((uint64_t)1 << 7)  /* Set by hardware on any write */
+#define _PAGE_SOFT ((uint64_t)1 << 8)   /* Reserved for software */
 
 #define _PAGE_PFN_SHIFT 10lu
 
 #define VA_MASK ((1lu << 39) - 1)
 
 #define PPN_BITS 9lu
-#define NUM_PTE_ENTRY (1 << PPN_BITS)
+#define NUM_PTE_ENTRY ((uint64_t)1 << PPN_BITS)
 
 typedef uint64_t PTE;
 
-static inline uintptr_t kva2pa(uintptr_t kva)
-{
-    // TODO:
-    //kva = kpa + 0xffff_ffc0_0000_0000
+static inline uintptr_t kva2pa(uintptr_t kva) {
+    // kva = kpa + 0xffff_ffc0_0000_0000
     return kva - 0xffffffc000000000;
 }
 
-static inline uintptr_t pa2kva(uintptr_t pa)
-{
-    // TODO:
-    return pa + 0xffffffc000000000;
-}
+static inline PTE *pa2kva(uintptr_t pa) { return (PTE *)pa + 0xffffffc000000000; }
 
-static inline uint64_t get_pa(PTE entry)
-{
-    // TODO:
-    uint64_t pa_temp = (entry >> _PAGE_PFN_SHIFT) % (1 << SATP_ASID_SHIFT);
+static inline uint64_t get_pa(PTE entry) {
+    uint64_t pa_temp = (entry >> _PAGE_PFN_SHIFT) % ((uint64_t)1 << SATP_ASID_SHIFT);
     return pa_temp << 12;
 }
 
-static inline uintptr_t get_kva_of(uintptr_t va, uintptr_t pgdir_va)
-{
-    // TODO:
+static inline uintptr_t get_kva_of(uintptr_t va, uintptr_t pgdir_va) {
+    PTE entry = *(uint64_t *)pgdir_va;
+    uint64_t ppn = get_pa(entry);
+    uint64_t mask = (((uint64_t)1) << 13) - 1;
+    return ppn + (va & mask);
 }
 
 /* Get/Set page frame number of the `entry` */
-static inline uint64_t get_pfn(PTE entry)
-{
-    // TODO:
-    uint64_t pa_temp = (entry >> _PAGE_PFN_SHIFT) % (1 << SATP_ASID_SHIFT);
+static inline uint64_t get_pfn(PTE entry) {
+    uint64_t pa_temp = (entry >> _PAGE_PFN_SHIFT) % ((uint64_t)1 << SATP_ASID_SHIFT);
     return pa_temp;
 }
-static inline void set_pfn(PTE *entry, uint64_t pfn)
-{
-    // TODO:
-    uint64_t temp10 = (*entry) % (1<<10);
+
+static inline void set_pfn(PTE *entry, uint64_t pfn) {
+    uint64_t temp10 = (*entry) % ((uint64_t)1 << 10);
     *entry = (pfn << 10) | temp10;
 }
 
 /* Get/Set attribute(s) of the `entry` */
-static inline long get_attribute(PTE entry, uint64_t mask)
-{
-    // TODO:
-    return entry & mask;
-}
-static inline void set_attribute(PTE *entry, uint64_t bits)
-{
-    // TODO:
+static inline long get_attribute(PTE entry, uint64_t mask) { return entry & mask; }
+
+static inline void set_attribute(PTE *entry, uint64_t bits) {
     uint64_t pfn_temp = (*entry) >> 10;
     *entry = (pfn_temp << 10) | bits;
 }
 
-static inline void clear_pgdir(uintptr_t pgdir_addr)
-{
-    // TODO:
-    PTE* pgaddr = (PTE*)pgdir_addr;
-    for(int i=0;i<512;i++)
-    {
+static inline void clear_pgdir(uintptr_t pgdir_addr) {
+    PTE *pgaddr = (PTE *)pgdir_addr;
+    for (int i = 0; i < 512; i++) {
         pgaddr[i] = 0;
     }
 }
-
-#endif  // PGTABLE_H
