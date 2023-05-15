@@ -26,21 +26,16 @@ int box_id_free = 0;
 int box_id_have = 0;
 int box_id_new = 0;
 
-void spin_lock_init(spin_lock_t *lock){
-    lock->status = UNLOCKED;
+void spin_lock_init(spin_lock_t *lock) { lock->status = UNLOCKED; }
+
+int spin_lock_try_acquire(spin_lock_t *lock) { return atomic_swap_d(LOCKED, (ptr_t)&lock->status); }
+
+void spin_lock_acquire(spin_lock_t *lock) {
+    while (spin_lock_try_acquire(lock) == LOCKED)
+        ;
 }
 
-int spin_lock_try_acquire(spin_lock_t *lock){
-    return atomic_swap_d(LOCKED, (ptr_t)&lock->status);
-}
-
-void spin_lock_acquire(spin_lock_t *lock){
-    while(spin_lock_try_acquire(lock) == LOCKED) ;
-}
-
-void spin_lock_release(spin_lock_t *lock){
-    lock->status = UNLOCKED;
-}
+void spin_lock_release(spin_lock_t *lock) { lock->status = UNLOCKED; }
 
 int get_new_box_id(const char *name) {
     int id = 0;
