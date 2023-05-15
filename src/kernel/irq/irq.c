@@ -113,8 +113,7 @@ void handle_pf(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cp
     }
 }
 
-void handle_irq(regs_context_t *regs, int irq) {
-}
+void handle_irq(regs_context_t *regs, int irq) {}
 
 void init_exception() {
     /* TODO: initialize irq_table and exc_table */
