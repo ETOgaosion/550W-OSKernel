@@ -3,6 +3,7 @@
 #include <os/lock.h>
 #include <os/sched.h>
 #include <os/irq.h>
+#include <os/smp.h>
 #include <lib/stdio.h>
 #include <lib/string.h>
 
