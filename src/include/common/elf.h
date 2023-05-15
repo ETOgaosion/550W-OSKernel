@@ -197,4 +197,10 @@ static inline uintptr_t load_elf(
     }
 
     return ehdr->e_entry;
+<<<<<<< HEAD
 }
+=======
+}
+
+#endif  // _ELF_H
+>>>>>>> 4e0c6e61595d8bd9e45276dc621f11515da59ee7

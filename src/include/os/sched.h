@@ -46,7 +46,6 @@ typedef struct pcb {
     /* previous, next pointer */
     list_node_t list;
     list_head wait_list;
-
     /* process id */
     pid_t pid;
     pid_t fpid;
