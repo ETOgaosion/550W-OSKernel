@@ -23,15 +23,46 @@ echo "QEMU_DIR = $QEMU_DIR"
 echo "=== Install dependencies ==="
 if [[ "$use_sudo_opt" = "y" ]]
 then
-    sudo apt install libncurses5 libpython2.7 libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev -y
+    sudo apt update && \
+    sudo apt install -y apt-transport-https ca-certificates && \
+    sudo update-ca-certificates
+    sudo sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
+    sudo apt update
+    sudo apt install -y --no-install-recommends \
+        gcc libc-dev git build-essential gdb-multiarch \
+        gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu \
+        libpixman-1-0 git python3 python3-pip make curl \
+        sshpass openssh-client clang-10 libtinfo5 libc6-dev-i386 \
+        libncurses5 libpython2.7 libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+    sudo apt-get install git-lfs
+    git lfs install
+    pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    pip3 install pytz Cython jwt jinja2 requests
 else
-    apt install libncurses5 libpython2.7 libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev -y
+    apt update && \
+    apt install -y apt-transport-https ca-certificates && \
+    update-ca-certificates
+    sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
+    apt update
+    apt install -y --no-install-recommends \
+        gcc libc-dev git build-essential gdb-multiarch \
+        gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu \
+        libpixman-1-0 git python3 python3-pip make curl \
+        sshpass openssh-client clang-10 libtinfo5 libc6-dev-i386 \
+        libncurses5 libpython2.7 libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+    apt-get install git-lfs
+    git lfs install
+    pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+    pip3 install pytz Cython jwt jinja2 requests
 fi
 
 echo "=== Clone Repository ==="
+test -d env || mkdir env
 if ! [[ -d $REPO ]]
 then
-    git clone $REMOTE $REPO
+    git clone $REMOTE env/$REPO
 fi
 
 echo "=== Install RISC-V Toolchain ==="

@@ -1,10 +1,13 @@
 *
 !*/
+!env/
 !userspace/testsuits-for-oskernel
 
 !.gitignore
 !.clang-format
 !kernel-qemu
+!Makefile
+!Dockerfile
 
 !*.S
 !*.s
@@ -17,5 +20,3 @@
 !*.sh
 
 !*.md
-
-!Makefile
