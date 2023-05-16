@@ -24,7 +24,6 @@ endif
 all : clean build
 
 build: $(modules)
-	echo $(objects)
 	mkdir -p $(target_dir)
 	$(LD) $(LDFLAGS) -T $(linkscript) -o $(vm550w_img) $(objects)
 	$(OBJDUMP) -S $(vm550w_img) > $(vm550w_asm)
