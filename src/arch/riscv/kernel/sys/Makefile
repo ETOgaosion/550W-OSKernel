@@ -12,4 +12,4 @@ build: $(target)
 clean:
 	rm -rf *~ *.o *.d
 
-include ../../../../Makefile.in
+include ../../../../../Makefile.in
