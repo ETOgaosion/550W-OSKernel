@@ -18,13 +18,13 @@ LD		:= $(CROSS_COMPILE)ld
 LDFLAGS	:= -z max-page-size=4096
 QEMU	:= qemu-system-riscv64
 BIOS	:= default
-CPUS	:= 5
+CPUS	:= 2
 OPTS	= -machine sifive_u -m 1G -nographic
 OPTS	+= -smp $(CPUS)
-OPTS	+= -bios $(OPENSBI)
+OPTS	+= -bios none
 
-BOARDOPTS	= $(OPTS) -drive file=sdcard.img,if=sd,format=raw 
-QEMUOPTS	= $(OPTS) -drive file=fs.img,if=sd,format=raw 
+BOARDOPTS	= $(OPTS) -drive file=sdcard.img,if=sd,format=raw,id=x0
+QEMUOPTS	= $(OPTS) -drive file=sdcard.img,if=sd,format=raw,id=x0
 #QEMUOPTS	+= -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
 
 PWD		:= /home/bluespace/study/OS/OSKernel2023-550W
