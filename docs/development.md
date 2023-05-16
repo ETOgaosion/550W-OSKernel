@@ -14,6 +14,8 @@
 
 使用`./script/build.sh`来编译
 
+有时候需要重复运行两次，因为文件只能一次采样，不好动态赋值给Makefile变量
+
 ## 运行QEMU
 
 使用`./script/qemu_run.sh`来运行
