@@ -1,18 +1,19 @@
-INCLUDES := -I../../../include -I../include
+asm_kernel_init_dir		:= init
+asm_kernel_sys_dir		:= sys
+modules		:= $(asm_kernel_init_dir) $(asm_kernel_sys_dir)
 
-target = $(shell ls *.c *.S | awk '{gsub(/\.c|\.S/, ".o"); print $0}')
+.PHONY:	build clean $(modules)
 
-.PHONY: build clean
+build: $(modules)
 
-%.o: %.S
-	$(GCC) $(CFLAGS) $(INCLUDES) -c $<
-
-%.o: %.c
-	$(GCC) $(CFLAGS) $(INCLUDES) -c $<
-
-build: $(target)
+$(modules):
+	$(MAKE) build --directory=$@
 
 clean:
-	rm -rf *~ *.o *.d
+	for d in $(modules); \
+		do \
+			$(MAKE) --directory=$$d clean; \
+		done
+	rm -rf *.o *~
 
 include ../../../../Makefile.in
