@@ -56,7 +56,7 @@ void movetodisk(uint64_t pg_kva, uint64_t user_va) {
     // one block = 512B = 0.5KB
     if (diskpg_num >= 999)
         assert(0);
-    screen_move_cursor(1, 5);
+    sys_screen_move_cursor(1, 5);
     prints("[k] From 0x%x to disk sector %d, for user_vaddr 0x%x\n", pg_kva, START_BLOCK + diskpg_num * 2, user_va);
 
     sbi_sd_write(kva2pa(pg_kva), 2, START_BLOCK + diskpg_num * 2);
@@ -70,7 +70,7 @@ void getbackdisk(uint64_t user_va, uint64_t new_addr) {
     int flag = 0;
     for (int i = 0; i < diskpg_num; i++) {
         if (diskpg[i] == user_va) {
-            screen_move_cursor(1, 6);
+            sys_screen_move_cursor(1, 6);
             prints("[k] From disk sector %d to 0x%x, for user_vaddr 0x%x\n", START_BLOCK + i * 2, new_addr, user_va);
 
             flag = 1;
@@ -168,7 +168,7 @@ uint64_t alloc_newva() {
     return 0;
 }
 
-uintptr_t shm_page_get(int key) {
+uintptr_t sys_shm_page_get(int key) {
     current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
     allocpid = current_running->pid;
     for (int i = 0; i < shm_num; i++) {
@@ -197,7 +197,7 @@ uintptr_t shm_page_get(int key) {
     return shm_all[num].uva;
 }
 
-void shm_page_dt(uintptr_t addr) {
+void sys_shm_page_dt(uintptr_t addr) {
     current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
     for (int i = 0; i < shm_num; i++) {
         if (shm_all[i].uva == addr) {
@@ -322,7 +322,7 @@ uint64_t get_kva_from_va(uint64_t va, PTE *pgdir) {
     return (uint64_t)get_kva(pld[vpn0]);
 }
 
-uint64_t do_getpa(uint64_t va) {
+uint64_t sys_getpa(uint64_t va) {
     current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
     // screen_move_cursor(1,6);
     // prints("in mmc pre: %lx\n", (uint64_t)(va));
