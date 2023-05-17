@@ -1,6 +1,11 @@
 #pragma once
 
-#include <common/type.h>
+#include <common/types.h>
+
+typedef struct time_val {
+    uint64 sec;  // 自 Unix 纪元起的秒数
+    uint64 usec; // 微秒数
+} time_val_t;
 
 extern uint32_t time_base;
 extern uint64_t time_elapsed;

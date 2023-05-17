@@ -1,8 +1,18 @@
 #pragma once
 
-#define O_RDONLY 1 /* read only open */
-#define O_WRONLY 2 /* write only open */
-#define O_RDWR 3   /* read/write open */
+#include <common/types.h>
+
+#define O_RDONLY 0x000
+#define O_WRONLY 0x001
+#define O_RDWR 0x002 // 可读可写
+//#define O_CREATE 0x200
+#define O_CREATE 0x40
+#define O_DIRECTORY 0x0200000
+
+#define DIR 0x040000
+#define FILE 0x100000
+
+#define AT_FDCWD -100
 
 #define SEEK_SET 0
 #define SEEK_CUR 1
@@ -50,6 +60,36 @@ typedef struct fentry {
     int pos_offset;
 } fentry_t;
 
+typedef struct dirent64 {
+	uint64_t d_ino;
+	int64_t d_off;
+	unsigned short d_reclen;
+	unsigned char d_type;
+	char d_name[];
+} dirent64_t;
+
+typedef struct kstat {
+    uint64 st_dev;
+    uint64 st_ino;
+    mode_t st_mode;
+    uint32 st_nlink;
+    uint32 st_uid;
+    uint32 st_gid;
+    uint64 st_rdev;
+    unsigned long __pad;
+    off_t st_size;
+    uint32 st_blksize;
+    int __pad2;
+    uint64 st_blocks;
+    long st_atime_sec;
+    long st_atime_nsec;
+    long st_mtime_sec;
+    long st_mtime_nsec;
+    long st_ctime_sec;
+    long st_ctime_nsec;
+    unsigned __unused[2];
+} kstat_t;
+
 extern int fs_start_sec;
 extern int magic_number;
 extern int sb_sec_offset;
@@ -75,18 +115,20 @@ extern int nowfid;
 extern int freefid[20];
 extern int freenum;
 
-int sys_mkfs(int func);
-int sys_statfs();
-int sys_ls(const char *name, int func);
-int sys_rmdir(const char *name);
-int sys_mkdir(const char *name);
-int sys_cd(const char *name);
-int sys_touch(const char *name);
-int sys_cat(const char *name);
-int sys_fopen(const char *name, int access);
-int sys_fread(int fid, char *buff, int size);
-int sys_fwrite(int fid, char *buff, int size);
-void sys_fclose(int fid);
-int sys_ln(const char *name, char *path);
-int sys_rm(const char *name);
-int sys_lseek(int fid, int offset, int whence);
+int k_mkfs(int func);
+
+long sys_getcwd(const char *buf, unsigned long size);
+long sys_dup(unsigned int fildes);
+long sys_dup3(unsigned int oldfd, unsigned int newfd, int flags);
+long sys_mkdirat(int dfd, const char *pathname, umode_t mode);
+long sys_unlinkat(int dfd, const char *pathname, int flag);
+long sys_linkat(int olddfd, const char *oldname, int newdfd, const char *newname, int flags);
+long sys_umount2(const char *name, int flags);
+long sys_mount(const char *dev_name, const char *dir_name, const char *type, unsigned long flags, void *data);
+long sys_chdir(const char *filename);
+long sys_openat(int dfd, const char *filename, int flags, umode_t mode);
+long sys_close(unsigned long fd);
+long sys_getdents64(unsigned int fd, dirent64_t *dirent, unsigned int count);
+long sys_read(unsigned int fd, char *buf, size_t count);
+long sys_write(unsigned int fd, const char *buf, size_t count);
+long sys_fstat(unsigned int fd, kstat_t *statbuf);
