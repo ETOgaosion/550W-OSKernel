@@ -128,6 +128,7 @@ long sys_mount(const char *dev_name, const char *dir_name, const char *type, uns
 long sys_chdir(const char *filename);
 long sys_openat(int dfd, const char *filename, int flags, umode_t mode);
 long sys_close(unsigned long fd);
+long sys_pipe2(int *fildes, int flags);
 long sys_getdents64(unsigned int fd, dirent64_t *dirent, unsigned int count);
 long sys_read(unsigned int fd, char *buf, size_t count);
 long sys_write(unsigned int fd, const char *buf, size_t count);
