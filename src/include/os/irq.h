@@ -14,7 +14,7 @@ enum ExcCode { EXCC_INST_MISALIGNED = 0, EXCC_INST_ACCESS = 1, EXCC_BREAKPOINT =
 typedef void (*handler_t)(regs_context_t *, uint64_t, uint64_t, uint64_t);
 
 void init_syscall(void);
-void sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause);
+long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause);
 
 void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid);
 

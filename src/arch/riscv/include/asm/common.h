@@ -28,4 +28,4 @@ void port_write_ch(char ch);
 // enter a message into seraial port
 // use sbi printstr function
 void port_write(char *buf);
-int sys_port_read();
+long sys_port_read();
