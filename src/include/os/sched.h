@@ -1,7 +1,7 @@
 #pragma once
 
 #include <asm/context.h>
-#include <common/type.h>
+#include <common/types.h>
 #include <lib/list.h>
 #include <os/mm.h>
 

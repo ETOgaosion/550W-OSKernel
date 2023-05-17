@@ -1,6 +1,6 @@
 #pragma once
 
-#include <common/type.h>
+#include <common/types.h>
 #include <os/sched.h>
 
 ptr_t get_kernel_address(pid_t pid);

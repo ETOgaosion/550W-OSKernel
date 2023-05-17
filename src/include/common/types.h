@@ -23,14 +23,32 @@ typedef unsigned __attribute__((__mode__(SI))) uint32_t;
 typedef int __attribute__((__mode__(DI))) int64_t;
 typedef unsigned __attribute__((__mode__(DI))) uint64_t;
 
-typedef uint8_t bool;
+typedef int bool;
 
-typedef int32_t pid_t;
+typedef char int8;
+typedef unsigned char uint8;
+typedef short int16;
+typedef unsigned short uint16;
+typedef int int32;
+typedef unsigned int uint32;
+typedef long long int64;
+typedef unsigned long long uint64;
+typedef unsigned int uint;
+
+typedef int pid_t;
 typedef uint64_t reg_t;
 typedef uint64_t ptr_t;
-typedef uint64_t uintptr_t;
-typedef int64_t intptr_t;
-typedef uint64_t size_t;
+#if __riscv_xlen == 64
+typedef int64 intptr_t;
+typedef uint64 uintptr_t;
+#elif __riscv_xlen == 32
+typedef int32_t intptr_t;
+typedef uint32_t uintptr_t;
+#endif
+
+/* size_t is used for memory object sizes */
+typedef uintptr_t size_t;
+typedef intptr_t ssize_t;
 typedef uintptr_t ptrdiff_t;
 
 typedef uint8_t u8;
@@ -41,6 +59,10 @@ typedef uint8_t s8;
 typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
+
+typedef unsigned short umode_t;
+typedef unsigned int mode_t;
+typedef long int off_t;
 
 /* Minimum of signed integral types.  */
 #define INT8_MIN (-128)
@@ -58,3 +80,11 @@ typedef uint64_t u64;
 #define UINT16_MAX (65535)
 #define UINT32_MAX (4294967295U)
 #define UINT64_MAX (18446744073709551615lu)
+
+#define ULONG_MAX (0xffffffffffffffffULL)
+#define LONG_MAX (0x7fffffffffffffffLL)
+#define INTMAX_MAX LONG_MAX
+#define UINT_MAX (0xffffffffU)
+#define INT_MAX (0x7fffffff)
+#define UCHAR_MAX (0xffU)
+#define CHAR_MAX (0x7f)
