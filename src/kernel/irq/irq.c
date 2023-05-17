@@ -1,6 +1,7 @@
 #include <asm/atomic.h>
 #include <asm/pgtable.h>
 #include <asm/sbi.h>
+#include <asm/syscall.h>
 #include <drivers/screen.h>
 #include <lib/assert.h>
 #include <lib/list.h>
@@ -9,7 +10,6 @@
 #include <os/irq.h>
 #include <os/mm.h>
 #include <os/sched.h>
-#include <asm/syscall.h>
 #include <os/syscall.h>
 
 handler_t irq_table[IRQC_COUNT];
