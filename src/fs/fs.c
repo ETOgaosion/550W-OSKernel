@@ -82,7 +82,7 @@ void cpy_sb(int func, super_block_t *sb) {
     }
 }
 
-int do_lseek(int fid, int offset, int whence) {
+int sys_lseek(int fid, int offset, int whence) {
     inode_t *inode = (inode_t *)(FS_KERNEL_ADDR + inode_addr_offset);
     inode += fd[fid].inodeid;
     int pblock = fd[fid].pos_block;
@@ -124,7 +124,7 @@ int alloc_fid() {
     return id;
 }
 
-void do_fclose(int fid) {
+void sys_fclose(int fid) {
     freenum++;
     freefid[freenum] = fid;
 }
@@ -370,7 +370,7 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
     return final_offset;
 }
 
-int do_fopen(const char *name, int access) {
+int sys_fopen(const char *name, int access) {
     int flag = 0;
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
@@ -386,7 +386,7 @@ int do_fopen(const char *name, int access) {
     if (flag == 0) {
         if (access == -1)
             return -1;
-        do_touch(name);
+        sys_touch(name);
         dir++;
     }
     int fid = alloc_fid();
@@ -433,7 +433,7 @@ unsigned char test_elf[512 * 200];
 int file_len = 0;
 
 int try_get_from_file(const char *file_name, unsigned char **binary, int *length) {
-    int fid = do_fopen(file_name, -1);
+    int fid = sys_fopen(file_name, -1);
     if (fid == -1)
         return 0;
     inode_t *inode = (inode_t *)(FS_KERNEL_ADDR + inode_addr_offset);
@@ -442,13 +442,13 @@ int try_get_from_file(const char *file_name, unsigned char **binary, int *length
     file_len = inode->sec_size * 512;
     fread(fid, test_elf, file_len);
 
-    do_fclose(fid);
+    sys_fclose(fid);
     *binary = test_elf;
     *length = file_len;
     return 1;
 }
 
-int do_fread(int fid, char *buff, int size) {
+int sys_fread(int fid, char *buff, int size) {
     if (fd[fid].prive == O_WRONLY)
         return -1;
     int rpos_block = fd[fid].pos_block;
@@ -480,7 +480,7 @@ int do_fread(int fid, char *buff, int size) {
     return nowsize;
 }
 
-int do_fwrite(int fid, char *buff, int size) {
+int sys_fwrite(int fid, char *buff, int size) {
     if (fd[fid].prive == O_RDONLY)
         return -1;
     int rpos_block = fd[fid].pos_block;
@@ -555,7 +555,7 @@ void init_file(int inodeid) {
     sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.fs_start_sec + superblock.inode_sec_offset);
 }
 
-int do_mkdir(const char *name) {
+int sys_mkdir(const char *name) {
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
     while (!(dir->last)) {
@@ -576,7 +576,7 @@ int do_mkdir(const char *name) {
     return 1;
 }
 
-int do_touch(const char *name) {
+int sys_touch(const char *name) {
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
     while (!(dir->last)) {
@@ -599,7 +599,7 @@ int do_touch(const char *name) {
 }
 
 // extern vt100_clear();
-int do_ln(const char *name, char *path) {
+int sys_ln(const char *name, char *path) {
     // vt100_clear();
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir2_addr_offset);
@@ -630,7 +630,7 @@ int do_ln(const char *name, char *path) {
     return 1;
 }
 
-int do_rmdir(const char *name) {
+int sys_rmdir(const char *name) {
     int flag = 0;
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
@@ -783,7 +783,7 @@ int getback_block(inode_t *inode) {
     return nowsec;
 }
 
-int do_rm(const char *name) {
+int sys_rm(const char *name) {
     int flag = 0;
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
@@ -854,7 +854,7 @@ void update_inode(inode_t *src, int id) {
     nowinodeid = id;
 }
 
-int do_cd(const char *name) {
+int sys_cd(const char *name) {
     int inodeid = 0;
     inodeid = look_up_dir(name);
     if (inodeid == -1)
@@ -886,7 +886,7 @@ void printw(int num, int what) {
     prints("%d", what);
 }
 
-int do_ls(const char *name, int func) {
+int sys_ls(const char *name, int func) {
     int inodeid = look_up_dir(name);
     if (inodeid == -1)
         return 0;
@@ -941,7 +941,7 @@ int do_ls(const char *name, int func) {
     return num;
 }
 
-int do_cat(const char *name) {
+int sys_cat(const char *name) {
     int inodeid = look_up_dir(name);
     if (inodeid == -1)
         return 0;
@@ -964,7 +964,7 @@ int do_cat(const char *name) {
     return off;
 }
 
-int do_mkfs(int func) {
+int sys_mkfs(int func) {
     // func: 0 not prints, 1 prints
     superblock.magic = magic_number;
     // 512MB
@@ -1036,7 +1036,7 @@ int do_mkfs(int func) {
     return 0;
 }
 
-int do_statfs() {
+int sys_statfs() {
     prints("magic : 0x%lx (JFS)\n", superblock.magic);
     prints("used sector : %d/%d, start sector : %d\n", superblock.sector_used, superblock.size, superblock.fs_start_sec);
     prints("inode map offset  : %d, occupied sector : %d, used : %d/%d\n", superblock.imap_sec_offset, superblock.imap_sec_size, superblock.inode_used, superblock.imap_sec_size * 512 * 8);
@@ -1060,7 +1060,7 @@ void init_fs() {
     super_block_t *sb2 = (super_block_t *)(FS_KERNEL_ADDR + dir_addr_offset + 512);
     // not inited, then initialize
     if (sb->magic != magic_number && sb2->magic != magic_number)
-        do_mkfs(-1);
+        sys_mkfs(-1);
     // make sure one of them can work
     else if (sb->magic != magic_number && sb2->magic == magic_number)
         cpy_sb(1, sb2);

@@ -9,17 +9,76 @@
 #include <os/irq.h>
 #include <os/mm.h>
 #include <os/sched.h>
+#include <asm/syscall.h>
+#include <os/syscall.h>
 
 handler_t irq_table[IRQC_COUNT];
 handler_t exc_table[EXCC_COUNT];
 uintptr_t riscv_dtb;
+
+void init_syscall(void) {
+    syscall[SYSCALL_SLEEP] = (long (*)())sys_sleep;
+    syscall[SYSCALL_YIELD] = (long (*)())sys_scheduler;
+    syscall[SYSCALL_READ] = (long (*)())sys_port_read;
+    syscall[SYSCALL_WRITE] = (long (*)())sys_screen_write;
+    syscall[SYSCALL_FORK] = (long (*)())sys_fork;
+    syscall[SYSCALL_CURSOR] = (long (*)())sys_screen_move_cursor;
+    syscall[SYSCALL_REFLUSH] = (long (*)())sys_screen_reflush;
+    syscall[SYSCALL_GET_TICK] = (long (*)())sys_get_ticks;
+    syscall[SYSCALL_GET_TIMEBASE] = (long (*)())sys_get_time_base;
+    syscall[SYSCALL_LOCK_INIT] = (long (*)())sys_mutex_lock_init;
+    syscall[SYSCALL_LOCK_ACQUIRE] = (long (*)())sys_mutex_lock_acquire;
+    syscall[SYSCALL_LOCK_RELEASE] = (long (*)())sys_mutex_lock_release;
+    syscall[SYSCALL_GET_WALL_TIME] = (long (*)())get_wall_time;
+    syscall[SYSCALL_CLEAR] = (long (*)())sys_screen_clear;
+    syscall[SYSCALL_PS] = (long (*)())sys_process_show;
+    syscall[SYSCALL_SPAWN] = (long (*)())sys_spawn;
+    syscall[SYSCALL_KILL] = (long (*)())sys_kill;
+    syscall[SYSCALL_EXIT] = (long (*)())sys_exit;
+    syscall[SYSCALL_WAITPID] = (long (*)())sys_waitpid;
+    syscall[SYSCALL_SEMAPHORE_INIT] = (long (*)())sys_semaphore_init;
+    syscall[SYSCALL_SEMAPHORE_UP] = (long (*)())sys_semaphore_up;
+    syscall[SYSCALL_SEMAPHORE_DOWN] = (long (*)())sys_semaphore_down;
+    syscall[SYSCALL_SEMAPHORE_DESTROY] = (long (*)())sys_semaphore_destroy;
+    syscall[SYSCALL_BARRIER_INIT] = (long (*)())sys_barrier_init;
+    syscall[SYSCALL_BARRIER_WAIT] = (long (*)())sys_barrier_wait;
+    syscall[SYSCALL_BARRIER_DESTROY] = (long (*)())sys_barrier_destroy;
+    syscall[SYSCALL_MBOX_OPEN] = (long (*)())sys_mbox_open;
+    syscall[SYSCALL_MBOX_SEND] = (long (*)())sys_mbox_send;
+    syscall[SYSCALL_MBOX_CLOSE] = (long (*)())sys_mbox_close;
+    syscall[SYSCALL_MBOX_RECV] = (long (*)())sys_mbox_recv;
+    syscall[SYSCALL_TASKSET] = (long (*)())sys_taskset;
+    syscall[SYSCALL_TEST_RECV] = (long (*)())sys_test_recv;
+    syscall[SYSCALL_TEST_SEND] = (long (*)())sys_test_send;
+    syscall[SYSCALL_EXEC] = (long (*)())sys_exec;
+    syscall[SYSCALL_MTHREAD_CREATE] = (long (*)())sys_mthread_create;
+    syscall[SYSCALL_GETPA] = (long (*)())sys_getpa;
+    syscall[SYSCALL_SHMPAGE_GET] = (long (*)())sys_shm_page_get;
+    syscall[SYSCALL_SHMPAGE_DT] = (long (*)())sys_shm_page_dt;
+    syscall[SYSCALL_MKFS] = (long (*)())sys_mkfs;
+    syscall[SYSCALL_STATFS] = (long (*)())sys_statfs;
+    syscall[SYSCALL_CD] = (long (*)())sys_cd;
+    syscall[SYSCALL_MKDIR] = (long (*)())sys_mkdir;
+    syscall[SYSCALL_RMDIR] = (long (*)())sys_rmdir;
+    syscall[SYSCALL_LS] = (long (*)())sys_ls;
+    syscall[SYSCALL_TOUCH] = (long (*)())sys_touch;
+    syscall[SYSCALL_CAT] = (long (*)())sys_cat;
+    syscall[SYSCALL_FOPEN] = (long (*)())sys_fopen;
+    syscall[SYSCALL_FREAD] = (long (*)())sys_fread;
+    syscall[SYSCALL_FWRITE] = (long (*)())sys_fwrite;
+    syscall[SYSCALL_FCLOSE] = (long (*)())sys_fclose;
+    syscall[SYSCALL_LN] = (long (*)())sys_ln;
+    syscall[SYSCALL_RM] = (long (*)())sys_rm;
+    syscall[SYSCALL_LSEEK] = (long (*)())sys_lseek;
+    // initialize system call table.
+}
 
 void reset_irq_timer() {
     uint64_t each = time_base / 8000;
     uint64_t delta = time_base / 500;
     int prior = pcb[current_running->pid].priority;
     uint64_t next = each + delta * prior;
-    sbi_set_timer(get_ticks() + next);
+    sbi_set_timer(sys_get_ticks() + next);
     // note: use sbi_set_timer
     // remember to reschedule
 }
@@ -44,7 +103,7 @@ void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint
 
 void handle_int(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
     check_sleeping();
-    do_scheduler();
+    sys_scheduler();
     reset_irq_timer();
 }
 
