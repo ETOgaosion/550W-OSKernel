@@ -1,7 +1,7 @@
 #pragma once
 
 #include <asm/sbidef.h>
-#include <common/type.h>
+#include <common/types.h>
 
 #define SBI_CALL(which, arg0, arg1, arg2)                     \
     ({                                                        \
