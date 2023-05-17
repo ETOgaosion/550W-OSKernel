@@ -43,22 +43,22 @@ int spin_lock_try_acquire(spin_lock_t *lock);
 void spin_lock_acquire(spin_lock_t *lock);
 void spin_lock_release(spin_lock_t *lock);
 
-int sys_mutex_lock_init(int userid);
-void sys_mutex_lock_acquire(int id);
-void sys_mutex_lock_release(int id);
+long sys_mutex_lock_init(int userid);
+long sys_mutex_lock_acquire(int id);
+long sys_mutex_lock_release(int id);
 
-int sys_semaphore_init(int *id, int val);
-int sys_semaphore_up(int *id);
-int sys_semaphore_down(int *id);
-int sys_semaphore_destroy(int *id);
+long sys_semaphore_init(int *id, int val);
+long sys_semaphore_up(int *id);
+long sys_semaphore_down(int *id);
+long sys_semaphore_destroy(int *id);
 
-int sys_barrier_init(int *id, unsigned count);
-int sys_barrier_wait(int *id);
-int sys_barrier_destroy(int *id);
+long sys_barrier_init(int *id, unsigned count);
+long sys_barrier_wait(int *id);
+long sys_barrier_destroy(int *id);
 
-int sys_mbox_open(const char *name);
-void sys_mbox_close(int);
-int sys_mbox_send(int, char *, int);
-int sys_mbox_recv(int, char *, int);
-int sys_test_send(int, int);
-int sys_test_recv(int, int);
+long sys_mbox_open(const char *name);
+long sys_mbox_close(int);
+long sys_mbox_send(int, char *, int);
+long sys_mbox_recv(int, char *, int);
+long sys_test_send(int, int);
+long sys_test_recv(int, int);

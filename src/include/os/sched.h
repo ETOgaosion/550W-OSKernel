@@ -4,6 +4,7 @@
 #include <common/types.h>
 #include <lib/list.h>
 #include <os/mm.h>
+#include <os/time.h>
 
 #define NUM_MAX_TASK 16
 #define UNBLOCK_FROM_QUEUE 0
@@ -64,6 +65,7 @@ typedef struct pcb {
     /* cursor position */
     int cursor_x;
     int cursor_y;
+
     int priority;
     int first;
     int locksum;
@@ -74,6 +76,15 @@ typedef struct pcb {
     int killed;
     uint64_t pgdir;
     int port;
+
+    /* time */
+    __kernel_time_t stime;
+    __kernel_time_t stime_last;     // last time into kernel
+    __kernel_time_t utime;
+    __kernel_time_t utime_last;     // last time out kernel
+    nanotime_val_t time;
+    nanotime_val_t start_time;
+    nanotime_val_t *remain_time;
 } pcb_t;
 
 /* task information, used to init PCB */
@@ -122,21 +133,21 @@ void init_pcb();
 int check_pcb(int cpuid);
 
 void switch_to(pcb_t *prev, pcb_t *next);
-void sys_scheduler(void);
-void sys_sleep(uint32_t);
+long sys_scheduler(void);
+long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp);
 void check_sleeping();
 
 void k_block(list_node_t *, list_head *queue);
 void k_unblock(list_node_t *, int type);
-int sys_taskset(int pid, int mask);
+long sys_taskset(int pid, int mask);
 
-pid_t sys_spawn(task_info_t *task, void *arg, spawn_mode_t mode);
-int sys_kill(pid_t pid);
-void sys_exit(void);
-int sys_waitpid(pid_t pid);
-int sys_process_show();
-pid_t sys_exec(const char *file_name, int argc, char **argv);
-void sys_show_exec();
+long sys_spawn(task_info_t *task, void *arg, spawn_mode_t mode);
+long sys_kill(pid_t pid);
+long sys_exit(void);
+long sys_waitpid(pid_t pid);
+long sys_process_show();
+long sys_exec(const char *file_name, int argc, char **argv);
+long sys_show_exec();
 
-int sys_mthread_create(pid_t *thread, void (*start_routine)(void *), void *arg);
-int sys_fork(int prior);
+long sys_mthread_create(pid_t *thread, void (*start_routine)(void *), void *arg);
+long sys_fork(int prior);
