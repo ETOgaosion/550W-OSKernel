@@ -1,5 +1,5 @@
 #include <asm/pgtable.h>
-#include <common/type.h>
+#include <common/types.h>
 #include <os/ioremap.h>
 #include <os/mm.h>
 

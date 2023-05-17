@@ -1,6 +1,6 @@
 #pragma once
 
-#include <common/type.h>
+#include <common/types.h>
 
 #define FS_KERNEL_ADDR 0xffffffc054000000lu
 
@@ -10,6 +10,18 @@
 #define INIT_KERNEL_STACK 0xffffffc051000000lu
 #define FREEMEM (INIT_KERNEL_STACK + PAGE_SIZE * 10)
 #define USER_STACK_ADDR 0xf00010000lu
+
+#define PROT_NONE 0
+#define PROT_READ 1
+#define PROT_WRITE 2
+#define PROT_EXEC 4
+#define PROT_GROWSDOWN 0X01000000
+#define PROT_GROWSUP 0X02000000
+
+#define MAP_FILE 0
+#define MAP_SHARED 0x01
+#define MAP_PRIVATE 0X02
+#define MAP_FAILED ((void *) -1)
 
 /* Rounding; only works for n = power of two */
 #define ROUND(a, n) (((((uint64_t)(a)) + (n)-1)) & ~((n)-1))

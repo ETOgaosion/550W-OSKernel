@@ -1,6 +1,6 @@
 #pragma once
 
-#include <common/type.h>
+#include <common/types.h>
 
 void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len);
 void kmemset(void *dest, uint8_t val, uint32_t len);

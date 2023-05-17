@@ -1,6 +1,6 @@
 #pragma once
 
-#include <common/type.h>
+#include <common/types.h>
 
 #define REG_DAT 0x00
 #define REG_IER 0x01
