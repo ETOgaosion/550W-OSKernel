@@ -4,9 +4,16 @@ kernel_mm_dir		:= mm
 kernel_sched_dir	:= sched
 modules		:= $(shell ls -d */)
 
+INCLUDES := -I../include -I../arch/riscv/include -I../
+
+target = $(shell ls *.c | awk '{gsub(/\.c/, ".o"); print $0}')
+
 .PHONY:	build clean $(modules)
 
-build: $(modules)
+%.o: %.c
+	$(GCC) $(CFLAGS) $(INCLUDES) -c $<
+
+build: $(modules) $(target)
 
 $(modules):
 	$(MAKE) build --directory=$@
@@ -16,6 +23,6 @@ clean:
 		do \
 			$(MAKE) --directory=$$d clean; \
 		done
-	rm -rf *.o *~
+	rm -rf *~ *.o *.d
 
 include ../../Makefile.in
