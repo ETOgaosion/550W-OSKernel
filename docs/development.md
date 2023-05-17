@@ -10,7 +10,21 @@
 
 开发完成后一定要在使用`./script/format.sh`来格式化代码（注意不要用clang format格式化`.h, .S`的代码），本项目coding style基于llvm clang-format做了一些调整。
 
-全局变量头文件里都用`extern`，在`.c`中定义，其余需要共享的`#define`和函数直接写，不用前缀
+全局变量头文件里都用`extern`，在`.c`中定义；其余需要共享的`#define`直接写，不用前缀；类型声明、函数等只能声明一次，在其余头文件中使用`extern`。
+
+只有三个头文件目录，可在vscode includePath设置中配置：
+
+```json
+{
+    "includePath": [
+        "${workspaceFolder}/src",
+        "${workspaceFolder}/src/include",
+        "${workspaceFolder}/src/arch/riscv/include"
+    ]
+}
+```
+
+系统调用全部使用`sys_`开头lower_case_with_underscores，系统调用号使用`SYS_`后面是lower_case_with_underscores。系统调用在各个子模块头文件中实现，而后将头文件加入./src/os/syscall.h。
 
 ## 编译
 

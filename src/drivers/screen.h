@@ -9,13 +9,13 @@ void vt100_move_cursor(int, int);
 void init_screen(void);
 
 /* clear screen */
-void sys_screen_clear(void);
+long sys_screen_clear(void);
 
 /* reflush screen buffer */
-void sys_screen_reflush(void);
+long sys_screen_reflush(void);
 
 /* screen write string */
-void sys_screen_write(char *buff);
+long sys_screen_write(char *buff);
 
 /* move cursor int (x,y) */
-void sys_screen_move_cursor(int x, int y);
+long sys_screen_move_cursor(int x, int y);

@@ -46,7 +46,7 @@ static void vt100_hidden_cursor() {
 
 /* write a char */
 static void screen_write_ch(char ch) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+    current_running = get_current_running();
     if (ch == '\n') {
         current_running->cursor_x = 1;
         current_running->cursor_y++;
@@ -80,7 +80,7 @@ void init_screen(void) {
     vt100_clear();
 }
 
-void sys_screen_clear(void) {
+long sys_screen_clear(void) {
     // vt100_move_cursor(0, 0);
     // vt100_clear();
     int i, j;
@@ -90,18 +90,20 @@ void sys_screen_clear(void) {
         }
     }
     sys_screen_reflush();
+    return 0;
 }
 
-void sys_screen_move_cursor(int x, int y) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_screen_move_cursor(int x, int y) {
+    current_running = get_current_running();
     current_running->cursor_x = x;
     // if(y>SCREEN_HEIGHT)
     //    current_running->cursor_y = y - SCREEN_HEIGHT + start_line-1;
     // else
     current_running->cursor_y = y;
+    return 0;
 }
 
-void sys_screen_write(char *buff) {
+long sys_screen_write(char *buff) {
     int i = 0;
     int l = kstrlen(buff);
 
@@ -109,6 +111,7 @@ void sys_screen_write(char *buff) {
         screen_write_ch(buff[i]);
     }
     sys_screen_reflush();
+    return 0;
 }
 
 /*
@@ -117,9 +120,9 @@ void sys_screen_write(char *buff) {
  * the fact that in order to speed up printing, we only refresh
  * the characters that have been modified since this time.
  */
-void sys_screen_reflush(void) {
+long sys_screen_reflush(void) {
     int i, j;
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+    current_running = get_current_running();
     int prex = current_running->cursor_x;
     int prey = current_running->cursor_y;
     /* here to reflush screen buffer to serial port */
@@ -136,4 +139,5 @@ void sys_screen_reflush(void) {
 
     /* recover cursor position */
     vt100_move_cursor(prex, prey);
+    return 0;
 }

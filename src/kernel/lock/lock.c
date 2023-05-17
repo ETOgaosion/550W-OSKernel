@@ -47,7 +47,7 @@ int get_new_box_id(const char *name) {
     return id;
 }
 
-int sys_mbox_open(const char *name) {
+long sys_mbox_open(const char *name) {
     int id = -1;
     for (int i = 1; i <= box_id_have; i++) {
         if (strcmp(name, mbox_name[box_haveid[i]]) == 0) {
@@ -73,7 +73,7 @@ int sys_mbox_open(const char *name) {
     return id;
 }
 
-void sys_mbox_close(int id) {
+long sys_mbox_close(int id) {
     mbox_t *box = &boxs[id];
     box->users--;
     if (box->users == 0) {
@@ -94,9 +94,10 @@ void sys_mbox_close(int id) {
         box->recv_queue.prev = &box->recv_queue;
         box->recv_queue.next = &box->recv_queue;
     }
+    return 0;
 }
 
-int sys_test_send(int id, int len) {
+long sys_test_send(int id, int len) {
     mbox_t *box = &boxs[id];
     if (len + (box->len_now) > MAX_MBOX_LENGTH)
         return 0;
@@ -104,7 +105,7 @@ int sys_test_send(int id, int len) {
         return 1;
 }
 
-int sys_test_recv(int id, int len) {
+long sys_test_recv(int id, int len) {
     mbox_t *box = &boxs[id];
     if (len > box->len_now)
         return 0;
@@ -112,8 +113,8 @@ int sys_test_recv(int id, int len) {
         return 1;
 }
 
-int sys_mbox_send(int id, char *msg, int len) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_mbox_send(int id, char *msg, int len) {
+    current_running = get_current_running();
     int blocktime = 0;
     mbox_t *box = &boxs[id];
     while (len + (box->len_now) > MAX_MBOX_LENGTH) {
@@ -130,8 +131,8 @@ int sys_mbox_send(int id, char *msg, int len) {
     return blocktime;
 }
 
-int sys_mbox_recv(int id, char *msg, int len) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_mbox_recv(int id, char *msg, int len) {
+    current_running = get_current_running();
     int blocktime = 0;
     mbox_t *box = &boxs[id];
     while (len > box->len_now) {
@@ -158,7 +159,7 @@ int get_new_barrier_id() {
         return barrier_id_new++;
 }
 
-int sys_barrier_init(int *id, unsigned count) {
+long sys_barrier_init(int *id, unsigned count) {
     *id = get_new_barrier_id();
     if (*id > LOCKS_NUM)
         return 0;
@@ -170,8 +171,8 @@ int sys_barrier_init(int *id, unsigned count) {
     return 1;
 }
 
-int sys_barrier_wait(int *id) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_barrier_wait(int *id) {
+    current_running = get_current_running();
     barrier_t *barri = &barris[*id];
     barri->count--;
     if (barri->count == 0) {
@@ -185,7 +186,7 @@ int sys_barrier_wait(int *id) {
     return 1;
 }
 
-int sys_barrier_destroy(int *id) {
+long sys_barrier_destroy(int *id) {
     barrier_t *barri = &barris[*id];
     barri->count = 0;
     barri->countinit = 0;
@@ -203,7 +204,7 @@ int get_new_semaphore_id() {
         return semaphore_id_new++;
 }
 
-int sys_semaphore_init(int *id, int val) {
+long sys_semaphore_init(int *id, int val) {
     *id = get_new_semaphore_id();
     if (*id > LOCKS_NUM)
         return 0;
@@ -214,7 +215,7 @@ int sys_semaphore_init(int *id, int val) {
     return 1;
 }
 
-int sys_semaphore_up(int *id) {
+long sys_semaphore_up(int *id) {
     semaphore_t *sema = &semas[*id];
     if (sema->count <= 0)
         k_unblock(&(sema->block_queue), UNBLOCK_FROM_QUEUE);
@@ -222,8 +223,8 @@ int sys_semaphore_up(int *id) {
     return 1;
 }
 
-int sys_semaphore_down(int *id) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_semaphore_down(int *id) {
+    current_running = get_current_running();
     semaphore_t *sema = &semas[*id];
     while (sema->count <= 0) {
         k_block(&(current_running->list), &(sema->block_queue));
@@ -233,7 +234,7 @@ int sys_semaphore_down(int *id) {
     return 1;
 }
 
-int sys_semaphore_destroy(int *id) {
+long sys_semaphore_destroy(int *id) {
     semaphore_t *sema = &semas[*id];
     sema->count = 0;
     sema->block_queue.next = &sema->block_queue;
@@ -243,7 +244,7 @@ int sys_semaphore_destroy(int *id) {
     return 0;
 }
 
-int sys_mutex_lock_init(int userid) {
+long sys_mutex_lock_init(int userid) {
     /* TODO */
     int id = 0;
     if (lock_id_new >= LOCKS_NUM)
@@ -270,9 +271,9 @@ int sys_mutex_lock_init(int userid) {
     lock->block_queue.prev=&lock->block_queue;*/
 }
 
-void sys_mutex_lock_acquire(int id) {
+long sys_mutex_lock_acquire(int id) {
     /* TODO */
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+    current_running = get_current_running();
     mutex_lock_t *lock = &locks[id];
     while (lock->lock.status == LOCKED) {
         k_block(&(current_running->list), &(lock->block_queue));
@@ -281,15 +282,17 @@ void sys_mutex_lock_acquire(int id) {
     lock->lock.status = LOCKED;
     current_running->lockid[current_running->locksum] = id;
     current_running->locksum++;
+    return 0;
 }
 
-void sys_mutex_lock_release(int id) {
+long sys_mutex_lock_release(int id) {
     /* TODO */
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+    current_running = get_current_running();
     mutex_lock_t *lock = &locks[id];
     lock->lock.status = UNLOCKED;
     if (current_running->pid != 0)
         current_running->locksum--;
     k_unblock(&(lock->block_queue), UNBLOCK_FROM_QUEUE);
     // sys_scheduler();
+    return 0;
 }

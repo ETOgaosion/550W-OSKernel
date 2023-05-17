@@ -21,7 +21,7 @@ BIOS	:= default
 CPUS	:= 2
 OPTS	= -machine sifive_u -m 1G -nographic
 OPTS	+= -smp $(CPUS)
-OPTS	+= -bios none
+OPTS	+= -bios default
 
 BOARDOPTS	= $(OPTS) -drive file=sdcard.img,if=sd,format=raw,id=x0
 QEMUOPTS	= $(OPTS) -drive file=sdcard.img,if=sd,format=raw,id=x0
