@@ -6,6 +6,7 @@
 #include <lib/list.h>
 #include <lib/stdio.h>
 #include <os/irq.h>
+#include <os/smp.h>
 #include <os/syscall.h>
 
 handler_t irq_table[IRQC_COUNT];
@@ -17,44 +18,44 @@ void init_syscall(void) {
         syscall[i] = (long (*)()) & sys_undefined_syscall; // only print register info
     }
     // FS
-    syscall[__NR_getcwd] = (long (*)())sys_getcwd;
-    syscall[__NR_dup] = (long (*)())sys_dup;
-    syscall[__NR_dup3] = (long (*)())sys_dup3;
-    syscall[__NR_mkdirat] = (long (*)())sys_mkdirat;
-    syscall[__NR_unlinkat] = (long (*)())sys_unlinkat;
-    syscall[__NR_linkat] = (long (*)())sys_linkat;
-    syscall[__NR_umount2] = (long (*)())sys_umount2;
-    syscall[__NR_mount] = (long (*)())sys_mount;
-    syscall[__NR_chdir] = (long (*)())sys_chdir;
-    syscall[__NR_openat] = (long (*)())sys_openat;
-    syscall[__NR_close] = (long (*)())sys_close;
-    syscall[__NR_pipe2] = (long (*)())sys_pipe2;
-    syscall[__NR_getdents64] = (long (*)())sys_getdents64;
-    syscall[__NR_read] = (long (*)())sys_read;
-    syscall[__NR_write] = (long (*)())sys_write;
-    syscall[__NR_fstat] = (long (*)())sys_fstat;
+    // syscall[SYS_getcwd] = (long (*)())sys_getcwd;
+    // syscall[SYS_dup] = (long (*)())sys_dup;
+    // syscall[SYS_dup3] = (long (*)())sys_dup3;
+    // syscall[SYS_mkdirat] = (long (*)())sys_mkdirat;
+    // syscall[SYS_unlinkat] = (long (*)())sys_unlinkat;
+    // syscall[SYS_linkat] = (long (*)())sys_linkat;
+    // syscall[SYS_umount2] = (long (*)())sys_umount2;
+    // syscall[SYS_mount] = (long (*)())sys_mount;
+    // syscall[SYS_chdir] = (long (*)())sys_chdir;
+    // syscall[SYS_openat] = (long (*)())sys_openat;
+    // syscall[SYS_close] = (long (*)())sys_close;
+    // syscall[SYS_pipe2] = (long (*)())sys_pipe2;
+    // syscall[SYS_getdents64] = (long (*)())sys_getdents64;
+    // syscall[SYS_read] = (long (*)())sys_read;
+    // syscall[SYS_write] = (long (*)())sys_write;
+    // syscall[SYS_fstat] = (long (*)())sys_fstat;
     // Terminal
-    syscall[__NR_uname] = (long (*)())sys_uname;
+    syscall[SYS_uname] = (long (*)())sys_uname;
     // Functions
-    syscall[__NR_nanosleep] = (long (*)())sys_nanosleep;
-    syscall[__NR_times] = (long (*)())sys_times;
-    syscall[__NR_time] = (long (*)())sys_time;
-    syscall[__NR_gettimeofday] = (long (*)())sys_gettimeofday;
-    syscall[__NR_mailread] = (long (*)())sys_mailread;
-    syscall[__NR_mailwrite] = (long (*)())sys_mailwrite;
-    // Process & Threads
-    syscall[__NR_exit] = (long (*)())sys_exit;
-    syscall[__NR_brk] = (long (*)())sys_brk;
-    syscall[__NR_munmap] = (long (*)())sys_munmap;
-    syscall[__NR_clone] = (long (*)())sys_clone;
-    syscall[__NR_execve] = (long (*)())sys_execve;
-    syscall[__NR_mmap] = (long (*)())sys_mmap;
-    syscall[__NR_wait4] = (long (*)())sys_wait4;
-    syscall[__NR_spawn] = (long (*)())sys_spawn;
-    syscall[__NR_sched_yield] = (long (*)())sys_sched_yield;
-    syscall[__NR_setpriority] = (long (*)())sys_setpriority;
-    syscall[__NR_getpid] = (long (*)())sys_getpid;
-    syscall[__NR_getppid] = (long (*)())sys_getppid;
+    syscall[SYS_nanosleep] = (long (*)())sys_nanosleep;
+    syscall[SYS_times] = (long (*)())sys_times;
+    syscall[SYS_time] = (long (*)())sys_time;
+    syscall[SYS_gettimeofday] = (long (*)())sys_gettimeofday;
+    // syscall[SYS_mailread] = (long (*)())sys_mailread;
+    // syscall[SYS_mailwrite] = (long (*)())sys_mailwrite;
+    // // Process & Threads
+    // syscall[SYS_exit] = (long (*)())sys_exit;
+    // syscall[SYS_brk] = (long (*)())sys_brk;
+    // syscall[SYS_munmap] = (long (*)())sys_munmap;
+    // syscall[SYS_clone] = (long (*)())sys_clone;
+    // syscall[SYS_execve] = (long (*)())sys_execve;
+    // syscall[SYS_mmap] = (long (*)())sys_mmap;
+    // syscall[SYS_wait4] = (long (*)())sys_wait4;
+    // syscall[SYS_spawn] = (long (*)())sys_spawn;
+    // syscall[SYS_sched_yield] = (long (*)())sys_sched_yield;
+    // syscall[SYS_setpriority] = (long (*)())sys_setpriority;
+    // syscall[SYS_getpid] = (long (*)())sys_getpid;
+    // syscall[SYS_getppid] = (long (*)())sys_getppid;
     // initialize system call table.
 }
 
@@ -63,7 +64,7 @@ void reset_irq_timer() {
     uint64_t delta = time_base / 500;
     int prior = pcb[current_running->pid].priority;
     uint64_t next = each + delta * prior;
-    sbi_set_timer(sys_get_ticks() + next);
+    sbi_set_timer(get_ticks() + next);
     // note: use sbi_set_timer
     // remember to reschedule
 }
@@ -72,6 +73,10 @@ void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint
     // call corresponding handler by the value of `cause`
     while (atomic_swap(1, (ptr_t)&cpu_lock) != 0)
         ;
+    pcb_t *current_running = get_current_running();
+    long ticks = get_ticks();
+    current_running->utime += (ticks - current_running->utime_last);
+    current_running->stime_last = ticks;
     uint64_t check = cause;
     // if(check>>63 && check%16!=5)
     //{
@@ -83,6 +88,9 @@ void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint
     } else {
         exc_table[cause](regs, stval, cause, cpuid);
     }
+    ticks = get_ticks();
+    current_running->utime_last = ticks;
+    current_running->stime += (ticks - current_running->stime_last);
     atomic_swap(0, (ptr_t)&cpu_lock);
 }
 
@@ -157,8 +165,6 @@ void handle_pf(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cp
     }
 }
 
-void handle_irq(regs_context_t *regs, int irq) {}
-
 void init_exception() {
     /* TODO: initialize irq_table and exc_table */
     /* note: handle_int, handle_syscall, handle_other, etc.*/
@@ -207,7 +213,8 @@ void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t
     assert(0);
 }
 
-void sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause) {
+long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause) {
     printk(">[ERROR] unkonwn syscall, undefined syscall number: %d\n!", regs->regs[17]);
-    handle_other(regs, interrupt, cause);
+    handle_other(regs, interrupt, cause, get_current_cpu_id());
+    return -1;
 }

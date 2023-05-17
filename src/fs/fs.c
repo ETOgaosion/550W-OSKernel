@@ -82,7 +82,7 @@ void cpy_sb(int func, super_block_t *sb) {
     }
 }
 
-int sys_lseek(int fid, int offset, int whence) {
+long sys_lseek(int fid, int offset, int whence) {
     inode_t *inode = (inode_t *)(FS_KERNEL_ADDR + inode_addr_offset);
     inode += fd[fid].inodeid;
     int pblock = fd[fid].pos_block;
@@ -124,9 +124,10 @@ int alloc_fid() {
     return id;
 }
 
-void sys_fclose(int fid) {
+long sys_fclose(int fid) {
     freenum++;
     freefid[freenum] = fid;
+    return 0;
 }
 
 int alloc_inode() {
@@ -370,7 +371,48 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
     return final_offset;
 }
 
-int sys_fopen(const char *name, int access) {
+void init_file(int inodeid) {
+    inode_t *inode = (inode_t *)(FS_KERNEL_ADDR + inode_addr_offset);
+    inode += inodeid;
+    inode->sec_size = 0;
+    inode->mode = 1; // 0-directory, 1-file
+    inode->link_num = 0;
+    for (int i = 0; i < 11; i++)
+        inode->direct_block_pointers[i] = 0;
+    for (int i = 0; i < 3; i++)
+        inode->indirect_block_pointers[i] = 0;
+    for (int i = 0; i < 2; i++)
+        inode->double_block_pointers[i] = 0;
+    inode->trible_block_pointers = 0;
+
+    // no write, no need for data block
+
+    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.fs_start_sec + superblock.inode_sec_offset);
+}
+
+long sys_touch(const char *name) {
+    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
+    while (!(dir->last)) {
+        if (strcmp(dir->name, name) == 0)
+            return 0;
+        dir++;
+    }
+    if (strcmp(dir->name, name) == 0)
+        return 0;
+    dir->last = 0;
+    dir++;
+    dir->inode_id = alloc_inode();
+    init_file(dir->inode_id);
+    dir->mode = 1;
+    dir->last = 1;
+    kstrcpy(dir->name, name);
+
+    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    return 1;
+}
+
+long sys_fopen(const char *name, int access) {
     int flag = 0;
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
@@ -448,7 +490,7 @@ int try_get_from_file(const char *file_name, unsigned char **binary, int *length
     return 1;
 }
 
-int sys_fread(int fid, char *buff, int size) {
+long sys_fread(int fid, char *buff, int size) {
     if (fd[fid].prive == O_WRONLY)
         return -1;
     int rpos_block = fd[fid].pos_block;
@@ -480,7 +522,7 @@ int sys_fread(int fid, char *buff, int size) {
     return nowsize;
 }
 
-int sys_fwrite(int fid, char *buff, int size) {
+long sys_fwrite(int fid, char *buff, int size) {
     if (fd[fid].prive == O_RDONLY)
         return -1;
     int rpos_block = fd[fid].pos_block;
@@ -536,26 +578,7 @@ void init_dir(int inodeid) {
     sbi_sd_write(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 1, superblock.fs_start_sec + superblock.data_sec_offset + block_sec_offset);
 }
 
-void init_file(int inodeid) {
-    inode_t *inode = (inode_t *)(FS_KERNEL_ADDR + inode_addr_offset);
-    inode += inodeid;
-    inode->sec_size = 0;
-    inode->mode = 1; // 0-directory, 1-file
-    inode->link_num = 0;
-    for (int i = 0; i < 11; i++)
-        inode->direct_block_pointers[i] = 0;
-    for (int i = 0; i < 3; i++)
-        inode->indirect_block_pointers[i] = 0;
-    for (int i = 0; i < 2; i++)
-        inode->double_block_pointers[i] = 0;
-    inode->trible_block_pointers = 0;
-
-    // no write, no need for data block
-
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.fs_start_sec + superblock.inode_sec_offset);
-}
-
-int sys_mkdir(const char *name) {
+long sys_mkdir(const char *name) {
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
     while (!(dir->last)) {
@@ -576,30 +599,8 @@ int sys_mkdir(const char *name) {
     return 1;
 }
 
-int sys_touch(const char *name) {
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
-    dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
-    while (!(dir->last)) {
-        if (strcmp(dir->name, name) == 0)
-            return 0;
-        dir++;
-    }
-    if (strcmp(dir->name, name) == 0)
-        return 0;
-    dir->last = 0;
-    dir++;
-    dir->inode_id = alloc_inode();
-    init_file(dir->inode_id);
-    dir->mode = 1;
-    dir->last = 1;
-    kstrcpy(dir->name, name);
-
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
-    return 1;
-}
-
 // extern vt100_clear();
-int sys_ln(const char *name, char *path) {
+long sys_ln(const char *name, char *path) {
     // vt100_clear();
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir2_addr_offset);
@@ -630,7 +631,7 @@ int sys_ln(const char *name, char *path) {
     return 1;
 }
 
-int sys_rmdir(const char *name) {
+long sys_rmdir(const char *name) {
     int flag = 0;
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
@@ -783,7 +784,7 @@ int getback_block(inode_t *inode) {
     return nowsec;
 }
 
-int sys_rm(const char *name) {
+long sys_rm(const char *name) {
     int flag = 0;
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
@@ -854,7 +855,7 @@ void update_inode(inode_t *src, int id) {
     nowinodeid = id;
 }
 
-int sys_cd(const char *name) {
+long sys_cd(const char *name) {
     int inodeid = 0;
     inodeid = look_up_dir(name);
     if (inodeid == -1)
@@ -886,7 +887,7 @@ void printw(int num, int what) {
     prints("%d", what);
 }
 
-int sys_ls(const char *name, int func) {
+long sys_ls(const char *name, int func) {
     int inodeid = look_up_dir(name);
     if (inodeid == -1)
         return 0;
@@ -941,7 +942,7 @@ int sys_ls(const char *name, int func) {
     return num;
 }
 
-int sys_cat(const char *name) {
+long sys_cat(const char *name) {
     int inodeid = look_up_dir(name);
     if (inodeid == -1)
         return 0;
@@ -964,7 +965,7 @@ int sys_cat(const char *name) {
     return off;
 }
 
-int sys_mkfs(int func) {
+long sys_mkfs(int func) {
     // func: 0 not prints, 1 prints
     superblock.magic = magic_number;
     // 512MB
@@ -1036,7 +1037,7 @@ int sys_mkfs(int func) {
     return 0;
 }
 
-int sys_statfs() {
+long sys_statfs() {
     prints("magic : 0x%lx (JFS)\n", superblock.magic);
     prints("used sector : %d/%d, start sector : %d\n", superblock.sector_used, superblock.size, superblock.fs_start_sec);
     prints("inode map offset  : %d, occupied sector : %d, used : %d/%d\n", superblock.imap_sec_offset, superblock.imap_sec_size, superblock.inode_used, superblock.imap_sec_size * 512 * 8);

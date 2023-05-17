@@ -168,8 +168,8 @@ uint64_t alloc_newva() {
     return 0;
 }
 
-uintptr_t sys_shm_page_get(int key) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_shm_page_get(int key) {
+    current_running = get_current_running();
     allocpid = current_running->pid;
     for (int i = 0; i < shm_num; i++) {
         if (shm_all[i].key == key && shm_all[i].pro_num != 0) {
@@ -197,8 +197,8 @@ uintptr_t sys_shm_page_get(int key) {
     return shm_all[num].uva;
 }
 
-void sys_shm_page_dt(uintptr_t addr) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_shm_page_dt(uintptr_t addr) {
+    current_running = get_current_running();
     for (int i = 0; i < shm_num; i++) {
         if (shm_all[i].uva == addr) {
             uint64_t va = addr;
@@ -224,6 +224,7 @@ void sys_shm_page_dt(uintptr_t addr) {
             }
         }
     }
+    return 0;
 }
 
 /* this is used for mapping kernel virtual address into user page table */
@@ -322,8 +323,8 @@ uint64_t get_kva_from_va(uint64_t va, PTE *pgdir) {
     return (uint64_t)get_kva(pld[vpn0]);
 }
 
-uint64_t sys_getpa(uint64_t va) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_getpa(uint64_t va) {
+    current_running = get_current_running();
     // screen_move_cursor(1,6);
     // prints("in mmc pre: %lx\n", (uint64_t)(va));
     uint64_t kva = get_kva_from_va(va, pa2kva(current_running->pgdir << 12));
