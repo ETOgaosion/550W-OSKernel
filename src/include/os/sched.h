@@ -108,19 +108,35 @@ extern const ptr_t pid0_stack2;
 extern pcb_t pid0_pcb;
 extern pcb_t pid0_pcb2;
 
+extern int freepidnum;
+extern int nowpid;
+extern int glmask;
+extern int glvalid;
+
+extern pid_t freepid[NUM_MAX_TASK];
+
+typedef void (*void_task)();
+pid_t nextpid();
+
+void init_pcb();
+int check_pcb(int cpuid);
+
 void switch_to(pcb_t *prev, pcb_t *next);
-void do_scheduler(void);
-void do_sleep(uint32_t);
+void sys_scheduler(void);
+void sys_sleep(uint32_t);
 void check_sleeping();
 
-void do_block(list_node_t *, list_head *queue);
-void do_unblock(list_node_t *, int type);
+void k_block(list_node_t *, list_head *queue);
+void k_unblock(list_node_t *, int type);
+int sys_taskset(int pid, int mask);
 
-pid_t do_spawn(task_info_t *task, void *arg, spawn_mode_t mode);
-void do_exit(void);
-int do_kill(pid_t pid);
-int do_waitpid(pid_t pid);
-void do_process_show();
-pid_t do_getpid();
-pid_t do_exec(const char *file_name, int argc, char *argv[], spawn_mode_t mode);
-void do_show_exec();
+pid_t sys_spawn(task_info_t *task, void *arg, spawn_mode_t mode);
+int sys_kill(pid_t pid);
+void sys_exit(void);
+int sys_waitpid(pid_t pid);
+int sys_process_show();
+pid_t sys_exec(const char *file_name, int argc, char **argv);
+void sys_show_exec();
+
+int sys_mthread_create(pid_t *thread, void (*start_routine)(void *), void *arg);
+int sys_fork(int prior);
