@@ -2,14 +2,10 @@
 #include <asm/pgtable.h>
 #include <asm/sbi.h>
 #include <asm/syscall.h>
-#include <drivers/screen.h>
 #include <lib/assert.h>
 #include <lib/list.h>
 #include <lib/stdio.h>
-#include <lib/time.h>
 #include <os/irq.h>
-#include <os/mm.h>
-#include <os/sched.h>
 #include <os/syscall.h>
 
 handler_t irq_table[IRQC_COUNT];
@@ -21,44 +17,44 @@ void init_syscall(void) {
         syscall[i] = (long (*)()) & sys_undefined_syscall; // only print register info
     }
     // FS
-    syscall[__NR_getcwd] = (long (*)())sys_sleep;
-    syscall[__NR_dup] = (long (*)())sys_scheduler;
-    syscall[__NR_dup3] = (long (*)())sys_port_read;
-    syscall[__NR_mkdirat] = (long (*)())sys_screen_write;
-    syscall[__NR_unlinkat] = (long (*)())sys_fork;
-    syscall[__NR_linkat] = (long (*)())sys_screen_move_cursor;
-    syscall[__NR_umount2] = (long (*)())sys_screen_reflush;
-    syscall[__NR_mount] = (long (*)())sys_get_ticks;
-    syscall[__NR_chdir] = (long (*)())sys_get_time_base;
-    syscall[__NR_openat] = (long (*)())sys_mutex_lock_init;
-    syscall[__NR_close] = (long (*)())sys_mutex_lock_acquire;
-    syscall[__NR_getdents64] = (long (*)())sys_mutex_lock_release;
-    syscall[__NR_read] = (long (*)())get_wall_time;
-    syscall[__NR_write] = (long (*)())sys_screen_clear;
-    syscall[__NR_fstat] = (long (*)())sys_process_show;
+    syscall[__NR_getcwd] = (long (*)())sys_getcwd;
+    syscall[__NR_dup] = (long (*)())sys_dup;
+    syscall[__NR_dup3] = (long (*)())sys_dup3;
+    syscall[__NR_mkdirat] = (long (*)())sys_mkdirat;
+    syscall[__NR_unlinkat] = (long (*)())sys_unlinkat;
+    syscall[__NR_linkat] = (long (*)())sys_linkat;
+    syscall[__NR_umount2] = (long (*)())sys_umount2;
+    syscall[__NR_mount] = (long (*)())sys_mount;
+    syscall[__NR_chdir] = (long (*)())sys_chdir;
+    syscall[__NR_openat] = (long (*)())sys_openat;
+    syscall[__NR_close] = (long (*)())sys_close;
+    syscall[__NR_pipe2] = (long (*)())sys_pipe2;
+    syscall[__NR_getdents64] = (long (*)())sys_getdents64;
+    syscall[__NR_read] = (long (*)())sys_read;
+    syscall[__NR_write] = (long (*)())sys_write;
+    syscall[__NR_fstat] = (long (*)())sys_fstat;
     // Terminal
-    syscall[__NR_pipe2] = (long (*)())sys_spawn;
-    syscall[__NR_uname] = (long (*)())sys_kill;
+    syscall[__NR_uname] = (long (*)())sys_uname;
     // Functions
-    syscall[__NR_nanosleep] = (long (*)())sys_exit;
-    syscall[__NR_times] = (long (*)())sys_waitpid;
-    syscall[__NR_time] = (long (*)())sys_semaphore_init;
-    syscall[__NR_gettimeofday] = (long (*)())sys_semaphore_up;
-    syscall[__NR_mailread] = (long (*)())sys_semaphore_down;
-    syscall[__NR_mailwrite] = (long (*)())sys_semaphore_destroy;
+    syscall[__NR_nanosleep] = (long (*)())sys_nanosleep;
+    syscall[__NR_times] = (long (*)())sys_times;
+    syscall[__NR_time] = (long (*)())sys_time;
+    syscall[__NR_gettimeofday] = (long (*)())sys_gettimeofday;
+    syscall[__NR_mailread] = (long (*)())sys_mailread;
+    syscall[__NR_mailwrite] = (long (*)())sys_mailwrite;
     // Process & Threads
-    syscall[__NR_exit] = (long (*)())sys_barrier_init;
-    syscall[__NR_brk] = (long (*)())sys_barrier_wait;
-    syscall[__NR_munmap] = (long (*)())sys_barrier_destroy;
-    syscall[__NR_clone] = (long (*)())sys_mbox_open;
-    syscall[__NR_execve] = (long (*)())sys_mbox_send;
-    syscall[__NR_mmap] = (long (*)())sys_mbox_close;
-    syscall[__NR_wait4] = (long (*)())sys_mbox_recv;
-    syscall[__NR_spawn] = (long (*)())sys_taskset;
-    syscall[__NR_sched_yield] = (long (*)())sys_test_recv;
-    syscall[__NR_setpriority] = (long (*)())sys_test_send;
-    syscall[__NR_getpid] = (long (*)())sys_exec;
-    syscall[__NR_getppid] = (long (*)())sys_mthread_create;
+    syscall[__NR_exit] = (long (*)())sys_exit;
+    syscall[__NR_brk] = (long (*)())sys_brk;
+    syscall[__NR_munmap] = (long (*)())sys_munmap;
+    syscall[__NR_clone] = (long (*)())sys_clone;
+    syscall[__NR_execve] = (long (*)())sys_execve;
+    syscall[__NR_mmap] = (long (*)())sys_mmap;
+    syscall[__NR_wait4] = (long (*)())sys_wait4;
+    syscall[__NR_spawn] = (long (*)())sys_spawn;
+    syscall[__NR_sched_yield] = (long (*)())sys_sched_yield;
+    syscall[__NR_setpriority] = (long (*)())sys_setpriority;
+    syscall[__NR_getpid] = (long (*)())sys_getpid;
+    syscall[__NR_getppid] = (long (*)())sys_getppid;
     // initialize system call table.
 }
 
