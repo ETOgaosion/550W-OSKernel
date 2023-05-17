@@ -5,8 +5,8 @@ target_dir		:= target
 # tools_dir	 := tools
 
 linkscript		:= $(linker_dir)/riscv.lds
-vm550w_img		:= $(target_dir)/vm550w.img
-vm550w_bin		:= kernel-qemu
+vm550w_img		:= kernel-qemu
+vm550w_bin		:= $(target_dir)/vm550w.bin
 vm550w_asm		:= $(target_dir)/vm550w_asm.txt
 dst				:= /mnt
 fs_img			:= sdcard.img
