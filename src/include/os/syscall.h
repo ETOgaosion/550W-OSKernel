@@ -1,6 +1,6 @@
 #pragma once
 
-#include <common/type.h>
+#include <common/types.h>
 #include <os/sched.h>
 
 // pid_t sys_exec(const char *file_name, int argc, char* argv[], spawn_mode_t
@@ -9,6 +9,7 @@ extern pid_t sys_exec(const char *file_name, int argc, char **argv);
 extern void sys_show_exec();
 
 extern long invoke_syscall(long, long, long, long, long);
+extern void sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause);
 
 extern void sys_scheduler(void);
 extern void sys_sleep(uint32_t);

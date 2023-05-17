@@ -1,6 +1,6 @@
 #pragma once
 
-#include <common/type.h>
+#include <common/types.h>
 
 /* used to save register infomation */
 typedef struct regs_context {
