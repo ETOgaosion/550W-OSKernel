@@ -1,6 +1,6 @@
 #pragma once
 
-#include <common/type.h>
+#include <common/types.h>
 
 #define RISCV_FENCE(p, s) __asm__ __volatile__("fence " #p "," #s : : : "memory")
 

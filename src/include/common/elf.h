@@ -1,7 +1,7 @@
 #pragma once
 
 #include <asm/pgtable.h>
-#include <common/type.h>
+#include <common/types.h>
 #include <lib/string.h>
 
 /* 64-bit ELF base types. */

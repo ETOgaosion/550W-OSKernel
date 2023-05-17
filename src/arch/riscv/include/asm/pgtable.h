@@ -1,7 +1,7 @@
 #pragma once
 
 #include <asm/sbi.h>
-#include <common/type.h>
+#include <common/types.h>
 
 #define SATP_MODE_SV39 8
 #define SATP_MODE_SV48 9

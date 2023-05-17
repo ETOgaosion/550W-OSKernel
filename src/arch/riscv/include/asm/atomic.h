@@ -2,7 +2,7 @@
 
 /* from linux/arch/riscv/include/asm/cmpxchg.h */
 
-#include <common/type.h>
+#include <common/types.h>
 
 static inline uint32_t atomic_swap(uint32_t val, ptr_t mem_addr) {
     uint32_t ret;
