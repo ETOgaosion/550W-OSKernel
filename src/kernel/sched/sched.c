@@ -5,11 +5,11 @@
 #include <drivers/screen.h>
 #include <lib/list.h>
 #include <lib/stdio.h>
-#include <lib/time.h>
 #include <os/irq.h>
 #include <os/lock.h>
 #include <os/sched.h>
 #include <os/smp.h>
+#include <os/time.h>
 #include <user/user_programs.h>
 
 pid_t process_id = 1;
@@ -74,6 +74,10 @@ void init_pcb() {
     for (int i = 0; i < NUM_MAX_TASK; i++) {
         pcb[i].status = TASK_EXITED;
         pcb[i].first = 1;
+        pcb[i].stime = 0;
+        pcb[i].stime_last = 0;
+        pcb[i].utime = 0;
+        pcb[i].utime_last = 0;
     }
     pcb[0].type = USER_PROCESS;
     pcb[0].pid = 0;
@@ -126,7 +130,7 @@ int check_pcb(int cpuid) {
     list_node_t *p;
     list_node_t *q;
     int id = 0;
-    mysrand(sys_get_ticks());
+    mysrand(get_ticks());
     if (cpuid == 0) {
         // if(!(&pcb[ready_queue0->pid]==current_running1||pcb[ready_queue0->pid].cpuid==2))
         //    return 1;
@@ -175,7 +179,7 @@ int check_pcb(int cpuid) {
     return flag;
 }
 
-void sys_scheduler(void) {
+long sys_scheduler(void) {
     int id = get_current_cpu_id();
     current_running = id == 0 ? current_running0 : current_running1;
     if (current_running->killed)
@@ -217,28 +221,33 @@ void sys_scheduler(void) {
         switch_to(prev, current_running0);
     else
         switch_to(prev, current_running1);
+    return 0;
 }
 
-void sys_sleep(uint32_t sleep_time) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
-    current_running->list.time = sleep_time;
-    current_running->list.start_time = get_timer();
+long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp) {
+    current_running = get_current_running();
+    copy_nanotime(&current_running->time, rqtp);
+    get_nanotime(&current_running->start_time);
     k_block(&(current_running->list), &timers);
     sys_scheduler();
     // note: you can assume: 1 second = `timebase` ticks
     // 1. block the current_running
     // 2. create a timer which calls `do_unblock` when timeout
     // 3. reschedule because the current_running is blocked.
+    return 0;
 }
 
 void check_sleeping() {
     list_node_t *p;
     list_node_t *q;
-    uint64_t now_time;
+    nanotime_val_t now_time;
     p = timers.next;
     while (p != &timers) {
-        now_time = get_timer();
-        if (now_time - p->start_time >= p->time) {
+        get_nanotime(&now_time);
+        nanotime_val_t res_time;
+        pcb_t *p_pcb = list_entry(p, pcb_t, list);
+        minus_nanotime(&now_time, &p_pcb->start_time, &res_time);
+        if (cmp_nanotime(&res_time, &p_pcb->time) >= 0) {
             q = p->next;
             k_unblock(p, UNBLOCK_THIS_PCB);
             p = q;
@@ -298,7 +307,7 @@ void k_unblock(list_node_t *pcb_node, int type) {
     // ready_queue=p;
 }
 
-int sys_taskset(int pid, int mask) {
+long sys_taskset(int pid, int mask) {
     int id = get_current_cpu_id();
     if (pid == 0) {
         if (mask != 3 && mask != 1 + id) {
@@ -314,8 +323,8 @@ int sys_taskset(int pid, int mask) {
     return 1;
 }
 
-pid_t sys_spawn(task_info_t *info, void *arg, spawn_mode_t mode) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_spawn(task_info_t *info, void *arg, spawn_mode_t mode) {
+    current_running = get_current_running();
     int i = nextpid();
     list_node_t *p;
     pcb[i].type = info->type;
@@ -351,7 +360,7 @@ pid_t sys_spawn(task_info_t *info, void *arg, spawn_mode_t mode) {
     return i;
 }
 
-int sys_kill(pid_t pid) {
+long sys_kill(pid_t pid) {
     if (pcb[pid].status == TASK_EXITED || pid == 0)
         return 0;
     if (pcb[pid].status == TASK_RUNNING || current_running0 == &pcb[pid] || current_running1 == &pcb[pid]) {
@@ -385,13 +394,13 @@ int sys_kill(pid_t pid) {
     return 1;
 }
 
-void sys_exit() {
+long sys_exit() {
     int id = get_current_cpu_id();
     current_running = id == 0 ? current_running0 : current_running1;
     pid_t pid = current_running->pid;
     // shell not allowed
     if (pid == 0)
-        return;
+        return -1;
     pcb[pid].killed = 0;
     for (int i = 0; i < pcb[pid].locksum; i++) {
         sys_mutex_lock_release(pcb[pid].lockid[i]);
@@ -427,10 +436,11 @@ void sys_exit() {
     set_satp(SATP_MODE_SV39, 0, PGDIR_PA >> NORMAL_PAGE_SHIFT);
     local_flush_tlb_all();
     sys_scheduler();
+    return 0;
 }
 
-int sys_waitpid(pid_t pid) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_waitpid(pid_t pid) {
+    current_running = get_current_running();
     while (pcb[pid].status != TASK_EXITED && pcb[pid].status != TASK_ZOMBIE) {
         k_block(&current_running->list, &pcb[pid].wait_list);
         sys_scheduler();
@@ -443,7 +453,7 @@ int sys_waitpid(pid_t pid) {
     return 1;
 }
 
-int sys_process_show() {
+long sys_process_show() {
     int num = 0;
     for (int i = 0; i < NUM_MAX_TASK; i++) {
         if (pcb[i].status != TASK_EXITED) {
@@ -495,7 +505,7 @@ int sys_process_show() {
 }
 
 extern int try_get_from_file(const char *file_name, unsigned char **binary, int *length);
-pid_t sys_exec(const char *name, int argc, char **argv) {
+long sys_exec(const char *name, int argc, char **argv) {
     int len = 0;
     unsigned char *binary = NULL;
     /* TODO: use FAT32 disk to read program */
@@ -503,7 +513,7 @@ pid_t sys_exec(const char *name, int argc, char **argv) {
         if (try_get_from_file(name, &binary, &len) == 0)
             return 0;
     }
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+    current_running = get_current_running();
     int i = nextpid();
     list_node_t *p;
     pcb[i].fpid = i;
@@ -548,8 +558,8 @@ pid_t sys_exec(const char *name, int argc, char **argv) {
     return i;
 }
 
-int sys_mthread_create(pid_t *thread, void (*start_routine)(void *), void *arg) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_mthread_create(pid_t *thread, void (*start_routine)(void *), void *arg) {
+    current_running = get_current_running();
     pid_t fpid = current_running->pid;
     int i = nextpid();
 
@@ -596,8 +606,8 @@ int sys_mthread_create(pid_t *thread, void (*start_routine)(void *), void *arg) 
     return 1;
 }
 
-int sys_fork(int prior) {
-    current_running = get_current_cpu_id() == 0 ? current_running0 : current_running1;
+long sys_fork(int prior) {
+    current_running = get_current_running();
     pid_t fpid = current_running->pid;
     int i = nextpid();
 

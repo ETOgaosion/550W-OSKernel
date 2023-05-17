@@ -209,7 +209,7 @@ int printk(const char *fmt, ...) {
     return ret;
 }
 
-int vprints(const char *fmt, va_list _va) { return _vprint(fmt, _va, sys_screen_write); }
+int vprints(const char *fmt, va_list _va) { return _vprint(fmt, _va, (void (*)(char *))sys_screen_write); }
 
 int prints(const char *fmt, ...) {
     int ret = 0;

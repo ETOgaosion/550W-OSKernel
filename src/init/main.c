@@ -5,12 +5,12 @@
 #include <drivers/screen.h>
 #include <fs/fs.h>
 #include <lib/stdio.h>
-#include <lib/time.h>
 #include <os/irq.h>
 #include <os/lock.h>
 #include <os/mm.h>
 #include <os/sched.h>
 #include <os/smp.h>
+#include <os/time.h>
 
 // jump from bootloader.
 // The beginning of everything >_< ~~~~~~~~~~~~~~
