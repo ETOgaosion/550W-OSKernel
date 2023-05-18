@@ -1,6 +1,6 @@
 #include <common/types.h>
 #include <lib/list.h>
-#include <os/sched.h>
+#include <os/pcb.h>
 #include <os/smp.h>
 #include <os/time.h>
 
@@ -16,6 +16,8 @@ long get_ticks() {
 }
 
 uint64_t get_timer() { return get_ticks() / time_base; }
+
+uint64_t get_time_base() { return time_base; }
 
 void nano_u_time_converter(nanotime_val_t *nanotime, time_val_t *utime, bool direction) {
     if (direction) {
@@ -108,12 +110,11 @@ long sys_time(__kernel_time_t *tloc) {
 }
 
 long sys_times(tms_t *tbuf) {
-    pcb_t *current_running = get_current_running();
-    tbuf->tms_stime = current_running->stime;
-    tbuf->tms_utime = current_running->utime;
-    for (int i = 0; i < current_running->child_num; i++) {
-        tbuf->tms_cstime += pcb[current_running->child_pid[i]].stime;
-        tbuf->tms_cutime += pcb[current_running->child_pid[i]].utime;
+    tbuf->tms_stime = (*current_running)->stime;
+    tbuf->tms_utime = (*current_running)->utime;
+    for (int i = 0; i < (*current_running)->child_num; i++) {
+        tbuf->tms_cstime += pcb[(*current_running)->child_pid[i]].stime;
+        tbuf->tms_cutime += pcb[(*current_running)->child_pid[i]].utime;
     }
     return get_ticks();
 }
