@@ -115,8 +115,8 @@ extern int nowfid;
 extern int freefid[20];
 extern int freenum;
 
+void init_fs();
 int k_mkfs(int func);
-
 long sys_getcwd(const char *buf, unsigned long size);
 long sys_dup(unsigned int fildes);
 long sys_dup3(unsigned int oldfd, unsigned int newfd, int flags);

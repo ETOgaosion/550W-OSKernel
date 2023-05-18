@@ -3,7 +3,7 @@
 #include <lib/stdarg.h>
 #include <lib/stdio.h>
 #include <os/irq.h>
-#include <os/sched.h>
+#include <os/pcb.h>
 
 static unsigned int mini_strlen(const char *s) {
     unsigned int len = 0;
@@ -183,11 +183,11 @@ static int _vprint(const char *fmt, va_list _va, void (*output)(char *)) {
     output(buff);
     /*for (int i = 0; i < ret; ++i) {
         if (buff[i] == '\n') {
-            current_running->cursor_y++;
+            (*current_running)->cursor_y++;
         } else if (buff[i] == '\r') {
-            current_running->cursor_x = 1;
+            (*current_running)->cursor_x = 1;
         } else {
-            current_running->cursor_x++;
+            (*current_running)->cursor_x++;
         }
     }*/
     enable_preempt();

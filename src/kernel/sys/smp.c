@@ -1,5 +1,6 @@
 #include <asm/sbi.h>
 #include <os/lock.h>
+#include <os/pcb.h>
 #include <os/smp.h>
 
 spin_lock_t kernel_lock;
@@ -15,4 +16,4 @@ void lock_kernel() { spin_lock_acquire(&kernel_lock); }
 
 void unlock_kernel() { spin_lock_release(&kernel_lock); }
 
-pcb_t *get_current_running() { return get_current_running(); }
+pcb_t *get_current_running() { return get_current_cpu_id() ? current_running1 : current_running0; }

@@ -3,7 +3,7 @@
 #include <lib/stdio.h>
 #include <lib/string.h>
 #include <os/irq.h>
-#include <os/sched.h>
+#include <os/pcb.h>
 #include <os/smp.h>
 
 #define SCREEN_WIDTH 80
@@ -20,16 +20,9 @@ char old_screen[SCREEN_HEIGHT * SCREEN_WIDTH] = {0};
 /* cursor position */
 void vt100_move_cursor(int x, int y) {
     // \033[y;xH
-    disable_preempt();
     printk("%c[%d;%dH", 27, y, x);
-    if (get_current_cpu_id() == 0) {
-        current_running0->cursor_x = x;
-        current_running0->cursor_y = y;
-    } else {
-        current_running1->cursor_x = x;
-        current_running1->cursor_y = y;
-    }
-    enable_preempt();
+    (*current_running)->cursor_x = x;
+    (*current_running)->cursor_y = y;
 }
 
 /* clear screen */
@@ -46,12 +39,11 @@ static void vt100_hidden_cursor() {
 
 /* write a char */
 static void screen_write_ch(char ch) {
-    current_running = get_current_running();
     if (ch == '\n') {
-        current_running->cursor_x = 1;
-        current_running->cursor_y++;
-        if (current_running->cursor_y > SCREEN_HEIGHT) {
-            sys_screen_reflush();
+        (*current_running)->cursor_x = 1;
+        (*current_running)->cursor_y++;
+        if ((*current_running)->cursor_y > SCREEN_HEIGHT) {
+            k_screen_reflush();
             for (int i = start_line - 1; i < SCREEN_HEIGHT; i++) {
                 for (int j = 0; j < SCREEN_WIDTH; j++) {
                     if (i == SCREEN_HEIGHT - 1)
@@ -60,9 +52,9 @@ static void screen_write_ch(char ch) {
                         new_screen[i * SCREEN_WIDTH + j] = old_screen[(i + 1) * SCREEN_WIDTH + j];
                 }
             }
-            current_running->cursor_y = SCREEN_HEIGHT;
+            (*current_running)->cursor_y = SCREEN_HEIGHT;
             /*
-            current_running->cursor_y = start_line;
+            (*current_running)->cursor_y = start_line;
             for(int i=start_line; i<SCREEN_HEIGHT; i++)
                 for(int j=0; j<SCREEN_WIDTH; j++)
                     new_screen[i * SCREEN_WIDTH + j] = ' ';*/
@@ -70,8 +62,8 @@ static void screen_write_ch(char ch) {
         // screen_cursor_x = 1;
         // screen_cursor_y++;
     } else {
-        new_screen[(current_running->cursor_y - 1) * SCREEN_WIDTH + (current_running->cursor_x - 1)] = ch;
-        current_running->cursor_x++;
+        new_screen[((*current_running)->cursor_y - 1) * SCREEN_WIDTH + ((*current_running)->cursor_x - 1)] = ch;
+        (*current_running)->cursor_x++;
     }
 }
 
@@ -89,28 +81,27 @@ long sys_screen_clear(void) {
             new_screen[i * SCREEN_WIDTH + j] = ' ';
         }
     }
-    sys_screen_reflush();
+    k_screen_reflush();
     return 0;
 }
 
 long sys_screen_move_cursor(int x, int y) {
-    current_running = get_current_running();
-    current_running->cursor_x = x;
+    (*current_running)->cursor_x = x;
     // if(y>SCREEN_HEIGHT)
-    //    current_running->cursor_y = y - SCREEN_HEIGHT + start_line-1;
+    //    (*current_running)->cursor_y = y - SCREEN_HEIGHT + start_line-1;
     // else
-    current_running->cursor_y = y;
+    (*current_running)->cursor_y = y;
     return 0;
 }
 
 long sys_screen_write(char *buff) {
     int i = 0;
-    int l = kstrlen(buff);
+    int l = strlen(buff);
 
     for (i = 0; i < l; i++) {
         screen_write_ch(buff[i]);
     }
-    sys_screen_reflush();
+    k_screen_reflush();
     return 0;
 }
 
@@ -120,11 +111,11 @@ long sys_screen_write(char *buff) {
  * the fact that in order to speed up printing, we only refresh
  * the characters that have been modified since this time.
  */
-long sys_screen_reflush(void) {
+long k_screen_reflush(void) {
     int i, j;
-    current_running = get_current_running();
-    int prex = current_running->cursor_x;
-    int prey = current_running->cursor_y;
+
+    int prex = (*current_running)->cursor_x;
+    int prey = (*current_running)->cursor_y;
     /* here to reflush screen buffer to serial port */
     for (i = 0; i < SCREEN_HEIGHT; i++) {
         for (j = 0; j < SCREEN_WIDTH; j++) {
@@ -140,4 +131,17 @@ long sys_screen_reflush(void) {
     /* recover cursor position */
     vt100_move_cursor(prex, prey);
     return 0;
+}
+
+void load_curpcb_cursor() { kernel_move_cursor((*current_running)->cursor_x, (*current_running)->cursor_y); }
+
+void kernel_move_cursor(int x, int y) {
+    // \033[y;xH
+    screen_cursor_x = x;
+    screen_cursor_y = y;
+}
+
+void pcb_move_cursor(int x, int y) {
+    (*current_running)->cursor_x = x;
+    (*current_running)->cursor_y = y;
 }
