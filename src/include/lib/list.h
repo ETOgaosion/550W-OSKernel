@@ -4,9 +4,6 @@
 // double-linked list
 //   TODO: use your own list design!!
 typedef struct list_node {
-    pid_t pid;
-    pid_t tid;
-    int num_packet;
     struct list_node *next, *prev;
 } list_node_t;
 
@@ -103,17 +100,4 @@ static inline int list_is_last(list_head *list, list_head *head)
 static inline int list_is_empty(list_head *head)
 {
 	return head->next == head;
-}
-
-// fetch the keyth element from list
-static inline list_head * list_fetch(list_head *head, long key){
-	if(list_is_empty(head) || key == 0){
-		return NULL;
-	}
-	list_head *iterator = &(*head);
-	while (key-- && iterator->next != head->prev)
-	{
-		iterator = iterator->next;
-	}
-	return iterator->next;
 }

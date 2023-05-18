@@ -7,6 +7,8 @@ typedef struct time_val {
     long long usec; // 微秒数
 } time_val_t;
 
+#define __kernel_timeval_t time_val_t
+
 typedef struct nanotime_val {
     __kernel_time64_t sec;  // 自 Unix 纪元起的秒数
     __kernel_time64_t nsec; // 微秒数
@@ -24,9 +26,18 @@ typedef struct timezone {
 	int	tz_dsttime;	/* type of dst correction */
 } timezone_t;
 
+typedef struct pcbtimer {
+	bool initialized;
+    nanotime_val_t time;
+    nanotime_val_t start_time;
+    nanotime_val_t *remain_time;
+} pcbtimer_t;
+
 extern uint32_t time_base;
 extern uint64_t time_elapsed;
 extern list_head timers;
+
+uint64_t get_time_base();
 
 long get_ticks(void);
 void nano_u_time_converter(nanotime_val_t *nanotime, time_val_t *utime, bool direction);

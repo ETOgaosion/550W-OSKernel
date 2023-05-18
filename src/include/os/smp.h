@@ -1,6 +1,6 @@
 #pragma once
 
-#include <os/sched.h>
+#include <os/pcb.h>
 
 // #define NR_CPUS 2
 // void* cpu_stack_pointer[NR_CPUS];

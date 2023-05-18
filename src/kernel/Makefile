@@ -1,17 +1,10 @@
 kernel_irq_dir		:= irq
-kernel_lock_dir		:= lock
+kernel_sync_dir		:= sync
 kernel_mm_dir		:= mm
-kernel_sched_dir	:= sched
+kernel_sys_dir		:= sys
 modules		:= $(shell ls -d */)
 
-INCLUDES := -I../include -I../arch/riscv/include -I../
-
-target = $(shell ls *.c | awk '{gsub(/\.c/, ".o"); print $0}')
-
 .PHONY:	build clean $(modules)
-
-%.o: %.c
-	$(GCC) $(CFLAGS) $(INCLUDES) -c $<
 
 build: $(modules) $(target)
 

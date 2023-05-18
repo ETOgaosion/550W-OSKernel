@@ -3,7 +3,7 @@
 #include <drivers/screen.h>
 #include <lib/assert.h>
 #include <os/mm.h>
-#include <os/sched.h>
+#include <os/pcb.h>
 #include <os/smp.h>
 
 #define MAXPAGES 1000
@@ -169,11 +169,10 @@ uint64_t alloc_newva() {
 }
 
 long sys_shm_page_get(int key) {
-    current_running = get_current_running();
-    allocpid = current_running->pid;
+    allocpid = (*current_running)->pid;
     for (int i = 0; i < shm_num; i++) {
         if (shm_all[i].key == key && shm_all[i].pro_num != 0) {
-            map(shm_all[i].uva, kva2pa(shm_all[i].kva), (pa2kva(current_running->pgdir << 12)));
+            map(shm_all[i].uva, kva2pa(shm_all[i].kva), (pa2kva((*current_running)->pgdir << 12)));
             shm_all[i].pro_num++;
             return shm_all[i].uva;
         }
@@ -185,12 +184,12 @@ long sys_shm_page_get(int key) {
             break;
         }
     }
-    allocpid = current_running->pid;
+    allocpid = (*current_running)->pid;
     if (num == -1)
         num = shm_num;
     shm_all[num].key = key;
     shm_all[num].uva = alloc_newva();
-    shm_all[num].kva = alloc_page_helper(shm_all[num].uva, (pa2kva(current_running->pgdir << 12)));
+    shm_all[num].kva = alloc_page_helper(shm_all[num].uva, (pa2kva((*current_running)->pgdir << 12)));
     shm_all[num].pro_num = 1;
     if (num == shm_num)
         shm_num++;
@@ -198,11 +197,10 @@ long sys_shm_page_get(int key) {
 }
 
 long sys_shm_page_dt(uintptr_t addr) {
-    current_running = get_current_running();
     for (int i = 0; i < shm_num; i++) {
         if (shm_all[i].uva == addr) {
             uint64_t va = addr;
-            PTE *pgdir = pa2kva(current_running->pgdir << 12);
+            PTE *pgdir = pa2kva((*current_running)->pgdir << 12);
             va &= VA_MASK;
             uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
             uint64_t vpn1 = (vpn2 << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT + PPN_BITS));
@@ -324,10 +322,9 @@ uint64_t get_kva_from_va(uint64_t va, PTE *pgdir) {
 }
 
 long sys_getpa(uint64_t va) {
-    current_running = get_current_running();
     // screen_move_cursor(1,6);
     // prints("in mmc pre: %lx\n", (uint64_t)(va));
-    uint64_t kva = get_kva_from_va(va, pa2kva(current_running->pgdir << 12));
+    uint64_t kva = get_kva_from_va(va, pa2kva((*current_running)->pgdir << 12));
     // screen_move_cursor(1,7);
     // prints("in mmc: %lx\n", (uint64_t)(kva));
     kva += va % 0x1000;

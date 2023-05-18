@@ -209,7 +209,7 @@ int look_up_dir(const char *buff) {
     char name[20];
     int i = 0;
     int inodeid = nowinodeid;
-    int num = kstrlen(buff);
+    int num = strlen(buff);
 
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     inode_t *inode = &nowinode;
@@ -406,7 +406,7 @@ long sys_touch(const char *name) {
     init_file(dir->inode_id);
     dir->mode = 1;
     dir->last = 1;
-    kstrcpy(dir->name, name);
+    strcpy(dir->name, name);
 
     sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     return 1;
@@ -567,11 +567,11 @@ void init_dir(int inodeid) {
 
     dentry_t *dentry = (dentry_t *)(FS_KERNEL_ADDR + data_addr_offset);
     dentry->inode_id = inodeid;
-    kstrcpy(dentry->name, ".");
+    strcpy(dentry->name, ".");
     dentry->last = 0;
     dentry++;
     dentry->inode_id = nowinodeid;
-    kstrcpy(dentry->name, "..");
+    strcpy(dentry->name, "..");
     dentry->last = 1;
 
     sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.fs_start_sec + superblock.inode_sec_offset);
@@ -594,7 +594,7 @@ long sys_mkdir(const char *name) {
     init_dir(dir->inode_id);
     dir->mode = 0;
     dir->last = 1;
-    kstrcpy(dir->name, name);
+    strcpy(dir->name, name);
     sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     return 1;
 }
@@ -625,7 +625,7 @@ long sys_ln(const char *name, char *path) {
     dir->inode_id = inodeid;
     dir->mode = 1;
     dir->last = 1;
-    kstrcpy(dir->name, name);
+    strcpy(dir->name, name);
 
     sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     return 1;
@@ -663,7 +663,7 @@ long sys_rmdir(const char *name) {
             p->inode_id = (p + 1)->inode_id;
             p->last = (p + 1)->last;
             p->mode = (p + 1)->mode;
-            kstrcpy(p->name, (p + 1)->name);
+            strcpy(p->name, (p + 1)->name);
             p++;
         }
     }
@@ -813,7 +813,7 @@ long sys_rm(const char *name) {
             p->inode_id = (p + 1)->inode_id;
             p->last = (p + 1)->last;
             p->mode = (p + 1)->mode;
-            kstrcpy(p->name, (p + 1)->name);
+            strcpy(p->name, (p + 1)->name);
             p++;
         }
     }
@@ -907,7 +907,7 @@ long sys_ls(const char *name, int func) {
         if (dir->mode == 0)
             prints("/");
         if (func == 1) {
-            len = kstrlen(dir->name);
+            len = strlen(dir->name);
             if (dir->mode == 0)
                 len++;
             inode = (inode_t *)(FS_KERNEL_ADDR + inode_addr_offset);
@@ -926,7 +926,7 @@ long sys_ls(const char *name, int func) {
     if (dir->mode == 0)
         prints("/");
     if (func == 1) {
-        len = kstrlen(dir->name);
+        len = strlen(dir->name);
         if (dir->mode == 0)
             len++;
         inode = (inode_t *)(FS_KERNEL_ADDR + inode_addr_offset);
@@ -998,12 +998,12 @@ long sys_mkfs(int func) {
 
     dentry_t *root_dentry = (dentry_t *)(FS_KERNEL_ADDR + data_addr_offset);
     root_dentry->inode_id = 0;
-    kstrcpy(root_dentry->name, ".");
+    strcpy(root_dentry->name, ".");
     root_dentry->mode = 0;
     root_dentry->last = 0;
     root_dentry++;
     root_dentry->inode_id = 0;
-    kstrcpy(root_dentry->name, "..");
+    strcpy(root_dentry->name, "..");
     root_dentry->mode = 0;
     root_dentry->last = 1;
 
@@ -1052,7 +1052,7 @@ extern void map_fs_space();
 
 void init_fs() {
     map_fs_space();
-    kmemset((void *)empty_block, 0, 0x1000);
+    memset((void *)empty_block, 0, 0x1000);
 
     // main superblock and back-up superblock
     sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 1, fs_start_sec + sb_sec_offset);
