@@ -1,7 +1,7 @@
 #pragma once
 
 #include <common/types.h>
-#include <os/sched.h>
+#include <os/pcb.h>
 
 ptr_t get_kernel_address(pid_t pid);
 

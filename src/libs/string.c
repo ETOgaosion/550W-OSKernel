@@ -1,6 +1,6 @@
 #include <lib/string.h>
 
-int kstrlen(const char *src) {
+int strlen(const char *src) {
     int i;
     for (i = 0; src[i] != '\0'; i++) {
     }
@@ -13,7 +13,7 @@ void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len) {
     }
 }
 
-void kmemset(void *dest, uint8_t val, uint32_t len) {
+void memset(void *dest, uint8_t val, uint32_t len) {
     uint8_t *dst = (uint8_t *)dest;
 
     for (; len != 0; len--) {
@@ -21,7 +21,7 @@ void kmemset(void *dest, uint8_t val, uint32_t len) {
     }
 }
 
-void kbzero(void *dest, uint32_t len) { kmemset(dest, 0, len); }
+void bzero(void *dest, uint32_t len) { memset(dest, 0, len); }
 
 int strcmp(const char *str1, const char *str2) {
     while (*str1 && *str2) {
@@ -34,7 +34,7 @@ int strcmp(const char *str1, const char *str2) {
     return (*str1) - (*str2);
 }
 
-char *kstrcpy(char *dest, const char *src) {
+char *strcpy(char *dest, const char *src) {
     char *tmp = dest;
 
     while (*src) {
@@ -46,7 +46,7 @@ char *kstrcpy(char *dest, const char *src) {
     return tmp;
 }
 
-char *kstrcat(char *dest, const char *src) {
+char *strcat(char *dest, const char *src) {
     char *tmp = dest;
 
     while (*dest != '\0') {
