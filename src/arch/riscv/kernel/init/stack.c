@@ -15,7 +15,6 @@ ptr_t get_user_address(pid_t pid) { return address_base + pid * 0x2000 + 0x1000;
 void init_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, ptr_t entry_point, pcb_t *pcb, uint64_t argc, char **argv) {
     regs_context_t *pt_regs = (regs_context_t *)(kernel_stack - sizeof(regs_context_t));
     uint64_t user_stack_kva = kernel_stack - 0x1000;
-
     for (int i = 5; i < 32; i++)
         pt_regs->regs[i] = 0;
     if (argv != NULL) {
@@ -42,7 +41,7 @@ void init_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, ptr_t entry_point, pcb
     if (pcb->type == USER_PROCESS)
         pt_regs->regs[3] = (reg_t)__global_pointer$;
     else if (pcb->type == USER_THREAD) {
-        regs_context_t *cur_regs = (regs_context_t *)(current_running->kernel_sp + sizeof(switchto_context_t));
+        regs_context_t *cur_regs = (regs_context_t *)((*current_running)->kernel_sp + sizeof(switchto_context_t));
         pt_regs->regs[3] = cur_regs->regs[3];
     }
     pt_regs->regs[4] = (reg_t)pcb;
@@ -58,10 +57,9 @@ void init_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, ptr_t entry_point, pcb
 }
 
 void fork_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb) {
-    current_running = get_current_running();
     regs_context_t *pt_regs = (regs_context_t *)(kernel_stack - sizeof(regs_context_t));
-    regs_context_t *cur_regs = (regs_context_t *)(current_running->kernel_sp + sizeof(switchto_context_t));
-    ptr_t cur_address = get_user_address(current_running->pid);
+    regs_context_t *cur_regs = (regs_context_t *)((*current_running)->kernel_sp + sizeof(switchto_context_t));
+    ptr_t cur_address = get_user_address((*current_running)->pid);
     ptr_t off = 0x1000 - 1;
     char *p = (char *)(user_stack - 1);
     char *q = (char *)(cur_address - 1);
@@ -72,7 +70,7 @@ void fork_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb) {
         p--;
         q--;
     }
-    pcb->user_sp = current_running->user_sp;
+    pcb->user_sp = (*current_running)->user_sp;
     pcb->kernel_sp = kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t);
     for (int i = 0; i < 32; i++)
         pt_regs->regs[i] = cur_regs->regs[i];
@@ -86,7 +84,6 @@ void fork_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb) {
     pt_regs->sstatus = cur_regs->sstatus;
     pt_regs->sbadaddr = cur_regs->sbadaddr;
     pt_regs->scause = cur_regs->scause;
-
     switchto_context_t *sw_regs = (switchto_context_t *)(kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t));
     sw_regs->regs[0] = (reg_t)ret_from_exception;
     // sw_regs->regs[1] = pcb->user_sp;

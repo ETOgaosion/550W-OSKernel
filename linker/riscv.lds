@@ -4,7 +4,7 @@ OUTPUT_ARCH("riscv")
 ENTRY(_start)
 SECTIONS
 {
-  . = 0x80020000;
+  . = 0x8020000;
   .text           :
   {
     _ftext = . ;

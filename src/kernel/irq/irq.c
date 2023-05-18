@@ -9,6 +9,8 @@
 #include <os/smp.h>
 #include <os/syscall.h>
 
+#define TICKS_INTERVAL 200
+
 handler_t irq_table[IRQC_COUNT];
 handler_t exc_table[EXCC_COUNT];
 uintptr_t riscv_dtb;
@@ -43,40 +45,38 @@ void init_syscall(void) {
     syscall[SYS_gettimeofday] = (long (*)())sys_gettimeofday;
     // syscall[SYS_mailread] = (long (*)())sys_mailread;
     // syscall[SYS_mailwrite] = (long (*)())sys_mailwrite;
-    // // Process & Threads
-    // syscall[SYS_exit] = (long (*)())sys_exit;
-    // syscall[SYS_brk] = (long (*)())sys_brk;
-    // syscall[SYS_munmap] = (long (*)())sys_munmap;
+    // Process & Threads
+    syscall[SYS_exit] = (long (*)())sys_exit;
     // syscall[SYS_clone] = (long (*)())sys_clone;
     // syscall[SYS_execve] = (long (*)())sys_execve;
+    syscall[SYS_wait4] = (long (*)())sys_wait4;
+    syscall[SYS_spawn] = (long (*)())sys_spawn;
+    syscall[SYS_sched_yield] = (long (*)())sys_sched_yield;
+    syscall[SYS_setpriority] = (long (*)())sys_setpriority;
+    syscall[SYS_get_mempolicy] = (long (*)())sys_getpriority;
+    syscall[SYS_getpid] = (long (*)())sys_getpid;
+    syscall[SYS_getppid] = (long (*)())sys_getppid;
+    // Memory
+    // syscall[SYS_brk] = (long (*)())sys_brk;
+    // syscall[SYS_munmap] = (long (*)())sys_munmap;
     // syscall[SYS_mmap] = (long (*)())sys_mmap;
-    // syscall[SYS_wait4] = (long (*)())sys_wait4;
-    // syscall[SYS_spawn] = (long (*)())sys_spawn;
-    // syscall[SYS_sched_yield] = (long (*)())sys_sched_yield;
-    // syscall[SYS_setpriority] = (long (*)())sys_setpriority;
-    // syscall[SYS_getpid] = (long (*)())sys_getpid;
-    // syscall[SYS_getppid] = (long (*)())sys_getppid;
-    // initialize system call table.
 }
 
 void reset_irq_timer() {
-    uint64_t each = time_base / 8000;
-    uint64_t delta = time_base / 500;
-    int prior = pcb[current_running->pid].priority;
-    uint64_t next = each + delta * prior;
-    sbi_set_timer(get_ticks() + next);
+    k_screen_reflush();
     // note: use sbi_set_timer
     // remember to reschedule
+    sbi_set_timer(get_ticks() + get_time_base() / TICKS_INTERVAL);
+    k_scheduler();
 }
 
 void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
+    lock_kernel();
     // call corresponding handler by the value of `cause`
-    while (atomic_swap(1, (ptr_t)&cpu_lock) != 0)
-        ;
-    pcb_t *current_running = get_current_running();
+    (*current_running) = get_current_running();
     long ticks = get_ticks();
-    current_running->utime += (ticks - current_running->utime_last);
-    current_running->stime_last = ticks;
+    (*current_running)->utime += (ticks - (*current_running)->utime_last);
+    (*current_running)->stime_last = ticks;
     uint64_t check = cause;
     // if(check>>63 && check%16!=5)
     //{
@@ -89,16 +89,12 @@ void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint
         exc_table[cause](regs, stval, cause, cpuid);
     }
     ticks = get_ticks();
-    current_running->utime_last = ticks;
-    current_running->stime += (ticks - current_running->stime_last);
-    atomic_swap(0, (ptr_t)&cpu_lock);
+    (*current_running)->utime_last = ticks;
+    (*current_running)->stime += (ticks - (*current_running)->stime_last);
+    unlock_kernel();
 }
 
-void handle_int(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
-    check_sleeping();
-    sys_scheduler();
-    reset_irq_timer();
-}
+void handle_int(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) { reset_irq_timer(); }
 
 PTE *check_pf(uint64_t va, PTE *pgdir) {
     va &= VA_MASK;
@@ -116,12 +112,8 @@ PTE *check_pf(uint64_t va, PTE *pgdir) {
     return &pld[vpn0];
 }
 
-void handle_disk(uint64_t stval, PTE *pte_addr, int cpuid) {
-    pcb_t *cur;
-    if (cpuid == 0)
-        cur = current_running0;
-    else /*if (cpuid == 1) */
-        cur = current_running1;
+void handle_disk(uint64_t stval, PTE *pte_addr) {
+    pcb_t *cur = *current_running;
     allocpid = cur->pid;
     uint64_t newmem_addr = allocmem(1, stval);
     map(stval, kva2pa(newmem_addr), (pa2kva(cur->pgdir << 12)));
@@ -130,11 +122,7 @@ void handle_disk(uint64_t stval, PTE *pte_addr, int cpuid) {
 }
 
 void handle_pf(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
-    pcb_t *cur;
-    if (cpuid == 0)
-        cur = current_running0;
-    else /*if (cpuid == 1) */
-        cur = current_running1;
+    pcb_t *cur = *current_running;
 
     PTE *pte_addr = check_pf(stval, (pa2kva(cur->pgdir << 12)));
     if (pte_addr != 0) {
@@ -157,7 +145,7 @@ void handle_pf(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cp
         else if ((((va_pte >> 6) & 1) == 0) && (cause == EXCC_LOAD_PAGE_FAULT))
             *pte_addr = (*pte_addr) | ((uint64_t)1 << 6);
         else if ((va_pte & 1) == 0) // physical frame was on disk
-            handle_disk(stval, pte_addr, cpuid);
+            handle_disk(stval, pte_addr);
     } else { // No virtual-physical map
         allocpid = cur->pid;
         alloc_page_helper(stval, (pa2kva(cur->pgdir << 12)));
