@@ -1,5 +1,7 @@
 #pragma once
 
+#include <common/errno.h>
+
 #ifndef NULL
 #define NULL (void *)0
 #endif

@@ -8,7 +8,7 @@
 #include <os/irq.h>
 #include <os/lock.h>
 #include <os/mm.h>
-#include <os/sched.h>
+#include <os/pcb.h>
 #include <os/smp.h>
 #include <os/time.h>
 
@@ -21,8 +21,14 @@ int main() {
         cancelpg(pa2kva(PGDIR_PA));
         sbi_set_timer(0);
     }
+
+    // init fs
+    init_fs();
+
     // init Process Control Block (-_-!)
+
     init_pcb();
+
     // printk("> [INIT] PCB initialization succeeded.\n\r");
 
     // read CPU frequency
@@ -46,10 +52,10 @@ int main() {
     while (1) {
         // (QAQQQQQQQQQQQ)
         // If you do non-preemptive scheduling, you need to use it
-        // to surrender control sys_scheduler();
+        // to surrender control k_scheduler();
         // enable_interrupt();
         // __asm__ __volatile__("wfi\n\r":::);
-        // sys_scheduler();
+        // k_scheduler();
     };
     return 0;
 }

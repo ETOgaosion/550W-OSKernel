@@ -2,7 +2,7 @@
 #define IRQ_H
 
 #include <common/types.h>
-#include <os/sched.h>
+#include <os/pcb.h>
 
 /* ERROR code */
 enum IrqCode { IRQC_U_SOFT = 0, IRQC_S_SOFT = 1, IRQC_M_SOFT = 3, IRQC_U_TIMER = 4, IRQC_S_TIMER = 5, IRQC_M_TIMER = 7, IRQC_U_EXT = 8, IRQC_S_EXT = 9, IRQC_M_EXT = 11, IRQC_COUNT };

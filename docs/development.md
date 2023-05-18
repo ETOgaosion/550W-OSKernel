@@ -24,7 +24,34 @@
 }
 ```
 
+头文件的所有引用按照字母序排列，脚本可以辅助解决排序。头文件内的书写顺序为：
+
+- `#pragma once`
+- `#include`
+- `#define`
+- `typedef`
+- `typedef struct`
+- `extern`
+- 函数按照依赖次序排列，同类函数放在一起
+
 系统调用全部使用`sys_`开头lower_case_with_underscores，系统调用号使用`SYS_`后面是lower_case_with_underscores。系统调用在各个子模块头文件中实现，而后将头文件加入./src/os/syscall.h。
+
+内核函数标准模板：
+
+```C
+retval func_name(...) {
+    int error = -EINVAL;
+    if (/* args check or false statements */) {
+        goto error;
+    }
+    /* var declarations */
+    /* logics */
+    /* don't forget to modify error */
+func_name_out:
+    /* some jobs */
+    return error;
+}
+```
 
 ## 编译
 
