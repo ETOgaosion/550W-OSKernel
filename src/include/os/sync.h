@@ -6,6 +6,10 @@
 #define MBOX_NAME_LEN 64
 #define MBOX_MSG_MAX_LEN 128
 #define MBOX_MAX_USER 10
+
+#define PCB_MBOX_MAX_MSG_NUM 16
+#define PCB_MBOX_MSG_MAX_LEN 256
+
 typedef struct basic_info{
     int id;
     int initialized;
@@ -44,11 +48,18 @@ typedef struct mbox{
     int cited_pid[MBOX_MAX_USER];
 } mbox_t;
 
-typedef struct mbox_arg{
+typedef struct mbox_arg {
     void *msg;
     int msg_length;
     int sleep_operation;
 } mbox_arg_t;
+
+typedef struct pcb_mbox {
+    int pcb_i;
+    char buff[PCB_MBOX_MAX_MSG_NUM][PCB_MBOX_MSG_MAX_LEN];
+    int read_head, write_head;
+    int used_units;
+} pcb_mbox_t;
 
 int k_commop(void *key_id, void *arg, int op);
 
@@ -70,7 +81,11 @@ int k_barrier_destroy(int *key);
 
 int k_mbox_open(char *name);
 int k_mbox_close();
-int k_mbox_send(int key, mbox_arg_t *arg);
-int k_mbox_recv(int key, mbox_arg_t *arg);
+int k_mbox_send(int key, mbox_t *target, mbox_arg_t *arg);
+int k_mbox_recv(int key, mbox_t *target, mbox_arg_t *arg);
 int k_mbox_try_send(int key, mbox_arg_t *arg);
 int k_mbox_try_recv(int key, mbox_arg_t *arg);
+
+void k_pcb_mbox_init(pcb_mbox_t *target, int owner_id);
+int sys_mailread(void* buf, int len);
+int sys_mailwrite(int pid, void* buf, int len);

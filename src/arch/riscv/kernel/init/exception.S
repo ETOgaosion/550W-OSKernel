@@ -22,7 +22,7 @@ ENTRY(setup_exception)
 CORE2_EXCEP:
   la t0, exception_handler_entry
   csrw CSR_STVEC, t0
-  li t0, 0x222
+  li t0, SIE_STIE
   csrw CSR_SIE, t0
   li t0, SR_SIE
   csrw CSR_SSTATUS, t0

@@ -28,8 +28,8 @@ typedef struct timezone {
 
 typedef struct pcbtimer {
 	bool initialized;
-    nanotime_val_t time;
     nanotime_val_t start_time;
+    nanotime_val_t end_time;
     nanotime_val_t *remain_time;
 } pcbtimer_t;
 
@@ -43,12 +43,16 @@ long get_ticks(void);
 void nano_u_time_converter(nanotime_val_t *nanotime, time_val_t *utime, bool direction);
 
 void get_nanotime(nanotime_val_t *ntimebuf);
+uint64_t get_ticks_from_nanotime(nanotime_val_t *ntimebuf);
 void copy_nanotime(nanotime_val_t *src, nanotime_val_t *dst);
 void minus_nanotime(nanotime_val_t *first, nanotime_val_t *sec, nanotime_val_t *res);
+void add_nanotime(nanotime_val_t *first, nanotime_val_t *sec, nanotime_val_t *res);
 int cmp_nanotime(nanotime_val_t *first, nanotime_val_t *sec);
 void get_utime(time_val_t *ntimebuf);
+uint64_t get_ticks_from_time(time_val_t *timebuf);
 void copy_utime(time_val_t *src, time_val_t *dst);
 void minus_utime(time_val_t *first, time_val_t *sec, time_val_t *res);
+void add_utime(time_val_t *first, time_val_t *sec, time_val_t *res);
 int cmp_utime(time_val_t *first, time_val_t *sec);
 
 long sys_time(__kernel_time_t *tloc);

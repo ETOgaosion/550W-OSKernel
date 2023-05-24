@@ -23,34 +23,34 @@
 #define MAP_PRIVATE 0X02
 #define MAP_FAILED ((void *) -1)
 
-/* Rounding; only works for n = power of two */
-#define ROUND(a, n) (((((uint64_t)(a)) + (n)-1)) & ~((n)-1))
-#define ROUNDDOWN(a, n) (((uint64_t)(a)) & ~((n)-1))
+#define MAP_KERNEL 1
+#define MAP_USER 2
 
 typedef uint64_t PTE;
 extern ptr_t memCurr;
 extern int diskpg_num;
 extern uint64_t diskpg[1000];
 
-void movetodisk(uint64_t pg_kva, uint64_t user_va);
-void getbackdisk(uint64_t va, uint64_t new_addr);
+void k_move_to_disk(uint64_t pg_kva, uint64_t user_va);
+void k_get_back_disk(uint64_t va, uint64_t new_addr);
 void en_invalid(uint64_t pa_kva, PTE *pgdir);
-ptr_t allocmem(int numPage, uint64_t user_va);
-ptr_t allocPage(int numPage);
+ptr_t k_alloc_mem(int numPage, uint64_t user_va);
+ptr_t k_alloc_page(int numPage);
 void fork_pgtable(PTE *dest_pgdir, PTE *src_pgdir);
 void fork_page_helper(uintptr_t va, PTE *destpgdir, PTE *srcpgdir);
 uint64_t get_kva_from_va(uint64_t va, PTE *pgdir);
 long sys_getpa(uint64_t va);
 void map_kp(uint64_t va, uint64_t pa, PTE *pgdir);
 
-// ptr_t allocPage(int numPage);
-void freePage(ptr_t baseAddr, int numPage);
-void *kmalloc(size_t size);
+void k_free_page(ptr_t baseAddr, int numPage);
+void *k_malloc(size_t size);
 void share_pgtable(PTE *dest_pgdir, PTE *src_pgdir);
-uintptr_t alloc_page_helper(uintptr_t va, PTE *pgdir);
-long sys_shm_page_get(int key);
-long sys_shm_page_dt(uintptr_t addr);
+uintptr_t k_alloc_page_helper(uintptr_t va, PTE *pgdir);
+long shm_page_get(int key);
+long shm_page_dt(uintptr_t addr);
 void map(uint64_t va, uint64_t pa, PTE *pgdir);
 void getback_page(int pid);
 PTE *get_kva(PTE entry);
 void cancelpg(PTE *pgdir);
+
+long sys_brk(unsigned long brk);
