@@ -1,5 +1,7 @@
 *
 !*/
+.idea
+
 !env/
 !userspace/testsuits-for-oskernel
 
