@@ -46,10 +46,11 @@ static void screen_write_ch(char ch) {
             k_screen_reflush();
             for (int i = start_line - 1; i < SCREEN_HEIGHT; i++) {
                 for (int j = 0; j < SCREEN_WIDTH; j++) {
-                    if (i == SCREEN_HEIGHT - 1)
+                    if (i == SCREEN_HEIGHT - 1) {
                         new_screen[i * SCREEN_WIDTH + j] = ' ';
-                    else
+                    } else {
                         new_screen[i * SCREEN_WIDTH + j] = old_screen[(i + 1) * SCREEN_WIDTH + j];
+                    }
                 }
             }
             (*current_running)->cursor_y = SCREEN_HEIGHT;
@@ -96,7 +97,7 @@ long sys_screen_move_cursor(int x, int y) {
 
 long sys_screen_write(char *buff) {
     int i = 0;
-    int l = strlen(buff);
+    int l = k_strlen(buff);
 
     for (i = 0; i < l; i++) {
         screen_write_ch(buff[i]);
@@ -133,7 +134,9 @@ long k_screen_reflush(void) {
     return 0;
 }
 
-void load_curpcb_cursor() { kernel_move_cursor((*current_running)->cursor_x, (*current_running)->cursor_y); }
+void load_curpcb_cursor() {
+    kernel_move_cursor((*current_running)->cursor_x, (*current_running)->cursor_y);
+}
 
 void kernel_move_cursor(int x, int y) {
     // \033[y;xH

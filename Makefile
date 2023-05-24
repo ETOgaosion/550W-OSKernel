@@ -12,7 +12,8 @@ dst				:= /mnt
 fs_img			:= sdcard.img
 
 modules := $(src_dir)
-objects := $(shell find $(src_dir) -name "*.o")
+sources := $(shell find $(src_dir) \( -name "*.S" -o -name "*.c" \))
+objects := $(patsubst %.S,%.o, $(patsubst %.c,%.o, $(sources)))
 
 .PHONY: build clean $(modules) run
 GDB := n
@@ -21,7 +22,7 @@ ifeq ($(MAKECMDGOALS), gdb)
 	GDB = y
 endif
 
-all : clean build
+all: clean build
 
 build: $(modules)
 	mkdir -p $(target_dir)

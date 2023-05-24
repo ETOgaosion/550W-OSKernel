@@ -1,9 +1,11 @@
 #pragma once
 
 #include <asm/context.h>
-#include <common/types.h>
+#include <common/elf.h>
 #include <lib/list.h>
+#include <os/cpu.h>
 #include <os/mm.h>
+#include <os/sync.h>
 #include <os/time.h>
 
 #define NUM_MAX_PRCESS 16
@@ -31,17 +33,34 @@
 #define	PRIO_PGRP	1
 #define	PRIO_USER	2
 
-#define ENQUEUE_LIST                0
-#define ENQUEUE_PCB                 1
-#define DEQUEUE_LIST                0
-#define DEQUEUE_WAITLIST            1
-#define DEQUEUE_WAITLIST_DESTROY    2
-#define DEQUEUE_LIST_STRATEGY       3
-
-#define UNBLOCK_TO_LIST_FRONT       0
-#define UNBLOCK_TO_LIST_BACK        1
-#define UNBLOCK_ONLY                2
-#define UNBLOCK_TO_LIST_STRATEGY    3
+/*
+ * cloning flags:
+ */
+#define CSIGNAL		0x000000ff	/* signal mask to be sent at exit */
+#define CLONE_VM	0x00000100	/* set if VM shared between processes */
+#define CLONE_FS	0x00000200	/* set if fs info shared between processes */
+#define CLONE_FILES	0x00000400	/* set if open files shared between processes */
+#define CLONE_SIGHAND	0x00000800	/* set if signal handlers and blocked signals shared */
+#define CLONE_PIDFD	0x00001000	/* set if a pidfd should be placed in parent */
+#define CLONE_PTRACE	0x00002000	/* set if we want to let tracing continue on the child too */
+#define CLONE_VFORK	0x00004000	/* set if the parent wants the child to wake it up on mm_release */
+#define CLONE_PARENT	0x00008000	/* set if we want to have the same parent as the cloner */
+#define CLONE_THREAD	0x00010000	/* Same thread group? */
+#define CLONE_NEWNS	0x00020000	/* New mount namespace group */
+#define CLONE_SYSVSEM	0x00040000	/* share system V SEM_UNDO semantics */
+#define CLONE_SETTLS	0x00080000	/* create a new TLS for the child */
+#define CLONE_PARENT_SETTID	0x00100000	/* set the TID in the parent */
+#define CLONE_CHILD_CLEARTID	0x00200000	/* clear the TID in the child */
+#define CLONE_DETACHED		0x00400000	/* Unused, ignored */
+#define CLONE_UNTRACED		0x00800000	/* set if the tracing process can't force CLONE_PTRACE on this clone */
+#define CLONE_CHILD_SETTID	0x01000000	/* set the TID in the child */
+#define CLONE_NEWCGROUP		0x02000000	/* New cgroup namespace */
+#define CLONE_NEWUTS		0x04000000	/* New utsname namespace */
+#define CLONE_NEWIPC		0x08000000	/* New ipc namespace */
+#define CLONE_NEWUSER		0x10000000	/* New user namespace */
+#define CLONE_NEWPID		0x20000000	/* New pid namespace */
+#define CLONE_NEWNET		0x40000000	/* New network namespace */
+#define CLONE_IO		0x80000000	/* Clone io context */
 
 typedef void (*void_task)();
 
@@ -51,90 +70,38 @@ typedef struct prior
     uint64_t last_sched_time;
 } prior_t;
 
-typedef enum {
+typedef enum task_status {
     TASK_BLOCKED,
     TASK_RUNNING,
     TASK_READY,
-    TASK_ZOMBIE,
     TASK_EXITED,
 } task_status_t;
 
-typedef enum {
-    ENTER_ZOMBIE_ON_EXIT,
-    AUTO_CLEANUP_ON_EXIT,
-} spawn_mode_t;
-
-typedef enum {
+typedef enum task_type {
     KERNEL_PROCESS,
     KERNEL_THREAD,
     USER_PROCESS,
     USER_THREAD,
 } task_type_t;
 
-/* Process Control Block */
-typedef struct pcb {
-    /* register context */
-    // this must be this order!! The order is defined in regs.h
-    reg_t kernel_sp;
-    reg_t user_sp;
+typedef enum enqueue_way {
+    ENQUEUE_LIST,
+    ENQUEUE_TIMER_LIST,
+} enqueue_way_t;
 
-    // count the number of disable_preempt
-    // enable_preempt enables CSR_SIE only when preempt_count == 0
-    reg_t preempt_count;
+typedef enum dequeue_way {
+    DEQUEUE_LIST,
+    DEQUEUE_WAITLIST,
+    DEQUEUE_WAITLIST_DESTROY,
+    DEQUEUE_LIST_STRATEGY,
+} dequeue_way_t;
 
-    ptr_t kernel_stack_base;
-    ptr_t user_stack_base;
-
-    /* previous, next pointer */
-    list_node_t list;
-    list_head wait_list;
-    /* process id */
-    pid_t pid;          // real offset of pcb[]
-    pid_t fpid;         // threads' fpid is process pid
-    pid_t tid;
-    pid_t father_pid;
-    pid_t child_pid[NUM_MAX_CHILD];
-    int child_num;
-    int *child_stat_addrs[NUM_MAX_CHILD];
-    int threadsum;
-    int threadid[NUM_MAX_CHILD_THREADS];
-
-    /* kernel/user thread/process */
-    task_type_t type;
-
-    /* BLOCK | READY | RUNNING | ZOMBIE */
-    task_status_t status;
-    spawn_mode_t mode;
-
-    /* cursor position */
-    int cursor_x;
-    int cursor_y;
-
-    prior_t priority;
-
-    int locksum;
-    int lockid[NUM_MAX_LOCK];
-
-    int mboxsum;
-    int mboxid[NUM_MAX_MBOX];
-
-    int core_mask;
-    uint64_t pgdir;
-    int port;
-
-    /* time */
-    __kernel_time_t stime;
-    __kernel_time_t stime_last;     // last time into kernel
-    __kernel_time_t utime;
-    __kernel_time_t utime_last;     // last time out kernel
-    pcbtimer_t timer;
-} pcb_t;
-
-/* task information, used to init PCB */
-typedef struct task_info {
-    ptr_t entry_point;
-    task_type_t type;
-} task_info_t;
+typedef enum unblock_way {
+    UNBLOCK_TO_LIST_FRONT,
+    UNBLOCK_TO_LIST_BACK,
+    UNBLOCK_ONLY,
+    UNBLOCK_TO_LIST_STRATEGY,
+} unblock_way_t;
 
 typedef struct rusage {
 	__kernel_timeval_t ru_utime;	/* user time used */
@@ -155,6 +122,67 @@ typedef struct rusage {
 	__kernel_long_t	ru_nivcsw;	/* involuntary " */
 } rusage_t;
 
+/* Process Control Block */
+typedef struct pcb {
+    /* register context */
+    // this must be this order!! The order is defined in regs.h
+    reg_t kernel_sp;
+    reg_t user_sp;
+
+    /* previous, next pointer */
+    list_node_t list;
+    list_head wait_list;
+
+    regs_context_t *save_context;
+    switchto_context_t *switch_context;
+
+    bool in_use;
+    ELF_info_t elf;
+
+    /* process id */
+    pid_t pid;          // real offset of pcb[]
+    pid_t fpid;         // threads' fpid is process pid
+    pid_t tid;
+    uint32_t *clear_ctid;
+    pid_t father_pid;
+    pid_t child_pids[NUM_MAX_CHILD];
+    int child_num;
+    int *child_stat_addrs[NUM_MAX_CHILD];
+    int threadsum;
+    int thread_ids[NUM_MAX_CHILD_THREADS];
+
+    /* kernel/user thread/process */
+    task_type_t type;
+
+    /* BLOCK | READY | RUNNING | ZOMBIE */
+    task_status_t status;
+    int exit_status;
+
+    /* cursor position */
+    int cursor_x;
+    int cursor_y;
+
+    prior_t priority;
+
+    uint8_t core_mask[CPU_SET_SIZE];
+    
+    uint64_t pgdir;
+
+    int locksum;
+    int lock_ids[NUM_MAX_LOCK];
+
+    pcb_mbox_t mbox;
+
+    /* time */
+    __kernel_timeval_t stime_last;     // last time into kernel
+    __kernel_timeval_t utime_last;     // last time out kernel
+    pcbtimer_t timer;
+    __kernel_clock_t dead_child_stime;
+    __kernel_clock_t dead_child_utime;
+
+    rusage_t resources;
+} pcb_t;
+
 
 /* current running task PCB */
 extern pcb_t *volatile current_running0;
@@ -162,9 +190,6 @@ extern pcb_t *volatile current_running1;
 extern pcb_t **volatile current_running;
 /* ready queue to run */
 extern list_head ready_queue;
-// pcb_t * volatile (*current_running)[NR_CPUS];
-extern pid_t process_id;
-extern int allocpid;
 
 extern pcb_t pcb[NUM_MAX_TASK];
 // pcb_t kernel_pcb[NR_CPUS];
@@ -173,41 +198,31 @@ extern const ptr_t pid0_stack2;
 extern pcb_t pid0_pcb;
 extern pcb_t pid0_pcb2;
 
-extern int freepidnum;
-extern int nowpid;
-extern int glmask;
-extern int glvalid;
-
 extern pid_t freepid[NUM_MAX_TASK];
 
-pid_t nextpid();
-
-void init_pcb();
-int check_pcb(int cpuid);
-
-void switch_to(pcb_t *prev, pcb_t *next);
+void k_init_pcb();
+extern void switch_to(pcb_t *prev, pcb_t *next);
 long k_scheduler(void);
+void k_block(list_head *, list_head *queue, enqueue_way_t way);
+void k_unblock(list_head *, list_head *, unblock_way_t way);
+long k_getpid(void);
+
 long sys_sched_yield(void);
 long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp);
-void check_sleeping();
-
-void k_block(list_head *, list_head *queue);
-void k_unblock(list_head *, list_head *, int way);
-long k_taskset(int pid, int mask);
-
-long sys_spawn(task_info_t *task, void *arg, spawn_mode_t mode);
-long sys_fork(int prior);
-// long sys_execve(const char *filename, const char **argv, const char **envp);
-// long sys_clone(int (*fn)(void *), void *stack, int flags, void *arg, pid_t *parent_tid, void *tls, pid_t *child_tid);
+long sys_spawn(const char *file_name);
+long sys_fork(void);
+long sys_exec(const char *file_name, const char *argv[], const char *envp[]);
+long sys_execve(const char *file_name, const char *argv[], const char *envp[]);
+long sys_clone(unsigned long flags, void *stack, void *arg, pid_t *parent_tid, void *tls, pid_t *child_tid);
 long sys_kill(pid_t pid);
 long sys_exit(int error_code);
 long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru);
 long sys_process_show();
-long sys_exec(const char *file_name, int argc, char **argv);
-long sys_show_exec();
 long sys_setpriority(int which, int who, int niceval);
 long sys_getpriority(int which, int who);
 long sys_getpid(void);
 long sys_getppid(void);
-
-long sys_mthread_create(pid_t *thread, void (*start_routine)(void *), void *arg);
+long sys_sched_setaffinity(pid_t pid, unsigned int len,
+					const uint8_t *user_mask_ptr);
+long sys_sched_getaffinity(pid_t pid, unsigned int len,
+					uint8_t *user_mask_ptr);

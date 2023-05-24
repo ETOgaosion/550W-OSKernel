@@ -17,6 +17,7 @@
 int main() {
     int id = get_current_cpu_id();
     if (id == 1) {
+        (*current_running) = get_current_running();
         setup_exception();
         cancelpg(pa2kva(PGDIR_PA));
         sbi_set_timer(0);
@@ -27,7 +28,7 @@ int main() {
 
     // init Process Control Block (-_-!)
 
-    init_pcb();
+    k_init_pcb();
 
     // printk("> [INIT] PCB initialization succeeded.\n\r");
 
