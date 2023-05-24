@@ -53,13 +53,13 @@
 #define OFFSET_REG_SEPC 256
 #define OFFSET_REG_SBADADDR 264
 #define OFFSET_REG_SCAUSE 272
+#define OFFSET_REG_SSCRATCH 280
 
 /* Size of stack frame, word/double word alignment */
-#define OFFSET_SIZE 280
+#define OFFSET_SIZE 288
 
 #define PCB_KERNEL_SP 0
 #define PCB_USER_SP 8
-#define PCB_PREEMPT_COUNT 16
 
 /* offset in switch_to */
 #define SS(x,y) sd x,SWITCH_TO_##y##(t0)

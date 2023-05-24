@@ -9,6 +9,7 @@
 !Makefile
 !Makefile.in
 !Dockerfile
+!compile_commands.json
 
 !*.S
 !*.s
