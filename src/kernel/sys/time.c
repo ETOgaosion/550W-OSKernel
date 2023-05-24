@@ -15,9 +15,13 @@ long get_ticks() {
     return time_elapsed;
 }
 
-uint64_t get_timer() { return get_ticks() / time_base; }
+uint64_t get_timer() {
+    return get_ticks() / time_base;
+}
 
-uint64_t get_time_base() { return time_base; }
+uint64_t get_time_base() {
+    return time_base;
+}
 
 void nano_u_time_converter(nanotime_val_t *nanotime, time_val_t *utime, bool direction) {
     if (direction) {
@@ -35,6 +39,11 @@ void get_nanotime(nanotime_val_t *ntimebuf) {
     ntimebuf->nsec = ((ticks % time_base) * 1e9) / time_base;
 }
 
+uint64_t get_ticks_from_nanotime(nanotime_val_t *ntimebuf) {
+    uint64_t ticks = (ntimebuf->sec * 1e9 + ntimebuf->nsec) * 1e9 / time_base;
+    return ticks;
+}
+
 void copy_nanotime(nanotime_val_t *dst, nanotime_val_t *src) {
     dst->sec = src->sec;
     dst->nsec = src->nsec;
@@ -48,6 +57,12 @@ void minus_nanotime(nanotime_val_t *first, nanotime_val_t *sec, nanotime_val_t *
         res->sec = first->sec - sec->sec;
         res->nsec = first->nsec - sec->nsec;
     }
+}
+
+void add_nanotime(nanotime_val_t *first, nanotime_val_t *sec, nanotime_val_t *res) {
+    int nsec = first->nsec + sec->nsec;
+    res->nsec = nsec % (int)1e9;
+    res->sec = first->sec + sec->sec + nsec / (int)1e9;
 }
 
 int cmp_nanotime(nanotime_val_t *first, nanotime_val_t *sec) {
@@ -72,6 +87,11 @@ void get_utime(time_val_t *utimebuf) {
     utimebuf->usec = ((ticks % time_base) * 1e6) / time_base;
 }
 
+uint64_t get_ticks_from_time(time_val_t *ntimebuf) {
+    uint64_t ticks = (ntimebuf->sec * 1e6 + ntimebuf->usec) * 1e6 / time_base;
+    return ticks;
+}
+
 void copy_utime(time_val_t *dst, time_val_t *src) {
     dst->sec = src->sec;
     dst->usec = src->usec;
@@ -85,6 +105,12 @@ void minus_utime(time_val_t *first, time_val_t *sec, time_val_t *res) {
         res->sec = first->sec - sec->sec;
         res->usec = first->usec - sec->usec;
     }
+}
+
+void add_utime(time_val_t *first, time_val_t *sec, time_val_t *res) {
+    int usec = first->usec + sec->usec;
+    res->usec = usec % (int)1e6;
+    res->sec = first->sec + sec->sec + usec / (int)1e6;
 }
 
 int cmp_utime(time_val_t *first, time_val_t *sec) {
@@ -110,11 +136,16 @@ long sys_time(__kernel_time_t *tloc) {
 }
 
 long sys_times(tms_t *tbuf) {
-    tbuf->tms_stime = (*current_running)->stime;
-    tbuf->tms_utime = (*current_running)->utime;
+    tbuf->tms_stime = get_ticks_from_time(&(*current_running)->resources.ru_stime);
+    tbuf->tms_utime = get_ticks_from_time(&(*current_running)->resources.ru_utime);
+    tbuf->tms_cstime = (*current_running)->dead_child_stime;
+    tbuf->tms_cutime = (*current_running)->dead_child_utime;
     for (int i = 0; i < (*current_running)->child_num; i++) {
-        tbuf->tms_cstime += pcb[(*current_running)->child_pid[i]].stime;
-        tbuf->tms_cutime += pcb[(*current_running)->child_pid[i]].utime;
+        if ((*current_running)->child_pids[i] == 0) {
+            continue;
+        }
+        tbuf->tms_cstime += get_ticks_from_time(&pcb[(*current_running)->child_pids[i]].resources.ru_stime);
+        tbuf->tms_cutime += get_ticks_from_time(&pcb[(*current_running)->child_pids[i]].resources.ru_utime);
     }
     return get_ticks();
 }

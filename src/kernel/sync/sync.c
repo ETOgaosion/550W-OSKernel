@@ -1,3 +1,4 @@
+#include <lib/math.h>
 #include <lib/string.h>
 #include <os/lock.h>
 #include <os/pcb.h>
@@ -85,11 +86,11 @@ int k_commop(void *key_id, void *arg, int op) {
     case 7:
         return k_mbox_open((char *)key_id);
     case 8:
-        return k_mbox_close();
+        return k_mbox_close((char *)key_id);
     case 9:
-        return k_mbox_send(*key - 1, (mbox_arg_t *)arg);
+        return k_mbox_send(*key - 1, NULL, (mbox_arg_t *)arg);
     case 10:
-        return k_mbox_recv(*key - 1, (mbox_arg_t *)arg);
+        return k_mbox_recv(*key - 1, NULL, (mbox_arg_t *)arg);
     case 11:
         return k_mbox_try_send(*key - 1, (mbox_arg_t *)arg);
     case 12:
@@ -104,7 +105,7 @@ int k_commop(void *key_id, void *arg, int op) {
 int k_semaphore_init(int *key, int sem) {
     if (sem_first_time) {
         for (int i = 0; i < COMM_NUM; i++) {
-            sem_list[i] = (Semaphore_t *)kmalloc(sizeof(Semaphore_t));
+            sem_list[i] = (Semaphore_t *)k_malloc(sizeof(Semaphore_t));
             sem_list[i]->sem_info.initialized = 0;
         }
         sem_first_time = 0;
@@ -133,7 +134,7 @@ int k_semaphore_p(int key) {
     }
     sem_list[key]->sem--;
     if (sem_list[key]->sem < 0) {
-        k_block(&(*current_running)->list, &sem_list[key]->wait_queue);
+        k_block(&(*current_running)->list, &sem_list[key]->wait_queue, ENQUEUE_LIST);
         k_scheduler();
     }
     return 0;
@@ -154,7 +155,7 @@ int k_semaphore_destroy(int *key) {
     if (!sem_list[*key - 1]->sem_info.initialized) {
         return -1;
     }
-    memset(sem_list[*key - 1], 0, sizeof(sem_list[*key - 1]));
+    k_memset(sem_list[*key - 1], 0, sizeof(Semaphore_t *));
     *key = 0;
     return 0;
 }
@@ -162,7 +163,7 @@ int k_semaphore_destroy(int *key) {
 int k_cond_init(int *key) {
     if (cond_first_time) {
         for (int i = 0; i < COMM_NUM; i++) {
-            cond_list[i] = (cond_t *)kmalloc(sizeof(cond_t));
+            cond_list[i] = (cond_t *)k_malloc(sizeof(cond_t));
             cond_list[i]->cond_info.initialized = 0;
         }
         cond_first_time = 0;
@@ -190,7 +191,7 @@ int k_cond_wait(int key) {
         return -1;
     }
     cond_list[key]->num_wait++;
-    k_block(&(*current_running)->list, &cond_list[key]->wait_queue);
+    k_block(&(*current_running)->list, &cond_list[key]->wait_queue, ENQUEUE_LIST);
     k_scheduler();
     return 0;
 }
@@ -221,7 +222,7 @@ int k_cond_destroy(int *key) {
     if (!cond_list[*key - 1]->cond_info.initialized) {
         return -1;
     }
-    memset(cond_list[*key - 1], 0, sizeof(cond_list[*key]));
+    k_memset(cond_list[*key - 1], 0, sizeof(cond_t *));
     *key = 0;
     return 0;
 }
@@ -229,7 +230,7 @@ int k_cond_destroy(int *key) {
 int k_barrier_init(int *key, int total) {
     if (barrier_first_time) {
         for (int i = 0; i < COMM_NUM; i++) {
-            barrier_list[i] = (barrier_t *)kmalloc(sizeof(barrier_t));
+            barrier_list[i] = (barrier_t *)k_malloc(sizeof(barrier_t));
             barrier_list[i]->barrier_info.initialized = 0;
         }
         barrier_first_time = 0;
@@ -272,7 +273,7 @@ int k_barrier_destroy(int *key) {
         return -1;
     }
     k_cond_destroy(&barrier_list[*key - 1]->cond_id);
-    memset(barrier_list[*key - 1], 0, sizeof(barrier_list[*key - 1]));
+    k_memset(barrier_list[*key - 1], 0, sizeof(barrier_t *));
     *key = 0;
     return 0;
 }
@@ -281,7 +282,7 @@ int k_mbox_open(char *name) {
     int operator= sys_getpid();
     if (mbox_first_time) {
         for (int i = 0; i < COMM_NUM; i++) {
-            mbox_list[i] = (mbox_t *)kmalloc(sizeof(mbox_t));
+            mbox_list[i] = (mbox_t *)k_malloc(sizeof(mbox_t));
             mbox_list[i]->mailbox_info.initialized = 0;
         }
         mbox_first_time = 0;
@@ -290,9 +291,8 @@ int k_mbox_open(char *name) {
         return -2;
     }
     for (int i = 0; i < COMM_NUM; i++) {
-        if (mbox_list[i]->mailbox_info.initialized && strcmp(mbox_list[i]->name, name) == 0) {
+        if (mbox_list[i]->mailbox_info.initialized && k_strcmp(mbox_list[i]->name, name) == 0) {
             mbox_list[i]->cited_pid[mbox_list[i]->cited_num++] = operator;
-            pcb[operator-1].mboxid[pcb[operator-1].mboxsum++] = i + 1;
             return i + 1;
         }
     }
@@ -302,84 +302,92 @@ int k_mbox_open(char *name) {
     }
     mbox_list[mbox_i]->mailbox_info.id = mbox_i + 1;
     mbox_list[mbox_i]->mailbox_info.initialized = 1;
-    strcpy(mbox_list[mbox_i]->name, name);
-    memset(mbox_list[mbox_i]->buff, 0, sizeof(mbox_list[mbox_i]->buff));
-    mbox_list[mbox_i]->read_head = 0;
-    mbox_list[mbox_i]->write_tail = 0;
-    mbox_list[mbox_i]->used_units = 0;
-    mbox_list[mbox_i]->full_cond_id = 0;
-    mbox_list[mbox_i]->empty_cond_id = 0;
+    k_strcpy(mbox_list[mbox_i]->name, name);
+    // k_memset(mbox_list[mbox_i]->buff, 0, sizeof(mbox_list[mbox_i]->buff));
+    // mbox_list[mbox_i]->read_head = 0;
+    // mbox_list[mbox_i]->write_tail = 0;
+    // mbox_list[mbox_i]->used_units = 0;
+    // mbox_list[mbox_i]->full_cond_id = 0;
+    // mbox_list[mbox_i]->empty_cond_id = 0;
     k_cond_init(&mbox_list[mbox_i]->full_cond_id);
     k_cond_init(&mbox_list[mbox_i]->empty_cond_id);
-    memset(mbox_list[mbox_i]->cited_pid, 0, sizeof(mbox_list[mbox_i]->cited_pid));
-    mbox_list[mbox_i]->cited_num = 0;
+    // k_memset(mbox_list[mbox_i]->cited_pid, 0, sizeof(mbox_list[mbox_i]->cited_pid));
+    // mbox_list[mbox_i]->cited_num = 0;
     mbox_list[mbox_i]->cited_pid[mbox_list[mbox_i]->cited_num++] = operator;
-    pcb[operator-1].mboxid[pcb[operator-1].mboxsum++] = mbox_i + 1;
     return mbox_i + 1;
 }
 
-int k_mbox_close() {
+int k_mbox_close(int mbox_id) {
     int operator= sys_getpid();
-    for(int i = 0; i < pcb[operator-1].mboxsum; i++){
-        mbox_list[pcb[operator-1].mboxid[i] - 1]->cited_num--;
-        if(mbox_list[pcb[operator-1].mboxid[i] - 1]->cited_num == 0){
-            k_cond_destroy(&mbox_list[pcb[operator-1].mboxid[i] - 1]->full_cond_id);
-            k_cond_destroy(&mbox_list[pcb[operator-1].mboxid[i] - 1]->empty_cond_id);
-            memset(mbox_list[pcb[operator-1].mboxid[i] - 1],0,sizeof(mbox_list[pcb[operator-1].mboxid[i] - 1]));
+    mbox_t *target = mbox_list[mbox_id];
+    for (int i = 0; i < target->cited_num; i++) {
+        if (target->cited_pid[i] == operator) {
+            target->cited_pid[i] = 0;
         }
+    }
+    if (!target->cited_num) {
+        k_cond_destroy(&target->full_cond_id);
+        k_cond_destroy(&target->empty_cond_id);
+        k_memset((void *)target, 0, sizeof(mbox_t));
     }
     return 0;
 }
 
-int k_mbox_send(int key, mbox_arg_t *arg) {
-    if (!mbox_list[key]->mailbox_info.initialized) {
+int k_mbox_send(int key, mbox_t *target, mbox_arg_t *arg) {
+    if (!target) {
+        target = mbox_list[key];
+    }
+    if (!target->mailbox_info.initialized) {
         return -1;
     }
     if (arg->sleep_operation == 1 && k_mbox_try_send(key, arg) < 0) {
         return -2;
     }
     int blocked_time = 0;
-    while (arg->msg_length > MBOX_MSG_MAX_LEN - mbox_list[key]->used_units) {
+    while (arg->msg_length > MBOX_MSG_MAX_LEN - target->used_units) {
         blocked_time++;
-        k_cond_wait(mbox_list[key]->full_cond_id - 1);
+        k_cond_wait(target->full_cond_id - 1);
     }
-    int left_space = MBOX_MSG_MAX_LEN - (mbox_list[key]->write_tail + arg->msg_length);
+    int left_space = MBOX_MSG_MAX_LEN - (target->write_tail + arg->msg_length);
     if (left_space < 0) {
-        memcpy((uint8_t *)mbox_list[key]->buff + mbox_list[key]->write_tail, arg->msg, MBOX_MSG_MAX_LEN - mbox_list[key]->write_tail);
-        memcpy((uint8_t *)mbox_list[key]->buff, arg->msg + MBOX_MSG_MAX_LEN - mbox_list[key]->write_tail, -left_space);
-        mbox_list[key]->write_tail = -left_space;
+        k_memcpy((uint8_t *)target->buff + target->write_tail, arg->msg, MBOX_MSG_MAX_LEN - target->write_tail);
+        k_memcpy((uint8_t *)target->buff, arg->msg + MBOX_MSG_MAX_LEN - target->write_tail, -left_space);
+        target->write_tail = -left_space;
     } else {
-        memcpy((uint8_t *)mbox_list[key]->buff + mbox_list[key]->write_tail, arg->msg, arg->msg_length);
-        mbox_list[key]->write_tail += arg->msg_length;
+        k_memcpy((uint8_t *)target->buff + target->write_tail, arg->msg, arg->msg_length);
+        target->write_tail += arg->msg_length;
     }
-    mbox_list[key]->used_units += arg->msg_length;
-    k_cond_broadcast(mbox_list[key]->empty_cond_id - 1);
+    target->used_units += arg->msg_length;
+    k_cond_broadcast(target->empty_cond_id - 1);
     return blocked_time;
 }
 
-int k_mbox_recv(int key, mbox_arg_t *arg) {
-    if (!mbox_list[key]->mailbox_info.initialized) {
+int k_mbox_recv(int key, mbox_t *target, mbox_arg_t *arg) {
+    if (!target) {
+        target = mbox_list[key];
+    }
+    if (!target->mailbox_info.initialized) {
         return -1;
     }
     if (arg->sleep_operation == 1 && k_mbox_try_recv(key, arg) < 0) {
         return -2;
     }
     int blocked_time = 0;
-    while (arg->msg_length > mbox_list[key]->used_units) {
+    while (arg->msg_length > target->used_units) {
         blocked_time++;
-        k_cond_wait(mbox_list[key]->empty_cond_id - 1);
+        k_cond_wait(target->empty_cond_id - 1);
     }
-    int left_space = MBOX_MSG_MAX_LEN - (mbox_list[key]->read_head + arg->msg_length);
+    int left_space = MBOX_MSG_MAX_LEN - (target->read_head + arg->msg_length);
     if (left_space < 0) {
-        memcpy((uint8_t *)arg->msg, (const uint8_t *)mbox_list[key]->buff + mbox_list[key]->read_head, MBOX_MSG_MAX_LEN - mbox_list[key]->read_head);
-        memcpy((uint8_t *)arg->msg + MBOX_MSG_MAX_LEN - mbox_list[key]->read_head, (const uint8_t *)mbox_list[key]->buff, -left_space);
-        mbox_list[key]->read_head = -left_space;
+        k_memcpy((uint8_t *)arg->msg, (const uint8_t *)target->buff + target->read_head, MBOX_MSG_MAX_LEN - target->read_head);
+        k_memcpy((uint8_t *)arg->msg + MBOX_MSG_MAX_LEN - target->read_head, (const uint8_t *)target->buff, -left_space);
+        target->read_head = -left_space;
     } else {
-        memcpy((uint8_t *)arg->msg, (const uint8_t *)mbox_list[key]->buff + mbox_list[key]->read_head, arg->msg_length);
-        mbox_list[key]->read_head += arg->msg_length;
+        k_memcpy((uint8_t *)arg->msg, (const uint8_t *)target->buff + target->read_head, arg->msg_length);
+        target->read_head += arg->msg_length;
     }
-    mbox_list[key]->used_units -= arg->msg_length;
-    k_cond_broadcast(mbox_list[key]->full_cond_id - 1);
+    target->used_units -= arg->msg_length;
+    k_cond_broadcast(target->full_cond_id - 1);
     return blocked_time;
 }
 
@@ -401,4 +409,44 @@ int k_mbox_try_recv(int key, mbox_arg_t *arg) {
         return -2;
     }
     return 0;
+}
+
+void k_pcb_mbox_init(pcb_mbox_t *target, int owner_id) {
+    k_memset((void *)&(target), 0, sizeof(pcb_mbox_t));
+    target->pcb_i = owner_id;
+}
+
+int sys_mailread(void *buf, int len) {
+    pcb_mbox_t *target = &(*current_running)->mbox;
+    if (len == 0) {
+        if (target->used_units) {
+            return 0;
+        } else {
+            return -1;
+        }
+    } else if (len > PCB_MBOX_MSG_MAX_LEN) {
+        len = PCB_MBOX_MSG_MAX_LEN;
+    }
+    int str_len = k_strlen((const char *)target->buff[target->read_head]);
+    k_memcpy((uint8_t *)buf, (uint8_t *)target->buff[target->read_head], k_min(len, str_len));
+    target->read_head = (target->read_head + 1) % PCB_MBOX_MAX_MSG_NUM;
+    target->used_units--;
+    return len;
+}
+
+int sys_mailwrite(int pid, void *buf, int len) {
+    pcb_mbox_t *target = &(*current_running)->mbox;
+    if (len == 0) {
+        if (target->used_units == PCB_MBOX_MAX_MSG_NUM) {
+            return -1;
+        } else {
+            return 0;
+        }
+    } else if (len > PCB_MBOX_MSG_MAX_LEN) {
+        len = PCB_MBOX_MSG_MAX_LEN;
+    }
+    k_memcpy((uint8_t *)target->buff[target->write_head], (uint8_t *)buf, len);
+    target->write_head = (target->write_head + 1) % PCB_MBOX_MAX_MSG_NUM;
+    target->used_units++;
+    return len;
 }

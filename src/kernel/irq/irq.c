@@ -36,6 +36,9 @@ void init_syscall(void) {
     // syscall[SYS_read] = (long (*)())sys_read;
     // syscall[SYS_write] = (long (*)())sys_write;
     // syscall[SYS_fstat] = (long (*)())sys_fstat;
+    // syscall[SYS_munmap] = (long (*)())sys_munmap;
+    // syscall[SYS_mremap] = (long (*)())sys_mremap;
+    // syscall[SYS_mmap] = (long (*)())sys_mmap;
     // Terminal
     syscall[SYS_uname] = (long (*)())sys_uname;
     // Functions
@@ -43,12 +46,12 @@ void init_syscall(void) {
     syscall[SYS_times] = (long (*)())sys_times;
     syscall[SYS_time] = (long (*)())sys_time;
     syscall[SYS_gettimeofday] = (long (*)())sys_gettimeofday;
-    // syscall[SYS_mailread] = (long (*)())sys_mailread;
-    // syscall[SYS_mailwrite] = (long (*)())sys_mailwrite;
+    syscall[SYS_mailread] = (long (*)())sys_mailread;
+    syscall[SYS_mailwrite] = (long (*)())sys_mailwrite;
     // Process & Threads
     syscall[SYS_exit] = (long (*)())sys_exit;
-    // syscall[SYS_clone] = (long (*)())sys_clone;
-    // syscall[SYS_execve] = (long (*)())sys_execve;
+    syscall[SYS_clone] = (long (*)())sys_clone;
+    syscall[SYS_execve] = (long (*)())sys_execve;
     syscall[SYS_wait4] = (long (*)())sys_wait4;
     syscall[SYS_spawn] = (long (*)())sys_spawn;
     syscall[SYS_sched_yield] = (long (*)())sys_sched_yield;
@@ -56,10 +59,10 @@ void init_syscall(void) {
     syscall[SYS_get_mempolicy] = (long (*)())sys_getpriority;
     syscall[SYS_getpid] = (long (*)())sys_getpid;
     syscall[SYS_getppid] = (long (*)())sys_getppid;
+    syscall[SYS_sched_setaffinity] = (long (*)())sys_sched_setaffinity;
+
     // Memory
-    // syscall[SYS_brk] = (long (*)())sys_brk;
-    // syscall[SYS_munmap] = (long (*)())sys_munmap;
-    // syscall[SYS_mmap] = (long (*)())sys_mmap;
+    syscall[SYS_brk] = (long (*)())sys_brk;
 }
 
 void reset_irq_timer() {
@@ -74,9 +77,12 @@ void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint
     lock_kernel();
     // call corresponding handler by the value of `cause`
     (*current_running) = get_current_running();
-    long ticks = get_ticks();
-    (*current_running)->utime += (ticks - (*current_running)->utime_last);
-    (*current_running)->stime_last = ticks;
+    time_val_t now;
+    get_utime(&now);
+    time_val_t last_run;
+    minus_utime(&now, &(*current_running)->utime_last, &last_run);
+    add_utime(&last_run, &(*current_running)->resources.ru_utime, &(*current_running)->resources.ru_utime);
+    copy_utime(&now, &(*current_running)->stime_last);
     uint64_t check = cause;
     // if(check>>63 && check%16!=5)
     //{
@@ -88,36 +94,41 @@ void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint
     } else {
         exc_table[cause](regs, stval, cause, cpuid);
     }
-    ticks = get_ticks();
-    (*current_running)->utime_last = ticks;
-    (*current_running)->stime += (ticks - (*current_running)->stime_last);
+    get_utime(&now);
+    copy_utime(&now, &(*current_running)->utime_last);
+    minus_utime(&now, &(*current_running)->stime_last, &last_run);
+    add_utime(&last_run, &(*current_running)->resources.ru_stime, &(*current_running)->resources.ru_stime);
     unlock_kernel();
 }
 
-void handle_int(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) { reset_irq_timer(); }
+void handle_int(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
+    reset_irq_timer();
+}
 
 PTE *check_pf(uint64_t va, PTE *pgdir) {
     va &= VA_MASK;
     uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
     uint64_t vpn1 = (vpn2 << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT + PPN_BITS));
     uint64_t vpn0 = ((va >> (NORMAL_PAGE_SHIFT + PPN_BITS)) << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT));
-    if (pgdir[vpn2] == 0)
+    if (pgdir[vpn2] == 0) {
         return 0;
+    }
     PTE *pmd = get_kva(pgdir[vpn2]);
-    if (pmd[vpn1] == 0)
+    if (pmd[vpn1] == 0) {
         return 0;
+    }
     PTE *pld = get_kva(pmd[vpn1]);
-    if (pld[vpn0] == 0)
+    if (pld[vpn0] == 0) {
         return 0;
+    }
     return &pld[vpn0];
 }
 
 void handle_disk(uint64_t stval, PTE *pte_addr) {
     pcb_t *cur = *current_running;
-    allocpid = cur->pid;
-    uint64_t newmem_addr = allocmem(1, stval);
+    uint64_t newmem_addr = k_alloc_mem(1, stval);
     map(stval, kva2pa(newmem_addr), (pa2kva(cur->pgdir << 12)));
-    getbackdisk(stval, newmem_addr);
+    k_get_back_disk(stval, newmem_addr);
     (*pte_addr) = (*pte_addr) | 1;
 }
 
@@ -129,26 +140,25 @@ void handle_pf(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cp
         PTE va_pte = *pte_addr;
         if (cause == EXCC_STORE_PAGE_FAULT) {
             // child process
-            allocpid = cur->pid;
             if (cur->father_pid != cur->pid) {
                 fork_page_helper(stval, (pa2kva(cur->pgdir << 12)), (pa2kva(pcb[cur->father_pid].pgdir << 12)));
             } else {
                 // father process
                 for (int i = 0; i < cur->child_num; i++) {
-                    fork_page_helper(stval, (pa2kva(pcb[cur->child_pid[i]].pgdir << 12)), (pa2kva(cur->pgdir << 12)));
+                    fork_page_helper(stval, (pa2kva(pcb[cur->child_pids[i]].pgdir << 12)), (pa2kva(cur->pgdir << 12)));
                 }
             }
             *pte_addr = (*pte_addr) | (3 << 6);
             *pte_addr = (*pte_addr) | ((uint64_t)1 << 2);
-        } else if (cause == EXCC_INST_PAGE_FAULT)
+        } else if (cause == EXCC_INST_PAGE_FAULT) {
             *pte_addr = (*pte_addr) | (3 << 6);
-        else if ((((va_pte >> 6) & 1) == 0) && (cause == EXCC_LOAD_PAGE_FAULT))
+        } else if ((((va_pte >> 6) & 1) == 0) && (cause == EXCC_LOAD_PAGE_FAULT)) {
             *pte_addr = (*pte_addr) | ((uint64_t)1 << 6);
-        else if ((va_pte & 1) == 0) // physical frame was on disk
+        } else if ((va_pte & 1) == 0) { // physical frame was on disk
             handle_disk(stval, pte_addr);
+        }
     } else { // No virtual-physical map
-        allocpid = cur->pid;
-        alloc_page_helper(stval, (pa2kva(cur->pgdir << 12)));
+        k_alloc_page_helper(stval, (pa2kva(cur->pgdir << 12)));
         local_flush_tlb_all();
     }
 }

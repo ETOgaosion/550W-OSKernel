@@ -115,6 +115,8 @@ extern int nowfid;
 extern int freefid[20];
 extern int freenum;
 
+int try_get_from_file(const char *file_name, unsigned char **binary, int *length);
+
 void init_fs();
 int k_mkfs(int func);
 long sys_getcwd(const char *buf, unsigned long size);
@@ -125,11 +127,18 @@ long sys_unlinkat(int dfd, const char *pathname, int flag);
 long sys_linkat(int olddfd, const char *oldname, int newdfd, const char *newname, int flags);
 long sys_umount2(const char *name, int flags);
 long sys_mount(const char *dev_name, const char *dir_name, const char *type, unsigned long flags, void *data);
-long sys_chdir(const char *filename);
-long sys_openat(int dfd, const char *filename, int flags, umode_t mode);
+long sys_chdir(const char *file_name);
+long sys_openat(int dfd, const char *file_name, int flags, umode_t mode);
 long sys_close(unsigned long fd);
 long sys_pipe2(int *fildes, int flags);
 long sys_getdents64(unsigned int fd, dirent64_t *dirent, unsigned int count);
 long sys_read(unsigned int fd, char *buf, size_t count);
 long sys_write(unsigned int fd, const char *buf, size_t count);
 long sys_fstat(unsigned int fd, kstat_t *statbuf);
+
+void *sys_mmap(void *addr, size_t length, int prot, int flags,
+                  int fd, off_t offset);
+long sys_munmap(unsigned long addr, size_t len);
+long sys_mremap(unsigned long addr,
+			   unsigned long old_len, unsigned long new_len,
+			   unsigned long flags, unsigned long new_addr);

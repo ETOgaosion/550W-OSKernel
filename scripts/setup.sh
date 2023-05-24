@@ -21,9 +21,11 @@ echo "REPO = $REPO"
 echo "RISCV_DIR = $RISCV_DIR"
 echo "QEMU_DIR = $QEMU_DIR"
 echo "=== Install dependencies ==="
+wget https://apt.llvm.org/llvm-snapshot.gpg.key
 if [[ "$use_sudo_opt" = "y" ]]
 then
-    sudo apt update && \
+    sudo apt-key add llvm-snapshot.gpg.key
+    sudo add-apt-repository 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal main'
     sudo apt install -y apt-transport-https ca-certificates && \
     sudo update-ca-certificates
     sudo sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
@@ -33,14 +35,15 @@ then
         gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu \
         libpixman-1-0 git python3 python3-pip make curl \
         sshpass openssh-client clang-10 libtinfo5 libc6-dev-i386 \
-        libncurses5 libpython2.7 libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
+        libncurses5 libpython2.7 libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev clang-format-17
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
     sudo apt-get install git-lfs
     git lfs install
     pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
     pip3 install pytz Cython jwt jinja2 requests
 else
-    apt update && \
+    sudo apt-key add llvm-snapshot.gpg.key
+    sudo add-apt-repository 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal main'
     apt install -y apt-transport-https ca-certificates && \
     update-ca-certificates
     sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
@@ -50,13 +53,14 @@ else
         gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu \
         libpixman-1-0 git python3 python3-pip make curl \
         sshpass openssh-client clang-10 libtinfo5 libc6-dev-i386 \
-        libncurses5 libpython2.7 libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
+        libncurses5 libpython2.7 libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev clang-format-17
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
     apt-get install git-lfs
     git lfs install
     pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
     pip3 install pytz Cython jwt jinja2 requests
 fi
+rm llvm-snapshot.gpg.key
 
 echo "=== Clone Repository ==="
 test -d env || mkdir env

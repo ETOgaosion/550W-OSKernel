@@ -119,6 +119,15 @@ typedef struct elf64_phdr
     Elf64_Xword p_align;  /* Segment alignment, file & memory */
 } Elf64_Phdr;
 
+typedef struct ELF_info{
+    uint64_t text_begin;
+    uint64_t phoff;
+    uint64_t phent;
+    uint64_t phnum;
+    uint64_t entry;
+    uint64_t edata;
+} ELF_info_t;
+
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 static inline int is_elf_format(unsigned char *binary)
@@ -169,7 +178,7 @@ static inline uintptr_t load_elf(
                     unsigned char *bytes_of_page =
                         (unsigned char *)prepare_page_for_va(
                             (uintptr_t)(phdr->p_vaddr + i), pgdir);
-                    memcpy(
+                    k_memcpy(
                         bytes_of_page,
                         elf_binary + phdr->p_offset + i,
                         MIN(phdr->p_filesz - i, NORMAL_PAGE_SIZE));
