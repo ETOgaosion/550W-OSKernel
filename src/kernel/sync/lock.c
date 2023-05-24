@@ -6,16 +6,22 @@
 int first_time = 1;
 mutex_lock_t *locks[LOCK_NUM];
 
-void spin_lock_init(spin_lock_t *lock) { lock->flag = UNLOCKED; }
+void spin_lock_init(spin_lock_t *lock) {
+    lock->flag = UNLOCKED;
+}
 
-int spin_lock_try_acquire(spin_lock_t *lock) { return atomic_swap_d(LOCKED, (ptr_t)&lock->flag); }
+int spin_lock_try_acquire(spin_lock_t *lock) {
+    return atomic_swap_d(LOCKED, (ptr_t)&lock->flag);
+}
 
 void spin_lock_acquire(spin_lock_t *lock) {
     while (spin_lock_try_acquire(lock) == LOCKED)
         ;
 }
 
-void spin_lock_release(spin_lock_t *lock) { lock->flag = UNLOCKED; }
+void spin_lock_release(spin_lock_t *lock) {
+    lock->flag = UNLOCKED;
+}
 
 long k_mutex_lock_op(int *key, int op) {
     if (op == 0) {
@@ -44,7 +50,7 @@ static inline int find_lock() {
 long k_mutex_lock_init(int *key) {
     if (first_time) {
         for (int i = 0; i < LOCK_NUM; i++) {
-            locks[i] = (mutex_lock_t *)kmalloc(sizeof(mutex_lock_t));
+            locks[i] = (mutex_lock_t *)k_malloc(sizeof(mutex_lock_t));
             locks[i]->initialized = 0;
         }
         first_time = 0;
@@ -78,10 +84,10 @@ long k_mutex_lock_acquire(int key) {
     if (locks[key]->lock.flag == 0) {
         locks[key]->lock.flag = 1;
         locks[key]->lock.guard = 0;
-        (*current_running)->lockid[(*current_running)->locksum++] = key + 1;
+        (*current_running)->lock_ids[(*current_running)->locksum++] = key + 1;
         return locks[key]->lock_id;
     } else {
-        k_block(&(*current_running)->list, &locks[key]->block_queue);
+        k_block(&(*current_running)->list, &locks[key]->block_queue, ENQUEUE_LIST);
         locks[key]->lock.guard = 0;
         k_scheduler();
         return -2;
@@ -93,7 +99,7 @@ long k_mutex_lock_release(int key) {
         return -1;
     }
     if ((*current_running)->locksum) {
-        (*current_running)->lockid[--(*current_running)->locksum] = 0;
+        (*current_running)->lock_ids[--(*current_running)->locksum] = 0;
     }
     while (atomic_cmpxchg(UNGUARDED, GUARDED, (ptr_t) & (locks[key]->lock.guard)) == GUARDED) {
         ;
@@ -112,9 +118,9 @@ long k_mutex_lock_destroy(int *key) {
         return -1;
     }
     while ((*current_running)->locksum) {
-        (*current_running)->lockid[--(*current_running)->locksum] = 0;
+        (*current_running)->lock_ids[--(*current_running)->locksum] = 0;
     }
-    memset(locks[*key - 1], 0, sizeof(locks[*key]));
+    k_memset(locks[*key - 1], 0, sizeof(mutex_lock_t *));
     *key = 0;
     return 0;
 }

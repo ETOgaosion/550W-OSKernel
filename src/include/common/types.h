@@ -71,6 +71,7 @@ typedef __u32 u32;
 typedef int64_t s64;
 typedef uint64_t u64;
 
+typedef uint8_t byte_size_t;
 
 #ifndef __kernel_long_t
 typedef long		__kernel_long_t;
@@ -146,7 +147,7 @@ typedef __kernel_long_t	__kernel_time_t;
 typedef long long __kernel_time64_t;
 typedef __kernel_long_t	__kernel_clock_t;
 typedef int		__kernel_timer_t;
-typedef int		__kernel_clockid_t;
+typedef int		__kernel_clock_ids_t;
 typedef char *		__kernel_caddr_t;
 typedef unsigned short	__kernel_uid16_t;
 typedef unsigned short	__kernel_gid16_t;

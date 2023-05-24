@@ -12,10 +12,11 @@ AlignTrailingComments: true
 AllowAllArgumentsOnNextLine: true
 AllowAllConstructorInitializersOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
-AllowShortBlocksOnASingleLine: Never
+AllowShortBlocksOnASingleLine: Empty
 AllowShortCaseLabelsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: All
-AllowShortLambdasOnASingleLine: All
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLoopsOnASingleLine: false
 AlwaysBreakAfterDefinitionReturnType: None
@@ -84,6 +85,7 @@ IndentGotoLabels: true
 IndentPPDirectives: None
 IndentWidth:     4
 IndentWrappedFunctionNames: false
+InsertBraces: true
 JavaScriptQuotes: Leave
 JavaScriptWrapImports: true
 KeepEmptyLinesAtTheStartOfBlocks: true

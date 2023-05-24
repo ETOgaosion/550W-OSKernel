@@ -19,6 +19,7 @@
 _save_context:
   sd sp, PCB_USER_SP(tp)
   ld sp, PCB_KERNEL_SP(tp)
+  csrrw tp, CSR_SSCRATCH, tp
   addi sp, sp, SWITCH_TO_SIZE
 
   /* TODO: save all general purpose registers here! */
@@ -58,6 +59,8 @@ _save_context:
   SAVE(a0,SEPC)
   csrr a0, CSR_SCAUSE
   SAVE(a0,SCAUSE)
+  csrr a0, CSR_SSCRATCH
+  SAVE(a0,SSCRATCH)
   ld a0, PCB_USER_SP(tp)
   SAVE(a0,SP)
   /*
@@ -70,11 +73,20 @@ _save_context:
   li t0, SR_SUM | SR_FS
   //addi sp, sp, -(SWITCH_TO_SIZE)
   /* TODO: save sstatus, sepc, stval, scause and sscratch on user stack */
+  csrrw tp, CSR_SSCRATCH, tp
+  ld sp, PCB_KERNEL_SP(tp)
 .endm
 
 .macro RESTORE_CONTEXT
   ld sp, PCB_KERNEL_SP(tp)
   addi sp, sp, SWITCH_TO_SIZE
+  LOAD(s0,SSTATUS)
+  csrw CSR_SSTATUS, s0
+  LOAD(s0,SEPC)
+  csrw CSR_SEPC, s0
+  LOAD(s0, SSCRATCH)
+  csrw CSR_SSCRATCH, s0
+  csrrw tp, CSR_SSCRATCH, tp
   LOAD(ra,RA)
   LOAD(gp,GP)
   LOAD(tp,TP)
@@ -105,10 +117,6 @@ _save_context:
   LOAD(t4,T4)
   LOAD(t5,T5)
   LOAD(t6,T6)
-  LOAD(s0,SSTATUS)
-  csrw CSR_SSTATUS, s0
-  LOAD(s0,SEPC)
-  csrw CSR_SEPC, s0
   LOAD(s0,S0)
   LOAD(sp,SP)
   fence
@@ -121,26 +129,9 @@ _save_context:
 
 ENTRY(enable_preempt)
   jr ra
-  ld t1, current_running0
-  ld t0, PCB_PREEMPT_COUNT(t1)
-  beq t0, zero, do_enable
-  addi t0, t0, -1
-  sd t0, PCB_PREEMPT_COUNT(t1)
-  beq t0, zero, do_enable
-  jr ra
-do_enable:
-  not t0, x0
-  csrs CSR_SIE, t0
-  jr ra
 ENDPROC(enable_preempt)
 
 ENTRY(disable_preempt)
-  jr ra
-  csrw CSR_SIE, zero
-  ld t1, current_running0
-  ld t0, PCB_PREEMPT_COUNT(t1)
-  addi t0, t0, 1
-  sd t0, PCB_PREEMPT_COUNT(t1)
   jr ra
 ENDPROC(disable_preempt)
 

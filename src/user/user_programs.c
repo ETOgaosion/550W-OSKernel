@@ -2284,7 +2284,7 @@ int _length___test_test_all_elf = 61944;
 ElfFile elf_files[8] = {{.file_name = "shell", .file_content = _elf___test_test_shell_elf, .file_length = &_length___test_test_shell_elf}, {.file_name = "fs", .file_content = _elf___test_test_fs_elf, .file_length = &_length___test_test_fs_elf}, {.file_name = "bigfile", .file_content = _elf___test_test_bigfile_elf, .file_length = &_length___test_test_bigfile_elf}, {.file_name = "emo", .file_content = _elf___test_emo_elf, .file_length = &_length___test_emo_elf}, {.file_name = "multi", .file_content = _elf___test_test_multi_elf, .file_length = &_length___test_test_multi_elf}, {.file_name = "check", .file_content = _elf___test_check_elf, .file_length = &_length___test_check_elf}, {.file_name = "fly", .file_content = _elf___test_fly_elf, .file_length = &_length___test_fly_elf}, {.file_name = "all", .file_content = _elf___test_test_all_elf, .file_length = &_length___test_test_all_elf}};
 int get_elf_file(const char *file_name, unsigned char **binary, int *length) {
     for (int i = 0; i < 8; ++i) {
-        if (strcmp(elf_files[i].file_name, file_name) == 0) {
+        if (k_strcmp(elf_files[i].file_name, file_name) == 0) {
             *binary = elf_files[i].file_content;
             *length = *elf_files[i].file_length;
             return 1;
