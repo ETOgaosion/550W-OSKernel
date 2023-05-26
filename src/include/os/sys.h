@@ -1,7 +1,6 @@
 #pragma once
 
-typedef struct uname
-{
+typedef struct uname {
     char sysname[65];
     char nodename[65];
     char release[65];

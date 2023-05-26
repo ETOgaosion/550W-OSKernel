@@ -1,5 +1,5 @@
 #include <asm/common.h>
-#include <drivers/screen.h>
+#include <drivers/screen/screen.h>
 #include <lib/stdio.h>
 #include <lib/string.h>
 #include <os/irq.h>

@@ -57,6 +57,18 @@
 #define SIE_STIE (0x1 << IRQ_S_TIMER)
 #define SIE_SEIE (0x1 << IRQ_S_EXT)
 
+#define SSTATUS_UIE (1 << 0)
+#define SSTATUS_SIE (1 << 1)
+#define SSTATUS_UPIE (1 << 4)
+#define SSTATUS_SPIE (1 << 5)
+#define SSTATUS_SPP (1 << 8)
+#define SSTATUS_FS (3 << 13)
+#define SSTATUS_XS (3 << 15)
+#define SSTATUS_SUM (1 << 18)
+#define SSTATUS_MXR (1 << 19)
+#define SSTATUS_UXL (3 << 34)
+#define SSTATUS_SD (1 << 63)
+
 #define CSR_CYCLE 0xc00
 #define CSR_TIME 0xc01
 #define CSR_INSTRET 0xc02

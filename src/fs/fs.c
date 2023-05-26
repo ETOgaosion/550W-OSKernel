@@ -132,7 +132,7 @@ long sys_fclose(int fid) {
 }
 
 int alloc_inode() {
-    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR+iab_map_addr_offset),1,
+    // // sbi_sd_read(kva2pa(FS_KERNEL_ADDR+iab_map_addr_offset),1,
     //    superblock.imap_sec_offset+superblock.fs_start_sec);
     uint64_t *imap = (uint64_t *)(FS_KERNEL_ADDR + iab_map_addr_offset);
     int id = 0;
@@ -151,9 +151,9 @@ int alloc_inode() {
             id++;
         }
     }
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + iab_map_addr_offset), 1, superblock.imap_sec_offset + superblock.fs_start_sec);
-    sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb_sec_offset);
-    sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb2_sec_offset);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + iab_map_addr_offset), 1, superblock.imap_sec_offset + superblock.fs_start_sec);
+    // sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb_sec_offset);
+    // sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb2_sec_offset);
     return inodeid;
 }
 
@@ -173,10 +173,10 @@ int alloc_block(inode_t *inode) {
         }
     }
     inode->sec_size += 8;
-    sbi_sd_write(kva2pa(empty_block), 8, superblock.data_sec_offset + superblock.fs_start_sec + sectorid);
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + sec_map_addr_offset), superblock.smap_sec_size, superblock.smap_sec_offset + superblock.fs_start_sec);
-    sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb_sec_offset);
-    sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb2_sec_offset);
+    // sbi_sd_write(kva2pa(empty_block), 8, superblock.data_sec_offset + superblock.fs_start_sec + sectorid);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + sec_map_addr_offset), superblock.smap_sec_size, superblock.smap_sec_offset + superblock.fs_start_sec);
+    // sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb_sec_offset);
+    // sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb2_sec_offset);
     return sectorid;
 }
 
@@ -204,7 +204,7 @@ int look_up_1dir(char *name) {
     inode += dir->inode_id;
     dinodeid = dir->inode_id;
     if (inode->mode == 0) {
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), inode->sec_size, superblock.data_sec_offset + superblock.fs_start_sec + inode->direct_block_pointers[0]);
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), inode->sec_size, superblock.data_sec_offset + superblock.fs_start_sec + inode->direct_block_pointers[0]);
     }
     return dinodeid;
 }
@@ -217,7 +217,7 @@ int look_up_dir(const char *buff) {
     int inodeid = nowinodeid;
     int num = k_strlen(buff);
 
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     inode_t *inode = &nowinode;
 
     while (i < num) {
@@ -256,7 +256,7 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
                 inode->direct_block_pointers[point_num] = alloc_block(inode);
             }
         }
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->direct_block_pointers[point_num]);
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->direct_block_pointers[point_num]);
         final_offset = inode->direct_block_pointers[point_num];
     } else if (rpos_block < 1024 * 3 + 11) {
         int point2_num = (rpos_block - 11) / 1024;
@@ -269,7 +269,7 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
                 inode->indirect_block_pointers[point2_num] = alloc_block(inode);
             }
         }
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->indirect_block_pointers[point2_num]);
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->indirect_block_pointers[point2_num]);
         int *p = (int *)(FS_KERNEL_ADDR + dir_addr_offset);
         p += point1_num;
 
@@ -278,10 +278,10 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
                 return -1;
             } else if (mode == 1) {
                 *p = alloc_block(inode);
-                sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->indirect_block_pointers[point2_num]);
+                // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->indirect_block_pointers[point2_num]);
             }
         }
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + (*p));
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + (*p));
         final_offset = *p;
     } else if (rpos_block < 2 * 1024 * 1024 + 1024 * 3 + 11) {
         int point3_num = (rpos_block - 11 - 1024 * 3) / (1024 * 1024);
@@ -295,7 +295,7 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
                 inode->double_block_pointers[point3_num] = alloc_block(inode);
             }
         }
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->double_block_pointers[point3_num]);
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->double_block_pointers[point3_num]);
         int *p = (int *)(FS_KERNEL_ADDR + dir_addr_offset);
         p += point2_num;
 
@@ -304,12 +304,12 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
                 return -1;
             } else if (mode == 1) {
                 *p = alloc_block(inode);
-                sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->double_block_pointers[point3_num]);
+                // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->double_block_pointers[point3_num]);
             }
         }
 
-        int of2 = *p;
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of2);
+        // int of2 = *p;
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of2);
         p = (int *)(FS_KERNEL_ADDR + dir_addr_offset);
         p += point1_num;
 
@@ -318,11 +318,11 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
                 return -1;
             } else if (mode == 1) {
                 *p = alloc_block(inode);
-                sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of2);
+                // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of2);
             }
         }
 
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + *p);
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + *p);
         final_offset = *p;
     } else if (rpos_block < 1024 * 1024 * 1024 + 2 * 1024 * 1024 + 1024 * 3 + 11) {
         int point3_num = (rpos_block - 11 - 1024 * 3 - 2 * 1024 * 1024) / (1024 * 1024);
@@ -336,7 +336,7 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
                 inode->trible_block_pointers = alloc_block(inode);
             }
         }
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->trible_block_pointers);
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->trible_block_pointers);
         int *p = (int *)(FS_KERNEL_ADDR + dir_addr_offset);
         p += point3_num;
 
@@ -345,12 +345,12 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
                 return -1;
             } else if (mode == 1) {
                 *p = alloc_block(inode);
-                sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->trible_block_pointers);
+                // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->trible_block_pointers);
             }
         }
 
-        int of2 = *p;
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of2);
+        // int of2 = *p;
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of2);
         p = (int *)(FS_KERNEL_ADDR + dir_addr_offset);
         p += point2_num;
 
@@ -359,12 +359,12 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
                 return -1;
             } else if (mode == 1) {
                 *p = alloc_block(inode);
-                sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of2);
+                // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of2);
             }
         }
 
-        int of1 = *p;
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of1);
+        // int of1 = *p;
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of1);
         p = (int *)(FS_KERNEL_ADDR + dir_addr_offset);
         p += point1_num;
 
@@ -373,10 +373,10 @@ int seek_pos(int rpos_block, int rpos_offset, inode_t *inode, int mode) {
                 return -1;
             } else if (mode == 1) {
                 *p = alloc_block(inode);
-                sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of1);
+                // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + of1);
             }
         }
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + *p);
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + *p);
         final_offset = *p;
     }
     return final_offset;
@@ -401,11 +401,11 @@ void init_file(int inodeid) {
 
     // no write, no need for data block
 
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.fs_start_sec + superblock.inode_sec_offset);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.fs_start_sec + superblock.inode_sec_offset);
 }
 
 long sys_touch(const char *name) {
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
     while (!(dir->last)) {
         if (k_strcmp(dir->name, name) == 0) {
@@ -424,13 +424,13 @@ long sys_touch(const char *name) {
     dir->last = 1;
     k_strcpy(dir->name, name);
 
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     return 1;
 }
 
 long sys_fopen(const char *name, int access) {
     int flag = 0;
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
     while (!(dir->last)) {
         if (k_strcmp(dir->name, name) == 0 && dir->mode == 1) {
@@ -559,7 +559,7 @@ long sys_fwrite(int fid, char *buff, int size) {
     char *dest;
     while (nowsize < size) {
         int offset = rpos_offset;
-        int data_off = seek_pos(rpos_block, rpos_offset, inode, 1);
+        // int data_off = seek_pos(rpos_block, rpos_offset, inode, 1);
         dest = (char *)(FS_KERNEL_ADDR + data_addr_offset + offset);
         while (rpos_offset < 512 * 8 && nowsize < size) {
             *(dest++) = *(buff++);
@@ -570,12 +570,12 @@ long sys_fwrite(int fid, char *buff, int size) {
             rpos_offset = rpos_offset % (512 * 8);
             rpos_block++;
         }
-        sbi_sd_write(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + data_off);
+        // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + data_off);
     }
     fd[fid].pos_block = rpos_block;
     fd[fid].pos_offset = rpos_offset;
 
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.fs_start_sec + superblock.inode_sec_offset);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.fs_start_sec + superblock.inode_sec_offset);
     return nowsize;
 }
 
@@ -598,12 +598,12 @@ void init_dir(int inodeid) {
     k_strcpy(dentry->name, "..");
     dentry->last = 1;
 
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.fs_start_sec + superblock.inode_sec_offset);
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 1, superblock.fs_start_sec + superblock.data_sec_offset + block_sec_offset);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.fs_start_sec + superblock.inode_sec_offset);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 1, superblock.fs_start_sec + superblock.data_sec_offset + block_sec_offset);
 }
 
 long sys_mkdir(const char *name) {
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
     while (!(dir->last)) {
         if (k_strcmp(dir->name, name) == 0) {
@@ -621,14 +621,14 @@ long sys_mkdir(const char *name) {
     dir->mode = 0;
     dir->last = 1;
     k_strcpy(dir->name, name);
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     return 1;
 }
 
 // extern vt100_clear();
 long sys_ln(const char *name, char *path) {
     // vt100_clear();
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir2_addr_offset);
     while (!(dir->last)) {
         if (k_strcmp(dir->name, name) == 0) {
@@ -657,13 +657,13 @@ long sys_ln(const char *name, char *path) {
     dir->last = 1;
     k_strcpy(dir->name, name);
 
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     return 1;
 }
 
 long sys_rmdir(const char *name) {
     int flag = 0;
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
     int dinode;
     while (!(dir->last)) {
@@ -707,7 +707,7 @@ long sys_rmdir(const char *name) {
     int off = dinode % 64;
     imap[id] &= ~(((uint64_t)1) << off);
 
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + iab_map_addr_offset), 1, superblock.imap_sec_offset + superblock.fs_start_sec);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + iab_map_addr_offset), 1, superblock.imap_sec_offset + superblock.fs_start_sec);
 
     inode_t *inode = (inode_t *)(FS_KERNEL_ADDR + inode_addr_offset);
     inode += dinode;
@@ -722,8 +722,8 @@ long sys_rmdir(const char *name) {
     superblock.inode_used--;
     superblock.sector_used -= inode->sec_size;
 
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + sec_map_addr_offset), superblock.smap_sec_size, superblock.smap_sec_offset + superblock.fs_start_sec);
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + sec_map_addr_offset), superblock.smap_sec_size, superblock.smap_sec_offset + superblock.fs_start_sec);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     return 1;
 }
 
@@ -754,7 +754,7 @@ int getback_block(inode_t *inode) {
         if (pointer1_sec_start != 0) {
             getback_1block(pointer1_sec_start, smap, &nowsec);
 
-            sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->indirect_block_pointers[i]);
+            // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->indirect_block_pointers[i]);
             int *p = (int *)(FS_KERNEL_ADDR + dir2_addr_offset);
             for (int j = 0; j < 1024; j++) {
                 if (p[j] != 0) {
@@ -771,13 +771,13 @@ int getback_block(inode_t *inode) {
         if (pointer1_sec_start != 0) {
             getback_1block(pointer1_sec_start, smap, &nowsec);
 
-            sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->double_block_pointers[i]);
+            // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->double_block_pointers[i]);
             int *p = (int *)(FS_KERNEL_ADDR + dir2_addr_offset);
             for (int j = 0; j < 1024; j++) {
                 if (p[j] != 0) {
                     getback_1block(p[j], smap, &nowsec);
 
-                    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir3_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + p[j]);
+                    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir3_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + p[j]);
                     int *p2 = (int *)(FS_KERNEL_ADDR + dir3_addr_offset);
                     for (int k = 0; k < 1024; k++) {
                         if (p2[k] != 0) {
@@ -794,17 +794,17 @@ int getback_block(inode_t *inode) {
     if (inode->trible_block_pointers != 0) {
         getback_1block(inode->trible_block_pointers, smap, &nowsec);
 
-        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->trible_block_pointers);
+        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir2_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->trible_block_pointers);
         int *p = (int *)(FS_KERNEL_ADDR + dir2_addr_offset);
         for (int j = 0; j < 1024; j++) {
             if (p[j] != 0) {
                 getback_1block(p[j], smap, &nowsec);
-                sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir3_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + p[j]);
+                // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir3_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + p[j]);
                 int *p2 = (int *)(FS_KERNEL_ADDR + dir3_addr_offset);
                 for (int k = 0; k < 1024; k++) {
                     if (p2[k] != 0) {
                         getback_1block(p2[k], smap, &nowsec);
-                        sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir4_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + p2[k]);
+                        // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir4_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + p2[k]);
                         int *p3 = (int *)(FS_KERNEL_ADDR + dir4_addr_offset);
                         for (int m = 0; m < 1024; m++) {
                             if (p3[m] != 0) {
@@ -824,7 +824,7 @@ int getback_block(inode_t *inode) {
 
 long sys_rm(const char *name) {
     int flag = 0;
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     dentry_t *dir = (dentry_t *)(FS_KERNEL_ADDR + dir_addr_offset);
     int dinode;
     while (!(dir->last)) {
@@ -863,8 +863,8 @@ long sys_rm(const char *name) {
     inode += dinode;
     if (inode->link_num != 0) {
         inode->link_num--;
-        sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.inode_sec_offset + superblock.fs_start_sec);
-        sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+        // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.inode_sec_offset + superblock.fs_start_sec);
+        // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
         return 1;
     }
 
@@ -873,13 +873,13 @@ long sys_rm(const char *name) {
     int off = dinode % 64;
     imap[id] &= ~(((uint64_t)1) << off);
 
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + iab_map_addr_offset), 1, superblock.imap_sec_offset + superblock.fs_start_sec);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + iab_map_addr_offset), 1, superblock.imap_sec_offset + superblock.fs_start_sec);
 
     superblock.inode_used--;
     superblock.sector_used -= getback_block(inode);
 
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + sec_map_addr_offset), superblock.smap_sec_size, superblock.smap_sec_offset + superblock.fs_start_sec);
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + sec_map_addr_offset), superblock.smap_sec_size, superblock.smap_sec_offset + superblock.fs_start_sec);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), nowinode.sec_size, superblock.data_sec_offset + superblock.fs_start_sec + nowinode.direct_block_pointers[0]);
     return 1;
 }
 
@@ -1008,7 +1008,7 @@ long sys_cat(const char *name) {
         return 0;
     }
 
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->direct_block_pointers[0]);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 8, superblock.data_sec_offset + superblock.fs_start_sec + inode->direct_block_pointers[0]);
 
     char *c = (char *)(FS_KERNEL_ADDR + data_addr_offset);
     int off = 0;
@@ -1070,12 +1070,12 @@ long sys_mkfs(int func) {
     superblock.sector_used = 266; // 257+1+8
     cpy_sb(2, NULL);
 
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + iab_map_addr_offset), 257, superblock.imap_sec_offset + superblock.fs_start_sec);
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), 1, superblock.fs_start_sec + superblock.inode_sec_offset);
-    sbi_sd_write(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 1, superblock.fs_start_sec + superblock.data_sec_offset);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + iab_map_addr_offset), 257, superblock.imap_sec_offset + superblock.fs_start_sec);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), 1, superblock.fs_start_sec + superblock.inode_sec_offset);
+    // sbi_sd_write(kva2pa(FS_KERNEL_ADDR + data_addr_offset), 1, superblock.fs_start_sec + superblock.data_sec_offset);
 
-    sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb_sec_offset);
-    sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb2_sec_offset);
+    // sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb_sec_offset);
+    // sbi_sd_write(kva2pa((long unsigned int)&superblock), 1, fs_start_sec + sb2_sec_offset);
 
     if (func != -1) {
         update_inode(root_inode, 0);
@@ -1114,8 +1114,8 @@ void init_fs() {
     k_memset((void *)empty_block, 0, 0x1000);
 
     // main superblock and back-up superblock
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 1, fs_start_sec + sb_sec_offset);
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset + 512), 1, fs_start_sec + sb2_sec_offset);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset), 1, fs_start_sec + sb_sec_offset);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + dir_addr_offset + 512), 1, fs_start_sec + sb2_sec_offset);
     super_block_t *sb = (super_block_t *)(FS_KERNEL_ADDR + dir_addr_offset);
     super_block_t *sb2 = (super_block_t *)(FS_KERNEL_ADDR + dir_addr_offset + 512);
     // not inited, then initialize
@@ -1128,8 +1128,8 @@ void init_fs() {
     } else {
         cpy_sb(1, sb);
     }
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + iab_map_addr_offset), superblock.imap_sec_size + superblock.smap_sec_size, superblock.imap_sec_offset + superblock.fs_start_sec);
-    sbi_sd_read(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.inode_sec_offset + superblock.fs_start_sec);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + iab_map_addr_offset), superblock.imap_sec_size + superblock.smap_sec_size, superblock.imap_sec_offset + superblock.fs_start_sec);
+    // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.inode_sec_offset + superblock.fs_start_sec);
     inode_t *root_inode = (inode_t *)(FS_KERNEL_ADDR + inode_addr_offset);
     update_inode(root_inode, 0);
 }

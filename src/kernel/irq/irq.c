@@ -2,6 +2,8 @@
 #include <asm/pgtable.h>
 #include <asm/sbi.h>
 #include <asm/syscall.h>
+#include <drivers/plic/plic.h>
+#include <drivers/virtio/virtio.h>
 #include <lib/assert.h>
 #include <lib/list.h>
 #include <lib/stdio.h>
@@ -9,11 +11,12 @@
 #include <os/smp.h>
 #include <os/syscall.h>
 
-#define TICKS_INTERVAL 200
-
 handler_t irq_table[IRQC_COUNT];
 handler_t exc_table[EXCC_COUNT];
+handler_t irq_ext_table[PLIC_NR_IRQS];
 uintptr_t riscv_dtb;
+
+long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause);
 
 void init_syscall(void) {
     for (int i = 0; i < NUM_SYSCALLS; i++) {
@@ -69,7 +72,7 @@ void reset_irq_timer() {
     k_screen_reflush();
     // note: use sbi_set_timer
     // remember to reschedule
-    sbi_set_timer(get_ticks() + get_time_base() / TICKS_INTERVAL);
+    sbi_set_timer(get_ticks() + TICKS_INTERVAL);
     k_scheduler();
 }
 
@@ -84,11 +87,6 @@ void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint
     add_utime(&last_run, &(*current_running)->resources.ru_utime, &(*current_running)->resources.ru_utime);
     copy_utime(&now, &(*current_running)->stime_last);
     uint64_t check = cause;
-    // if(check>>63 && check%16!=5)
-    //{
-    //    screen_move_cursor(1, 1);
-    //    prints("cause: %lx\n", cause);
-    //}
     if (check >> 63) {
         irq_table[cause - ((uint64_t)1 << 63)](regs, stval, cause, cpuid);
     } else {
@@ -101,8 +99,45 @@ void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint
     unlock_kernel();
 }
 
-void handle_int(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
+void handle_int_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
     reset_irq_timer();
+}
+
+void handle_ext_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
+    int irq = plic_claim();
+    irq_ext_table[irq](regs, interrupt, cause, cpuid);
+    plic_complete(irq);
+}
+
+void handler_virtio_intr(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
+    k_spin_lock_acquire(&disk.vdisk_lock);
+
+    // the device won't raise another interrupt until we tell it
+    // we've seen this interrupt, which the following line does.
+    // this may race with the device writing new entries to
+    // the "used" ring, in which case we may process the new
+    // completion entries in this interrupt, and have nothing to do
+    // in the next interrupt, which is harmless.
+    *R(VIRTIO_MMIO_INTERRUPT_ACK) = *R(VIRTIO_MMIO_INTERRUPT_STATUS) & 0x3;
+
+    // the device increments disk.used->idx when it
+    // adds an entry to the used ring.
+
+    while (disk.used_idx != disk.used->idx) {
+        int id = disk.used->ring[disk.used_idx % DESC_NUM].id;
+
+        if (disk.info[id].status != 0) {
+            panic("virtio_disk_intr status");
+        }
+
+        buf_t *b = disk.info[id].b;
+        b->disk = 0; // disk is done with buf
+        k_wakeup(b);
+
+        disk.used_idx = (disk.used_idx + 1) % DESC_NUM;
+    }
+
+    k_spin_lock_release(&disk.vdisk_lock);
 }
 
 PTE *check_pf(uint64_t va, PTE *pgdir) {
@@ -124,7 +159,7 @@ PTE *check_pf(uint64_t va, PTE *pgdir) {
     return &pld[vpn0];
 }
 
-void handle_disk(uint64_t stval, PTE *pte_addr) {
+void handle_disk_exc(uint64_t stval, PTE *pte_addr) {
     pcb_t *cur = *current_running;
     uint64_t newmem_addr = k_alloc_mem(1, stval);
     map(stval, kva2pa(newmem_addr), (pa2kva(cur->pgdir << 12)));
@@ -132,7 +167,7 @@ void handle_disk(uint64_t stval, PTE *pte_addr) {
     (*pte_addr) = (*pte_addr) | 1;
 }
 
-void handle_pf(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
+void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
     pcb_t *cur = *current_running;
 
     PTE *pte_addr = check_pf(stval, (pa2kva(cur->pgdir << 12)));
@@ -155,7 +190,7 @@ void handle_pf(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cp
         } else if ((((va_pte >> 6) & 1) == 0) && (cause == EXCC_LOAD_PAGE_FAULT)) {
             *pte_addr = (*pte_addr) | ((uint64_t)1 << 6);
         } else if ((va_pte & 1) == 0) { // physical frame was on disk
-            handle_disk(stval, pte_addr);
+            handle_disk_exc(stval, pte_addr);
         }
     } else { // No virtual-physical map
         k_alloc_page_helper(stval, (pa2kva(cur->pgdir << 12)));
@@ -163,21 +198,23 @@ void handle_pf(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cp
     }
 }
 
+
+void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid);
+
 void init_exception() {
-    /* TODO: initialize irq_table and exc_table */
-    /* note: handle_int, handle_syscall, handle_other, etc.*/
     for (int i = 0; i < IRQC_COUNT; i++) {
         irq_table[i] = handle_other;
     }
-    irq_table[IRQC_S_TIMER] = handle_int;
+    irq_table[IRQC_S_TIMER] = handle_int_irq;
+    irq_table[IRQC_S_EXT] = handle_ext_irq;
     for (int i = 0; i < EXCC_COUNT; i++) {
         exc_table[i] = handle_other;
     }
-    exc_table[EXCC_SYSCALL] = handle_syscall;
-    exc_table[EXCC_LOAD_PAGE_FAULT] = handle_pf;
-    exc_table[EXCC_STORE_PAGE_FAULT] = handle_pf;
-    exc_table[EXCC_INST_PAGE_FAULT] = handle_pf;
-    // setup_exception();
+    exc_table[EXCC_SYSCALL] = handle_syscall_exc;
+    exc_table[EXCC_LOAD_PAGE_FAULT] = handle_pf_exc;
+    exc_table[EXCC_STORE_PAGE_FAULT] = handle_pf_exc;
+    exc_table[EXCC_INST_PAGE_FAULT] = handle_pf_exc;
+    irq_ext_table[IRQC_EXT_VIRTIO_BLK_IEQ] = handler_virtio_intr;
 }
 
 void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {

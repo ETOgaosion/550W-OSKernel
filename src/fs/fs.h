@@ -5,7 +5,7 @@
 #define O_RDONLY 0x000
 #define O_WRONLY 0x001
 #define O_RDWR 0x002 // 可读可写
-//#define O_CREATE 0x200
+// #define O_CREATE 0x200
 #define O_CREATE 0x40
 #define O_DIRECTORY 0x0200000
 
@@ -61,11 +61,11 @@ typedef struct fentry {
 } fentry_t;
 
 typedef struct dirent64 {
-	uint64_t d_ino;
-	int64_t d_off;
-	unsigned short d_reclen;
-	unsigned char d_type;
-	char d_name[];
+    uint64_t d_ino;
+    int64_t d_off;
+    unsigned short d_reclen;
+    unsigned char d_type;
+    char d_name[];
 } dirent64_t;
 
 typedef struct kstat {
@@ -136,9 +136,6 @@ long sys_read(unsigned int fd, char *buf, size_t count);
 long sys_write(unsigned int fd, const char *buf, size_t count);
 long sys_fstat(unsigned int fd, kstat_t *statbuf);
 
-void *sys_mmap(void *addr, size_t length, int prot, int flags,
-                  int fd, off_t offset);
+void *sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
 long sys_munmap(unsigned long addr, size_t len);
-long sys_mremap(unsigned long addr,
-			   unsigned long old_len, unsigned long new_len,
-			   unsigned long flags, unsigned long new_addr);
+long sys_mremap(unsigned long addr, unsigned long old_len, unsigned long new_len, unsigned long flags, unsigned long new_addr);

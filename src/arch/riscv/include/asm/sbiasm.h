@@ -1,10 +1,9 @@
-#ifndef _SBI_ASM_H
-#define _SBI_ASM_H
+#pragma once
 
+/* clang-format off */
 .macro SBI_CALL which
     li a7, \which
     ecall
     nop
 .endm
-
-#endif /* _SBI_ASM_H */
+                             /* clang-format on */

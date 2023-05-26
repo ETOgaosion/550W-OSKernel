@@ -54,8 +54,7 @@ typedef Elf64_Half Elf64_Versym;
 #endif
 
 #define EI_NIDENT 16
-typedef struct elf64_hdr
-{
+typedef struct elf64_hdr {
     unsigned char e_ident[EI_NIDENT]; /* ELF "magic number" */
     Elf64_Half e_type;
     Elf64_Half e_machine;
@@ -92,11 +91,11 @@ typedef struct elf64_hdr
 #define PT_TLS 7           /* Thread-local storage segment */
 #define PT_NUM 8           /* Number of defined types */
 #define PT_LOOS 0x60000000 /* Start of OS-specific */
-#define PT_GNU_EH_FRAME                     \
-    0x6474e550 /* GCC .eh_frame_hdr segment \
+#define PT_GNU_EH_FRAME                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               \
+    0x6474e550 /* GCC .eh_frame_hdr segment                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           \
                 */
-#define PT_GNU_STACK                                             \
-    0x6474e551                  /* Indicates stack executability \
+#define PT_GNU_STACK                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  \
+    0x6474e551                  /* Indicates stack executability                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      \
                                  */
 #define PT_GNU_RELRO 0x6474e552 /* Read-only after relocation */
 #define PT_LOSUNW 0x6ffffffa
@@ -107,8 +106,7 @@ typedef struct elf64_hdr
 #define PT_LOPROC 0x70000000 /* Start of processor-specific */
 #define PT_HIPROC 0x7fffffff /* End of processor-specific */
 
-typedef struct elf64_phdr
-{
+typedef struct elf64_phdr {
     Elf64_Word p_type;
     Elf64_Word p_flags;
     Elf64_Off p_offset;   /* Segment file offset */
@@ -119,7 +117,7 @@ typedef struct elf64_phdr
     Elf64_Xword p_align;  /* Segment alignment, file & memory */
 } Elf64_Phdr;
 
-typedef struct ELF_info{
+typedef struct ELF_info {
     uint64_t text_begin;
     uint64_t phoff;
     uint64_t phent;
@@ -130,14 +128,10 @@ typedef struct ELF_info{
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
-static inline int is_elf_format(unsigned char *binary)
-{
+static inline int is_elf_format(unsigned char *binary) {
     Elf64_Ehdr *ehdr = (Elf64_Ehdr *)binary;
 
-    if (ehdr->e_ident[0] == EI_MAG0 &&
-        ehdr->e_ident[1] == EI_MAG1 &&
-        ehdr->e_ident[2] == EI_MAG2 &&
-        ehdr->e_ident[3] == EI_MAG3) {
+    if (ehdr->e_ident[0] == EI_MAG0 && ehdr->e_ident[1] == EI_MAG1 && ehdr->e_ident[2] == EI_MAG2 && ehdr->e_ident[3] == EI_MAG3) {
         return 0;
     }
 
@@ -145,10 +139,7 @@ static inline int is_elf_format(unsigned char *binary)
 }
 
 /* prepare_page_for_kva should return a kernel virtual address */
-static inline uintptr_t load_elf(
-    unsigned char elf_binary[], unsigned length, uintptr_t pgdir,
-    uintptr_t (*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir))
-{
+static inline uintptr_t load_elf(unsigned char elf_binary[], unsigned length, uintptr_t pgdir, uintptr_t (*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir)) {
     Elf64_Ehdr *ehdr = (Elf64_Ehdr *)elf_binary;
     Elf64_Phdr *phdr = NULL;
     /* As a loader, we just care about segment,
@@ -161,12 +152,12 @@ static inline uintptr_t load_elf(
 
     // check whether `binary` is a ELF file.
     if (length < 4 || !is_elf_format(elf_binary)) {
-        return 0;  // return NULL when error!
+        return 0; // return NULL when error!
     }
 
-    ptr_ph_table   = elf_binary + ehdr->e_phoff;
+    ptr_ph_table = elf_binary + ehdr->e_phoff;
     ph_entry_count = ehdr->e_phnum;
-    ph_entry_size  = ehdr->e_phentsize;
+    ph_entry_size = ehdr->e_phentsize;
 
     while (ph_entry_count--) {
         phdr = (Elf64_Phdr *)ptr_ph_table;
@@ -175,27 +166,16 @@ static inline uintptr_t load_elf(
             /* TODO: */
             for (i = 0; i < phdr->p_memsz; i += NORMAL_PAGE_SIZE) {
                 if (i < phdr->p_filesz) {
-                    unsigned char *bytes_of_page =
-                        (unsigned char *)prepare_page_for_va(
-                            (uintptr_t)(phdr->p_vaddr + i), pgdir);
-                    k_memcpy(
-                        bytes_of_page,
-                        elf_binary + phdr->p_offset + i,
-                        MIN(phdr->p_filesz - i, NORMAL_PAGE_SIZE));
+                    unsigned char *bytes_of_page = (unsigned char *)prepare_page_for_va((uintptr_t)(phdr->p_vaddr + i), pgdir);
+                    k_memcpy(bytes_of_page, elf_binary + phdr->p_offset + i, MIN(phdr->p_filesz - i, NORMAL_PAGE_SIZE));
                     if (phdr->p_filesz - i < NORMAL_PAGE_SIZE) {
-                        for (int j =
-                                 phdr->p_filesz % NORMAL_PAGE_SIZE;
-                             j < NORMAL_PAGE_SIZE; ++j) {
+                        for (int j = phdr->p_filesz % NORMAL_PAGE_SIZE; j < NORMAL_PAGE_SIZE; ++j) {
                             bytes_of_page[j] = 0;
                         }
                     }
                 } else {
-                    long *bytes_of_page =
-                        (long *)prepare_page_for_va(
-                            (uintptr_t)(phdr->p_vaddr + i), pgdir);
-                    for (int j = 0;
-                         j < NORMAL_PAGE_SIZE / sizeof(long);
-                         ++j) {
+                    long *bytes_of_page = (long *)prepare_page_for_va((uintptr_t)(phdr->p_vaddr + i), pgdir);
+                    for (int j = 0; j < NORMAL_PAGE_SIZE / sizeof(long); ++j) {
                         bytes_of_page[j] = 0;
                     }
                 }

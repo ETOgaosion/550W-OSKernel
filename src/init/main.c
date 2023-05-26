@@ -2,7 +2,9 @@
 #include <asm/pgtable.h>
 #include <asm/sbi.h>
 #include <asm/stack.h>
-#include <drivers/screen.h>
+#include <drivers/plic/plic.h>
+#include <drivers/screen/screen.h>
+#include <drivers/virtio/virtio.h>
 #include <fs/fs.h>
 #include <lib/stdio.h>
 #include <os/irq.h>
@@ -33,15 +35,18 @@ int main() {
     // printk("> [INIT] PCB initialization succeeded.\n\r");
 
     // read CPU frequency
-    time_base = sbi_read_fdt(TIMEBASE);
+    time_base = TIME_BASE_DEFAULT;
 
     // init system call table (0_0)
     init_syscall();
     // printk("> [INIT] System call initialized successfully.\n\r");
 
     // fdt_print(riscv_dtb);
-    init_exception();
     // printk("> [INIT] Interrupt processing initialization succeeded.\n\r");
+    plic_init();
+    plic_init_hart();
+    binit();
+    virtio_disk_init();
 
     // init screen (QAQ)
     init_screen();

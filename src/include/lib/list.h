@@ -1,6 +1,7 @@
 #pragma once
 #include <common/types.h>
 
+/* clang-format off */
 // double-linked list
 //   TODO: use your own list design!!
 typedef struct list_node {
@@ -101,3 +102,5 @@ static inline int list_is_empty(list_head *head)
 {
 	return head->next == head;
 }
+
+/* clang-format on */

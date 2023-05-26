@@ -6,21 +6,30 @@
 int first_time = 1;
 mutex_lock_t *locks[LOCK_NUM];
 
-void spin_lock_init(spin_lock_t *lock) {
+void k_spin_lock_init(spin_lock_t *lock) {
     lock->flag = UNLOCKED;
 }
 
-int spin_lock_try_acquire(spin_lock_t *lock) {
+int k_spin_lock_try_acquire(spin_lock_t *lock) {
     return atomic_swap_d(LOCKED, (ptr_t)&lock->flag);
 }
 
-void spin_lock_acquire(spin_lock_t *lock) {
-    while (spin_lock_try_acquire(lock) == LOCKED)
+void k_spin_lock_acquire(spin_lock_t *lock) {
+    while (k_spin_lock_try_acquire(lock) == LOCKED)
         ;
 }
 
-void spin_lock_release(spin_lock_t *lock) {
+void k_spin_lock_release(spin_lock_t *lock) {
     lock->flag = UNLOCKED;
+}
+
+void k_schedule_with_spin_lock(spin_lock_t *lock) {
+    int locked = lock->flag;
+    k_spin_lock_release(lock);
+    k_scheduler();
+    if (locked == LOCKED) {
+        k_spin_lock_acquire(lock);
+    }
 }
 
 long k_mutex_lock_op(int *key, int op) {
@@ -137,4 +146,36 @@ long k_mutex_lock_trylock(int *key) {
         return -1;
     }
     return 0;
+}
+
+void k_sleep_lock_init(sleep_lock_t *lk) {
+    k_spin_lock_init(&lk->lk);
+    lk->locked = false;
+    lk->pid = 0;
+}
+
+void k_sleep_lock_aquire(sleep_lock_t *lk) {
+    k_spin_lock_acquire(&lk->lk);
+    while (lk->locked) {
+        k_sleep(lk, &lk->lk);
+    }
+    lk->locked = TRUE;
+    lk->pid = (*current_running)->pid;
+    k_spin_lock_release(&lk->lk);
+}
+
+void k_sleep_lock_release(sleep_lock_t *lk) {
+    k_spin_lock_acquire(&lk->lk);
+    lk->locked = 0;
+    lk->pid = 0;
+    k_wakeup(lk);
+    k_spin_lock_release(&lk->lk);
+}
+
+int k_sleep_lock_hold(sleep_lock_t *lk) {
+    int r;
+    k_spin_lock_acquire(&lk->lk);
+    r = lk->locked && (lk->pid == (*current_running)->pid);
+    k_spin_lock_release(&lk->lk);
+    return r;
 }

@@ -2,9 +2,13 @@
 
 #include <lib/list.h>
 
+#define TICKS_INTERVAL 100000
+#define TIME_BASE_DEFAULT 10000000
+#define TIME_INTERVAL TIME_BASE_DEFAULT / TICKS_INTERVAL
+
 typedef struct time_val {
-    __kernel_time64_t sec;  // 自 Unix 纪元起的秒数
-    long long usec; // 微秒数
+    __kernel_time64_t sec; // 自 Unix 纪元起的秒数
+    long long usec;        // 微秒数
 } time_val_t;
 
 #define __kernel_timeval_t time_val_t
@@ -15,19 +19,19 @@ typedef struct nanotime_val {
 } nanotime_val_t;
 
 typedef struct tms {
-	__kernel_clock_t tms_utime;
-	__kernel_clock_t tms_stime;
-	__kernel_clock_t tms_cutime;
-	__kernel_clock_t tms_cstime;
+    __kernel_clock_t tms_utime;
+    __kernel_clock_t tms_stime;
+    __kernel_clock_t tms_cutime;
+    __kernel_clock_t tms_cstime;
 } tms_t;
 
 typedef struct timezone {
-	int	tz_minuteswest;	/* minutes west of Greenwich */
-	int	tz_dsttime;	/* type of dst correction */
+    int tz_minuteswest; /* minutes west of Greenwich */
+    int tz_dsttime;     /* type of dst correction */
 } timezone_t;
 
 typedef struct pcbtimer {
-	bool initialized;
+    bool initialized;
     nanotime_val_t start_time;
     nanotime_val_t end_time;
     nanotime_val_t *remain_time;
