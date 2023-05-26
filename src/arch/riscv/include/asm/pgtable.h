@@ -14,16 +14,21 @@
 #define LARGE_PAGE_SHIFT 21lu
 #define LARGE_PAGE_SIZE (1lu << LARGE_PAGE_SHIFT)
 
-/*
- * Flush entire local TLB.  'sfence.vma' implicitly fences with the instruction
- * cache as well, so a 'fence.i' is not necessary.
- */
-static inline void local_flush_tlb_all(void) { __asm__ __volatile__("sfence.vma" : : : "memory"); }
+typedef uint64_t pte_t;
+typedef uint64_t *pagetable_t; // 512 PTEs
+
+static inline void local_flush_tlb_all(void) {
+    __asm__ __volatile__("sfence.vma" : : : "memory");
+}
 
 /* Flush one page from local TLB */
-static inline void local_flush_tlb_page(unsigned long addr) { __asm__ __volatile__("sfence.vma %0" : : "r"(addr) : "memory"); }
+static inline void local_flush_tlb_page(unsigned long addr) {
+    __asm__ __volatile__("sfence.vma %0" : : "r"(addr) : "memory");
+}
 
-static inline void local_flush_icache_all(void) { asm volatile("fence.i" ::: "memory"); }
+static inline void local_flush_icache_all(void) {
+    asm volatile("fence.i" ::: "memory");
+}
 
 static inline void flush_icache_all(void) {
     local_flush_icache_all();
@@ -45,7 +50,7 @@ static inline void set_satp(unsigned mode, unsigned asid, unsigned long ppn) {
     __asm__ __volatile__("sfence.vma\ncsrw satp, %0" : : "rK"(__v) : "memory");
 }
 
-#define PGDIR_PA 0x5e000000lu // use bootblock's page as PGDIR
+#define PGDIR_PA 0x8e000000lu // use bootblock's page as PGDIR
 
 /*
  * PTE format:
@@ -79,7 +84,9 @@ static inline uintptr_t kva2pa(uintptr_t kva) {
     return kva - 0xffffffc000000000;
 }
 
-static inline PTE *pa2kva(uintptr_t pa) { return (PTE *)pa + 0xffffffc000000000; }
+static inline PTE *pa2kva(uintptr_t pa) {
+    return (PTE *)pa + 0xffffffc000000000;
+}
 
 static inline uint64_t get_pa(PTE entry) {
     uint64_t pa_temp = (entry >> _PAGE_PFN_SHIFT) % ((uint64_t)1 << SATP_ASID_SHIFT);
@@ -105,7 +112,9 @@ static inline void set_pfn(PTE *entry, uint64_t pfn) {
 }
 
 /* Get/Set attribute(s) of the `entry` */
-static inline long get_attribute(PTE entry, uint64_t mask) { return entry & mask; }
+static inline long get_attribute(PTE entry, uint64_t mask) {
+    return entry & mask;
+}
 
 static inline void set_attribute(PTE *entry, uint64_t bits) {
     uint64_t pfn_temp = (*entry) >> 10;

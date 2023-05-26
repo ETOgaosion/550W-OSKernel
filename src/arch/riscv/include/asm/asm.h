@@ -1,5 +1,7 @@
 #pragma once
 
+/* clang-format off */
+
 #define END(function)  \
        .size function, .- function
 
@@ -24,3 +26,5 @@
 #define RISCV_PTR		.dword
 #define RISCV_SZPTR		8
 #define RISCV_LGPTR		3
+
+/* clang-format on */

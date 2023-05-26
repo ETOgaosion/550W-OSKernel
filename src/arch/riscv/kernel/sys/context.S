@@ -127,26 +127,6 @@ _save_context:
   /* TODO: Restore all registers and sepc,sstatus */
 .endm
 
-ENTRY(enable_preempt)
-  jr ra
-ENDPROC(enable_preempt)
-
-ENTRY(disable_preempt)
-  jr ra
-ENDPROC(disable_preempt)
-
-ENTRY(enable_interrupt)
-  li t0, SR_SIE
-  csrs CSR_SSTATUS, t0
-  jr ra
-ENDPROC(enable_interrupt)
-
-ENTRY(disable_interrupt)
-  li t0, SR_SIE
-  csrs CSR_SSTATUS, t0
-  jr ra
-ENDPROC(disable_interrupt)
-
 // the address of previous pcb in a0
 // the address of next pcb in a1
 ENTRY(switch_to)

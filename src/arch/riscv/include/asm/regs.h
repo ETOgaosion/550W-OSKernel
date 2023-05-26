@@ -1,13 +1,13 @@
 #pragma once
 
-#define SAVE(x,y) sd  x,OFFSET_REG_##y##(sp)
-#define LOAD(x,y) ld  x,OFFSET_REG_##y##(sp)
+#define SAVE(x, y) sd x, OFFSET_REG_##y##(sp)
+#define LOAD(x, y) ld x, OFFSET_REG_##y##(sp)
 
 /* return address */
 #define OFFSET_REG_RA 0
 
 /* pointers */
-#define OFFSET_REG_SP 8 // stack
+#define OFFSET_REG_SP 8  // stack
 #define OFFSET_REG_GP 16 // global
 #define OFFSET_REG_TP 24 // thread
 
@@ -62,8 +62,8 @@
 #define PCB_USER_SP 8
 
 /* offset in switch_to */
-#define SS(x,y) sd x,SWITCH_TO_##y##(t0)
-#define LS(x,y) ld x,SWITCH_TO_##y##(t0)
+#define SS(x, y) sd x, SWITCH_TO_##y##(t0)
+#define LS(x, y) ld x, SWITCH_TO_##y##(t0)
 #define SWITCH_TO_RA 0
 #define SWITCH_TO_SP 8
 #define SWITCH_TO_S0 16

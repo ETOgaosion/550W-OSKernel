@@ -1,7 +1,7 @@
 #include <asm/pgtable.h>
 #include <asm/sbi.h>
 #include <common/elf.h>
-#include <drivers/screen.h>
+#include <drivers/screen/screen.h>
 #include <lib/assert.h>
 #include <lib/math.h>
 #include <os/mm.h>
@@ -63,7 +63,7 @@ void k_move_to_disk(uint64_t pg_kva, uint64_t user_va) {
     sys_screen_move_cursor(1, 5);
     prints("[k] From 0x%x to disk sector %d, for user_vaddr 0x%x\n", pg_kva, START_BLOCK + diskpg_num * 2, user_va);
 
-    sbi_sd_write(kva2pa(pg_kva), 2, START_BLOCK + diskpg_num * 2);
+    // sbi_sd_write(kva2pa(pg_kva), 2, START_BLOCK + diskpg_num * 2);
     diskpg[diskpg_num] = user_va;
     // diskpg[diskpg_num][1] = diskpg_num;
     diskpg_num++;
@@ -78,7 +78,7 @@ void k_get_back_disk(uint64_t user_va, uint64_t new_addr) {
             prints("[k] From disk sector %d to 0x%x, for user_vaddr 0x%x\n", START_BLOCK + i * 2, new_addr, user_va);
 
             flag = 1;
-            sbi_sd_read(kva2pa(new_addr), 2, START_BLOCK + i * 2);
+            // sbi_sd_read(kva2pa(new_addr), 2, START_BLOCK + i * 2);
             break;
         }
     }
@@ -465,7 +465,7 @@ uintptr_t free_page_helper(uintptr_t va, uintptr_t pgdir) {
     PTE *page_base = (uint64_t *)pgdir;
     PTE *second_page = NULL;
     PTE *third_page = NULL;
-    if ((page_base[vpn[2]] & _PAGE_PRESENT )== 0) {
+    if ((page_base[vpn[2]] & _PAGE_PRESENT) == 0) {
         return -1;
     }
     second_page = (PTE *)pa2kva((get_pfn(page_base[vpn[2]]) << NORMAL_PAGE_SHIFT));

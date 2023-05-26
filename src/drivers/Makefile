@@ -1,15 +1,20 @@
-INCLUDES := -I.. -I../include -I../arch/riscv/include
+drivers_screen_dir		:= screen
+drivers_plic_dir		:= plic
+drivers_virtio_dir		:= virtio
+modules		:= $(drivers_screen_dir) $(drivers_plic_dir) $(drivers_virtio_dir)
 
-target = $(shell ls *.c | awk '{gsub(/\.c/, ".o"); print $0}')
+.PHONY:	build clean $(modules)
 
-.PHONY: build clean
+build: $(modules)
 
-%.o: %.c
-	$(GCC) $(CFLAGS) $(INCLUDES) -c $<
-
-build: $(target)
+$(modules):
+	$(MAKE) build --directory=$@
 
 clean:
-	rm -rf *~ *.o *.d
+	for d in $(modules); \
+		do \
+			$(MAKE) --directory=$$d clean; \
+		done
+	rm -rf *.o *~
 
 include ../../Makefile.in

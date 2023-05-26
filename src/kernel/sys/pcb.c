@@ -2,13 +2,12 @@
 #include <asm/pgtable.h>
 #include <asm/stack.h>
 #include <common/elf.h>
-#include <drivers/screen.h>
+#include <drivers/screen/screen.h>
 #include <fs/fs.h>
 #include <lib/math.h>
 #include <lib/stdio.h>
 #include <lib/string.h>
 #include <os/irq.h>
-#include <os/lock.h>
 #include <os/pcb.h>
 #include <os/smp.h>
 #include <user/user_programs.h>
@@ -18,6 +17,7 @@ pcb_t *volatile current_running1;
 pcb_t **volatile current_running;
 
 LIST_HEAD(ready_queue);
+LIST_HEAD(block_queue);
 
 pcb_t pcb[NUM_MAX_TASK];
 
@@ -255,7 +255,7 @@ bool check_empty(int cpuid) {
         while (node != &ready_queue) {
             iterator = list_entry(node, pcb_t, list);
             if (iterator->core_mask[cpuid / 8] & (0x1 << (cpuid % 8))) {
-                return FALSE;
+                return false;
             }
             node = node->next;
         }
@@ -665,4 +665,23 @@ long sys_getpid() {
 
 long sys_getppid() {
     return (*current_running)->father_pid;
+}
+
+void k_sleep(void *chan, spin_lock_t *lk) {
+    k_spin_lock_release(lk);
+    (*current_running)->chan = chan;
+    k_block(&(*current_running)->list, &block_queue, ENQUEUE_LIST);
+    k_scheduler();
+    (*current_running)->chan = 0;
+    k_spin_lock_acquire(lk);
+}
+
+void k_wakeup(void *chan) {
+    for (int i = 0; i < NUM_MAX_PRCESS; i++) {
+        if (i != (*current_running)->pid) {
+            if ((pcb[i].status = TASK_BLOCKED) && (pcb[i].chan == chan)) {
+                k_unblock(&pcb[i].list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+            }
+        }
+    }
 }

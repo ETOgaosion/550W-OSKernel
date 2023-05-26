@@ -21,7 +21,7 @@
 #define MAP_FILE 0
 #define MAP_SHARED 0x01
 #define MAP_PRIVATE 0X02
-#define MAP_FAILED ((void *) -1)
+#define MAP_FAILED ((void *)-1)
 
 #define MAP_KERNEL 1
 #define MAP_USER 2

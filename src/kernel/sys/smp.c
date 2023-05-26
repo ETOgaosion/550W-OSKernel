@@ -6,7 +6,7 @@
 spin_lock_t kernel_lock;
 
 void smp_init() {
-    spin_lock_init(&kernel_lock);
+    k_spin_lock_init(&kernel_lock);
 }
 
 void wakeup_other_hart() {
@@ -15,11 +15,11 @@ void wakeup_other_hart() {
 }
 
 void lock_kernel() {
-    spin_lock_acquire(&kernel_lock);
+    k_spin_lock_acquire(&kernel_lock);
 }
 
 void unlock_kernel() {
-    spin_lock_release(&kernel_lock);
+    k_spin_lock_release(&kernel_lock);
 }
 
 pcb_t *get_current_running() {
