@@ -24,3 +24,4 @@
 !*.sh
 
 !*.md
+!virt_tree.txt

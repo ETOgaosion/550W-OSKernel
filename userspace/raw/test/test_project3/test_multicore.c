@@ -1,36 +1,31 @@
-#include <time.h>
-#include <stdio.h>
 #include "test3.h"
-#include <sys/syscall.h>
 #include <mthread.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <sys/syscall.h>
+#include <time.h>
 
 #define MAX_RANGE 5000000
 #define MOD 1000007
 #define NUM_CPUS 2
 
-struct TestMultiCoreArg
-{
+struct TestMultiCoreArg {
     int print_location;
     int from;
     int to;
-    int* result;
+    int *result;
 };
-void add_task(struct TestMultiCoreArg* args);
+void add_task(struct TestMultiCoreArg *args);
 
-void test_multicore(void)
-{
+void test_multicore(void) {
     sys_move_cursor(1, 1);
     printf("start test multi-core performance\n\r");
     int single_core_result = 0;
-    struct task_info task_add = {(uintptr_t)&add_task,
-                              USER_PROCESS};
+    struct task_info task_add = {(uintptr_t)&add_task, USER_PROCESS};
     struct TestMultiCoreArg singleCoreArg = {1, 0, MAX_RANGE, &single_core_result};
     // single core performance
     clock_t singleCoreBegin = clock();
-    pid_t single_pid = sys_spawn(&task_add,
-	                    (void*)&singleCoreArg,
-                            ENTER_ZOMBIE_ON_EXIT);
+    pid_t single_pid = sys_spawn(&task_add, (void *)&singleCoreArg, ENTER_ZOMBIE_ON_EXIT);
     sys_waitpid(single_pid);
     clock_t singleCoreEnd = clock();
     sys_move_cursor(1, 6);
@@ -48,9 +43,7 @@ void test_multicore(void)
 
     clock_t multiCoreBegin = clock();
     for (int i = 0; i < NUM_CPUS; ++i) {
-        pids[i] = sys_spawn(&task_add,
-	                    (void*)&multiCoreArgs[i],
-                            ENTER_ZOMBIE_ON_EXIT);
+        pids[i] = sys_spawn(&task_add, (void *)&multiCoreArgs[i], ENTER_ZOMBIE_ON_EXIT);
     }
 
     for (int i = 0; i < NUM_CPUS; ++i) {
@@ -59,7 +52,7 @@ void test_multicore(void)
     int multi_core_final_result = 0;
     for (int i = 0; i < NUM_CPUS; ++i) {
         multi_core_final_result += multi_core_results[i];
-	multi_core_final_result = multi_core_final_result % MOD;
+        multi_core_final_result = multi_core_final_result % MOD;
     }
     clock_t multiCoreEnd = clock();
     sys_move_cursor(1, 7);
@@ -68,10 +61,9 @@ void test_multicore(void)
     sys_exit();
 }
 
-void add_task(struct TestMultiCoreArg* args)
-{
+void add_task(struct TestMultiCoreArg *args) {
     int print_location = args->print_location;
-    int from  = args->from;
+    int from = args->from;
     int to = args->to;
     int result = 0;
 

@@ -1,11 +1,16 @@
 INCLUDES := -I../../../../include -I../../include
 
-target = $(shell ls *.S | awk '{gsub(/\.S/, ".o"); print $0}')
+target = $(shell ls *.c *.S | awk '{gsub(/\.c|\.S/, ".o"); print $0}')
 
-.PHONY: build clean
+.PHONY: all build clean
 
 %.o: %.S
 	$(GCC) $(CFLAGS) $(INCLUDES) -c $<
+
+%.o: %.c
+	$(GCC) $(CFLAGS) $(INCLUDES) -c $<
+
+all: build
 
 build: $(target)
 

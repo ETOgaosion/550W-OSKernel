@@ -8,6 +8,6 @@
 void srand(unsigned seed);
 int rand();
 
-long int atol ( const char * str );
+long int atol(const char *str);
 
 #endif /* STDLIB_H */

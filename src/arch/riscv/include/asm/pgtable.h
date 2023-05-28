@@ -50,7 +50,7 @@ static inline void set_satp(unsigned mode, unsigned asid, unsigned long ppn) {
     __asm__ __volatile__("sfence.vma\ncsrw satp, %0" : : "rK"(__v) : "memory");
 }
 
-#define PGDIR_PA 0x8e000000lu // use bootblock's page as PGDIR
+#define PGDIR_PA 0x82000000lu // use bootblock's page as PGDIR
 
 /*
  * PTE format:
@@ -85,7 +85,7 @@ static inline uintptr_t kva2pa(uintptr_t kva) {
 }
 
 static inline PTE *pa2kva(uintptr_t pa) {
-    return (PTE *)pa + 0xffffffc000000000;
+    return (PTE *)(pa + 0xffffffc000000000);
 }
 
 static inline uint64_t get_pa(PTE entry) {
@@ -121,9 +121,4 @@ static inline void set_attribute(PTE *entry, uint64_t bits) {
     *entry = (pfn_temp << 10) | bits;
 }
 
-static inline void clear_pgdir(uintptr_t pgdir_addr) {
-    PTE *pgaddr = (PTE *)pgdir_addr;
-    for (int i = 0; i < 512; i++) {
-        pgaddr[i] = 0;
-    }
-}
+void clear_pgdir(uintptr_t pgdir_addr);

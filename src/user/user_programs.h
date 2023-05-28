@@ -1,27 +1,16 @@
-#pragma once
 
-extern unsigned char _elf___test_test_shell_elf[];
-extern int _length___test_test_shell_elf;
-extern unsigned char _elf___test_test_fs_elf[];
-extern int _length___test_test_fs_elf;
-extern unsigned char _elf___test_test_bigfile_elf[];
-extern int _length___test_test_bigfile_elf;
-extern unsigned char _elf___test_emo_elf[];
-extern int _length___test_emo_elf;
-extern unsigned char _elf___test_test_multi_elf[];
-extern int _length___test_test_multi_elf;
-extern unsigned char _elf___test_check_elf[];
-extern int _length___test_check_elf;
-extern unsigned char _elf___test_fly_elf[];
-extern int _length___test_fly_elf;
-extern unsigned char _elf___test_test_all_elf[];
-extern int _length___test_test_all_elf;
+extern unsigned char _elf_shell[];
+extern int _length_shell;
+extern unsigned char _elf_test_virtio_elf[];
+extern int _length_test_virtio_elf;
+#pragma once
 typedef struct ElfFile {
     char *file_name;
     unsigned char *file_content;
     int *file_length;
 } ElfFile;
 
-#define ELF_FILE_NUM 8
-extern ElfFile elf_files[8];
-int get_elf_file(const char *file_name, unsigned char **binary, int *length);
+#define ELF_FILE_NUM 2
+extern ElfFile elf_files[2];
+extern int get_elf_file(const char *file_name, unsigned char **binary, int *length);
+extern int match_elf(char *file_name);

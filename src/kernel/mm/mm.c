@@ -12,7 +12,6 @@
 #define STARTPAGE 30
 
 ptr_t memCurr = FREEMEM;
-ptr_t pgmem = 0xffffffc05e100000lu;
 
 int diskpg_num = 0;
 int freepg_num = 0;
@@ -421,7 +420,7 @@ void map(uint64_t va, uint64_t pa, PTE *pgdir) {
 }
 
 void cancelpg(PTE *pgdir) {
-    for (uint64_t kva = 0x50000000lu; kva < 0x50400000lu; kva += 0x200000lu) {
+    for (uint64_t kva = 0x80000000lu; kva < 0x80600000lu; kva += 0x200000lu) {
         uint64_t va = kva & VA_MASK;
         uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
         pgdir[vpn2] = 0;

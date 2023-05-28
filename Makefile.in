@@ -1,30 +1,38 @@
+SHELL := /bin/bash
+
+HOST_CC := gcc
+
 CROSS_COMPILE   := riscv64-unknown-elf-
 GCC				:= $(CROSS_COMPILE)gcc
-CFLAGS			= -Wall -Werror -O -fno-omit-frame-pointer -ggdb -g
-ifeq ($(GDB),y)
-	CFLAGS	+= -mabi=lp64
-else
-	CFLAGS	+= -march=rv64g -mabi=lp64f
-endif
+
+OBJDUMP	:= $(CROSS_COMPILE)objdump
+OBJCOPY	:= $(CROSS_COMPILE)objcopy
+LD		:= $(CROSS_COMPILE)ld
+AR      := $(CROSS_COMPILE)ar
+LDFLAGS	:= -z max-page-size=4096
+QEMU	:= qemu-system-riscv64
+BIOS	:= default
+CPUS	:= 2
+
+CFLAGS	= -Wall -Werror -O -fno-omit-frame-pointer -ggdb -g
+CFLAGS	+= -march=rv64g -mabi=lp64f
 CFLAGS	+= -MD
 CFLAGS	+= -mcmodel=medany
 CFLAGS	+= -ffreestanding -fno-common -nostdlib -mno-relax
 CFLAGS	+= -I.
 CFLAGS	+= -fno-stack-protector
 
-OBJDUMP	:= $(CROSS_COMPILE)objdump
-OBJCOPY	:= $(CROSS_COMPILE)objcopy
-LD		:= $(CROSS_COMPILE)ld
-LDFLAGS	:= -z max-page-size=4096
-QEMU	:= qemu-system-riscv64
-BIOS	:= default
-CPUS	:= 2
-OPTS	= -machine virt -m 1G -nographic
-OPTS	+= -smp $(CPUS)
-OPTS	+= -bios default
-OPTS	+= -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+BOARD_OPTS	= -machine virt -m 1G -nographic
+BOARD_OPTS	+= -smp $(CPUS)
+BOARD_OPTS	+= -bios default
+BOARD_OPTS	+= -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
 
-BOARDOPTS	= $(OPTS) -drive file=sdcard.img,if=sd,format=raw,id=x0
-QEMUOPTS	= $(OPTS) -drive file=dscard.img
+QEMU_OPTS	= -machine virt 
+QEMU_OPTS	+= -m 128M
+QEMU_OPTS	+= -nographic
+QEMU_OPTS	+= -smp ${CPUS}
+QEMU_OPTS	+= -bios $(BIOS)
+QEMU_OPTS	+= -drive file=sdcard.img,if=none,format=raw,id=x0
+QEMU_OPTS	+= -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
 
 PWD		:= /home/bluespace/study/OS/OSKernel2023-550W

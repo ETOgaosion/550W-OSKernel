@@ -56,7 +56,9 @@
 #define DEV_INV 0
 #define DEV_VDA2 1
 
-#define R(r) ((volatile uint32 *)(VIRTIO0 + (r)))
+extern uintptr_t virtio_base;
+
+#define R(r) ((volatile uint32 *)(virtio_base + (r)))
 
 typedef struct buf {
     int valid; // has data been read from disk?
@@ -167,6 +169,10 @@ void bwrite(buf_t *);
 void bpin(buf_t *);
 void bunpin(buf_t *);
 
-void k_sd_read(buf_t *buffers[], uint start_block_id, uint block_num);
+void k_sd_read(buf_t *buffers[], uint *start_block_id, uint block_num);
 void k_sd_write(buf_t *buffers[], uint block_num);
 void k_sd_release(buf_t *buffers[], uint block_num);
+
+void sys_sd_read();
+void sys_sd_write();
+void sys_sd_release();

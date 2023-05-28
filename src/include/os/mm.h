@@ -2,12 +2,12 @@
 
 #include <common/types.h>
 
-#define FS_KERNEL_ADDR 0xffffffc054000000lu
+#define FS_KERNEL_ADDR 0xffffffc084000000lu
 
 #define START_BLOCK 2000
 #define MEM_SIZE 32
 #define PAGE_SIZE 4096 // 4K
-#define INIT_KERNEL_STACK 0xffffffc051000000lu
+#define INIT_KERNEL_STACK 0xffffffc081000000lu
 #define FREEMEM (INIT_KERNEL_STACK + PAGE_SIZE * 10)
 #define USER_STACK_ADDR 0xf00010000lu
 

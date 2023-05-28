@@ -1,15 +1,14 @@
-#include <mthread.h>
 #include "test3.h"
-#include <time.h>
-#include <stdio.h>
+#include <mthread.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <sys/syscall.h>
+#include <time.h>
 
 static mthread_semaphore_t semaphore;
 static int global_count = 0;
 
-void semaphore_add_task1(void)
-{
+void semaphore_add_task1(void) {
     int i;
     int print_location = 4;
     // int sum_up = 0;
@@ -21,8 +20,7 @@ void semaphore_add_task1(void)
     sys_spawn(&subtask1, NULL, AUTO_CLEANUP_ON_EXIT);
     sys_spawn(&subtask2, NULL, AUTO_CLEANUP_ON_EXIT);
 
-    for (i = 0; i < 10; i++)
-    {
+    for (i = 0; i < 10; i++) {
         mthread_semaphore_down(&semaphore); // semaphore.value--
         // semaphore = 0
         global_count++;
@@ -34,25 +32,23 @@ void semaphore_add_task1(void)
         sys_sleep(1);
     }
 
-    //mthread_semaphore_destroy(&semaphore);
+    // mthread_semaphore_destroy(&semaphore);
 
     sys_exit();
 }
 
-void semaphore_add_task2(void)
-{
+void semaphore_add_task2(void) {
     int i;
     int print_location = 5;
     // int sum_down = 0;
 
-    for (i = 0; i < 20; i++)
-    {
+    for (i = 0; i < 20; i++) {
         mthread_semaphore_down(&semaphore); // semaphore.value--
         // semaphore = 0
         global_count++;
         sys_move_cursor(1, print_location);
         printf("> [TASK] current global value %d. (%d)", global_count, i + 1);
-        
+
         mthread_semaphore_up(&semaphore);
 
         sys_sleep(1);
@@ -61,20 +57,18 @@ void semaphore_add_task2(void)
     sys_exit();
 }
 
-void semaphore_add_task3(void)
-{
+void semaphore_add_task3(void) {
     int i;
     int print_location = 6;
     // int sum_down = 0;
 
-    for (i = 0; i < 30; i++)
-    {
+    for (i = 0; i < 30; i++) {
         mthread_semaphore_down(&semaphore); // semaphore.value--
         // semaphore = 0
         global_count++;
         sys_move_cursor(1, print_location);
         printf("> [TASK] current global value %d. (%d)", global_count, i + 1);
-        
+
         mthread_semaphore_up(&semaphore);
         sys_sleep(1);
     }

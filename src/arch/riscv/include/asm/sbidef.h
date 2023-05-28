@@ -1,7 +1,5 @@
 #pragma once
 
-#define SBI_FDT_READ 12
-
 /* SBI Extension IDs */
 #define SBI_EXT_0_1_SET_TIMER 0x0
 #define SBI_EXT_0_1_CONSOLE_PUTCHAR 0x1

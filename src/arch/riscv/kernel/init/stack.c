@@ -9,7 +9,7 @@
 extern void ret_from_exception();
 extern void __global_pointer$();
 
-ptr_t address_base = 0xffffffc050504000lu;
+ptr_t address_base = 0xffffffc080504000lu;
 
 ptr_t get_kernel_address(pid_t pid) {
     return address_base + (pid + 1) * 2 * PAGE_SIZE;
@@ -38,7 +38,6 @@ void init_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, ptr_t entry_point, pcb
     pt_regs->sstatus = SR_SUM | SR_FS;
     pt_regs->sbadaddr = 0;
     pt_regs->scause = 0;
-    pt_regs->sscratch = (reg_t)pcb;
 
     switchto_context_t *sw_regs = (switchto_context_t *)(kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t));
     sw_regs->regs[0] = (pcb->type == USER_PROCESS || pcb->type == USER_THREAD) ? (reg_t)&ret_from_exception : entry_point;
@@ -68,7 +67,6 @@ void fork_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb) {
     pt_regs->sstatus = cur_regs->sstatus;
     pt_regs->sbadaddr = cur_regs->sbadaddr;
     pt_regs->scause = cur_regs->scause;
-    pt_regs->sscratch = (reg_t)pcb;
 
     switchto_context_t *sw_regs = (switchto_context_t *)(kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t));
     sw_regs->regs[0] = (reg_t)ret_from_exception;
@@ -90,5 +88,4 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
         pcb->save_context->regs[4] = (reg_t)tls;
     }
     pcb->save_context->regs[10] = 0;
-    pcb->save_context->sscratch = (reg_t)pcb;
 }

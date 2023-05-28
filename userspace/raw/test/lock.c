@@ -8,16 +8,14 @@
 
 static char blank[] = {"                                             "};
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
     int print_location = 1;
     int binsem_id = binsemget(LOCK2_BINSEM_KEY);
     if (argc > 1) {
         // maybe we should implement an `atoi` in tinylibc?
-        print_location = (int) atol(argv[1]);
+        print_location = (int)atol(argv[1]);
     }
-    while (1)
-    {
+    while (1) {
         int i;
 
         sys_move_cursor(1, print_location);
@@ -28,8 +26,7 @@ int main(int argc, char* argv[])
 
         binsemop(binsem_id, BINSEM_OP_LOCK);
 
-        for (i = 0; i < 2000; i++)
-        {
+        for (i = 0; i < 2000; i++) {
             sys_move_cursor(1, print_location);
             printf("> [TASK] Has acquired lock and running.(%d)\n", i);
         }

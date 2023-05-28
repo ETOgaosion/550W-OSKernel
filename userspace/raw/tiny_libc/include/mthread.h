@@ -27,16 +27,15 @@
 #ifndef MTHREAD_H_
 #define MTHREAD_H_
 
-#include <stdint.h>
 #include <os.h>
 #include <stdatomic.h>
+#include <stdint.h>
 
 /* on success, these functions return zero. Otherwise, return an error number */
-#define EBUSY  1 /* the lock is busy(for example, it is locked by another thread) */
+#define EBUSY 1  /* the lock is busy(for example, it is locked by another thread) */
 #define EINVAL 2 /* the lock is invalid */
 
-typedef struct mthread_mutex
-{
+typedef struct mthread_mutex {
     // TODO:
     int mutex;
 } mthread_mutex_t;
@@ -47,8 +46,7 @@ int mthread_mutex_trylock(void *handle);
 int mthread_mutex_lock(void *handle);
 int mthread_mutex_unlock(void *handle);
 
-typedef struct mthread_barrier
-{
+typedef struct mthread_barrier {
     // TODO:
     int barrier;
 } mthread_barrier_t;
@@ -57,8 +55,7 @@ int mthread_barrier_init(void *handle, unsigned count);
 int mthread_barrier_wait(void *handle);
 int mthread_barrier_destroy(void *handle);
 
-typedef struct mthread_semaphore
-{
+typedef struct mthread_semaphore {
     // TODO:
     int semaphore;
 } mthread_semaphore_t;
@@ -69,8 +66,6 @@ int mthread_semaphore_down(void *handle);
 int mthread_semaphore_destroy(void *handle);
 
 typedef pid_t mthread_t;
-int mthread_create(mthread_t *thread,
-                   void (*start_routine)(void*),
-                   void *arg);
+int mthread_create(mthread_t *thread, void (*start_routine)(void *), void *arg);
 int mthread_join(mthread_t thread);
 #endif

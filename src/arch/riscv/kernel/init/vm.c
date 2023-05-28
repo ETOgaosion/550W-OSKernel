@@ -40,11 +40,11 @@ void setup_vm() {
     // address(kpa) kva = kpa + 0xffff_ffc0_0000_0000 use 2MB page,
     // map all physical memory
     PTE *early_pgdir = (PTE *)PGDIR_PA;
-    for (uint64_t kva = 0xffffffc050200000lu; kva < 0xffffffc060000000lu; kva += 0x200000lu) {
+    for (uint64_t kva = 0xffffffc080200000lu; kva < 0xffffffc090000000lu; kva += 0x200000lu) {
         map_page(kva, kva2pa(kva), early_pgdir);
     }
     // map boot address
-    for (uint64_t pa = 0x50000000lu; pa < 0x50400000lu; pa += 0x200000lu) {
+    for (uint64_t pa = 0x80000000lu; pa < 0x80600000lu; pa += 0x200000lu) {
         map_page(pa, pa, early_pgdir);
     }
     enable_vm();

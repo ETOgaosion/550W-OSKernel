@@ -1,4 +1,4 @@
-#include <asm/common.h>
+#include <asm/io.h>
 #include <drivers/screen/screen.h>
 #include <lib/stdarg.h>
 #include <lib/stdio.h>

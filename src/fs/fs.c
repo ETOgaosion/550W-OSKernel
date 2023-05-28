@@ -1,5 +1,7 @@
+#include <asm/io.h>
 #include <asm/pgtable.h>
 #include <asm/sbi.h>
+#include <drivers/screen/screen.h>
 #include <fs/fs.h>
 #include <lib/stdio.h>
 #include <lib/string.h>
@@ -1132,4 +1134,18 @@ void init_fs() {
     // sbi_sd_read(kva2pa(FS_KERNEL_ADDR + inode_addr_offset), superblock.inode_sec_size, superblock.inode_sec_offset + superblock.fs_start_sec);
     inode_t *root_inode = (inode_t *)(FS_KERNEL_ADDR + inode_addr_offset);
     update_inode(root_inode, 0);
+}
+
+long sys_read(unsigned int fd, char *buf, size_t count) {
+    if (fd == stdin) {
+        return k_port_read();
+    }
+    return 0;
+}
+
+long sys_write(unsigned int fd, const char *buf, size_t count) {
+    if (fd == stdout) {
+        return sys_screen_write((char *)buf);
+    }
+    return 0;
 }
