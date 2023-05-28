@@ -1,11 +1,11 @@
-#include <sys/syscall.h>
-#include <sys/shm.h>
+#include <assert.h>
+#include <mthread.h>
+#include <stdatomic.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
-#include <stdatomic.h>
-#include <mthread.h>
-#include <assert.h>
+#include <sys/shm.h>
+#include <sys/syscall.h>
 
 #define MAGIC 0xdeadbeefdeadbeeflu
 #define SHMP_KEY 42
@@ -18,14 +18,12 @@ typedef struct consensus_vars {
     atomic_int round;
 } consensus_vars_t;
 
-int is_first(consensus_vars_t *vars)
-{
+int is_first(consensus_vars_t *vars) {
     unsigned long my = atomic_exchange_d(&vars->magic_number, MAGIC);
     return my != MAGIC;
 }
 
-pid_t decide(pid_t prev, pid_t mypid, atomic_long* consensus)
-{
+pid_t decide(pid_t prev, pid_t mypid, atomic_long *consensus) {
     pid_t ret = atomic_compare_exchange(consensus, prev, mypid);
     if (ret == prev) {
         return mypid;
@@ -33,19 +31,17 @@ pid_t decide(pid_t prev, pid_t mypid, atomic_long* consensus)
     return ret;
 }
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
     char *prog_name = argv[0];
     int print_location = 1;
     if (argc > 1) {
         print_location = atol(argv[1]);
-    } else
-    {
+    } else {
         sys_move_cursor(1, 1);
         printf("Usage: exec consensus [print_location]\n");
         return 0;
     }
-    consensus_vars_t *vars = (consensus_vars_t*) sys_shmpageget(SHMP_KEY);
+    consensus_vars_t *vars = (consensus_vars_t *)sys_shmpageget(SHMP_KEY);
 
     if (vars == NULL) {
         sys_move_cursor(1, print_location);
@@ -53,12 +49,12 @@ int main(int argc, char* argv[])
         return -1;
     }
     // test shmpagedt()
-    sys_shmpagedt((void*)vars);
+    sys_shmpagedt((void *)vars);
     // touch previous page, OS should insert a page for us
     // then, shmpageget() should get another virtual address
     vars->magic_number = MAGIC;
-    vars = (consensus_vars_t*) sys_shmpageget(SHMP_KEY);
-    
+    vars = (consensus_vars_t *)sys_shmpageget(SHMP_KEY);
+
     if (is_first(vars)) {
         mthread_barrier_init(&vars->barrier, NUM_CONSENSUS + 1);
         atomic_exchange_d(&vars->consensus, 0);
@@ -77,21 +73,20 @@ int main(int argc, char* argv[])
                 str_print_loc[_pos++] = '0' + _print_loc % 10;
                 _print_loc /= 10;
             }
-            for (int l = 0, r = _pos - 1;
-                 l < r; ++l, --r) {
+            for (int l = 0, r = _pos - 1; l < r; ++l, --r) {
                 // swap(str_print_loc[l], str_print_loc[r])
                 str_print_loc[l] ^= str_print_loc[r];
                 str_print_loc[r] ^= str_print_loc[l];
                 str_print_loc[l] ^= str_print_loc[r];
             }
             str_print_loc[_pos] = 0;
-            //printf("[%d]task : %s\n",i, sub_task_args[0]);
+            // printf("[%d]task : %s\n",i, sub_task_args[0]);
             sys_exec(sub_task_args[0], 2, sub_task_args);
         }
     }
 
     sys_sleep(2);
-    
+
     sys_move_cursor(1, print_location);
     printf("barrier: %x, %d!\n", &vars->barrier, vars->barrier.barrier);
 
@@ -114,13 +109,11 @@ int main(int argc, char* argv[])
                 myround = fetch_add(&vars->round, 1) + 1;
             } else {
                 sys_move_cursor(1, print_location);
-                printf("(%d) we selecte (%d)         \n",
-                       mypid, consensus);
+                printf("(%d) we selecte (%d)         \n", mypid, consensus);
             }
         } else {
             sys_move_cursor(1, print_location);
-            printf("(%d) I am selected at round %d   \n",
-                   consensus, myround);
+            printf("(%d) I am selected at round %d   \n", consensus, myround);
         }
         sys_sleep(2);
         mthread_barrier_wait(&vars->barrier);
@@ -129,7 +122,7 @@ int main(int argc, char* argv[])
         }
     }
     mthread_barrier_wait(&vars->barrier);
-    sys_shmpagedt((void*)vars);
+    sys_shmpagedt((void *)vars);
 
     sys_move_cursor(1, print_location);
     printf("(%d) exited!                            \n", mypid);

@@ -22,6 +22,6 @@ void unlock_kernel() {
     k_spin_lock_release(&kernel_lock);
 }
 
-pcb_t *get_current_running() {
-    return get_current_cpu_id() ? current_running1 : current_running0;
+pcb_t *volatile *get_current_running() {
+    return get_current_cpu_id() ? &current_running1 : &current_running0;
 }

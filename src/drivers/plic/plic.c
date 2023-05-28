@@ -1,11 +1,26 @@
 #include <common/types.h>
 #include <drivers/plic/plic.h>
 #include <drivers/virtio/virtio.h>
+#include <os/ioremap.h>
 #include <os/smp.h>
+
+#define PLIC 0x0c000000L
+
+uintptr_t plic_base;
+
+#define PLIC_PRIORITY (plic_base + 0x0)
+#define PLIC_PENDING (plic_base + 0x1000)
+#define PLIC_MENABLE(hart) (plic_base + 0x2000 + (hart)*0x100)
+#define PLIC_SENABLE(hart) (plic_base + 0x2080 + (hart)*0x100)
+#define PLIC_MPRIORITY(hart) (plic_base + 0x200000 + (hart)*0x2000)
+#define PLIC_SPRIORITY(hart) (plic_base + 0x201000 + (hart)*0x2000)
+#define PLIC_MCLAIM(hart) (plic_base + 0x200004 + (hart)*0x2000)
+#define PLIC_SCLAIM(hart) (plic_base + 0x201004 + (hart)*0x2000)
 
 void plic_init(void) {
     // set desired IRQ priorities non-zero (otherwise disabled).
-    *(uint32 *)(PLIC + VIRTIO0_IRQ * 4) = 1;
+    plic_base = (uintptr_t)ioremap((uint64_t)PLIC, 0x4000 * NORMAL_PAGE_SIZE);
+    *(uint32 *)(plic_base + VIRTIO0_IRQ * 4) = 1;
 }
 
 void plic_init_hart(void) {

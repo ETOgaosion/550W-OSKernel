@@ -187,7 +187,7 @@ typedef struct pcb {
 /* current running task PCB */
 extern pcb_t *volatile current_running0;
 extern pcb_t *volatile current_running1;
-extern pcb_t **volatile current_running;
+extern pcb_t *volatile *volatile current_running;
 /* ready queue to run */
 extern list_head ready_queue;
 extern list_head block_queue;

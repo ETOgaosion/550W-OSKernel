@@ -1,18 +1,22 @@
 #include <drivers/virtio/virtio.h>
 #include <lib/assert.h>
 #include <lib/string.h>
+#include <os/ioremap.h>
 #include <os/irq.h>
 #include <os/mm.h>
 #include <os/pcb.h>
 
 disk_t disk;
+uintptr_t virtio_base;
 
 void virtio_disk_init(void) {
+    virtio_base = (uintptr_t)ioremap((uint64_t)VIRTIO0, 0x4000 * NORMAL_PAGE_SIZE);
+
     uint32 status = 0;
 
     k_spin_lock_init(&disk.vdisk_lock);
 
-    if (*R(VIRTIO_MMIO_MAGIC_VALUE) != 0x74726976 || *R(VIRTIO_MMIO_VERSION) != 2 || *R(VIRTIO_MMIO_DEVICE_ID) != 2 || *R(VIRTIO_MMIO_VENDOR_ID) != 0x554d4551) {
+    if (*R(VIRTIO_MMIO_MAGIC_VALUE) != 0x74726976 /* || *R(VIRTIO_MMIO_VERSION) != 2 */ || *R(VIRTIO_MMIO_DEVICE_ID) != 2 || *R(VIRTIO_MMIO_VENDOR_ID) != 0x554d4551) {
         panic("could not find virtio disk");
     }
 
@@ -168,7 +172,7 @@ void virtio_disk_rw(buf_t *b, int write) {
         if (alloc3_desc(idx) == 0) {
             break;
         }
-        k_sleep(&disk.free[0], &disk.vdisk_lock);
+        // k_sleep(&disk.free[0], &disk.vdisk_lock);
     }
 
     // format the three descriptors.
@@ -219,7 +223,7 @@ void virtio_disk_rw(buf_t *b, int write) {
 
     // Wait for virtio_disk_intr() to say request has finished.
     while (b->disk == 1) {
-        k_sleep(b, &disk.vdisk_lock);
+        // k_sleep(b, &disk.vdisk_lock);
     }
 
     disk.info[idx[0]].b = 0;
@@ -268,7 +272,7 @@ static buf_t *bget(uint dev, uint blockno) {
         if (b->dev == dev && b->blockno == blockno) {
             b->refcnt++;
             k_spin_lock_release(&bcache.lock);
-            k_sleep_lock_aquire(&b->lock);
+            // k_sleep_lock_aquire(&b->lock);
             return b;
         }
     }
@@ -282,7 +286,7 @@ static buf_t *bget(uint dev, uint blockno) {
             b->valid = 0;
             b->refcnt = 1;
             k_spin_lock_release(&bcache.lock);
-            k_sleep_lock_aquire(&b->lock);
+            // k_sleep_lock_aquire(&b->lock);
             return b;
         }
     }
@@ -304,20 +308,20 @@ buf_t *bread(uint dev, uint blockno) {
 
 // Write b's contents to disk.  Must be locked.
 void bwrite(buf_t *b) {
-    if (!k_sleep_lock_hold(&b->lock)) {
-        panic("bwrite");
-    }
+    // if (!k_sleep_lock_hold(&b->lock)) {
+    //     panic("bwrite");
+    // }
     virtio_disk_rw(b, 1);
 }
 
 // Release a locked buffer.
 // Move to the head of the most-recently-used list.
 void brelease(buf_t *b) {
-    if (!k_sleep_lock_hold(&b->lock)) {
-        panic("brelse");
-    }
+    // if (!k_sleep_lock_hold(&b->lock)) {
+    //     panic("brelse");
+    // }
 
-    k_sleep_lock_release(&b->lock);
+    // k_sleep_lock_release(&b->lock);
 
     k_spin_lock_acquire(&bcache.lock);
     b->refcnt--;
@@ -346,9 +350,9 @@ void bunpin(buf_t *b) {
     k_spin_lock_release(&bcache.lock);
 }
 
-void k_sd_read(buf_t *buffers[], uint start_block_id, uint block_num) {
+void k_sd_read(buf_t *buffers[], uint *start_block_ids, uint block_num) {
     for (int i = 0; i < block_num; i++) {
-        buffers[i] = bread(DEV_VDA2, start_block_id + i);
+        buffers[i] = bread(DEV_VDA2, start_block_ids[i]);
     }
 }
 
@@ -358,4 +362,25 @@ void k_sd_write(buf_t *buffers[], uint block_num) {
     }
 }
 
-void k_sd_release(buf_t *buffers[], uint block_num) {}
+void k_sd_release(buf_t *buffers[], uint block_num) {
+    for (int i = 0; i < block_num; i++) {
+        brelease(buffers[i]);
+    }
+}
+
+buf_t *buf;
+
+void sys_sd_read() {
+    buf = bread(DEV_VDA2, 1);
+}
+
+void sys_sd_write() {
+    k_memcpy(buf->data, (const uint8_t *)"Hello World", k_strlen("Hello World"));
+    bwrite(buf);
+    buf = bread(DEV_VDA2, 1);
+    printk("%s\n", buf);
+}
+
+void sys_sd_release() {
+    brelease(buf);
+}

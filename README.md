@@ -34,9 +34,10 @@ Our Framework is inspired from Linux, as below:
 │   │   ├── mm                      # deal with memory management
 │   │   └── sched                   # deal with scheduling
 │   ├── libs                    # libraries for kernel use only, like string and print
+│   └── tests                   # kernel related tests, built into kernel
 │   └── user                    # temp compromise
 ├── target                  # build target location
-├── test                    # test of OS modules
+├── tests                   # non-kernel related tests, mainly for language features using host compiler and env
 ├── tools                   # OS-none-related tools
 └── userspace               # userspace programs
 ```

@@ -2,30 +2,26 @@
 #include <asm/csr.h>
 #include <asm/sbidef.h>
 
-.macro SBI_CALL which
-    li a7, \which
-    ecall
-    nop
-.endm
-
 ENTRY(setup_exception)
-  /* TODO: 
+  /* 
    * save exception_handler_entry into STVEC
    * enable global exceptions */
-  csrw CSR_SIE, zero
-  csrw CSR_SIP, zero
-  csrr t0, CSR_MHARTID
+  csrr t0, sscratch
   bnez t0, CORE2_EXCEP
-  li a0, 0x0
-  SBI_CALL SBI_EXT_0_1_SEND_IPI
-  csrw CSR_SIP, zero
+  la tp, current_running0
+  ld tp, (tp)
+  j NEXT
 CORE2_EXCEP:
+  la tp, current_running1
+  ld tp, (tp)
+NEXT:
+  csrw CSR_SIP, zero
   la t0, exception_handler_entry
-  csrw stvec, t0
-  not t0, zero
-  csrw sie, t0
-  li t0, SR_SIE | SR_SUM
-  csrw sstatus, t0
+  csrw CSR_STVEC, t0
+  li t0, SIE_SSIE | SIE_STIE | SIE_SEIE
+  csrw CSR_SIE, t0
+  li t0, SR_SIE
+  csrw CSR_SSTATUS, t0
 
   jr ra
 ENDPROC(setup_exception)

@@ -6,10 +6,12 @@ modules		:= $(shell ls -d */)
 
 .PHONY:	build clean $(modules)
 
+all: build
+
 build: $(modules) $(target)
 
 $(modules):
-	$(MAKE) build --directory=$@
+	$(MAKE) all --directory=$@
 
 clean:
 	for d in $(modules); \

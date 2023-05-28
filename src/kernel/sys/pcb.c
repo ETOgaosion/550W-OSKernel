@@ -14,7 +14,7 @@
 
 pcb_t *volatile current_running0;
 pcb_t *volatile current_running1;
-pcb_t **volatile current_running;
+pcb_t *volatile *volatile current_running;
 
 LIST_HEAD(ready_queue);
 LIST_HEAD(block_queue);
@@ -126,9 +126,10 @@ void k_init_pcb() {
     }
     current_running0 = &pid0_pcb;
     current_running1 = &pid0_pcb2;
-    (*current_running) = get_current_running();
+    current_running = get_current_running();
     init_list_head(&timers);
     sys_spawn("shell");
+    sys_spawn("test_virtio");
 }
 
 long sys_setpriority(int which, int who, int niceval) {
@@ -237,7 +238,8 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target) {
         list_init_with_null(&ret->wait_list);
         break;
     case DEQUEUE_LIST_STRATEGY:
-        ret = choose_sched_task(queue);
+        // ret = choose_sched_task(queue);
+        ret = list_entry(queue->next, pcb_t, list);
         list_del(&(ret->list));
         break;
     default:
@@ -321,10 +323,10 @@ long k_scheduler(void) {
     next_pcb->status = TASK_RUNNING;
     if (cpuid == 0) {
         current_running0 = next_pcb;
-        *current_running = current_running0;
+        current_running = &current_running0;
     } else {
         current_running1 = next_pcb;
-        *current_running = current_running1;
+        current_running = &current_running1;
     }
     set_satp(SATP_MODE_SV39, (*current_running)->pid, (uint64_t)(kva2pa((*current_running)->pgdir)) >> 12);
     local_flush_tlb_all();

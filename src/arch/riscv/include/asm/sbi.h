@@ -45,6 +45,10 @@ static inline void sbi_set_timer(uint64_t stime_value) {
     SBI_CALL_1(SBI_EXT_0_1_SET_TIMER, stime_value);
 }
 
+static inline void sbi_set_mode(uint64_t hart_id, uint64_t addr) {
+    SBI_CALL_2(SBI_EXT_HSM, hart_id, addr);
+}
+
 static inline void sbi_shutdown(void) {
     SBI_CALL_0(SBI_EXT_0_1_SHUTDOWN);
 }

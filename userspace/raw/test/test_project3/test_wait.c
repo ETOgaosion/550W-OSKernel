@@ -1,10 +1,9 @@
-#include <time.h>
 #include "test3.h"
 #include <stdio.h>
 #include <sys/syscall.h>
+#include <time.h>
 
-void waiting_task1(void)
-{
+void waiting_task1(void) {
     int print_location = 1;
 
     sys_move_cursor(1, print_location);
@@ -18,8 +17,7 @@ void waiting_task1(void)
     sys_exit();
 }
 
-void waiting_task2(void)
-{
+void waiting_task2(void) {
     int print_location = 2;
 
     sys_move_cursor(1, print_location);
@@ -33,8 +31,7 @@ void waiting_task2(void)
     sys_exit();
 }
 
-void waited_task(void)
-{
+void waited_task(void) {
     int print_location = 3;
 
     sys_move_cursor(1, print_location);

@@ -4,9 +4,14 @@
 
 .section ".entry_function","ax"
 ENTRY(_start)
+
+  /* Use sscratch to get hart id */
+  csrw sscratch, a0
+  bnez a0, core2
+
   /* Mask all interrupts */
-  csrw CSR_SIE, zero
-  csrw CSR_SIP, zero
+  csrw sie, zero
+  csrw sip, zero
 
   /*
    * Disable FPU to detect illegal usage of
@@ -15,20 +20,12 @@ ENTRY(_start)
   li t0, SR_FS
   csrc sstatus, t0
 
-  /* setup C environment */
-  //lw sp, pid0_stack
-  csrw CSR_SSCRATCH, x0
-
   /* Load the global pointer */
   .option push
   .option norelax
   la gp, __global_pointer$
   .option pop
 
-  csrr t0, CSR_MHARTID
-  bnez t0, slave
-
-  //these instructions will modify memory
   /* Clear BSS for flat non-ELF images */
   la a3, __bss_start
   la a4, __BSS_END__
@@ -39,28 +36,30 @@ clear_bss:
   blt a3, a4, clear_bss
 clear_bss_done:
 
-  // core 0
-master:
-  li sp, BOOT_STACK_MASTER
-  csrr a0, CSR_MHARTID 
+  /* Set up stack and prepare vm */
+  li sp, 0x80501000
   call prepare_vm
-slave:
-  /* Mark all interrupt */
+  call main
+
+core2:
+	csrw sie, zero
+  csrw sip, zero
+  //la t0, core2_next
+  //csrw CSR_STVEC, t0
+	//li t0, 0x2
+  //csrw CSR_SIE, t0
+  //li t0, SR_SIE
+  //csrw CSR_SSTATUS, t0
+
   li t0, SR_FS
   csrc sstatus, t0
-  /* Set stvec to kernel entry */
-  csrw CSR_SSCRATCH, t0
-  la t0, prepare_vm
-  csrw CSR_STVEC, t0
-  /* Enable supervisor software interrupt (ipi) */
-  li t0, SIE_SSIE
-  csrw CSR_SIE, t0
-  li t0, SR_SIE
-  csrw CSR_SSTATUS, t0
-  li sp, BOOT_STACK_SLAVE
-
-loop:
-  wfi
-  j loop
+  .option push
+  .option norelax
+  la gp, __global_pointer$
+  .option pop
+  
+  li sp, 0x80502000
+  call prepare_vm
+  call main
 
 END(_start)

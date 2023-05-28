@@ -7,14 +7,11 @@ static char plane2[] = {"| __\\_\\______/_| "};
 static char plane3[] = {"<[___\\_\\_______| "};
 static char plane4[] = {"|  o'o             "};
 
-int main()
-{
+int main() {
     int i = 22, j = 10;
 
-    while (1)
-    {
-        for (i = 60; i > 0; i--)
-        {
+    while (1) {
+        for (i = 60; i > 0; i--) {
             /* move */
             sys_move_cursor(i, j + 0);
             printf("%s", plane1);

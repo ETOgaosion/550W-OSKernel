@@ -1,21 +1,21 @@
 src_dir			:= src
 linker_dir		:= linker
+tools_dir		:= tools
 user_dir		:= userspace
 target_dir		:= target
-# tools_dir	 := tools
 
 linkscript		:= $(linker_dir)/riscv.lds
-vm550w_img		:= kernel-qemu
+target			:= kernel-qemu
 vm550w_bin		:= $(target_dir)/vm550w.bin
 vm550w_asm		:= $(target_dir)/vm550w_asm.txt
 dst				:= /mnt
 fs_img			:= sdcard.img
 
-modules := $(src_dir)
+modules := $(tools_dir) $(user_dir) $(src_dir)
 sources := $(shell find $(src_dir) \( -name "*.S" -o -name "*.c" \))
 objects := $(patsubst %.S,%.o, $(patsubst %.c,%.o, $(sources)))
 
-.PHONY: build clean $(modules) run
+.PHONY: all build clean $(modules) run
 GDB := n
 
 ifeq ($(MAKECMDGOALS), gdb)
@@ -24,16 +24,18 @@ endif
 
 all: clean build
 
+all: build
+
 build: $(modules)
 	mkdir -p $(target_dir)
-	$(LD) $(LDFLAGS) -T $(linkscript) -o $(vm550w_img) $(objects)
-	$(OBJDUMP) -S $(vm550w_img) > $(vm550w_asm)
-	$(OBJCOPY) -O binary $(vm550w_img) $(vm550w_bin)
+	$(LD) $(LDFLAGS) -T $(linkscript) -o $(target) $(objects)
+	$(OBJDUMP) -S $(target) > $(vm550w_asm)
+	$(OBJCOPY) -O binary $(target) $(vm550w_bin)
 
-sifive: clean build
-	$(OBJCOPY) -O binary $(vm550w_img) /srv/tftp/vm.bin
+sifive:
+	$(OBJCOPY) -O binary $(target) /srv/tftp/vm.bin
 	
-fat: $(user_dir)
+fat:
 	if [ ! -f "$(fs_img)" ]; then \
 		echo "making fs image..."; \
 		dd if=/dev/zero of=$(fs_img) bs=512k count=1024; fi
@@ -49,7 +51,7 @@ mount:
 	sudo mount -t vfat $(fs_img) $(dst)
 	
 $(modules):
-	$(MAKE) build GDB=$(GDB) --directory=$@
+	$(MAKE) all GDB=$(GDB) --directory=$@
 
 clean:
 	for d in $(modules); \
@@ -58,19 +60,19 @@ clean:
 		done; \
 	rm -rf *.o *~ $(target_dir)/*
 
-comp: clean build
-	$(QEMU) -kernel $(vm550w_bin) $(BOARDOPTS)
+comp:
+	$(QEMU) -kernel $(target) $(BOARD_OPTS)
 
-run: clean build
-	$(QEMU) -kernel $(vm550w_bin) $(QEMUOPTS)
+run:
+	$(QEMU) -kernel $(target) $(QEMU_OPTS)
 
-asm: clean build
-	$(QEMU) -kernel $(vm550w_bin) $(QEMUOPTS) -d in_asm
+asm:
+	$(QEMU) -kernel $(target) $(QEMU_OPTS) -d in_asm
 
-int: clean build
-	$(QEMU) -kernel $(vm550w_bin) $(QEMUOPTS) -d int
+int:
+	$(QEMU) -kernel $(target) $(QEMU_OPTS) -d int
 
-gdb: clean build
-	$(QEMU) -kernel $(vm550w_bin) $(QEMUOPTS) -nographic -s -S
+gdb:
+	$(QEMU) -kernel $(target) $(QEMU_OPTS) -nographic -s -S
 
 include Makefile.in

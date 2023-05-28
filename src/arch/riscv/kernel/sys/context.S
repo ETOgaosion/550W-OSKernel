@@ -19,7 +19,6 @@
 _save_context:
   sd sp, PCB_USER_SP(tp)
   ld sp, PCB_KERNEL_SP(tp)
-  csrrw tp, CSR_SSCRATCH, tp
   addi sp, sp, SWITCH_TO_SIZE
 
   /* TODO: save all general purpose registers here! */
@@ -53,14 +52,12 @@ _save_context:
   SAVE(t4,T4)
   SAVE(t5,T5)
   SAVE(t6,T6)
-  csrr a0, CSR_SSTATUS
+  csrr a0, sstatus
   SAVE(a0,SSTATUS)
-  csrr a0, CSR_SEPC
+  csrr a0, sepc
   SAVE(a0,SEPC)
-  csrr a0, CSR_SCAUSE
+  csrr a0, scause
   SAVE(a0,SCAUSE)
-  csrr a0, CSR_SSCRATCH
-  SAVE(a0,SSCRATCH)
   ld a0, PCB_USER_SP(tp)
   SAVE(a0,SP)
   /*
@@ -73,20 +70,11 @@ _save_context:
   li t0, SR_SUM | SR_FS
   //addi sp, sp, -(SWITCH_TO_SIZE)
   /* TODO: save sstatus, sepc, stval, scause and sscratch on user stack */
-  csrrw tp, CSR_SSCRATCH, tp
-  ld sp, PCB_KERNEL_SP(tp)
 .endm
 
 .macro RESTORE_CONTEXT
   ld sp, PCB_KERNEL_SP(tp)
   addi sp, sp, SWITCH_TO_SIZE
-  LOAD(s0,SSTATUS)
-  csrw CSR_SSTATUS, s0
-  LOAD(s0,SEPC)
-  csrw CSR_SEPC, s0
-  LOAD(s0, SSCRATCH)
-  csrw CSR_SSCRATCH, s0
-  csrrw tp, CSR_SSCRATCH, tp
   LOAD(ra,RA)
   LOAD(gp,GP)
   LOAD(tp,TP)
@@ -117,8 +105,12 @@ _save_context:
   LOAD(t4,T4)
   LOAD(t5,T5)
   LOAD(t6,T6)
+  LOAD(s0,SSTATUS)
+  csrw sstatus, s0
+  LOAD(s0,SEPC)
+  csrw sepc, s0
   LOAD(s0,S0)
-  LOAD(sp,SP)
+  LOAD(sp, SP)
   fence
   /*ld sstatus, 256(sp)
   ld sepc, 264(sp)
@@ -187,8 +179,6 @@ ENDPROC(ret_from_exception)
 ENTRY(exception_handler_entry)
   SAVE_CONTEXT
 
-  csrw CSR_SSCRATCH, x0
-
   /* Load the global pointer */
   .option push
   .option norelax
@@ -196,9 +186,9 @@ ENTRY(exception_handler_entry)
   .option pop
 
   mv a0, sp
-  csrr a1, CSR_STVAL
-  csrr a2, CSR_SCAUSE
-  csrr a3, CSR_MHARTID
+  csrr a1, stval
+  csrr a2, scause
+  csrr a3, sscratch
   ld sp, PCB_KERNEL_SP(tp)
   la t0, interrupt_helper
   jr t0

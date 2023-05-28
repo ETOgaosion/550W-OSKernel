@@ -1,12 +1,11 @@
-#include <time.h>
 #include "test3.h"
+#include <mailbox.h>
 #include <mthread.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <mailbox.h>
 #include <sys/syscall.h>
-
+#include <time.h>
 
 // struct task_info strserver_task = {(uintptr_t)&strServer, USER_PROCESS};
 // struct task_info strgenerator_task = {(uintptr_t)&strGenerator, USER_PROCESS};
@@ -14,8 +13,7 @@
 static const char initReq[] = "clientInitReq";
 static const int initReqLen = sizeof(initReq);
 
-struct MsgHeader
-{
+struct MsgHeader {
     int length;
     uint32_t checksum;
     pid_t sender;
@@ -24,14 +22,12 @@ struct MsgHeader
 const uint32_t MOD_ADLER = 65521;
 
 /* adler32 algorithm implementation from: https://en.wikipedia.org/wiki/Adler-32 */
-uint32_t adler32(unsigned char *data, size_t len)
-{
+uint32_t adler32(unsigned char *data, size_t len) {
     uint32_t a = 1, b = 0;
     size_t index;
 
     // Process each byte of the data in order
-    for (index = 0; index < len; ++index)
-    {
+    for (index = 0; index < len; ++index) {
         a = (a + data[index]) % MOD_ADLER;
         b = (b + a) % MOD_ADLER;
     }
@@ -39,17 +35,19 @@ uint32_t adler32(unsigned char *data, size_t len)
     return (b << 16) | a;
 }
 
-int clientInitReq(const char* buf, int length)
-{
-    if (length != initReqLen) return 0;
+int clientInitReq(const char *buf, int length) {
+    if (length != initReqLen) {
+        return 0;
+    }
     for (int i = 0; i < initReqLen; ++i) {
-        if (buf[i] != initReq[i]) return 0;
+        if (buf[i] != initReq[i]) {
+            return 0;
+        }
     }
     return 1;
 }
 
-void strServer(void)
-{
+void strServer(void) {
     char msgBuffer[MAX_MBOX_LENGTH];
     struct MsgHeader header;
     int64_t correctRecvBytes = 0;
@@ -63,8 +61,7 @@ void strServer(void)
     printf("[Server] server started");
     sys_sleep(1);
 
-    for (;;)
-    {
+    for (;;) {
         blockedCount += mbox_recv(mq, &header, sizeof(struct MsgHeader));
         blockedCount += mbox_recv(mq, msgBuffer, header.length);
 
@@ -76,8 +73,7 @@ void strServer(void)
         }
 
         sys_move_cursor(1, 1);
-        printf("[Server]: recved msg from %d (blocked: %ld, correctBytes: %ld, errorBytes: %ld)",
-              header.sender, blockedCount, correctRecvBytes, errorRecvBytes);
+        printf("[Server]: recved msg from %d (blocked: %ld, correctBytes: %ld, errorBytes: %ld)", header.sender, blockedCount, correctRecvBytes, errorRecvBytes);
 
         if (clientInitReq(msgBuffer, header.length)) {
             mbox_send(posmq, &clientPos, sizeof(int));
@@ -88,12 +84,11 @@ void strServer(void)
     }
 }
 
-int clientSendMsg(mailbox_t mq, const char* content, int length)
-{
+int clientSendMsg(mailbox_t mq, const char *content, int length) {
     int i;
     char msgBuffer[MAX_MBOX_LENGTH] = {0};
-    struct MsgHeader* header = (struct MsgHeader*)msgBuffer;
-    char* _content = msgBuffer + sizeof(struct MsgHeader);
+    struct MsgHeader *header = (struct MsgHeader *)msgBuffer;
+    char *_content = msgBuffer + sizeof(struct MsgHeader);
     header->length = length;
     header->checksum = adler32(content, length);
     header->sender = sys_getpid();
@@ -104,8 +99,7 @@ int clientSendMsg(mailbox_t mq, const char* content, int length)
     return mbox_send(mq, msgBuffer, length + sizeof(struct MsgHeader));
 }
 
-void generateRandomString(char* buf, int len)
-{
+void generateRandomString(char *buf, int len) {
     static const char alpha[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-={};|[],./<>?!@#$%^&*";
     static const int alphaSz = sizeof(alpha) / sizeof(char);
     int i = len - 2;
@@ -116,8 +110,7 @@ void generateRandomString(char* buf, int len)
     }
 }
 
-void strGenerator(void)
-{
+void strGenerator(void) {
     mailbox_t mq = mbox_open("str-message-queue");
     mailbox_t posmq = mbox_open("pos-message-queue");
 
@@ -132,16 +125,14 @@ void strGenerator(void)
     sys_move_cursor(1, position);
     printf("[Client %d] server started", position);
     sys_sleep(1);
-    for (;;)
-    {
-        len = (rand() % ((MAX_MBOX_LENGTH - sizeof(struct MsgHeader))/2)) + 1;
+    for (;;) {
+        len = (rand() % ((MAX_MBOX_LENGTH - sizeof(struct MsgHeader)) / 2)) + 1;
         generateRandomString(strBuffer, len);
         blocked += clientSendMsg(mq, strBuffer, len);
         bytes += len;
 
         sys_move_cursor(1, position);
-        printf("[Client %d] send bytes: %ld, blocked: %d", position,
-            bytes, blocked);
+        printf("[Client %d] send bytes: %ld, blocked: %d", position, bytes, blocked);
         sys_sleep(1);
     }
 }

@@ -66,6 +66,14 @@ void init_syscall(void) {
 
     // Memory
     syscall[SYS_brk] = (long (*)())sys_brk;
+
+    // Self Defined
+    syscall[SYS_move_cursor] = (long (*)())sys_screen_move_cursor;
+    syscall[SYS_screen_clear] = (long (*)())sys_screen_clear;
+
+    syscall[SYS_SD_READ] = (long (*)())sys_sd_read;
+    syscall[SYS_SD_WRITE] = (long (*)())sys_sd_write;
+    syscall[SYS_SD_WRITE] = (long (*)())sys_sd_release;
 }
 
 void reset_irq_timer() {
@@ -79,7 +87,7 @@ void reset_irq_timer() {
 void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
     lock_kernel();
     // call corresponding handler by the value of `cause`
-    (*current_running) = get_current_running();
+    current_running = get_current_running();
     time_val_t now;
     get_utime(&now);
     time_val_t last_run;
@@ -197,7 +205,6 @@ void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_
         local_flush_tlb_all();
     }
 }
-
 
 void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid);
 

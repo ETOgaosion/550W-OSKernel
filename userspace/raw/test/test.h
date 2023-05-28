@@ -26,9 +26,9 @@
 #ifndef INCLUDE_TEST_H_
 #define INCLUDE_TEST_H_
 
-#include "test_project3/test3.h"
 #include "test_project2/test2.h"
-//#include <os/sched.h>
+#include "test_project3/test3.h"
+// #include <os/sched.h>
 
 extern void test_shell();
 extern void ready_to_exit_task(void);
