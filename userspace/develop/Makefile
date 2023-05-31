@@ -29,8 +29,8 @@ prepare: build $(lib_target) srcs $(shell_target)
 	echo "" > user_programs.h
 	../../tools/elf2char -o shell --header-only $(shell_target) >> user_programs.h
 	../../tools/elf2char -o shell $(shell_target) >> user_programs.c
-	for prog in $(src_targets); do ../../tools/elf2char -o $$prog --header-only build/$$prog >> user_programs.h; done
-	for prog in $(src_targets); do ../../tools/elf2char -o $$prog build/$$prog >> user_programs.c; done
+	for prog in $(src_names); do ../../tools/elf2char -o $$prog --header-only build/$$prog.elf >> user_programs.h; done
+	for prog in $(src_names); do ../../tools/elf2char -o $$prog build/$$prog.elf >> user_programs.c; done
 	../../tools/generateMapping user_programs
 	mv user_programs.h ../../src/user/
 	mv user_programs.c ../../src/user/
@@ -43,7 +43,7 @@ $(lib_target):
 	$(AR) rcs $@ $(lib_objs)
 
 srcs:
-	for src_obj in $(src_objs); do ${GCC} ${LDFLAGS} ${C_SHARE_FLAG} -o build/${src_targets} $$src_obj ${lib_target}; done
+	for src_obj in $(src_names); do ${GCC} ${LDFLAGS} ${C_SHARE_FLAG} -o build/$$src_obj.elf src/$$src_obj.o ${lib_target}; done
 
 $(shell_target):
 	$(GCC) $(LDFLAGS) $(C_SHARE_FLAG) -o $@ ${shell_objs} ${lib_target}

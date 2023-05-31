@@ -166,7 +166,7 @@ ENTRY(switch_to)
   LS(s10, S10)
   LS(s11, S11)
 
-  jr ra
+  ret
   //csrw CSR_SEPC, ra
   //sret
 ENDPROC(switch_to)

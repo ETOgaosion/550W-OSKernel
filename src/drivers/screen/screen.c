@@ -32,7 +32,7 @@ void vt100_clear() {
 }
 
 /* hidden cursor */
-static void vt100_hidden_cursor() {
+void vt100_hidden_cursor() {
     // \033[?25l
     printk("%c[?25l", 27);
 }

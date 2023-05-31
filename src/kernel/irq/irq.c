@@ -77,7 +77,6 @@ void init_syscall(void) {
 }
 
 void reset_irq_timer() {
-    k_screen_reflush();
     // note: use sbi_set_timer
     // remember to reschedule
     sbi_set_timer(get_ticks() + TICKS_INTERVAL);
@@ -212,6 +211,7 @@ void init_exception() {
         irq_table[i] = handle_other;
     }
     irq_table[IRQC_S_TIMER] = handle_int_irq;
+    irq_table[IRQC_U_EXT] = handle_ext_irq;
     irq_table[IRQC_S_EXT] = handle_ext_irq;
     for (int i = 0; i < EXCC_COUNT; i++) {
         exc_table[i] = handle_other;

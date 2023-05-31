@@ -24,14 +24,16 @@ void plic_init(void) {
 }
 
 void plic_init_hart(void) {
-    int hart = get_current_cpu_id();
-
     // set enable bits for this hart's S-mode
     // for the uart and virtio disk.
-    *(uint32 *)PLIC_SENABLE(hart) = (1 << VIRTIO0_IRQ);
+    *(uint32 *)PLIC_SENABLE(0) = (1 << VIRTIO0_IRQ);
+    *(uint32 *)PLIC_SENABLE(1) = (1 << VIRTIO0_IRQ);
 
     // set this hart's S-mode priority threshold to 0.
-    *(uint32 *)PLIC_SPRIORITY(hart) = 0;
+    *(uint32 *)PLIC_SPRIORITY(0) = 0;
+    *(uint32 *)PLIC_SPRIORITY(1) = 0;
+
+
 }
 
 // ask the PLIC what interrupt we should serve.

@@ -54,6 +54,7 @@ int main() {
         binit();
         virtio_disk_init();
         printk("> [INIT] Disk initialized successfully.\n\r");
+        sys_spawn("virtio");
 
         // init screen (QAQ)
         init_exception();

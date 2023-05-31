@@ -129,7 +129,7 @@ void k_init_pcb() {
     current_running = k_get_current_running();
     init_list_head(&timers);
     sys_spawn("shell");
-    // sys_spawn("test_virtio");
+    sys_spawn("bubble");
 }
 
 long sys_setpriority(int which, int who, int niceval) {
@@ -201,6 +201,7 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
     switch (way) {
     case ENQUEUE_LIST:
         list_add_tail(new, head);
+        break;
     case ENQUEUE_TIMER_LIST: {
         pcb_t *new_inserter = list_entry(new, pcb_t, list);
         list_head *iterator_list = timers.next;
@@ -315,7 +316,7 @@ long k_scheduler(void) {
         }
         (*current_running) = curr;
     }
-    if (curr->status == TASK_RUNNING && curr->pid != 0) {
+    if (curr->status == TASK_RUNNING && curr->pid >= 0) {
         enqueue(&curr->list, &ready_queue, ENQUEUE_LIST);
     }
     pcb_t *next_pcb = dequeue(&ready_queue, DEQUEUE_LIST_STRATEGY);

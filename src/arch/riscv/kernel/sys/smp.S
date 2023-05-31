@@ -3,6 +3,6 @@
 
 ENTRY(get_current_cpu_id)
   csrr a0, sscratch
-  jr ra
+  ret
 ENDPROC(get_current_cpu_id)
 

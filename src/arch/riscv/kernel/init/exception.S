@@ -18,8 +18,8 @@ NEXT:
   csrw CSR_SIP, zero
   la t0, exception_handler_entry
   csrw CSR_STVEC, t0
-  li t0, SIE_STIE | SIE_SEIE
+  li t0, SIE_STIE | SIE_SEIE | SIE_SSIE
   csrw CSR_SIE, t0
 
-  jr ra
+  ret
 ENDPROC(setup_exception)

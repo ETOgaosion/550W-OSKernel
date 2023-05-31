@@ -61,5 +61,7 @@ core2:
   li sp, 0x80502000
   call prepare_vm
   call main
+  
+  ret
 
 END(_start)
