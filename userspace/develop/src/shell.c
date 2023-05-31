@@ -329,8 +329,7 @@ int main() {
     while (1) {
         if (cmd_res == 0) {
             printf("\n(> ^_^ ) > ");
-        }
-        else {
+        } else {
             printf("\n(> x_x ) > ");
         }
         // char dirname[SHELL_ARG_MAX_LENGTH];
@@ -344,7 +343,7 @@ int main() {
         // TODO: parse input
         // note: backspace maybe 8('\b') or 127(delete)
         while (input_length < SHELL_INPUT_MAX_WORDS) {
-            while ((ch = getchar()) == -1 ) {}
+            while ((ch = getchar()) == -1) {}
             if (ch == 3 || ch == 4 || ch == 24) {
                 putchar('^');
                 goto clear_and_next;

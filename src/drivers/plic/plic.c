@@ -32,8 +32,6 @@ void plic_init_hart(void) {
     // set this hart's S-mode priority threshold to 0.
     *(uint32 *)PLIC_SPRIORITY(0) = 0;
     *(uint32 *)PLIC_SPRIORITY(1) = 0;
-
-
 }
 
 // ask the PLIC what interrupt we should serve.

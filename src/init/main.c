@@ -30,8 +30,7 @@ int main() {
         current_running = k_get_current_running();
         setup_exception();
         // k_cancel_pg(pa2kva(PGDIR_PA));
-    }
-    else {
+    } else {
         k_smp_init(); // only done by master core
         k_lock_kernel();
         // init fs

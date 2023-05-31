@@ -1,6 +1,6 @@
 #include <asm/context.h>
-#include <asm/syscall.h>
 #include <asm/regs.h>
+#include <asm/syscall.h>
 
 long (*syscall[NUM_SYSCALLS])();
 

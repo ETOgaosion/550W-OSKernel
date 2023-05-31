@@ -115,8 +115,7 @@ long k_screen_reflush(void) {
                 vt100_move_cursor(j + 1, i + 1);
                 if (new_screen[i][j] < 20 || new_screen[i][j] > 126) {
                     port_write_ch(' ');
-                }
-                else {
+                } else {
                     port_write_ch(new_screen[i][j]);
                 }
                 old_screen[i][j] = new_screen[i][j];
