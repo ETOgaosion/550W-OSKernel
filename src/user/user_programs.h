@@ -1,13 +1,15 @@
 
+#pragma once
 extern unsigned char _elf_shell[];
 extern int _length_shell;
+#pragma once
 extern unsigned char _elf_test_virtio_elf[];
 extern int _length_test_virtio_elf;
 #pragma once
 typedef struct ElfFile {
-    char *file_name;
-    unsigned char *file_content;
-    int *file_length;
+  char *file_name;
+  unsigned char* file_content;
+  int* file_length;
 } ElfFile;
 
 #define ELF_FILE_NUM 2

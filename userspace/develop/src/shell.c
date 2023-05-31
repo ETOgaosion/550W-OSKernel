@@ -13,7 +13,7 @@
 #define BEGIN cmd_in_length = 0;\
     screen_clear();\
     move_cursor(1, SHELL_BEGIN);\
-    printf("========================== MOSS ==========================");
+    printf("========================== MOSS ==========================")
 /* clang-format on */
 
 typedef int (*function)(int argc, char *argv[]);
@@ -176,7 +176,7 @@ static int shell_help(int argc, char *argv[]) {
 
 static int shell_clear(int argc, char *argv[]) {
     screen_clear();
-    BEGIN
+    BEGIN;
     return 0;
 }
 
@@ -318,16 +318,21 @@ static int shell_clear(int argc, char *argv[]) {
 
 int main() {
     // TODO:
-    BEGIN
+    BEGIN;
     char input_buffer[SHELL_INPUT_MAX_WORDS] = {0};
     char cmd[SHELL_CMD_MAX_LENGTH] = {0};
     char arg[SHELL_ARG_MAX_NUM][SHELL_ARG_MAX_LENGTH] = {0};
     memset(arg, 0, SHELL_ARG_MAX_NUM * SHELL_ARG_MAX_LENGTH);
     char ch;
-    int input_length = 0, arg_idx = 0, cmd_res = -1;
+    int input_length = 0, arg_idx = 0, cmd_res = 0;
     bool cmd_found = false;
     while (1) {
-        printf("\n( ^_^ >) >");
+        if (cmd_res == 0) {
+            printf("\n(> ^_^ ) > ");
+        }
+        else {
+            printf("\n(> x_x ) > ");
+        }
         // char dirname[SHELL_ARG_MAX_LENGTH];
         // #ifndef DEBUG_WITHOUT_INIT_FS
         // pwd(dirname);
@@ -339,16 +344,15 @@ int main() {
         // TODO: parse input
         // note: backspace maybe 8('\b') or 127(delete)
         while (input_length < SHELL_INPUT_MAX_WORDS) {
-            ch = getchar();
+            while ((ch = getchar()) == -1 ) {}
             if (ch == 3 || ch == 4 || ch == 24) {
-                printf("^%c", 'A' - 1 + ch);
+                putchar('^');
                 goto clear_and_next;
             } else if (ch == 9) {
                 // now we assume tab is space
                 putchar(32);
                 input_buffer[input_length++] = 32;
             } else if (ch == 10 || ch == 13) {
-                printf("\n");
                 cmd_in_length++;
                 if (input_length == 0) {
                     goto clear_and_next;
@@ -393,14 +397,14 @@ int main() {
         // clear and prepare for next input
     clear_and_next:
         if (cmd_in_length > MAX_CMD_IN_LINES) {
-            BEGIN
+            BEGIN;
         }
         memset(input_buffer, 0, sizeof(input_buffer));
         memset(cmd, 0, sizeof(cmd));
         memset(arg, 0, SHELL_ARG_MAX_NUM * SHELL_ARG_MAX_LENGTH);
         input_length = 0;
         arg_idx = 0;
-        cmd_res = -1;
+        cmd_res = 0;
         cmd_found = false;
     }
     return 0;

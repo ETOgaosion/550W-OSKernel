@@ -22,44 +22,45 @@ _save_context:
   addi sp, sp, SWITCH_TO_SIZE
 
   /* TODO: save all general purpose registers here! */
-  //SAVE(sp,SP)
-  SAVE(gp,GP)
-  SAVE(tp,TP)
-  SAVE(t0,T0)
-  SAVE(t1,T1)
-  SAVE(t2,T2)
-  SAVE(s0,S0)
-  SAVE(s1,S1)
-  SAVE(a0,A0)
-  SAVE(a1,A1)
-  SAVE(a2,A2)
-  SAVE(a3,A3)
-  SAVE(a4,A4)
-  SAVE(a5,A5)
-  SAVE(a6,A6)
-  SAVE(a7,A7)
-  SAVE(s2,S2)
-  SAVE(s3,S3)
-  SAVE(s4,S4)
-  SAVE(s5,S5)
-  SAVE(s6,S6)
-  SAVE(s7,S7)
-  SAVE(s8,S8)
-  SAVE(s9,S9)
-  SAVE(s10,S10)
-  SAVE(s11,S11)
-  SAVE(t3,T3)
-  SAVE(t4,T4)
-  SAVE(t5,T5)
-  SAVE(t6,T6)
+  //SAVE(sp, SP)
+  SAVE(ra, RA)
+  SAVE(gp, GP)
+  SAVE(tp, TP)
+  SAVE(t0, T0)
+  SAVE(t1, T1)
+  SAVE(t2, T2)
+  SAVE(s0, S0)
+  SAVE(s1, S1)
+  SAVE(a0, A0)
+  SAVE(a1, A1)
+  SAVE(a2, A2)
+  SAVE(a3, A3)
+  SAVE(a4, A4)
+  SAVE(a5, A5)
+  SAVE(a6, A6)
+  SAVE(a7, A7)
+  SAVE(s2, S2)
+  SAVE(s3, S3)
+  SAVE(s4, S4)
+  SAVE(s5, S5)
+  SAVE(s6, S6)
+  SAVE(s7, S7)
+  SAVE(s8, S8)
+  SAVE(s9, S9)
+  SAVE(s10, S10)
+  SAVE(s11, S11)
+  SAVE(t3, T3)
+  SAVE(t4, T4)
+  SAVE(t5, T5)
+  SAVE(t6, T6)
   csrr a0, sstatus
-  SAVE(a0,SSTATUS)
+  SAVE(a0, SSTATUS)
   csrr a0, sepc
-  SAVE(a0,SEPC)
+  SAVE(a0, SEPC)
   csrr a0, scause
-  SAVE(a0,SCAUSE)
+  SAVE(a0, SCAUSE)
   ld a0, PCB_USER_SP(tp)
-  SAVE(a0,SP)
+  SAVE(a0, SP)
   /*
    * Disable user-mode memory access as it should only be set in the
    * actual user copy routines.
@@ -75,48 +76,48 @@ _save_context:
 .macro RESTORE_CONTEXT
   ld sp, PCB_KERNEL_SP(tp)
   addi sp, sp, SWITCH_TO_SIZE
-  LOAD(ra,RA)
-  LOAD(gp,GP)
-  LOAD(tp,TP)
-  LOAD(t0,T0)
-  LOAD(t1,T1)
-  LOAD(t2,T2)
-  //LOAD(s0,S0)
-  LOAD(s1,S1)
-  LOAD(a0,A0)
-  LOAD(a1,A1)
-  LOAD(a2,A2)
-  LOAD(a3,A3)
-  LOAD(a4,A4)
-  LOAD(a5,A5)
-  LOAD(a6,A6)
-  LOAD(a7,A7)
-  LOAD(s2,S2)
-  LOAD(s3,S3)
-  LOAD(s4,S4)
-  LOAD(s5,S5)
-  LOAD(s6,S6)
-  LOAD(s7,S7)
-  LOAD(s8,S8)
-  LOAD(s9,S9)
-  LOAD(s10,S10)
-  LOAD(s11,S11)
-  LOAD(t3,T3)
-  LOAD(t4,T4)
-  LOAD(t5,T5)
-  LOAD(t6,T6)
-  LOAD(s0,SSTATUS)
+  LOAD(ra, RA)
+  LOAD(gp, GP)
+  LOAD(tp, TP)
+  LOAD(t0, T0)
+  LOAD(t1, T1)
+  LOAD(t2, T2)
+  //LOAD(s0, S0)
+  LOAD(s1, S1)
+  LOAD(a0, A0)
+  LOAD(a1, A1)
+  LOAD(a2, A2)
+  LOAD(a3, A3)
+  LOAD(a4, A4)
+  LOAD(a5, A5)
+  LOAD(a6, A6)
+  LOAD(a7, A7)
+  LOAD(s2, S2)
+  LOAD(s3, S3)
+  LOAD(s4, S4)
+  LOAD(s5, S5)
+  LOAD(s6, S6)
+  LOAD(s7, S7)
+  LOAD(s8, S8)
+  LOAD(s9, S9)
+  LOAD(s10, S10)
+  LOAD(s11, S11)
+  LOAD(t3, T3)
+  LOAD(t4, T4)
+  LOAD(t5, T5)
+  LOAD(t6, T6)
+  LOAD(s0, SSTATUS)
   csrw sstatus, s0
-  LOAD(s0,SEPC)
+  LOAD(s0, SEPC)
   csrw sepc, s0
-  LOAD(s0,S0)
+  LOAD(s0, S0)
   LOAD(sp, SP)
   fence
   /*ld sstatus, 256(sp)
   ld sepc, 264(sp)
   ld sbadaddr, 272(sp)
   ld scause, 280(sp)*/
-  /* TODO: Restore all registers and sepc,sstatus */
+  /* TODO: Restore all registers and sepc, sstatus */
 .endm
 
 // the address of previous pcb in a0
@@ -128,20 +129,20 @@ ENTRY(switch_to)
    * see the definition of `struct switchto_context` in pcb.h*/
   
   ld t0, PCB_KERNEL_SP(a0)
-  SS(ra,RA)
-  SS(sp,SP)
-  SS(s0,S0)
-  SS(s1,S1)
-  SS(s2,S2)
-  SS(s3,S3)
-  SS(s4,S4)
-  SS(s5,S5)
-  SS(s6,S6)
-  SS(s7,S7)
-  SS(s8,S8)
-  SS(s9,S9)
-  SS(s10,S10)
-  SS(s11,S11)
+  SS(ra, RA)
+  SS(sp, SP)
+  SS(s0, S0)
+  SS(s1, S1)
+  SS(s2, S2)
+  SS(s3, S3)
+  SS(s4, S4)
+  SS(s5, S5)
+  SS(s6, S6)
+  SS(s7, S7)
+  SS(s8, S8)
+  SS(s9, S9)
+  SS(s10, S10)
+  SS(s11, S11)
   // restore next
   /* TODO: restore all callee save registers,
    * see the definition of `struct switchto_context` in pcb.h*/
@@ -150,20 +151,20 @@ ENTRY(switch_to)
   //must sd and ld ra, or return from handlerint,
   //as change sp and many things, can't return 
   //from 
-  LS(ra,RA)
-  LS(sp,SP)
-  LS(s0,S0)
-  LS(s1,S1)
-  LS(s2,S2)
-  LS(s3,S3)
-  LS(s4,S4)
-  LS(s5,S5)
-  LS(s6,S6)
-  LS(s7,S7)
-  LS(s8,S8)
-  LS(s9,S9)
-  LS(s10,S10)
-  LS(s11,S11)
+  LS(ra, RA)
+  LS(sp, SP)
+  LS(s0, S0)
+  LS(s1, S1)
+  LS(s2, S2)
+  LS(s3, S3)
+  LS(s4, S4)
+  LS(s5, S5)
+  LS(s6, S6)
+  LS(s7, S7)
+  LS(s8, S8)
+  LS(s9, S9)
+  LS(s10, S10)
+  LS(s11, S11)
 
   jr ra
   //csrw CSR_SEPC, ra
@@ -172,6 +173,7 @@ ENDPROC(switch_to)
 
 ENTRY(ret_from_exception)
   /* TODO: */
+  call k_unlock_kernel
   RESTORE_CONTEXT
   sret
 ENDPROC(ret_from_exception)
@@ -184,14 +186,13 @@ ENTRY(exception_handler_entry)
   .option norelax
   la gp, __global_pointer$
   .option pop
+  
 
   mv a0, sp
   csrr a1, stval
   csrr a2, scause
   csrr a3, sscratch
   ld sp, PCB_KERNEL_SP(tp)
-  la t0, interrupt_helper
-  jr t0
-  la ra, ret_from_exception
-  jr ra
+  call interrupt_helper
+  call ret_from_exception
 ENDPROC(exception_handler_entry)

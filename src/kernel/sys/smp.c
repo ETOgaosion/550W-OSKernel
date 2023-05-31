@@ -5,23 +5,23 @@
 
 spin_lock_t kernel_lock;
 
-void smp_init() {
+void k_smp_init() {
     k_spin_lock_init(&kernel_lock);
 }
 
-void wakeup_other_hart() {
+void k_wakeup_other_hart() {
     sbi_send_ipi(NULL);
     __asm__ __volatile__("csrw sip, zero\n\t");
 }
 
-void lock_kernel() {
+void k_lock_kernel() {
     k_spin_lock_acquire(&kernel_lock);
 }
 
-void unlock_kernel() {
+void k_unlock_kernel() {
     k_spin_lock_release(&kernel_lock);
 }
 
-pcb_t *volatile *get_current_running() {
+pcb_t *volatile *k_get_current_running() {
     return get_current_cpu_id() ? &current_running1 : &current_running0;
 }

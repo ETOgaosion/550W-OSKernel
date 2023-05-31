@@ -172,7 +172,7 @@ void virtio_disk_rw(buf_t *b, int write) {
         if (alloc3_desc(idx) == 0) {
             break;
         }
-        // k_sleep(&disk.free[0], &disk.vdisk_lock);
+        k_sleep(&disk.free[0], &disk.vdisk_lock);
     }
 
     // format the three descriptors.
@@ -223,7 +223,7 @@ void virtio_disk_rw(buf_t *b, int write) {
 
     // Wait for virtio_disk_intr() to say request has finished.
     while (b->disk == 1) {
-        // k_sleep(b, &disk.vdisk_lock);
+        k_sleep(b, &disk.vdisk_lock);
     }
 
     disk.info[idx[0]].b = 0;

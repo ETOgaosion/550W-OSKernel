@@ -44,7 +44,7 @@ void setup_vm() {
         map_page(kva, kva2pa(kva), early_pgdir);
     }
     // map boot address
-    for (uint64_t pa = 0x80000000lu; pa < 0x80600000lu; pa += 0x200000lu) {
+    for (uint64_t pa = KERNEL_START_PA; pa < KERNEL_END_PA; pa += 0x200000lu) {
         map_page(pa, pa, early_pgdir);
     }
     enable_vm();

@@ -25,49 +25,48 @@ void wakeup_other_cores() {
 // The beginning of everything >_< ~~~~~~~~~~~~~~
 int main() {
     int id = get_current_cpu_id();
-    if (id == 1) {
-        current_running = get_current_running();
+    if (id != 0) {
+        k_lock_kernel();
+        current_running = k_get_current_running();
         setup_exception();
-        // cancelpg(pa2kva(PGDIR_PA));
-        sbi_set_timer(0);
+        // k_cancel_pg(pa2kva(PGDIR_PA));
     }
+    else {
+        k_smp_init(); // only done by master core
+        k_lock_kernel();
+        // init fs
+        // init_fs();
 
-    // init fs
-    // init_fs();
+        // init Process Control Block (-_-!)
+        k_init_pcb();
 
-    // init Process Control Block (-_-!)
+        printk("> [INIT] PCB initialization succeeded.\n\r");
 
-    k_init_pcb();
+        // read CPU frequency
+        time_base = TIME_BASE_DEFAULT;
 
-    // printk("> [INIT] PCB initialization succeeded.\n\r");
+        // init system call table (0_0)
+        init_syscall();
+        printk("> [INIT] System call initialized successfully.\n\r");
 
-    // read CPU frequency
-    time_base = TIME_BASE_DEFAULT;
+        plic_init();
+        plic_init_hart();
+        binit();
+        virtio_disk_init();
+        printk("> [INIT] Disk initialized successfully.\n\r");
 
-    // init system call table (0_0)
-    init_syscall();
-    // printk("> [INIT] System call initialized successfully.\n\r");
-    // init screen (QAQ)
-    init_screen();
+        // init screen (QAQ)
+        init_exception();
+        init_screen();
 
-    // fdt_print(riscv_dtb);
-    // printk("> [INIT] Interrupt processing initialization succeeded.\n\r");
-    plic_init();
-    plic_init_hart();
-    binit();
-    virtio_disk_init();
-    return 0;
-
-    // printk("> [INIT] SCREEN initialization succeeded.\n\r");
-    // Setup timer interrupt and enable all interrupt
-    // init interrupt (^_^)
-    wakeup_other_cores();
-    setup_exception();
-    sbi_set_timer(0);
+        // Setup timer interrupt and enable all interrupt
+        // init interrupt (^_^)
+        wakeup_other_cores();
+        sbi_set_timer(0);
+        setup_exception();
+    }
     while (1) {
-        // enable_interrupt();
-        // __asm__ __volatile__("wfi\n\r":::);
-        // k_scheduler();
+        k_scheduler();
     };
     return 0;
 }

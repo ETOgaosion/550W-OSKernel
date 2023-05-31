@@ -50,6 +50,8 @@ static inline void set_satp(unsigned mode, unsigned asid, unsigned long ppn) {
     __asm__ __volatile__("sfence.vma\ncsrw satp, %0" : : "rK"(__v) : "memory");
 }
 
+#define KERNEL_START_PA 0x80200000lu
+#define KERNEL_END_PA 0x80600000lu
 #define PGDIR_PA 0x82000000lu // use bootblock's page as PGDIR
 
 /*

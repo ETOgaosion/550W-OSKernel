@@ -1138,14 +1138,15 @@ void init_fs() {
 
 long sys_read(unsigned int fd, char *buf, size_t count) {
     if (fd == stdin) {
-        return k_port_read();
+        *buf = k_port_read();
+        return *buf;
     }
     return 0;
 }
 
 long sys_write(unsigned int fd, const char *buf, size_t count) {
     if (fd == stdout) {
-        return sys_screen_write((char *)buf);
+        return sys_screen_write_len((char *)buf, count);
     }
     return 0;
 }

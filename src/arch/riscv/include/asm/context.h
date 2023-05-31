@@ -2,10 +2,12 @@
 
 #include <common/types.h>
 
+#define NORMAL_REGS_NUM 31
+
 /* used to save register infomation */
 typedef struct regs_context {
     /* Saved main processor registers.*/
-    reg_t regs[32];
+    reg_t regs[NORMAL_REGS_NUM];
 
     /* Saved special registers. */
     reg_t sstatus;

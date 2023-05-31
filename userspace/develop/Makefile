@@ -11,16 +11,18 @@ lib_target := build/lib.a
 src_files := $(shell find $(user_src_dir) \( -name "*.c" -not -name "shell.c" \))
 src_objs := $(patsubst %.c,%.o, $(src_files))
 src_targets := $(patsubst %,%.elf, $(basename $(notdir $(src_files))))
+src_names := $(basename $(notdir $(src_files)))
 
-shell_file = $(shell find $(user_src_dir) -name "shell.c" )
-shell_objs := $(patsubst %.c,%.o, $(shell_file))
+shell_file = src/shell.c
+shell_objs := src/shell.o
 shell_target := build/shell.elf
+shell_asm := shell.txt
 
 C_SHARE_FLAG :=  -O0 -nostdlib -T $(link_script) -Wall -nostdinc -g -ggdb -fvar-tracking
 
 .PHONY: all build clean $(modules)
 
-all: prepare
+all: prepare asm
 
 prepare: build $(lib_target) srcs $(shell_target)
 	echo "" > user_programs.c
@@ -32,6 +34,10 @@ prepare: build $(lib_target) srcs $(shell_target)
 	../../tools/generateMapping user_programs
 	mv user_programs.h ../../src/user/
 	mv user_programs.c ../../src/user/
+
+asm:
+	for prog in $(src_names); do $(OBJDUMP) -d build/$$prog.elf > ../../target/$$prog.txt; done
+	$(OBJDUMP) -d build/shell.elf > ../../target/shell.txt
 
 $(lib_target):
 	$(AR) rcs $@ $(lib_objs)

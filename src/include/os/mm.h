@@ -51,6 +51,6 @@ long shm_page_dt(uintptr_t addr);
 void map(uint64_t va, uint64_t pa, PTE *pgdir);
 void getback_page(int pid);
 PTE *get_kva(PTE entry);
-void cancelpg(PTE *pgdir);
+void k_cancel_pg(PTE *pgdir);
 
 long sys_brk(unsigned long brk);

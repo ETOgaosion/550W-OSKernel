@@ -15,6 +15,7 @@ long sys_screen_clear(void);
 long k_screen_reflush(void);
 
 /* screen write string */
+long sys_screen_write_len(char *buff, int len);
 long sys_screen_write(char *buff);
 
 /* move cursor int (x,y) */

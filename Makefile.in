@@ -4,6 +4,8 @@ HOST_CC := gcc
 
 CROSS_COMPILE   := riscv64-unknown-elf-
 GCC				:= $(CROSS_COMPILE)gcc
+GDB             := $(CROSS_COMPILE)gdb
+BUILD_DEBUG     := y
 
 OBJDUMP	:= $(CROSS_COMPILE)objdump
 OBJCOPY	:= $(CROSS_COMPILE)objcopy
@@ -35,4 +37,4 @@ QEMU_OPTS	+= -bios $(BIOS)
 QEMU_OPTS	+= -drive file=sdcard.img,if=none,format=raw,id=x0
 QEMU_OPTS	+= -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
 
-PWD		:= /home/bluespace/study/OS/OSKernel2023-550W
+PWD		:= $(shell pwd)
