@@ -23,8 +23,8 @@ pcb_t pcb[NUM_MAX_TASK];
 
 const ptr_t pid0_stack = INIT_KERNEL_STACK + PAGE_SIZE * 3 - 112 - 288;
 const ptr_t pid0_stack2 = INIT_KERNEL_STACK + PAGE_SIZE * 4 - 112 - 288;
-pcb_t pid0_pcb = {.pid = 0, .kernel_sp = (ptr_t)pid0_stack, .user_sp = (ptr_t)pid0_stack};
-pcb_t pid0_pcb2 = {.pid = 0, .kernel_sp = (ptr_t)pid0_stack2, .user_sp = (ptr_t)pid0_stack2};
+pcb_t pid0_pcb = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack, .user_sp = (ptr_t)pid0_stack, .core_mask[0] = 0x3, .status = TASK_EXITED};
+pcb_t pid0_pcb2 = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack2, .user_sp = (ptr_t)pid0_stack2, .core_mask[0] = 0x3, .status = TASK_EXITED};
 
 pid_t freepid[NUM_MAX_TASK];
 
@@ -126,10 +126,10 @@ void k_init_pcb() {
     }
     current_running0 = &pid0_pcb;
     current_running1 = &pid0_pcb2;
-    current_running = get_current_running();
+    current_running = k_get_current_running();
     init_list_head(&timers);
     sys_spawn("shell");
-    sys_spawn("test_virtio");
+    // sys_spawn("test_virtio");
 }
 
 long sys_setpriority(int which, int who, int niceval) {
@@ -299,18 +299,19 @@ long k_scheduler(void) {
     pcb_t *curr = (*current_running);
     int cpuid = get_current_cpu_id();
     bool ready_queue_empty = check_empty(cpuid);
-    if (ready_queue_empty && curr->pid != 0 && curr->status == TASK_RUNNING) {
+    if (ready_queue_empty && curr->pid >= 0 && curr->status == TASK_RUNNING) {
         return 0;
     } else if (ready_queue_empty) {
+        k_unlock_kernel();
         while (TRUE) {
-            unlock_kernel();
             while (check_empty(0x1 << cpuid)) {
                 continue;
             }
-            lock_kernel();
+            k_lock_kernel();
             if (!check_empty(0x1 << cpuid)) {
                 break;
             }
+            k_unlock_kernel();
         }
         (*current_running) = curr;
     }
@@ -328,7 +329,7 @@ long k_scheduler(void) {
         current_running1 = next_pcb;
         current_running = &current_running1;
     }
-    set_satp(SATP_MODE_SV39, (*current_running)->pid, (uint64_t)(kva2pa((*current_running)->pgdir)) >> 12);
+    set_satp(SATP_MODE_SV39, (*current_running)->pid + 1, (*current_running)->pgdir);
     local_flush_tlb_all();
     switch_to(curr, next_pcb);
     return 0;
@@ -403,6 +404,7 @@ long sys_spawn(const char *file_name) {
 
     ptr_t kernel_stack = get_kernel_address(i);
     ptr_t user_stack_kva = kernel_stack - PAGE_SIZE;
+    ptr_t user_stack = USER_STACK_ADDR;
     PTE *pgdir = (PTE *)k_alloc_page(1);
     clear_pgdir((uintptr_t)pgdir);
     share_pgtable(pgdir, pa2kva(PGDIR_PA));
@@ -411,11 +413,12 @@ long sys_spawn(const char *file_name) {
     int len = 0;
     unsigned char *binary = NULL;
     get_elf_file(file_name, &binary, &len);
-    share_pgtable(pgdir, pa2kva(PGDIR_PA));
     void_task process = (void_task)load_elf(binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_alloc_page_helper);
     map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
+    pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
-    init_pcb_stack(kernel_stack, user_stack_kva, (uintptr_t)(process), &pcb[i]);
+    init_pcb_stack(kernel_stack, user_stack, (uintptr_t)(process), &pcb[i]);
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;
 }
@@ -438,6 +441,7 @@ long sys_fork() {
     fork_pcb_stack(kernel_stack_kva, user_stack_kva, &pcb[i]);
     fork_pgtable(pgdir, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
     map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    map(USER_STACK_ADDR, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
 
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
@@ -595,6 +599,7 @@ long exec(int pid, const char *file_name, const char *argv[], const char *envp[]
     share_pgtable(pgdir, pa2kva(PGDIR_PA));
     void_task test_task = (void_task)load_elf(binary, len, (uintptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_alloc_page_helper);
     map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    map(USER_STACK_ADDR, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
     init_user_stack(&user_stack_kva, &user_stack, argv, envp, file_name);
@@ -653,6 +658,7 @@ long sys_clone(unsigned long flags, void *stack, void *arg, pid_t *parent_tid, v
 
     clone_pcb_stack(kernel_stack_kva, user_stack, &pcb[i], flags, tls);
     map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
+    map(USER_STACK_ADDR, kva2pa(user_stack_kva), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;
 }

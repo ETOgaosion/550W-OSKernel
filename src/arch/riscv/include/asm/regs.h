@@ -4,6 +4,59 @@
 #define LOAD(x, y) ld x, OFFSET_REG_##y##(sp)
 
 /* return address */
+#define reg_ra 0
+
+/* pointers */
+#define reg_sp 1 // stack
+#define reg_gp 2 // global
+#define reg_tp 3 // thread
+
+/* temporary */
+#define reg_t0 4
+#define reg_t1 5
+#define reg_t2 6
+
+/* saved register */
+#define reg_s0 7
+#define reg_s1 8
+
+/* args */
+#define reg_a0 9
+#define reg_a1 10
+#define reg_a2 11
+#define reg_a3 12
+#define reg_a4 13
+#define reg_a5 14
+#define reg_a6 15
+#define reg_a7 16
+
+/* saved register */
+#define reg_s2 17
+#define reg_s3 18
+#define reg_s4 19
+#define reg_s5 20
+#define reg_s6 21
+#define reg_s7 22
+#define reg_s8 23
+#define reg_s9 24
+#define reg_s10 25
+#define reg_s11 26
+
+/* temporary register */
+#define reg_t3 27
+#define reg_t4 28
+#define reg_t5 29
+#define reg_t6 30
+
+/* privileged register */
+#define reg_sstatus 31
+#define reg_sepc 32
+#define reg_sbadaddr 33
+#define reg_scause 34
+
+/* offsets */
+
+/* return address */
 #define OFFSET_REG_RA 0
 
 /* pointers */
@@ -59,6 +112,22 @@
 
 #define PCB_KERNEL_SP 0
 #define PCB_USER_SP 8
+
+/* registers in switch_to */
+#define switch_reg_ra 0
+#define switch_reg_sp 1
+#define switch_reg_s0 2
+#define switch_reg_s1 3
+#define switch_reg_s2 4
+#define switch_reg_s3 5
+#define switch_reg_s4 6
+#define switch_reg_s5 7
+#define switch_reg_s6 8
+#define switch_reg_s7 9
+#define switch_reg_s8 10
+#define switch_reg_s9 11
+#define switch_reg_s10 12
+#define switch_reg_s11 13
 
 /* offset in switch_to */
 #define SS(x, y) sd x, SWITCH_TO_##y##(t0)

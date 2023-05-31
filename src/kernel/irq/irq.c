@@ -36,8 +36,8 @@ void init_syscall(void) {
     // syscall[SYS_close] = (long (*)())sys_close;
     // syscall[SYS_pipe2] = (long (*)())sys_pipe2;
     // syscall[SYS_getdents64] = (long (*)())sys_getdents64;
-    // syscall[SYS_read] = (long (*)())sys_read;
-    // syscall[SYS_write] = (long (*)())sys_write;
+    syscall[SYS_read] = (long (*)())sys_read;
+    syscall[SYS_write] = (long (*)())sys_write;
     // syscall[SYS_fstat] = (long (*)())sys_fstat;
     // syscall[SYS_munmap] = (long (*)())sys_munmap;
     // syscall[SYS_mremap] = (long (*)())sys_mremap;
@@ -85,9 +85,9 @@ void reset_irq_timer() {
 }
 
 void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
-    lock_kernel();
     // call corresponding handler by the value of `cause`
-    current_running = get_current_running();
+    k_lock_kernel();
+    current_running = k_get_current_running();
     time_val_t now;
     get_utime(&now);
     time_val_t last_run;
@@ -104,7 +104,6 @@ void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint
     copy_utime(&now, &(*current_running)->utime_last);
     minus_utime(&now, &(*current_running)->stime_last, &last_run);
     add_utime(&last_run, &(*current_running)->resources.ru_stime, &(*current_running)->resources.ru_stime);
-    unlock_kernel();
 }
 
 void handle_int_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {

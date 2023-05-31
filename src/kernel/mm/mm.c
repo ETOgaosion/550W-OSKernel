@@ -8,7 +8,7 @@
 #include <os/pcb.h>
 #include <os/smp.h>
 
-#define MAXPAGES 1000
+#define MAXPAGES 100000
 #define STARTPAGE 30
 
 ptr_t memCurr = FREEMEM;
@@ -47,6 +47,11 @@ void getback_page(int pid) {
     for (int i = 1; i <= allmem[pid][0]; i++) {
         freepg_num++;
         freepg[freepg_num] = allmem[pid][i];
+        for (int j = 0; j < allmem[pid][0]; i++) {
+            if (shm_all[j].kva == allmem[pid][i]) {
+                freepg_num--;
+            }
+        }
     }
     // freepg[pid][allpg[pid][0]+1-i] = allpg[pid][i];
     allpg[pid][0] = 0;
@@ -270,6 +275,9 @@ void fork_pgtable(PTE *dest_pgdir, PTE *src_pgdir) {
                     for (uint64_t vpn0 = 0; vpn0 < 512; vpn0++) {
                         if ((pld[vpn0] % 2) == 1) {
                             va = (vpn2 << (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS)) | (vpn1 << (NORMAL_PAGE_SHIFT + PPN_BITS)) | (vpn0 << NORMAL_PAGE_SHIFT);
+                            if (va >= (uint64_t)KERNEL_START_PA && va <= (uint64_t)KERNEL_END_PA) {
+                                continue;
+                            }
                             // no stack, clear write bit
                             if (va != sva && ((va & ((uint64_t)1 << 39)) == 0)) {
                                 uint64_t pa_kva = (uint64_t)get_kva(pld[vpn0]);
@@ -419,8 +427,8 @@ void map(uint64_t va, uint64_t pa, PTE *pgdir) {
     */
 }
 
-void cancelpg(PTE *pgdir) {
-    for (uint64_t kva = 0x80000000lu; kva < 0x80600000lu; kva += 0x200000lu) {
+void k_cancel_pg(PTE *pgdir) {
+    for (uint64_t kva = KERNEL_START_PA; kva < 0x80400000lu; kva += 0x200000lu) {
         uint64_t va = kva & VA_MASK;
         uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
         pgdir[vpn2] = 0;

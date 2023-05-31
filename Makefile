@@ -16,15 +16,8 @@ sources := $(shell find $(src_dir) \( -name "*.S" -o -name "*.c" \))
 objects := $(patsubst %.S,%.o, $(patsubst %.c,%.o, $(sources)))
 
 .PHONY: all build clean $(modules) run
-GDB := n
-
-ifeq ($(MAKECMDGOALS), gdb)
-	GDB = y
-endif
 
 all: clean build
-
-all: build
 
 build: $(modules)
 	mkdir -p $(target_dir)
@@ -51,14 +44,14 @@ mount:
 	sudo mount -t vfat $(fs_img) $(dst)
 	
 $(modules):
-	$(MAKE) all GDB=$(GDB) --directory=$@
+	$(MAKE) all GDB=$(BUILD_DEBUG) --directory=$@
 
 clean:
 	for d in $(modules); \
 		do \
 			$(MAKE) --directory=$$d clean; \
 		done; \
-	rm -rf *.o *~ $(target_dir)/*
+	rm -rf *.o *~
 
 comp:
 	$(QEMU) -kernel $(target) $(BOARD_OPTS)
@@ -72,7 +65,10 @@ asm:
 int:
 	$(QEMU) -kernel $(target) $(QEMU_OPTS) -d int
 
-gdb:
+debug:
 	$(QEMU) -kernel $(target) $(QEMU_OPTS) -nographic -s -S
+
+gdb:
+	$(GDB) $(target)
 
 include Makefile.in

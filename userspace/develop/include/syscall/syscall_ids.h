@@ -1,5 +1,8 @@
 #pragma once
 
+// #define NUM_SYSCALLS 285
+
+/* define */
 #define SYS_io_setup 0
 #define SYS_io_destroy 1
 #define SYS_io_submit 2
@@ -245,6 +248,7 @@
 #define SYS_accept4 242
 #define SYS_recvmmsg 243
 #define SYS_arch_specific_syscall 244
+#define SYS_riscv_flush_icache 259
 #define SYS_wait4 260
 #define SYS_prlimit64 261
 #define SYS_fanotify_init 262
@@ -280,14 +284,14 @@
 #define SYS_io_pgetevents 292
 #define SYS_rseq 293
 #define SYS_kexec_file_load 294
-#define SYS_riscv_flush_icache 244 + 15
 #define SYS_spawn 400
 #define SYS_mailread 401
 #define SYS_mailwrite 402
-#define SYS_mkdir 1030
 
 #define SYS_move_cursor 403
 #define SYS_screen_clear 404
+
+#define SYS_mkdir 1030
 
 #define SYS_SD_READ 1031
 #define SYS_SD_WRITE 1032

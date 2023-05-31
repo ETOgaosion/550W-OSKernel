@@ -95,6 +95,7 @@ int main(int argc, char *argv[]) {
         }
 
         if (is_header_only) {
+            printf("#pragma once\n");
             if (defined_kernel_call_name) {
                 printf("extern unsigned char _elf_%s[];\n", file_name_to_variable_name(kernel_call_name));
                 // argv[i] already changed by
@@ -108,6 +109,7 @@ int main(int argc, char *argv[]) {
             }
         } else {
             int file_size = 0;
+            printf("#include <user/user_programs.h>\n");
             if (defined_kernel_call_name) {
                 printf("unsigned char _elf_%s[] = {\n%s\n};\n", file_name_to_variable_name(kernel_call_name), escaped_file_content(f, &file_size));
                 // argv[i] already changed by

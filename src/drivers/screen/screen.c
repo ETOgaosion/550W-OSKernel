@@ -6,16 +6,16 @@
 #include <os/pcb.h>
 #include <os/smp.h>
 
-#define SCREEN_WIDTH 80
-#define SCREEN_HEIGHT 40
+#define SCREEN_WIDTH 160
+#define SCREEN_HEIGHT 100
 
 int screen_cursor_x;
 int screen_cursor_y;
 
 int start_line = 21;
 /* screen buffer */
-char new_screen[SCREEN_HEIGHT * SCREEN_WIDTH] = {0};
-char old_screen[SCREEN_HEIGHT * SCREEN_WIDTH] = {0};
+char new_screen[SCREEN_HEIGHT][SCREEN_WIDTH] = {0};
+char old_screen[SCREEN_HEIGHT][SCREEN_WIDTH] = {0};
 
 /* cursor position */
 void vt100_move_cursor(int x, int y) {
@@ -38,32 +38,18 @@ static void vt100_hidden_cursor() {
 }
 
 /* write a char */
-static void screen_write_ch(char ch) {
+void screen_write_ch(char ch) {
     if (ch == '\n') {
         (*current_running)->cursor_x = 1;
         (*current_running)->cursor_y++;
         if ((*current_running)->cursor_y > SCREEN_HEIGHT) {
-            k_screen_reflush();
-            for (int i = start_line - 1; i < SCREEN_HEIGHT; i++) {
-                for (int j = 0; j < SCREEN_WIDTH; j++) {
-                    if (i == SCREEN_HEIGHT - 1) {
-                        new_screen[i * SCREEN_WIDTH + j] = ' ';
-                    } else {
-                        new_screen[i * SCREEN_WIDTH + j] = old_screen[(i + 1) * SCREEN_WIDTH + j];
-                    }
-                }
-            }
-            (*current_running)->cursor_y = SCREEN_HEIGHT;
-            /*
-            (*current_running)->cursor_y = start_line;
-            for(int i=start_line; i<SCREEN_HEIGHT; i++)
-                for(int j=0; j<SCREEN_WIDTH; j++)
-                    new_screen[i * SCREEN_WIDTH + j] = ' ';*/
+            (*current_running)->cursor_y--;
         }
-        // screen_cursor_x = 1;
-        // screen_cursor_y++;
+    } else if (ch == 8 || ch == 127) {
+        new_screen[((*current_running)->cursor_y - 1)][((*current_running)->cursor_x - 2)] = 0;
+        (*current_running)->cursor_x--;
     } else {
-        new_screen[((*current_running)->cursor_y - 1) * SCREEN_WIDTH + ((*current_running)->cursor_x - 1)] = ch;
+        new_screen[((*current_running)->cursor_y - 1)][((*current_running)->cursor_x - 1)] = ch;
         (*current_running)->cursor_x++;
     }
 }
@@ -79,7 +65,7 @@ long sys_screen_clear(void) {
     int i, j;
     for (i = 0; i < SCREEN_HEIGHT; i++) {
         for (j = 0; j < SCREEN_WIDTH; j++) {
-            new_screen[i * SCREEN_WIDTH + j] = ' ';
+            new_screen[i][j] = 0;
         }
     }
     k_screen_reflush();
@@ -95,14 +81,18 @@ long sys_screen_move_cursor(int x, int y) {
     return 0;
 }
 
-long sys_screen_write(char *buff) {
+long sys_screen_write_len(char *buff, int len) {
     int i = 0;
-    int l = k_strlen(buff);
 
-    for (i = 0; i < l; i++) {
+    for (i = 0; i < len; i++) {
         screen_write_ch(buff[i]);
     }
     k_screen_reflush();
+    return 0;
+}
+
+long sys_screen_write(char *buff) {
+    sys_screen_write_len(buff, k_strlen(buff));
     return 0;
 }
 
@@ -121,10 +111,15 @@ long k_screen_reflush(void) {
     for (i = 0; i < SCREEN_HEIGHT; i++) {
         for (j = 0; j < SCREEN_WIDTH; j++) {
             /* We only print the data of the modified location. */
-            if (new_screen[i * SCREEN_WIDTH + j] != old_screen[i * SCREEN_WIDTH + j]) {
+            if (new_screen[i][j] != old_screen[i][j]) {
                 vt100_move_cursor(j + 1, i + 1);
-                port_write_ch(new_screen[i * SCREEN_WIDTH + j]);
-                old_screen[i * SCREEN_WIDTH + j] = new_screen[i * SCREEN_WIDTH + j];
+                if (new_screen[i][j] < 20 || new_screen[i][j] > 126) {
+                    port_write_ch(' ');
+                }
+                else {
+                    port_write_ch(new_screen[i][j]);
+                }
+                old_screen[i][j] = new_screen[i][j];
             }
         }
     }

@@ -129,7 +129,7 @@ long k_mutex_lock_destroy(int *key) {
     while ((*current_running)->locksum) {
         (*current_running)->lock_ids[--(*current_running)->locksum] = 0;
     }
-    k_memset(locks[*key - 1], 0, sizeof(mutex_lock_t *));
+    k_memset((void *)locks[*key - 1], 0, sizeof(mutex_lock_t *));
     *key = 0;
     return 0;
 }
