@@ -28,6 +28,7 @@ int main() {
     if (id != 0) {
         k_lock_kernel();
         current_running = k_get_current_running();
+        sbi_set_timer(0);
         setup_exception();
         // k_cancel_pg(pa2kva(PGDIR_PA));
     } else {

@@ -10,9 +10,9 @@ extern unsigned char _elf_bubble[];
 extern int _length_bubble;
 #pragma once
 typedef struct ElfFile {
-    char *file_name;
-    unsigned char *file_content;
-    int *file_length;
+  char *file_name;
+  unsigned char* file_content;
+  int* file_length;
 } ElfFile;
 
 #define ELF_FILE_NUM 3

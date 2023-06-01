@@ -1,6 +1,7 @@
 #include <asm/common.h>
 #include <asm/io.h>
 #include <asm/sbi.h>
+#include <os/smp.h>
 
 void port_write_ch(char ch) {
     sbi_console_putchar((int)ch);

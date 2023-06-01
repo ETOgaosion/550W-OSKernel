@@ -5,8 +5,6 @@
 #include <os/irq.h>
 #include <os/lock.h>
 
-spin_lock_t print_lock = {.flag = UNLOCKED};
-
 static unsigned int mini_strlen(const char *s) {
     unsigned int len = 0;
     while (s[len] != '\0') {
@@ -209,15 +207,12 @@ int vprintk(const char *fmt, va_list _va) {
 }
 
 int printk(const char *fmt, ...) {
-    disable_interrupt();
-    k_spin_lock_acquire(&print_lock);
     int ret = 0;
     va_list va;
 
     va_start(va, fmt);
     ret = vprintk(fmt, va);
     va_end(va);
-    k_spin_lock_release(&print_lock);
 
     return ret;
 }
