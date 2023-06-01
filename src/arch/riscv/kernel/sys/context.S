@@ -2,27 +2,7 @@
 #include <asm/csr.h>
 #include <asm/regs.h>
 
-.macro SAVE_CONTEXT
-//  .local _restore_kernel_tpsp
-  .local _save_context
-  /*
-   * If coming from userspace, preserve the user thread pointer and load
-   * the kernel thread pointer.  If we came from the kernel, sscratch
-   * will contain 0, and we should continue on the current TP.
-   */
-//  csrrw tp, CSR_SSCRATCH, tp
-//  bnez tp, _save_context
-
-//_restore_kernel_tpsp:
-//  csrr tp, CSR_SSCRATCH
-//  sd sp, PCB_KERNEL_SP(tp)
-_save_context:
-  sd sp, PCB_USER_SP(tp)
-  ld sp, PCB_KERNEL_SP(tp)
-  addi sp, sp, SWITCH_TO_SIZE
-
-  /* TODO: save all general purpose registers here! */
-  //SAVE(sp, SP)
+.macro SAVE_REGS
   SAVE(ra, RA)
   SAVE(gp, GP)
   SAVE(tp, TP)
@@ -59,30 +39,16 @@ _save_context:
   SAVE(a0, SEPC)
   csrr a0, scause
   SAVE(a0, SCAUSE)
-  ld a0, PCB_USER_SP(tp)
-  SAVE(a0, SP)
-  /*
-   * Disable user-mode memory access as it should only be set in the
-   * actual user copy routines.
-   *
-   * Disable the FPU to detect illegal usage of floating point in kernel
-   * space.
-   */
-  li t0, SR_SUM | SR_FS
-  //addi sp, sp, -(SWITCH_TO_SIZE)
-  /* TODO: save sstatus, sepc, stval, scause and sscratch on user stack */
 .endm
 
-.macro RESTORE_CONTEXT
-  ld sp, PCB_KERNEL_SP(tp)
-  addi sp, sp, SWITCH_TO_SIZE
+.macro LOAD_REGS
   LOAD(ra, RA)
   LOAD(gp, GP)
   LOAD(tp, TP)
   LOAD(t0, T0)
   LOAD(t1, T1)
   LOAD(t2, T2)
-  //LOAD(s0, S0)
+  LOAD(s0, S0)
   LOAD(s1, S1)
   LOAD(a0, A0)
   LOAD(a1, A1)
@@ -111,6 +77,50 @@ _save_context:
   LOAD(s0, SEPC)
   csrw sepc, s0
   LOAD(s0, S0)
+.endm
+
+.macro USER_SAVE_CONTEXT
+//  .local _restore_kernel_tpsp
+  .local _save_context
+  /*
+   * If coming from userspace, preserve the user thread pointer and load
+   * the kernel thread pointer.  If we came from the kernel, sscratch
+   * will contain 0, and we should continue on the current TP.
+   */
+//  csrrw tp, CSR_SSCRATCH, tp
+//  bnez tp, _save_context
+
+//_restore_kernel_tpsp:
+//  csrr tp, CSR_SSCRATCH
+//  sd sp, PCB_KERNEL_SP(tp)
+_save_context:
+  sd sp, PCB_USER_SP(tp)
+  ld sp, PCB_KERNEL_SP(tp)
+  addi sp, sp, SWITCH_TO_SIZE
+
+  /* TODO: save all general purpose registers here! */
+  //SAVE(sp, SP)
+  SAVE_REGS
+  ld a0, PCB_USER_SP(tp)
+  SAVE(a0, SP)
+  /*
+   * Disable user-mode memory access as it should only be set in the
+   * actual user copy routines.
+   *
+   * Disable the FPU to detect illegal usage of floating point in kernel
+   * space.
+   */
+  li t0, SR_SUM | SR_FS
+  //addi sp, sp, -(SWITCH_TO_SIZE)
+  /* TODO: save sstatus, sepc, stval, scause and sscratch on user stack */
+.endm
+
+.macro USER_RESTORE_CONTEXT
+  .local _restore_context
+_restore_context:
+  ld sp, PCB_KERNEL_SP(tp)
+  addi sp, sp, SWITCH_TO_SIZE
+  LOAD_REGS
   LOAD(sp, SP)
   fence
   /*ld sstatus, 256(sp)
@@ -171,28 +181,56 @@ ENTRY(switch_to)
   //sret
 ENDPROC(switch_to)
 
-ENTRY(ret_from_exception)
+ENTRY(user_ret_from_exception)
   /* TODO: */
   call k_unlock_kernel
-  RESTORE_CONTEXT
+  la t0, user_exception_handler_entry
+  csrw stvec, t0
+  la t0, SR_SIE
+  csrc sstatus, t0
+  la t0, SIE_SEIE | SIE_SSIE | SIE_STIE
+  csrw sie, t0
+  USER_RESTORE_CONTEXT
   sret
-ENDPROC(ret_from_exception)
+ENDPROC(user_ret_from_exception)
 
-ENTRY(exception_handler_entry)
-  SAVE_CONTEXT
+ENTRY(user_exception_handler_entry)
+  USER_SAVE_CONTEXT
 
   /* Load the global pointer */
   .option push
   .option norelax
   la gp, __global_pointer$
   .option pop
-  
 
   mv a0, sp
   csrr a1, stval
   csrr a2, scause
   csrr a3, sscratch
   ld sp, PCB_KERNEL_SP(tp)
-  call interrupt_helper
-  call ret_from_exception
-ENDPROC(exception_handler_entry)
+  call user_interrupt_helper
+  call user_ret_from_exception
+ENDPROC(user_exception_handler_entry)
+
+ENTRY(kernel_ret_from_exception)
+  LOAD_REGS
+  addi sp, sp, OFFSET_ALL_REG_SIZE
+  sret
+ENDPROC(kernel_ret_from_exception)
+
+ENTRY(kernel_exception_handler_entry)
+  add sp, sp, -OFFSET_ALL_REG_SIZE
+  SAVE_REGS
+
+  .option push
+  .option norelax
+  la gp, __global_pointer$
+  .option pop
+
+  mv a0, sp
+  csrr a1, stval
+  csrr a2, scause
+  csrr a3, sscratch
+  call kernel_interrupt_helper
+  call kernel_ret_from_exception
+ENDPROC(kernel_exception_handler_entry)

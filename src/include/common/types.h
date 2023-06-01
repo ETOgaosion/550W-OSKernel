@@ -181,3 +181,27 @@ typedef int32_t hartid_t;
 #define INT_MAX (0x7fffffff)
 #define UCHAR_MAX (0xffU)
 #define CHAR_MAX (0x7f)
+
+#define readb(addr) (*(volatile uint8 *)(addr))
+#define readw(addr) (*(volatile uint16 *)(addr))
+#define readd(addr) (*(volatile uint32 *)(addr))
+#define readq(addr) (*(volatile uint64 *)(addr))
+
+/* clang-format off */
+#define writeb(v, addr)                      \
+    {                                        \
+        (*(volatile uint8 *)(addr)) = (v); \
+    }
+#define writew(v, addr)                       \
+    {                                         \
+        (*(volatile uint16 *)(addr)) = (v); \
+    }
+#define writed(v, addr)                       \
+    {                                         \
+        (*(volatile uint32 *)(addr)) = (v); \
+    }
+#define writeq(v, addr)                       \
+    {                                         \
+        (*(volatile uint64 *)(addr)) = (v); \
+    }
+/* clang-format on */

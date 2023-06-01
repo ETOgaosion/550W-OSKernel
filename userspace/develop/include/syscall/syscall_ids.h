@@ -294,5 +294,3 @@
 #define SYS_mkdir 1030
 
 #define SYS_SD_READ 1031
-#define SYS_SD_WRITE 1032
-#define SYS_SD_RELEASE 1033

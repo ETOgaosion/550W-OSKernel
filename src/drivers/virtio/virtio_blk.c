@@ -5,29 +5,27 @@
 #include <os/irq.h>
 #include <os/mm.h>
 #include <os/pcb.h>
+#include <os/smp.h>
 
-disk_t disk;
+disk_t __attribute__((aligned(NORMAL_PAGE_SIZE))) disk;
 uintptr_t virtio_base;
 
 void virtio_disk_init(void) {
     virtio_base = (uintptr_t)ioremap((uint64_t)VIRTIO0, 0x4000 * NORMAL_PAGE_SIZE);
-
     uint32 status = 0;
 
     k_spin_lock_init(&disk.vdisk_lock);
 
-    if (*R(VIRTIO_MMIO_MAGIC_VALUE) != 0x74726976 /* || *R(VIRTIO_MMIO_VERSION) != 2 */ || *R(VIRTIO_MMIO_DEVICE_ID) != 2 || *R(VIRTIO_MMIO_VENDOR_ID) != 0x554d4551) {
+    if (*R(VIRTIO_MMIO_MAGIC_VALUE) != VIRTIO_MAGIC || 
+        *R(VIRTIO_MMIO_VERSION) != VIRTIO_VERSION || 
+        *R(VIRTIO_MMIO_DEVICE_ID) != VIRTIO_DEVICE_ID_BLK || 
+        *R(VIRTIO_MMIO_VENDOR_ID) != VIRTIO_VENDOR_ID_QEMU) {
         panic("could not find virtio disk");
     }
 
-    // reset device
-    *R(VIRTIO_MMIO_STATUS) = status;
-
-    // set ACKNOWLEDGE status bit
     status |= VIRTIO_CONFIG_S_ACKNOWLEDGE;
     *R(VIRTIO_MMIO_STATUS) = status;
 
-    // set DRIVER status bit
     status |= VIRTIO_CONFIG_S_DRIVER;
     *R(VIRTIO_MMIO_STATUS) = status;
 
@@ -46,21 +44,14 @@ void virtio_disk_init(void) {
     status |= VIRTIO_CONFIG_S_FEATURES_OK;
     *R(VIRTIO_MMIO_STATUS) = status;
 
-    // re-read status to ensure FEATURES_OK is set.
-    status = *R(VIRTIO_MMIO_STATUS);
-    if (!(status & VIRTIO_CONFIG_S_FEATURES_OK)) {
-        panic("virtio disk FEATURES_OK unset");
-    }
+    // tell device we're completely ready.
+    status |= VIRTIO_CONFIG_S_DRIVER_OK;
+    *R(VIRTIO_MMIO_STATUS) = status;
+
+    *R(VIRTIO_MMIO_GUEST_PAGE_SIZE) = NORMAL_PAGE_SIZE;
 
     // initialize queue 0.
     *R(VIRTIO_MMIO_QUEUE_SEL) = 0;
-
-    // ensure queue 0 is not in use.
-    if (*R(VIRTIO_MMIO_QUEUE_READY)) {
-        panic("virtio disk should not be ready");
-    }
-
-    // check maximum queue size.
     uint32 max = *R(VIRTIO_MMIO_QUEUE_NUM_MAX);
     if (max == 0) {
         panic("virtio disk has no queue 0");
@@ -68,35 +59,17 @@ void virtio_disk_init(void) {
     if (max < DESC_NUM) {
         panic("virtio disk max queue too short");
     }
-
-    // allocate and zero queue memory.
-    k_memset((void *)disk.pages, 0, 2 * NORMAL_PAGE_SIZE);
-    disk.desc = (virtq_desc_t *)disk.pages;
-    disk.avail = (virtq_avail_t *)(disk.pages + DESC_NUM * sizeof(virtio_blk_req_t));
-    disk.used = (virtq_used_t *)(disk.pages + NORMAL_PAGE_SIZE);
-
-    // set queue size.
     *R(VIRTIO_MMIO_QUEUE_NUM) = DESC_NUM;
+    k_memset(disk.pages, 0, sizeof(disk.pages));
+    *R(VIRTIO_MMIO_QUEUE_PFN) = ((uint64)disk.pages) >> NORMAL_PAGE_SHIFT;
 
-    // write physical addresses.
-    *R(VIRTIO_MMIO_QUEUE_DESC_LOW) = (uint64)disk.desc;
-    *R(VIRTIO_MMIO_QUEUE_DESC_HIGH) = (uint64)disk.desc >> 32;
-    *R(VIRTIO_MMIO_DRIVER_DESC_LOW) = (uint64)disk.avail;
-    *R(VIRTIO_MMIO_DRIVER_DESC_HIGH) = (uint64)disk.avail >> 32;
-    *R(VIRTIO_MMIO_DEVICE_DESC_LOW) = (uint64)disk.used;
-    *R(VIRTIO_MMIO_DEVICE_DESC_HIGH) = (uint64)disk.used >> 32;
+    disk.desc = (vring_desc_t *)disk.pages;
+    disk.avail = (uint16 *)(((char *)disk.desc) + DESC_NUM * sizeof(vring_desc_t));
+    disk.used = (vring_used_area_t *)(disk.pages + NORMAL_PAGE_SIZE);
 
-    // queue is ready.
-    *R(VIRTIO_MMIO_QUEUE_READY) = 0x1;
-
-    // all DESC_NUM descriptors start out unused.
     for (int i = 0; i < DESC_NUM; i++) {
         disk.free[i] = 1;
     }
-
-    // tell device we're completely ready.
-    status |= VIRTIO_CONFIG_S_DRIVER_OK;
-    *R(VIRTIO_MMIO_STATUS) = status;
 
     // plic.c and trap.c arrange for interrupts from VIRTIO0_IRQ.
 }
@@ -114,36 +87,23 @@ static int alloc_desc() {
 
 // mark a descriptor as free.
 static void free_desc(int i) {
-    if (i >= DESC_NUM) {
-        panic("free_desc 1");
-    }
-    if (disk.free[i]) {
-        panic("free_desc 2");
-    }
     disk.desc[i].addr = 0;
-    disk.desc[i].len = 0;
-    disk.desc[i].flags = 0;
-    disk.desc[i].next = 0;
     disk.free[i] = 1;
     k_wakeup(&disk.free[0]);
 }
 
 // free a chain of descriptors.
-// static void free_chain(int i) {
-//     while (1) {
-//         int flag = disk.desc[i].flags;
-//         int nxt = disk.desc[i].next;
-//         free_desc(i);
-//         if (flag & VRING_DESC_F_NEXT) {
-//             i = nxt;
-//         } else {
-//             break;
-//         }
-//     }
-// }
+static void free_chain(int i) {
+    while (1) {
+        free_desc(i);
+        if (disk.desc[i].flags & VRING_DESC_F_NEXT) {
+            i = disk.desc[i].next;
+        } else {
+            break;
+        }
+    }
+}
 
-// allocate three descriptors (they need not be contiguous).
-// disk transfers always use three descriptors.
 static int alloc3_desc(int *idx) {
     for (int i = 0; i < 3; i++) {
         idx[i] = alloc_desc();
@@ -158,13 +118,13 @@ static int alloc3_desc(int *idx) {
 }
 
 void virtio_disk_rw(buf_t *b, int write) {
-    uint64 sector = b->blockno * (BSIZE / 512);
+    uint64 sector = b->sectorno;
 
     k_spin_lock_acquire(&disk.vdisk_lock);
 
-    // the spec's Section 5.2 says that legacy block operations use
-    // three descriptors: one for type/reserved/sector, one for the
-    // data, one for a 1-byte status result.
+    // the spec says that legacy block operations use three
+    // descriptors: one for type/reserved/sector, one for
+    // the data, one for a 1-byte status result.
 
     // allocate the three descriptors.
     int idx[3];
@@ -178,18 +138,24 @@ void virtio_disk_rw(buf_t *b, int write) {
     // format the three descriptors.
     // qemu's virtio-blk.c reads them.
 
-    struct virtio_blk_req *buf0 = &disk.ops[idx[0]];
+    struct virtio_blk_outhdr {
+        uint32 type;
+        uint32 reserved;
+        uint64 sector;
+    } buf0;
 
     if (write) {
-        buf0->type = VIRTIO_BLK_T_OUT; // write the disk
+        buf0.type = VIRTIO_BLK_T_OUT; // write the disk
     } else {
-        buf0->type = VIRTIO_BLK_T_IN; // read the disk
+        buf0.type = VIRTIO_BLK_T_IN; // read the disk
     }
-    buf0->reserved = 0;
-    buf0->sector = sector;
+    buf0.reserved = 0;
+    buf0.sector = sector;
 
-    disk.desc[idx[0]].addr = (uint64)buf0;
-    disk.desc[idx[0]].len = sizeof(struct virtio_blk_req);
+    // buf0 is on a kernel stack, which is not direct mapped,
+    // thus the call to kvmpa().
+    disk.desc[idx[0]].addr = (uint64)kva2pa((uint64)&buf0);
+    disk.desc[idx[0]].len = sizeof(buf0);
     disk.desc[idx[0]].flags = VRING_DESC_F_NEXT;
     disk.desc[idx[0]].next = idx[1];
 
@@ -203,7 +169,7 @@ void virtio_disk_rw(buf_t *b, int write) {
     disk.desc[idx[1]].flags |= VRING_DESC_F_NEXT;
     disk.desc[idx[1]].next = idx[2];
 
-    disk.info[idx[0]].status = 0xff; // device writes 0 on success
+    disk.info[idx[0]].status = 0;
     disk.desc[idx[2]].addr = (uint64)&disk.info[idx[0]].status;
     disk.desc[idx[2]].len = 1;
     disk.desc[idx[2]].flags = VRING_DESC_F_WRITE; // device writes the status
@@ -213,20 +179,28 @@ void virtio_disk_rw(buf_t *b, int write) {
     b->disk = 1;
     disk.info[idx[0]].b = b;
 
-    // tell the device the first index in our chain of descriptors.
-    disk.avail->ring[disk.avail->idx % DESC_NUM] = idx[0];
+    // avail[0] is flags
+    // avail[1] tells the device how far to look in avail[2...].
+    // avail[2...] are desc[] indices the device should process.
+    // we only tell device the first index in our chain of descriptors.
+    disk.avail[2 + (disk.avail[1] % DESC_NUM)] = idx[0];
+    __sync_synchronize();
+    disk.avail[1] = disk.avail[1] + 1;
 
-    // tell the device another avail ring entry is available.
-    disk.avail->idx += 1; // not % DESC_NUM ...
-
+    k_spin_lock_release(&disk.vdisk_lock);
+    k_unlock_kernel();
     *R(VIRTIO_MMIO_QUEUE_NOTIFY) = 0; // value is queue number
 
     // Wait for virtio_disk_intr() to say request has finished.
     while (b->disk == 1) {
-        k_sleep(b, &disk.vdisk_lock);
+        // k_sleep(b, &disk.vdisk_lock);
+        __sync_synchronize();
     }
+    k_lock_kernel();
+    k_spin_lock_acquire(&disk.vdisk_lock);
 
     disk.info[idx[0]].b = 0;
+    free_chain(idx[0]);
 
     k_spin_lock_release(&disk.vdisk_lock);
 }
@@ -250,29 +224,31 @@ void binit(void) {
     bcache.head.prev = &bcache.head;
     bcache.head.next = &bcache.head;
     for (b = bcache.buf; b < bcache.buf + NBUF; b++) {
+        b->refcnt = 0;
+        b->sectorno = ~0;
+        b->dev = ~0;
         b->next = bcache.head.next;
         b->prev = &bcache.head;
         k_sleep_lock_init(&b->lock);
         bcache.head.next->prev = b;
         bcache.head.next = b;
-        b->dev = DEV_VDA2;
     }
 }
 
 // Look through buffer cache for block on device dev.
 // If not found, allocate a buffer.
 // In either case, return locked buffer.
-static buf_t *bget(uint dev, uint blockno) {
-    buf_t *b;
+static buf_t *bget(uint dev, uint sectorno) {
+    buf_t *b = NULL;
 
     k_spin_lock_acquire(&bcache.lock);
 
     // Is the block already cached?
     for (b = bcache.head.next; b != &bcache.head; b = b->next) {
-        if (b->dev == dev && b->blockno == blockno) {
+        if (b->dev == dev && b->sectorno == sectorno) {
             b->refcnt++;
             k_spin_lock_release(&bcache.lock);
-            // k_sleep_lock_aquire(&b->lock);
+            // k_sleep_lock_acquire(&b->lock);
             return b;
         }
     }
@@ -282,27 +258,28 @@ static buf_t *bget(uint dev, uint blockno) {
     for (b = bcache.head.prev; b != &bcache.head; b = b->prev) {
         if (b->refcnt == 0) {
             b->dev = dev;
-            b->blockno = blockno;
+            b->sectorno = sectorno;
             b->valid = 0;
             b->refcnt = 1;
             k_spin_lock_release(&bcache.lock);
-            // k_sleep_lock_aquire(&b->lock);
+            // k_sleep_lock_acquire(&b->lock);
             return b;
         }
     }
     panic("bget: no buffers");
-    return NULL;
+    return b;
 }
 
 // Return a locked buf with the contents of the indicated block.
-buf_t *bread(uint dev, uint blockno) {
+buf_t *bread(uint dev, uint sectorno) {
     buf_t *b;
 
-    b = bget(dev, blockno);
+    b = bget(dev, sectorno);
     if (!b->valid) {
         virtio_disk_rw(b, 0);
         b->valid = 1;
     }
+
     return b;
 }
 
@@ -316,7 +293,7 @@ void bwrite(buf_t *b) {
 
 // Release a locked buffer.
 // Move to the head of the most-recently-used list.
-void brelease(buf_t *b) {
+void brelse(buf_t *b) {
     // if (!k_sleep_lock_hold(&b->lock)) {
     //     panic("brelse");
     // }
@@ -364,23 +341,17 @@ void k_sd_write(buf_t *buffers[], uint block_num) {
 
 void k_sd_release(buf_t *buffers[], uint block_num) {
     for (int i = 0; i < block_num; i++) {
-        brelease(buffers[i]);
+        brelse(buffers[i]);
     }
 }
 
-buf_t *buf;
 
 void sys_sd_read() {
+    buf_t *buf;
     buf = bread(DEV_VDA2, 1);
-}
-
-void sys_sd_write() {
-    k_memcpy(buf->data, (const uint8_t *)"Hello World", k_strlen("Hello World"));
+    k_memcpy((uint8_t *)buf->data, (const uint8_t *)"Hello World", k_strlen("Hello World"));
     bwrite(buf);
     buf = bread(DEV_VDA2, 1);
-    printk("%s\n", buf);
-}
-
-void sys_sd_release() {
-    brelease(buf);
+    printk("%s\n", buf->data);
+    brelse(buf);
 }

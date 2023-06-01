@@ -45,11 +45,11 @@ core2:
 	csrw sie, zero
   csrw sip, zero
   //la t0, core2_next
-  //csrw CSR_STVEC, t0
+  //csrw stvec, t0
 	//li t0, 0x2
-  //csrw CSR_SIE, t0
+  //csrw sie, t0
   //li t0, SR_SIE
-  //csrw CSR_SSTATUS, t0
+  //csrw sstatus, t0
 
   li t0, SR_FS
   csrc sstatus, t0

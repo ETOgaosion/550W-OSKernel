@@ -53,6 +53,6 @@ long k_mutex_lock_destroy(int *key);
 long k_mutex_lock_trylock(int *key);
 
 void k_sleep_lock_init(sleep_lock_t *lk);
-void k_sleep_lock_aquire(sleep_lock_t *lk);
+void k_sleep_lock_acquire(sleep_lock_t *lk);
 void k_sleep_lock_release(sleep_lock_t *lk);
 int k_sleep_lock_hold(sleep_lock_t *lk);

@@ -65,10 +65,12 @@ asm:
 int:
 	$(QEMU) -kernel $(target) $(QEMU_OPTS) -d int
 
-debug:
+qemu:
 	$(QEMU) -kernel $(target) $(QEMU_OPTS) -nographic -s -S
 
+debug: qemu
+
 gdb:
-	$(GDB) $(target)
+	$(GDB)
 
 include Makefile.in

@@ -1,5 +1,6 @@
 #include <asm/atomic.h>
 #include <asm/pgtable.h>
+#include <asm/privileged.h>
 #include <asm/sbi.h>
 #include <asm/syscall.h>
 #include <drivers/plic/plic.h>
@@ -72,8 +73,6 @@ void init_syscall(void) {
     syscall[SYS_screen_clear] = (long (*)())sys_screen_clear;
 
     syscall[SYS_SD_READ] = (long (*)())sys_sd_read;
-    syscall[SYS_SD_WRITE] = (long (*)())sys_sd_write;
-    syscall[SYS_SD_WRITE] = (long (*)())sys_sd_release;
 }
 
 void reset_irq_timer() {
@@ -83,7 +82,7 @@ void reset_irq_timer() {
     k_scheduler();
 }
 
-void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
+void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
     // call corresponding handler by the value of `cause`
     k_lock_kernel();
     current_running = k_get_current_running();
@@ -105,14 +104,30 @@ void interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint
     add_utime(&last_run, &(*current_running)->resources.ru_stime, &(*current_running)->resources.ru_stime);
 }
 
+spin_lock_t kernel_exception_lock = {.flag = UNLOCKED};
+
+void kernel_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
+    k_spin_lock_acquire(&kernel_exception_lock);
+    current_running = k_get_current_running();
+    uint64_t check = cause;
+    if (check >> 63) {
+        irq_table[cause - ((uint64_t)1 << 63)](regs, stval, cause, cpuid);
+    } else {
+        exc_table[cause](regs, stval, cause, cpuid);
+    }
+    k_spin_lock_release(&kernel_exception_lock);
+}
+
 void handle_int_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
     reset_irq_timer();
 }
 
 void handle_ext_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
     int irq = plic_claim();
-    irq_ext_table[irq](regs, interrupt, cause, cpuid);
-    plic_complete(irq);
+    if (irq) {
+        irq_ext_table[irq](regs, interrupt, cause, cpuid);
+        plic_complete(irq);
+    }
 }
 
 void handler_virtio_intr(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
@@ -124,25 +139,24 @@ void handler_virtio_intr(regs_context_t *regs, uint64_t stval, uint64_t cause, u
     // the "used" ring, in which case we may process the new
     // completion entries in this interrupt, and have nothing to do
     // in the next interrupt, which is harmless.
-    *R(VIRTIO_MMIO_INTERRUPT_ACK) = *R(VIRTIO_MMIO_INTERRUPT_STATUS) & 0x3;
 
     // the device increments disk.used->idx when it
     // adds an entry to the used ring.
 
-    while (disk.used_idx != disk.used->idx) {
-        int id = disk.used->ring[disk.used_idx % DESC_NUM].id;
+    while ((disk.used_idx % DESC_NUM) != (disk.used->id % DESC_NUM)) {
+        int id = disk.used->elems[disk.used_idx].id;
 
         if (disk.info[id].status != 0) {
             panic("virtio_disk_intr status");
         }
 
-        buf_t *b = disk.info[id].b;
-        b->disk = 0; // disk is done with buf
-        k_wakeup(b);
+        disk.info[id].b->disk = 0; // disk is done with buf
+        // k_wakeup(disk.info[id].b);
 
         disk.used_idx = (disk.used_idx + 1) % DESC_NUM;
     }
-
+    *R(VIRTIO_MMIO_INTERRUPT_ACK) = *R(VIRTIO_MMIO_INTERRUPT_STATUS) & 0x3;
+    
     k_spin_lock_release(&disk.vdisk_lock);
 }
 
@@ -226,8 +240,8 @@ void init_exception() {
 void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
     prints("cpuid: %d\n", cpuid);
 
-    char *reg_name[] = {"zero ", " ra  ", " sp  ", " gp  ", " tp  ", " t0  ", " t1  ", " t2  ", "s0/fp", " s1  ", " a0  ", " a1  ", " a2  ", " a3  ", " a4  ", " a5  ", " a6  ", " a7  ", " s2  ", " s3  ", " s4  ", " s5  ", " s6  ", " s7  ", " s8  ", " s9  ", " s10 ", " s11 ", " t3  ", " t4  ", " t5  ", " t6  "};
-    for (int i = 0; i < 32; i += 3) {
+    char *reg_name[] = {" ra  ", " sp  ", " gp  ", " tp  ", " t0  ", " t1  ", " t2  ", "s0/fp", " s1  ", " a0  ", " a1  ", " a2  ", " a3  ", " a4  ", " a5  ", " a6  ", " a7  ", " s2  ", " s3  ", " s4  ", " s5  ", " s6  ", " s7  ", " s8  ", " s9  ", " s10 ", " s11 ", " t3  ", " t4  ", " t5  ", " t6  "};
+    for (int i = 0; i < NORMAL_REGS_NUM; i += 3) {
         for (int j = 0; j < 3 && i + j < 32; ++j) {
             prints("%s : %016lx ", reg_name[i + j], regs->regs[i + j]);
         }

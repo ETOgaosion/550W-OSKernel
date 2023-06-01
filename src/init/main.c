@@ -1,5 +1,6 @@
 #include <asm/common.h>
 #include <asm/pgtable.h>
+#include <asm/privileged.h>
 #include <asm/sbi.h>
 #include <asm/stack.h>
 #include <drivers/plic/plic.h>
@@ -21,18 +22,21 @@ void wakeup_other_cores() {
     sbi_send_ipi(&mask);
 }
 
+extern void kernel_exception_handler_entry();
+
 // jump from bootloader.
 // The beginning of everything >_< ~~~~~~~~~~~~~~
 int main() {
     int id = get_current_cpu_id();
     if (id != 0) {
+        w_stvec((uint64_t)kernel_exception_handler_entry);
         k_lock_kernel();
+        plic_init_hart();
         current_running = k_get_current_running();
-        sbi_set_timer(0);
-        setup_exception();
         // k_cancel_pg(pa2kva(PGDIR_PA));
     } else {
         k_smp_init(); // only done by master core
+        w_stvec((uint64_t)kernel_exception_handler_entry);
         k_lock_kernel();
         // init fs
         // init_fs();
@@ -49,23 +53,25 @@ int main() {
         init_syscall();
         printk("> [INIT] System call initialized successfully.\n\r");
 
-        plic_init();
-        plic_init_hart();
-        binit();
-        virtio_disk_init();
-        printk("> [INIT] Disk initialized successfully.\n\r");
-        sys_spawn("virtio");
-
         // init screen (QAQ)
         init_exception();
-        init_screen();
 
-        // Setup timer interrupt and enable all interrupt
-        // init interrupt (^_^)
         wakeup_other_cores();
-        sbi_set_timer(0);
-        setup_exception();
+
+        plic_init();
+        plic_init_hart();
+        virtio_disk_init();
+        binit();
+        printk("> [INIT] Disk initialized successfully.\n\r");
+        sys_spawn("shell");
+        sys_spawn("virtio");
+
+        init_screen();
+        // Setup timer interrupt and enable all interrupt
+        // init interrupt (^_^)-
     }
+    sbi_set_timer(0);
+    setup_exception();
     while (1) {
         k_scheduler();
     };

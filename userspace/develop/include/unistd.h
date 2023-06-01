@@ -53,5 +53,3 @@ void screen_clear();
 void move_cursor(int x, int y);
 
 void sd_read();
-void sd_write();
-void sd_release();

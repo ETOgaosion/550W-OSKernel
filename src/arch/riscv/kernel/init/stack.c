@@ -7,7 +7,7 @@
 #include <os/mm.h>
 #include <os/smp.h>
 
-extern void ret_from_exception();
+extern void user_ret_from_exception();
 extern void __global_pointer$();
 
 ptr_t address_base = 0xffffffc080504000lu;
@@ -40,7 +40,7 @@ void init_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, ptr_t entry_point, pcb
     pt_regs->scause = 0;
 
     switchto_context_t *sw_regs = (switchto_context_t *)(kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t));
-    sw_regs->regs[0] = (pcb->type == USER_PROCESS || pcb->type == USER_THREAD) ? (reg_t)&ret_from_exception : entry_point;
+    sw_regs->regs[0] = (pcb->type == USER_PROCESS || pcb->type == USER_THREAD) ? (reg_t)&user_ret_from_exception : entry_point;
     sw_regs->regs[1] = pcb->kernel_sp;
     pcb->save_context = pt_regs;
     pcb->switch_context = sw_regs;
@@ -69,7 +69,7 @@ void fork_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb) {
     pt_regs->scause = cur_regs->scause;
 
     switchto_context_t *sw_regs = (switchto_context_t *)(kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t));
-    sw_regs->regs[switch_reg_ra] = (reg_t)ret_from_exception;
+    sw_regs->regs[switch_reg_ra] = (reg_t)user_ret_from_exception;
     // sw_regs->regs[1] = pcb->user_sp;
     pcb->save_context = pt_regs;
     pcb->switch_context = sw_regs;
@@ -81,7 +81,7 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
     pcb->save_context = pt_regs;
     pcb->switch_context = sw_regs;
     pcb->kernel_sp = (uintptr_t)pcb->switch_context;
-    pcb->switch_context->regs[switch_reg_ra] = (reg_t)&ret_from_exception;
+    pcb->switch_context->regs[switch_reg_ra] = (reg_t)&user_ret_from_exception;
     pcb->switch_context->regs[switch_reg_sp] = pcb->kernel_sp;
     pcb->save_context->regs[switch_reg_s0] = user_stack == USER_STACK_ADDR ? (*current_running)->save_context->regs[2] : user_stack;
     if (flags & CLONE_SETTLS) {

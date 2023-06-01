@@ -101,6 +101,8 @@
 #define OFFSET_REG_T5 232
 #define OFFSET_REG_T6 240
 
+#define OFFSET_REG_SIZE 248
+
 /* privileged register */
 #define OFFSET_REG_SSTATUS 248
 #define OFFSET_REG_SEPC 256
@@ -108,7 +110,7 @@
 #define OFFSET_REG_SCAUSE 272
 
 /* Size of stack frame, word/double word alignment */
-#define OFFSET_SIZE 280
+#define OFFSET_ALL_REG_SIZE 280
 
 #define PCB_KERNEL_SP 0
 #define PCB_USER_SP 8

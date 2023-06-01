@@ -154,7 +154,7 @@ void k_sleep_lock_init(sleep_lock_t *lk) {
     lk->pid = 0;
 }
 
-void k_sleep_lock_aquire(sleep_lock_t *lk) {
+void k_sleep_lock_acquire(sleep_lock_t *lk) {
     k_spin_lock_acquire(&lk->lk);
     while (lk->locked) {
         k_sleep(lk, &lk->lk);

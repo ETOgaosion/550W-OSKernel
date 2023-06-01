@@ -9,10 +9,11 @@
 #include <os/sync.h>
 #include <os/time.h>
 
-#define NUM_MAX_PRCESS 16
+#define NUM_MAX_PCB_NAME 20
+#define NUM_MAX_PROCESS 16
 #define NUM_MAX_CHILD 5
 #define NUM_MAX_CHILD_THREADS 5
-#define NUM_MAX_TASK (1 + NUM_MAX_CHILD + NUM_MAX_CHILD_THREADS) * NUM_MAX_PRCESS
+#define NUM_MAX_TASK (1 + NUM_MAX_CHILD + NUM_MAX_CHILD_THREADS) * NUM_MAX_PROCESS
 #define NUM_MAX_LOCK 16
 #define NUM_MAX_MBOX 16
 
@@ -140,6 +141,7 @@ typedef struct pcb {
     ELF_info_t elf;
 
     /* process id */
+    char name[NUM_MAX_PCB_NAME];
     pid_t pid;  // real offset of pcb[]
     pid_t fpid; // threads' fpid is process pid
     pid_t tid;

@@ -18,26 +18,23 @@ uintptr_t plic_base;
 #define PLIC_SCLAIM(hart) (plic_base + 0x201004 + (hart)*0x2000)
 
 void plic_init(void) {
-    // set desired IRQ priorities non-zero (otherwise disabled).
     plic_base = (uintptr_t)ioremap((uint64_t)PLIC, 0x4000 * NORMAL_PAGE_SIZE);
-    *(uint32 *)(plic_base + VIRTIO0_IRQ * 4) = 1;
+    writed(1, plic_base + DISK_IRQ * sizeof(uint32));
 }
 
 void plic_init_hart(void) {
-    // set enable bits for this hart's S-mode
-    // for the uart and virtio disk.
-    *(uint32 *)PLIC_SENABLE(0) = (1 << VIRTIO0_IRQ);
-    *(uint32 *)PLIC_SENABLE(1) = (1 << VIRTIO0_IRQ);
-
+    int hart = get_current_cpu_id();
+    // set uart's enable bit for this hart's S-mode.
+    *(uint32 *)PLIC_SENABLE(hart) = (1 << UART_IRQ) | (1 << DISK_IRQ);
     // set this hart's S-mode priority threshold to 0.
-    *(uint32 *)PLIC_SPRIORITY(0) = 0;
-    *(uint32 *)PLIC_SPRIORITY(1) = 0;
+    *(uint32 *)PLIC_SPRIORITY(hart) = 0;
 }
 
 // ask the PLIC what interrupt we should serve.
 int plic_claim(void) {
     int hart = get_current_cpu_id();
-    int irq = *(uint32 *)PLIC_SCLAIM(hart);
+    int irq;
+    irq = *(uint32 *)PLIC_SCLAIM(hart);
     return irq;
 }
 

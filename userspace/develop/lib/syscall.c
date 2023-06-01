@@ -196,11 +196,3 @@ void move_cursor(int x, int y) {
 void sd_read() {
     syscall(SYS_SD_READ);
 }
-
-void sd_write() {
-    syscall(SYS_SD_WRITE);
-}
-
-void sd_release() {
-    syscall(SYS_SD_RELEASE);
-}

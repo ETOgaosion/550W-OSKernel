@@ -39,8 +39,9 @@ pid_t nextpid() {
     }
 }
 
-void init_pcb_i(int pcb_i, task_type_t type, int pid, int fpid, int tid, int father_pid, uint8_t core_mask) {
+void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int tid, int father_pid, uint8_t core_mask) {
     init_list_head(&pcb[pcb_i].wait_list);
+    k_memcpy((uint8_t *)pcb[pcb_i].name, (uint8_t *)name, k_strlen(name));
     pcb[pcb_i].in_use = TRUE;
     pcb[pcb_i].pid = pid;
     pcb[pcb_i].fpid = fpid;
@@ -128,8 +129,6 @@ void k_init_pcb() {
     current_running1 = &pid0_pcb2;
     current_running = k_get_current_running();
     init_list_head(&timers);
-    sys_spawn("shell");
-    sys_spawn("bubble");
 }
 
 long sys_setpriority(int which, int who, int niceval) {
@@ -303,8 +302,8 @@ long k_scheduler(void) {
     if (ready_queue_empty && curr->pid >= 0 && curr->status == TASK_RUNNING) {
         return 0;
     } else if (ready_queue_empty) {
-        k_unlock_kernel();
         while (TRUE) {
+            k_unlock_kernel();
             while (check_empty(0x1 << cpuid)) {
                 continue;
             }
@@ -401,7 +400,7 @@ long sys_sched_getaffinity(pid_t pid, unsigned int len, uint8_t *user_mask_ptr) 
 long sys_spawn(const char *file_name) {
     int i = nextpid();
 
-    init_pcb_i(i, USER_PROCESS, i, i, 0, 0, (*current_running)->core_mask[0]);
+    init_pcb_i((char *)file_name, i, USER_PROCESS, i, i, 0, 0, (*current_running)->core_mask[0]);
 
     ptr_t kernel_stack = get_kernel_address(i);
     ptr_t user_stack_kva = kernel_stack - PAGE_SIZE;
@@ -428,7 +427,11 @@ long sys_fork() {
     int i = nextpid();
     pid_t fpid = (*current_running)->pid;
 
-    init_pcb_i(i, USER_PROCESS, i, i, 0, fpid, (*current_running)->core_mask[0]);
+    char name[NUM_MAX_PCB_NAME];
+    int name_len = k_min(k_strlen((*current_running)->name), 14);
+    k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
+    k_strcat(name, "_child");
+    init_pcb_i(name, i, USER_PROCESS, i, i, 0, fpid, (*current_running)->core_mask[0]);
 
     pcb[fpid].child_pids[pcb[fpid].child_num] = i;
     pcb[fpid].child_num++;
@@ -589,7 +592,7 @@ long exec(int pid, const char *file_name, const char *argv[], const char *envp[]
     }
     int i = pid;
 
-    init_pcb_i(i, USER_PROCESS, i, i, 0, i, (*current_running)->core_mask[0]);
+    init_pcb_i((char *)file_name, i, USER_PROCESS, i, i, 0, i, (*current_running)->core_mask[0]);
 
     ptr_t kernel_stack_kva = get_kernel_address(i);
     ptr_t user_stack_kva = kernel_stack_kva - PAGE_SIZE;
@@ -628,7 +631,11 @@ long sys_clone(unsigned long flags, void *stack, void *arg, pid_t *parent_tid, v
     int i = nextpid();
     pid_t fpid = (*current_running)->pid;
 
-    init_pcb_i(i, USER_PROCESS, i, i, 0, fpid, (*current_running)->core_mask[0]);
+    char name[NUM_MAX_PCB_NAME];
+    int name_len = k_min(k_strlen((*current_running)->name), 14);
+    k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
+    k_strcat(name, "_child");
+    init_pcb_i(name, i, USER_PROCESS, i, i, 0, fpid, (*current_running)->core_mask[0]);
     if (flags & CLONE_CHILD_SETTID) {
         *(int *)child_tid = pcb[i].tid;
     }
@@ -686,11 +693,9 @@ void k_sleep(void *chan, spin_lock_t *lk) {
 }
 
 void k_wakeup(void *chan) {
-    for (int i = 0; i < NUM_MAX_PRCESS; i++) {
-        if (i != (*current_running)->pid) {
-            if ((pcb[i].status = TASK_BLOCKED) && (pcb[i].chan == chan)) {
-                k_unblock(&pcb[i].list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
-            }
+    for (int i = 0; i < NUM_MAX_PROCESS; i++) {
+        if ((pcb[i].status == TASK_BLOCKED) && (pcb[i].chan == chan)) {
+            k_unblock(&pcb[i].list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
         }
     }
 }
