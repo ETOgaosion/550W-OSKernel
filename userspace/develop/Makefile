@@ -50,10 +50,10 @@ $(shell_target):
 	$(GCC) $(LDFLAGS) $(C_SHARE_FLAG) -o $@ ${shell_objs} ${lib_target}
 
 build: $(modules)
-	mkdir -p all
+	mkdir -p build
 
 $(modules):
-	$(MAKE) build --directory=$@
+	$(MAKE) all --directory=$@
 
 clean:
 	for d in $(modules); \
