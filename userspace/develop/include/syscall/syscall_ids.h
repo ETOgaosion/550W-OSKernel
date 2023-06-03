@@ -292,5 +292,3 @@
 #define SYS_screen_clear 404
 
 #define SYS_mkdir 1030
-
-#define SYS_SD_READ 1031

@@ -20,7 +20,7 @@ ptr_t get_user_address(pid_t pid) {
     return address_base + pid * 2 * PAGE_SIZE + PAGE_SIZE;
 }
 
-void init_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, ptr_t entry_point, pcb_t *pcb) {
+void init_context_stack(ptr_t kernel_stack, ptr_t user_stack, ptr_t entry_point, pcb_t *pcb) {
     regs_context_t *pt_regs = (regs_context_t *)(kernel_stack - sizeof(regs_context_t));
     k_memset((void *)pt_regs, 0, sizeof(regs_context_t));
     pcb->kernel_sp = kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t);

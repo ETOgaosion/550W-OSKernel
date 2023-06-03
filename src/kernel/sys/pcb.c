@@ -418,7 +418,7 @@ long sys_spawn(const char *file_name) {
     map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
-    init_pcb_stack(kernel_stack, user_stack, (uintptr_t)(process), &pcb[i]);
+    init_context_stack(kernel_stack, user_stack, (uintptr_t)(process), &pcb[i]);
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;
 }
@@ -582,33 +582,29 @@ long sys_process_show() {
 }
 
 long exec(int pid, const char *file_name, const char *argv[], const char *envp[]) {
-    int len = 0;
-    unsigned char *binary = NULL;
-    /* TODO: use FAT32 disk to read program */
-    if (get_elf_file(file_name, &binary, &len) == 0) {
-        if (try_get_from_file(file_name, &binary, &len) == 0) {
-            return 0;
-        }
-    }
-    int i = pid;
+    int i = nextpid();
 
-    init_pcb_i((char *)file_name, i, USER_PROCESS, i, i, 0, i, (*current_running)->core_mask[0]);
+    init_pcb_i((char *)file_name, i, USER_PROCESS, i, i, 0, 0, (*current_running)->core_mask[0]);
 
-    ptr_t kernel_stack_kva = get_kernel_address(i);
-    ptr_t user_stack_kva = kernel_stack_kva - PAGE_SIZE;
+    ptr_t kernel_stack = get_kernel_address(i);
+    ptr_t user_stack_kva = kernel_stack - PAGE_SIZE;
     ptr_t user_stack = USER_STACK_ADDR;
-
     PTE *pgdir = (PTE *)k_alloc_page(1);
     clear_pgdir((uintptr_t)pgdir);
     share_pgtable(pgdir, pa2kva(PGDIR_PA));
-    void_task test_task = (void_task)load_elf(binary, len, (uintptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_alloc_page_helper);
+    pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
+
+    int len = 0;
+    unsigned char *binary = NULL;
+    get_elf_file(file_name, &binary, &len);
+    void_task process = (void_task)load_elf(binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_alloc_page_helper);
     map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
-    map(USER_STACK_ADDR, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
     init_user_stack(&user_stack_kva, &user_stack, argv, envp, file_name);
 
-    init_pcb_stack(kernel_stack_kva, user_stack, (ptr_t)test_task, &pcb[i]);
+    init_context_stack(kernel_stack, user_stack, (ptr_t)process, &pcb[i]);
 
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;

@@ -192,7 +192,3 @@ void screen_clear() {
 void move_cursor(int x, int y) {
     syscall(SYS_move_cursor, x, y);
 }
-
-void sd_read() {
-    syscall(SYS_SD_READ);
-}

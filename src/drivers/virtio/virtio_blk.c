@@ -327,31 +327,21 @@ void bunpin(buf_t *b) {
     k_spin_lock_release(&bcache.lock);
 }
 
-void k_sd_read(buf_t *buffers[], uint *start_block_ids, uint block_num) {
-    for (int i = 0; i < block_num; i++) {
-        buffers[i] = bread(DEV_VDA2, start_block_ids[i]);
-    }
-}
-
-void k_sd_write(buf_t *buffers[], uint block_num) {
-    for (int i = 0; i < block_num; i++) {
-        bwrite(buffers[i]);
-    }
-}
-
-void k_sd_release(buf_t *buffers[], uint block_num) {
-    for (int i = 0; i < block_num; i++) {
-        brelse(buffers[i]);
-    }
-}
-
-
-void sys_sd_read() {
+void k_sd_read(char *buffers, uint *start_block_ids, uint block_num) {
     buf_t *buf;
-    buf = bread(DEV_VDA2, 1);
-    k_memcpy((uint8_t *)buf->data, (const uint8_t *)"Hello World", k_strlen("Hello World"));
-    bwrite(buf);
-    buf = bread(DEV_VDA2, 1);
-    printk("%s\n", buf->data);
-    brelse(buf);
+    for (int i = 0; i < block_num; i++) {
+        buf = bread(DEV_VDA2, start_block_ids[i]);
+        k_memcpy((uint8_t *)(buffers + i * BSIZE), (uint8_t *)buf->data, BSIZE);
+        brelse(buf);
+    }
+}
+
+void k_sd_write(char *buffers, uint *start_block_ids, uint block_num) {
+    buf_t *buf;
+    for (int i = 0; i < block_num; i++) {
+        buf = bread(DEV_VDA2, start_block_ids[i]);
+        k_memcpy((uint8_t *)buf->data, (uint8_t *)(buffers + i * BSIZE), BSIZE);
+        bwrite(buf);
+        brelse(buf);
+    }
 }

@@ -71,8 +71,6 @@ void init_syscall(void) {
     // Self Defined
     syscall[SYS_move_cursor] = (long (*)())sys_screen_move_cursor;
     syscall[SYS_screen_clear] = (long (*)())sys_screen_clear;
-
-    syscall[SYS_SD_READ] = (long (*)())sys_sd_read;
 }
 
 void reset_irq_timer() {

@@ -142,10 +142,5 @@ struct buf *bread(uint, uint);
 void brelse(struct buf *);
 void bwrite(struct buf *);
 
-void k_sd_read(buf_t *buffers[], uint *start_block_id, uint block_num);
-void k_sd_write(buf_t *buffers[], uint block_num);
-void k_sd_release(buf_t *buffers[], uint block_num);
-
-void sys_sd_read();
-void sys_sd_write();
-void sys_sd_release();
+void k_sd_read(char *buffers, uint *start_block_id, uint block_num);
+void k_sd_write(char *buffers, uint *start_block_ids, uint block_num);

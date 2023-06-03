@@ -1,5 +1,5 @@
 user_lib_dir	:= lib
-user_src_dir	:= src
+user_src_dir	:= src/preliminary
 modules			:= $(user_lib_dir) ${user_src_dir}
 
 link_script := linker/user_riscv.lds
@@ -43,13 +43,13 @@ $(lib_target):
 	$(AR) rcs $@ $(lib_objs)
 
 srcs:
-	for src_obj in $(src_names); do ${GCC} ${LDFLAGS} ${C_SHARE_FLAG} -o build/$$src_obj.elf src/$$src_obj.o ${lib_target}; done
+	for src_obj in $(src_names); do ${GCC} ${LDFLAGS} ${C_SHARE_FLAG} -o build/$$src_obj.elf src/preliminary/$$src_obj.o ${lib_target}; done
 
 $(shell_target):
 	$(GCC) $(LDFLAGS) $(C_SHARE_FLAG) -o $@ ${shell_objs} ${lib_target}
 
 build: $(modules)
-	mkdir -p build
+	mkdir -p all
 
 $(modules):
 	$(MAKE) build --directory=$@
