@@ -53,6 +53,7 @@ void init_syscall(void) {
     syscall[SYS_mailread] = (long (*)())sys_mailread;
     syscall[SYS_mailwrite] = (long (*)())sys_mailwrite;
     // Process & Threads
+    syscall[SYS_kill] = (long (*)())sys_kill;
     syscall[SYS_exit] = (long (*)())sys_exit;
     syscall[SYS_clone] = (long (*)())sys_clone;
     syscall[SYS_execve] = (long (*)())sys_execve;
@@ -64,6 +65,7 @@ void init_syscall(void) {
     syscall[SYS_getpid] = (long (*)())sys_getpid;
     syscall[SYS_getppid] = (long (*)())sys_getppid;
     syscall[SYS_sched_setaffinity] = (long (*)())sys_sched_setaffinity;
+    syscall[SYS_process_show] = (long (*)())sys_process_show;
 
     // Memory
     syscall[SYS_brk] = (long (*)())sys_brk;
@@ -154,7 +156,7 @@ void handler_virtio_intr(regs_context_t *regs, uint64_t stval, uint64_t cause, u
         disk.used_idx = (disk.used_idx + 1) % DESC_NUM;
     }
     *R(VIRTIO_MMIO_INTERRUPT_ACK) = *R(VIRTIO_MMIO_INTERRUPT_STATUS) & 0x3;
-    
+
     k_spin_lock_release(&disk.vdisk_lock);
 }
 

@@ -1,5 +1,6 @@
 user_lib_dir	:= lib
-user_src_dir	:= src/preliminary
+user_src_dir	:= src
+user_preliminary_dir	:= src/preliminary
 modules			:= $(user_lib_dir) ${user_src_dir}
 
 link_script := linker/user_riscv.lds
@@ -8,7 +9,7 @@ lib_files := $(shell find $(user_lib_dir) \( -name "*.S" -o -name "*.c" \))
 lib_objs := $(patsubst %.S,%.o, $(patsubst %.c,%.o, $(lib_files)))
 lib_target := build/lib.a
 
-src_files := $(shell find $(user_src_dir) \( -name "*.c" -not -name "shell.c" \))
+src_files := $(shell find $(user_preliminary_dir) \( -name "*.c" -not -name "shell.c" \))
 src_objs := $(patsubst %.c,%.o, $(src_files))
 src_targets := $(patsubst %,%.elf, $(basename $(notdir $(src_files))))
 src_names := $(basename $(notdir $(src_files)))

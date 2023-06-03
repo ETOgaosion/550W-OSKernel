@@ -3,7 +3,7 @@
 #include "unistd.h"
 
 static char buffer[30];
-void test_chdir(void){
+void test_chdir(void) {
     TEST_START(__func__);
     mkdir("test_chdir", 0666);
     int ret = chdir("test_chdir");
@@ -14,7 +14,7 @@ void test_chdir(void){
     TEST_END(__func__);
 }
 
-int main(void){
+int main(void) {
     test_chdir();
     return 0;
 }

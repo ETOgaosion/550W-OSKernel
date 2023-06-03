@@ -13,6 +13,7 @@ Semaphore_t *sem_list[COMM_NUM];
 cond_t *cond_list[COMM_NUM];
 barrier_t *barrier_list[COMM_NUM];
 mbox_t *mbox_list[COMM_NUM];
+pcb_mbox_t pcb_mbox[NUM_MAX_PROCESS];
 
 static int find_free(int type) {
     int find = 0;
@@ -417,7 +418,7 @@ void k_pcb_mbox_init(pcb_mbox_t *target, int owner_id) {
 }
 
 int sys_mailread(void *buf, int len) {
-    pcb_mbox_t *target = &(*current_running)->mbox;
+    pcb_mbox_t *target = (*current_running)->mbox;
     if (len == 0) {
         if (target->used_units) {
             return 0;
@@ -435,7 +436,7 @@ int sys_mailread(void *buf, int len) {
 }
 
 int sys_mailwrite(int pid, void *buf, int len) {
-    pcb_mbox_t *target = &(*current_running)->mbox;
+    pcb_mbox_t *target = (*current_running)->mbox;
     if (len == 0) {
         if (target->used_units == PCB_MBOX_MAX_MSG_NUM) {
             return -1;

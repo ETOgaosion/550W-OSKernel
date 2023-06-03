@@ -1,7 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
-#include "unistd.h"
 #include "string.h"
+#include "unistd.h"
 /*
  * 成功测试时父进程的输出：
  * "  parent process."
@@ -9,23 +9,23 @@
  * "  child process."
  */
 
-void test_fork(void){
+void test_fork(void) {
     TEST_START(__func__);
     int cpid, wstatus;
     cpid = fork();
     assert(cpid != -1);
 
-    if(cpid > 0){
-	wait(&wstatus);
-	printf("  parent process. wstatus:%d\n", wstatus);
-    }else{
-	printf("  child process.\n");
-	exit(0);
+    if (cpid > 0) {
+        wait(&wstatus);
+        printf("  parent process. wstatus:%d\n", wstatus);
+    } else {
+        printf("  child process.\n");
+        exit(0);
     }
     TEST_END(__func__);
 }
 
-int main(void){
+int main(void) {
     test_fork();
     return 0;
 }

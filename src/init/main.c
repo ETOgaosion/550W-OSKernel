@@ -64,7 +64,6 @@ int main() {
         binit();
         printk("> [INIT] Disk initialized successfully.\n\r");
         sys_spawn("shell");
-        sys_spawn("virtio");
 
         init_screen();
         // Setup timer interrupt and enable all interrupt

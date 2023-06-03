@@ -87,7 +87,7 @@ typedef struct buf {
     char data[BSIZE];
 } buf_t;
 
-typedef struct  vring_desc_t{
+typedef struct vring_desc_t {
     uint64 addr;
     uint32 len;
     uint16 flags;

@@ -112,6 +112,10 @@ int spawn(char *file) {
     return syscall(SYS_spawn, file);
 }
 
+void sys_kill(int pid) {
+    syscall(SYS_kill, pid);
+}
+
 int mailread(void *buf, int len) {
     return syscall(SYS_mailread, buf, len);
 }
@@ -191,4 +195,8 @@ void screen_clear() {
 
 void move_cursor(int x, int y) {
     syscall(SYS_move_cursor, x, y);
+}
+
+long sys_process_show() {
+    return syscall(SYS_process_show);
 }

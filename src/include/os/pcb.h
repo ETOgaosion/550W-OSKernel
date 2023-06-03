@@ -123,6 +123,8 @@ typedef struct rusage {
     __kernel_long_t ru_nivcsw;   /* involuntary " */
 } rusage_t;
 
+extern pcb_mbox_t pcb_mbox[NUM_MAX_PROCESS];
+
 /* Process Control Block */
 typedef struct pcb {
     /* register context */
@@ -174,7 +176,7 @@ typedef struct pcb {
     int lock_ids[NUM_MAX_LOCK];
     void *chan;
 
-    pcb_mbox_t mbox;
+    pcb_mbox_t *mbox;
 
     /* time */
     __kernel_timeval_t stime_last; // last time into kernel

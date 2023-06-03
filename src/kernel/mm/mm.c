@@ -132,7 +132,7 @@ ptr_t k_alloc_mem(int numPage, uint64_t user_va) {
         ret = freepg[freepg_num];
         freepg_num--;
     }
-    if (allocpid != 0) {
+    if (allocpid >= 0) {
         if (allmem[allocpid][0] >= MAXPAGES) {
             return ret;
         }
@@ -155,7 +155,7 @@ ptr_t k_alloc_page(int numPage) {
         freepg_num--;
     }
     int allocpid = (*current_running)->pid;
-    if (allocpid != 0) {
+    if (allocpid >= 0) {
         if (allpg[allocpid][0] >= 98) {
             return ret;
         }

@@ -18,6 +18,10 @@ $(modules):
 	$(MAKE) all --directory=$@
 
 clean:
-	rm -rf *~ *.o *.d
+	for d in $(modules); \
+		do \
+			$(MAKE) --directory=$$d clean; \
+		done
+	rm -rf *.o *~
 
 include ../../../Makefile.in

@@ -16,10 +16,7 @@ void virtio_disk_init(void) {
 
     k_spin_lock_init(&disk.vdisk_lock);
 
-    if (*R(VIRTIO_MMIO_MAGIC_VALUE) != VIRTIO_MAGIC || 
-        *R(VIRTIO_MMIO_VERSION) != VIRTIO_VERSION || 
-        *R(VIRTIO_MMIO_DEVICE_ID) != VIRTIO_DEVICE_ID_BLK || 
-        *R(VIRTIO_MMIO_VENDOR_ID) != VIRTIO_VENDOR_ID_QEMU) {
+    if (*R(VIRTIO_MMIO_MAGIC_VALUE) != VIRTIO_MAGIC || *R(VIRTIO_MMIO_VERSION) != VIRTIO_VERSION || *R(VIRTIO_MMIO_DEVICE_ID) != VIRTIO_DEVICE_ID_BLK || *R(VIRTIO_MMIO_VENDOR_ID) != VIRTIO_VENDOR_ID_QEMU) {
         panic("could not find virtio disk");
     }
 

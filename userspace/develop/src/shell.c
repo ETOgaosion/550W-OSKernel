@@ -16,22 +16,49 @@
     printf("========================== MOSS ==========================")
 /* clang-format on */
 
+#define HELP 0
+#define EXEC 1
+#define EXECVE 2
+#define KILL 3
+#define PS 4
+#define CLEAR 5
+// #define TASKSET 6
+// #define MKFS 7
+// #define STATFS 8
+// #define MKDIR 9
+// #define RMDIR 10
+// #define CD 11
+// #define LS 12
+// #define PWD 13
+// #define TOUCH 14
+// #define CAT 15
+// #define RM 16
+// #define LN 17
+
 typedef int (*function)(int argc, char *argv[]);
+
+// #define CURRENT_TASK_NUM 33
+#define CURRENT_TASK_NUM 1
+
+/* clang-format off */
+// char *task_names[CURRENT_TASK_NUM] = {
+//     "echo", "getppid", "waitpid", "clone", "execve", "sleep", "yield", "gettimeofday", "times", "getpid", "chdir", "wait", "fork", "exit", "uname",
+//     "openat", "dup2", "mkdir", "write", "unlink", "getdents", "dup", "mount", "umount", "pipe", "fstat", "getcwd", "close", "mmap", "read", "open", "munmap", "brk"
+// };
+/* clang-format on */
+
+char *task_names[CURRENT_TASK_NUM] = {"echo"};
 
 int cmd_in_length = 0;
 
-typedef struct sys_taskset_arg {
-    int pid;
-    int mask;
-} sys_taskset_arg_t;
-
 void panic(char *error);
 static int shell_help(int argc, char *argv[]);
-// static int shell_exec(int argc, char *argv[]);
-// static int shell_kill(int argc, char *argv[]);
-// static int shell_taskset(int argc, char *argv[]);
-// static int shell_ps(int argc, char *argv[]);
+static int shell_exec(int argc, char *argv[]);
+static int shell_execve(int argc, char *argv[]);
+static int shell_kill(int argc, char *argv[]);
+static int shell_ps(int argc, char *argv[]);
 static int shell_clear(int argc, char *argv[]);
+// static int shell_taskset(int argc, char *argv[]);
 // static int shell_mkfs(int argc, char *argv[]);
 // static int shell_statfs(int argc, char *argv[]);
 // static int shell_mkdir(int argc, char *argv[]);
@@ -44,24 +71,6 @@ static int shell_clear(int argc, char *argv[]);
 // static int shell_rm(int argc, char *argv[]);
 // static int shell_ln(int argc, char *argv[]);
 
-#define HELP 0
-#define EXEC 1
-#define KILL 2
-#define TASKSET 3
-#define PS 4
-#define CLEAR 5
-#define MKFS 6
-#define STATFS 7
-#define MKDIR 8
-#define RMDIR 9
-#define CD 10
-#define LS 11
-#define PWD 12
-#define TOUCH 13
-#define CAT 14
-#define RM 15
-#define LN 16
-
 typedef struct cmds {
     char *cmd_full_name;
     char *cmd_alias;
@@ -72,13 +81,15 @@ typedef struct cmds {
     int min_arg_num;
 } cmds_t;
 
+/* clang-format off */
 cmds_t cmd_table[] = {
     {"help", "h", "Print description of command [cmd] or all supported commands(no args or error cmd)", "help ([cmd])", &shell_help, SHELL_ARG_MAX_NUM, 0},
-    // {"exec", "spawn", "Execute task [pid](start from 1) in testset with chosen or default mode:\n\t- mode 1: ENTER_ZOMBIE_ON_EXIT\n\t- mode 2: AUTO_CLEANUP_ON_EXIT", "exec [pid] ([-m mode]) ([-a args])", &shell_exec, SHELL_ARG_MAX_LENGTH,1},
-    // {"kill", "k", "Kill process [pid](start from 1)", "kill [pid]",&shell_kill, 1, 1},
-    // {"taskset","ts","Start a task's or set some task's running core","taskset [mask] [taskid]/taskset -p [mask] [taskid]",&shell_taskset,3,3},
-    // {"ps", "ps", "Display all process", "ps", &shell_ps, 0,0},
+    {"exec", "spawn", "Execute task name in taskset", "exec [filename] [&]", &shell_exec, 1, 1},
+    {"execve", "eve", "Execute task name in taskset with args and env definations", "execve [filename] [-a [argv]] [-e [env]] [&]", &shell_execve, SHELL_ARG_MAX_NUM, 1}, 
+    {"kill", "k", "Kill process [pid](start from 1)", "kill [pid]", &shell_kill, 1, 1}, 
+    {"ps", "ps", "Display all process", "ps", &shell_ps, 0, 0}, 
     {"clear", "clr", "Clear the screen", "clear", &shell_clear, 0, 0},
+    // {"taskset","ts","Start a task's or set some task's running core","taskset [mask] [taskid]/taskset -p [mask] [taskid]",&shell_taskset,3,3},
     // {"mkfs","mkfs", "Initial file system", "mkfs", &shell_mkfs, 0,0},
     // {"statfs", "stfs", "Show info of file system", "statfs", &shell_statfs, 0,0},
     // {"mkdir", "md", "Create a directory", "mkdir [name]", &shell_mkdir, 1,1},
@@ -91,6 +102,7 @@ cmds_t cmd_table[] = {
     // {"rm", "rm", "Remove a file", "rm [name]", &shell_rm, 1,1},
     // {"ln", "ln", "Link file to another directory", "ln [-s] <path1> <path2>", &shell_ln, 3,2}
 };
+/* clang-format on */
 
 #define SUPPORTED_CMD_NUM sizeof(cmd_table) / sizeof(cmds_t)
 
@@ -124,23 +136,103 @@ static int shell_help(int argc, char *argv[]) {
     return 0;
 }
 
-// static int shell_exec(int argc, char *argv[])
-// {
-//     return 0;
-// }
+static int shell_exec(int argc, char *argv[]) {
+    int task_found = 0;
+    char *first_arg = (char *)argv;
+    for (int i = 0; i < CURRENT_TASK_NUM; i++) {
+        if (strcmp(first_arg, task_names[i]) == 0) {
+            task_found = 1;
+            break;
+        }
+    }
+    if (!task_found) {
+        panic(arg_num_error);
+        return -1;
+    }
+    printf("\ntask[%s] will be started soon!", first_arg);
+    cmd_in_length++;
+    if (argc == 1) {
+        int pid = spawn(first_arg);
+        int result = 0;
+        waitpid(pid, &result, 0);
+        return result;
+    }
+    if (argc == 2 && strcmp((const char *)argv[1], "&") == 0) {
+        return spawn(first_arg);
+    }
+    return 0;
+}
 
-// static int shell_kill(int argc, char *argv[])
-// {
-//     if(argc < cmd_table[KILL].min_arg_num){
-//         panic(arg_num_error);
-//         return -1;
-//     }
-//     char *first_arg = (char *)argv;
-//     int pid = strtol(first_arg, NULL, 10);
-//     printf("\ntask[%d] will be killed soon!",pid);
-//     cmd_in_length++;
-//     return sys_kill(pid);
-// }
+static int shell_execve(int argc, char *argv[]) {
+    int task_found = 0;
+    char *first_arg = (char *)argv;
+    for (int i = 0; i < CURRENT_TASK_NUM; i++) {
+        if (strcmp(first_arg, task_names[i]) == 0) {
+            task_found = 1;
+            break;
+        }
+    }
+    if (!task_found) {
+        panic(arg_num_error);
+        return -1;
+    }
+    printf("\ntask[%s] will be started soon!", first_arg);
+    cmd_in_length++;
+    if (argc == 1) {
+        int pid = spawn(first_arg);
+        int result = 0;
+        waitpid(pid, &result, 0);
+        return result;
+    }
+    int argp = 0, envp = 0;
+    for (int i = 1; i < argc; i++) {
+        if (argp && envp) {
+            break;
+        }
+        if (!argp && strcmp(argv[i], "-a") == 0) {
+            argp = i + 1;
+        }
+        if (!envp && strcmp(argv[i], "-e") == 0) {
+            envp = i + 1;
+        }
+    }
+    char arg[SHELL_ARG_MAX_NUM][SHELL_ARG_MAX_LENGTH] = {0};
+    char env[SHELL_ARG_MAX_NUM][SHELL_ARG_MAX_LENGTH] = {0};
+    int i = argp;
+    for (i = argp; i < envp - 1 && i < argc; i++) {
+        memcpy((uint8_t *)arg[i - argp], (uint8_t *)argv[i], strlen((const char *)argv[i]));
+    }
+    i = envp;
+    for (i = envp; i < argp - 1 && i < argc; i++) {
+        memcpy((uint8_t *)arg[i - envp], (uint8_t *)argv[i], strlen((const char *)argv[i]));
+    }
+    execve(first_arg, (char *const *)arg, (char *const *)env);
+    return 0;
+}
+
+static int shell_kill(int argc, char *argv[]) {
+    if (argc < cmd_table[KILL].min_arg_num) {
+        panic(arg_num_error);
+        return -1;
+    }
+    char *first_arg = (char *)argv;
+    int pid = strtol(first_arg, NULL, 10);
+    printf("\ntask[%d] will be killed soon!", pid);
+    cmd_in_length++;
+    sys_kill(pid);
+    return 0;
+}
+
+static int shell_ps(int argc, char *argv[]) {
+    cmd_in_length += sys_process_show();
+    return 0;
+}
+
+static int shell_clear(int argc, char *argv[]) {
+    screen_clear();
+    BEGIN;
+    return 0;
+}
 
 // static int shell_taskset(int argc, char *argv[])
 // {
@@ -167,18 +259,6 @@ static int shell_help(int argc, char *argv[]) {
 //         return 0;
 //     }
 // }
-
-// static int shell_ps(int argc, char *argv[])
-// {
-//     cmd_in_length += sys_process_show();
-//     return 0;
-// }
-
-static int shell_clear(int argc, char *argv[]) {
-    screen_clear();
-    BEGIN;
-    return 0;
-}
 
 // static int shell_mkfs(int argc, char *argv[])
 // {
@@ -317,6 +397,11 @@ static int shell_clear(int argc, char *argv[]) {
 // #define DEBUG_WITHOUT_INIT_FS
 
 int main() {
+    for (int i = 0; i < CURRENT_TASK_NUM; i++) {
+        move_cursor(1, i);
+        int pid = spawn(task_names[i]);
+        waitpid(pid, NULL, 0);
+    }
     // TODO:
     BEGIN;
     char input_buffer[SHELL_INPUT_MAX_WORDS] = {0};

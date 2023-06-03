@@ -292,4 +292,6 @@
 #define SYS_move_cursor 403
 #define SYS_screen_clear 404
 
+#define SYS_process_show 405
+
 #define SYS_mkdir 1030

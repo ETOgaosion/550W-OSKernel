@@ -19,6 +19,7 @@ int sched_yield(void);
 void exit(int);
 pid_t fork(void);
 pid_t clone(int (*fn)(void *arg), void *arg, void *stack, size_t stack_size, unsigned long flags);
+
 int exec(char *);
 int execve(const char *, char *const[], char *const[]);
 int waitpid(int, int *, int);
@@ -33,6 +34,7 @@ int wait(int *);
 int spawn(char *file);
 int mailread(void *buf, int len);
 int mailwrite(int pid, void *buf, int len);
+void sys_kill(int pid);
 
 int fstat(int fd, struct kstat *st);
 int sys_linkat(int olddirfd, char *oldpath, int newdirfd, char *newpath, unsigned int flags);
@@ -54,4 +56,4 @@ int dup2(int, int);
 void screen_clear();
 void move_cursor(int x, int y);
 
-void sd_read();
+long sys_process_show();

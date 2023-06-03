@@ -1,1 +1,1 @@
-find \( -name "*.c" -o -name "*.h" \) -not -path "./userspace/testsuits-for-oskernel/*" -exec clang-format-17 -style=file -i {} \;
+find \( -name "*.c" -o -name "*.h" \) -not \( -path "./userspace/testsuits-for-oskernel/*" -o -name "user_programs.c" \) -prune -exec clang-format-17 -style=file -i {} \;

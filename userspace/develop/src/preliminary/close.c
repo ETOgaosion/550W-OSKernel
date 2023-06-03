@@ -1,7 +1,7 @@
-#include "unistd.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+#include "unistd.h"
 
 /*
  * 测试成功则输出：
@@ -13,15 +13,15 @@
 void test_close(void) {
     TEST_START(__func__);
     int fd = open("test_close.txt", O_CREATE | O_RDWR);
-    //assert(fd > 0);
+    // assert(fd > 0);
     const char *str = "  close error.\n";
     int str_len = strlen(str);
-    //assert(write(fd, str, str_len) == str_len);
+    // assert(write(fd, str, str_len) == str_len);
     write(fd, str, str_len);
-    int rt = close(fd);	
+    int rt = close(fd);
     assert(rt == 0);
     printf("  close %d success.\n", fd);
-	
+
     TEST_END(__func__);
 }
 

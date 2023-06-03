@@ -61,7 +61,8 @@ void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int 
     pcb[pcb_i].priority.last_sched_time = 0;
     pcb[pcb_i].core_mask[0] = core_mask;
     pcb[pcb_i].locksum = 0;
-    k_pcb_mbox_init(&pcb[pcb_i].mbox, pcb_i);
+    pcb[pcb_i].mbox = &pcb_mbox[pcb_i];
+    k_pcb_mbox_init(pcb[pcb_i].mbox, pcb_i);
     k_memset((void *)&(pcb[pcb_i].stime_last), 0, sizeof(__kernel_time_t));
     k_memset((void *)&(pcb[pcb_i].utime_last), 0, sizeof(__kernel_time_t));
     k_memset((void *)&(pcb[pcb_i].timer), 0, sizeof(pcbtimer_t));
@@ -123,6 +124,7 @@ void init_user_stack(ptr_t *user_stack_kva, ptr_t *user_stack, const char *argv[
 void k_init_pcb() {
     k_memset(&pcb, 0, sizeof(pcb));
     for (int i = 0; i < NUM_MAX_TASK; i++) {
+        pcb[i].pid = -1;
         pcb[i].status = TASK_EXITED;
     }
     current_running0 = &pid0_pcb;
@@ -400,7 +402,7 @@ long sys_sched_getaffinity(pid_t pid, unsigned int len, uint8_t *user_mask_ptr) 
 long sys_spawn(const char *file_name) {
     int i = nextpid();
 
-    init_pcb_i((char *)file_name, i, USER_PROCESS, i, i, 0, 0, (*current_running)->core_mask[0]);
+    init_pcb_i((char *)file_name, i, USER_PROCESS, i, i, 0, (*current_running)->father_pid, (*current_running)->core_mask[0]);
 
     ptr_t kernel_stack = get_kernel_address(i);
     ptr_t user_stack_kva = kernel_stack - PAGE_SIZE;
@@ -466,7 +468,7 @@ long sys_kill(pid_t pid) {
     for (int i = 0; i < target->locksum; i++) {
         k_mutex_lock_release(target->lock_ids[i] - 1);
     }
-    if (target->father_pid > 0) {
+    if (target->father_pid >= 0) {
         pcb_t *parent = &pcb[target->father_pid];
         if (!parent->timer.initialized) {
             k_unblock(&parent->list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
@@ -495,14 +497,11 @@ long sys_kill(pid_t pid) {
         list_del(&target->list);
     }
     target->exit_status = -1;
-    if ((*current_running)->pid == pid + 1 || (*current_running)->pid == 0) {
-        k_scheduler();
-    }
     return 0;
 }
 
 long sys_exit(int error_code) {
-    if ((*current_running)->father_pid > 0) {
+    if ((*current_running)->father_pid >= 0) {
         pcb_t *father = &pcb[(*current_running)->father_pid];
         if (father->child_stat_addrs[(*current_running)->pid]) {
             *father->child_stat_addrs[(*current_running)->pid] = error_code;
@@ -510,6 +509,7 @@ long sys_exit(int error_code) {
     }
     sys_kill((*current_running)->pid);
     (*current_running)->exit_status = error_code;
+    (*current_running)->pid = -1;
     return 0;
 }
 
@@ -676,7 +676,7 @@ long sys_getpid() {
 }
 
 long sys_getppid() {
-    return (*current_running)->father_pid;
+    return (*current_running)->father_pid + 1;
 }
 
 void k_sleep(void *chan, spin_lock_t *lk) {
