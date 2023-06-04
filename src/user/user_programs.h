@@ -106,9 +106,9 @@ extern unsigned char _elf_brk[];
 extern int _length_brk;
 #pragma once
 typedef struct ElfFile {
-  char *file_name;
-  unsigned char* file_content;
-  int* file_length;
+    char *file_name;
+    unsigned char *file_content;
+    int *file_length;
 } ElfFile;
 
 #define ELF_FILE_NUM 35

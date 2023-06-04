@@ -1,5 +1,5 @@
-#include <drivers/virtio/virtio.h>
 #include <drivers/screen/screen.h>
+#include <drivers/virtio/virtio.h>
 #include <lib/assert.h>
 #include <lib/string.h>
 #include <os/ioremap.h>
@@ -154,8 +154,7 @@ void virtio_disk_rw(buf_t *b, int write) {
     // thus the call to kvmpa().
     if (iskva((uintptr_t)&buf0)) {
         disk.desc[idx[0]].addr = (uint64)kva2pa((uint64)&buf0);
-    }
-    else {
+    } else {
         disk.desc[idx[0]].addr = (uint64)&buf0;
     }
     disk.desc[idx[0]].len = sizeof(buf0);
