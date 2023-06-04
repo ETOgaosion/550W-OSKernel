@@ -152,7 +152,12 @@ void virtio_disk_rw(buf_t *b, int write) {
 
     // buf0 is on a kernel stack, which is not direct mapped,
     // thus the call to kvmpa().
-    disk.desc[idx[0]].addr = (uint64)kva2pa((uint64)&buf0);
+    if (iskva((uintptr_t)&buf0)) {
+        disk.desc[idx[0]].addr = (uint64)kva2pa((uint64)&buf0);
+    }
+    else {
+        disk.desc[idx[0]].addr = (uint64)&buf0;
+    }
     disk.desc[idx[0]].len = sizeof(buf0);
     disk.desc[idx[0]].flags = VRING_DESC_F_NEXT;
     disk.desc[idx[0]].next = idx[1];
@@ -349,7 +354,7 @@ void sys_sd_test() {
     // k_memcpy((uint8_t *)buff, (const uint8_t *)"1", 1);
     char buff2[512];
     // k_memcpy((uint8_t *)buff2, (const uint8_t *)"2", 1);
-    uint block[] = {1};
+    uint block[] = {0};
     uint block2[] = {2};
     // k_sd_write(buff, block, 1);
     // k_sd_write(buff2, block2, 1);
