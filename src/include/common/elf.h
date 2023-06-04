@@ -71,6 +71,7 @@ typedef struct elf64_hdr {
     Elf64_Half e_shstrndx;
 } Elf64_Ehdr;
 
+/* clang-format off */
 /* These constants define the permissions on sections in the
    program header, p_flags. */
 #define PF_X (1 << 0)          /* Segment is executable */
@@ -91,12 +92,8 @@ typedef struct elf64_hdr {
 #define PT_TLS 7           /* Thread-local storage segment */
 #define PT_NUM 8           /* Number of defined types */
 #define PT_LOOS 0x60000000 /* Start of OS-specific */
-#define PT_GNU_EH_FRAME                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               \
-    0x6474e550 /* GCC .eh_frame_hdr segment                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           \
-                */
-#define PT_GNU_STACK                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  \
-    0x6474e551                  /* Indicates stack executability                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      \
-                                 */
+#define PT_GNU_EH_FRAME 0x6474e550 /* GCC .eh_frame_hdr segment */
+#define PT_GNU_STACK 0x6474e551 /* Indicates stack executability */
 #define PT_GNU_RELRO 0x6474e552 /* Read-only after relocation */
 #define PT_LOSUNW 0x6ffffffa
 #define PT_SUNWBSS 0x6ffffffa   /* Sun Specific segment */
@@ -105,6 +102,8 @@ typedef struct elf64_hdr {
 #define PT_HIOS 0x6fffffff   /* End of OS-specific */
 #define PT_LOPROC 0x70000000 /* Start of processor-specific */
 #define PT_HIPROC 0x7fffffff /* End of processor-specific */
+
+/* clang-format on */
 
 typedef struct elf64_phdr {
     Elf64_Word p_type;
@@ -139,51 +138,4 @@ static inline int is_elf_format(unsigned char *binary) {
 }
 
 /* prepare_page_for_kva should return a kernel virtual address */
-static inline uintptr_t load_elf(unsigned char elf_binary[], unsigned length, uintptr_t pgdir, uintptr_t (*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir)) {
-    Elf64_Ehdr *ehdr = (Elf64_Ehdr *)elf_binary;
-    Elf64_Phdr *phdr = NULL;
-    /* As a loader, we just care about segment,
-     * so we just parse program headers.
-     */
-    unsigned char *ptr_ph_table = NULL;
-    Elf64_Half ph_entry_count;
-    Elf64_Half ph_entry_size;
-    int i = 0;
-
-    // check whether `binary` is a ELF file.
-    if (length < 4 || !is_elf_format(elf_binary)) {
-        return 0; // return NULL when error!
-    }
-
-    ptr_ph_table = elf_binary + ehdr->e_phoff;
-    ph_entry_count = ehdr->e_phnum;
-    ph_entry_size = ehdr->e_phentsize;
-
-    while (ph_entry_count--) {
-        phdr = (Elf64_Phdr *)ptr_ph_table;
-
-        if (phdr->p_type == PT_LOAD) {
-            /* TODO: */
-            for (i = 0; i < phdr->p_memsz; i += NORMAL_PAGE_SIZE) {
-                if (i < phdr->p_filesz) {
-                    unsigned char *bytes_of_page = (unsigned char *)prepare_page_for_va((uintptr_t)(phdr->p_vaddr + i), pgdir);
-                    k_memcpy(bytes_of_page, elf_binary + phdr->p_offset + i, MIN(phdr->p_filesz - i, NORMAL_PAGE_SIZE));
-                    if (phdr->p_filesz - i < NORMAL_PAGE_SIZE) {
-                        for (int j = phdr->p_filesz % NORMAL_PAGE_SIZE; j < NORMAL_PAGE_SIZE; ++j) {
-                            bytes_of_page[j] = 0;
-                        }
-                    }
-                } else {
-                    long *bytes_of_page = (long *)prepare_page_for_va((uintptr_t)(phdr->p_vaddr + i), pgdir);
-                    for (int j = 0; j < NORMAL_PAGE_SIZE / sizeof(long); ++j) {
-                        bytes_of_page[j] = 0;
-                    }
-                }
-            }
-        }
-
-        ptr_ph_table += ph_entry_size;
-    }
-
-    return ehdr->e_entry;
-}
+uintptr_t load_elf(unsigned char elf_binary[], unsigned length, uintptr_t pgdir, uintptr_t (*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir));

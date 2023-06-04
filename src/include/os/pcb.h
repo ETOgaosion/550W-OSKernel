@@ -92,8 +92,6 @@ typedef enum enqueue_way {
 
 typedef enum dequeue_way {
     DEQUEUE_LIST,
-    DEQUEUE_WAITLIST,
-    DEQUEUE_WAITLIST_DESTROY,
     DEQUEUE_LIST_STRATEGY,
 } dequeue_way_t;
 
@@ -134,7 +132,6 @@ typedef struct pcb {
 
     /* previous, next pointer */
     list_node_t list;
-    list_head wait_list;
 
     regs_context_t *save_context;
     switchto_context_t *switch_context;
