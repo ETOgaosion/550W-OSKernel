@@ -11,7 +11,6 @@
 
 /* clang-format off */
 #define BEGIN cmd_in_length = 0;\
-    screen_clear();\
     move_cursor(1, SHELL_BEGIN);\
     printf("========================== MOSS ==========================")
 /* clang-format on */
@@ -38,7 +37,7 @@
 typedef int (*function)(int argc, char *argv[]);
 
 // #define CURRENT_TASK_NUM 33
-#define CURRENT_TASK_NUM 1
+#define CURRENT_TASK_NUM 2
 
 /* clang-format off */
 // char *task_names[CURRENT_TASK_NUM] = {
@@ -47,7 +46,7 @@ typedef int (*function)(int argc, char *argv[]);
 // };
 /* clang-format on */
 
-char *task_names[CURRENT_TASK_NUM] = {"echo"};
+char *task_names[CURRENT_TASK_NUM] = {"fork", "clone"};
 
 int cmd_in_length = 0;
 
@@ -481,7 +480,8 @@ int main() {
         // clear and prepare for next input
     clear_and_next:
         if (cmd_in_length > MAX_CMD_IN_LINES) {
-            BEGIN;
+            cmd_in_length = MAX_CMD_IN_LINES;
+            //BEGIN;
         }
         memset(input_buffer, 0, sizeof(input_buffer));
         memset(cmd, 0, sizeof(cmd));

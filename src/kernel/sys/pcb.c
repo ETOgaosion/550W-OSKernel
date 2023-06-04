@@ -532,7 +532,7 @@ long sys_process_show() {
     for (int i = 0; i < NUM_MAX_TASK; i++) {
         if (pcb[i].status != TASK_EXITED) {
             if (num == 0) {
-                prints("[PROCESS TABLE]\n");
+                prints("\n[PROCESS TABLE]\n");
             }
             prints("[%d] PID : %d, TID : %d", num, pcb[i].fpid,
                    pcb[i].tid); // pcb[i].tid
@@ -557,28 +557,28 @@ long sys_process_show() {
                 sys_screen_write(" on Core ");
                 switch (pcb[i].core_mask[0]) {
                 case 1:
-                    sys_screen_write("0\n");
+                    sys_screen_write("0");
                     break;
                 case 2:
-                    sys_screen_write("1\n");
+                    sys_screen_write("1");
                     break;
                 case 3:
                     if (&pcb[i] == current_running0) {
-                        sys_screen_write("0\n");
+                        sys_screen_write("0");
                     } else if (&pcb[i] == current_running1) {
-                        sys_screen_write("1\n");
+                        sys_screen_write("1");
                     }
                     break;
                 default:
                     break;
                 }
             } else {
-                sys_screen_write("\n");
+                // sys_screen_write("\n");
             }
             num++;
         }
     }
-    return num + 1;
+    return num;
 }
 
 long exec(int pid, const char *file_name, const char *argv[], const char *envp[]) {
@@ -651,18 +651,21 @@ long sys_clone(unsigned long flags, void *stack, void *arg, pid_t *parent_tid, v
 
     if (flags & CLONE_VM) {
         pcb[i].pgdir = (*current_running)->pgdir;
-        fork_pgtable((PTE *)(pcb[i].pgdir << NORMAL_PAGE_SHIFT), (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
+        
     } else {
         PTE *pgdir = (PTE *)k_alloc_page(1);
         clear_pgdir((ptr_t)pgdir);
+        
+        fork_pgtable(pgdir, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
         share_pgtable(pgdir, pa2kva(PGDIR_PA));
         pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
     }
+    
     k_memcpy((uint8_t *)&pcb[i].elf, (uint8_t *)&(*current_running)->elf, sizeof(ELF_info_t));
 
     clone_pcb_stack(kernel_stack_kva, user_stack, &pcb[i], flags, tls);
     map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
-    map(USER_STACK_ADDR, kva2pa(user_stack_kva), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
+    // map(USER_STACK_ADDR, kva2pa(user_stack_kva), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;
 }
