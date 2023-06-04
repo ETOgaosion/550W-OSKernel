@@ -144,3 +144,4 @@ void bwrite(struct buf *);
 
 void k_sd_read(char *buffers, uint *start_block_id, uint block_num);
 void k_sd_write(char *buffers, uint *start_block_ids, uint block_num);
+void sys_sd_test();

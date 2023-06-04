@@ -30,6 +30,9 @@ extern int _length_waitpid;
 extern unsigned char _elf_clone[];
 extern int _length_clone;
 #pragma once
+extern unsigned char _elf_sd[];
+extern int _length_sd;
+#pragma once
 extern unsigned char _elf_test_echo[];
 extern int _length_test_echo;
 #pragma once
@@ -108,7 +111,7 @@ typedef struct ElfFile {
   int* file_length;
 } ElfFile;
 
-#define ELF_FILE_NUM 34
-extern ElfFile elf_files[34];
+#define ELF_FILE_NUM 35
+extern ElfFile elf_files[35];
 extern int get_elf_file(const char *file_name, unsigned char **binary, int *length);
 extern int match_elf(char *file_name);

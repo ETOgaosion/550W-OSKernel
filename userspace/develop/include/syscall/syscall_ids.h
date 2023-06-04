@@ -294,3 +294,5 @@
 #define SYS_process_show 405
 
 #define SYS_mkdir 1030
+
+#define SYS_sd_test 406

@@ -1,4 +1,5 @@
 #include <drivers/virtio/virtio.h>
+#include <drivers/screen/screen.h>
 #include <lib/assert.h>
 #include <lib/string.h>
 #include <os/ioremap.h>
@@ -341,4 +342,23 @@ void k_sd_write(char *buffers, uint *start_block_ids, uint block_num) {
         bwrite(buf);
         brelse(buf);
     }
+}
+
+void sys_sd_test() {
+    char buff[512];
+    // k_memcpy((uint8_t *)buff, (const uint8_t *)"1", 1);
+    char buff2[512];
+    // k_memcpy((uint8_t *)buff2, (const uint8_t *)"2", 1);
+    uint block[] = {1};
+    uint block2[] = {2};
+    // k_sd_write(buff, block, 1);
+    // k_sd_write(buff2, block2, 1);
+    // printk("%s", buff);
+    // printk("%s", buff2);
+    k_sd_read(buff, block, 1);
+    k_sd_read(buff2, block2, 1);
+    buff[511] = 0;
+    buff2[511] = 0;
+    sys_screen_move_cursor(1, 1);
+    printk("%d\n", k_strcmp((const char *)buff, (const char *)buff2));
 }
