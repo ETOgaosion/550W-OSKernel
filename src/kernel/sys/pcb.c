@@ -50,7 +50,6 @@ void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int 
     pcb[pcb_i].child_num = 0;
     k_memset((void *)pcb[pcb_i].child_pids, 0, sizeof(pcb[pcb_i].child_pids));
     k_memset((void *)pcb[pcb_i].child_stat_addrs, 0, sizeof(pcb[pcb_i].child_stat_addrs));
-    pcb[pcb_i].child_num = 0;
     pcb[pcb_i].threadsum = 0;
     k_memset((void *)pcb[pcb_i].thread_ids, 0, sizeof(pcb[pcb_i].child_pids));
     pcb[pcb_i].type = type;
@@ -144,8 +143,10 @@ long sys_setpriority(int which, int who, int niceval) {
         break;
     case PRIO_PGRP:
         (*current_running)->priority.priority = niceval;
-        for (int i = 0; i < (*current_running)->child_num; i++) {
-            pcb[(*current_running)->child_pids[i]].priority.priority = niceval;
+        for (int i = 0; i < NUM_MAX_CHILD; i++) {
+            if((*current_running)->child_pids[i] != 0) {
+                pcb[(*current_running)->child_pids[i]].priority.priority = niceval;
+            }
         }
         for (int i = 0; i < (*current_running)->threadsum; i++) {
             pcb[(*current_running)->thread_ids[i]].priority.priority = niceval;
@@ -485,6 +486,7 @@ long sys_kill(pid_t pid) {
     // k_unblock(&(target->wait_list), &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
     target->pid = 0;
     target->status = TASK_EXITED;
+    target->in_use = FALSE;
     if (pcb[pid].type != USER_THREAD) {
         getback_page(pid);
     }
