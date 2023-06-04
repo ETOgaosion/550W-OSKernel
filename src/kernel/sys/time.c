@@ -140,7 +140,7 @@ long sys_times(tms_t *tbuf) {
     tbuf->tms_utime = get_ticks_from_time(&(*current_running)->resources.ru_utime);
     tbuf->tms_cstime = (*current_running)->dead_child_stime;
     tbuf->tms_cutime = (*current_running)->dead_child_utime;
-    for (int i = 0; i < (*current_running)->child_num; i++) {
+    for (int i = 0; i < NUM_MAX_CHILD; i++) {
         if ((*current_running)->child_pids[i] == 0) {
             continue;
         }

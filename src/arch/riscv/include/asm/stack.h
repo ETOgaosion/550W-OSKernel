@@ -9,4 +9,4 @@ void init_context_stack(ptr_t kernel_stack, ptr_t user_stack, ptr_t entry_point,
 
 void fork_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb);
 
-void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned long flags, void *tls);
+void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned long flags, void *tls, int (*fn)(void *arg), void* arg);

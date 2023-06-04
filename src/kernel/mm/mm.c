@@ -8,7 +8,7 @@
 #include <os/pcb.h>
 #include <os/smp.h>
 
-#define MAXPAGES 100000
+#define MAXPAGES 1000
 #define STARTPAGE 30
 
 ptr_t memCurr = FREEMEM;
@@ -18,8 +18,8 @@ int freepg_num = 0;
 
 uint64_t diskpg[1000];
 uint64_t freepg[1000];
-uint64_t allpg[20][200];
-uint64_t allmem[20][200];
+uint64_t allpg[20][MAXPAGES];
+uint64_t allmem[20][MAXPAGES];
 uint64_t diskpg[1000];
 uint64_t alluserva[20][100];
 int shm_num = 0;
@@ -37,9 +37,8 @@ PTE *get_kva(PTE entry) {
 }
 
 void getback_page(int pid) {
-    if (freepg_num >= 999) {
+    if (freepg_num >= 999)
         return;
-    }
     for (int i = 1; i <= allpg[pid][0]; i++) {
         freepg_num++;
         freepg[freepg_num] = allpg[pid][i];
@@ -47,7 +46,7 @@ void getback_page(int pid) {
     for (int i = 1; i <= allmem[pid][0]; i++) {
         freepg_num++;
         freepg[freepg_num] = allmem[pid][i];
-        for (int j = 0; j < allmem[pid][0]; i++) {
+        for (int j = 0; j < shm_num; j++) {
             if (shm_all[j].kva == allmem[pid][i]) {
                 freepg_num--;
             }

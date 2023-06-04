@@ -195,11 +195,14 @@ void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_
         PTE va_pte = *pte_addr;
         if (cause == EXCC_STORE_PAGE_FAULT) {
             // child process
-            if (cur->father_pid != cur->pid) {
+            if (cur->father_pid != cur->pid && cur->father_pid != 0) {
                 fork_page_helper(stval, (pa2kva(cur->pgdir << 12)), (pa2kva(pcb[cur->father_pid].pgdir << 12)));
             } else {
                 // father process
-                for (int i = 0; i < cur->child_num; i++) {
+                for (int i = 0; i < NUM_MAX_CHILD; i++) {
+                    if (cur->child_pids[i] == 0) {
+                        continue;
+                    }
                     fork_page_helper(stval, (pa2kva(pcb[cur->child_pids[i]].pgdir << 12)), (pa2kva(cur->pgdir << 12)));
                 }
             }

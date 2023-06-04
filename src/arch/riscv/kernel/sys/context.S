@@ -159,7 +159,7 @@ ENTRY(switch_to)
   addi tp, a1, 0
   ld t0, PCB_KERNEL_SP(a1)
   //must sd and ld ra, or return from handlerint,
-  //as change sp and many things, can't return 
+  //as change sp and many things, can t return 
   //from 
   LS(ra, RA)
   LS(sp, SP)

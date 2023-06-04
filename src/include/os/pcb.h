@@ -220,7 +220,7 @@ long sys_spawn(const char *file_name);
 long sys_fork(void);
 long sys_exec(const char *file_name, const char *argv[], const char *envp[]);
 long sys_execve(const char *file_name, const char *argv[], const char *envp[]);
-long sys_clone(unsigned long flags, void *stack, void *arg, pid_t *parent_tid, void *tls, pid_t *child_tid);
+long sys_clone(unsigned long flags, void *stack, int (*fn)(void *arg), void *arg, pid_t *parent_tid, void *tls, pid_t *child_tid);
 long sys_kill(pid_t pid);
 long sys_exit(int error_code);
 long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru);
