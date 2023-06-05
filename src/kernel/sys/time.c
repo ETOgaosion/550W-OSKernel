@@ -92,7 +92,7 @@ uint64_t get_ticks_from_time(time_val_t *ntimebuf) {
     return ticks;
 }
 
-void copy_utime(time_val_t *dst, time_val_t *src) {
+void copy_utime(time_val_t *src, time_val_t *dst) {
     dst->sec = src->sec;
     dst->usec = src->usec;
 }

@@ -81,6 +81,11 @@ static inline void set_satp(unsigned mode, unsigned asid, unsigned long ppn) {
 
 typedef uint64_t PTE;
 
+static inline uintptr_t iskva(uintptr_t kva) {
+    // kva = kpa + 0xffff_ffc0_0000_0000
+    return kva > 0xffffffc000000000;
+}
+
 static inline uintptr_t kva2pa(uintptr_t kva) {
     // kva = kpa + 0xffff_ffc0_0000_0000
     return kva - 0xffffffc000000000;

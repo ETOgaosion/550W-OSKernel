@@ -81,6 +81,9 @@ extern int _length_getppid;
 extern unsigned char _elf_brk[];
 extern int _length_brk;
 #pragma once
+extern unsigned char _elf_sd[];
+extern int _length_sd;
+#pragma once
 extern unsigned char _elf_execve[];
 extern int _length_execve;
 #pragma once
@@ -108,7 +111,7 @@ typedef struct ElfFile {
   int* file_length;
 } ElfFile;
 
-#define ELF_FILE_NUM 34
-extern ElfFile elf_files[34];
+#define ELF_FILE_NUM 35
+extern ElfFile elf_files[35];
 extern int get_elf_file(const char *file_name, unsigned char **binary, int *length);
 extern int match_elf(char *file_name);

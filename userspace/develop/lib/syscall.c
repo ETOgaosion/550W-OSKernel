@@ -43,8 +43,8 @@ pid_t clone(int (*fn)(void *arg), void *arg, void *stack, size_t stack_size, uns
         stack += stack_size;
     }
 
-    // return __clone(fn, stack, flags, NULL, NULL, NULL);
-    return syscall(SYS_clone, flags, stack, fn, arg);
+    return __clone(fn, stack, flags, NULL, NULL, NULL);
+    // return syscall(SYS_clone, flags, stack, fn, arg);
 }
 void exit(int code) {
     syscall(SYS_exit, code);
@@ -199,4 +199,8 @@ void move_cursor(int x, int y) {
 
 long sys_process_show() {
     return syscall(SYS_process_show);
+}
+
+void sys_sd_test() {
+    syscall(SYS_sd_test);
 }

@@ -20,7 +20,7 @@ ptr_t get_user_address(pid_t pid) {
     return address_base + pid * 2 * PAGE_SIZE + PAGE_SIZE;
 }
 
-void init_context_stack(ptr_t kernel_stack, ptr_t user_stack, ptr_t entry_point, pcb_t *pcb) {
+void init_context_stack(ptr_t kernel_stack, ptr_t user_stack, int argc, char *argv[], ptr_t entry_point, pcb_t *pcb) {
     regs_context_t *pt_regs = (regs_context_t *)(kernel_stack - sizeof(regs_context_t));
     k_memset((void *)pt_regs, 0, sizeof(regs_context_t));
     pcb->kernel_sp = kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t);
@@ -34,14 +34,16 @@ void init_context_stack(ptr_t kernel_stack, ptr_t user_stack, ptr_t entry_point,
         pt_regs->regs[reg_gp] = cur_regs->regs[reg_gp];
     }
     pt_regs->regs[reg_tp] = (reg_t)pcb;
+    pt_regs->regs[reg_a0] = (reg_t)argc;
+    pt_regs->regs[reg_a1] = (reg_t)argv;
     pt_regs->sepc = entry_point;
     pt_regs->sstatus = SR_SUM | SR_SPIE;
     pt_regs->sbadaddr = 0;
     pt_regs->scause = 0;
 
     switchto_context_t *sw_regs = (switchto_context_t *)(kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t));
-    sw_regs->regs[0] = (pcb->type == USER_PROCESS || pcb->type == USER_THREAD) ? (reg_t)&user_ret_from_exception : entry_point;
-    sw_regs->regs[1] = pcb->kernel_sp;
+    sw_regs->regs[switch_reg_ra] = (pcb->type == USER_PROCESS || pcb->type == USER_THREAD) ? (reg_t)&user_ret_from_exception : entry_point;
+    sw_regs->regs[switch_reg_sp] = pcb->kernel_sp;
     pcb->save_context = pt_regs;
     pcb->switch_context = sw_regs;
 }
@@ -75,7 +77,7 @@ void fork_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb) {
     pcb->switch_context = sw_regs;
 }
 
-void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned long flags, void *tls, int (*fn)(void *arg), void *arg) {
+void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned long flags, void *tls) {
     regs_context_t *pt_regs = (regs_context_t *)(kernel_stack - sizeof(regs_context_t));
     regs_context_t *cur_regs = (regs_context_t *)((*current_running)->kernel_sp + sizeof(switchto_context_t));
     // copy user stack
@@ -98,13 +100,9 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
     pt_regs->regs[reg_tp] = (reg_t)pcb;
     pt_regs->regs[reg_sp] = pcb->user_sp;
     // a0
-    if(fn) {
-        pt_regs->regs[reg_a0] = (reg_t)arg;
-        pt_regs->sepc = (reg_t)fn;
-    } else {
-        pt_regs->regs[reg_a0] = 0;
-        pt_regs->sepc = cur_regs->sepc;
-    }
+    pt_regs->regs[reg_a0] = 0;
+    pt_regs->sepc = cur_regs->sepc;
+    
     pt_regs->sstatus = cur_regs->sstatus;
     pt_regs->sbadaddr = cur_regs->sbadaddr;
     pt_regs->scause = cur_regs->scause;
@@ -116,6 +114,6 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
     pcb->switch_context = sw_regs;
     //pcb->save_context->regs[switch_reg_s0] = user_stack == USER_STACK_ADDR ? (*current_running)->save_context->regs[2] : user_stack;
     if (flags & CLONE_SETTLS) {
-        pcb->save_context->regs[4] = (reg_t)tls;
+        pcb->save_context->regs[reg_tp] = (reg_t)tls;
     }
 }

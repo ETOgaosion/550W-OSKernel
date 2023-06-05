@@ -12,9 +12,9 @@ void test_execve(void) {
     TEST_START(__func__);
     char *newargv[] = {"test_echo", NULL};
     char *newenviron[] = {NULL};
-    execve("test_echo", newargv, newenviron);
+    execve("echo", newargv, newenviron);
     printf("  execve error.\n");
-    // TEST_END(__func__);
+    TEST_END(__func__);
 }
 
 int main(void) {

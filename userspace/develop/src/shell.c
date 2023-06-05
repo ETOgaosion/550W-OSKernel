@@ -2,7 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define SHELL_BEGIN 20
+#define SHELL_BEGIN 30
 #define SHELL_ARG_MAX_NUM 5
 #define SHELL_ARG_MAX_LENGTH 20
 #define SHELL_INPUT_MAX_WORDS 100
@@ -40,13 +40,17 @@ typedef int (*function)(int argc, char *argv[]);
 #define CURRENT_TASK_NUM 4
 
 /* clang-format off */
-// char *task_names[CURRENT_TASK_NUM] = {
-//     "echo", "getppid", "waitpid", "clone", "execve", "sleep", "yield", "gettimeofday", "times", "getpid", "chdir", "wait", "fork", "exit", "uname",
-//     "openat", "dup2", "mkdir", "write", "unlink", "getdents", "dup", "mount", "umount", "pipe", "fstat", "getcwd", "close", "mmap", "read", "open", "munmap", "brk"
-// };
+char *task_names[CURRENT_TASK_NUM] = {
+    // "getppid", "execve", "sleep", "gettimeofday", "times", "getpid", "uname", 
+    "wait", "fork", "waitpid", "clone", 
+    //"yield", 
+    // "exit",
+    // "sd"
+//     "openat", "dup2", "mkdir", "write", "unlink", "getdents", "dup", "mount", "umount", "pipe", "fstat", "getcwd", "close", "mmap", "read", "open", "chdir", "munmap", "brk"
+};
 /* clang-format on */
 
-char *task_names[CURRENT_TASK_NUM] = {"waitpid", "wait", "clone", "fork"};
+// char *task_names[CURRENT_TASK_NUM] = {"waitpid", "wait", "clone", "fork"};
 
 int cmd_in_length = 0;
 
@@ -397,7 +401,6 @@ static int shell_clear(int argc, char *argv[]) {
 
 int main() {
     for (int i = 0; i < CURRENT_TASK_NUM; i++) {
-        // move_cursor(1, i);
         int pid = spawn(task_names[i]);
         waitpid(pid, NULL, 0);
     }

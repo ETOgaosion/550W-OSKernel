@@ -6,13 +6,13 @@
 #include <os/pcb.h>
 #include <os/smp.h>
 
-#define SCREEN_WIDTH 160
-#define SCREEN_HEIGHT 40
+#define SCREEN_WIDTH 150
+#define SCREEN_HEIGHT 80
 
 int screen_cursor_x;
 int screen_cursor_y;
 
-int start_line = 21;
+int start_line = 31;
 /* screen buffer */
 char new_screen[SCREEN_HEIGHT][SCREEN_WIDTH] = {0};
 char old_screen[SCREEN_HEIGHT][SCREEN_WIDTH] = {0};

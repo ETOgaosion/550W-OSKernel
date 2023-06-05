@@ -1,3 +1,4 @@
+#include <drivers/screen/screen.h>
 #include <drivers/virtio/virtio.h>
 #include <lib/assert.h>
 #include <lib/string.h>
@@ -151,7 +152,11 @@ void virtio_disk_rw(buf_t *b, int write) {
 
     // buf0 is on a kernel stack, which is not direct mapped,
     // thus the call to kvmpa().
-    disk.desc[idx[0]].addr = (uint64)kva2pa((uint64)&buf0);
+    if (iskva((uintptr_t)&buf0)) {
+        disk.desc[idx[0]].addr = (uint64)kva2pa((uint64)&buf0);
+    } else {
+        disk.desc[idx[0]].addr = (uint64)&buf0;
+    }
     disk.desc[idx[0]].len = sizeof(buf0);
     disk.desc[idx[0]].flags = VRING_DESC_F_NEXT;
     disk.desc[idx[0]].next = idx[1];
@@ -341,4 +346,23 @@ void k_sd_write(char *buffers, uint *start_block_ids, uint block_num) {
         bwrite(buf);
         brelse(buf);
     }
+}
+
+void sys_sd_test() {
+    char buff[512];
+    // k_memcpy((uint8_t *)buff, (const uint8_t *)"1", 1);
+    char buff2[512];
+    // k_memcpy((uint8_t *)buff2, (const uint8_t *)"2", 1);
+    uint block[] = {0};
+    uint block2[] = {2};
+    // k_sd_write(buff, block, 1);
+    // k_sd_write(buff2, block2, 1);
+    // printk("%s", buff);
+    // printk("%s", buff2);
+    k_sd_read(buff, block, 1);
+    k_sd_read(buff2, block2, 1);
+    buff[511] = 0;
+    buff2[511] = 0;
+    sys_screen_move_cursor(1, 1);
+    printk("%d\n", k_strcmp((const char *)buff, (const char *)buff2));
 }
