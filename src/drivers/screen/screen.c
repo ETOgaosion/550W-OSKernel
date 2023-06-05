@@ -7,7 +7,7 @@
 #include <os/smp.h>
 
 #define SCREEN_WIDTH 150
-#define SCREEN_HEIGHT 80
+#define SCREEN_HEIGHT 150
 
 int screen_cursor_x;
 int screen_cursor_y;
@@ -46,10 +46,11 @@ void screen_write_ch(char ch) {
             k_screen_reflush();
             for (int i = start_line; i < SCREEN_HEIGHT; i++) {
                 for (int j = 0; j < SCREEN_WIDTH; j++) {
-                    if (i == SCREEN_HEIGHT - 1)
+                    if (i == SCREEN_HEIGHT - 1) {
                         new_screen[i][j] = ' ';
-                    else
-                        new_screen[i][j] = old_screen[i+1][j];
+                    } else {
+                        new_screen[i][j] = old_screen[i + 1][j];
+                    }
                 }
             }
             screen_cursor_y = SCREEN_HEIGHT - 1;

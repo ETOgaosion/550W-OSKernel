@@ -37,8 +37,9 @@ PTE *get_kva(PTE entry) {
 }
 
 void getback_page(int pid) {
-    if (freepg_num >= 999)
+    if (freepg_num >= 999) {
         return;
+    }
     for (int i = 1; i <= allpg[pid][0]; i++) {
         freepg_num++;
         freepg[freepg_num] = allpg[pid][i];

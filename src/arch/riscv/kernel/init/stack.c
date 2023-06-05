@@ -94,15 +94,16 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
     pcb->user_sp = user_stack;
     pcb->kernel_sp = kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t);
     // copy save context
-    for (int i = 0; i < 32; i++)
+    for (int i = 0; i < 32; i++) {
         pt_regs->regs[i] = cur_regs->regs[i];
+    }
     // tp
     pt_regs->regs[reg_tp] = (reg_t)pcb;
     pt_regs->regs[reg_sp] = pcb->user_sp;
     // a0
     pt_regs->regs[reg_a0] = 0;
     pt_regs->sepc = cur_regs->sepc;
-    
+
     pt_regs->sstatus = cur_regs->sstatus;
     pt_regs->sbadaddr = cur_regs->sbadaddr;
     pt_regs->scause = cur_regs->scause;
@@ -112,7 +113,7 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
     sw_regs->regs[switch_reg_sp] = pcb->kernel_sp;
     pcb->save_context = pt_regs;
     pcb->switch_context = sw_regs;
-    //pcb->save_context->regs[switch_reg_s0] = user_stack == USER_STACK_ADDR ? (*current_running)->save_context->regs[2] : user_stack;
+    // pcb->save_context->regs[switch_reg_s0] = user_stack == USER_STACK_ADDR ? (*current_running)->save_context->regs[2] : user_stack;
     if (flags & CLONE_SETTLS) {
         pcb->save_context->regs[reg_tp] = (reg_t)tls;
     }

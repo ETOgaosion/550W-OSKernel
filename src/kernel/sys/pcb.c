@@ -143,7 +143,7 @@ long sys_setpriority(int which, int who, int niceval) {
     case PRIO_PGRP:
         (*current_running)->priority.priority = niceval;
         for (int i = 0; i < NUM_MAX_CHILD; i++) {
-            if((*current_running)->child_pids[i] != 0) {
+            if ((*current_running)->child_pids[i] != 0) {
                 pcb[(*current_running)->child_pids[i]].priority.priority = niceval;
             }
         }
@@ -508,16 +508,17 @@ long sys_exit(int error_code) {
     int id = get_current_cpu_id();
     // if ((*current_running)->father_pid >= 0) {
     //     pcb_t *father = &pcb[(*current_running)->father_pid];
-        // if (father->child_stat_addrs[(*current_running)->pid]) {
-        //     *father->child_stat_addrs[(*current_running)->pid] = error_code;
-        // }
+    // if (father->child_stat_addrs[(*current_running)->pid]) {
+    //     *father->child_stat_addrs[(*current_running)->pid] = error_code;
+    // }
     // }
     kill((*current_running)->pid, error_code);
 
-    if (id == 0)
+    if (id == 0) {
         current_running0 = &pid0_pcb;
-    else if (id == 1)
+    } else if (id == 1) {
         current_running1 = &pid0_pcb2;
+    }
     current_running = k_get_current_running();
     set_satp(SATP_MODE_SV39, 0, PGDIR_PA >> NORMAL_PAGE_SHIFT);
     local_flush_tlb_all();
@@ -528,7 +529,7 @@ long sys_exit(int error_code) {
 long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
     pcb_t *target = NULL;
     int wait_pid = -1;
-    if(pid != -1) {
+    if (pid != -1) {
         target = &pcb[pid];
         wait_pid = pid;
     } else {
@@ -541,7 +542,7 @@ long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
         }
     }
     // no child process, but wait
-    if(wait_pid == -1) {
+    if (wait_pid == -1) {
         return 0;
     }
     while (target->status != TASK_EXITED) {
@@ -552,7 +553,7 @@ long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
     if (stat_addr) {
         *stat_addr = (target->exit_status << 8);
     }
-    if(ru) {
+    if (ru) {
         k_memcpy((uint8_t *)ru, (uint8_t *)&target->resources, sizeof(rusage_t));
     }
     return wait_pid;
@@ -682,23 +683,23 @@ long sys_clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, p
 
     if (flags & CLONE_VM) {
         pcb[i].pgdir = (*current_running)->pgdir;
-        
+
     } else {
         PTE *pgdir = (PTE *)k_alloc_page(1);
         clear_pgdir((ptr_t)pgdir);
-        
+
         fork_pgtable(pgdir, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
         share_pgtable(pgdir, pa2kva(PGDIR_PA));
         pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
     }
-    
+
     k_memcpy((uint8_t *)&pcb[i].elf, (uint8_t *)&(*current_running)->elf, sizeof(ELF_info_t));
     k_memcpy((uint8_t *)(user_stack_kva - NORMAL_PAGE_SIZE), (const uint8_t *)(ROUNDDOWN((*current_running)->user_sp, NORMAL_PAGE_SIZE)), NORMAL_PAGE_SIZE);
 
     ptr_t user_stack = (ptr_t)stack ? (ptr_t)stack : USER_STACK_ADDR;
     // ptr_t user_stack = USER_STACK_ADDR;
     clone_pcb_stack(kernel_stack_kva, user_stack, &pcb[i], flags, tls);
-    if(!stack) {
+    if (!stack) {
         map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
     }
     list_add_tail(&pcb[i].list, &ready_queue);
