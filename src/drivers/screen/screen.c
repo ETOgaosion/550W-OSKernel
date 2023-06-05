@@ -93,12 +93,9 @@ long sys_screen_move_cursor(int x, int y) {
 }
 
 long sys_screen_write_len(char *buff, int len) {
-    int i = 0;
-
-    for (i = 0; i < len; i++) {
-        screen_write_ch(buff[i]);
+    for (int i = 0; i < len; i++) {
+        port_write_ch(buff[i]);
     }
-    k_screen_reflush();
     return 0;
 }
 
