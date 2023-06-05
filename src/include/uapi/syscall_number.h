@@ -1,7 +1,7 @@
 #pragma once
 
 #define IGNORE 0
-#define NUM_SYSCALLS 285
+#define NUM_SYSCALLS 512
 
 /* define */
 #define SYS_io_setup 0
@@ -293,7 +293,5 @@
 #define SYS_screen_clear 404
 
 #define SYS_process_show 405
-
-#define SYS_mkdir 1030
 
 #define SYS_sd_test 406
