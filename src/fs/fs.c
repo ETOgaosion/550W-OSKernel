@@ -713,10 +713,8 @@ int fat32_init() {
     char name[MAX_NAME_LEN];
     int offset = 0;
     offset += dentry2name(&dtable[offset], name);
-    printk("> [FAT32 init] first entry name of root %s, entry len = %d\n", name, offset);
 
     offset = dentry2name(&dtable[offset], name);
-    printk("> [FAT32 init] first entry name of root %s, entry len = %d\n", name, offset);
 
     // //[read] ok
     // int read_fd = sys_openat(AT_FDCWD,"./text.txt",O_RDONLY,0);

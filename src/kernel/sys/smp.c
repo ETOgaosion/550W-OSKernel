@@ -19,11 +19,11 @@ void k_wakeup_other_hart() {
 extern void kernel_exception_handler_entry();
 
 void k_lock_kernel() {
+    w_stvec((uint64_t)kernel_exception_handler_entry);
     disable_timer_interrupt();
     disable_software_interrupt();
     enable_external_interrupt();
     enable_interrupt();
-    w_stvec((uint64_t)kernel_exception_handler_entry);
     k_spin_lock_acquire(&kernel_lock);
 }
 

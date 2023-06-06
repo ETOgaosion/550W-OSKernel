@@ -7,6 +7,7 @@
 #include <drivers/screen/screen.h>
 #include <drivers/virtio/virtio.h>
 #include <fs/fs.h>
+#include <fs/file.h>
 #include <lib/stdio.h>
 #include <os/irq.h>
 #include <os/lock.h>
@@ -56,19 +57,20 @@ int main() {
         // init screen (QAQ)
         init_exception();
 
-        wakeup_other_cores();
-
         plic_init();
         plic_init_hart();
         virtio_disk_init();
         binit();
         printk("> [INIT] Disk initialized successfully.\n\r");
-        sys_spawn("shell");
 
         init_screen();
         // Setup timer interrupt and enable all interrupt
         // init interrupt (^_^)-
         fat32_init();
+        // fd_table_init();
+        sys_spawn("shell");
+
+        wakeup_other_cores();
     }
     sbi_set_timer(0);
     setup_exception();

@@ -37,17 +37,18 @@
 typedef int (*function)(int argc, char *argv[]);
 
 // #define CURRENT_TASK_NUM 33
-#define CURRENT_TASK_NUM 1
+#define CURRENT_TASK_NUM 29
 
 /* clang-format off */
-// char *task_names[CURRENT_TASK_NUM] = {
-    // "getppid", "execve", "sleep", "gettimeofday", "times", "getpid", "uname", 
-    // "wait", "fork", "waitpid", "clone", "yield", "exit",
-//     "openat", "dup2", "mkdir", "write", "unlink", "getdents", "dup", "mount", "umount", "pipe", "fstat", "getcwd", "close", "mmap", "read", "open", "chdir", "munmap", "brk"
-// };
+char *task_names[CURRENT_TASK_NUM] = {
+    "getppid", "execve", "sleep", "gettimeofday", "times", "getpid", "uname", "brk", 
+    "wait", "fork", "waitpid", "clone", "yield", "exit",
+    "openat", "dup2", "mkdir", "write", "unlink", "getdents", "dup", "mount", "umount", "fstat", "getcwd", "close", "read", "open", "chdir",
+    // "pipe", "mmap", "munmap"
+};
 /* clang-format on */
 
-char *task_names[CURRENT_TASK_NUM] = {"brk"};
+// char *task_names[CURRENT_TASK_NUM] = {"brk"};
 
 int cmd_in_length = 0;
 
