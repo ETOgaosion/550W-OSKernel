@@ -12,6 +12,7 @@
 #include <os/mm.h>
 #include <os/pcb.h>
 #include <os/sync.h>
+#include <os/time.h>
 #include <user/user_programs.h>
 
 // fat32 infomation
@@ -1305,10 +1306,28 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
 
 int sys_fstat(int fd, kstat_t *statbuf) {
     fd_t *file = get_fd(fd);
+    // statbuf->st_dev = file->dev;
+    // statbuf->st_ino = fd - 3;
+    // statbuf->st_mode = file->mode;
+    // statbuf->st_nlink = file->nlink;
+    // statbuf->st_uid = file->uid;
+    // statbuf->st_gid = file->gid;
+    // statbuf->st_rdev = file->rdev;
+    // statbuf->__pad = 0;
+    // statbuf->st_size = file->size;
+    // statbuf->st_blksize = fat.bpb.bytes_per_sec;
+    // statbuf->__pad2 = 0;
+    // statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
+    // statbuf->st_atime_sec = file->atime_sec;
+    // statbuf->st_atime_nsec = file->atime_nsec;
+    // statbuf->st_mtime_sec = file->mtime_sec;
+    // statbuf->st_mtime_nsec = file->mtime_nsec;
+    // statbuf->st_ctime_sec = file->ctime_sec;
+    // statbuf->st_ctime_nsec = file->ctime_nsec;
     statbuf->st_dev = file->dev;
     statbuf->st_ino = fd - 3;
     statbuf->st_mode = file->mode;
-    statbuf->st_nlink = file->nlink;
+    statbuf->st_nlink = 1;
     statbuf->st_uid = file->uid;
     statbuf->st_gid = file->gid;
     statbuf->st_rdev = file->rdev;
@@ -1317,12 +1336,14 @@ int sys_fstat(int fd, kstat_t *statbuf) {
     statbuf->st_blksize = fat.bpb.bytes_per_sec;
     statbuf->__pad2 = 0;
     statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
-    statbuf->st_atime_sec = file->atime_sec;
-    statbuf->st_atime_nsec = file->atime_nsec;
-    statbuf->st_mtime_sec = file->mtime_sec;
-    statbuf->st_mtime_nsec = file->mtime_nsec;
-    statbuf->st_ctime_sec = file->ctime_sec;
-    statbuf->st_ctime_nsec = file->ctime_nsec;
+    nanotime_val_t time;
+    get_nanotime(&time);
+    statbuf->st_atime_sec = time.sec;
+    statbuf->st_atime_nsec = time.nsec;
+    statbuf->st_mtime_sec = time.sec;
+    statbuf->st_mtime_nsec = time.nsec;
+    statbuf->st_ctime_sec = time.sec;
+    statbuf->st_ctime_nsec = time.nsec;
     statbuf->__unused[0] = 0;
     statbuf->__unused[1] = 0;
     return 0;
