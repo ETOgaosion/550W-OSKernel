@@ -68,6 +68,7 @@ int main() {
         init_screen();
         // Setup timer interrupt and enable all interrupt
         // init interrupt (^_^)-
+        fat32_init();
     }
     sbi_set_timer(0);
     setup_exception();

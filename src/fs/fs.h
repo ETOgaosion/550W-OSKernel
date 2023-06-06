@@ -2,17 +2,17 @@
 
 #include <common/types.h>
 
-#define O_RDONLY 0x000
-#define O_WRONLY 0x001
-#define O_RDWR 0x002 // 可读可写
-// #define O_CREATE 0x200
-#define O_CREATE 0x40
-#define O_DIRECTORY 0x0200000
+// #define O_RDONLY 0x000
+// #define O_WRONLY 0x001
+// #define O_RDWR 0x002 // 可读可写
+// //#define O_CREATE 0x200
+// #define O_CREATE 0x40
+// #define O_DIRECTORY 0x0200000
 
 #define DIR 0x040000
 #define FILE 0x100000
 
-#define AT_FDCWD -100
+// #define AT_FDCWD -100
 
 #define SEEK_SET 0
 #define SEEK_CUR 1
@@ -21,9 +21,11 @@
 #define STDIN 0
 #define STDOUT 1
 #define STDERR 2
+#define STDMAX 3
 
 #define stdin STDIN
 #define stdout STDOUT
+#define stderr STDERR
 
 typedef struct super_block {
     int magic;
@@ -47,18 +49,7 @@ typedef struct dir_entry {
     int inode_id;
     int last;
     int mode;
-} dentry_t;
-
-typedef struct inode_s {
-    // pointers need -1
-    int sec_size;
-    int mode;
-    int direct_block_pointers[11];
-    int indirect_block_pointers[3];
-    int double_block_pointers[2];
-    int trible_block_pointers;
-    int link_num;
-} inode_t;
+} dir_entry_t;
 
 typedef struct fentry {
     int inodeid;
@@ -114,35 +105,29 @@ extern uint64_t dir4_addr_offset;
 extern uint64_t data_addr_offset;
 extern uint64_t empty_block;
 
-extern inode_t nowinode;
-extern int nowinodeid;
+// extern fentry_t fd[20];
+// extern int nowfid;
+// extern int freefid[20];
+// extern int freenum;
 
-extern fentry_t fd[20];
-extern int nowfid;
-extern int freefid[20];
-extern int freenum;
+extern int k_mkfs(int func);
+int k_load_file(const char *name, uint8_t **bin, int *len);
 
-int try_get_from_file(const char *file_name, unsigned char **binary, int *length);
+extern int fat32_init();
 
-void init_fs();
-int k_mkfs(int func);
-long sys_getcwd(const char *buf, unsigned long size);
-long sys_dup(unsigned int fildes);
-long sys_dup3(unsigned int oldfd, unsigned int newfd, int flags);
-long sys_mkdirat(int dfd, const char *pathname, umode_t mode);
-long sys_unlinkat(int dfd, const char *pathname, int flag);
-long sys_linkat(int olddfd, const char *oldname, int newdfd, const char *newname, int flags);
-long sys_umount2(const char *name, int flags);
-long sys_mount(const char *dev_name, const char *dir_name, const char *type, unsigned long flags, void *data);
-long sys_chdir(const char *file_name);
-long sys_openat(int dfd, const char *file_name, int flags, umode_t mode);
-long sys_close(unsigned long fd);
-long sys_pipe2(int *fildes, int flags);
-long sys_getdents64(unsigned int fd, dirent64_t *dirent, unsigned int count);
-long sys_read(unsigned int fd, char *buf, size_t count);
-long sys_write(unsigned int fd, const char *buf, size_t count);
-long sys_fstat(unsigned int fd, kstat_t *statbuf);
-
-void *sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
-long sys_munmap(unsigned long addr, size_t len);
-long sys_mremap(unsigned long addr, unsigned long old_len, unsigned long new_len, unsigned long flags, unsigned long new_addr);
+extern long sys_getcwd(char *buf, size_t size);
+extern int sys_pipe2(int *fd, mode_t flags);
+extern int sys_dup(int old);
+extern int sys_dup3(int old, int new, mode_t flags);
+extern int sys_mkdirat(int dirfd, const char *path, mode_t mode);
+extern int sys_chdir(char *path);
+extern int sys_getdents64(int fd, dirent64_t *dirent, size_t len);
+extern int sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode);
+extern int sys_close(int fd);
+extern int sys_linkat(int old, const char *oldname, int newd, const char *newname, mode_t flags);
+extern int sys_unlinkat(int dirfd, const char *path, mode_t flags);
+extern int sys_mount(const char *special, const char *dir, const char *type, mode_t flags, void *data);
+extern int sys_umount2(const char *special, mode_t flags);
+extern ssize_t sys_read(int fd, char *buf, size_t count);
+extern ssize_t sys_write(int fd, const char *buf, size_t count);
+extern int sys_fstat(int fd, kstat_t *statbuf);
