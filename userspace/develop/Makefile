@@ -31,16 +31,17 @@ C_SHARE_FLAG :=  -O0 -nostdlib -T $(link_script) -Wall -nostdinc -g -ggdb -fvar-
 all: prepare
 
 prepare: build $(lib_target) srcs $(shell_target) $(bubble_target) asm
+	../../tools/elf2char -o shell --header-only $(shell_target) > shell.h
+	../../tools/elf2char -o shell $(shell_target) > shell.c
+	../../tools/generateMapping shell
+	../../tools/elf2char -o bubble --header-only $(bubble_target) > bubble.h
+	../../tools/elf2char -o bubble $(bubble_target) > bubble.c
+	../../tools/generateMapping bubble
+	mv shell.h ../../src/user/
+	mv shell.c ../../src/user/
+	mv bubble.h ../../src/user/
+	mv bubble.c ../../src/user/
 	cp build/* ../rootfs/
-	../../tools/elf2char -o shell --header-only $(shell_target) > user_programs.h
-	../../tools/elf2char -o shell $(shell_target) > user_programs.c
-	../../tools/elf2char -o bubble --header-only $(bubble_target) >> user_programs.h
-	../../tools/elf2char -o bubble $(bubble_target) >> user_programs.c
-	for prog in $(src_names); do ../../tools/elf2char -o $$prog --header-only build/$$prog >> user_programs.h; done
-	for prog in $(src_names); do ../../tools/elf2char -o $$prog build/$$prog >> user_programs.c; done
-	../../tools/generateMapping user_programs
-	mv user_programs.h ../../src/user/
-	mv user_programs.c ../../src/user/
 
 asm:
 	for prog in $(src_names); do $(OBJDUMP) -d build/$$prog > ../../target/$$prog.txt; done

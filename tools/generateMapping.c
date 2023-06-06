@@ -65,45 +65,39 @@ char *simplify(Records *self, char *varname) {
     return ret;
 }
 
-void write_to_file(Records *self, FILE *header, FILE *source) {
+void write_to_file(Records *self, FILE *header, FILE *source, char *name) {
     // header = stdout;
     // source = stdout;
     fseek(header, 0, SEEK_END);
-    fprintf(header, "typedef struct ElfFile {\n");
-    fprintf(header, "  char *file_name;\n");
-    fprintf(header, "  unsigned char* file_content;\n");
-    fprintf(header, "  int* file_length;\n");
-    fprintf(header, "} ElfFile;\n\n");
-    fprintf(header, "#define ELF_FILE_NUM %d\n", self->size);
-    fprintf(header, "extern ElfFile elf_files[%d];\n", self->size);
-    fprintf(header, "extern int get_elf_file(const char *file_name, unsigned char **binary, int *length);\n");
-    fprintf(header, "extern int match_elf(char *file_name);\n");
+    fprintf(header, "extern int get_");
+    fprintf(header, "%s", name);
+    fprintf(header, "_file(const char *file_name, unsigned char **binary, int *length);\n");
 
     fseek(source, 0, SEEK_END);
-    fprintf(source, "ElfFile elf_files[%d] = {\n", self->size);
+    fprintf(source, "typedef struct ElfFile {\n");
+    fprintf(source, "  char *file_name;\n");
+    fprintf(source, "  unsigned char* file_content;\n");
+    fprintf(source, "  int* file_length;\n");
+    fprintf(source, "} ElfFile;\n\n");
+
+    fprintf(source, "ElfFile elf_%s_files[%d] = {\n", name, self->size);
     for (int i = 0; i < self->size; ++i) {
         fprintf(source, "  {.file_name = \"%s\", .file_content = %s, .file_length = &%s}%s\n", self->record[i][0], self->record[i][1], self->record[i][2], i == self->size - 1 ? "" : ",");
     }
     fprintf(source, "};\n\n");
-    fprintf(source, "int get_elf_file(const char *file_name, unsigned char **binary, int *length)\n");
+    fprintf(source, "int get_");
+    fprintf(source, "%s", name);
+    fprintf(source, "_file(const char *file_name, unsigned char **binary, int *length)\n");
     fprintf(source, "{\n");
     fprintf(source, "  for (int i = 0; i < %d; ++i) {\n", self->size);
-    fprintf(source, "    if (k_strcmp(elf_files[i].file_name,file_name) == 0) {\n");
-    fprintf(source, "      *binary = elf_files[i].file_content;\n");
-    fprintf(source, "      *length = *elf_files[i].file_length;\n");
+    fprintf(source, "    if (k_strcmp(elf_%s_files[i].file_name,file_name) == 0) {\n", name);
+    fprintf(source, "      *binary = elf_%s_files[i].file_content;\n", name);
+    fprintf(source, "      *length = *elf_%s_files[i].file_length;\n", name);
     fprintf(source, "      return 1;\n");
     fprintf(source, "    }\n");
     fprintf(source, "  }\n");
     fprintf(source, "  return 0;\n");
     fprintf(source, "}\n\n");
-    fprintf(source, "int match_elf(char *file_name)\n");
-    fprintf(source, "{\n");
-    fprintf(source, "   for (int i = 1; i < %d; i++){\n", self->size);
-    fprintf(source, "       if (k_strcmp(file_name, elf_files[i].file_name) == 0)\n");
-    fprintf(source, "           return i;\n");
-    fprintf(source, "   }\n");
-    fprintf(source, "   return -1;\n");
-    fprintf(source, "}\n");
 }
 
 void append_record(Records *self, char *varname) {
@@ -176,7 +170,7 @@ int main(int argc, char *argv[]) {
         printf("Can not open %s.h!\n", argv[1]);
         return -1;
     }
-    write_to_file(&records, header, source);
+    write_to_file(&records, header, source, argv[1]);
 
     fclose(header);
     fclose(source);
