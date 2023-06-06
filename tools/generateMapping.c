@@ -69,7 +69,6 @@ void write_to_file(Records *self, FILE *header, FILE *source) {
     // header = stdout;
     // source = stdout;
     fseek(header, 0, SEEK_END);
-    fprintf(header, "#pragma once\n");
     fprintf(header, "typedef struct ElfFile {\n");
     fprintf(header, "  char *file_name;\n");
     fprintf(header, "  unsigned char* file_content;\n");
@@ -81,8 +80,6 @@ void write_to_file(Records *self, FILE *header, FILE *source) {
     fprintf(header, "extern int match_elf(char *file_name);\n");
 
     fseek(source, 0, SEEK_END);
-    fprintf(source, "#include <lib/string.h>\n");
-    fprintf(source, "#include <user/user_programs.h>\n");
     fprintf(source, "ElfFile elf_files[%d] = {\n", self->size);
     for (int i = 0; i < self->size; ++i) {
         fprintf(source, "  {.file_name = \"%s\", .file_content = %s, .file_length = &%s}%s\n", self->record[i][0], self->record[i][1], self->record[i][2], i == self->size - 1 ? "" : ",");

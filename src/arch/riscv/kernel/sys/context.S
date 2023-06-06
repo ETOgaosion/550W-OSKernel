@@ -137,7 +137,8 @@ ENTRY(switch_to)
   //addi sp, sp, -(SWITCH_TO_SIZE)
   /* TODO: store all callee save registers,
    * see the definition of `struct switchto_context` in pcb.h*/
-  
+  beq a0, a1, switch_to_same_pcb
+
   ld t0, PCB_KERNEL_SP(a0)
   SS(ra, RA)
   SS(sp, SP)
@@ -176,6 +177,7 @@ ENTRY(switch_to)
   LS(s10, S10)
   LS(s11, S11)
 
+switch_to_same_pcb:
   ret
   //csrw CSR_SEPC, ra
   //sret

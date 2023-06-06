@@ -13,11 +13,11 @@ extern void __global_pointer$();
 ptr_t address_base = 0xffffffc080504000lu;
 
 ptr_t get_kernel_address(pid_t pid) {
-    return address_base + (pid + 1) * 2 * PAGE_SIZE;
+    return address_base + (pid + 1) * 2 * (4 * PAGE_SIZE);
 }
 
 ptr_t get_user_address(pid_t pid) {
-    return address_base + pid * 2 * PAGE_SIZE + PAGE_SIZE;
+    return address_base + pid * 2 * (4 * PAGE_SIZE) + 4 * PAGE_SIZE;
 }
 
 void init_context_stack(ptr_t kernel_stack, ptr_t user_stack, int argc, char *argv[], ptr_t entry_point, pcb_t *pcb) {

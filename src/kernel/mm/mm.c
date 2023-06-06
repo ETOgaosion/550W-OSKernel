@@ -12,6 +12,7 @@
 #define STARTPAGE 30
 
 ptr_t memCurr = FREEMEM;
+ptr_t k_mem = FREEMEMK;
 
 int diskpg_num = 0;
 int freepg_num = 0;
@@ -169,8 +170,8 @@ ptr_t k_alloc_page(int numPage) {
 void k_free_page(ptr_t baseAddr, int numPage) {}
 
 void *k_malloc(size_t size) {
-    ptr_t ret = ROUND(memCurr, 4);
-    memCurr = ret + size;
+    ptr_t ret = ROUND(k_mem, 4);
+    k_mem = ret + size;
     return (void *)ret;
 }
 

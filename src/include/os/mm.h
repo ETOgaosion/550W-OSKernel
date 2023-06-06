@@ -9,6 +9,7 @@
 #define PAGE_SIZE 4096 // 4K
 #define INIT_KERNEL_STACK 0xffffffc081000000lu
 #define FREEMEM (INIT_KERNEL_STACK + PAGE_SIZE * 10)
+#define FREEMEMK 0xffffffc083000000lu
 #define USER_STACK_ADDR 0xf00010000lu
 
 #define PROT_NONE 0

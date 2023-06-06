@@ -40,6 +40,7 @@ pid_t nextpid() {
 }
 
 void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int tid, int father_pid, uint8_t core_mask) {
+    k_memset((uint8_t *)pcb[pcb_i].name, 0, sizeof(pcb[pcb_i].name));
     k_memcpy((uint8_t *)pcb[pcb_i].name, (uint8_t *)name, k_strlen(name));
     pcb[pcb_i].in_use = TRUE;
     pcb[pcb_i].pid = pid;
@@ -399,7 +400,7 @@ long sys_spawn(const char *file_name) {
     init_pcb_i((char *)file_name, i, USER_PROCESS, i, i, 0, (*current_running)->father_pid, (*current_running)->core_mask[0]);
 
     ptr_t kernel_stack = get_kernel_address(i);
-    ptr_t user_stack_kva = kernel_stack - PAGE_SIZE;
+    ptr_t user_stack_kva = kernel_stack - 4 * PAGE_SIZE;
     ptr_t user_stack = USER_STACK_ADDR;
     PTE *pgdir = (PTE *)k_alloc_page(1);
     clear_pgdir((uintptr_t)pgdir);
@@ -433,7 +434,7 @@ long sys_fork() {
     pcb[fpid].child_num++;
 
     ptr_t kernel_stack_kva = get_kernel_address(i);
-    ptr_t user_stack_kva = kernel_stack_kva - PAGE_SIZE;
+    ptr_t user_stack_kva = kernel_stack_kva - 4 * PAGE_SIZE;
     PTE *pgdir = (PTE *)k_alloc_page(1);
     clear_pgdir((ptr_t)pgdir);
     share_pgtable(pgdir, pa2kva(PGDIR_PA));
@@ -460,12 +461,6 @@ int kill(pid_t pid, int exit_status) {
         if (!parent->timer.initialized) {
             k_unblock(&parent->list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
         }
-        for (int i = 0; i < NUM_MAX_CHILD; i++) {
-            if (parent->child_pids[i] == pid) {
-                parent->child_pids[i] = 0;
-                break;
-            }
-        }
         parent->dead_child_stime += get_ticks_from_time(&target->resources.ru_stime);
         parent->dead_child_utime += get_ticks_from_time(&target->resources.ru_utime);
         if (parent->cursor_y < target->cursor_y) {
@@ -475,7 +470,6 @@ int kill(pid_t pid, int exit_status) {
     // k_unblock(&(target->wait_list), &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
     target->pid = 0;
     target->status = TASK_EXITED;
-    target->in_use = FALSE;
     if (pcb[pid].type != USER_THREAD) {
         getback_page(pid);
     }
@@ -528,13 +522,14 @@ long sys_exit(int error_code) {
 
 long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
     pcb_t *target = NULL;
-    int wait_pid = -1;
+    int wait_pid = -1, pid_i = -1;
     if (pid != -1) {
         target = &pcb[pid];
         wait_pid = pid;
     } else {
         for (int i = 0; i < NUM_MAX_CHILD; i++) {
             if ((*current_running)->child_pids[i] != 0) {
+                pid_i = i;
                 wait_pid = (*current_running)->child_pids[i];
                 target = &pcb[wait_pid];
                 break;
@@ -550,6 +545,8 @@ long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
         k_scheduler();
     }
     target->status = TASK_EXITED;
+    target->in_use = FALSE;
+    (*current_running)->child_pids[pid_i] = 0;
     if (stat_addr) {
         *stat_addr = (target->exit_status << 8);
     }
@@ -617,7 +614,7 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
     init_pcb_i((char *)file_name, target_pid, USER_PROCESS, target_pid, target_pid, 0, father_pid, (*current_running)->core_mask[0]);
 
     ptr_t kernel_stack = get_kernel_address(target_pid);
-    ptr_t user_stack_kva = kernel_stack - PAGE_SIZE;
+    ptr_t user_stack_kva = kernel_stack - 4 * PAGE_SIZE;
     ptr_t user_stack = USER_STACK_ADDR;
     PTE *pgdir = (PTE *)k_alloc_page(1);
     clear_pgdir((uintptr_t)pgdir);
@@ -679,7 +676,7 @@ long sys_clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, p
     pcb[fpid].child_num++;
 
     ptr_t kernel_stack_kva = get_kernel_address(i);
-    ptr_t user_stack_kva = kernel_stack_kva - PAGE_SIZE;
+    ptr_t user_stack_kva = kernel_stack_kva - 4 * PAGE_SIZE;
 
     if (flags & CLONE_VM) {
         pcb[i].pgdir = (*current_running)->pgdir;

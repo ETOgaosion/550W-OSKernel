@@ -19,7 +19,7 @@ objects := $(patsubst %.S,%.o, $(patsubst %.c,%.o, $(sources)))
 
 all: 
 
-raw_all: clean target_dir build
+raw_all: clean target_dir build fat
 
 target_dir:
 	mkdir -p $(target_dir)

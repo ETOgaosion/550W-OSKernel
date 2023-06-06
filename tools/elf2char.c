@@ -110,6 +110,7 @@ int main(int argc, char *argv[]) {
         } else {
             int file_size = 0;
             printf("#include <user/user_programs.h>\n");
+            printf("#include <lib/string.h>\n");
             if (defined_kernel_call_name) {
                 printf("unsigned char _elf_%s[] = {\n%s\n};\n", file_name_to_variable_name(kernel_call_name), escaped_file_content(f, &file_size));
                 // argv[i] already changed by
