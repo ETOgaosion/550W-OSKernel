@@ -32,6 +32,15 @@ all: prepare
 
 prepare: build $(lib_target) srcs $(shell_target) $(bubble_target) asm
 	cp build/* ../rootfs/
+	../../tools/elf2char -o shell --header-only $(shell_target) > user_programs.h
+	../../tools/elf2char -o shell $(shell_target) > user_programs.c
+	../../tools/elf2char -o bubble --header-only $(bubble_target) >> user_programs.h
+	../../tools/elf2char -o bubble $(bubble_target) >> user_programs.c
+	for prog in $(src_names); do ../../tools/elf2char -o $$prog --header-only build/$$prog >> user_programs.h; done
+	for prog in $(src_names); do ../../tools/elf2char -o $$prog build/$$prog >> user_programs.c; done
+	../../tools/generateMapping user_programs
+	mv user_programs.h ../../src/user/
+	mv user_programs.c ../../src/user/
 
 asm:
 	for prog in $(src_names); do $(OBJDUMP) -d build/$$prog > ../../target/$$prog.txt; done
