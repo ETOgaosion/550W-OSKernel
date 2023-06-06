@@ -37,6 +37,7 @@ fat:
 		dd if=/dev/zero of=$(fs_img) bs=512k count=1024; fi
 	mkfs.vfat -F 32 $(fs_img); 
 	sudo mount $(fs_img) $(dst)
+	mkdir -p userspace/rootfs/mnt
 	sudo cp -r userspace/rootfs/* $(dst)/
 	sudo umount $(dst)
 
