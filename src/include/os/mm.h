@@ -53,5 +53,6 @@ void map(uint64_t va, uint64_t pa, PTE *pgdir);
 void getback_page(int pid);
 PTE *get_kva(PTE entry);
 void k_cancel_pg(PTE *pgdir);
+uint64_t alloc_newva();
 
 long sys_brk(unsigned long brk);

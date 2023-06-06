@@ -131,3 +131,5 @@ extern int sys_umount2(const char *special, mode_t flags);
 extern ssize_t sys_read(int fd, char *buf, size_t count);
 extern ssize_t sys_write(int fd, const char *buf, size_t count);
 extern int sys_fstat(int fd, kstat_t *statbuf);
+void *sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
+int sys_munmap(void *addr, size_t length);

@@ -1,5 +1,9 @@
 # OSKernel2023-550W
 
+[技术报告](./docs/report.md)
+
+# Others
+
 We develop a full function kernel.
 
 **Read [docs/development](./docs/development.md) first when you start to develop.**

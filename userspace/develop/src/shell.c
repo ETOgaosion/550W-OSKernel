@@ -37,14 +37,14 @@
 typedef int (*function)(int argc, char *argv[]);
 
 // #define CURRENT_TASK_NUM 33
-#define CURRENT_TASK_NUM 29
+#define CURRENT_TASK_NUM 32
 
 /* clang-format off */
 char *task_names[CURRENT_TASK_NUM] = {
-    "getppid", "execve", "sleep", "gettimeofday", "times", "getpid", "uname", "brk", 
+    "pipe", "getppid", "execve", "sleep", "gettimeofday", "times", "getpid", "uname", "brk", 
     "wait", "fork", "waitpid", "clone", "yield", "exit",
-    "openat", "dup2", "write", "unlink", "getdents", "dup", "mount", "umount", "fstat", "getcwd", "close", "read", "open", "mkdir_", "chdir",
-    //  "pipe", "mmap", "munmap"
+    "openat", "dup2", "write", "unlink", "getdents", "dup", "mount", "umount", "fstat", "getcwd", "close", "read", "open", "mkdir_", 
+    "mmap", "munmap", "chdir",  
 };
 /* clang-format on */
 

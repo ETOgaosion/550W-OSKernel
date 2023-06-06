@@ -40,9 +40,9 @@ void init_syscall(void) {
     syscall[SYS_read] = (long (*)())sys_read;
     syscall[SYS_write] = (long (*)())sys_write;
     syscall[SYS_fstat] = (long (*)())sys_fstat;
-    // syscall[SYS_munmap] = (long (*)())sys_munmap;
+    syscall[SYS_munmap] = (long (*)())sys_munmap;
     // syscall[SYS_mremap] = (long (*)())sys_mremap;
-    // syscall[SYS_mmap] = (long (*)())sys_mmap;
+    syscall[SYS_mmap] = (long (*)())sys_mmap;
     // Terminal
     syscall[SYS_uname] = (long (*)())sys_uname;
     // Functions
