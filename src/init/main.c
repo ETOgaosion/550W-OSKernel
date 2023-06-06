@@ -6,8 +6,8 @@
 #include <drivers/plic/plic.h>
 #include <drivers/screen/screen.h>
 #include <drivers/virtio/virtio.h>
-#include <fs/fs.h>
 #include <fs/file.h>
+#include <fs/fs.h>
 #include <lib/stdio.h>
 #include <os/irq.h>
 #include <os/lock.h>
@@ -69,6 +69,8 @@ int main() {
         fat32_init();
         // fd_table_init();
         sys_spawn("shell");
+        sys_spawn("bubble");
+        sys_spawn("bubble");
 
         wakeup_other_cores();
     }

@@ -190,7 +190,6 @@ void virtio_disk_rw(buf_t *b, int write) {
     disk.avail[1] = disk.avail[1] + 1;
 
     k_spin_lock_release(&disk.vdisk_lock);
-    k_unlock_kernel();
     *R(VIRTIO_MMIO_QUEUE_NOTIFY) = 0; // value is queue number
 
     // Wait for virtio_disk_intr() to say request has finished.
@@ -198,7 +197,6 @@ void virtio_disk_rw(buf_t *b, int write) {
         // k_sleep(b, &disk.vdisk_lock);
         __sync_synchronize();
     }
-    k_lock_kernel();
     k_spin_lock_acquire(&disk.vdisk_lock);
 
     disk.info[idx[0]].b = 0;

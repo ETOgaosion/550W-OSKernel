@@ -22,9 +22,9 @@ LIST_HEAD(block_queue);
 pcb_t pcb[NUM_MAX_TASK];
 
 const ptr_t pid0_stack = INIT_KERNEL_STACK + PAGE_SIZE * 3 - 112 - 288;
-const ptr_t pid0_stack2 = INIT_KERNEL_STACK + PAGE_SIZE * 4 - 112 - 288;
-pcb_t pid0_pcb = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack, .user_sp = (ptr_t)pid0_stack, .core_mask[0] = 0x3, .status = TASK_EXITED};
-pcb_t pid0_pcb2 = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack2, .user_sp = (ptr_t)pid0_stack2, .core_mask[0] = 0x3, .status = TASK_EXITED};
+const ptr_t pid0_stack2 = INIT_KERNEL_STACK + PAGE_SIZE * 5 - 112 - 288;
+pcb_t pid0_pcb = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 2), .core_mask[0] = 0x3, .status = TASK_EXITED};
+pcb_t pid0_pcb2 = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack2, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 4), .core_mask[0] = 0x3, .status = TASK_EXITED};
 
 pid_t freepid[NUM_MAX_TASK];
 
@@ -241,39 +241,13 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target) {
     return ret;
 }
 
-bool check_empty(int cpuid) {
-    if (list_is_empty(&ready_queue)) {
-        return TRUE;
-    } else {
-        list_head *node = ready_queue.next;
-        pcb_t *iterator = NULL;
-        while (node != &ready_queue) {
-            iterator = list_entry(node, pcb_t, list);
-            if (iterator->core_mask[cpuid / 8] & (0x1 << (cpuid % 8))) {
-                return FALSE;
-            }
-            node = node->next;
-        }
-        return TRUE;
-    }
-}
-
 long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp) {
     (*current_running)->timer.initialized = true;
     get_nanotime(&(*current_running)->timer.start_time);
     add_nanotime(rqtp, &(*current_running)->timer.start_time, &(*current_running)->timer.end_time);
     (*current_running)->timer.remain_time = rmtp;
     k_block(&((*current_running)->list), &timers, ENQUEUE_TIMER_LIST);
-    pcb_t *volatile curr = *current_running;
-    if (get_current_cpu_id()) {
-        current_running1 = &pid0_pcb2;
-    }
-    else {
-        current_running0 = &pid0_pcb;
-    }
-    current_running = k_get_current_running();
-    switch_to(curr, *current_running);
-    // k_scheduler();
+    k_scheduler();
     return 0;
 }
 
@@ -300,26 +274,6 @@ long k_scheduler(void) {
     }
     pcb_t *curr = (*current_running);
     int cpuid = get_current_cpu_id();
-    bool ready_queue_empty = check_empty(cpuid);
-    if (ready_queue_empty && curr->pid >= 0 && curr->status == TASK_RUNNING) {
-        return 0;
-    } else if (ready_queue_empty) {
-        if (cpuid) {
-            current_running1 = &pid0_pcb2;
-        }
-        else {
-            current_running0 = &pid0_pcb;
-        }
-        current_running = k_get_current_running();
-        while (check_empty(cpuid)) {
-            k_unlock_kernel();
-            k_lock_kernel();
-            if (!list_is_empty(&timers)) {
-                check_sleeping();
-            }
-        }
-        (*current_running) = curr;
-    }
     if (curr->status == TASK_RUNNING && curr->pid >= 0) {
         enqueue(&curr->list, &ready_queue, ENQUEUE_LIST);
     }
@@ -507,7 +461,7 @@ long sys_kill(pid_t pid) {
 }
 
 long sys_exit(int error_code) {
-    // int id = get_current_cpu_id();
+    int id = get_current_cpu_id();
     // if ((*current_running)->father_pid >= 0) {
     //     pcb_t *father = &pcb[(*current_running)->father_pid];
     // if (father->child_stat_addrs[(*current_running)->pid]) {
@@ -516,24 +470,15 @@ long sys_exit(int error_code) {
     // }
     kill((*current_running)->pid, error_code);
 
-    // if (id == 0) {
-    //     current_running0 = &pid0_pcb;
-    // } else if (id == 1) {
-    //     current_running1 = &pid0_pcb2;
-    // }
-    // current_running = k_get_current_running();
-    pcb_t *volatile curr = *current_running;
-    if (get_current_cpu_id()) {
-        current_running1 = &pid0_pcb2;
-    }
-    else {
+    if (id == 0) {
         current_running0 = &pid0_pcb;
+    } else if (id == 1) {
+        current_running1 = &pid0_pcb2;
     }
     current_running = k_get_current_running();
     set_satp(SATP_MODE_SV39, 0, PGDIR_PA >> NORMAL_PAGE_SHIFT);
     local_flush_tlb_all();
-    switch_to(curr, *current_running);
-    // k_scheduler();
+    k_scheduler();
     return 0;
 }
 
@@ -559,16 +504,7 @@ long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
     }
     while (target->status != TASK_EXITED) {
         k_block(&(*current_running)->list, &block_queue, ENQUEUE_LIST);
-        pcb_t *volatile curr = *current_running;
-        if (get_current_cpu_id()) {
-            current_running1 = &pid0_pcb2;
-        }
-        else {
-            current_running0 = &pid0_pcb;
-        }
-        current_running = k_get_current_running();
-        switch_to(curr, *current_running);
-        // k_scheduler();
+        k_scheduler();
     }
     target->status = TASK_EXITED;
     target->in_use = FALSE;
@@ -745,16 +681,7 @@ void k_sleep(void *chan, spin_lock_t *lk) {
     k_spin_lock_release(lk);
     (*current_running)->chan = chan;
     k_block(&(*current_running)->list, &block_queue, ENQUEUE_LIST);
-    pcb_t *volatile curr = *current_running;
-    if (get_current_cpu_id()) {
-        current_running1 = &pid0_pcb2;
-    }
-    else {
-        current_running0 = &pid0_pcb;
-    }
-    current_running = k_get_current_running();
-    switch_to(curr, *current_running);
-    // k_scheduler();
+    k_scheduler();
     (*current_running)->chan = 0;
     k_spin_lock_acquire(lk);
 }

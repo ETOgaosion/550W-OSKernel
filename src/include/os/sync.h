@@ -37,15 +37,13 @@ typedef struct barrier {
 
 typedef struct mbox {
     basic_info_t mailbox_info;
-    char name[MBOX_NAME_LEN];
+    int id[2];
     char buff[MBOX_MSG_MAX_LEN];
     int read_head, write_tail;
     int used_units;
     // int mutex_id;
     int full_cond_id;
     int empty_cond_id;
-    int cited_num;
-    int cited_pid[MBOX_MAX_USER];
 } mbox_t;
 
 typedef struct mbox_arg {
@@ -79,7 +77,7 @@ int k_barrier_init(int *key, int total);
 int k_barrier_wait(int key);
 int k_barrier_destroy(int *key);
 
-int k_mbox_open(char *name);
+int k_mbox_open(int id_1, int id_2);
 int k_mbox_close();
 int k_mbox_send(int key, mbox_t *target, mbox_arg_t *arg);
 int k_mbox_recv(int key, mbox_t *target, mbox_arg_t *arg);

@@ -16,9 +16,7 @@
 #define O_DIRECTORY 0x0200000
 
 #define AT_FDCWD -100
-#define AT_REMOVEDIR                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  \
-    0x200 /* Remove directory instead of                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              \
-         unlinking file.  */
+#define AT_REMOVEDIR 0x200 /* Remove directory instead of unlinking file.  */
 
 #define MAX_NAME_LEN 256
 
@@ -98,6 +96,8 @@ typedef struct fd {
     long ctime_sec;
     long ctime_nsec;
 
+    int mailbox;
+
     // share fd
     //  struct fd* share_fd;
     //  int   share_num;
@@ -128,7 +128,7 @@ struct ring_buffer {
 
 typedef struct pipe {
     // mutex_lock_t lock;
-    struct ring_buffer rbuf;
+    int mailbox;
     pid_t pid; // parent id
     list_head r_list;
     list_head w_list;

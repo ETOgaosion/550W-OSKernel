@@ -11,12 +11,19 @@
 #include <lib/string.h>
 #include <os/mm.h>
 #include <os/pcb.h>
-#include <os/smp.h>
+#include <os/sync.h>
 #include <user/user_programs.h>
 
 // fat32 infomation
 fat32_t fat;
 dir_info_t root_dir = {.name = "/\0"}, cur_dir = {.name = "/\0"};
+
+typedef struct fd_mbox {
+    int fd;
+    int mailbox;
+} fd_mbox_t;
+
+fd_mbox_t fd_mbox_map[MAX_FD];
 
 // /*
 //  * return the next cluster of file by current cluster
@@ -167,7 +174,7 @@ uint32_t alloc_cluster(uint32_t first) {
     int max = fat.bpb.bytes_per_sec / sizeof(uint32_t);
     uint32_t ftable1[max];
     uint32_t ftable2[max];
-    //printk("[debug] alloc cluster! ftable size = %d\n", sizeof(ftable1));
+    // printk("[debug] alloc cluster! ftable size = %d\n", sizeof(ftable1));
     // get last cluster num and sec
     if (first != 0) {
         // functionalize first cluster to size?
@@ -208,7 +215,7 @@ uint32_t alloc_cluster(uint32_t first) {
                 // fseek(fp,(base+i)*fat.bpb.bytes_per_sec,0);
                 // printk("write in %ld bytes\n",fwrite(ftable2,1,fat.bpb.bytes_per_sec,fp));
                 k_sd_write((char *)ftable2, &base, 1);
-                //printk("[debug] alloc cluster %u in sec %u\n", ret, base);
+                // printk("[debug] alloc cluster %u in sec %u\n", ret, base);
                 goto alloced;
             }
         }
@@ -228,7 +235,7 @@ alloced:
         // fseek(fp,cur_fat_sec*fat.bpb.bytes_per_sec,0);
         // fwrite(ftable1,fat.bpb.bytes_per_sec,1,fp);
         k_sd_write((char *)ftable1, &cur_fat_sec, 1);
-        //printk("[debug] fix tail %u\n", cur_fat_sec);
+        // printk("[debug] fix tail %u\n", cur_fat_sec);
     }
     return ret;
 }
@@ -516,7 +523,7 @@ int fat32_new_dentry(dentry_t *entry, uint32_t flags, int len, char *name) {
 
     // TODO : set ./.. in dir entry, not finish
     dentry_t *dtable = read_whole_dir(fat32_dentry2fcluster(&entry[len_0]), 0);
-    k_memset(dtable,0,fat.bytes_per_cluster);
+    k_memset(dtable, 0, fat.bytes_per_cluster);
     // dtable[0].sn.name1[0] = '.';
     // dtable[0].sn.name1[1] = ' ';
     // dtable[0].sn.name2[0] = ' ';
@@ -853,23 +860,27 @@ int sys_pipe2(int *fd, mode_t flags) {
     if (pipe_alloc(fd) == -1) {
         return -1;
     }
+    int mailbox = k_mbox_open(fd[0], fd[1]);
     // init
     fd_t *file = get_fd(fd[0]);
-    //printk("[pipe] get pipe read id %u, fd %d\n", file->pip_num, fd[0]);
+    // printk("[pipe] get pipe read id %u, fd %d\n", file->pip_num, fd[0]);
     file->file = ATTR_DIRECTORY >> 1;
     file->pos = 0;
     file->flags = O_RDONLY;
+    file->mailbox = mailbox;
 
     file = get_fd(fd[1]);
-    //printk("[pipe] get pipe write id %u, fd %d\n", file->pip_num, fd[1]);
+    // printk("[pipe] get pipe write id %u, fd %d\n", file->pip_num, fd[1]);
     file->file = ATTR_DIRECTORY >> 1;
     file->pos = 0;
     file->flags = O_WRONLY;
+    file->mailbox = mailbox;
 
     pipe_t *p = &pipe_table[file->pip_num];
     p->r_valid = 1;
     p->w_valid = 1;
-    ring_buffer_init(&p->rbuf);
+    p->mailbox = mailbox;
+
     return 0;
 }
 
@@ -925,7 +936,7 @@ int sys_mkdirat(int dirfd, const char *path_0, mode_t mode) {
     char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
     int ret = 0;
     filename2path(path, name, path_0);
-    //printk("[debug] mkdir %s, at %s\n", name, path);
+    // printk("[debug] mkdir %s, at %s\n", name, path);
     if (path[0] == '/') {
         ret = fat32_path2dir(path, &new, root_dir);
     } else if (dirfd == AT_FDCWD) {
@@ -1228,12 +1239,8 @@ ssize_t sys_read(int fd, char *buf, size_t count) {
     if (file->is_pipe_read) {
         pipe_t *p = &pipe_table[file->pip_num];
         int ret = 0;
-        while(!(ret = read_ring_buffer(&p->rbuf, (uint8_t *)buf, count))){
-            k_unlock_kernel();
-            k_lock_kernel();
-            if(p->w_valid == 0)
-            return 0;
-        }
+        mbox_arg_t arg = {.msg = (void *)buf, .msg_length = count, .sleep_operation = 0};
+        ret = k_mbox_recv(p->mailbox, NULL, &arg);
         return ret;
     }
 
@@ -1272,22 +1279,24 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
     // for pipe
     if (file->is_pipe_write) {
         pipe_t *p = &pipe_table[file->pip_num];
-        int ret = write_ring_buffer(&p->rbuf, (uint8_t *)buf, count);
+        mbox_arg_t arg = {.msg = (void *)buf, .msg_length = count, .sleep_operation = 0};
+        int ret = k_mbox_send(p->mailbox, NULL, &arg);
         p->w_valid = 0;
         return ret;
     }
 
-    int new = (file->pos + count + fat.bytes_per_cluster-1) / fat.bytes_per_cluster - (file->size + fat.bytes_per_cluster-1)/ fat.bytes_per_cluster; // need more cluster?
+    int new = (file->pos + count + fat.bytes_per_cluster - 1) / fat.bytes_per_cluster - (file->size + fat.bytes_per_cluster - 1) / fat.bytes_per_cluster; // need more cluster?
     while (new > 0) {
         file->first_cluster = alloc_cluster(file->first_cluster);
-        new--;
+        new --;
     }
     uint8_t *data = read_whole_dir(file->first_cluster, 0); // enough room
     if (!data) {
         return -1;
     }
-    if(file->pos + count > file->size)
+    if (file->pos + count > file->size) {
         file->size = file->pos + count;
+    }
     k_memcpy(&data[file->pos], (uint8_t *)buf, count); // has enough room
     write_whole_dir(file->first_cluster, data, 1);
     file->pos += count;
@@ -1344,12 +1353,14 @@ int k_load_file(const char *name, uint8_t **bin, int *len) {
     return 0;
 }
 
-void *sys_mmap(void *addr, size_t length, int prot, int flags,int fd, off_t offset){
-    if(addr!=NULL)//NOT support spec addr
+void *sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {
+    if (addr != NULL) { // NOT support spec addr
         return addr;
-    fd_t * file = get_fd(fd);
-    if(!file)
+    }
+    fd_t *file = get_fd(fd);
+    if (!file) {
         return (void *)-1;
+    }
     uintptr_t ret = alloc_newva();
     uintptr_t kva = k_alloc_page_helper(ret, (pa2kva((*current_running)->pgdir << 12)));
 
@@ -1358,7 +1369,7 @@ void *sys_mmap(void *addr, size_t length, int prot, int flags,int fd, off_t offs
 
     return (void *)ret;
 }
-int sys_munmap(void *addr, size_t length){
+int sys_munmap(void *addr, size_t length) {
     return 0;
 }
 

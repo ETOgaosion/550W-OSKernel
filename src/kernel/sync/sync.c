@@ -85,7 +85,7 @@ int k_commop(void *key_id, void *arg, int op) {
         return k_barrier_destroy(key);
         break;
     case 7:
-        return k_mbox_open((char *)key_id);
+        return k_mbox_open(*(int *)key_id, *(int *)arg);
     case 8:
         return k_mbox_close((char *)key_id);
     case 9:
@@ -279,8 +279,7 @@ int k_barrier_destroy(int *key) {
     return 0;
 }
 
-int k_mbox_open(char *name) {
-    int operator= sys_getpid();
+int k_mbox_open(int id_1, int id_2) {
     if (mbox_first_time) {
         for (int i = 0; i < COMM_NUM; i++) {
             mbox_list[i] = (mbox_t *)k_malloc(sizeof(mbox_t));
@@ -288,12 +287,8 @@ int k_mbox_open(char *name) {
         }
         mbox_first_time = 0;
     }
-    if (name == NULL) {
-        return -2;
-    }
     for (int i = 0; i < COMM_NUM; i++) {
-        if (mbox_list[i]->mailbox_info.initialized && k_strcmp(mbox_list[i]->name, name) == 0) {
-            mbox_list[i]->cited_pid[mbox_list[i]->cited_num++] = operator;
+        if (mbox_list[i]->mailbox_info.initialized && (mbox_list[i]->id[0] == id_1 || mbox_list[i]->id[2] == id_2)) {
             return i + 1;
         }
     }
@@ -303,34 +298,27 @@ int k_mbox_open(char *name) {
     }
     mbox_list[mbox_i]->mailbox_info.id = mbox_i + 1;
     mbox_list[mbox_i]->mailbox_info.initialized = 1;
-    k_strcpy(mbox_list[mbox_i]->name, name);
-    // k_memset(mbox_list[mbox_i]->buff, 0, sizeof(mbox_list[mbox_i]->buff));
-    // mbox_list[mbox_i]->read_head = 0;
-    // mbox_list[mbox_i]->write_tail = 0;
-    // mbox_list[mbox_i]->used_units = 0;
-    // mbox_list[mbox_i]->full_cond_id = 0;
-    // mbox_list[mbox_i]->empty_cond_id = 0;
+    mbox_list[mbox_i]->id[0] = id_1;
+    mbox_list[mbox_i]->id[1] = id_2;
+    k_memset(mbox_list[mbox_i]->buff, 0, sizeof(mbox_list[mbox_i]->buff));
+    mbox_list[mbox_i]->read_head = 0;
+    mbox_list[mbox_i]->write_tail = 0;
+    mbox_list[mbox_i]->used_units = 0;
+    mbox_list[mbox_i]->full_cond_id = 0;
+    mbox_list[mbox_i]->empty_cond_id = 0;
     k_cond_init(&mbox_list[mbox_i]->full_cond_id);
     k_cond_init(&mbox_list[mbox_i]->empty_cond_id);
     // k_memset(mbox_list[mbox_i]->cited_pid, 0, sizeof(mbox_list[mbox_i]->cited_pid));
     // mbox_list[mbox_i]->cited_num = 0;
-    mbox_list[mbox_i]->cited_pid[mbox_list[mbox_i]->cited_num++] = operator;
-    return mbox_i + 1;
+    return mbox_i;
 }
 
 int k_mbox_close(int mbox_id) {
-    int operator= sys_getpid();
     mbox_t *target = mbox_list[mbox_id];
-    for (int i = 0; i < target->cited_num; i++) {
-        if (target->cited_pid[i] == operator) {
-            target->cited_pid[i] = 0;
-        }
-    }
-    if (!target->cited_num) {
-        k_cond_destroy(&target->full_cond_id);
-        k_cond_destroy(&target->empty_cond_id);
-        k_memset((void *)target, 0, sizeof(mbox_t));
-    }
+    target->id[0] = 0;
+    target->id[1] = 0;
+    k_cond_destroy(&target->full_cond_id);
+    k_cond_destroy(&target->empty_cond_id);
     return 0;
 }
 
@@ -360,7 +348,7 @@ int k_mbox_send(int key, mbox_t *target, mbox_arg_t *arg) {
     }
     target->used_units += arg->msg_length;
     k_cond_broadcast(target->empty_cond_id - 1);
-    return blocked_time;
+    return arg->msg_length;
 }
 
 int k_mbox_recv(int key, mbox_t *target, mbox_arg_t *arg) {
@@ -389,7 +377,11 @@ int k_mbox_recv(int key, mbox_t *target, mbox_arg_t *arg) {
     }
     target->used_units -= arg->msg_length;
     k_cond_broadcast(target->full_cond_id - 1);
-    return blocked_time;
+    if (target->read_head == target->write_tail) {
+        return 0;
+    } else {
+        return arg->msg_length;
+    }
 }
 
 int k_mbox_try_send(int key, mbox_arg_t *arg) {

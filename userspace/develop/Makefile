@@ -19,13 +19,18 @@ shell_objs := src/shell.o
 shell_target := build/shell
 shell_asm := shell.txt
 
+bubble_file = src/bubble.c
+bubble_objs := src/bubble.o
+bubble_target := build/bubble
+bubble_asm := bubble.txt
+
 C_SHARE_FLAG :=  -O0 -nostdlib -T $(link_script) -Wall -nostdinc -g -ggdb -fvar-tracking
 
 .PHONY: all build clean $(modules)
 
 all: prepare
 
-prepare: build $(lib_target) srcs $(shell_target) asm
+prepare: build $(lib_target) srcs $(shell_target) $(bubble_target) asm
 	cp build/* ../rootfs/
 
 asm:
@@ -40,6 +45,9 @@ srcs:
 
 $(shell_target):
 	$(GCC) $(LDFLAGS) $(C_SHARE_FLAG) -o $@ ${shell_objs} ${lib_target}
+
+$(bubble_target):
+	$(GCC) $(LDFLAGS) $(C_SHARE_FLAG) -o $@ ${bubble_objs} ${lib_target}
 
 build: $(modules)
 	mkdir -p build

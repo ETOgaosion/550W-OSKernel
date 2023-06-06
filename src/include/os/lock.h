@@ -38,7 +38,7 @@ typedef struct sleep_lock {
 } sleep_lock_t;
 
 /* init lock */
-// for kernel_lock
+// for
 void k_spin_lock_init(spin_lock_t *lock);
 int k_spin_lock_try_acquire(spin_lock_t *lock);
 void k_spin_lock_acquire(spin_lock_t *lock);
