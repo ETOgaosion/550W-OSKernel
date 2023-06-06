@@ -918,7 +918,6 @@ int sys_mkdirat(int dirfd, const char *path_0, mode_t mode) {
     char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
     int ret = 0;
     filename2path(path, name, path_0);
-    printk("[debug] mkdir %s, at %s\n", name, path);
     if (path[0] == '/') {
         ret = fat32_path2dir(path, &new, root_dir);
     } else if (dirfd == AT_FDCWD) {
