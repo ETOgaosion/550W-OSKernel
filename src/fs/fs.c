@@ -165,7 +165,7 @@ uint32_t alloc_cluster(uint32_t first) {
     int max = fat.bpb.bytes_per_sec / sizeof(uint32_t);
     uint32_t ftable1[max];
     uint32_t ftable2[max];
-    printk("[debug] alloc cluster! ftable size = %d\n", sizeof(ftable1));
+    // printk("[debug] alloc cluster! ftable size = %d\n", sizeof(ftable1));
     // get last cluster num and sec
     if (first != 0) {
         // functionalize first cluster to size?
@@ -206,7 +206,7 @@ uint32_t alloc_cluster(uint32_t first) {
                 // fseek(fp,(base+i)*fat.bpb.bytes_per_sec,0);
                 // printk("write in %ld bytes\n",fwrite(ftable2,1,fat.bpb.bytes_per_sec,fp));
                 k_sd_write((char *)ftable2, &base, 1);
-                printk("[debug] alloc cluster %u in sec %u\n", ret, base);
+                // printk("[debug] alloc cluster %u in sec %u\n", ret, base);
                 goto alloced;
             }
         }
@@ -226,7 +226,7 @@ alloced:
         // fseek(fp,cur_fat_sec*fat.bpb.bytes_per_sec,0);
         // fwrite(ftable1,fat.bpb.bytes_per_sec,1,fp);
         k_sd_write((char *)ftable1, &cur_fat_sec, 1);
-        printk("[debug] fix tail %u\n", cur_fat_sec);
+        // printk("[debug] fix tail %u\n", cur_fat_sec);
     }
     return ret;
 }
