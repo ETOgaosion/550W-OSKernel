@@ -1034,7 +1034,8 @@ int sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
             return -1;
         }
         new.first_cluster = file->first_cluster;
-        new.size = fat32_fcluster2size(new.first_cluster);
+        new.size = fat32_fcluster2size(file->first_cluster);
+        ret = 1;
         // no use of name
     }
     // not found by path

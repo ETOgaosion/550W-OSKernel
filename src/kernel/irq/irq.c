@@ -24,22 +24,22 @@ void init_syscall(void) {
         syscall[i] = (long (*)()) & sys_undefined_syscall; // only print register info
     }
     // FS
-    // syscall[SYS_getcwd] = (long (*)())sys_getcwd;
-    // syscall[SYS_dup] = (long (*)())sys_dup;
-    // syscall[SYS_dup3] = (long (*)())sys_dup3;
-    // syscall[SYS_mkdirat] = (long (*)())sys_mkdirat;
-    // syscall[SYS_unlinkat] = (long (*)())sys_unlinkat;
-    // syscall[SYS_linkat] = (long (*)())sys_linkat;
-    // syscall[SYS_umount2] = (long (*)())sys_umount2;
-    // syscall[SYS_mount] = (long (*)())sys_mount;
-    // syscall[SYS_chdir] = (long (*)())sys_chdir;
-    // syscall[SYS_openat] = (long (*)())sys_openat;
-    // syscall[SYS_close] = (long (*)())sys_close;
-    // syscall[SYS_pipe2] = (long (*)())sys_pipe2;
-    // syscall[SYS_getdents64] = (long (*)())sys_getdents64;
+    syscall[SYS_getcwd] = (long (*)())sys_getcwd;
+    syscall[SYS_dup] = (long (*)())sys_dup;
+    syscall[SYS_dup3] = (long (*)())sys_dup3;
+    syscall[SYS_mkdirat] = (long (*)())sys_mkdirat;
+    syscall[SYS_unlinkat] = (long (*)())sys_unlinkat;
+    syscall[SYS_linkat] = (long (*)())sys_linkat;
+    syscall[SYS_umount2] = (long (*)())sys_umount2;
+    syscall[SYS_mount] = (long (*)())sys_mount;
+    syscall[SYS_chdir] = (long (*)())sys_chdir;
+    syscall[SYS_openat] = (long (*)())sys_openat;
+    syscall[SYS_close] = (long (*)())sys_close;
+    syscall[SYS_pipe2] = (long (*)())sys_pipe2;
+    syscall[SYS_getdents64] = (long (*)())sys_getdents64;
     syscall[SYS_read] = (long (*)())sys_read;
     syscall[SYS_write] = (long (*)())sys_write;
-    // syscall[SYS_fstat] = (long (*)())sys_fstat;
+    syscall[SYS_fstat] = (long (*)())sys_fstat;
     // syscall[SYS_munmap] = (long (*)())sys_munmap;
     // syscall[SYS_mremap] = (long (*)())sys_mremap;
     // syscall[SYS_mmap] = (long (*)())sys_mmap;

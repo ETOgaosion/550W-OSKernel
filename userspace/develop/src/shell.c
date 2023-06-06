@@ -47,7 +47,7 @@ typedef int (*function)(int argc, char *argv[]);
 // };
 /* clang-format on */
 
-char *task_names[CURRENT_TASK_NUM] = {"openat"};
+char *task_names[CURRENT_TASK_NUM] = {"brk"};
 
 int cmd_in_length = 0;
 
