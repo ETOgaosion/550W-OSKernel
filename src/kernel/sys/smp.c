@@ -25,6 +25,7 @@ void k_lock_kernel() {
     enable_external_interrupt();
     enable_interrupt();
     k_spin_lock_acquire(&kernel_lock);
+    current_running = k_get_current_running();
 }
 
 void k_unlock_kernel() {

@@ -87,7 +87,6 @@ void reset_irq_timer() {
 void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
     // call corresponding handler by the value of `cause`
     k_lock_kernel();
-    current_running = k_get_current_running();
     time_val_t now;
     get_utime(&now);
     time_val_t last_run;

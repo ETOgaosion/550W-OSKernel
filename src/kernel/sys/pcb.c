@@ -295,20 +295,19 @@ long k_scheduler(void) {
     if (ready_queue_empty && curr->pid >= 0 && curr->status == TASK_RUNNING) {
         return 0;
     } else if (ready_queue_empty) {
-        while (TRUE) {
+        if (cpuid) {
+            current_running1 = &pid0_pcb2;
+        }
+        else {
+            current_running0 = &pid0_pcb;
+        }
+        current_running = k_get_current_running();
+        while (check_empty(cpuid)) {
             k_unlock_kernel();
-            while (check_empty(0x1 << cpuid)) {
-                k_lock_kernel();
-                if (!list_is_empty(&timers)) {
-                    check_sleeping();
-                }
-                k_unlock_kernel();
-            }
             k_lock_kernel();
-            if (!check_empty(0x1 << cpuid)) {
-                break;
+            if (!list_is_empty(&timers)) {
+                check_sleeping();
             }
-            k_unlock_kernel();
         }
         (*current_running) = curr;
     }

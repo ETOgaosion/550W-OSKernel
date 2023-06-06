@@ -199,7 +199,6 @@ void virtio_disk_rw(buf_t *b, int write) {
         __sync_synchronize();
     }
     k_lock_kernel();
-    current_running = k_get_current_running();
     k_spin_lock_acquire(&disk.vdisk_lock);
 
     disk.info[idx[0]].b = 0;

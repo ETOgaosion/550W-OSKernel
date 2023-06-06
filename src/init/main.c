@@ -76,6 +76,8 @@ int main() {
     setup_exception();
     while (1) {
         k_scheduler();
+        k_unlock_kernel();
+        k_lock_kernel();
     };
     return 0;
 }
