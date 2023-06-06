@@ -1306,7 +1306,7 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
 int sys_fstat(int fd, kstat_t *statbuf) {
     fd_t *file = get_fd(fd);
     statbuf->st_dev = file->dev;
-    statbuf->st_ino = 0;
+    statbuf->st_ino = fd - 3;
     statbuf->st_mode = file->mode;
     statbuf->st_nlink = file->nlink;
     statbuf->st_uid = file->uid;
