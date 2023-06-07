@@ -116,6 +116,7 @@ void kernel_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t caus
     } else {
         exc_table[cause](regs, stval, cause, cpuid);
     }
+    sbi_set_timer(get_ticks() + TICKS_INTERVAL);
     k_spin_lock_release(&kernel_exception_lock);
 }
 

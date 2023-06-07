@@ -374,7 +374,7 @@ long sys_spawn(const char *file_name) {
     get_elf_file(file_name, &binary, &len);
     void_task process = (void_task)load_elf(binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_alloc_page_helper);
     map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
-    map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
+    // map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
     init_context_stack(kernel_stack, user_stack, 0, NULL, (uintptr_t)(process), &pcb[i]);
@@ -404,7 +404,7 @@ long sys_fork() {
     fork_pcb_stack(kernel_stack_kva, user_stack_kva, &pcb[i]);
     fork_pgtable(pgdir, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
     map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
-    map(USER_STACK_ADDR, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    // map(USER_STACK_ADDR, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
 
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
@@ -578,6 +578,7 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
     ptr_t kernel_stack = get_kernel_address(target_pid);
     ptr_t user_stack_kva = kernel_stack - 4 * PAGE_SIZE;
     ptr_t user_stack = USER_STACK_ADDR;
+    // getback_page(target_pid);
     PTE *pgdir = (PTE *)k_alloc_page(1);
     clear_pgdir((uintptr_t)pgdir);
     share_pgtable(pgdir, pa2kva(PGDIR_PA));
@@ -588,7 +589,7 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
     get_elf_file(file_name, &binary, &len);
     void_task process = (void_task)load_elf(binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_alloc_page_helper);
     map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
-    map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
+    // map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
     pcb[target_pid].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
     int argc = k_strlistlen((char **)argv);
