@@ -2,28 +2,27 @@
 
 ## 基本情况
 
-我们设计的操作系统内核是在参考了 Linux 的基础上，从零重新设计的一个内核。支持启动初始化、中断、I/O、进程管理、内存管理、执行文件解析、文件系统功能等。
+我们设计的操作系统内核是在参考了以Linux为主的先进操作系统的基础上，精心设计的一个全功能操作系统，支持启动初始化、中断、I/O、进程管理、内存管理、执行文件解析、文件系统功能等。
 
 ## 系统框架
 
-我们的系统框架受到 Linux 系统的启发，具体如下：
+我们系统框架的设计受到 Linux 系统的启发，具体如下：
 
 ```sh
 550W
-├── docs                    # 技术报告
-├── env                     # 编译环境
-├── linker                  # 链接文件
-├── mnt                     # 
-├── scripts                 # 脚本
-├── src                     # 源文件
-│   ├── arch                # 汇编代码
-│   │   └── riscv           # riscv64
-│   │       ├── include     # 包含了汇编代码需要的头文件
-│   │       │   ├── asm     # asm头文件
+├── docs                    # technical report
+├── env                     # compilation and testing environment
+├── linker                  # linker scripts
+├── mnt                     # sdcard mount point
+├── scripts                 # scripts for developing assistance
+├── src                     # source codes
+│   ├── arch                    # architecture specified codes
+│   │   └── riscv                   # riscv64
+│   │       ├── include                 # architecture related headers
+│   │       │   ├── asm                     # asm headers
 │   │       │   └── uapi                    # uapi for outsiders' usage, like syscall number
 │   │       ├── kernel                  # kernel related arch-specified code
 │   │       ├── sbi                     # sbi code
-│   │       └── syscall                 # arch-specified syscall implementation
 │   ├── drivers                 # drivers
 │   ├── fs                      # file system, as independent module from kernel
 │   ├── include                 # arch-independent headers
@@ -33,17 +32,19 @@
 │   ├── init                    # initiate process
 │   ├── kernel                  # kernel core code
 │   │   ├── irq                     # deal with interrupt and exeptions
-│   │   ├── mm                    # deal with locking
-│   │   ├── sync                      # deal with memory management
-│   │   └── sys                   # deal with scheduling
+│   │   ├── sync                    # deal with memory management
+│   │   ├── mm                      # deal with synchronization
+│   │   └── sys                     # deal with system core function
 │   ├── libs                    # libraries for kernel use only, like string and print
 │   └── tests                   # kernel related tests, built into kernel
-│   └── user                    # temp compromise
+│   └── user                    # user programs loader
 ├── target                  # build target location
 ├── tests                   # non-kernel related tests, mainly for language features using host compiler and env
 ├── tools                   # OS-none-related tools
 └── userspace               # userspace programs
 ```
+
+Linux内核代码框架的设计最大的特点就是满足模块化和接口的设计，这对于内核的开发是极其重要的。传统C程序构建的内核的缺点是模块耦合度较高，面向过程的特性占据主流，这非常不适合现代软件开发理念和合作开发的要求，在我们小组实践的过程中，由于代码耦合性导致的合并冲突不占少数。因此如何将内核按照模块化、接口化的设计
 
 ## 实现重点
 
