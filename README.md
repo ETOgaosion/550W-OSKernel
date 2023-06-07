@@ -1,8 +1,12 @@
 # OSKernel2023-550W
 
+## Brief
+
 Here is our [technical report](./docs/report.md)
 
 We developed a full function kernel. We hope to make it have **Advanced Feelings**(高级感), so we will try hard to refactor again and again to make every loc perfect.
+
+## For developers
 
 **Read [docs/development](./docs/development.md) first when you start to develop.**
 
