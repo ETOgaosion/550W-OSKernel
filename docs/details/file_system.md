@@ -1,54 +1,8 @@
-### 文件系统解析
-
-本节主要结合fat32文件系统格式，说明本小组如何实现对fat32磁盘的解析。
-
-##### 1.文件系统初始化
-
-对于未分区的fat32磁盘文件来说，0号扇区往往存储了解析磁盘格式所需的全部信息，主要包括：
-
-| Offset(hex) | Size(bytes) | describe                |
-| ----------- | ----------- | ----------------------- |
-| 0x0B        | 2           | Bytes per sector        |
-| 0x0D        | 1           | Sectors per cluster     |
-| 0x0E        | 2           | Reserved sectors        |
-| 0x10        | 1           | Number of fats          |
-| 0x13        | 2           | Sector num(lo)          |
-| 0x20        | 4           | Sector num(hi)          |
-| 0x1c        | 4           | Hidden sec              |
-| 0x024       | 4           | Sectors per fat         |
-| 0x02c       | 4           | Cluster num of root dir |
-| 0x052       | 8           | Identifier "Fat32     " |
-
-根据这些信息，我们可以进一步计算得到与fat32磁盘交互所需的所有数据，进而完成文件系统的初始化。
-
-##### 2.File Allocation Table
-
-Fat32以一个数组形式的File Allocation Table表示磁盘的使用状态。每个文件可以通过保存first cluster来向后寻找到文件占有的所有cluster。
-
-```c
-next_cluster = fat[cur_cluster] & FAT_MASK;
-```
-
-##### 3.目录格式
-
-目录项的大小固定为32B，主要包括文件的权限，大小，名称等信息。为了保存较长的文件名，往往由连续的一个或多个目录项构成一组，共同表示一个文件。每组目录项的最后一个为短目录项，其余为长目录项。
-
-按照fat32规范，如果文件需要长目录项，整个文件名都存储在长目录项中；否则以8.3格式放在短目录中。为避免麻烦，这里可以统一使用长目录项存储文件名。（只要保证自洽）
-
-##### 4.磁盘驱动
-
-实现virtio驱动，重点是对磁盘扇区的读写。
-
-
-
-[1.]: https://wiki.osdev.org/FAT#BPB_.28BIOS_Parameter_Block.29
-[2]: https://www.cnblogs.com/Chary/p/12981056.html
-
-### 文件系统功能
+# 文件系统功能
 
 本小节从不同方面介绍了当前文件系统支持的一些功能以及一些基本实现思路。
 
-##### 1.基本磁盘解析函数
+## 1.基本磁盘解析函数
 
 包括加载目录/文件，修改目录/文件，文件名解析，遍历目录，切换路径等功能。
 
@@ -60,7 +14,7 @@ next_cluster = fat[cur_cluster] & FAT_MASK;
 
 路径切换则是根据目标dir数据更新当前dir的信息。
 
-##### 2.文件描述符
+## 2.文件描述符
 
 当前文件描述符在所有进程间共用，支持STDIN/STDOUT/STDERR，pipe等必要功能。目前文件描述符的主体是一个大数组，所有进程在这个数组中申请/释放文件描述符，后续需要完成文件描述符在进程之间的隔离。
 
@@ -70,7 +24,7 @@ next_cluster = fat[cur_cluster] & FAT_MASK;
 
 对于file/dir，需要维护文件的基本信息，文件描述符的访问模式、当前访问位置等数据。
 
-##### 3.系统调用
+## 3.系统调用
 
 基于前两部分功能的支持，我们实现了文件系统相关的系统调用，包括：
 
@@ -134,6 +88,6 @@ next_cluster = fat[cur_cluster] & FAT_MASK;
 
   打印文件描述符指向文件的信息
 
-##### 4.TODO
+## 4.TODO
 
 完善文件系统的虚拟化，提高文件系统的抽象层次，简化文件描述符、系统调用等与磁盘文件的交互。
