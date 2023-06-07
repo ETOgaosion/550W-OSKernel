@@ -1,6 +1,10 @@
 # OSKernel2023-550W
 
-[技术报告](./docs/report.md)
+## 技术报告
+
+[区域赛](./docs/report.md)
+
+## 开发者须知
 
 We develop a full function kernel.
 

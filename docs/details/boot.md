@@ -7,13 +7,18 @@
 ```sh
 OpenSBI完成必要的流程后，抵达地址0x80200000
                     ↓
-从0x80200000进入head.S，拷贝当前CPU核编号，进行中断屏蔽等，
-然后call prepare_vm
+从0x80200000进入head.S，拷贝当前CPU核编号，进行中断屏蔽等
                     ↓
-prepare_vm会建立并开启虚地址映射。之后call main，进入内核主函数
+call prepare_vm
+                    ↓
+prepare_vm会建立并开启虚地址映射。
+                    ↓          
+call main，进入内核主函数
                     ↓
 main函数中会初始化中断表，初始化进程数据结构PCB，初始化virtio，
-初始化文件系统等等，之后设置时钟中断并通过k_scheduler开启任务调度
+初始化文件系统等等
+                    ↓
+设置时钟中断并通过k_scheduler开启任务调度
 ```
 
 ## 初始化
