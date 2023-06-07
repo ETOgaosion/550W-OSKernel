@@ -16,6 +16,8 @@
 #define false 0
 #endif
 
+#define __riscv_xlen 64
+
 typedef unsigned __attribute__((__mode__(QI))) int8_t;
 typedef unsigned __attribute__((__mode__(QI))) uint8_t;
 typedef int __attribute__((__mode__(HI))) int16_t;

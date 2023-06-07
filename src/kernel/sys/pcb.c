@@ -175,6 +175,19 @@ uint64_t cal_priority(uint64_t cur_time, uint64_t idle_time, long priority) {
     return cal_res;
 }
 
+pcb_t *check_first_ready_task() {
+    list_head *iterator = ready_queue.next;
+    pcb_t *pcb_it = NULL;
+    while (iterator != &ready_queue) {
+        pcb_it = list_entry(iterator, pcb_t, list);
+        if (k_strcmp(pcb_it->name, "bubble")) {
+            return pcb_it;
+        }
+        iterator = iterator->next;
+    }
+    return NULL;
+}
+
 pcb_t *choose_sched_task(list_head *queue) {
     uint64_t cur_time = get_ticks();
     uint64_t max_priority = 0;
@@ -225,6 +238,7 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
 pcb_t *dequeue(list_head *queue, dequeue_way_t target) {
     // plain and simple way
     pcb_t *ret = NULL;
+    pcb_t *task = check_first_ready_task();
     switch (target) {
     case DEQUEUE_LIST:
         ret = list_entry(queue->next, pcb_t, list);
@@ -232,7 +246,12 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target) {
         break;
     case DEQUEUE_LIST_STRATEGY:
         // ret = choose_sched_task(queue);
-        ret = list_entry(queue->next, pcb_t, list);
+        if (!task) {
+            ret = list_entry(queue->next, pcb_t, list);
+        }
+        else {
+            ret = task;
+        }
         list_del(&(ret->list));
         break;
     default:
@@ -242,7 +261,7 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target) {
 }
 
 long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp) {
-    (*current_running)->timer.initialized = true;
+    (*current_running)->timer.initialized = TRUE;
     get_nanotime(&(*current_running)->timer.start_time);
     add_nanotime(rqtp, &(*current_running)->timer.start_time, &(*current_running)->timer.end_time);
     (*current_running)->timer.remain_time = rmtp;
@@ -454,6 +473,7 @@ long sys_kill(pid_t pid) {
         return -EINVAL;
     }
     kill(pid, -1);
+    pcb[pid].in_use = FALSE;
     if (pid == (*current_running)->pid) {
         k_scheduler();
     }
@@ -498,6 +518,9 @@ long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
             }
         }
     }
+    if (!target->in_use) {
+        return wait_pid;
+    }
     // no child process, but wait
     if (wait_pid == -1) {
         return 0;
@@ -506,14 +529,17 @@ long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
         k_block(&(*current_running)->list, &block_queue, ENQUEUE_LIST);
         k_scheduler();
     }
-    target->status = TASK_EXITED;
-    target->in_use = FALSE;
-    (*current_running)->child_pids[pid_i] = 0;
-    if (stat_addr) {
-        *stat_addr = (target->exit_status << 8);
-    }
-    if (ru) {
-        k_memcpy((uint8_t *)ru, (uint8_t *)&target->resources, sizeof(rusage_t));
+    target = &pcb[wait_pid];
+    if (target->in_use) {
+        target->status = TASK_EXITED;
+        target->in_use = FALSE;
+        (*current_running)->child_pids[pid_i] = 0;
+        if (stat_addr) {
+            *stat_addr = (target->exit_status << 8);
+        }
+        if (ru) {
+            k_memcpy((uint8_t *)ru, (uint8_t *)&target->resources, sizeof(rusage_t));
+        }
     }
     return wait_pid;
 }

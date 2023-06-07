@@ -41,8 +41,8 @@ int pipe_alloc(int *fd) {
         if (!fd_table[i].used) {
             fd_table[i].used = 1;
             fd_table[i].pip_num = pipe_cnt;
-            fd_table[i].is_pipe_read = true;
-            fd_table[i].is_pipe_write = false;
+            fd_table[i].is_pipe_read = TRUE;
+            fd_table[i].is_pipe_write = FALSE;
             fd[0] = i;
             fd_0 = 1;
             break;
@@ -55,8 +55,8 @@ int pipe_alloc(int *fd) {
         if (!fd_table[i].used) {
             fd_table[i].used = 1;
             fd_table[i].pip_num = pipe_cnt++;
-            fd_table[i].is_pipe_read = false;
-            fd_table[i].is_pipe_write = true;
+            fd_table[i].is_pipe_read = FALSE;
+            fd_table[i].is_pipe_write = TRUE;
             fd[1] = i;
             return 0;
         }

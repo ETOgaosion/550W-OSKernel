@@ -46,6 +46,7 @@ prepare: build $(lib_target) srcs $(shell_target) $(bubble_target) asm
 asm:
 	for prog in $(src_names); do $(OBJDUMP) -d build/$$prog > ../../target/$$prog.txt; done
 	$(OBJDUMP) -d build/shell > ../../target/shell.txt
+	$(OBJDUMP) -d build/bubble > ../../target/bubble.txt
 
 $(lib_target):
 	$(AR) rcs $@ $(lib_objs)

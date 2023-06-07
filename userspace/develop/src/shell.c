@@ -49,7 +49,7 @@ char *task_names[CURRENT_TASK_NUM] = {
 };
 /* clang-format on */
 
-// char *task_names[CURRENT_TASK_NUM] = {"pipe"};
+// char *task_names[CURRENT_TASK_NUM] = {"execve"};
 
 int cmd_in_length = 0;
 
