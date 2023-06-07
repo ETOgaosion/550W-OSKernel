@@ -17,7 +17,7 @@ objects := $(patsubst %.S,%.o, $(patsubst %.c,%.o, $(sources)))
 
 .PHONY: all build clean $(modules) run
 
-all: clean target_dir build
+all: 
 
 raw_all: clean target_dir build
 
