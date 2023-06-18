@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structswitchto__context" kind="struct" language="C++" prot="public">
+    <compoundname>switchto_context</compoundname>
+    <includes refid="context_8h" local="no">context.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structswitchto__context_1a9c82a67ee9310247361fa2a7e0799ab6" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a62065ae2bc90ff72892eddfeedcffafa" kindref="member">reg_t</ref></type>
+        <definition>reg_t switchto_context::regs[14]</definition>
+        <argsstring>[14]</argsstring>
+        <name>regs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/context.h" line="22" column="11" bodyfile="src/arch/riscv/include/asm/context.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/arch/riscv/include/asm/context.h" line="20" column="1" bodyfile="src/arch/riscv/include/asm/context.h" bodystart="20" bodyend="23"/>
+    <listofallmembers>
+      <member refid="structswitchto__context_1a9c82a67ee9310247361fa2a7e0799ab6" prot="public" virt="non-virtual"><scope>switchto_context</scope><name>regs</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

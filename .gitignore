@@ -5,6 +5,7 @@
 !env/
 !userspace/testsuits-for-oskernel
 !userspace/rootfs/*
+!docs/*
 
 !.gitignore
 !.gdd_binit
@@ -13,7 +14,10 @@
 !Makefile
 !Makefile.in
 !Dockerfile
+!Doxyfile
+!README
 !LICENSE
+!CONTRIBUTING
 !compile_commands.json
 
 !*.S
@@ -22,6 +26,7 @@
 !*.h
 !*.cc
 !*.cpp
+
 !*.lds
 
 !*.sh

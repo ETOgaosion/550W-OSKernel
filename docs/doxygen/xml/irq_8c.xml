@@ -1,0 +1,936 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="irq_8c" kind="file" language="C++">
+    <compoundname>irq.c</compoundname>
+    <includes refid="atomic_8h" local="no">asm/atomic.h</includes>
+    <includes refid="pgtable_8h" local="no">asm/pgtable.h</includes>
+    <includes refid="privileged_8h" local="no">asm/privileged.h</includes>
+    <includes refid="sbi_8h" local="no">asm/sbi.h</includes>
+    <includes refid="arch_2riscv_2include_2asm_2syscall_8h" local="no">asm/syscall.h</includes>
+    <includes refid="plic_8h" local="no">drivers/plic/plic.h</includes>
+    <includes refid="virtio_8h" local="no">drivers/virtio/virtio.h</includes>
+    <includes refid="assert_8h" local="no">lib/assert.h</includes>
+    <includes refid="list_8h" local="no">lib/list.h</includes>
+    <includes refid="stdio_8h" local="no">lib/stdio.h</includes>
+    <includes refid="irq_8h" local="no">os/irq.h</includes>
+    <includes refid="smp_8h" local="no">os/smp.h</includes>
+    <includes refid="include_2os_2syscall_8h" local="no">os/syscall.h</includes>
+    <incdepgraph>
+      <node id="31">
+        <label>fs/fs.h</label>
+        <link refid="fs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>drivers/plic/plic.h</label>
+        <link refid="plic_8h"/>
+      </node>
+      <node id="5">
+        <label>asm/pgtable.h</label>
+        <link refid="pgtable_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>os/mm.h</label>
+        <link refid="mm_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>asm/syscall.h</label>
+        <link refid="arch_2riscv_2include_2asm_2syscall_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>drivers/screen/screen.h</label>
+        <link refid="screen_8h"/>
+      </node>
+      <node id="17">
+        <label>lib/stdio.h</label>
+        <link refid="stdio_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>uapi/syscall_number.h</label>
+        <link refid="syscall__number_8h"/>
+      </node>
+      <node id="21">
+        <label>common/elf.h</label>
+        <link refid="elf_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>asm/privileged.h</label>
+        <link refid="privileged_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="32">
+        <label>os/sys.h</label>
+        <link refid="sys_8h"/>
+      </node>
+      <node id="4">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="28">
+        <label>os/syscall.h</label>
+        <link refid="include_2os_2syscall_8h"/>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>asm/common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>drivers/virtio/virtio.h</label>
+        <link refid="virtio_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>os/cpu.h</label>
+        <link refid="cpu_8h"/>
+      </node>
+      <node id="26">
+        <label>os/time.h</label>
+        <link refid="time_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>asm/atomic.h</label>
+        <link refid="atomic_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>asm/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/kernel/irq/irq.c</label>
+        <link refid="irq_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>os/irq.h</label>
+        <link refid="irq_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>asm/sbidef.h</label>
+        <link refid="sbidef_8h"/>
+      </node>
+      <node id="3">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
+        <label>os/smp.h</label>
+        <link refid="smp_8h"/>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>asm/sbi.h</label>
+        <link refid="sbi_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="20">
+        <label>os/pcb.h</label>
+        <link refid="pcb_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>os/lock.h</label>
+        <link refid="lock_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>lib/stdarg.h</label>
+        <link refid="stdarg_8h"/>
+      </node>
+      <node id="25">
+        <label>os/sync.h</label>
+        <link refid="sync_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>lib/assert.h</label>
+        <link refid="assert_8h"/>
+        <childnode refid="17" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>lib/list.h</label>
+        <link refid="list_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="irq_8c_1a36a86609276b398aa7eb5d47adf012df" prot="public" static="no" mutable="no">
+        <type><ref refid="irq_8h_1a0b931bafdc57df2a8c74294d4585ef38" kindref="member">handler_t</ref></type>
+        <definition>handler_t irq_table[IRQC_COUNT]</definition>
+        <argsstring>[IRQC_COUNT]</argsstring>
+        <name>irq_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="15" column="11" bodyfile="src/kernel/irq/irq.c" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="irq_8c_1a1bfb10be6317990a6a28d7a0fbf722b1" prot="public" static="no" mutable="no">
+        <type><ref refid="irq_8h_1a0b931bafdc57df2a8c74294d4585ef38" kindref="member">handler_t</ref></type>
+        <definition>handler_t exc_table[EXCC_COUNT]</definition>
+        <argsstring>[EXCC_COUNT]</argsstring>
+        <name>exc_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="16" column="11" bodyfile="src/kernel/irq/irq.c" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="irq_8c_1ad501f008ad2bbd64f9a64029a42bf7e1" prot="public" static="no" mutable="no">
+        <type><ref refid="irq_8h_1a0b931bafdc57df2a8c74294d4585ef38" kindref="member">handler_t</ref></type>
+        <definition>handler_t irq_ext_table[PLIC_NR_IRQS]</definition>
+        <argsstring>[PLIC_NR_IRQS]</argsstring>
+        <name>irq_ext_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="17" column="11" bodyfile="src/kernel/irq/irq.c" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="irq_8c_1a1947fe6c9eeff0cf542dd6c5e2c3967a" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref></type>
+        <definition>uintptr_t riscv_dtb</definition>
+        <argsstring></argsstring>
+        <name>riscv_dtb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="18" column="11" bodyfile="src/kernel/irq/irq.c" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="irq_8c_1ad09ecaf5565e9ad4734995e0c672272b" prot="public" static="no" mutable="no">
+        <type><ref refid="lock_8h_1a78e3055bd891f045188756c613a5ad92" kindref="member">spin_lock_t</ref></type>
+        <definition>spin_lock_t kernel_exception_lock</definition>
+        <argsstring></argsstring>
+        <name>kernel_exception_lock</name>
+        <initializer>= {.flag = <ref refid="lock_8h_1afa2ed542fe4226abf3cc19f5f16f439fa4ade5a087dd858a01c36ce7ad8f64e36" kindref="member">UNLOCKED</ref>}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="106" column="13" bodyfile="src/kernel/irq/irq.c" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="irq_8c_1ae72d8e23da34c758d3f860fc35d0016a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_undefined_syscall</definition>
+        <argsstring>(regs_context_t *regs, uint64_t interrupt, uint64_t cause)</argsstring>
+        <name>sys_undefined_syscall</name>
+        <param>
+          <type><ref refid="context_8h_1a2d9a070cd557ba1cedeb93d7f14abcd5" kindref="member">regs_context_t</ref> *</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>interrupt</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cause</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="274" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="274" bodyend="278" declfile="src/kernel/irq/irq.c" declline="20" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1aa6e41eb17a307df20143dfc4aa6a8f6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_init_syscall</definition>
+        <argsstring>(void)</argsstring>
+        <name>k_init_syscall</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="22" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="22" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1af13e5d949b692ee7785b7c8fe87d6e74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void reset_irq_timer</definition>
+        <argsstring>()</argsstring>
+        <name>reset_irq_timer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="78" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="78" bodyend="83"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1aab45000cc578fd01564e38b8a42a0bd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void user_interrupt_helper</definition>
+        <argsstring>(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid)</argsstring>
+        <name>user_interrupt_helper</name>
+        <param>
+          <type><ref refid="context_8h_1a2d9a070cd557ba1cedeb93d7f14abcd5" kindref="member">regs_context_t</ref> *</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>stval</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cause</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cpuid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="85" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="85" bodyend="104"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1a9cc8577978995d9fde6d11477fe444ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void kernel_interrupt_helper</definition>
+        <argsstring>(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid)</argsstring>
+        <name>kernel_interrupt_helper</name>
+        <param>
+          <type><ref refid="context_8h_1a2d9a070cd557ba1cedeb93d7f14abcd5" kindref="member">regs_context_t</ref> *</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>stval</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cause</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cpuid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="108" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="108" bodyend="119"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1ae8afb23725eefc4b8122e2b098471727" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_int_irq</definition>
+        <argsstring>(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid)</argsstring>
+        <name>handle_int_irq</name>
+        <param>
+          <type><ref refid="context_8h_1a2d9a070cd557ba1cedeb93d7f14abcd5" kindref="member">regs_context_t</ref> *</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>interrupt</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cause</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cpuid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="121" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="121" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1a29043b45d0b50f1bc174664f6ef07c0e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_ext_irq</definition>
+        <argsstring>(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid)</argsstring>
+        <name>handle_ext_irq</name>
+        <param>
+          <type><ref refid="context_8h_1a2d9a070cd557ba1cedeb93d7f14abcd5" kindref="member">regs_context_t</ref> *</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>interrupt</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cause</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cpuid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="125" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="125" bodyend="131"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1a4bb4a0c25612e40c2bc23dc73af365c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handler_virtio_intr</definition>
+        <argsstring>(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid)</argsstring>
+        <name>handler_virtio_intr</name>
+        <param>
+          <type><ref refid="context_8h_1a2d9a070cd557ba1cedeb93d7f14abcd5" kindref="member">regs_context_t</ref> *</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>stval</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cause</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cpuid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="133" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="133" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1aa3f9a7235b6de1452d9903051121b57c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pgtable_8h_1a84884de9218381c7120044a50c84eeba" kindref="member">PTE</ref> *</type>
+        <definition>PTE* check_pf</definition>
+        <argsstring>(uint64_t va, PTE *pgdir)</argsstring>
+        <name>check_pf</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>va</declname>
+        </param>
+        <param>
+          <type><ref refid="pgtable_8h_1a84884de9218381c7120044a50c84eeba" kindref="member">PTE</ref> *</type>
+          <declname>pgdir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="163" column="5" bodyfile="src/kernel/irq/irq.c" bodystart="163" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1a8ecc039a94290831df30bdce9bbc3754" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_disk_exc</definition>
+        <argsstring>(uint64_t stval, PTE *pte_addr)</argsstring>
+        <name>handle_disk_exc</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>stval</declname>
+        </param>
+        <param>
+          <type><ref refid="pgtable_8h_1a84884de9218381c7120044a50c84eeba" kindref="member">PTE</ref> *</type>
+          <declname>pte_addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="182" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="182" bodyend="188"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1a2b626dabfdd22a7d1f4b42a490a316d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_pf_exc</definition>
+        <argsstring>(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid)</argsstring>
+        <name>handle_pf_exc</name>
+        <param>
+          <type><ref refid="context_8h_1a2d9a070cd557ba1cedeb93d7f14abcd5" kindref="member">regs_context_t</ref> *</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>stval</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cause</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cpuid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="190" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="190" bodyend="222"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1a5d7df3208bcaf0e96c8978746974ca4b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_other</definition>
+        <argsstring>(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid)</argsstring>
+        <name>handle_other</name>
+        <param>
+          <type><ref refid="context_8h_1a2d9a070cd557ba1cedeb93d7f14abcd5" kindref="member">regs_context_t</ref> *</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>stval</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cause</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cpuid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="243" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="243" bodyend="272" declfile="src/kernel/irq/irq.c" declline="224" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="irq_8c_1a5dc43942581aa4830113bfcd00fc3949" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_init_exception</definition>
+        <argsstring>()</argsstring>
+        <name>k_init_exception</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/irq/irq.c" line="226" column="6" bodyfile="src/kernel/irq/irq.c" bodystart="226" bodyend="241"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;<ref refid="atomic_8h" kindref="compound">asm/atomic.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="pgtable_8h" kindref="compound">asm/pgtable.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="privileged_8h" kindref="compound">asm/privileged.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="sbi_8h" kindref="compound">asm/sbi.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="arch_2riscv_2include_2asm_2syscall_8h" kindref="compound">asm/syscall.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="plic_8h" kindref="compound">drivers/plic/plic.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="virtio_8h" kindref="compound">drivers/virtio/virtio.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="assert_8h" kindref="compound">lib/assert.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="list_8h" kindref="compound">lib/list.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="stdio_8h" kindref="compound">lib/stdio.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="irq_8h" kindref="compound">os/irq.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="smp_8h" kindref="compound">os/smp.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="include_2os_2syscall_8h" kindref="compound">os/syscall.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><ref refid="irq_8h_1a0b931bafdc57df2a8c74294d4585ef38" kindref="member">handler_t</ref><sp/><ref refid="irq_8c_1a36a86609276b398aa7eb5d47adf012df" kindref="member">irq_table</ref>[<ref refid="irq_8h_1a8eed9f51a8fe7cce211d55016fa34380a9b352d5814f88a05620d0e0de9dc7d5c" kindref="member">IRQC_COUNT</ref>];</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><ref refid="irq_8h_1a0b931bafdc57df2a8c74294d4585ef38" kindref="member">handler_t</ref><sp/><ref refid="irq_8c_1a1bfb10be6317990a6a28d7a0fbf722b1" kindref="member">exc_table</ref>[<ref refid="irq_8h_1abcc8a7c57cd8becefbfd621dbff5ffd4a73eee780181fe4d5836562fc72e7c080" kindref="member">EXCC_COUNT</ref>];</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><ref refid="irq_8h_1a0b931bafdc57df2a8c74294d4585ef38" kindref="member">handler_t</ref><sp/><ref refid="irq_8c_1ad501f008ad2bbd64f9a64029a42bf7e1" kindref="member">irq_ext_table</ref>[<ref refid="irq_8h_1a0656ff783d807daeb1e21b8c29b9cfd3" kindref="member">PLIC_NR_IRQS</ref>];</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/><ref refid="irq_8c_1a1947fe6c9eeff0cf542dd6c5e2c3967a" kindref="member">riscv_dtb</ref>;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1ae72d8e23da34c758d3f860fc35d0016a" kindref="member">sys_undefined_syscall</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>interrupt,<sp/>uint64_t<sp/>cause);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1aa6e41eb17a307df20143dfc4aa6a8f6e" kindref="member">k_init_syscall</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="syscall__number_8h_1a378d5f7b0a0cdc5fc21b2bea873fdeac" kindref="member">NUM_SYSCALLS</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[i]<sp/>=<sp/>(long<sp/>(*)())<sp/>&amp;<sp/><ref refid="irq_8c_1ae72d8e23da34c758d3f860fc35d0016a" kindref="member">sys_undefined_syscall</ref>;<sp/></highlight><highlight class="comment">//<sp/>only<sp/>print<sp/>register<sp/>info</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>FS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1adad972f3197eb425927a6a9f4ee0ef6e" kindref="member">SYS_getcwd</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a8febdf58a0f5691f83349e95eae8d074" kindref="member">sys_getcwd</ref>;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a6e98a8f905993a259782ac57a85dbcfc" kindref="member">SYS_dup</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a3c4b72a274d8b87700a689b13b232c5b" kindref="member">sys_dup</ref>;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1aaa87b10f18cb891f9263472fe52a9a50" kindref="member">SYS_dup3</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a52646d65d2bce20361d7ba0784868e04" kindref="member">sys_dup3</ref>;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1acb934da72f3952f58e0317b00e4b29bc" kindref="member">SYS_mkdirat</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a9b352b5b74a2cd9b6aab5aef21f11872" kindref="member">sys_mkdirat</ref>;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1ada023f80dd6b43b2356faba9353e1856" kindref="member">SYS_unlinkat</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a5ef768b4960fc26d7237db1e53522ecb" kindref="member">sys_unlinkat</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a14862374076cfa604067beaa32f6d347" kindref="member">SYS_linkat</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a4b77d64a45fc749afe7885dd223f85a1" kindref="member">sys_linkat</ref>;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a4d2de10e70a83a4f3b57d7fc6ef272ae" kindref="member">SYS_umount2</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1ae98d4677cec7581b48efb2a2261cd61b" kindref="member">sys_umount2</ref>;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1ad0d778a1560bac993a094f181e512c9d" kindref="member">SYS_mount</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a17d30333f33f90c98570dc8c5f438283" kindref="member">sys_mount</ref>;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a02542ea0a822502c309e22863d71b849" kindref="member">SYS_chdir</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a7948e6c31a074f7d53aa5836fec7fe12" kindref="member">sys_chdir</ref>;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1adc8f5467b14f701dce000c7226575a6e" kindref="member">SYS_openat</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a8b008c50b5e190654619ffbbdfc8f1a4" kindref="member">sys_openat</ref>;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a8ac7ddcf0e4789f3e705f35b8da40af3" kindref="member">SYS_close</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a9d94cbe3ac3c59ac54d9e884a024d9c5" kindref="member">sys_close</ref>;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a2b74162da7b76787ef3a69ef13aba26c" kindref="member">SYS_pipe2</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a239a2e4b8412446aac813a9439350059" kindref="member">sys_pipe2</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1aff20c06a5c9a3d2f0a039a8741d11aa3" kindref="member">SYS_getdents64</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1afa7db92317ec016b54afebbbcc6b273a" kindref="member">sys_getdents64</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a4481bc3f0d65944cd6a9ecd6c5b93a55" kindref="member">SYS_read</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a538b392173a1c0fffcbed18345952d60" kindref="member">sys_read</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1aa7425a6f80dc9c0ec789079cb6547542" kindref="member">SYS_write</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a1669296484c126d069b1bceeb97af1e7" kindref="member">sys_write</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a71105a873ad172a54a16aa2f2d85534a" kindref="member">SYS_fstat</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1ab82f35605a94da4595380df6a1774b91" kindref="member">sys_fstat</ref>;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a8c1bfc3db75fdec6680ff99de3e7c803" kindref="member">SYS_munmap</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a1dd9fbbb6f39b66c936d6a283481149f" kindref="member">sys_munmap</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>syscall[SYS_mremap]<sp/>=<sp/>(long<sp/>(*)())sys_mremap;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1ae3d2e90b3cdfe8df1e6fcb09ae2cee24" kindref="member">SYS_mmap</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="fs_8c_1a42e383603cf330e3ef86bab31f7f8893" kindref="member">sys_mmap</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Terminal</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1abf29f9745bf1bfdc24ec62f135fe1a4c" kindref="member">SYS_uname</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="sys_8h_1ab1db879461c2e763546feb47ecbcb548" kindref="member">sys_uname</ref>;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1ad21e1ccef0a67a28fce46b0d4678c4b9" kindref="member">SYS_nanosleep</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1a85b5fc5efbbb65668438fecad67c06e4" kindref="member">sys_nanosleep</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a4433af982785f880ec47c983322a20e9" kindref="member">SYS_times</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="time_8h_1ac1449f007c2a4c074678ac82b7e761c8" kindref="member">sys_times</ref>;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a2bd4e4fe4a2db9a4af4a174b9bbc7c01" kindref="member">SYS_time</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="time_8h_1ad2a439cbb73c16f491163cdb4010c50d" kindref="member">sys_time</ref>;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a73fb0a2f77abad2ef9fa7824e21ba0e0" kindref="member">SYS_gettimeofday</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="time_8h_1ac0a572ef7aa1434e5a31bd166120f0f3" kindref="member">sys_gettimeofday</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a3b353897fe3a0e45e7ac7ba7f7d6ed5f" kindref="member">SYS_mailread</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="sync_8h_1ab303d9c3a5c4e2712c644968f4b012de" kindref="member">sys_mailread</ref>;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1acea5744c4783a3af791e81eada869e72" kindref="member">SYS_mailwrite</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="sync_8h_1ae16be0c336e7ed1f035243641179ba2a" kindref="member">sys_mailwrite</ref>;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Process<sp/>&amp;<sp/>Threads</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1ae72be7145975bab983df852500f507f4" kindref="member">SYS_kill</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1ab6bb3d2baf7ab70bf6e832bba98c5e31" kindref="member">sys_kill</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a9ffbbdd04d43fb4c0d05d4363d351772" kindref="member">SYS_exit</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1aa97ee001038378e557b20535e2347aed" kindref="member">sys_exit</ref>;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a4b343ed718d030851c3f496ad1e091de" kindref="member">SYS_clone</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1afe960c5f4c95cd9efa9f058741d089fa" kindref="member">sys_clone</ref>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a5acb0eedfc936e5835ab259a669d8183" kindref="member">SYS_execve</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1ae34299981375e7a3b8f691b4137a8213" kindref="member">sys_execve</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1acb9fcb954fbfd66a9447787ea8c0ae4a" kindref="member">SYS_wait4</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1a5ac8dc14c787aa11829c507e87c9b908" kindref="member">sys_wait4</ref>;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1ad49eb51546a2e6325605cc5960bf5cd1" kindref="member">SYS_spawn</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1a5a2119b4304437c4e3aff0e8c7484b1e" kindref="member">sys_spawn</ref>;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a7c3edea299ead2c36eb3a3deddd4f62f" kindref="member">SYS_sched_yield</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1aa38a6ba4849edd0e34a225dbb2975f94" kindref="member">sys_sched_yield</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a6775958f8805eee416083f71facb26a5" kindref="member">SYS_setpriority</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1a37c9544a2403eb490c70ddb6d9126030" kindref="member">sys_setpriority</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a3fd141a327a24c3254752a15eac71145" kindref="member">SYS_get_mempolicy</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1a762a6d6fd8537d9842e21faa0972abb1" kindref="member">sys_getpriority</ref>;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a7e0844c7709356d697013151cf51c69e" kindref="member">SYS_getpid</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1a3f6f6baa9b4585982911245d81a8aac8" kindref="member">sys_getpid</ref>;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a784a01e249e903ffe5ec3cb90c6e6251" kindref="member">SYS_getppid</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1ab35efd726514d8af8695b21b061f9b6d" kindref="member">sys_getppid</ref>;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a632bf5e95a556b9c999e8796985044b0" kindref="member">SYS_sched_setaffinity</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1a4f073b476c8bdff4947b84817ed4582c" kindref="member">sys_sched_setaffinity</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[SYS_process_show]<sp/>=<sp/>(long<sp/>(*)())<ref refid="pcb_8h_1a70451e498144bba3b0eda268e137e3e8" kindref="member">sys_process_show</ref>;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Memory</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1af108d15cba04878eac778176897d7b8a" kindref="member">SYS_brk</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="mm_8h_1ada51c92c7d14bf2ca5630a30e8c8e4f6" kindref="member">sys_brk</ref>;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Self<sp/>Defined</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a5808ba94a2e4e46b86c476d087e6649f" kindref="member">SYS_move_cursor</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="screen_8c_1add6d84ad5b56bf709147c47bab8051f4" kindref="member">sys_screen_move_cursor</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1ad11d376404a05544637faeab1aa21e9e" kindref="member">SYS_screen_clear</ref>]<sp/>=<sp/>(long<sp/>(*)())<ref refid="screen_8c_1ae1bab51fc7505f85540825f8161a1d67" kindref="member">sys_screen_clear</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1af13e5d949b692ee7785b7c8fe87d6e74" kindref="member">reset_irq_timer</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>note:<sp/>use<sp/>sbi_set_timer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>remember<sp/>to<sp/>reschedule</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>sbi_set_timer(<ref refid="time_8h_1a74c6574a43231a37176bb2156bfc4ee7" kindref="member">k_time_get_ticks</ref>()<sp/>+<sp/><ref refid="time_8h_1a78681f91a4ca23ff381300a0f8724c90" kindref="member">TICKS_INTERVAL</ref>);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1ab235dcbe70f00d25d99f6d0bce4ec087" kindref="member">k_pcb_scheduler</ref>();</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1aab45000cc578fd01564e38b8a42a0bd4" kindref="member">user_interrupt_helper</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>stval,<sp/>uint64_t<sp/>cause,<sp/>uint64_t<sp/>cpuid)<sp/>{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>call<sp/>corresponding<sp/>handler<sp/>by<sp/>the<sp/>value<sp/>of<sp/>`cause`</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="smp_8h_1ad98816cc172e077f1a7eaf7e9bf85eba" kindref="member">k_smp_lock_kernel</ref>();</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>now;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1afc69ba2cb0405d6e9b69eef60607f46c" kindref="member">k_time_get_utime</ref>(&amp;now);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>last_run;</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1a06a1833ccbcd5cc6f6629b246f6dfe61" kindref="member">k_time_minus_utime</ref>(&amp;now,<sp/>&amp;(*current_running)-&gt;utime_last,<sp/>&amp;last_run);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1a003938989bcf21f9ae02af2585f9f3d2" kindref="member">k_time_add_utime</ref>(&amp;last_run,<sp/>&amp;(*current_running)-&gt;resources.ru_utime,<sp/>&amp;(*current_running)-&gt;resources.ru_utime);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1aeffb4fbc5ea000e6ffe358743d817991" kindref="member">k_time_copy_utime</ref>(&amp;now,<sp/>&amp;(*current_running)-&gt;stime_last);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>check<sp/>=<sp/>cause;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(check<sp/>&gt;&gt;<sp/>63)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a36a86609276b398aa7eb5d47adf012df" kindref="member">irq_table</ref>[cause<sp/>-<sp/>((uint64_t)1<sp/>&lt;&lt;<sp/>63)](regs,<sp/>stval,<sp/>cause,<sp/>cpuid);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a1bfb10be6317990a6a28d7a0fbf722b1" kindref="member">exc_table</ref>[cause](regs,<sp/>stval,<sp/>cause,<sp/>cpuid);</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1afc69ba2cb0405d6e9b69eef60607f46c" kindref="member">k_time_get_utime</ref>(&amp;now);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1aeffb4fbc5ea000e6ffe358743d817991" kindref="member">k_time_copy_utime</ref>(&amp;now,<sp/>&amp;(*current_running)-&gt;utime_last);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1a06a1833ccbcd5cc6f6629b246f6dfe61" kindref="member">k_time_minus_utime</ref>(&amp;now,<sp/>&amp;(*current_running)-&gt;stime_last,<sp/>&amp;last_run);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1a003938989bcf21f9ae02af2585f9f3d2" kindref="member">k_time_add_utime</ref>(&amp;last_run,<sp/>&amp;(*current_running)-&gt;resources.ru_stime,<sp/>&amp;(*current_running)-&gt;resources.ru_stime);</highlight></codeline>
+<codeline lineno="104"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><ref refid="structspin__lock" kindref="compound">spin_lock_t</ref><sp/><ref refid="irq_8c_1ad09ecaf5565e9ad4734995e0c672272b" kindref="member">kernel_exception_lock</ref><sp/>=<sp/>{.<ref refid="structspin__lock_1a6fbe412af11a7bf0be214792088dac19" kindref="member">flag</ref><sp/>=<sp/><ref refid="lock_8h_1afa2ed542fe4226abf3cc19f5f16f439fa4ade5a087dd858a01c36ce7ad8f64e36" kindref="member">UNLOCKED</ref>};</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1a9cc8577978995d9fde6d11477fe444ba" kindref="member">kernel_interrupt_helper</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>stval,<sp/>uint64_t<sp/>cause,<sp/>uint64_t<sp/>cpuid)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1aa8b07da1c0d3b17f49429722404c9649" kindref="member">k_spin_lock_acquire</ref>(&amp;<ref refid="irq_8c_1ad09ecaf5565e9ad4734995e0c672272b" kindref="member">kernel_exception_lock</ref>);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a775dd48cd2188c627cbdd19b03b37212" kindref="member">current_running</ref><sp/>=<sp/><ref refid="smp_8h_1ad31b9c256d6f7d32ec99b5f892f40c8c" kindref="member">k_smp_get_current_running</ref>();</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>check<sp/>=<sp/>cause;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(check<sp/>&gt;&gt;<sp/>63)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a36a86609276b398aa7eb5d47adf012df" kindref="member">irq_table</ref>[cause<sp/>-<sp/>((uint64_t)1<sp/>&lt;&lt;<sp/>63)](regs,<sp/>stval,<sp/>cause,<sp/>cpuid);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a1bfb10be6317990a6a28d7a0fbf722b1" kindref="member">exc_table</ref>[cause](regs,<sp/>stval,<sp/>cause,<sp/>cpuid);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>sbi_set_timer(<ref refid="time_8h_1a74c6574a43231a37176bb2156bfc4ee7" kindref="member">k_time_get_ticks</ref>()<sp/>+<sp/><ref refid="time_8h_1a78681f91a4ca23ff381300a0f8724c90" kindref="member">TICKS_INTERVAL</ref>);</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1a25c026e475e11a6e312925223a3e9d34" kindref="member">k_spin_lock_release</ref>(&amp;<ref refid="irq_8c_1ad09ecaf5565e9ad4734995e0c672272b" kindref="member">kernel_exception_lock</ref>);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1ae8afb23725eefc4b8122e2b098471727" kindref="member">handle_int_irq</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>interrupt,<sp/>uint64_t<sp/>cause,<sp/>uint64_t<sp/>cpuid)<sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8c_1af13e5d949b692ee7785b7c8fe87d6e74" kindref="member">reset_irq_timer</ref>();</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1a29043b45d0b50f1bc174664f6ef07c0e" kindref="member">handle_ext_irq</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>interrupt,<sp/>uint64_t<sp/>cause,<sp/>uint64_t<sp/>cpuid)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>irq<sp/>=<sp/><ref refid="plic_8c_1a4cd6ff12109bfb9d663783e2104001c6" kindref="member">d_plic_claim</ref>();</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(irq)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="irq_8c_1ad501f008ad2bbd64f9a64029a42bf7e1" kindref="member">irq_ext_table</ref>[irq](regs,<sp/>interrupt,<sp/>cause,<sp/>cpuid);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="plic_8c_1a5b3c50ef143c61fbafa4705fd71c5a8c" kindref="member">d_plic_complete</ref>(irq);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1a4bb4a0c25612e40c2bc23dc73af365c0" kindref="member">handler_virtio_intr</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>stval,<sp/>uint64_t<sp/>cause,<sp/>uint64_t<sp/>cpuid)<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1aa8b07da1c0d3b17f49429722404c9649" kindref="member">k_spin_lock_acquire</ref>(&amp;<ref refid="structdisk" kindref="compound">disk</ref>.<ref refid="structdisk_1a68fda05cc6273072a123fddf6a69ae7a" kindref="member">vdisk_lock</ref>);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>device<sp/>won&apos;t<sp/>raise<sp/>another<sp/>interrupt<sp/>until<sp/>we<sp/>tell<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we&apos;ve<sp/>seen<sp/>this<sp/>interrupt,<sp/>which<sp/>the<sp/>following<sp/>line<sp/>does.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>may<sp/>race<sp/>with<sp/>the<sp/>device<sp/>writing<sp/>new<sp/>entries<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>&quot;used&quot;<sp/>ring,<sp/>in<sp/>which<sp/>case<sp/>we<sp/>may<sp/>process<sp/>the<sp/>new</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>completion<sp/>entries<sp/>in<sp/>this<sp/>interrupt,<sp/>and<sp/>have<sp/>nothing<sp/>to<sp/>do</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>in<sp/>the<sp/>next<sp/>interrupt,<sp/>which<sp/>is<sp/>harmless.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>device<sp/>increments<sp/>disk.used-&gt;idx<sp/>when<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>adds<sp/>an<sp/>entry<sp/>to<sp/>the<sp/>used<sp/>ring.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((<ref refid="structdisk" kindref="compound">disk</ref>.<ref refid="structdisk_1a5c4dc4614e9f8297f9daf23febdb5050" kindref="member">used_idx</ref><sp/>%<sp/><ref refid="virtio_8h_1a426aa6e3c35dfb88e15948652c6ebfc6" kindref="member">DESC_NUM</ref>)<sp/>!=<sp/>(<ref refid="structdisk" kindref="compound">disk</ref>.<ref refid="structdisk_1a058b2305d48e765acfa6119ae33b9744" kindref="member">used</ref>-&gt;<ref refid="structvring__used__area_1a934dbd2e49f0e5e93e0fbacadfbc37c3" kindref="member">id</ref><sp/>%<sp/><ref refid="virtio_8h_1a426aa6e3c35dfb88e15948652c6ebfc6" kindref="member">DESC_NUM</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal"><sp/>=<sp/><ref refid="structdisk" kindref="compound">disk</ref>.<ref refid="structdisk_1a058b2305d48e765acfa6119ae33b9744" kindref="member">used</ref>-&gt;<ref refid="structvring__used__area_1abc6101a7814451dae9c70cf376e58544" kindref="member">elems</ref>[<ref refid="structdisk" kindref="compound">disk</ref>.<ref refid="structdisk_1a5c4dc4614e9f8297f9daf23febdb5050" kindref="member">used_idx</ref>].<ref refid="structvring__used__elem_1a6c72e1ef35061bac3540fc0c53377b57" kindref="member">id</ref>;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structdisk" kindref="compound">disk</ref>.<ref refid="structdisk_1a928468fbe367e8e7c62511a56d010f6f" kindref="member">info</ref>[</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">].<ref refid="structdisk_1a9af27b68ec4562decb4e7d22a8685681" kindref="member">status</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>panic(</highlight><highlight class="stringliteral">&quot;d_virtio_disk_intr<sp/>status&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdisk" kindref="compound">disk</ref>.<ref refid="structdisk_1a928468fbe367e8e7c62511a56d010f6f" kindref="member">info</ref>[id].<ref refid="structdisk_1a0f33659319699168b62924bbb8557927" kindref="member">b</ref>-&gt;<ref refid="structbuf_1a598c840a233e368937d47cd1b7a5f3a2" kindref="member">disk</ref><sp/>=<sp/>0;<sp/></highlight><highlight class="comment">//<sp/>disk<sp/>is<sp/>done<sp/>with<sp/>buf</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>k_pcb_wakeup(disk.info[id].b);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structdisk" kindref="compound">disk</ref>.<ref refid="structdisk_1a5c4dc4614e9f8297f9daf23febdb5050" kindref="member">used_idx</ref><sp/>=<sp/>(<ref refid="structdisk" kindref="compound">disk</ref>.<ref refid="structdisk_1a5c4dc4614e9f8297f9daf23febdb5050" kindref="member">used_idx</ref><sp/>+<sp/>1)<sp/>%<sp/><ref refid="virtio_8h_1a426aa6e3c35dfb88e15948652c6ebfc6" kindref="member">DESC_NUM</ref>;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>*<ref refid="virtio_8h_1a80e6faf1cf09d43dab325b4fd98cddfd" kindref="member">R</ref>(<ref refid="virtio_8h_1a2bec6b89c384b4860985d98340a540d5" kindref="member">VIRTIO_MMIO_INTERRUPT_ACK</ref>)<sp/>=<sp/>*<ref refid="virtio_8h_1a80e6faf1cf09d43dab325b4fd98cddfd" kindref="member">R</ref>(<ref refid="virtio_8h_1ae8d1f2f787d1164fe9cc24b28bbc5c3c" kindref="member">VIRTIO_MMIO_INTERRUPT_STATUS</ref>)<sp/>&amp;<sp/>0x3;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1a25c026e475e11a6e312925223a3e9d34" kindref="member">k_spin_lock_release</ref>(&amp;<ref refid="structdisk" kindref="compound">disk</ref>.<ref refid="structdisk_1a68fda05cc6273072a123fddf6a69ae7a" kindref="member">vdisk_lock</ref>);</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><ref refid="pgtable_8h_1a84884de9218381c7120044a50c84eeba" kindref="member">PTE</ref><sp/>*<ref refid="irq_8c_1aa3f9a7235b6de1452d9903051121b57c" kindref="member">check_pf</ref>(uint64_t<sp/>va,<sp/><ref refid="pgtable_8h_1a84884de9218381c7120044a50c84eeba" kindref="member">PTE</ref><sp/>*pgdir)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>va<sp/>&amp;=<sp/><ref refid="pgtable_8h_1acb67b5f0a01a84ef93dc8b28a7b77da9" kindref="member">VA_MASK</ref>;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>vpn2<sp/>=<sp/>va<sp/>&gt;&gt;<sp/>(<ref refid="pgtable_8h_1a7fe96413b980b8b6c52da8ebb14154e8" kindref="member">NORMAL_PAGE_SHIFT</ref><sp/>+<sp/><ref refid="pgtable_8h_1aa1a27c70c3f03db1ed2cdaef15d5c2fa" kindref="member">PPN_BITS</ref><sp/>+<sp/><ref refid="pgtable_8h_1aa1a27c70c3f03db1ed2cdaef15d5c2fa" kindref="member">PPN_BITS</ref>);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>vpn1<sp/>=<sp/>(vpn2<sp/>&lt;&lt;<sp/><ref refid="pgtable_8h_1aa1a27c70c3f03db1ed2cdaef15d5c2fa" kindref="member">PPN_BITS</ref>)<sp/>^<sp/>(va<sp/>&gt;&gt;<sp/>(<ref refid="pgtable_8h_1a7fe96413b980b8b6c52da8ebb14154e8" kindref="member">NORMAL_PAGE_SHIFT</ref><sp/>+<sp/><ref refid="pgtable_8h_1aa1a27c70c3f03db1ed2cdaef15d5c2fa" kindref="member">PPN_BITS</ref>));</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>vpn0<sp/>=<sp/>((va<sp/>&gt;&gt;<sp/>(<ref refid="pgtable_8h_1a7fe96413b980b8b6c52da8ebb14154e8" kindref="member">NORMAL_PAGE_SHIFT</ref><sp/>+<sp/><ref refid="pgtable_8h_1aa1a27c70c3f03db1ed2cdaef15d5c2fa" kindref="member">PPN_BITS</ref>))<sp/>&lt;&lt;<sp/><ref refid="pgtable_8h_1aa1a27c70c3f03db1ed2cdaef15d5c2fa" kindref="member">PPN_BITS</ref>)<sp/>^<sp/>(va<sp/>&gt;&gt;<sp/>(<ref refid="pgtable_8h_1a7fe96413b980b8b6c52da8ebb14154e8" kindref="member">NORMAL_PAGE_SHIFT</ref>));</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pgdir[vpn2]<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pgtable_8h_1a84884de9218381c7120044a50c84eeba" kindref="member">PTE</ref><sp/>*pmd<sp/>=<sp/><ref refid="mm_8h_1a9fe3a67073555fa485dce879e75baffe" kindref="member">k_mm_get_kva</ref>(pgdir[vpn2]);</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pmd[vpn1]<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pgtable_8h_1a84884de9218381c7120044a50c84eeba" kindref="member">PTE</ref><sp/>*pld<sp/>=<sp/><ref refid="mm_8h_1a9fe3a67073555fa485dce879e75baffe" kindref="member">k_mm_get_kva</ref>(pmd[vpn1]);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pld[vpn0]<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;pld[vpn0];</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1a8ecc039a94290831df30bdce9bbc3754" kindref="member">handle_disk_exc</ref>(uint64_t<sp/>stval,<sp/><ref refid="pgtable_8h_1a84884de9218381c7120044a50c84eeba" kindref="member">PTE</ref><sp/>*pte_addr)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*cur<sp/>=<sp/>*<ref refid="pcb_8h_1a775dd48cd2188c627cbdd19b03b37212" kindref="member">current_running</ref>;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>newmem_addr<sp/>=<sp/><ref refid="mm_8h_1a0e15dde735f424123b40961751f40945" kindref="member">k_mm_alloc_mem</ref>(1,<sp/>stval);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mm_8h_1a88dba7dbe2c5f022becc2615e51fc92f" kindref="member">k_mm_map</ref>(stval,<sp/>kva2pa(newmem_addr),<sp/>(pa2kva(cur-&gt;<ref refid="structpcb_1a4c9597d737c8e1674c2f844b76b10aeb" kindref="member">pgdir</ref><sp/>&lt;&lt;<sp/>12)));</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="mm_8h_1a19b4b848312e9dbd2ad409ab3e96c0dc" kindref="member">k_mm_get_back_disk</ref>(stval,<sp/>newmem_addr);</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/>(*pte_addr)<sp/>=<sp/>(*pte_addr)<sp/>|<sp/>1;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1a2b626dabfdd22a7d1f4b42a490a316d7" kindref="member">handle_pf_exc</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>stval,<sp/>uint64_t<sp/>cause,<sp/>uint64_t<sp/>cpuid)<sp/>{</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*cur<sp/>=<sp/>*<ref refid="pcb_8h_1a775dd48cd2188c627cbdd19b03b37212" kindref="member">current_running</ref>;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pgtable_8h_1a84884de9218381c7120044a50c84eeba" kindref="member">PTE</ref><sp/>*pte_addr<sp/>=<sp/><ref refid="irq_8c_1aa3f9a7235b6de1452d9903051121b57c" kindref="member">check_pf</ref>(stval,<sp/>(pa2kva(cur-&gt;<ref refid="structpcb_1a4c9597d737c8e1674c2f844b76b10aeb" kindref="member">pgdir</ref><sp/>&lt;&lt;<sp/>12)));</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(pte_addr<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="pgtable_8h_1a84884de9218381c7120044a50c84eeba" kindref="member">PTE</ref><sp/>va_pte<sp/>=<sp/>*pte_addr;</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cause<sp/>==<sp/><ref refid="irq_8h_1abcc8a7c57cd8becefbfd621dbff5ffd4a659caea716f716b39c6394c1f7175d43" kindref="member">EXCC_STORE_PAGE_FAULT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>child<sp/>process</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cur-&gt;<ref refid="structpcb_1a231eaf6e04f879192b2fa61bc4665dde" kindref="member">father_pid</ref><sp/>!=<sp/>cur-&gt;<ref refid="structpcb_1a1da0b84097537a6227022e4328977916" kindref="member">pid</ref><sp/>&amp;&amp;<sp/>cur-&gt;<ref refid="structpcb_1a231eaf6e04f879192b2fa61bc4665dde" kindref="member">father_pid</ref><sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mm_8h_1aab68122be1820f55a6202989ad866daf" kindref="member">k_mm_fork_page_helper</ref>(stval,<sp/>(pa2kva(cur-&gt;<ref refid="structpcb_1a4c9597d737c8e1674c2f844b76b10aeb" kindref="member">pgdir</ref><sp/>&lt;&lt;<sp/>12)),<sp/>(pa2kva(<ref refid="structpcb" kindref="compound">pcb</ref>[cur-&gt;<ref refid="structpcb_1a231eaf6e04f879192b2fa61bc4665dde" kindref="member">father_pid</ref>].<ref refid="structpcb_1a4c9597d737c8e1674c2f844b76b10aeb" kindref="member">pgdir</ref><sp/>&lt;&lt;<sp/>12)));</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>father<sp/>process</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="pcb_8h_1ad907dc7ff26c1a93783a8d9acb32b5d4" kindref="member">NUM_MAX_CHILD</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cur-&gt;<ref refid="structpcb_1a0c21f904d8f109d1fcb20085141b5919" kindref="member">child_pids</ref>[i]<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mm_8h_1aab68122be1820f55a6202989ad866daf" kindref="member">k_mm_fork_page_helper</ref>(stval,<sp/>(pa2kva(<ref refid="structpcb" kindref="compound">pcb</ref>[cur-&gt;<ref refid="structpcb_1a0c21f904d8f109d1fcb20085141b5919" kindref="member">child_pids</ref>[i]].<ref refid="structpcb_1a4c9597d737c8e1674c2f844b76b10aeb" kindref="member">pgdir</ref><sp/>&lt;&lt;<sp/>12)),<sp/>(pa2kva(cur-&gt;<ref refid="structpcb_1a4c9597d737c8e1674c2f844b76b10aeb" kindref="member">pgdir</ref><sp/>&lt;&lt;<sp/>12)));</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pte_addr<sp/>=<sp/>(*pte_addr)<sp/>|<sp/>(3<sp/>&lt;&lt;<sp/>6);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pte_addr<sp/>=<sp/>(*pte_addr)<sp/>|<sp/>((uint64_t)1<sp/>&lt;&lt;<sp/>2);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cause<sp/>==<sp/><ref refid="irq_8h_1abcc8a7c57cd8becefbfd621dbff5ffd4a8a0e30d13500af3195f1afb68881409a" kindref="member">EXCC_INST_PAGE_FAULT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pte_addr<sp/>=<sp/>(*pte_addr)<sp/>|<sp/>(3<sp/>&lt;&lt;<sp/>6);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((((va_pte<sp/>&gt;&gt;<sp/>6)<sp/>&amp;<sp/>1)<sp/>==<sp/>0)<sp/>&amp;&amp;<sp/>(cause<sp/>==<sp/><ref refid="irq_8h_1abcc8a7c57cd8becefbfd621dbff5ffd4a45be00d55b54996ae71ff811f44393ef" kindref="member">EXCC_LOAD_PAGE_FAULT</ref>))<sp/>{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*pte_addr<sp/>=<sp/>(*pte_addr)<sp/>|<sp/>((uint64_t)1<sp/>&lt;&lt;<sp/>6);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((va_pte<sp/>&amp;<sp/>1)<sp/>==<sp/>0)<sp/>{<sp/></highlight><highlight class="comment">//<sp/>physical<sp/>frame<sp/>was<sp/>on<sp/>disk</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a8ecc039a94290831df30bdce9bbc3754" kindref="member">handle_disk_exc</ref>(stval,<sp/>pte_addr);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{<sp/></highlight><highlight class="comment">//<sp/>No<sp/>virtual-physical<sp/>map</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="mm_8h_1a0ac89a697d37de67b2f7a8861c3a1e8e" kindref="member">k_mm_alloc_page_helper</ref>(stval,<sp/>(pa2kva(cur-&gt;<ref refid="structpcb_1a4c9597d737c8e1674c2f844b76b10aeb" kindref="member">pgdir</ref><sp/>&lt;&lt;<sp/>12)));</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>local_flush_tlb_all();</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1a5d7df3208bcaf0e96c8978746974ca4b" kindref="member">handle_other</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>stval,<sp/>uint64_t<sp/>cause,<sp/>uint64_t<sp/>cpuid);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1a5dc43942581aa4830113bfcd00fc3949" kindref="member">k_init_exception</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="irq_8h_1a8eed9f51a8fe7cce211d55016fa34380a9b352d5814f88a05620d0e0de9dc7d5c" kindref="member">IRQC_COUNT</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a36a86609276b398aa7eb5d47adf012df" kindref="member">irq_table</ref>[i]<sp/>=<sp/><ref refid="irq_8c_1a5d7df3208bcaf0e96c8978746974ca4b" kindref="member">handle_other</ref>;</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a36a86609276b398aa7eb5d47adf012df" kindref="member">irq_table</ref>[<ref refid="irq_8h_1a8eed9f51a8fe7cce211d55016fa34380a992f577385ca798460c3830e922f00f1" kindref="member">IRQC_S_TIMER</ref>]<sp/>=<sp/><ref refid="irq_8c_1ae8afb23725eefc4b8122e2b098471727" kindref="member">handle_int_irq</ref>;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a36a86609276b398aa7eb5d47adf012df" kindref="member">irq_table</ref>[<ref refid="irq_8h_1a8eed9f51a8fe7cce211d55016fa34380a24e09896b8a5699dc0b34a697ba9f802" kindref="member">IRQC_U_EXT</ref>]<sp/>=<sp/><ref refid="irq_8c_1a29043b45d0b50f1bc174664f6ef07c0e" kindref="member">handle_ext_irq</ref>;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a36a86609276b398aa7eb5d47adf012df" kindref="member">irq_table</ref>[<ref refid="irq_8h_1a8eed9f51a8fe7cce211d55016fa34380a35018308a776e2fa55191d6a5920ab3e" kindref="member">IRQC_S_EXT</ref>]<sp/>=<sp/><ref refid="irq_8c_1a29043b45d0b50f1bc174664f6ef07c0e" kindref="member">handle_ext_irq</ref>;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="irq_8h_1abcc8a7c57cd8becefbfd621dbff5ffd4a73eee780181fe4d5836562fc72e7c080" kindref="member">EXCC_COUNT</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a1bfb10be6317990a6a28d7a0fbf722b1" kindref="member">exc_table</ref>[i]<sp/>=<sp/><ref refid="irq_8c_1a5d7df3208bcaf0e96c8978746974ca4b" kindref="member">handle_other</ref>;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a1bfb10be6317990a6a28d7a0fbf722b1" kindref="member">exc_table</ref>[<ref refid="irq_8h_1abcc8a7c57cd8becefbfd621dbff5ffd4ae23b1bef48c6846e03faa67799aba850" kindref="member">EXCC_SYSCALL</ref>]<sp/>=<sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1a7d4c1c0a8e5531511ace57e76ca4cf52" kindref="member">handle_syscall_exc</ref>;</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a1bfb10be6317990a6a28d7a0fbf722b1" kindref="member">exc_table</ref>[<ref refid="irq_8h_1abcc8a7c57cd8becefbfd621dbff5ffd4a45be00d55b54996ae71ff811f44393ef" kindref="member">EXCC_LOAD_PAGE_FAULT</ref>]<sp/>=<sp/><ref refid="irq_8c_1a2b626dabfdd22a7d1f4b42a490a316d7" kindref="member">handle_pf_exc</ref>;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a1bfb10be6317990a6a28d7a0fbf722b1" kindref="member">exc_table</ref>[<ref refid="irq_8h_1abcc8a7c57cd8becefbfd621dbff5ffd4a659caea716f716b39c6394c1f7175d43" kindref="member">EXCC_STORE_PAGE_FAULT</ref>]<sp/>=<sp/><ref refid="irq_8c_1a2b626dabfdd22a7d1f4b42a490a316d7" kindref="member">handle_pf_exc</ref>;</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a1bfb10be6317990a6a28d7a0fbf722b1" kindref="member">exc_table</ref>[<ref refid="irq_8h_1abcc8a7c57cd8becefbfd621dbff5ffd4a8a0e30d13500af3195f1afb68881409a" kindref="member">EXCC_INST_PAGE_FAULT</ref>]<sp/>=<sp/><ref refid="irq_8c_1a2b626dabfdd22a7d1f4b42a490a316d7" kindref="member">handle_pf_exc</ref>;</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8c_1ad501f008ad2bbd64f9a64029a42bf7e1" kindref="member">irq_ext_table</ref>[<ref refid="irq_8h_1a3e2311e2fd275e62c8f5dd38da16d61faee72e33a24a0011f8c79c7fb948250eb" kindref="member">IRQC_EXT_VIRTIO_BLK_IEQ</ref>]<sp/>=<sp/><ref refid="irq_8c_1a4bb4a0c25612e40c2bc23dc73af365c0" kindref="member">handler_virtio_intr</ref>;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1a5d7df3208bcaf0e96c8978746974ca4b" kindref="member">handle_other</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>stval,<sp/>uint64_t<sp/>cause,<sp/>uint64_t<sp/>cpuid)<sp/>{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" kindref="member">prints</ref>(</highlight><highlight class="stringliteral">&quot;cpuid:<sp/>%d\n&quot;</highlight><highlight class="normal">,<sp/>cpuid);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*reg_name[]<sp/>=<sp/>{</highlight><highlight class="stringliteral">&quot;<sp/>ra<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>sp<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>gp<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>tp<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>t0<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>t1<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>t2<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;s0/fp&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s1<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>a0<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>a1<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>a2<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>a3<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>a4<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>a5<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>a6<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>a7<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s2<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s3<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s4<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s5<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s6<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s7<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s8<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s9<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s10<sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>s11<sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>t3<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>t4<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>t5<sp/><sp/>&quot;</highlight><highlight class="normal">,<sp/></highlight><highlight class="stringliteral">&quot;<sp/>t6<sp/><sp/>&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="context_8h_1ab869aafed59eee886c80f153c1c44e82" kindref="member">NORMAL_REGS_NUM</ref>;<sp/>i<sp/>+=<sp/>3)<sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>3<sp/>&amp;&amp;<sp/>i<sp/>+<sp/>j<sp/>&lt;<sp/>32;<sp/>++j)<sp/>{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" kindref="member">prints</ref>(</highlight><highlight class="stringliteral">&quot;%s<sp/>:<sp/>%016lx<sp/>&quot;</highlight><highlight class="normal">,<sp/>reg_name[i<sp/>+<sp/>j],<sp/>regs-&gt;<ref refid="structregs__context_1a0f594561b5a209149c4d59f665d23a56" kindref="member">regs</ref>[i<sp/>+<sp/>j]);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" kindref="member">prints</ref>(</highlight><highlight class="stringliteral">&quot;\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" kindref="member">prints</ref>(</highlight><highlight class="stringliteral">&quot;sstatus:<sp/>0x%lx<sp/>sbadaddr:<sp/>0x%lx<sp/>scause:<sp/>%lx\n\r&quot;</highlight><highlight class="normal">,<sp/>regs-&gt;<ref refid="structregs__context_1a18aef6806d4b8f624a6623f0ac182997" kindref="member">sstatus</ref>,<sp/>regs-&gt;<ref refid="structregs__context_1ab8eb6e17d289be7233fae337c5207a60" kindref="member">sbadaddr</ref>,<sp/>regs-&gt;<ref refid="structregs__context_1a5dd885f66475d14f5f315ebb0d82ac10" kindref="member">scause</ref>);</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" kindref="member">prints</ref>(</highlight><highlight class="stringliteral">&quot;stval:<sp/>0x%lx<sp/>cause:<sp/>%lx\n\r&quot;</highlight><highlight class="normal">,<sp/>stval,<sp/>cause);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" kindref="member">prints</ref>(</highlight><highlight class="stringliteral">&quot;sepc:<sp/>0x%lx\n\r&quot;</highlight><highlight class="normal">,<sp/>regs-&gt;<ref refid="structregs__context_1a9a04a0b6d3889115e63084b55cd5f37c" kindref="member">sepc</ref>);</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>k_print(&quot;mhartid:<sp/>0x%lx\n\r&quot;,<sp/>k_smp_get_current_cpu_id());</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>fp<sp/>=<sp/>regs-&gt;<ref refid="structregs__context_1a0f594561b5a209149c4d59f665d23a56" kindref="member">regs</ref>[8],<sp/>sp<sp/>=<sp/>regs-&gt;<ref refid="structregs__context_1a0f594561b5a209149c4d59f665d23a56" kindref="member">regs</ref>[2];</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" kindref="member">prints</ref>(</highlight><highlight class="stringliteral">&quot;[Backtrace]\n\r&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" kindref="member">prints</ref>(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>addr:<sp/>%lx<sp/>sp:<sp/>%lx<sp/>fp:<sp/>%lx\n\r&quot;</highlight><highlight class="normal">,<sp/>regs-&gt;<ref refid="structregs__context_1a0f594561b5a209149c4d59f665d23a56" kindref="member">regs</ref>[1]<sp/>-<sp/>4,<sp/>sp,<sp/>fp);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>while<sp/>(fp<sp/>&lt;<sp/>USER_STACK_ADDR<sp/>&amp;&amp;<sp/>fp<sp/>&gt;<sp/>USER_STACK_ADDR<sp/>-<sp/>PAGE_SIZE)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(fp<sp/>&gt;<sp/>0x10000)<sp/>{</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>prev_ra<sp/>=<sp/>*(<ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>*)(fp<sp/>-<sp/>8);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>prev_fp<sp/>=<sp/>*(<ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>*)(fp<sp/>-<sp/>16);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" kindref="member">prints</ref>(</highlight><highlight class="stringliteral">&quot;<sp/><sp/>addr:<sp/>%lx<sp/>sp:<sp/>%lx<sp/>fp:<sp/>%lx\n\r&quot;</highlight><highlight class="normal">,<sp/>prev_ra<sp/>-<sp/>4,<sp/>fp,<sp/>prev_fp);</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fp<sp/>=<sp/>prev_fp;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="assert_8h_1a3153a272f18d0f805028fce7e4337b53" kindref="member">assert</ref>(0);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="irq_8c_1ae72d8e23da34c758d3f860fc35d0016a" kindref="member">sys_undefined_syscall</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>interrupt,<sp/>uint64_t<sp/>cause)<sp/>{</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="stdio_8h_1a06d03ddc23233f125efb5d5daf6fcf79" kindref="member">k_print</ref>(</highlight><highlight class="stringliteral">&quot;&gt;[ERROR]<sp/>unkonwn<sp/>syscall,<sp/>undefined<sp/>syscall<sp/>number:<sp/>%d\n!&quot;</highlight><highlight class="normal">,<sp/>regs-&gt;<ref refid="structregs__context_1a0f594561b5a209149c4d59f665d23a56" kindref="member">regs</ref>[17]);</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8c_1a5d7df3208bcaf0e96c8978746974ca4b" kindref="member">handle_other</ref>(regs,<sp/>interrupt,<sp/>cause,<sp/><ref refid="smp_8h_1af01b72c2ec67649abee4185ad9d9fa34" kindref="member">k_smp_get_current_cpu_id</ref>());</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/kernel/irq/irq.c"/>
+  </compounddef>
+</doxygen>

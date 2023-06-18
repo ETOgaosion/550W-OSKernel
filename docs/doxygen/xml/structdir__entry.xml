@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structdir__entry" kind="struct" language="C++" prot="public">
+    <compoundname>dir_entry</compoundname>
+    <includes refid="fs_8h" local="no">fs.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdir__entry_1a30377ae9f18c4110c62527cd2e0ff036" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char dir_entry::name[20]</definition>
+        <argsstring>[20]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="48" column="10" bodyfile="src/fs/fs.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdir__entry_1aad84f5f6f839aab465ef48eb1242ba18" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int dir_entry::inode_id</definition>
+        <argsstring></argsstring>
+        <name>inode_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="49" column="9" bodyfile="src/fs/fs.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdir__entry_1a0f1bee834016954567d63158f45184bc" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int dir_entry::last</definition>
+        <argsstring></argsstring>
+        <name>last</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="50" column="9" bodyfile="src/fs/fs.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdir__entry_1a913b0765e55c5e041cfec39474019da9" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int dir_entry::mode</definition>
+        <argsstring></argsstring>
+        <name>mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="51" column="9" bodyfile="src/fs/fs.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/fs/fs.h" line="47" column="1" bodyfile="src/fs/fs.h" bodystart="47" bodyend="52"/>
+    <listofallmembers>
+      <member refid="structdir__entry_1aad84f5f6f839aab465ef48eb1242ba18" prot="public" virt="non-virtual"><scope>dir_entry</scope><name>inode_id</name></member>
+      <member refid="structdir__entry_1a0f1bee834016954567d63158f45184bc" prot="public" virt="non-virtual"><scope>dir_entry</scope><name>last</name></member>
+      <member refid="structdir__entry_1a913b0765e55c5e041cfec39474019da9" prot="public" virt="non-virtual"><scope>dir_entry</scope><name>mode</name></member>
+      <member refid="structdir__entry_1a30377ae9f18c4110c62527cd2e0ff036" prot="public" virt="non-virtual"><scope>dir_entry</scope><name>name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

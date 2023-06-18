@@ -1,0 +1,854 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="file_8h" kind="file" language="C++">
+    <compoundname>file.h</compoundname>
+    <includes refid="types_8h" local="no">common/types.h</includes>
+    <includes refid="list_8h" local="no">lib/list.h</includes>
+    <includes refid="string_8h" local="no">lib/string.h</includes>
+    <includes refid="lock_8h" local="no">os/lock.h</includes>
+    <includes refid="mm_8h" local="no">os/mm.h</includes>
+    <includedby refid="fd_8c" local="no">src/fs/fd.c</includedby>
+    <includedby refid="fs_8c" local="no">src/fs/fs.c</includedby>
+    <includedby refid="main_8c" local="no">src/init/main.c</includedby>
+    <incdepgraph>
+      <node id="7">
+        <label>os/mm.h</label>
+        <link refid="mm_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="2">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/fs/file.h</label>
+        <link refid="file_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>os/lock.h</label>
+        <link refid="lock_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>lib/list.h</label>
+        <link refid="list_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>src/fs/fs.c</label>
+        <link refid="fs_8c"/>
+      </node>
+      <node id="4">
+        <label>src/init/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="2">
+        <label>src/fs/fd.c</label>
+        <link refid="fd_8c"/>
+      </node>
+      <node id="1">
+        <label>src/fs/file.h</label>
+        <link refid="file_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structfd" prot="public">fd</innerclass>
+    <innerclass refid="structring__buffer" prot="public">ring_buffer</innerclass>
+    <innerclass refid="structpipe" prot="public">pipe</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="file_8h_1a7a68c9ffaac7dbcd652225dd7c06a54b" prot="public" static="no">
+        <name>O_RDONLY</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="11" column="9" bodyfile="src/fs/file.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1a11b644a8526139c4cc1850dac1271ced" prot="public" static="no">
+        <name>O_WRONLY</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="12" column="9" bodyfile="src/fs/file.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1abb0586253488ee61072b73557eeb873b" prot="public" static="no">
+        <name>O_RDWR</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="13" column="9" bodyfile="src/fs/file.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1ab40a23079c3b9a7e25ffdc8108c7fb02" prot="public" static="no">
+        <name>O_CREATE</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="15" column="9" bodyfile="src/fs/file.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1a6afd3dd2f570069804b40e6aa24fc966" prot="public" static="no">
+        <name>O_DIRECTORY</name>
+        <initializer>0x0200000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="16" column="9" bodyfile="src/fs/file.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1a301749b9aa4b9416c329bb8b19345216" prot="public" static="no">
+        <name>AT_FDCWD</name>
+        <initializer>-100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="18" column="9" bodyfile="src/fs/file.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1a18f47dae5e59e6683441ef49754fe068" prot="public" static="no">
+        <name>AT_REMOVEDIR</name>
+        <initializer>0x200 /* Remove directory instead of unlinking file.  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="19" column="9" bodyfile="src/fs/file.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1afd709f201d7643c3909621f620ea648a" prot="public" static="no">
+        <name>MAX_NAME_LEN</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="21" column="9" bodyfile="src/fs/file.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1ae9c7a3fcf619f9aeb244f8e85a68097f" prot="public" static="no">
+        <name>MAX_FD</name>
+        <initializer>200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="108" column="9" bodyfile="src/fs/file.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1a779b513296068d2a6186659183ff3c2c" prot="public" static="no">
+        <name>RING_BUFFER_SIZE</name>
+        <initializer>4095</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="117" column="9" bodyfile="src/fs/file.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1aa166a3b17678004094547794e960f77d" prot="public" static="no">
+        <name>PIPE_NUM</name>
+        <initializer>200</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="138" column="9" bodyfile="src/fs/file.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="file_8h_1abb702d8b501669a23aa0ab3b281b9384" prot="public" static="no">
+        <name>min</name>
+        <param><defname>x</defname></param>
+        <param><defname>y</defname></param>
+        <initializer>((x) &lt; (y) ? (x) : (y))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="172" column="9" bodyfile="src/fs/file.h" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="file_8h_1ac54958894c7df05a6ccda429331e0ddf" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t fd_num_t</definition>
+        <argsstring></argsstring>
+        <name>fd_num_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="23" column="18" bodyfile="src/fs/file.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="file_8h_1a4e39a1620e57d44a47f9e862b4cfebce" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t pipe_num_t</definition>
+        <argsstring></argsstring>
+        <name>pipe_num_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="24" column="18" bodyfile="src/fs/file.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="file_8h_1a25ab4acd63db23ce8ebc580b48d6c32f" prot="public" static="no">
+        <type>uint64_t</type>
+        <definition>typedef uint64_t dev_t</definition>
+        <argsstring></argsstring>
+        <name>dev_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="25" column="18" bodyfile="src/fs/file.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="file_8h_1a05e26458c6a667897adbdb68b1ad6857" prot="public" static="no">
+        <type>uint64_t</type>
+        <definition>typedef uint64_t ino_t</definition>
+        <argsstring></argsstring>
+        <name>ino_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="26" column="18" bodyfile="src/fs/file.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t mode_t</definition>
+        <argsstring></argsstring>
+        <name>mode_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="27" column="18" bodyfile="src/fs/file.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="file_8h_1a9e3c03dae15b90102eb1770dd95adadc" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t nlink_t</definition>
+        <argsstring></argsstring>
+        <name>nlink_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="28" column="18" bodyfile="src/fs/file.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="file_8h_1af2306308627701b66dc6f3babe821ab4" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t uid_t</definition>
+        <argsstring></argsstring>
+        <name>uid_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="29" column="18" bodyfile="src/fs/file.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="file_8h_1aa7352f1065fe606194d792e2b292cf83" prot="public" static="no">
+        <type>uint32_t</type>
+        <definition>typedef uint32_t gid_t</definition>
+        <argsstring></argsstring>
+        <name>gid_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="30" column="18" bodyfile="src/fs/file.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="file_8h_1a053c614b69adbac710bb132a6eb9ccf6" prot="public" static="no">
+        <type>int64_t</type>
+        <definition>typedef int64_t off_t</definition>
+        <argsstring></argsstring>
+        <name>off_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="31" column="17" bodyfile="src/fs/file.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="file_8h_1adc00d5703f6722526aeda522247c3ec6" prot="public" static="no">
+        <type>struct <ref refid="structfd" kindref="compound">fd</ref></type>
+        <definition>typedef struct fd fd_t</definition>
+        <argsstring></argsstring>
+        <name>fd_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="105" column="6"/>
+      </memberdef>
+      <memberdef kind="typedef" id="file_8h_1a6e56d0e85fc7914f204312ebf0b15fea" prot="public" static="no">
+        <type>struct <ref refid="structpipe" kindref="compound">pipe</ref></type>
+        <definition>typedef struct pipe pipe_t</definition>
+        <argsstring></argsstring>
+        <name>pipe_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="137" column="8"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="file_8h_1a5929f8b32860acf2a9d2216f1c4493f8" prot="public" static="no" mutable="no">
+        <type><ref refid="file_8h_1adc00d5703f6722526aeda522247c3ec6" kindref="member">fd_t</ref></type>
+        <definition>fd_t fd_table[MAX_FD]</definition>
+        <argsstring>[MAX_FD]</argsstring>
+        <name>fd_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="109" column="13" bodyfile="src/fs/fd.c" bodystart="7" bodyend="-1" declfile="src/fs/file.h" declline="109" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="file_8h_1a8025a26fe82fa76119549722ae508993" prot="public" static="no" mutable="no">
+        <type><ref refid="file_8h_1a6e56d0e85fc7914f204312ebf0b15fea" kindref="member">pipe_t</ref></type>
+        <definition>pipe_t pipe_table[PIPE_NUM]</definition>
+        <argsstring>[PIPE_NUM]</argsstring>
+        <name>pipe_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="139" column="15" bodyfile="src/fs/fd.c" bodystart="8" bodyend="-1" declfile="src/fs/file.h" declline="139" declcolumn="15"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="file_8h_1a6cb1ecabc3abc6e1cdfac5f1ea59dbcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fd_table_init</definition>
+        <argsstring>()</argsstring>
+        <name>fd_table_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="111" column="12" bodyfile="src/fs/fd.c" bodystart="11" bodyend="24" declfile="src/fs/file.h" declline="111" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1a0d55425e16feb3bea1363d51fdf3a094" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fd_alloc</definition>
+        <argsstring>()</argsstring>
+        <name>fd_alloc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="112" column="12" bodyfile="src/fs/fd.c" bodystart="26" bodyend="36" declfile="src/fs/file.h" declline="112" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1a8f91d1842f703d4598574b0bcb74e8cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="file_8h_1adc00d5703f6722526aeda522247c3ec6" kindref="member">fd_t</ref> *</type>
+        <definition>fd_t* fd_alloc_spec</definition>
+        <argsstring>(int fd)</argsstring>
+        <name>fd_alloc_spec</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="113" column="6" bodyfile="src/fs/fd.c" bodystart="70" bodyend="76" declfile="src/fs/file.h" declline="113" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1ac7a4c8f3c3f91405b5f70fdc19533a16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fd_free</definition>
+        <argsstring>(int fd)</argsstring>
+        <name>fd_free</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="114" column="12" bodyfile="src/fs/fd.c" bodystart="78" bodyend="88" declfile="src/fs/file.h" declline="114" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1a15dcc53ce1c457472fc819d1ab3cf5e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="file_8h_1adc00d5703f6722526aeda522247c3ec6" kindref="member">fd_t</ref> *</type>
+        <definition>fd_t* get_fd</definition>
+        <argsstring>(int fd)</argsstring>
+        <name>get_fd</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="115" column="13" bodyfile="src/fs/fd.c" bodystart="90" bodyend="95" declfile="src/fs/file.h" declline="115" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1a547b443fd97255c9aee93ea57d113518" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int pipe_alloc</definition>
+        <argsstring>(int *fd)</argsstring>
+        <name>pipe_alloc</name>
+        <param>
+          <type>int *</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="140" column="12" bodyfile="src/fs/fd.c" bodystart="38" bodyend="68" declfile="src/fs/file.h" declline="140" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1a66278a5b48c7b0c3f6049bd9d4c880c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ring_buffer_init</definition>
+        <argsstring>(struct ring_buffer *rbuf)</argsstring>
+        <name>ring_buffer_init</name>
+        <param>
+          <type>struct <ref refid="structring__buffer" kindref="compound">ring_buffer</ref> *</type>
+          <declname>rbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="142" column="6" bodyfile="src/fs/fd.c" bodystart="97" bodyend="106" declfile="src/fs/file.h" declline="142" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1a125a6cf41183cdb8322821120849de42" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int ring_buffer_used</definition>
+        <argsstring>(struct ring_buffer *rbuf)</argsstring>
+        <name>ring_buffer_used</name>
+        <param>
+          <type>struct <ref refid="structring__buffer" kindref="compound">ring_buffer</ref> *</type>
+          <declname>rbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="154" column="19" bodyfile="src/fs/file.h" bodystart="154" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1a51a7f4575b8105c4a5667a08c1cf34e6" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int ring_buffer_free</definition>
+        <argsstring>(struct ring_buffer *rbuf)</argsstring>
+        <name>ring_buffer_free</name>
+        <param>
+          <type>struct <ref refid="structring__buffer" kindref="compound">ring_buffer</ref> *</type>
+          <declname>rbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="158" column="19" bodyfile="src/fs/file.h" bodystart="158" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1a05d0564a67acfd602d845cd0c1dfde47" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int ring_buffer_empty</definition>
+        <argsstring>(struct ring_buffer *rbuf)</argsstring>
+        <name>ring_buffer_empty</name>
+        <param>
+          <type>struct <ref refid="structring__buffer" kindref="compound">ring_buffer</ref> *</type>
+          <declname>rbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="163" column="19" bodyfile="src/fs/file.h" bodystart="163" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1a60639f34a05fcf7b79b77d5a9d6dace3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int ring_buffer_full</definition>
+        <argsstring>(struct ring_buffer *rbuf)</argsstring>
+        <name>ring_buffer_full</name>
+        <param>
+          <type>struct <ref refid="structring__buffer" kindref="compound">ring_buffer</ref> *</type>
+          <declname>rbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="167" column="19" bodyfile="src/fs/file.h" bodystart="167" bodyend="169"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1aee3154a72fa1e4fe6f9029c8df731a07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+        <definition>size_t read_ring_buffer</definition>
+        <argsstring>(struct ring_buffer *rbuf, uint8_t *buf, size_t size)</argsstring>
+        <name>read_ring_buffer</name>
+        <param>
+          <type>struct <ref refid="structring__buffer" kindref="compound">ring_buffer</ref> *</type>
+          <declname>rbuf</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="175" column="8" bodyfile="src/fs/fd.c" bodystart="108" bodyend="125" declfile="src/fs/file.h" declline="175" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="file_8h_1ad1fb461c9d33d7c8c7dc4fb4674afae7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+        <definition>size_t write_ring_buffer</definition>
+        <argsstring>(struct ring_buffer *rbuf, uint8_t *buf, size_t size)</argsstring>
+        <name>write_ring_buffer</name>
+        <param>
+          <type>struct <ref refid="structring__buffer" kindref="compound">ring_buffer</ref> *</type>
+          <declname>rbuf</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="196" column="8" bodyfile="src/fs/fd.c" bodystart="126" bodyend="145" declfile="src/fs/file.h" declline="196" declcolumn="8"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">common/types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="list_8h" kindref="compound">lib/list.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="string_8h" kindref="compound">lib/string.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="lock_8h" kindref="compound">os/lock.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="mm_8h" kindref="compound">os/mm.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&lt;os/errno.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>flags</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="file_8h_1a7a68c9ffaac7dbcd652225dd7c06a54b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>O_RDONLY<sp/>0x00</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="file_8h_1a11b644a8526139c4cc1850dac1271ced" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>O_WRONLY<sp/>0x01</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="file_8h_1abb0586253488ee61072b73557eeb873b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>O_RDWR<sp/>0x02<sp/></highlight><highlight class="comment">//<sp/>可读可写</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>O_CREATE<sp/>0x200</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="file_8h_1ab40a23079c3b9a7e25ffdc8108c7fb02" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>O_CREATE<sp/>0x40</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="file_8h_1a6afd3dd2f570069804b40e6aa24fc966" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>O_DIRECTORY<sp/>0x0200000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="file_8h_1a301749b9aa4b9416c329bb8b19345216" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AT_FDCWD<sp/>-100</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="file_8h_1a18f47dae5e59e6683441ef49754fe068" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>AT_REMOVEDIR<sp/>0x200<sp/></highlight><highlight class="comment">/*<sp/>Remove<sp/>directory<sp/>instead<sp/>of<sp/>unlinking<sp/>file.<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="file_8h_1afd709f201d7643c3909621f620ea648a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_NAME_LEN<sp/>256</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="file_8h_1ac54958894c7df05a6ccda429331e0ddf" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="file_8h_1ac54958894c7df05a6ccda429331e0ddf" kindref="member">fd_num_t</ref>;</highlight></codeline>
+<codeline lineno="24" refid="file_8h_1a4e39a1620e57d44a47f9e862b4cfebce" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="file_8h_1a4e39a1620e57d44a47f9e862b4cfebce" kindref="member">pipe_num_t</ref>;</highlight></codeline>
+<codeline lineno="25" refid="file_8h_1a25ab4acd63db23ce8ebc580b48d6c32f" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="file_8h_1a25ab4acd63db23ce8ebc580b48d6c32f" kindref="member">dev_t</ref>;</highlight></codeline>
+<codeline lineno="26" refid="file_8h_1a05e26458c6a667897adbdb68b1ad6857" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="file_8h_1a05e26458c6a667897adbdb68b1ad6857" kindref="member">ino_t</ref>;</highlight></codeline>
+<codeline lineno="27" refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref>;</highlight></codeline>
+<codeline lineno="28" refid="file_8h_1a9e3c03dae15b90102eb1770dd95adadc" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="file_8h_1a9e3c03dae15b90102eb1770dd95adadc" kindref="member">nlink_t</ref>;</highlight></codeline>
+<codeline lineno="29" refid="file_8h_1af2306308627701b66dc6f3babe821ab4" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="file_8h_1af2306308627701b66dc6f3babe821ab4" kindref="member">uid_t</ref>;</highlight></codeline>
+<codeline lineno="30" refid="file_8h_1aa7352f1065fe606194d792e2b292cf83" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint32_t<sp/><ref refid="file_8h_1aa7352f1065fe606194d792e2b292cf83" kindref="member">gid_t</ref>;</highlight></codeline>
+<codeline lineno="31" refid="file_8h_1a053c614b69adbac710bb132a6eb9ccf6" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>int64_t<sp/><ref refid="file_8h_1a053c614b69adbac710bb132a6eb9ccf6" kindref="member">off_t</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="structfd" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structfd" kindref="compound">fd</ref><sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>file<sp/>or<sp/>dir?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="structfd_1a18bc3b87f2dac145f951518a964fe306" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structfd_1a18bc3b87f2dac145f951518a964fe306" kindref="member">file</ref>;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>file<sp/>or<sp/>dir<sp/>name<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="structfd_1a8ae494856c95ccc9dc7fadc4423471f6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structfd_1a8ae494856c95ccc9dc7fadc4423471f6" kindref="member">name</ref>[<ref refid="file_8h_1afd709f201d7643c3909621f620ea648a" kindref="member">MAX_NAME_LEN</ref>];</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>dev<sp/>number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="structfd_1a8e675d589d95a1c6a7d99bd45164dbb9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structfd_1a8e675d589d95a1c6a7d99bd45164dbb9" kindref="member">dev</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>first<sp/>clus<sp/>number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="structfd_1aa3d778b06e093523359f0e04dbeb8599" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfd_1aa3d778b06e093523359f0e04dbeb8599" kindref="member">first_cluster</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>file<sp/>mode<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="structfd_1a186b68a5c96f7e13f1148ee474ce7cbb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfd_1a186b68a5c96f7e13f1148ee474ce7cbb" kindref="member">mode</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>open<sp/>flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="structfd_1a2cfdb78805b3a952d9eba494e1ae005c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfd_1a2cfdb78805b3a952d9eba494e1ae005c" kindref="member">flags</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>position<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="structfd_1ab8a702fe2f6bf2e32278fac665966e7b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/><ref refid="structfd_1ab8a702fe2f6bf2e32278fac665966e7b" kindref="member">pos</ref>;</highlight></codeline>
+<codeline lineno="48" refid="structfd_1a60eabea029590e8f49eae78e5181450e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfd_1a60eabea029590e8f49eae78e5181450e" kindref="member">cur_clus_num</ref>;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>length<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="structfd_1a05ac683ed52f0851b0aece8f854b0805" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfd_1a05ac683ed52f0851b0aece8f854b0805" kindref="member">size</ref>;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>dir_pos<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>dir_pos_t<sp/>dir_pos;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>fd<sp/>number<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>default:<sp/>its<sp/>index<sp/>in<sp/>fd-array*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="structfd_1ac042f1ec3c6b3fa09d2aad75616a2399" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="file_8h_1ac54958894c7df05a6ccda429331e0ddf" kindref="member">fd_num_t</ref><sp/><ref refid="structfd_1ac042f1ec3c6b3fa09d2aad75616a2399" kindref="member">fd_num</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>used<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref><sp/><ref refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" kindref="member">used</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>redirect<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="structfd_1a63ade5f538bbe983b05764b919f15079" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref><sp/><ref refid="structfd_1a63ade5f538bbe983b05764b919f15079" kindref="member">redirected</ref>;</highlight></codeline>
+<codeline lineno="62" refid="structfd_1a1a342c7e243d138ce7773e84ca6b9fd6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref><sp/><ref refid="structfd_1a1a342c7e243d138ce7773e84ca6b9fd6" kindref="member">redirected_fd_index</ref>;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>pipes[pip_num]<sp/>is<sp/>the<sp/>pipe<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="structfd_1a83737c9fc04a24cc7a3c0f7331928d40" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="file_8h_1a4e39a1620e57d44a47f9e862b4cfebce" kindref="member">pipe_num_t</ref><sp/><ref refid="structfd_1a83737c9fc04a24cc7a3c0f7331928d40" kindref="member">pip_num</ref>;</highlight></codeline>
+<codeline lineno="66" refid="structfd_1a62e02f7c06fb7a737ddcb71a3fb68e68" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref><sp/><ref refid="structfd_1a62e02f7c06fb7a737ddcb71a3fb68e68" kindref="member">is_pipe_read</ref>;</highlight></codeline>
+<codeline lineno="67" refid="structfd_1a6bbeed3999a7b76f6329862eba659fad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref><sp/><ref refid="structfd_1a6bbeed3999a7b76f6329862eba659fad" kindref="member">is_pipe_write</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>socket<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="structfd_1aeeab2f955980f9916cf3c8f590a23901" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref><sp/><ref refid="structfd_1aeeab2f955980f9916cf3c8f590a23901" kindref="member">sock_num</ref>;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*mmap*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="72" refid="structfd_1a832d2c93b0f74eba58778001a83130c1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd_1a832d2c93b0f74eba58778001a83130c1" kindref="member">used</ref>;</highlight></codeline>
+<codeline lineno="73" refid="structfd_1a15cdf8e0176e37dbc1aabf2b238c7813" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structfd_1a15cdf8e0176e37dbc1aabf2b238c7813" kindref="member">start</ref>;</highlight></codeline>
+<codeline lineno="74" refid="structfd_1a6924a33835d57e389a45e5eae794f115" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structfd_1a6924a33835d57e389a45e5eae794f115" kindref="member">len</ref>;</highlight></codeline>
+<codeline lineno="75" refid="structfd_1a6888843a9217a562666cdff26eaa8607" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd_1a6888843a9217a562666cdff26eaa8607" kindref="member">prot</ref>;</highlight></codeline>
+<codeline lineno="76" refid="structfd_1a36f6bdb205f91cf4918fa5bc428ece78" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd_1a36f6bdb205f91cf4918fa5bc428ece78" kindref="member">flags</ref>;</highlight></codeline>
+<codeline lineno="77" refid="structfd_1a65f965bc198a370d781bda7a55dd318d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="file_8h_1a053c614b69adbac710bb132a6eb9ccf6" kindref="member">off_t</ref><sp/><ref refid="structfd_1a65f965bc198a370d781bda7a55dd318d" kindref="member">off</ref>;</highlight></codeline>
+<codeline lineno="78" refid="structfd_1a40224c689c29d43d30b86dcd996b0e5e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><ref refid="structfd_1a40224c689c29d43d30b86dcd996b0e5e" kindref="member">mmap</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>fcntl<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>flock_t<sp/>flock;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>links<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="structfd_1a5e70603d411b32368d2a961ff28f5326" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref><sp/><ref refid="structfd_1a5e70603d411b32368d2a961ff28f5326" kindref="member">nlink</ref>;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>/*<sp/>status<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="structfd_1a9cc26c18f99b24f36a0e007985aadea6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="file_8h_1af2306308627701b66dc6f3babe821ab4" kindref="member">uid_t</ref><sp/><ref refid="structfd_1a9cc26c18f99b24f36a0e007985aadea6" kindref="member">uid</ref>;</highlight></codeline>
+<codeline lineno="86" refid="structfd_1a9545de6d20ad8aa7f5881b65cc2efc0d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="file_8h_1aa7352f1065fe606194d792e2b292cf83" kindref="member">gid_t</ref><sp/><ref refid="structfd_1a9545de6d20ad8aa7f5881b65cc2efc0d" kindref="member">gid</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="structfd_1a56690df82a7b78fe9ce769bdffcfde76" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="file_8h_1a25ab4acd63db23ce8ebc580b48d6c32f" kindref="member">dev_t</ref><sp/><ref refid="structfd_1a56690df82a7b78fe9ce769bdffcfde76" kindref="member">rdev</ref>;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>blksize_t<sp/>blksize;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="structfd_1a229b7b0f70ebfac9f6673fb149e12542" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structfd_1a229b7b0f70ebfac9f6673fb149e12542" kindref="member">atime_sec</ref>;</highlight></codeline>
+<codeline lineno="93" refid="structfd_1ab0443dc680505af7ffd0eab7f79966e8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structfd_1ab0443dc680505af7ffd0eab7f79966e8" kindref="member">atime_nsec</ref>;</highlight></codeline>
+<codeline lineno="94" refid="structfd_1a4d181582482ccf5e6ca6279ee7a68830" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structfd_1a4d181582482ccf5e6ca6279ee7a68830" kindref="member">mtime_sec</ref>;</highlight></codeline>
+<codeline lineno="95" refid="structfd_1a773f139cb6efa2c9c4527cb7f4b89598" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structfd_1a773f139cb6efa2c9c4527cb7f4b89598" kindref="member">mtime_nsec</ref>;</highlight></codeline>
+<codeline lineno="96" refid="structfd_1a1f5169e16ac0badb6aae067fb743a187" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structfd_1a1f5169e16ac0badb6aae067fb743a187" kindref="member">ctime_sec</ref>;</highlight></codeline>
+<codeline lineno="97" refid="structfd_1aa363e0b07cf36af070c92ec5dc26d8ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structfd_1aa363e0b07cf36af070c92ec5dc26d8ef" kindref="member">ctime_nsec</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="structfd_1a38cc2e5878e108cdd70327a1cf2e2133" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd_1a38cc2e5878e108cdd70327a1cf2e2133" kindref="member">mailbox</ref>;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>share<sp/>fd</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>struct<sp/>fd*<sp/>share_fd;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>int<sp/><sp/><sp/>share_num;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/>long<sp/>version;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="file_8h_1adc00d5703f6722526aeda522247c3ec6" refkind="member"><highlight class="normal">}<sp/><ref refid="file_8h_1adc00d5703f6722526aeda522247c3ec6" kindref="member">fd_t</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">//<sp/>fd<sp/>func</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="file_8h_1ae9c7a3fcf619f9aeb244f8e85a68097f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_FD<sp/>200</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd_t</ref><sp/><ref refid="file_8h_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="file_8h_1ae9c7a3fcf619f9aeb244f8e85a68097f" kindref="member">MAX_FD</ref>];</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="file_8h_1a6cb1ecabc3abc6e1cdfac5f1ea59dbcc" kindref="member">fd_table_init</ref>();</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="file_8h_1a0d55425e16feb3bea1363d51fdf3a094" kindref="member">fd_alloc</ref>();</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><ref refid="structfd" kindref="compound">fd_t</ref><sp/>*<ref refid="file_8h_1a8f91d1842f703d4598574b0bcb74e8cc" kindref="member">fd_alloc_spec</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="file_8h_1ac7a4c8f3c3f91405b5f70fdc19533a16" kindref="member">fd_free</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd_t</ref><sp/>*<ref refid="file_8h_1a15dcc53ce1c457472fc819d1ab3cf5e1" kindref="member">get_fd</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="file_8h_1a779b513296068d2a6186659183ff3c2c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RING_BUFFER_SIZE<sp/>4095</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>pack(8)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119" refid="structring__buffer" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>{</highlight></codeline>
+<codeline lineno="120" refid="structring__buffer_1a9dd0dc66c17b66b854906972136ec134" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structspin__lock" kindref="compound">spin_lock_t</ref><sp/><ref refid="structring__buffer_1a9dd0dc66c17b66b854906972136ec134" kindref="member">lock</ref>;<sp/></highlight><highlight class="comment">/*<sp/>FOR<sp/>NOW<sp/>no<sp/>use<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>for<sp/>future<sp/>use</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" kindref="member">head</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>read<sp/>from<sp/>head</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123" refid="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" kindref="member">tail</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>write<sp/>from<sp/>tail</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>char<sp/>buf[RING_BUFFER_SIZE<sp/>+<sp/>1];<sp/>//<sp/>left<sp/>1<sp/>byte</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125" refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>*<ref refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" kindref="member">buf</ref>;</highlight></codeline>
+<codeline lineno="126"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>pack()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="structpipe" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structpipe" kindref="compound">pipe</ref><sp/>{</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>mutex_lock_t<sp/>lock;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="structpipe_1a5ee26c9cdf246d2e2fbf6fccf0282da4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpipe_1a5ee26c9cdf246d2e2fbf6fccf0282da4" kindref="member">mailbox</ref>;</highlight></codeline>
+<codeline lineno="132" refid="structpipe_1a9446fe28965572a7c074b97110e7726d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/><ref refid="structpipe_1a9446fe28965572a7c074b97110e7726d" kindref="member">pid</ref>;<sp/></highlight><highlight class="comment">//<sp/>parent<sp/>id</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="structpipe_1a90b0138f2c230048d4fdfab506fce9aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structlist__node" kindref="compound">list_head</ref><sp/><ref refid="structpipe_1a90b0138f2c230048d4fdfab506fce9aa" kindref="member">r_list</ref>;</highlight></codeline>
+<codeline lineno="134" refid="structpipe_1a8ba6fca95ede65bb5e1bad37b8db55ec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structlist__node" kindref="compound">list_head</ref><sp/><ref refid="structpipe_1a8ba6fca95ede65bb5e1bad37b8db55ec" kindref="member">w_list</ref>;</highlight></codeline>
+<codeline lineno="135" refid="structpipe_1afcf26d833296bf47f8d2210591eb6a9f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref><sp/><ref refid="structpipe_1afcf26d833296bf47f8d2210591eb6a9f" kindref="member">r_valid</ref>;</highlight></codeline>
+<codeline lineno="136" refid="structpipe_1a729795bc415b421b99ef7dc4d4286d13" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref><sp/><ref refid="structpipe_1a729795bc415b421b99ef7dc4d4286d13" kindref="member">w_valid</ref>;</highlight></codeline>
+<codeline lineno="137" refid="file_8h_1a6e56d0e85fc7914f204312ebf0b15fea" refkind="member"><highlight class="normal">}<sp/><ref refid="file_8h_1a6e56d0e85fc7914f204312ebf0b15fea" kindref="member">pipe_t</ref>;</highlight></codeline>
+<codeline lineno="138" refid="file_8h_1aa166a3b17678004094547794e960f77d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PIPE_NUM<sp/>200</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structpipe" kindref="compound">pipe_t</ref><sp/><ref refid="file_8h_1a8025a26fe82fa76119549722ae508993" kindref="member">pipe_table</ref>[<ref refid="file_8h_1aa166a3b17678004094547794e960f77d" kindref="member">PIPE_NUM</ref>];</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="file_8h_1a547b443fd97255c9aee93ea57d113518" kindref="member">pipe_alloc</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*<ref refid="structfd" kindref="compound">fd</ref>);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="file_8h_1a66278a5b48c7b0c3f6049bd9d4c880c2" kindref="member">ring_buffer_init</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>*rbuf);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">//<sp/>static<sp/>inline<sp/>void<sp/>ring_buffer_init(struct<sp/>ring_buffer<sp/>*rbuf)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>//<sp/>there<sp/>is<sp/>always<sp/>one<sp/>byte<sp/>which<sp/>should<sp/>not<sp/>be<sp/>read<sp/>or<sp/>written</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>k_memset(rbuf,<sp/>0,<sp/>sizeof(struct<sp/>ring_buffer));<sp/>/*<sp/>head<sp/>=<sp/>tail<sp/>=<sp/>0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>rbuf-&gt;size<sp/>=<sp/>RING_BUFFER_SIZE;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>rbuf-&gt;buf<sp/>=<sp/>k_mm_malloc(PAGE_SIZE);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>k_memset(rbuf-&gt;buf,<sp/>0,<sp/>PAGE_SIZE);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>//<sp/>TODO<sp/>INIT<sp/>LOCK</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>k_spin_lock_init(&amp;rbuf-&gt;lock);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>return;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">//<sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ring_buffer_used(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>*rbuf)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(rbuf-&gt;<ref refid="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" kindref="member">tail</ref><sp/>-<sp/>rbuf-&gt;<ref refid="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" kindref="member">head</ref><sp/>+<sp/>rbuf-&gt;<ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref>)<sp/>%<sp/>(rbuf-&gt;<ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref>);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ring_buffer_free(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>*rbuf)<sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>let<sp/>1<sp/>byte<sp/>to<sp/>distinguish<sp/>empty<sp/>buffer<sp/>and<sp/>full<sp/>buffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rbuf-&gt;<ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref><sp/>-<sp/>ring_buffer_used(rbuf)<sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ring_buffer_empty(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>*rbuf)<sp/>{</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ring_buffer_used(rbuf)<sp/>==<sp/>0;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ring_buffer_full(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>*rbuf)<sp/>{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ring_buffer_free(rbuf)<sp/>==<sp/>0;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>min</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172" refid="file_8h_1abb702d8b501669a23aa0ab3b281b9384" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>min(x,<sp/>y)<sp/>((x)<sp/>&lt;<sp/>(y)<sp/>?<sp/>(x)<sp/>:<sp/>(y))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="file_8h_1aee3154a72fa1e4fe6f9029c8df731a07" kindref="member">read_ring_buffer</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>*rbuf,<sp/>uint8_t<sp/>*<ref refid="structbuf" kindref="compound">buf</ref>,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight><highlight class="comment">//<sp/>static<sp/>inline<sp/>size_t<sp/>read_ring_buffer(struct<sp/>ring_buffer<sp/>*rbuf,<sp/>uint8_t<sp/>*buf,<sp/>size_t<sp/>size)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>//<sp/>TODO<sp/>pcb<sp/>and<sp/>lock</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>k_spin_lock_acquire(&amp;rbuf-&gt;lock);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>int32_t<sp/>len<sp/>=<sp/>min(ring_buffer_used(rbuf),<sp/>size);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>if<sp/>(len<sp/>&gt;<sp/>0)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(rbuf-&gt;head<sp/>+<sp/>len<sp/>&gt;<sp/>rbuf-&gt;size)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>right<sp/>=<sp/>rbuf-&gt;size<sp/>-<sp/>rbuf-&gt;head,<sp/>left<sp/>=<sp/>len<sp/>-<sp/>right;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k_memcpy(buf,<sp/>rbuf-&gt;buf<sp/>+<sp/>rbuf-&gt;head,<sp/>right);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k_memcpy(buf<sp/>+<sp/>right,<sp/>rbuf-&gt;buf,<sp/>left);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k_memcpy(buf,<sp/>rbuf-&gt;buf<sp/>+<sp/>rbuf-&gt;head,<sp/>len);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rbuf-&gt;head<sp/>=<sp/>(rbuf-&gt;head<sp/>+<sp/>len)<sp/>%<sp/>(rbuf-&gt;size);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>k_spin_lock_release(&amp;rbuf-&gt;lock);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>return<sp/>len;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="comment">//<sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight><highlight class="comment">//<sp/>rbuf<sp/>should<sp/>have<sp/>enough<sp/>space<sp/>for<sp/>buf</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="file_8h_1ad1fb461c9d33d7c8c7dc4fb4674afae7" kindref="member">write_ring_buffer</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>*rbuf,<sp/>uint8_t<sp/>*<ref refid="structbuf" kindref="compound">buf</ref>,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size);</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">//<sp/>static<sp/>inline<sp/>size_t<sp/>write_ring_buffer(struct<sp/>ring_buffer<sp/>*rbuf,<sp/>uint8_t<sp/>*buf,<sp/>size_t<sp/>size)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>//<sp/>TODO<sp/>SYNC<sp/>BY<sp/>LOCK</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>k_spin_lock_acquire(&amp;rbuf-&gt;lock);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>int32_t<sp/>len<sp/>=<sp/>min(ring_buffer_free(rbuf),<sp/>size);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>if<sp/>(len<sp/>&gt;<sp/>0)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(rbuf-&gt;tail<sp/>+<sp/>len<sp/>&gt;<sp/>rbuf-&gt;size)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>right<sp/>=<sp/>rbuf-&gt;size<sp/>-<sp/>rbuf-&gt;tail,<sp/>left<sp/>=<sp/>len<sp/>-<sp/>right;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k_memcpy(rbuf-&gt;buf<sp/>+<sp/>rbuf-&gt;tail,<sp/>buf,<sp/>right);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if<sp/>(left<sp/>&gt;<sp/>0)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k_memcpy(rbuf-&gt;buf,<sp/>buf<sp/>+<sp/>right,<sp/>left);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/>else<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>k_memcpy(rbuf-&gt;buf<sp/>+<sp/>rbuf-&gt;tail,<sp/>buf,<sp/>len);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rbuf-&gt;tail<sp/>=<sp/>(rbuf-&gt;tail<sp/>+<sp/>len)<sp/>%<sp/>(rbuf-&gt;size);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>k_spin_lock_release(&amp;rbuf-&gt;lock);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>return<sp/>len;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">//<sp/>}</highlight></codeline>
+    </programlisting>
+    <location file="src/fs/file.h"/>
+  </compounddef>
+</doxygen>

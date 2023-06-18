@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/arch/riscv/include/asm/csr.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('csr_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">csr.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="csr_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/* SPDX-License-Identifier: GPL-2.0-only */</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> * Copyright (C) 2015 Regents of the University of California</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">/* Status register flags */</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="csr_8h.html#ab3c982c744b9e02798f4023d7ab901bb">    8</a></span>&#160;<span class="preprocessor">#define SR_SIE 0x00000002  </span><span class="comment">/* Supervisor Interrupt Enable */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="csr_8h.html#af374785f0f372d2e9b78d30c9ffbcb6b">    9</a></span>&#160;<span class="preprocessor">#define SR_SPIE 0x00000020 </span><span class="comment">/* Previous Supervisor IE */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="csr_8h.html#a44127f7d87e6f5cfab84eecf77de9146">   10</a></span>&#160;<span class="preprocessor">#define SR_SPP 0x00000100  </span><span class="comment">/* Previously Supervisor */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="csr_8h.html#a74da9fba64fbe4c56536c44e9b33570e">   11</a></span>&#160;<span class="preprocessor">#define SR_SUM 0x00040000  </span><span class="comment">/* Supervisor User Memory Access */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="csr_8h.html#ab5e6db23792b83c5df0e315eb77939b2">   13</a></span>&#160;<span class="preprocessor">#define SR_FS 0x00006000 </span><span class="comment">/* Floating-point Status */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="csr_8h.html#a246f0715400a46731a45d37c2491629a">   14</a></span>&#160;<span class="preprocessor">#define SR_FS_OFF 0x00000000</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="csr_8h.html#a95700076440755382e904e143f7214ea">   15</a></span>&#160;<span class="preprocessor">#define SR_FS_INITIAL 0x00002000</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="csr_8h.html#ab4a353dc4bffd49915651597fdbaf06a">   16</a></span>&#160;<span class="preprocessor">#define SR_FS_CLEAN 0x00004000</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="csr_8h.html#a341465beb7d256df6cdc394313056ee3">   17</a></span>&#160;<span class="preprocessor">#define SR_FS_DIRTY 0x00006000</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="csr_8h.html#acf67ff46d36719be6759f2b46e760e32">   19</a></span>&#160;<span class="preprocessor">#define SR_XS 0x00018000 </span><span class="comment">/* Extension Status */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="csr_8h.html#a0328f2a38e312c1ae07a43bccb54aa5c">   20</a></span>&#160;<span class="preprocessor">#define SR_XS_OFF 0x00000000</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="csr_8h.html#a053ec23a8906287bfcf056dc67a96d3a">   21</a></span>&#160;<span class="preprocessor">#define SR_XS_INITIAL 0x00008000</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="csr_8h.html#a54ae4f47dd1539dc68fa2b34be9f7895">   22</a></span>&#160;<span class="preprocessor">#define SR_XS_CLEAN 0x00010000</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="csr_8h.html#a454e97bf835a53d5855f72e08c5787bc">   23</a></span>&#160;<span class="preprocessor">#define SR_XS_DIRTY 0x00018000</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="csr_8h.html#a15e2549dcd0128f8f3956a51909144e6">   25</a></span>&#160;<span class="preprocessor">#define SR_SD 0x8000000000000000 </span><span class="comment">/* FS/XS dirty */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">/* SATP flags */</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="csr_8h.html#a83401b52ff12b4ba046d974716494a05">   28</a></span>&#160;<span class="preprocessor">#define SATP_PPN 0x00000FFFFFFFFFFF</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="csr_8h.html#abe90ababbc031e196e373c27c729ecde">   29</a></span>&#160;<span class="preprocessor">#define SATP_MODE_39 0x8000000000000000</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="csr_8h.html#a226838ce5d151758cd980f7bddd15f5f">   30</a></span>&#160;<span class="preprocessor">#define SATP_MODE SATP_MODE_39</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">/* SCAUSE */</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="csr_8h.html#a6edeb2e7cf212240df827ea63f12448e">   33</a></span>&#160;<span class="preprocessor">#define SCAUSE_IRQ_FLAG ((uint64_t)1 &lt;&lt; 63)</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="csr_8h.html#ad2a50b9af790bee88a134470ecb5e5d6">   35</a></span>&#160;<span class="preprocessor">#define IRQ_U_SOFT 0</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="csr_8h.html#a1f426d6231a15fe1801b3206c712cf76">   36</a></span>&#160;<span class="preprocessor">#define IRQ_S_SOFT 1</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="csr_8h.html#a02e2db32b33eb8cf23622150ac372200">   37</a></span>&#160;<span class="preprocessor">#define IRQ_M_SOFT 3</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="csr_8h.html#a304a6d7db641f293f251782f70ec5b97">   38</a></span>&#160;<span class="preprocessor">#define IRQ_U_TIMER 4</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="csr_8h.html#ac7acfa6b0f632b9cd762a0e0abd1df08">   39</a></span>&#160;<span class="preprocessor">#define IRQ_S_TIMER 5</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="csr_8h.html#aa5b87ef0a6024ad69009faff8fd6a9d5">   40</a></span>&#160;<span class="preprocessor">#define IRQ_M_TIMER 7</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="csr_8h.html#a505f81e4c51629f9ffa3f70fccc14caa">   41</a></span>&#160;<span class="preprocessor">#define IRQ_U_EXT 8</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="csr_8h.html#aedc582eeff2cc10dcb000c5f08dda3c3">   42</a></span>&#160;<span class="preprocessor">#define IRQ_S_EXT 9</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="csr_8h.html#a43fba639eb8d7ee37648cc0af12cf59b">   43</a></span>&#160;<span class="preprocessor">#define IRQ_M_EXT 11</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="csr_8h.html#a4d8dd50ced627204e5b8612b6de5e8b7">   45</a></span>&#160;<span class="preprocessor">#define EXC_INST_MISALIGNED 0</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="csr_8h.html#a043a039144acfaaad05ca69483ab099b">   46</a></span>&#160;<span class="preprocessor">#define EXC_INST_ACCESS 1</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="csr_8h.html#a99aff0ae890d31fc23169c988a0dbd1f">   47</a></span>&#160;<span class="preprocessor">#define EXC_BREAKPOINT 3</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="csr_8h.html#a92ca4fc0869271a8cd0fd3af792a75f2">   48</a></span>&#160;<span class="preprocessor">#define EXC_LOAD_ACCESS 5</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="csr_8h.html#aca2ce8f4d750589087d62f19202146cd">   49</a></span>&#160;<span class="preprocessor">#define EXC_STORE_ACCESS 7</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="csr_8h.html#ab6e3c7c4587ff8dfa1a2241e0066d5dd">   50</a></span>&#160;<span class="preprocessor">#define EXC_SYSCALL 8</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="csr_8h.html#a2e63d0b22ee10b12aad7591403773210">   51</a></span>&#160;<span class="preprocessor">#define EXC_INST_PAGE_FAULT 12</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="csr_8h.html#a7d8913c2b7929e84e7b76ed553cfdf1b">   52</a></span>&#160;<span class="preprocessor">#define EXC_LOAD_PAGE_FAULT 13</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="csr_8h.html#a4097ce0243dd1ed0daa0a73c232e9f4e">   53</a></span>&#160;<span class="preprocessor">#define EXC_STORE_PAGE_FAULT 15</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">/* SIE (Interrupt Enable) and SIP (Interrupt Pending) flags */</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="csr_8h.html#a02551379f9acab8fcea973ecbc8fcf20">   56</a></span>&#160;<span class="preprocessor">#define SIE_SSIE (0x1 &lt;&lt; IRQ_S_SOFT)</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="csr_8h.html#a819d8ea9e98335b93d6120c89dd9458b">   57</a></span>&#160;<span class="preprocessor">#define SIE_STIE (0x1 &lt;&lt; IRQ_S_TIMER)</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="csr_8h.html#a7ca797adbc936cc2e7d7b66a40325e63">   58</a></span>&#160;<span class="preprocessor">#define SIE_SEIE (0x1 &lt;&lt; IRQ_S_EXT)</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="csr_8h.html#a431c67f7f0e4b5dbdf2048310ad814e0">   60</a></span>&#160;<span class="preprocessor">#define SSTATUS_UIE (1 &lt;&lt; 0)</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="csr_8h.html#a1c1f1da0ecfca5bc4fc4db3acadf1bc8">   61</a></span>&#160;<span class="preprocessor">#define SSTATUS_SIE (1 &lt;&lt; 1)</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="csr_8h.html#a796ad1a8b2314776082e72e13f4a30cf">   62</a></span>&#160;<span class="preprocessor">#define SSTATUS_UPIE (1 &lt;&lt; 4)</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="csr_8h.html#a3f9373ba6db2ce5e5c7ea28c2a5b3df9">   63</a></span>&#160;<span class="preprocessor">#define SSTATUS_SPIE (1 &lt;&lt; 5)</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="csr_8h.html#a4d0820d6a8b0c5b0fef6875a985d3370">   64</a></span>&#160;<span class="preprocessor">#define SSTATUS_SPP (1 &lt;&lt; 8)</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="csr_8h.html#aff201911cccf15e446c43ba67b0f1aa7">   65</a></span>&#160;<span class="preprocessor">#define SSTATUS_FS (3 &lt;&lt; 13)</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="csr_8h.html#a2abef254823774927e3bf6b029fbad9d">   66</a></span>&#160;<span class="preprocessor">#define SSTATUS_XS (3 &lt;&lt; 15)</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="csr_8h.html#ac8726a0a74700feb038f6b74dbb3dc0f">   67</a></span>&#160;<span class="preprocessor">#define SSTATUS_SUM (1 &lt;&lt; 18)</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="csr_8h.html#a3387d409543279220628618c0909fe55">   68</a></span>&#160;<span class="preprocessor">#define SSTATUS_MXR (1 &lt;&lt; 19)</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="csr_8h.html#a66d79e7ab75a06dbbd7d7f36d0c1c52a">   69</a></span>&#160;<span class="preprocessor">#define SSTATUS_UXL (3 &lt;&lt; 34)</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="csr_8h.html#a83d7c2db8f3f6518850f2d51c797acdb">   70</a></span>&#160;<span class="preprocessor">#define SSTATUS_SD (1 &lt;&lt; 63)</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="csr_8h.html#a9e9434c8a5b1f157f1a7b800c26321bb">   72</a></span>&#160;<span class="preprocessor">#define CSR_CYCLE 0xc00</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="csr_8h.html#a4bbdf33e8b20f4cb020869e7394e388a">   73</a></span>&#160;<span class="preprocessor">#define CSR_TIME 0xc01</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="csr_8h.html#a053f87dc2e911eb74a904232a0db20f5">   74</a></span>&#160;<span class="preprocessor">#define CSR_INSTRET 0xc02</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="csr_8h.html#a651e65251cc54d4a553702e4cf061ca7">   75</a></span>&#160;<span class="preprocessor">#define CSR_SSTATUS 0x100</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="csr_8h.html#afe9299d8a7d0f21e963ab621a6a5a5cf">   76</a></span>&#160;<span class="preprocessor">#define CSR_SIE 0x104</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="csr_8h.html#ab1718f56f1c135bcd02a707b7172301b">   77</a></span>&#160;<span class="preprocessor">#define CSR_STVEC 0x105</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="csr_8h.html#ad07e81e0a35ac378254f2054e538a2b0">   78</a></span>&#160;<span class="preprocessor">#define CSR_SCOUNTEREN 0x106</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="csr_8h.html#a545aa444d12109ef8e961ba29eb3ea54">   79</a></span>&#160;<span class="preprocessor">#define CSR_SSCRATCH 0x140</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="csr_8h.html#a3981cba40ee737a2f7cf4228b2bdbb67">   80</a></span>&#160;<span class="preprocessor">#define CSR_SEPC 0x141</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="csr_8h.html#a49e424a4449b3192d35ca1133e8f5dc2">   81</a></span>&#160;<span class="preprocessor">#define CSR_SCAUSE 0x142</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="csr_8h.html#a705b54eb646ded8aba97f8e39acb9c77">   82</a></span>&#160;<span class="preprocessor">#define CSR_STVAL 0x143</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="csr_8h.html#ac79e54d601a25a8eed4e0c985fd30315">   83</a></span>&#160;<span class="preprocessor">#define CSR_SIP 0x144</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="csr_8h.html#a93c6593dc41bd45407e263acd870dd6e">   84</a></span>&#160;<span class="preprocessor">#define CSR_SATP 0x180</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="csr_8h.html#af68e1fabef0868e0d41d8e69ba55cce9">   85</a></span>&#160;<span class="preprocessor">#define CSR_CYCLEH 0xc80</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="csr_8h.html#a2e2ce9bac3d1ad2128a4eb9438a1022d">   86</a></span>&#160;<span class="preprocessor">#define CSR_TIMEH 0xc81</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="csr_8h.html#af1e2e4353b163d307d974806a0031407">   87</a></span>&#160;<span class="preprocessor">#define CSR_INSTRETH 0xc82</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="csr_8h.html#a50cb52c60a3472620a819765e593f67e">   89</a></span>&#160;<span class="preprocessor">#define CSR_MHARTID 0xf14</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="csr_8h.html#ab23f6e5e86405174d4def2085c7ae808">   91</a></span>&#160;<span class="preprocessor">#define BOOT_STACK_MASTER 0x80600000</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#define BOOT_STACK_SLAVE 0x805ff000</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_70d5e250c66d001b18da37689179cade.html">arch</a></li><li class="navelem"><a class="el" href="dir_3230303e5984acafe45a2f99e1efc49d.html">riscv</a></li><li class="navelem"><a class="el" href="dir_26bcf4a2c99410b27d879fa5d562d234.html">include</a></li><li class="navelem"><a class="el" href="dir_f79e4fe9e5bfe66546e3b9727306749c.html">asm</a></li><li class="navelem"><a class="el" href="csr_8h.html">csr.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

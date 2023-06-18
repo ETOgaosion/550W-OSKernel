@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structdisk" kind="struct" language="C++" prot="public">
+    <compoundname>disk</compoundname>
+    <includes refid="virtio_8h" local="no">virtio.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structdisk_1a6d4c7ff9bc8353d450030cd8e48f9cec" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char disk::pages[2 *NORMAL_PAGE_SIZE]</definition>
+        <argsstring>[2 *NORMAL_PAGE_SIZE]</argsstring>
+        <name>pages</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="113" column="10" bodyfile="src/drivers/virtio/virtio.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdisk_1a7b2400d9c769854a3efed9b5b65839db" prot="public" static="no" mutable="no">
+        <type><ref refid="structvring__desc__t" kindref="compound">vring_desc_t</ref> *</type>
+        <definition>vring_desc_t* disk::desc</definition>
+        <argsstring></argsstring>
+        <name>desc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="114" column="18" bodyfile="src/drivers/virtio/virtio.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdisk_1a2fed856c690d0ea756d79f944d49298b" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref> *</type>
+        <definition>uint16* disk::avail</definition>
+        <argsstring></argsstring>
+        <name>avail</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="115" column="12" bodyfile="src/drivers/virtio/virtio.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdisk_1a058b2305d48e765acfa6119ae33b9744" prot="public" static="no" mutable="no">
+        <type><ref refid="virtio_8h_1a502c4f9ca7f81bc9bb9955d5576c6302" kindref="member">vring_used_area_t</ref> *</type>
+        <definition>vring_used_area_t* disk::used</definition>
+        <argsstring></argsstring>
+        <name>used</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="116" column="23" bodyfile="src/drivers/virtio/virtio.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdisk_1a3f5e4b09fa2f087160e09c1172ca0469" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char disk::free[DESC_NUM]</definition>
+        <argsstring>[DESC_NUM]</argsstring>
+        <name>free</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="119" column="10" bodyfile="src/drivers/virtio/virtio.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdisk_1a5c4dc4614e9f8297f9daf23febdb5050" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e" kindref="member">uint16</ref></type>
+        <definition>uint16 disk::used_idx</definition>
+        <argsstring></argsstring>
+        <name>used_idx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="120" column="12" bodyfile="src/drivers/virtio/virtio.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdisk_1a0f33659319699168b62924bbb8557927" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structbuf" kindref="compound">buf</ref> *</type>
+        <definition>struct buf* disk::b</definition>
+        <argsstring></argsstring>
+        <name>b</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="126" column="18" bodyfile="src/drivers/virtio/virtio.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdisk_1a9af27b68ec4562decb4e7d22a8685681" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char disk::status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="127" column="14" bodyfile="src/drivers/virtio/virtio.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdisk_1a928468fbe367e8e7c62511a56d010f6f" prot="public" static="no" mutable="no">
+        <type>struct disk::@0</type>
+        <definition>struct disk::@0 disk::info[DESC_NUM]</definition>
+        <argsstring>[DESC_NUM]</argsstring>
+        <name>info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="128" column="20"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdisk_1a68fda05cc6273072a123fddf6a69ae7a" prot="public" static="no" mutable="no">
+        <type><ref refid="lock_8h_1a78e3055bd891f045188756c613a5ad92" kindref="member">spin_lock_t</ref></type>
+        <definition>spin_lock_t disk::vdisk_lock</definition>
+        <argsstring></argsstring>
+        <name>vdisk_lock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="130" column="17" bodyfile="src/drivers/virtio/virtio.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="7">
+        <label>sleep_lock</label>
+        <link refid="structsleep__lock"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>lk</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>vring_desc_t</label>
+        <link refid="structvring__desc__t"/>
+      </node>
+      <node id="1">
+        <label>disk</label>
+        <link refid="structdisk"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>vdisk_lock</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>used</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>desc</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>b</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>vring_used_elem</label>
+        <link refid="structvring__used__elem"/>
+      </node>
+      <node id="6">
+        <label>buf</label>
+        <link refid="structbuf"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>lock</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>vring_used_area</label>
+        <link refid="structvring__used__area"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>elems</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>spin_lock</label>
+        <link refid="structspin__lock"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/drivers/virtio/virtio.h" line="108" column="1" bodyfile="src/drivers/virtio/virtio.h" bodystart="108" bodyend="132"/>
+    <listofallmembers>
+      <member refid="structdisk_1a2fed856c690d0ea756d79f944d49298b" prot="public" virt="non-virtual"><scope>disk</scope><name>avail</name></member>
+      <member refid="structdisk_1a0f33659319699168b62924bbb8557927" prot="public" virt="non-virtual"><scope>disk</scope><name>b</name></member>
+      <member refid="structdisk_1a7b2400d9c769854a3efed9b5b65839db" prot="public" virt="non-virtual"><scope>disk</scope><name>desc</name></member>
+      <member refid="structdisk_1a3f5e4b09fa2f087160e09c1172ca0469" prot="public" virt="non-virtual"><scope>disk</scope><name>free</name></member>
+      <member refid="structdisk_1a928468fbe367e8e7c62511a56d010f6f" prot="public" virt="non-virtual"><scope>disk</scope><name>info</name></member>
+      <member refid="structdisk_1a6d4c7ff9bc8353d450030cd8e48f9cec" prot="public" virt="non-virtual"><scope>disk</scope><name>pages</name></member>
+      <member refid="structdisk_1a9af27b68ec4562decb4e7d22a8685681" prot="public" virt="non-virtual"><scope>disk</scope><name>status</name></member>
+      <member refid="structdisk_1a058b2305d48e765acfa6119ae33b9744" prot="public" virt="non-virtual"><scope>disk</scope><name>used</name></member>
+      <member refid="structdisk_1a5c4dc4614e9f8297f9daf23febdb5050" prot="public" virt="non-virtual"><scope>disk</scope><name>used_idx</name></member>
+      <member refid="structdisk_1a68fda05cc6273072a123fddf6a69ae7a" prot="public" virt="non-virtual"><scope>disk</scope><name>vdisk_lock</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

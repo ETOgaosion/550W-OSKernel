@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="dir_90abba871dc5d090c5f9cc1cda47fb8a" kind="dir">
+    <compoundname>src/drivers/screen</compoundname>
+    <innerfile refid="screen_8c">screen.c</innerfile>
+    <innerfile refid="screen_8d">screen.d</innerfile>
+    <innerfile refid="screen_8h">screen.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/drivers/screen/"/>
+  </compounddef>
+</doxygen>

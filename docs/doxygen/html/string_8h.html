@@ -1,0 +1,686 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/include/lib/string.h 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('string_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle">
+<div class="title">string.h 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="types_8h_source.html">common/types.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+string.h 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="string_8h__incl.png" border="0" usemap="#asrc_2include_2lib_2string_8h" alt=""/></div>
+<map name="asrc_2include_2lib_2string_8h" id="asrc_2include_2lib_2string_8h">
+<area shape="rect" title=" " alt="" coords="5,5,171,32"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="23,80,153,107"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="23,155,153,181"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+此图展示该文件直接或间接的被哪些文件引用了:</div>
+<div class="dyncontent">
+<div class="center"><img src="string_8h__dep__incl.png" border="0" usemap="#asrc_2include_2lib_2string_8hdep" alt=""/></div>
+<map name="asrc_2include_2lib_2string_8hdep" id="asrc_2include_2lib_2string_8hdep">
+<area shape="rect" title=" " alt="" coords="863,5,1028,32"/>
+<area shape="rect" href="stack_8c.html" title=" " alt="" coords="220,333,372,375"/>
+<area shape="rect" href="screen_8c.html" title=" " alt="" coords="536,333,673,375"/>
+<area shape="rect" href="virtio__blk_8c.html" title=" " alt="" coords="1540,333,1668,375"/>
+<area shape="rect" href="file_8h.html" title=" " alt="" coords="219,169,312,196"/>
+<area shape="rect" href="fs_8c.html" title=" " alt="" coords="36,251,120,278"/>
+<area shape="rect" href="elf_8h.html" title=" " alt="" coords="869,80,1022,121"/>
+<area shape="rect" href="pcb_8c.html" title=" " alt="" coords="47,341,196,367"/>
+<area shape="rect" href="lock_8c.html" title=" " alt="" coords="1438,251,1600,278"/>
+<area shape="rect" href="sync_8c.html" title=" " alt="" coords="1624,251,1788,278"/>
+<area shape="rect" href="info_8c.html" title=" " alt="" coords="1914,87,2065,114"/>
+<area shape="rect" href="string_8c.html" title=" " alt="" coords="2089,87,2202,114"/>
+<area shape="rect" href="fd_8c.html" title=" " alt="" coords="144,251,230,278"/>
+<area shape="rect" href="main_8c.html" title=" " alt="" coords="396,341,511,367"/>
+<area shape="rect" href="pcb_8h.html" title=" " alt="" coords="870,169,1021,196"/>
+<area shape="rect" href="mm_8c.html" title=" " alt="" coords="1873,341,2029,367"/>
+<area shape="rect" href="init_2vm_8c.html" title=" " alt="" coords="744,169,846,196"/>
+<area shape="rect" href="elf_8c.html" title=" " alt="" coords="1045,169,1137,196"/>
+<area shape="rect" href="stack_8h.html" title=" " alt="" coords="305,244,464,285"/>
+<area shape="rect" href="irq_8h.html" title=" " alt="" coords="691,251,835,278"/>
+<area shape="rect" href="smp_8c.html" title=" " alt="" coords="999,341,1154,367"/>
+<area shape="rect" href="smp_8h.html" title=" " alt="" coords="1107,251,1262,278"/>
+<area shape="rect" href="time_8c.html" title=" " alt="" coords="1693,341,1849,367"/>
+<area shape="rect" href="include_2os_2syscall_8h.html" title=" " alt="" coords="860,251,1032,278"/>
+<area shape="rect" href="irq_8c.html" title=" " alt="" coords="836,341,975,367"/>
+<area shape="rect" href="printk_8c.html" title=" " alt="" coords="698,341,812,367"/>
+<area shape="rect" href="io_8c.html" title=" " alt="" coords="1357,341,1516,367"/>
+<area shape="rect" href="plic_8c.html" title=" " alt="" coords="1178,341,1332,367"/>
+</map>
+</div>
+</div>
+<p><a href="string_8h_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:ac03af82466c30fadbb52b0bd96cd26f3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ac03af82466c30fadbb52b0bd96cd26f3">k_isspace</a> (int c)</td></tr>
+<tr class="separator:ac03af82466c30fadbb52b0bd96cd26f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eea1897991c4fe22521d22db09c4c56"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a0eea1897991c4fe22521d22db09c4c56">k_isdigit</a> (int c)</td></tr>
+<tr class="separator:a0eea1897991c4fe22521d22db09c4c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acacfcfff91441c7553fbc5bc30821a05"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#acacfcfff91441c7553fbc5bc30821a05">k_isalpha</a> (int x)</td></tr>
+<tr class="separator:acacfcfff91441c7553fbc5bc30821a05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cf23537c31602e7a3a60f3d9fdd2c1b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a0cf23537c31602e7a3a60f3d9fdd2c1b">k_isupper</a> (int x)</td></tr>
+<tr class="separator:a0cf23537c31602e7a3a60f3d9fdd2c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c3dfa8b99c16c1c0654bc24597bb0da"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a3c3dfa8b99c16c1c0654bc24597bb0da">k_atol</a> (const char *str)</td></tr>
+<tr class="separator:a3c3dfa8b99c16c1c0654bc24597bb0da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5101d780842a59c3f03743ced7f46c66"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a5101d780842a59c3f03743ced7f46c66">k_atoi</a> (const char *s)</td></tr>
+<tr class="separator:a5101d780842a59c3f03743ced7f46c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4985196d8a63d22e320cf33d904d2f92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a4985196d8a63d22e320cf33d904d2f92">k_memcpy</a> (uint8_t *dest, const uint8_t *src, uint32_t len)</td></tr>
+<tr class="separator:a4985196d8a63d22e320cf33d904d2f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf442a6d4665859606fb0376506a349c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#aaf442a6d4665859606fb0376506a349c">k_memset</a> (void *dest, uint8_t val, uint32_t len)</td></tr>
+<tr class="separator:aaf442a6d4665859606fb0376506a349c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeda98d87407f4e928e8c47a2e7de1e94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#aeda98d87407f4e928e8c47a2e7de1e94">k_bzero</a> (void *dest, uint32_t len)</td></tr>
+<tr class="separator:aeda98d87407f4e928e8c47a2e7de1e94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3fbffdca65397cb78cd0d3d38f7758f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ad3fbffdca65397cb78cd0d3d38f7758f">k_strcmp</a> (const char *str1, const char *str2)</td></tr>
+<tr class="separator:ad3fbffdca65397cb78cd0d3d38f7758f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab247ff09c9f6dc2e9a0b645a4e8ca6d7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ab247ff09c9f6dc2e9a0b645a4e8ca6d7">k_strncmp</a> (const char *_l, const char *_r, <a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a> n)</td></tr>
+<tr class="separator:ab247ff09c9f6dc2e9a0b645a4e8ca6d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36d0589c17e8a5bba8c6e569ea0109f5"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a36d0589c17e8a5bba8c6e569ea0109f5">k_strcpy</a> (char *dest, const char *src)</td></tr>
+<tr class="separator:a36d0589c17e8a5bba8c6e569ea0109f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17a4290b9c58dce19468efb2139a5fb8"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a17a4290b9c58dce19468efb2139a5fb8">k_strncpy</a> (char *restrict d, const char *restrict s, <a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a> n)</td></tr>
+<tr class="separator:a17a4290b9c58dce19468efb2139a5fb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ffa6c0492a0ff6b656c748a32e1bfcf"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a3ffa6c0492a0ff6b656c748a32e1bfcf">k_strcat</a> (char *dest, const char *src)</td></tr>
+<tr class="separator:a3ffa6c0492a0ff6b656c748a32e1bfcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae096c40164c6e072e600751bd7151fb9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ae096c40164c6e072e600751bd7151fb9">k_strlen</a> (const char *src)</td></tr>
+<tr class="separator:ae096c40164c6e072e600751bd7151fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8a53745ab243c018da1ae7a41a5d0f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#aa8a53745ab243c018da1ae7a41a5d0f9">k_strnlen</a> (const char *s, <a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a> n)</td></tr>
+<tr class="separator:aa8a53745ab243c018da1ae7a41a5d0f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac6baff2271e498b362a65320c5d5941"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#aac6baff2271e498b362a65320c5d5941">k_strlistlen</a> (char *src[])</td></tr>
+<tr class="separator:aac6baff2271e498b362a65320c5d5941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3010e3dc6dc13be23b7dbe36284327e5"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#a3010e3dc6dc13be23b7dbe36284327e5">k_strtok</a> (char *substr, char *str, const char delim, int length)</td></tr>
+<tr class="separator:a3010e3dc6dc13be23b7dbe36284327e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7732068bb0c32e1cde3cb29191335ba"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="string_8h.html#ac7732068bb0c32e1cde3cb29191335ba">k_strtol</a> (const char *nptr, char **endptr, register int base)</td></tr>
+<tr class="separator:ac7732068bb0c32e1cde3cb29191335ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">函数说明</h2>
+<a id="a5101d780842a59c3f03743ced7f46c66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5101d780842a59c3f03743ced7f46c66">&#9670;&nbsp;</a></span>k_atoi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_atoi </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3c3dfa8b99c16c1c0654bc24597bb0da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c3dfa8b99c16c1c0654bc24597bb0da">&#9670;&nbsp;</a></span>k_atol()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long k_atol </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeda98d87407f4e928e8c47a2e7de1e94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeda98d87407f4e928e8c47a2e7de1e94">&#9670;&nbsp;</a></span>k_bzero()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_bzero </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acacfcfff91441c7553fbc5bc30821a05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acacfcfff91441c7553fbc5bc30821a05">&#9670;&nbsp;</a></span>k_isalpha()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_isalpha </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0eea1897991c4fe22521d22db09c4c56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eea1897991c4fe22521d22db09c4c56">&#9670;&nbsp;</a></span>k_isdigit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_isdigit </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac03af82466c30fadbb52b0bd96cd26f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac03af82466c30fadbb52b0bd96cd26f3">&#9670;&nbsp;</a></span>k_isspace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_isspace </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0cf23537c31602e7a3a60f3d9fdd2c1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cf23537c31602e7a3a60f3d9fdd2c1b">&#9670;&nbsp;</a></span>k_isupper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_isupper </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4985196d8a63d22e320cf33d904d2f92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4985196d8a63d22e320cf33d904d2f92">&#9670;&nbsp;</a></span>k_memcpy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_memcpy </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaf442a6d4665859606fb0376506a349c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf442a6d4665859606fb0376506a349c">&#9670;&nbsp;</a></span>k_memset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_memset </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>val</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3ffa6c0492a0ff6b656c748a32e1bfcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ffa6c0492a0ff6b656c748a32e1bfcf">&#9670;&nbsp;</a></span>k_strcat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* k_strcat </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad3fbffdca65397cb78cd0d3d38f7758f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3fbffdca65397cb78cd0d3d38f7758f">&#9670;&nbsp;</a></span>k_strcmp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_strcmp </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a36d0589c17e8a5bba8c6e569ea0109f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36d0589c17e8a5bba8c6e569ea0109f5">&#9670;&nbsp;</a></span>k_strcpy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* k_strcpy </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae096c40164c6e072e600751bd7151fb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae096c40164c6e072e600751bd7151fb9">&#9670;&nbsp;</a></span>k_strlen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_strlen </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>src</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac6baff2271e498b362a65320c5d5941"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac6baff2271e498b362a65320c5d5941">&#9670;&nbsp;</a></span>k_strlistlen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_strlistlen </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>src</em>[]</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab247ff09c9f6dc2e9a0b645a4e8ca6d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab247ff09c9f6dc2e9a0b645a4e8ca6d7">&#9670;&nbsp;</a></span>k_strncmp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_strncmp </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>_l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>_r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a>&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a17a4290b9c58dce19468efb2139a5fb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17a4290b9c58dce19468efb2139a5fb8">&#9670;&nbsp;</a></span>k_strncpy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* k_strncpy </td>
+          <td>(</td>
+          <td class="paramtype">char *restrict&#160;</td>
+          <td class="paramname"><em>d</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *restrict&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a>&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8a53745ab243c018da1ae7a41a5d0f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8a53745ab243c018da1ae7a41a5d0f9">&#9670;&nbsp;</a></span>k_strnlen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a> k_strnlen </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a>&#160;</td>
+          <td class="paramname"><em>n</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3010e3dc6dc13be23b7dbe36284327e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3010e3dc6dc13be23b7dbe36284327e5">&#9670;&nbsp;</a></span>k_strtok()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* k_strtok </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>substr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char&#160;</td>
+          <td class="paramname"><em>delim</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac7732068bb0c32e1cde3cb29191335ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7732068bb0c32e1cde3cb29191335ba">&#9670;&nbsp;</a></span>k_strtol()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long k_strtol </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>nptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>endptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">register int&#160;</td>
+          <td class="paramname"><em>base</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_8189c79547c228efec742fac4d82511f.html">lib</a></li><li class="navelem"><a class="el" href="string_8h.html">string.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

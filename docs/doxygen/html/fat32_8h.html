@@ -1,0 +1,1197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/fs/fat32.h 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('fat32_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#define-members">宏定义</a> &#124;
+<a href="#typedef-members">类型定义</a> &#124;
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">fat32.h 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="types_8h_source.html">common/types.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+fat32.h 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="fat32_8h__incl.png" border="0" usemap="#asrc_2fs_2fat32_8h" alt=""/></div>
+<map name="asrc_2fs_2fat32_8h" id="asrc_2fs_2fat32_8h">
+<area shape="rect" title=" " alt="" coords="17,5,124,32"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="5,80,136,107"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="6,155,135,181"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+此图展示该文件直接或间接的被哪些文件引用了:</div>
+<div class="dyncontent">
+<div class="center"><img src="fat32_8h__dep__incl.png" border="0" usemap="#asrc_2fs_2fat32_8hdep" alt=""/></div>
+<map name="asrc_2fs_2fat32_8hdep" id="asrc_2fs_2fat32_8hdep">
+<area shape="rect" title=" " alt="" coords="5,5,112,32"/>
+<area shape="rect" href="fs_8c.html" title=" " alt="" coords="17,80,101,107"/>
+</map>
+</div>
+</div>
+<p><a href="fat32_8h_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfat32.html">fat32</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshort__name__entry.html">short_name_entry</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlong__name__entry.html">long_name_entry</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="uniondentry.html">dentry</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdir__info.html">dir_info</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:ac39d9cef6a5e030ba8d9e11121054268"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#ac39d9cef6a5e030ba8d9e11121054268">max</a>(x,  y)&#160;&#160;&#160;(((x) &gt; (y)) ? (x) : (y))</td></tr>
+<tr class="separator:ac39d9cef6a5e030ba8d9e11121054268"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb702d8b501669a23aa0ab3b281b9384"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#abb702d8b501669a23aa0ab3b281b9384">min</a>(x,  y)&#160;&#160;&#160;(((x) &gt; (y)) ? (y) : (x))</td></tr>
+<tr class="separator:abb702d8b501669a23aa0ab3b281b9384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a538cbf03f87e88410397e3bf51c3dbd8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a538cbf03f87e88410397e3bf51c3dbd8">FAT32_BOOT_SEC</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a538cbf03f87e88410397e3bf51c3dbd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ecb533ef27737750a95f2cdb9a0f43b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a1ecb533ef27737750a95f2cdb9a0f43b">BPB_BYTES_PER_SEC</a>&#160;&#160;&#160;0x0B</td></tr>
+<tr class="separator:a1ecb533ef27737750a95f2cdb9a0f43b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d33cc730b9a26d5b31a223a239d3a8d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a4d33cc730b9a26d5b31a223a239d3a8d">BPB_SEC_PER_CLUSTER</a>&#160;&#160;&#160;0x0D</td></tr>
+<tr class="separator:a4d33cc730b9a26d5b31a223a239d3a8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceaeaa4ad72f292ff407f6789a3d49b1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#aceaeaa4ad72f292ff407f6789a3d49b1">BPB_RSVD_SEC_CNT</a>&#160;&#160;&#160;0x0E</td></tr>
+<tr class="separator:aceaeaa4ad72f292ff407f6789a3d49b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55ce87cd9e26f21c76ba06e7b514993d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a55ce87cd9e26f21c76ba06e7b514993d">BPB_FAT_NUM</a>&#160;&#160;&#160;0x10</td></tr>
+<tr class="separator:a55ce87cd9e26f21c76ba06e7b514993d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcc1172b9cd884e5b5e349740928a6e1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#adcc1172b9cd884e5b5e349740928a6e1">BPB_HIDD_SEC</a>&#160;&#160;&#160;0x1C</td></tr>
+<tr class="separator:adcc1172b9cd884e5b5e349740928a6e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab278ee63f0bda2e75f566e689265c656"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#ab278ee63f0bda2e75f566e689265c656">BPB_TOTL_SEC</a>&#160;&#160;&#160;0x20</td></tr>
+<tr class="separator:ab278ee63f0bda2e75f566e689265c656"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a394f5e2cf6b7cdebfbc56ab5f9490986"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a394f5e2cf6b7cdebfbc56ab5f9490986">BPB_SEC_PER_FAT</a>&#160;&#160;&#160;0x24</td></tr>
+<tr class="separator:a394f5e2cf6b7cdebfbc56ab5f9490986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2da53692da5a321d90d429d8713912b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#ae2da53692da5a321d90d429d8713912b">BPB_ROOT_CLUSTER</a>&#160;&#160;&#160;0x2c</td></tr>
+<tr class="separator:ae2da53692da5a321d90d429d8713912b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a154ecd3eb374bee87efec220f2d5106f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a154ecd3eb374bee87efec220f2d5106f">ATTR_READ_WRITE</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="separator:a154ecd3eb374bee87efec220f2d5106f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef018487342a3344aa32ee15ddcb4410"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#aef018487342a3344aa32ee15ddcb4410">ATTR_READ_ONLY</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="separator:aef018487342a3344aa32ee15ddcb4410"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42249a182dc832d4647b67281c2ffc90"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a42249a182dc832d4647b67281c2ffc90">ATTR_HIDDEN</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="separator:a42249a182dc832d4647b67281c2ffc90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c1250075cd2ca065a67a44fc9fc3222"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a1c1250075cd2ca065a67a44fc9fc3222">ATTR_SYSTEM</a>&#160;&#160;&#160;0x04</td></tr>
+<tr class="separator:a1c1250075cd2ca065a67a44fc9fc3222"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab14d118689e61ffb3e29f83d38f1f135"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#ab14d118689e61ffb3e29f83d38f1f135">ATTR_VOLUME_ID</a>&#160;&#160;&#160;0x08</td></tr>
+<tr class="separator:ab14d118689e61ffb3e29f83d38f1f135"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa13d3c1c60925f7b1e639233a799860"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#afa13d3c1c60925f7b1e639233a799860">ATTR_DIRECTORY</a>&#160;&#160;&#160;0x10</td></tr>
+<tr class="separator:afa13d3c1c60925f7b1e639233a799860"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b257aa7e0fdd8b11372edf885302176"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a1b257aa7e0fdd8b11372edf885302176">ATTR_ARCHIVE</a>&#160;&#160;&#160;0x20</td></tr>
+<tr class="separator:a1b257aa7e0fdd8b11372edf885302176"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ebe014bd4f0c93090bd1c884c7285d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a8ebe014bd4f0c93090bd1c884c7285d5">ATTR_LONG_FILE_NAME</a>&#160;&#160;&#160;0x0F</td></tr>
+<tr class="separator:a8ebe014bd4f0c93090bd1c884c7285d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a134b0a56cd9289f94d5fbb0be67652af"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a134b0a56cd9289f94d5fbb0be67652af">ATTR_LINK</a>&#160;&#160;&#160;0x40</td></tr>
+<tr class="separator:a134b0a56cd9289f94d5fbb0be67652af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07c53a8ec2098d5d57aac0dd3184c34a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a07c53a8ec2098d5d57aac0dd3184c34a">ATTR_CHARACTER_DEVICE</a>&#160;&#160;&#160;0x80</td></tr>
+<tr class="separator:a07c53a8ec2098d5d57aac0dd3184c34a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75db02ccc1974b51db069507421816f8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a75db02ccc1974b51db069507421816f8">SHORT_FIR_NAME</a>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:a75db02ccc1974b51db069507421816f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a561925648134af559971d6567ae0a2fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a561925648134af559971d6567ae0a2fd">SHORT_EXT_NAME</a>&#160;&#160;&#160;3</td></tr>
+<tr class="separator:a561925648134af559971d6567ae0a2fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9a2edbdc1d8f4a69f20b638c1f127e1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#ae9a2edbdc1d8f4a69f20b638c1f127e1">MAX_SHORT_NAME</a>&#160;&#160;&#160;11</td></tr>
+<tr class="separator:ae9a2edbdc1d8f4a69f20b638c1f127e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd709f201d7643c3909621f620ea648a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#afd709f201d7643c3909621f620ea648a">MAX_NAME_LEN</a>&#160;&#160;&#160;256</td></tr>
+<tr class="separator:afd709f201d7643c3909621f620ea648a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdd33f362ae3bbdacb5de76473aa8a2f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#abdd33f362ae3bbdacb5de76473aa8a2f">MAX_PATH_LEN</a>&#160;&#160;&#160;512 /* TODO : is there any limitation? */</td></tr>
+<tr class="separator:abdd33f362ae3bbdacb5de76473aa8a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e9bf759d4f45f4b9aecd8d6a1bf3ab4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a0e9bf759d4f45f4b9aecd8d6a1bf3ab4">DENTRY_LEN</a>&#160;&#160;&#160;32</td></tr>
+<tr class="separator:a0e9bf759d4f45f4b9aecd8d6a1bf3ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a497ba0a9b3f71e6d1d16f35e59e0ee41"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a497ba0a9b3f71e6d1d16f35e59e0ee41">LONG_NAME1_LEN</a>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:a497ba0a9b3f71e6d1d16f35e59e0ee41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeed41609dfc0a8f9e8045482e6fde0c6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#aeed41609dfc0a8f9e8045482e6fde0c6">LONG_NAME2_LEN</a>&#160;&#160;&#160;6</td></tr>
+<tr class="separator:aeed41609dfc0a8f9e8045482e6fde0c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0649f275ab8a919df26b672f5c59562d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a0649f275ab8a919df26b672f5c59562d">LONG_NAME3_LEN</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:a0649f275ab8a919df26b672f5c59562d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac790975f8ecfdee44f4e4d86c259fa6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#ac790975f8ecfdee44f4e4d86c259fa6b">LONG_NAME_LEN</a>&#160;&#160;&#160;(<a class="el" href="fat32_8h.html#a497ba0a9b3f71e6d1d16f35e59e0ee41">LONG_NAME1_LEN</a> + <a class="el" href="fat32_8h.html#aeed41609dfc0a8f9e8045482e6fde0c6">LONG_NAME2_LEN</a> + <a class="el" href="fat32_8h.html#a0649f275ab8a919df26b672f5c59562d">LONG_NAME3_LEN</a>)</td></tr>
+<tr class="separator:ac790975f8ecfdee44f4e4d86c259fa6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96e90331356a0d3455a9c449f9bd424d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a96e90331356a0d3455a9c449f9bd424d">LAST_LONG_ENTRY</a>&#160;&#160;&#160;0x40</td></tr>
+<tr class="separator:a96e90331356a0d3455a9c449f9bd424d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58626af35e23c5b34253a8934f2d87eb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a58626af35e23c5b34253a8934f2d87eb">LONG_ENTRY_SEQ</a>&#160;&#160;&#160;0x1f</td></tr>
+<tr class="separator:a58626af35e23c5b34253a8934f2d87eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a283ce77ac13408cf4b039da8f9df7dd2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a283ce77ac13408cf4b039da8f9df7dd2">FAT_MASK</a>&#160;&#160;&#160;0x0fffffffu</td></tr>
+<tr class="separator:a283ce77ac13408cf4b039da8f9df7dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a214588323c8c933e0f2955490b0670ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a214588323c8c933e0f2955490b0670ff">FAT_MAX</a>&#160;&#160;&#160;0x0ffffff8u /* end of the file */</td></tr>
+<tr class="separator:a214588323c8c933e0f2955490b0670ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a324d17db9fc3f741180c9e4dbc61e79d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a324d17db9fc3f741180c9e4dbc61e79d">FAT_BAD</a>&#160;&#160;&#160;0x0ffffff7u /* bad cluster of SDcard */</td></tr>
+<tr class="separator:a324d17db9fc3f741180c9e4dbc61e79d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0f5c0eccc13102f73ced92774e6ec83"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#af0f5c0eccc13102f73ced92774e6ec83">FAT_ENTRY_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:af0f5c0eccc13102f73ced92774e6ec83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+类型定义</h2></td></tr>
+<tr class="memitem:a9435cc3223d5ebe7b4dcf66c22c8e455"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structfat32.html">fat32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a9435cc3223d5ebe7b4dcf66c22c8e455">fat32_t</a></td></tr>
+<tr class="separator:a9435cc3223d5ebe7b4dcf66c22c8e455"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adea5e9d8af4a39aaf5ea29b82359b74c"><td class="memItemLeft" align="right" valign="top">typedef union <a class="el" href="uniondentry.html">dentry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#adea5e9d8af4a39aaf5ea29b82359b74c">dentry_t</a></td></tr>
+<tr class="separator:adea5e9d8af4a39aaf5ea29b82359b74c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a980c2de82bdbc2af89d6e36b540baf6e"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structdir__info.html">dir_info</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a980c2de82bdbc2af89d6e36b540baf6e">dir_info_t</a></td></tr>
+<tr class="separator:a980c2de82bdbc2af89d6e36b540baf6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a3a4a667ab08f78bd5eaf440d6d8015ca"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structshort__name__entry.html">short_name_entry</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a3a4a667ab08f78bd5eaf440d6d8015ca">__attribute__</a> ((packed, aligned(4))) short_name_entry_t</td></tr>
+<tr class="separator:a3a4a667ab08f78bd5eaf440d6d8015ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:aedf326fe429f8658c6dfcd69bf33dc38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fat32_8h.html#a9435cc3223d5ebe7b4dcf66c22c8e455">fat32_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a></td></tr>
+<tr class="separator:aedf326fe429f8658c6dfcd69bf33dc38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a909106b46b3b3dccb78a5e3ad9750e9b"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a909106b46b3b3dccb78a5e3ad9750e9b">name1</a> [<a class="el" href="fat32_8h.html#a75db02ccc1974b51db069507421816f8">SHORT_FIR_NAME</a>]</td></tr>
+<tr class="separator:a909106b46b3b3dccb78a5e3ad9750e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab22d53293a9a984edfcb1cf6f0e55bec"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#ab22d53293a9a984edfcb1cf6f0e55bec">name2</a> [<a class="el" href="fat32_8h.html#a561925648134af559971d6567ae0a2fd">SHORT_EXT_NAME</a>]</td></tr>
+<tr class="separator:ab22d53293a9a984edfcb1cf6f0e55bec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28478ea2856f6286899bc90b2c6a1ec4"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a28478ea2856f6286899bc90b2c6a1ec4">attr</a></td></tr>
+<tr class="separator:a28478ea2856f6286899bc90b2c6a1ec4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cd34d27e4ec6f942a06129c8af77527"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a7cd34d27e4ec6f942a06129c8af77527">nt_res</a></td></tr>
+<tr class="separator:a7cd34d27e4ec6f942a06129c8af77527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15ea3713b7857599395a2711dca0d69a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a15ea3713b7857599395a2711dca0d69a">crt_time_tenth</a></td></tr>
+<tr class="separator:a15ea3713b7857599395a2711dca0d69a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af51030d3bc65095e968dcee26b915d27"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#af51030d3bc65095e968dcee26b915d27">crt_time</a></td></tr>
+<tr class="separator:af51030d3bc65095e968dcee26b915d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a137c641e9c9c08007dd8cf3f711ed6c8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a137c641e9c9c08007dd8cf3f711ed6c8">crt_date</a></td></tr>
+<tr class="separator:a137c641e9c9c08007dd8cf3f711ed6c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45575e11636a9231721c99b60872b8e8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a45575e11636a9231721c99b60872b8e8">lst_acce_date</a></td></tr>
+<tr class="separator:a45575e11636a9231721c99b60872b8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a860ab219cbe70f1430539b8cd0b068dc"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a860ab219cbe70f1430539b8cd0b068dc">fst_clus_hi</a></td></tr>
+<tr class="separator:a860ab219cbe70f1430539b8cd0b068dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27213e68ae6a6595dd32cdcac9c67db3"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a27213e68ae6a6595dd32cdcac9c67db3">lst_wrt_time</a></td></tr>
+<tr class="separator:a27213e68ae6a6595dd32cdcac9c67db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92a9d5f0513ef705d35b2c8ed9d01d1c"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a92a9d5f0513ef705d35b2c8ed9d01d1c">lst_wrt_date</a></td></tr>
+<tr class="separator:a92a9d5f0513ef705d35b2c8ed9d01d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc6bcd884a58006249290dc285412a45"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#abc6bcd884a58006249290dc285412a45">fst_clus_lo</a></td></tr>
+<tr class="separator:abc6bcd884a58006249290dc285412a45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfc905fb689f590842c0152e3b8cd92e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#acfc905fb689f590842c0152e3b8cd92e">file_size</a></td></tr>
+<tr class="separator:acfc905fb689f590842c0152e3b8cd92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa44597f38af03f4bb6ef069ba7efb24c"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#aa44597f38af03f4bb6ef069ba7efb24c">order</a></td></tr>
+<tr class="separator:aa44597f38af03f4bb6ef069ba7efb24c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d127017fb298b889f4ba24752d08b8e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a></td></tr>
+<tr class="separator:a1d127017fb298b889f4ba24752d08b8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59eac9627282a484fbaf0aa7aa3b8a9a"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a59eac9627282a484fbaf0aa7aa3b8a9a">checksum</a></td></tr>
+<tr class="separator:a59eac9627282a484fbaf0aa7aa3b8a9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6afa72984587556813605e9102d667d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#ac6afa72984587556813605e9102d667d">rsvd</a></td></tr>
+<tr class="separator:ac6afa72984587556813605e9102d667d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13f50e165236fbe26394686e5a2245d5"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a13f50e165236fbe26394686e5a2245d5">name3</a> [<a class="el" href="fat32_8h.html#a0649f275ab8a919df26b672f5c59562d">LONG_NAME3_LEN</a>]</td></tr>
+<tr class="separator:a13f50e165236fbe26394686e5a2245d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab49ea0634e50fbcf6723c042807d010d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fat32_8h.html#a980c2de82bdbc2af89d6e36b540baf6e">dir_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#ab49ea0634e50fbcf6723c042807d010d">root_dir</a></td></tr>
+<tr class="separator:ab49ea0634e50fbcf6723c042807d010d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ed1f339a9c42b1a180ffbf41bb91d10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="fat32_8h.html#a980c2de82bdbc2af89d6e36b540baf6e">dir_info_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fat32_8h.html#a7ed1f339a9c42b1a180ffbf41bb91d10">cur_dir</a></td></tr>
+<tr class="separator:a7ed1f339a9c42b1a180ffbf41bb91d10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a1b257aa7e0fdd8b11372edf885302176"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b257aa7e0fdd8b11372edf885302176">&#9670;&nbsp;</a></span>ATTR_ARCHIVE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTR_ARCHIVE&#160;&#160;&#160;0x20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a07c53a8ec2098d5d57aac0dd3184c34a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07c53a8ec2098d5d57aac0dd3184c34a">&#9670;&nbsp;</a></span>ATTR_CHARACTER_DEVICE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTR_CHARACTER_DEVICE&#160;&#160;&#160;0x80</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afa13d3c1c60925f7b1e639233a799860"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa13d3c1c60925f7b1e639233a799860">&#9670;&nbsp;</a></span>ATTR_DIRECTORY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTR_DIRECTORY&#160;&#160;&#160;0x10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a42249a182dc832d4647b67281c2ffc90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42249a182dc832d4647b67281c2ffc90">&#9670;&nbsp;</a></span>ATTR_HIDDEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTR_HIDDEN&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a134b0a56cd9289f94d5fbb0be67652af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a134b0a56cd9289f94d5fbb0be67652af">&#9670;&nbsp;</a></span>ATTR_LINK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTR_LINK&#160;&#160;&#160;0x40</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8ebe014bd4f0c93090bd1c884c7285d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ebe014bd4f0c93090bd1c884c7285d5">&#9670;&nbsp;</a></span>ATTR_LONG_FILE_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTR_LONG_FILE_NAME&#160;&#160;&#160;0x0F</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aef018487342a3344aa32ee15ddcb4410"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef018487342a3344aa32ee15ddcb4410">&#9670;&nbsp;</a></span>ATTR_READ_ONLY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTR_READ_ONLY&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a154ecd3eb374bee87efec220f2d5106f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a154ecd3eb374bee87efec220f2d5106f">&#9670;&nbsp;</a></span>ATTR_READ_WRITE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTR_READ_WRITE&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1c1250075cd2ca065a67a44fc9fc3222"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c1250075cd2ca065a67a44fc9fc3222">&#9670;&nbsp;</a></span>ATTR_SYSTEM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTR_SYSTEM&#160;&#160;&#160;0x04</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab14d118689e61ffb3e29f83d38f1f135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab14d118689e61ffb3e29f83d38f1f135">&#9670;&nbsp;</a></span>ATTR_VOLUME_ID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ATTR_VOLUME_ID&#160;&#160;&#160;0x08</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1ecb533ef27737750a95f2cdb9a0f43b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ecb533ef27737750a95f2cdb9a0f43b">&#9670;&nbsp;</a></span>BPB_BYTES_PER_SEC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BPB_BYTES_PER_SEC&#160;&#160;&#160;0x0B</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a55ce87cd9e26f21c76ba06e7b514993d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55ce87cd9e26f21c76ba06e7b514993d">&#9670;&nbsp;</a></span>BPB_FAT_NUM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BPB_FAT_NUM&#160;&#160;&#160;0x10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adcc1172b9cd884e5b5e349740928a6e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcc1172b9cd884e5b5e349740928a6e1">&#9670;&nbsp;</a></span>BPB_HIDD_SEC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BPB_HIDD_SEC&#160;&#160;&#160;0x1C</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae2da53692da5a321d90d429d8713912b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2da53692da5a321d90d429d8713912b">&#9670;&nbsp;</a></span>BPB_ROOT_CLUSTER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BPB_ROOT_CLUSTER&#160;&#160;&#160;0x2c</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aceaeaa4ad72f292ff407f6789a3d49b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceaeaa4ad72f292ff407f6789a3d49b1">&#9670;&nbsp;</a></span>BPB_RSVD_SEC_CNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BPB_RSVD_SEC_CNT&#160;&#160;&#160;0x0E</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4d33cc730b9a26d5b31a223a239d3a8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d33cc730b9a26d5b31a223a239d3a8d">&#9670;&nbsp;</a></span>BPB_SEC_PER_CLUSTER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BPB_SEC_PER_CLUSTER&#160;&#160;&#160;0x0D</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a394f5e2cf6b7cdebfbc56ab5f9490986"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a394f5e2cf6b7cdebfbc56ab5f9490986">&#9670;&nbsp;</a></span>BPB_SEC_PER_FAT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BPB_SEC_PER_FAT&#160;&#160;&#160;0x24</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab278ee63f0bda2e75f566e689265c656"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab278ee63f0bda2e75f566e689265c656">&#9670;&nbsp;</a></span>BPB_TOTL_SEC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BPB_TOTL_SEC&#160;&#160;&#160;0x20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e9bf759d4f45f4b9aecd8d6a1bf3ab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e9bf759d4f45f4b9aecd8d6a1bf3ab4">&#9670;&nbsp;</a></span>DENTRY_LEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DENTRY_LEN&#160;&#160;&#160;32</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a538cbf03f87e88410397e3bf51c3dbd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a538cbf03f87e88410397e3bf51c3dbd8">&#9670;&nbsp;</a></span>FAT32_BOOT_SEC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FAT32_BOOT_SEC&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a324d17db9fc3f741180c9e4dbc61e79d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a324d17db9fc3f741180c9e4dbc61e79d">&#9670;&nbsp;</a></span>FAT_BAD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FAT_BAD&#160;&#160;&#160;0x0ffffff7u /* bad cluster of SDcard */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af0f5c0eccc13102f73ced92774e6ec83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0f5c0eccc13102f73ced92774e6ec83">&#9670;&nbsp;</a></span>FAT_ENTRY_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FAT_ENTRY_SIZE&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a283ce77ac13408cf4b039da8f9df7dd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a283ce77ac13408cf4b039da8f9df7dd2">&#9670;&nbsp;</a></span>FAT_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FAT_MASK&#160;&#160;&#160;0x0fffffffu</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a214588323c8c933e0f2955490b0670ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a214588323c8c933e0f2955490b0670ff">&#9670;&nbsp;</a></span>FAT_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FAT_MAX&#160;&#160;&#160;0x0ffffff8u /* end of the file */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a96e90331356a0d3455a9c449f9bd424d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96e90331356a0d3455a9c449f9bd424d">&#9670;&nbsp;</a></span>LAST_LONG_ENTRY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LAST_LONG_ENTRY&#160;&#160;&#160;0x40</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a58626af35e23c5b34253a8934f2d87eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58626af35e23c5b34253a8934f2d87eb">&#9670;&nbsp;</a></span>LONG_ENTRY_SEQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LONG_ENTRY_SEQ&#160;&#160;&#160;0x1f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a497ba0a9b3f71e6d1d16f35e59e0ee41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a497ba0a9b3f71e6d1d16f35e59e0ee41">&#9670;&nbsp;</a></span>LONG_NAME1_LEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LONG_NAME1_LEN&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeed41609dfc0a8f9e8045482e6fde0c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeed41609dfc0a8f9e8045482e6fde0c6">&#9670;&nbsp;</a></span>LONG_NAME2_LEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LONG_NAME2_LEN&#160;&#160;&#160;6</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0649f275ab8a919df26b672f5c59562d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0649f275ab8a919df26b672f5c59562d">&#9670;&nbsp;</a></span>LONG_NAME3_LEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LONG_NAME3_LEN&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac790975f8ecfdee44f4e4d86c259fa6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac790975f8ecfdee44f4e4d86c259fa6b">&#9670;&nbsp;</a></span>LONG_NAME_LEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LONG_NAME_LEN&#160;&#160;&#160;(<a class="el" href="fat32_8h.html#a497ba0a9b3f71e6d1d16f35e59e0ee41">LONG_NAME1_LEN</a> + <a class="el" href="fat32_8h.html#aeed41609dfc0a8f9e8045482e6fde0c6">LONG_NAME2_LEN</a> + <a class="el" href="fat32_8h.html#a0649f275ab8a919df26b672f5c59562d">LONG_NAME3_LEN</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac39d9cef6a5e030ba8d9e11121054268"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac39d9cef6a5e030ba8d9e11121054268">&#9670;&nbsp;</a></span>max</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define max</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">y&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(((x) &gt; (y)) ? (x) : (y))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afd709f201d7643c3909621f620ea648a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd709f201d7643c3909621f620ea648a">&#9670;&nbsp;</a></span>MAX_NAME_LEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_NAME_LEN&#160;&#160;&#160;256</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abdd33f362ae3bbdacb5de76473aa8a2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdd33f362ae3bbdacb5de76473aa8a2f">&#9670;&nbsp;</a></span>MAX_PATH_LEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_PATH_LEN&#160;&#160;&#160;512 /* TODO : is there any limitation? */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae9a2edbdc1d8f4a69f20b638c1f127e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9a2edbdc1d8f4a69f20b638c1f127e1">&#9670;&nbsp;</a></span>MAX_SHORT_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_SHORT_NAME&#160;&#160;&#160;11</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb702d8b501669a23aa0ab3b281b9384"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb702d8b501669a23aa0ab3b281b9384">&#9670;&nbsp;</a></span>min</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define min</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">y&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(((x) &gt; (y)) ? (y) : (x))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a561925648134af559971d6567ae0a2fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a561925648134af559971d6567ae0a2fd">&#9670;&nbsp;</a></span>SHORT_EXT_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SHORT_EXT_NAME&#160;&#160;&#160;3</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a75db02ccc1974b51db069507421816f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75db02ccc1974b51db069507421816f8">&#9670;&nbsp;</a></span>SHORT_FIR_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SHORT_FIR_NAME&#160;&#160;&#160;8</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">类型定义说明</h2>
+<a id="adea5e9d8af4a39aaf5ea29b82359b74c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adea5e9d8af4a39aaf5ea29b82359b74c">&#9670;&nbsp;</a></span>dentry_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef union <a class="el" href="uniondentry.html">dentry</a> <a class="el" href="fat32_8h.html#adea5e9d8af4a39aaf5ea29b82359b74c">dentry_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a980c2de82bdbc2af89d6e36b540baf6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a980c2de82bdbc2af89d6e36b540baf6e">&#9670;&nbsp;</a></span>dir_info_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structdir__info.html">dir_info</a> <a class="el" href="fat32_8h.html#a980c2de82bdbc2af89d6e36b540baf6e">dir_info_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9435cc3223d5ebe7b4dcf66c22c8e455"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9435cc3223d5ebe7b4dcf66c22c8e455">&#9670;&nbsp;</a></span>fat32_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structfat32.html">fat32</a> <a class="el" href="fat32_8h.html#a9435cc3223d5ebe7b4dcf66c22c8e455">fat32_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="a3a4a667ab08f78bd5eaf440d6d8015ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a4a667ab08f78bd5eaf440d6d8015ca">&#9670;&nbsp;</a></span>__attribute__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structshort__name__entry.html">short_name_entry</a> __attribute__ </td>
+          <td>(</td>
+          <td class="paramtype">(packed, aligned(4))&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="a28478ea2856f6286899bc90b2c6a1ec4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28478ea2856f6286899bc90b2c6a1ec4">&#9670;&nbsp;</a></span>attr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t attr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a59eac9627282a484fbaf0aa7aa3b8a9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59eac9627282a484fbaf0aa7aa3b8a9a">&#9670;&nbsp;</a></span>checksum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t checksum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a137c641e9c9c08007dd8cf3f711ed6c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a137c641e9c9c08007dd8cf3f711ed6c8">&#9670;&nbsp;</a></span>crt_date</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t crt_date</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af51030d3bc65095e968dcee26b915d27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af51030d3bc65095e968dcee26b915d27">&#9670;&nbsp;</a></span>crt_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t crt_time</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15ea3713b7857599395a2711dca0d69a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15ea3713b7857599395a2711dca0d69a">&#9670;&nbsp;</a></span>crt_time_tenth</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t crt_time_tenth</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7ed1f339a9c42b1a180ffbf41bb91d10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ed1f339a9c42b1a180ffbf41bb91d10">&#9670;&nbsp;</a></span>cur_dir</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fat32_8h.html#a980c2de82bdbc2af89d6e36b540baf6e">dir_info_t</a> cur_dir</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aedf326fe429f8658c6dfcd69bf33dc38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedf326fe429f8658c6dfcd69bf33dc38">&#9670;&nbsp;</a></span>fat</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fat32_8h.html#a9435cc3223d5ebe7b4dcf66c22c8e455">fat32_t</a> fat</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acfc905fb689f590842c0152e3b8cd92e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfc905fb689f590842c0152e3b8cd92e">&#9670;&nbsp;</a></span>file_size</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t file_size</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a860ab219cbe70f1430539b8cd0b068dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a860ab219cbe70f1430539b8cd0b068dc">&#9670;&nbsp;</a></span>fst_clus_hi</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t fst_clus_hi</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abc6bcd884a58006249290dc285412a45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc6bcd884a58006249290dc285412a45">&#9670;&nbsp;</a></span>fst_clus_lo</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t fst_clus_lo</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a45575e11636a9231721c99b60872b8e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45575e11636a9231721c99b60872b8e8">&#9670;&nbsp;</a></span>lst_acce_date</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t lst_acce_date</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a92a9d5f0513ef705d35b2c8ed9d01d1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92a9d5f0513ef705d35b2c8ed9d01d1c">&#9670;&nbsp;</a></span>lst_wrt_date</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t lst_wrt_date</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a27213e68ae6a6595dd32cdcac9c67db3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27213e68ae6a6595dd32cdcac9c67db3">&#9670;&nbsp;</a></span>lst_wrt_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t lst_wrt_time</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a909106b46b3b3dccb78a5e3ad9750e9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a909106b46b3b3dccb78a5e3ad9750e9b">&#9670;&nbsp;</a></span>name1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t name1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab22d53293a9a984edfcb1cf6f0e55bec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab22d53293a9a984edfcb1cf6f0e55bec">&#9670;&nbsp;</a></span>name2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t name2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13f50e165236fbe26394686e5a2245d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13f50e165236fbe26394686e5a2245d5">&#9670;&nbsp;</a></span>name3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t name3[<a class="el" href="fat32_8h.html#a0649f275ab8a919df26b672f5c59562d">LONG_NAME3_LEN</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7cd34d27e4ec6f942a06129c8af77527"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cd34d27e4ec6f942a06129c8af77527">&#9670;&nbsp;</a></span>nt_res</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t nt_res</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa44597f38af03f4bb6ef069ba7efb24c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa44597f38af03f4bb6ef069ba7efb24c">&#9670;&nbsp;</a></span>order</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t order</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab49ea0634e50fbcf6723c042807d010d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab49ea0634e50fbcf6723c042807d010d">&#9670;&nbsp;</a></span>root_dir</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="fat32_8h.html#a980c2de82bdbc2af89d6e36b540baf6e">dir_info_t</a> root_dir</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac6afa72984587556813605e9102d667d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6afa72984587556813605e9102d667d">&#9670;&nbsp;</a></span>rsvd</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t rsvd</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1d127017fb298b889f4ba24752d08b8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d127017fb298b889f4ba24752d08b8e">&#9670;&nbsp;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7d71b6c457a61cbf03a04bfdc57b6110.html">fs</a></li><li class="navelem"><a class="el" href="fat32_8h.html">fat32.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

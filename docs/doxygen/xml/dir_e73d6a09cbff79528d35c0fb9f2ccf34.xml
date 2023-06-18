@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="dir_e73d6a09cbff79528d35c0fb9f2ccf34" kind="dir">
+    <compoundname>src/drivers/plic</compoundname>
+    <innerfile refid="plic_8c">plic.c</innerfile>
+    <innerfile refid="plic_8d">plic.d</innerfile>
+    <innerfile refid="plic_8h">plic.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/drivers/plic/"/>
+  </compounddef>
+</doxygen>

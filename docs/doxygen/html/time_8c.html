@@ -1,0 +1,712 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/kernel/sys/time.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('time_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">time.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="types_8h_source.html">common/types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="list_8h_source.html">lib/list.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="pcb_8h_source.html">os/pcb.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="smp_8h_source.html">os/smp.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="time_8h_source.html">os/time.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+time.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="time_8c__incl.png" border="0" usemap="#asrc_2kernel_2sys_2time_8c" alt=""/></div>
+<map name="asrc_2kernel_2sys_2time_8c" id="asrc_2kernel_2sys_2time_8c">
+<area shape="rect" title=" " alt="" coords="220,5,376,32"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="670,453,801,480"/>
+<area shape="rect" href="list_8h.html" title=" " alt="" coords="195,304,270,331"/>
+<area shape="rect" href="pcb_8h.html" title=" " alt="" coords="339,155,415,181"/>
+<area shape="rect" href="time_8h.html" title=" " alt="" coords="23,229,106,256"/>
+<area shape="rect" href="smp_8h.html" title=" " alt="" coords="336,80,417,107"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="671,528,800,555"/>
+<area shape="rect" href="context_8h.html" title=" " alt="" coords="563,379,678,405"/>
+<area shape="rect" href="elf_8h.html" title=" " alt="" coords="653,229,764,256"/>
+<area shape="rect" href="cpu_8h.html" title=" " alt="" coords="235,229,311,256"/>
+<area shape="rect" href="lock_8h.html" title=" " alt="" coords="130,229,210,256"/>
+<area shape="rect" href="mm_8h.html" title=" " alt="" coords="460,379,539,405"/>
+<area shape="rect" href="sync_8h.html" title=" " alt="" coords="335,229,418,256"/>
+<area shape="rect" href="pgtable_8h.html" title=" " alt="" coords="709,304,823,331"/>
+<area shape="rect" href="string_8h.html" title=" " alt="" coords="594,304,685,331"/>
+<area shape="rect" href="sbi_8h.html" title=" " alt="" coords="854,379,939,405"/>
+<area shape="rect" href="sbidef_8h.html" title=" " alt="" coords="844,453,949,480"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:abecbf6dd4576a3e60f7eb58b2f630f98"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#abecbf6dd4576a3e60f7eb58b2f630f98">k_time_get_ticks</a> ()</td></tr>
+<tr class="separator:abecbf6dd4576a3e60f7eb58b2f630f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24c17479c62cbd20a0e74ff0752f623e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a24c17479c62cbd20a0e74ff0752f623e">get_timer</a> ()</td></tr>
+<tr class="separator:a24c17479c62cbd20a0e74ff0752f623e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae22885f7b30f2ac1fefb29305dfe6a9c"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#ae22885f7b30f2ac1fefb29305dfe6a9c">k_time_get_times_base</a> ()</td></tr>
+<tr class="separator:ae22885f7b30f2ac1fefb29305dfe6a9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8db0b39aba068a0ee578c93ab788039"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#af8db0b39aba068a0ee578c93ab788039">k_time_nano_u_time_converter</a> (<a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *nanotime, <a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *utime, <a class="el" href="types_8h.html#a1062901a7428fdd9c7f180f5e01ea056">bool</a> direction)</td></tr>
+<tr class="separator:af8db0b39aba068a0ee578c93ab788039"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a723c6615d70bae09da02cb9d16344ee4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a723c6615d70bae09da02cb9d16344ee4">k_time_get_nanotime</a> (<a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *ntimebuf)</td></tr>
+<tr class="separator:a723c6615d70bae09da02cb9d16344ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a444571cbcd4c1d24b059811d270b97f6"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a444571cbcd4c1d24b059811d270b97f6">k_time_get_ticks_from_nanotime</a> (<a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *ntimebuf)</td></tr>
+<tr class="separator:a444571cbcd4c1d24b059811d270b97f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab100eaf213b061d6ab7e8f54071a74e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#ab100eaf213b061d6ab7e8f54071a74e6">k_time_copy_nanotime</a> (<a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *dst, <a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *src)</td></tr>
+<tr class="separator:ab100eaf213b061d6ab7e8f54071a74e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb6ccf4f333a67368ff2709e1defb61d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#abb6ccf4f333a67368ff2709e1defb61d">k_time_minus_nanotime</a> (<a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *first, <a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *sec, <a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *res)</td></tr>
+<tr class="separator:abb6ccf4f333a67368ff2709e1defb61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0190f196ef401ddd8e6dcd075cab531c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a0190f196ef401ddd8e6dcd075cab531c">k_time_add_nanotime</a> (<a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *first, <a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *sec, <a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *res)</td></tr>
+<tr class="separator:a0190f196ef401ddd8e6dcd075cab531c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fe46bf79cad6f526d80bae9f12d7eb6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a7fe46bf79cad6f526d80bae9f12d7eb6">k_time_cmp_nanotime</a> (<a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *first, <a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *sec)</td></tr>
+<tr class="separator:a7fe46bf79cad6f526d80bae9f12d7eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2becded4e81a6ea36df9e9215b2f8fbe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a2becded4e81a6ea36df9e9215b2f8fbe">k_time_get_utime</a> (<a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *utimebuf)</td></tr>
+<tr class="separator:a2becded4e81a6ea36df9e9215b2f8fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3deef70e8beeb519ae927eabe660143d"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a3deef70e8beeb519ae927eabe660143d">k_time_get_ticks_from_time</a> (<a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *ntimebuf)</td></tr>
+<tr class="separator:a3deef70e8beeb519ae927eabe660143d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeffb4fbc5ea000e6ffe358743d817991"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#aeffb4fbc5ea000e6ffe358743d817991">k_time_copy_utime</a> (<a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *src, <a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *dst)</td></tr>
+<tr class="separator:aeffb4fbc5ea000e6ffe358743d817991"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06a1833ccbcd5cc6f6629b246f6dfe61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a06a1833ccbcd5cc6f6629b246f6dfe61">k_time_minus_utime</a> (<a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *first, <a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *sec, <a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *res)</td></tr>
+<tr class="separator:a06a1833ccbcd5cc6f6629b246f6dfe61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a003938989bcf21f9ae02af2585f9f3d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a003938989bcf21f9ae02af2585f9f3d2">k_time_add_utime</a> (<a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *first, <a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *sec, <a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *res)</td></tr>
+<tr class="separator:a003938989bcf21f9ae02af2585f9f3d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefc71d72ca052fee32f1faa93f6a8a6e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#aefc71d72ca052fee32f1faa93f6a8a6e">k_time_cmp_utime</a> (<a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *first, <a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *sec)</td></tr>
+<tr class="separator:aefc71d72ca052fee32f1faa93f6a8a6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2a439cbb73c16f491163cdb4010c50d"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#ad2a439cbb73c16f491163cdb4010c50d">sys_time</a> (<a class="el" href="types_8h.html#a46b18e17fe5ee9ab433cec7e1ec8f295">__kernel_time_t</a> *tloc)</td></tr>
+<tr class="separator:ad2a439cbb73c16f491163cdb4010c50d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1449f007c2a4c074678ac82b7e761c8"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#ac1449f007c2a4c074678ac82b7e761c8">sys_times</a> (<a class="el" href="time_8h.html#ab9d02468772a025e2461930c437575bc">tms_t</a> *tbuf)</td></tr>
+<tr class="separator:ac1449f007c2a4c074678ac82b7e761c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0a572ef7aa1434e5a31bd166120f0f3"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#ac0a572ef7aa1434e5a31bd166120f0f3">sys_gettimeofday</a> (<a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *tv, <a class="el" href="time_8h.html#aeb9dc63fd2475889cae0920118e87f81">timezone_t</a> *tz)</td></tr>
+<tr class="separator:ac0a572ef7aa1434e5a31bd166120f0f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a7a54d04596d6bde610b1b8ae299e947e"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a7a54d04596d6bde610b1b8ae299e947e">time_base</a> = 0</td></tr>
+<tr class="separator:a7a54d04596d6bde610b1b8ae299e947e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab320f26aea896e624e2be00b73604c2b"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#ab320f26aea896e624e2be00b73604c2b">time_elapsed</a> = 0</td></tr>
+<tr class="separator:ab320f26aea896e624e2be00b73604c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bbed12ae35f0784a3f7d9c29e283ea2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#a0bbed12ae35f0784a3f7d9c29e283ea2">timers</a></td></tr>
+<tr class="separator:a0bbed12ae35f0784a3f7d9c29e283ea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afac53a8ef867e814be7f17a6d4dd7fdb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="time_8h.html#aeb9dc63fd2475889cae0920118e87f81">timezone_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="time_8c.html#afac53a8ef867e814be7f17a6d4dd7fdb">timezone_550W</a> = {.tz_minuteswest = -480, .tz_dsttime = 0}</td></tr>
+<tr class="separator:afac53a8ef867e814be7f17a6d4dd7fdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">函数说明</h2>
+<a id="a24c17479c62cbd20a0e74ff0752f623e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24c17479c62cbd20a0e74ff0752f623e">&#9670;&nbsp;</a></span>get_timer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t get_timer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0190f196ef401ddd8e6dcd075cab531c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0190f196ef401ddd8e6dcd075cab531c">&#9670;&nbsp;</a></span>k_time_add_nanotime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_time_add_nanotime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>first</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>sec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>res</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a003938989bcf21f9ae02af2585f9f3d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a003938989bcf21f9ae02af2585f9f3d2">&#9670;&nbsp;</a></span>k_time_add_utime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_time_add_utime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>first</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>sec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>res</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7fe46bf79cad6f526d80bae9f12d7eb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fe46bf79cad6f526d80bae9f12d7eb6">&#9670;&nbsp;</a></span>k_time_cmp_nanotime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_time_cmp_nanotime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>first</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>sec</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aefc71d72ca052fee32f1faa93f6a8a6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefc71d72ca052fee32f1faa93f6a8a6e">&#9670;&nbsp;</a></span>k_time_cmp_utime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_time_cmp_utime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>first</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>sec</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab100eaf213b061d6ab7e8f54071a74e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab100eaf213b061d6ab7e8f54071a74e6">&#9670;&nbsp;</a></span>k_time_copy_nanotime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_time_copy_nanotime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aeffb4fbc5ea000e6ffe358743d817991"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeffb4fbc5ea000e6ffe358743d817991">&#9670;&nbsp;</a></span>k_time_copy_utime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_time_copy_utime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>src</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>dst</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a723c6615d70bae09da02cb9d16344ee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a723c6615d70bae09da02cb9d16344ee4">&#9670;&nbsp;</a></span>k_time_get_nanotime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_time_get_nanotime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>ntimebuf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abecbf6dd4576a3e60f7eb58b2f630f98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abecbf6dd4576a3e60f7eb58b2f630f98">&#9670;&nbsp;</a></span>k_time_get_ticks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long k_time_get_ticks </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a444571cbcd4c1d24b059811d270b97f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a444571cbcd4c1d24b059811d270b97f6">&#9670;&nbsp;</a></span>k_time_get_ticks_from_nanotime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t k_time_get_ticks_from_nanotime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>ntimebuf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3deef70e8beeb519ae927eabe660143d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3deef70e8beeb519ae927eabe660143d">&#9670;&nbsp;</a></span>k_time_get_ticks_from_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t k_time_get_ticks_from_time </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>ntimebuf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae22885f7b30f2ac1fefb29305dfe6a9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae22885f7b30f2ac1fefb29305dfe6a9c">&#9670;&nbsp;</a></span>k_time_get_times_base()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t k_time_get_times_base </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2becded4e81a6ea36df9e9215b2f8fbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2becded4e81a6ea36df9e9215b2f8fbe">&#9670;&nbsp;</a></span>k_time_get_utime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_time_get_utime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>utimebuf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb6ccf4f333a67368ff2709e1defb61d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb6ccf4f333a67368ff2709e1defb61d">&#9670;&nbsp;</a></span>k_time_minus_nanotime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_time_minus_nanotime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>first</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>sec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>res</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a06a1833ccbcd5cc6f6629b246f6dfe61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06a1833ccbcd5cc6f6629b246f6dfe61">&#9670;&nbsp;</a></span>k_time_minus_utime()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_time_minus_utime </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>first</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>sec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>res</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af8db0b39aba068a0ee578c93ab788039"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8db0b39aba068a0ee578c93ab788039">&#9670;&nbsp;</a></span>k_time_nano_u_time_converter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_time_nano_u_time_converter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>nanotime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>utime</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a1062901a7428fdd9c7f180f5e01ea056">bool</a>&#160;</td>
+          <td class="paramname"><em>direction</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac0a572ef7aa1434e5a31bd166120f0f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0a572ef7aa1434e5a31bd166120f0f3">&#9670;&nbsp;</a></span>sys_gettimeofday()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_gettimeofday </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a> *&#160;</td>
+          <td class="paramname"><em>tv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#aeb9dc63fd2475889cae0920118e87f81">timezone_t</a> *&#160;</td>
+          <td class="paramname"><em>tz</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad2a439cbb73c16f491163cdb4010c50d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2a439cbb73c16f491163cdb4010c50d">&#9670;&nbsp;</a></span>sys_time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_time </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a46b18e17fe5ee9ab433cec7e1ec8f295">__kernel_time_t</a> *&#160;</td>
+          <td class="paramname"><em>tloc</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac1449f007c2a4c074678ac82b7e761c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1449f007c2a4c074678ac82b7e761c8">&#9670;&nbsp;</a></span>sys_times()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_times </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#ab9d02468772a025e2461930c437575bc">tms_t</a> *&#160;</td>
+          <td class="paramname"><em>tbuf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="a7a54d04596d6bde610b1b8ae299e947e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a54d04596d6bde610b1b8ae299e947e">&#9670;&nbsp;</a></span>time_base</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t time_base = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab320f26aea896e624e2be00b73604c2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab320f26aea896e624e2be00b73604c2b">&#9670;&nbsp;</a></span>time_elapsed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t time_elapsed = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0bbed12ae35f0784a3f7d9c29e283ea2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bbed12ae35f0784a3f7d9c29e283ea2">&#9670;&nbsp;</a></span>timers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> timers</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afac53a8ef867e814be7f17a6d4dd7fdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afac53a8ef867e814be7f17a6d4dd7fdb">&#9670;&nbsp;</a></span>timezone_550W</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="time_8h.html#aeb9dc63fd2475889cae0920118e87f81">timezone_t</a> timezone_550W = {.tz_minuteswest = -480, .tz_dsttime = 0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cbd7f246bdf7dc0a50281a272327e6ed.html">kernel</a></li><li class="navelem"><a class="el" href="dir_4b0b675971e8b75ff33680b3a878a76d.html">sys</a></li><li class="navelem"><a class="el" href="time_8c.html">time.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

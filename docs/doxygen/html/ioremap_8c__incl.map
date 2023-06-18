@@ -1,0 +1,10 @@
+<map id="src/kernel/mm/ioremap.c" name="src/kernel/mm/ioremap.c">
+<area shape="rect" id="node1" title=" " alt="" coords="153,5,337,32"/>
+<area shape="rect" id="node2" href="$pgtable_8h.html" title=" " alt="" coords="47,80,162,107"/>
+<area shape="rect" id="node5" href="$types_8h.html" title=" " alt="" coords="134,229,265,256"/>
+<area shape="rect" id="node7" href="$ioremap_8h.html" title=" " alt="" coords="237,80,343,107"/>
+<area shape="rect" id="node8" href="$mm_8h.html" title=" " alt="" coords="289,155,368,181"/>
+<area shape="rect" id="node3" href="$sbi_8h.html" title=" " alt="" coords="26,155,111,181"/>
+<area shape="rect" id="node4" href="$sbidef_8h.html" title=" " alt="" coords="5,229,111,256"/>
+<area shape="rect" id="node6" href="$errno_8h.html" title=" " alt="" coords="135,304,264,331"/>
+</map>

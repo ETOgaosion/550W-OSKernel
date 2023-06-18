@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structbasic__info" kind="struct" language="C++" prot="public">
+    <compoundname>basic_info</compoundname>
+    <includes refid="sync_8h" local="no">sync.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbasic__info_1a9fc747019e8cd575d37b79c5f71f5319" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int basic_info::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sync.h" line="14" column="9" bodyfile="src/include/os/sync.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbasic__info_1a965c707f58ce92560224db3d996b7c50" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int basic_info::initialized</definition>
+        <argsstring></argsstring>
+        <name>initialized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sync.h" line="15" column="9" bodyfile="src/include/os/sync.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/include/os/sync.h" line="13" column="1" bodyfile="src/include/os/sync.h" bodystart="13" bodyend="16"/>
+    <listofallmembers>
+      <member refid="structbasic__info_1a9fc747019e8cd575d37b79c5f71f5319" prot="public" virt="non-virtual"><scope>basic_info</scope><name>id</name></member>
+      <member refid="structbasic__info_1a965c707f58ce92560224db3d996b7c50" prot="public" virt="non-virtual"><scope>basic_info</scope><name>initialized</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

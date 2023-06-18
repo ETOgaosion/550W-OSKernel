@@ -1,0 +1,9 @@
+<map id="src/drivers/virtio/virtio.h" name="src/drivers/virtio/virtio.h">
+<area shape="rect" id="node1" title=" " alt="" coords="391,5,519,47"/>
+<area shape="rect" id="node2" href="$plic_8c.html" title=" " alt="" coords="5,102,160,129"/>
+<area shape="rect" id="node3" href="$virtio__blk_8c.html" title=" " alt="" coords="184,95,312,136"/>
+<area shape="rect" id="node4" href="$fs_8c.html" title=" " alt="" coords="337,102,421,129"/>
+<area shape="rect" id="node5" href="$include_2os_2syscall_8h.html" title=" " alt="" coords="445,102,617,129"/>
+<area shape="rect" id="node6" href="$irq_8c.html" title=" " alt="" coords="523,184,661,211"/>
+<area shape="rect" id="node7" href="$main_8c.html" title=" " alt="" coords="692,102,807,129"/>
+</map>

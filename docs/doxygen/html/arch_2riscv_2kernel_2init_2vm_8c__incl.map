@@ -1,0 +1,9 @@
+<map id="src/arch/riscv/kernel/init/vm.c" name="src/arch/riscv/kernel/init/vm.c">
+<area shape="rect" id="node1" title=" " alt="" coords="146,5,298,47"/>
+<area shape="rect" id="node2" href="$pgtable_8h.html" title=" " alt="" coords="102,95,217,121"/>
+<area shape="rect" id="node7" href="$vm_8h.html" title=" " alt="" coords="241,95,328,121"/>
+<area shape="rect" id="node3" href="$sbi_8h.html" title=" " alt="" coords="77,169,162,196"/>
+<area shape="rect" id="node5" href="$types_8h.html" title=" " alt="" coords="134,244,265,271"/>
+<area shape="rect" id="node4" href="$sbidef_8h.html" title=" " alt="" coords="5,244,111,271"/>
+<area shape="rect" id="node6" href="$errno_8h.html" title=" " alt="" coords="135,319,264,345"/>
+</map>

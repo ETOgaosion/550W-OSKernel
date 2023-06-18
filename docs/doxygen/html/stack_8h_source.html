@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/arch/riscv/include/asm/stack.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('stack_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">stack.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="stack_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="types_8h.html">common/types.h</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="pcb_8h.html">os/pcb.h</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<a class="code" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> <a class="code" href="stack_8h.html#ad72f726c9f29ef22f7a26cdf0fd601ef">get_kernel_address</a>(<a class="code" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a> pid);</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">void</span> <a class="code" href="stack_8h.html#a4619d60667f4a7c84a28f9cd741f7ba4">init_context_stack</a>(<a class="code" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> kernel_stack, <a class="code" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> user_stack, <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> *argv[], <a class="code" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> entry_point, <a class="code" href="structpcb.html">pcb_t</a> *<a class="code" href="structpcb.html">pcb</a>);</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordtype">void</span> <a class="code" href="stack_8h.html#a8a2fff3cc3f61aaf7d825c92a36819d5">fork_pcb_stack</a>(<a class="code" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> kernel_stack, <a class="code" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> user_stack, <a class="code" href="structpcb.html">pcb_t</a> *<a class="code" href="structpcb.html">pcb</a>);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">void</span> <a class="code" href="stack_8h.html#a858d10edc3b587179159d2e575df5ebb">clone_pcb_stack</a>(<a class="code" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> kernel_stack, <a class="code" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> user_stack, <a class="code" href="structpcb.html">pcb_t</a> *<a class="code" href="structpcb.html">pcb</a>, <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> flags, <span class="keywordtype">void</span> *tls);</div>
+<div class="ttc" id="apcb_8h_html"><div class="ttname"><a href="pcb_8h.html">pcb.h</a></div></div>
+<div class="ttc" id="astack_8h_html_a4619d60667f4a7c84a28f9cd741f7ba4"><div class="ttname"><a href="stack_8h.html#a4619d60667f4a7c84a28f9cd741f7ba4">init_context_stack</a></div><div class="ttdeci">void init_context_stack(ptr_t kernel_stack, ptr_t user_stack, int argc, char *argv[], ptr_t entry_point, pcb_t *pcb)</div><div class="ttdef"><b>Definition:</b> stack.c:23</div></div>
+<div class="ttc" id="astack_8h_html_a858d10edc3b587179159d2e575df5ebb"><div class="ttname"><a href="stack_8h.html#a858d10edc3b587179159d2e575df5ebb">clone_pcb_stack</a></div><div class="ttdeci">void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned long flags, void *tls)</div><div class="ttdef"><b>Definition:</b> stack.c:80</div></div>
+<div class="ttc" id="astack_8h_html_a8a2fff3cc3f61aaf7d825c92a36819d5"><div class="ttname"><a href="stack_8h.html#a8a2fff3cc3f61aaf7d825c92a36819d5">fork_pcb_stack</a></div><div class="ttdeci">void fork_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb)</div><div class="ttdef"><b>Definition:</b> stack.c:51</div></div>
+<div class="ttc" id="astack_8h_html_ad72f726c9f29ef22f7a26cdf0fd601ef"><div class="ttname"><a href="stack_8h.html#ad72f726c9f29ef22f7a26cdf0fd601ef">get_kernel_address</a></div><div class="ttdeci">ptr_t get_kernel_address(pid_t pid)</div><div class="ttdef"><b>Definition:</b> stack.c:15</div></div>
+<div class="ttc" id="astructpcb_html"><div class="ttname"><a href="structpcb.html">pcb</a></div><div class="ttdef"><b>Definition:</b> pcb.h:127</div></div>
+<div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div></div>
+<div class="ttc" id="atypes_8h_html_a288e13e815d43b06e75819f8939524df"><div class="ttname"><a href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a></div><div class="ttdeci">int pid_t</div><div class="ttdef"><b>Definition:</b> types.h:42</div></div>
+<div class="ttc" id="atypes_8h_html_a3f13e4d5a59d909d6303f569fe5e6524"><div class="ttname"><a href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a></div><div class="ttdeci">uint64_t ptr_t</div><div class="ttdef"><b>Definition:</b> types.h:44</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_70d5e250c66d001b18da37689179cade.html">arch</a></li><li class="navelem"><a class="el" href="dir_3230303e5984acafe45a2f99e1efc49d.html">riscv</a></li><li class="navelem"><a class="el" href="dir_26bcf4a2c99410b27d879fa5d562d234.html">include</a></li><li class="navelem"><a class="el" href="dir_f79e4fe9e5bfe66546e3b9727306749c.html">asm</a></li><li class="navelem"><a class="el" href="stack_8h.html">stack.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structbarrier" kind="struct" language="C++" prot="public">
+    <compoundname>barrier</compoundname>
+    <includes refid="sync_8h" local="no">sync.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbarrier_1a3ac971f92dc65f4fe9d468a8dee026fa" prot="public" static="no" mutable="no">
+        <type><ref refid="sync_8h_1acd5677713c27dd566fe26bf891111b7b" kindref="member">basic_info_t</ref></type>
+        <definition>basic_info_t barrier::barrier_info</definition>
+        <argsstring></argsstring>
+        <name>barrier_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sync.h" line="31" column="18" bodyfile="src/include/os/sync.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbarrier_1a94e6627a244819a7aa2f111a93167f99" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int barrier::count</definition>
+        <argsstring></argsstring>
+        <name>count</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sync.h" line="32" column="9" bodyfile="src/include/os/sync.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbarrier_1af62bd297c2aa0803cb0081c90d97fa10" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int barrier::total</definition>
+        <argsstring></argsstring>
+        <name>total</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sync.h" line="33" column="9" bodyfile="src/include/os/sync.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbarrier_1a369d0aa1244db2f06bdf6b6197ef21ed" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int barrier::cond_id</definition>
+        <argsstring></argsstring>
+        <name>cond_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sync.h" line="35" column="9" bodyfile="src/include/os/sync.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>barrier</label>
+        <link refid="structbarrier"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>barrier_info</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>basic_info</label>
+        <link refid="structbasic__info"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/include/os/sync.h" line="30" column="1" bodyfile="src/include/os/sync.h" bodystart="30" bodyend="36"/>
+    <listofallmembers>
+      <member refid="structbarrier_1a3ac971f92dc65f4fe9d468a8dee026fa" prot="public" virt="non-virtual"><scope>barrier</scope><name>barrier_info</name></member>
+      <member refid="structbarrier_1a369d0aa1244db2f06bdf6b6197ef21ed" prot="public" virt="non-virtual"><scope>barrier</scope><name>cond_id</name></member>
+      <member refid="structbarrier_1a94e6627a244819a7aa2f111a93167f99" prot="public" virt="non-virtual"><scope>barrier</scope><name>count</name></member>
+      <member refid="structbarrier_1af62bd297c2aa0803cb0081c90d97fa10" prot="public" virt="non-virtual"><scope>barrier</scope><name>total</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

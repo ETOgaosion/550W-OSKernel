@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structELF__info" kind="struct" language="C++" prot="public">
+    <compoundname>ELF_info</compoundname>
+    <includes refid="elf_8h" local="no">elf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structELF__info_1ad1ec133e793adb4be69a305ab73a53c0" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ELF_info::text_begin</definition>
+        <argsstring></argsstring>
+        <name>text_begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="120" column="14" bodyfile="src/include/common/elf.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structELF__info_1a9719f14095dc83699cb9da57d66fc0d3" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ELF_info::phoff</definition>
+        <argsstring></argsstring>
+        <name>phoff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="121" column="14" bodyfile="src/include/common/elf.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structELF__info_1a75d2410f44d6494c2be05dfbdfb0bd21" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ELF_info::phent</definition>
+        <argsstring></argsstring>
+        <name>phent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="122" column="14" bodyfile="src/include/common/elf.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structELF__info_1a459240cd481d4a16239e8f8139eb6747" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ELF_info::phnum</definition>
+        <argsstring></argsstring>
+        <name>phnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="123" column="14" bodyfile="src/include/common/elf.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structELF__info_1a4074d394b70a6c607e0952fec85de5b4" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ELF_info::entry</definition>
+        <argsstring></argsstring>
+        <name>entry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="124" column="14" bodyfile="src/include/common/elf.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structELF__info_1a5b49fd010618ee4f352e9b34deda7983" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ELF_info::edata</definition>
+        <argsstring></argsstring>
+        <name>edata</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="125" column="14" bodyfile="src/include/common/elf.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/include/common/elf.h" line="119" column="1" bodyfile="src/include/common/elf.h" bodystart="119" bodyend="126"/>
+    <listofallmembers>
+      <member refid="structELF__info_1a5b49fd010618ee4f352e9b34deda7983" prot="public" virt="non-virtual"><scope>ELF_info</scope><name>edata</name></member>
+      <member refid="structELF__info_1a4074d394b70a6c607e0952fec85de5b4" prot="public" virt="non-virtual"><scope>ELF_info</scope><name>entry</name></member>
+      <member refid="structELF__info_1a75d2410f44d6494c2be05dfbdfb0bd21" prot="public" virt="non-virtual"><scope>ELF_info</scope><name>phent</name></member>
+      <member refid="structELF__info_1a459240cd481d4a16239e8f8139eb6747" prot="public" virt="non-virtual"><scope>ELF_info</scope><name>phnum</name></member>
+      <member refid="structELF__info_1a9719f14095dc83699cb9da57d66fc0d3" prot="public" virt="non-virtual"><scope>ELF_info</scope><name>phoff</name></member>
+      <member refid="structELF__info_1ad1ec133e793adb4be69a305ab73a53c0" prot="public" virt="non-virtual"><scope>ELF_info</scope><name>text_begin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="smp_8c" kind="file" language="C++">
+    <compoundname>smp.c</compoundname>
+    <includes refid="privileged_8h" local="no">asm/privileged.h</includes>
+    <includes refid="sbi_8h" local="no">asm/sbi.h</includes>
+    <includes refid="irq_8h" local="no">os/irq.h</includes>
+    <includes refid="lock_8h" local="no">os/lock.h</includes>
+    <includes refid="pcb_8h" local="no">os/pcb.h</includes>
+    <includes refid="smp_8h" local="no">os/smp.h</includes>
+    <incdepgraph>
+      <node id="11">
+        <label>asm/pgtable.h</label>
+        <link refid="pgtable_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/kernel/sys/smp.c</label>
+        <link refid="smp_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>os/mm.h</label>
+        <link refid="mm_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>common/elf.h</label>
+        <link refid="elf_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>asm/privileged.h</label>
+        <link refid="privileged_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="14">
+        <label>os/cpu.h</label>
+        <link refid="cpu_8h"/>
+      </node>
+      <node id="18">
+        <label>os/time.h</label>
+        <link refid="time_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>asm/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>os/irq.h</label>
+        <link refid="irq_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>asm/sbidef.h</label>
+        <link refid="sbidef_8h"/>
+      </node>
+      <node id="3">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>os/smp.h</label>
+        <link refid="smp_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>asm/sbi.h</label>
+        <link refid="sbi_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>os/pcb.h</label>
+        <link refid="pcb_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>os/lock.h</label>
+        <link refid="lock_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>os/sync.h</label>
+        <link refid="sync_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>lib/list.h</label>
+        <link refid="list_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="smp_8c_1aa5e506b8190fa63efcd7811cab8f5b5e" prot="public" static="no" mutable="no">
+        <type><ref refid="lock_8h_1a78e3055bd891f045188756c613a5ad92" kindref="member">spin_lock_t</ref></type>
+        <definition>spin_lock_t kernel_lock</definition>
+        <argsstring></argsstring>
+        <name>kernel_lock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/smp.c" line="8" column="13" bodyfile="src/kernel/sys/smp.c" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="smp_8c_1a792b4b25fc040911b4d949b124d7ad34" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_smp_init</definition>
+        <argsstring>()</argsstring>
+        <name>k_smp_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/smp.c" line="10" column="6" bodyfile="src/kernel/sys/smp.c" bodystart="10" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="smp_8c_1af5b07a0d64f6e98aa6c4638845062ff7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_smp_wakeup_other_hart</definition>
+        <argsstring>()</argsstring>
+        <name>k_smp_wakeup_other_hart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/smp.c" line="14" column="6" bodyfile="src/kernel/sys/smp.c" bodystart="14" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="smp_8c_1a1dc6682b8daa1278db7cd33a1a5d7330" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void kernel_exception_handler_entry</definition>
+        <argsstring>()</argsstring>
+        <name>kernel_exception_handler_entry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/smp.c" line="19" column="13" declfile="src/kernel/sys/smp.c" declline="19" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="smp_8c_1ad98816cc172e077f1a7eaf7e9bf85eba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_smp_lock_kernel</definition>
+        <argsstring>()</argsstring>
+        <name>k_smp_lock_kernel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/smp.c" line="21" column="6" bodyfile="src/kernel/sys/smp.c" bodystart="21" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="smp_8c_1ad7e65e693eb06f2de4fb1b84fbc9b4d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_smp_unlock_kernel</definition>
+        <argsstring>()</argsstring>
+        <name>k_smp_unlock_kernel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/smp.c" line="31" column="6" bodyfile="src/kernel/sys/smp.c" bodystart="31" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="smp_8c_1ad31b9c256d6f7d32ec99b5f892f40c8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref> *volatile *</type>
+        <definition>pcb_t* volatile* k_smp_get_current_running</definition>
+        <argsstring>()</argsstring>
+        <name>k_smp_get_current_running</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/smp.c" line="35" column="16" bodyfile="src/kernel/sys/smp.c" bodystart="35" bodyend="37"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;<ref refid="privileged_8h" kindref="compound">asm/privileged.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="sbi_8h" kindref="compound">asm/sbi.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="irq_8h" kindref="compound">os/irq.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="lock_8h" kindref="compound">os/lock.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="pcb_8h" kindref="compound">os/pcb.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="smp_8h" kindref="compound">os/smp.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><ref refid="structspin__lock" kindref="compound">spin_lock_t</ref><sp/><ref refid="smp_8c_1aa5e506b8190fa63efcd7811cab8f5b5e" kindref="member">kernel_lock</ref>;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="smp_8c_1a792b4b25fc040911b4d949b124d7ad34" kindref="member">k_smp_init</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1a5ecc66db27d505944136e8cb400d30f9" kindref="member">k_spin_lock_init</ref>(&amp;<ref refid="smp_8c_1aa5e506b8190fa63efcd7811cab8f5b5e" kindref="member">kernel_lock</ref>);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="smp_8c_1af5b07a0d64f6e98aa6c4638845062ff7" kindref="member">k_smp_wakeup_other_hart</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>sbi_send_ipi(<ref refid="types_8h_1a070d2ce7b6bb7e5c05602aa8c308d0c4" kindref="member">NULL</ref>);</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>__asm__<sp/>__volatile__(</highlight><highlight class="stringliteral">&quot;csrw<sp/>sip,<sp/>zero\n\t&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="smp_8c_1a1dc6682b8daa1278db7cd33a1a5d7330" kindref="member">kernel_exception_handler_entry</ref>();</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="smp_8c_1ad98816cc172e077f1a7eaf7e9bf85eba" kindref="member">k_smp_lock_kernel</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>asm_w_stvec((uint64_t)<ref refid="smp_8c_1a1dc6682b8daa1278db7cd33a1a5d7330" kindref="member">kernel_exception_handler_entry</ref>);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8h_1ad526d0e7053f3b9a14e70dafd54682c6" kindref="member">disable_timer_interrupt</ref>();</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8h_1ab383228fc2f4127c927408250bbb0439" kindref="member">disable_software_interrupt</ref>();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8h_1a88eb032ea6b8ea8a8795003a9af4a5a2" kindref="member">enable_external_interrupt</ref>();</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="irq_8h_1a3665288f90082fad6acfda528f925f35" kindref="member">enable_interrupt</ref>();</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1aa8b07da1c0d3b17f49429722404c9649" kindref="member">k_spin_lock_acquire</ref>(&amp;<ref refid="smp_8c_1aa5e506b8190fa63efcd7811cab8f5b5e" kindref="member">kernel_lock</ref>);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a775dd48cd2188c627cbdd19b03b37212" kindref="member">current_running</ref><sp/>=<sp/><ref refid="smp_8c_1ad31b9c256d6f7d32ec99b5f892f40c8c" kindref="member">k_smp_get_current_running</ref>();</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="smp_8c_1ad7e65e693eb06f2de4fb1b84fbc9b4d2" kindref="member">k_smp_unlock_kernel</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1a25c026e475e11a6e312925223a3e9d34" kindref="member">k_spin_lock_release</ref>(&amp;<ref refid="smp_8c_1aa5e506b8190fa63efcd7811cab8f5b5e" kindref="member">kernel_lock</ref>);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>*<ref refid="smp_8c_1ad31b9c256d6f7d32ec99b5f892f40c8c" kindref="member">k_smp_get_current_running</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="smp_8h_1af01b72c2ec67649abee4185ad9d9fa34" kindref="member">k_smp_get_current_cpu_id</ref>()<sp/>?<sp/>&amp;<ref refid="pcb_8h_1a5f57f427e7da8049da09de558fc72e2d" kindref="member">current_running1</ref><sp/>:<sp/>&amp;<ref refid="pcb_8h_1a83f38b8c9da23021ed61d4031ab5aad3" kindref="member">current_running0</ref>;</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/kernel/sys/smp.c"/>
+  </compounddef>
+</doxygen>

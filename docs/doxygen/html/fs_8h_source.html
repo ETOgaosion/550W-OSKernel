@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/fs/fs.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('fs_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">fs.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="fs_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="types_8h.html">common/types.h</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// #define O_RDONLY 0x000</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// #define O_WRONLY 0x001</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// #define O_RDWR 0x002 // 可读可写</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// //#define O_CREATE 0x200</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// #define O_CREATE 0x40</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">// #define O_DIRECTORY 0x0200000</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="fs_8h.html#a6c8de73bb604d91743c7f6f356eb171e">   12</a></span>&#160;<span class="preprocessor">#define DIR 0x040000</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="fs_8h.html#a3e8cefeee58f762ff50bcef35fa12eec">   13</a></span>&#160;<span class="preprocessor">#define FILE 0x100000</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// #define AT_FDCWD -100</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="fs_8h.html#a0d112bae8fd35be772185b6ec6bcbe64">   17</a></span>&#160;<span class="preprocessor">#define SEEK_SET 0</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="fs_8h.html#a4c8d0b76b470ba65a43ca46a88320f39">   18</a></span>&#160;<span class="preprocessor">#define SEEK_CUR 1</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="fs_8h.html#ad2a2e6c114780c3071efd24f16c7f7d8">   19</a></span>&#160;<span class="preprocessor">#define SEEK_END 2</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="fs_8h.html#ac00bfb46347d26fdc58568fe1ab5fa5b">   21</a></span>&#160;<span class="preprocessor">#define STDIN 0</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="fs_8h.html#a8875037d0772a4fc34516f1e03d7e238">   22</a></span>&#160;<span class="preprocessor">#define STDOUT 1</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="fs_8h.html#a3a540e3eef339eec06aff31c4ba1eb25">   23</a></span>&#160;<span class="preprocessor">#define STDERR 2</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="fs_8h.html#a75e52edf7ba53611de040cb63c5b5588">   24</a></span>&#160;<span class="preprocessor">#define STDMAX 3</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="fs_8h.html#aaca70138f0cb63ddb026921afc635179">   26</a></span>&#160;<span class="preprocessor">#define stdin STDIN</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="fs_8h.html#a0c0ef221f95f64e8632451312fd18cc8">   27</a></span>&#160;<span class="preprocessor">#define stdout STDOUT</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="fs_8h.html#a5ce35bd5ba5021fd3b2e951e8f497656">   28</a></span>&#160;<span class="preprocessor">#define stderr STDERR</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structsuper__block.html">   30</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structsuper__block.html">super_block</a> {</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structsuper__block.html#a4c32683deec0bad9b3cd7846d41e42e6">   31</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#a4c32683deec0bad9b3cd7846d41e42e6">magic</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="structsuper__block.html#aa5c82ede944d67eaec1291abc0b7c242">   32</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#aa5c82ede944d67eaec1291abc0b7c242">fs_start_sec</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="structsuper__block.html#a1f60f1e2636cac0bef5bec328943b5a5">   33</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#a1f60f1e2636cac0bef5bec328943b5a5">size</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structsuper__block.html#ad3856e5948e5c1076b3d39949573970f">   34</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#ad3856e5948e5c1076b3d39949573970f">imap_sec_offset</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structsuper__block.html#a084682df06e62212689449b747188ffa">   35</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#a084682df06e62212689449b747188ffa">imap_sec_size</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structsuper__block.html#a4169ac5bf8f45462c4b5620d2e1f92f4">   36</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#a4169ac5bf8f45462c4b5620d2e1f92f4">smap_sec_offset</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structsuper__block.html#af1aba1e5d6f1f4e9ac832b3a15c0ceef">   37</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#af1aba1e5d6f1f4e9ac832b3a15c0ceef">smap_sec_size</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structsuper__block.html#a747c9f070b0982e0f0978e8b1badc8be">   38</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#a747c9f070b0982e0f0978e8b1badc8be">inode_sec_offset</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structsuper__block.html#a4b429cdf43ece8a599b4f2b45e1aa09b">   39</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#a4b429cdf43ece8a599b4f2b45e1aa09b">inode_sec_size</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structsuper__block.html#ae4b6a52258a5f6e32aff406521c9c674">   40</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#ae4b6a52258a5f6e32aff406521c9c674">data_sec_offset</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structsuper__block.html#a0d4ef7f96243a194affd2704b50544d0">   41</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#a0d4ef7f96243a194affd2704b50544d0">data_sec_size</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structsuper__block.html#a011e82bb85f96ca59d7762e043f4c469">   42</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#a011e82bb85f96ca59d7762e043f4c469">sector_used</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structsuper__block.html#af9b6f6d8831fd17e6f2f709da7cfbc19">   43</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#af9b6f6d8831fd17e6f2f709da7cfbc19">inode_used</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structsuper__block.html#a4a1395dce1a71fc6e913de47a83fbc0b">   44</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structsuper__block.html#a4a1395dce1a71fc6e913de47a83fbc0b">root_inode_offset</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="fs_8h.html#aa8756db1aa96264ad9b7aa24a9180d4d">   45</a></span>&#160;} <a class="code" href="fs_8h.html#aa8756db1aa96264ad9b7aa24a9180d4d">super_block_t</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structdir__entry.html">   47</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdir__entry.html">dir_entry</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structdir__entry.html#a30377ae9f18c4110c62527cd2e0ff036">   48</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="structdir__entry.html#a30377ae9f18c4110c62527cd2e0ff036">name</a>[20];</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="structdir__entry.html#aad84f5f6f839aab465ef48eb1242ba18">   49</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structdir__entry.html#aad84f5f6f839aab465ef48eb1242ba18">inode_id</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structdir__entry.html#a0f1bee834016954567d63158f45184bc">   50</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structdir__entry.html#a0f1bee834016954567d63158f45184bc">last</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="structdir__entry.html#a913b0765e55c5e041cfec39474019da9">   51</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structdir__entry.html#a913b0765e55c5e041cfec39474019da9">mode</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="fs_8h.html#a6810ca3ec203afd05ef15f2560289299">   52</a></span>&#160;} <a class="code" href="fs_8h.html#a6810ca3ec203afd05ef15f2560289299">dir_entry_t</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="structfentry.html">   54</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structfentry.html">fentry</a> {</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="structfentry.html#a5eeabf78e411225c27c0932b4919634a">   55</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structfentry.html#a5eeabf78e411225c27c0932b4919634a">inodeid</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structfentry.html#ad0aec17207ae39ebd8d735d825ee3926">   56</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structfentry.html#ad0aec17207ae39ebd8d735d825ee3926">prive</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="structfentry.html#a22a130375e4c630f281a14fdef4d052a">   57</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structfentry.html#a22a130375e4c630f281a14fdef4d052a">pos_block</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="structfentry.html#af95a8662e72c55a338442aab1d1a4880">   58</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structfentry.html#af95a8662e72c55a338442aab1d1a4880">pos_offset</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="fs_8h.html#aab3b0b3a37bb21267c3dd1be6aed1867">   59</a></span>&#160;} <a class="code" href="fs_8h.html#aab3b0b3a37bb21267c3dd1be6aed1867">fentry_t</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structdirent64.html">   61</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdirent64.html">dirent64</a> {</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structdirent64.html#ac6e4ef85c65554400b54453e5cb017f7">   62</a></span>&#160;    uint64_t <a class="code" href="structdirent64.html#ac6e4ef85c65554400b54453e5cb017f7">d_ino</a>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="structdirent64.html#a75cbff7adaa1a45994be22687441e214">   63</a></span>&#160;    int64_t <a class="code" href="structdirent64.html#a75cbff7adaa1a45994be22687441e214">d_off</a>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="structdirent64.html#a4472cd642ab74191bccff5fdb87ba57e">   64</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="structdirent64.html#a4472cd642ab74191bccff5fdb87ba57e">d_reclen</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="structdirent64.html#a4228c87afd910baab45a45ce745df789">   65</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> <a class="code" href="structdirent64.html#a4228c87afd910baab45a45ce745df789">d_type</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="structdirent64.html#a16dc8c4c2b92cd2dc6cb1a5f8bf76fa1">   66</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="structdirent64.html#a16dc8c4c2b92cd2dc6cb1a5f8bf76fa1">d_name</a>[];</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="fs_8h.html#a24aad750df2ab79e1cab28e733481b6f">   67</a></span>&#160;} <a class="code" href="fs_8h.html#a24aad750df2ab79e1cab28e733481b6f">dirent64_t</a>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="structkstat.html">   69</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structkstat.html">kstat</a> {</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="structkstat.html#a61010d90aaad1ca40bc863d2c6313452">   70</a></span>&#160;    <a class="code" href="types_8h.html#a29940ae63ec06c9998bba873e25407ad">uint64</a> <a class="code" href="structkstat.html#a61010d90aaad1ca40bc863d2c6313452">st_dev</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="structkstat.html#a3029f24da03d40d2976c7223c908019c">   71</a></span>&#160;    <a class="code" href="types_8h.html#a29940ae63ec06c9998bba873e25407ad">uint64</a> <a class="code" href="structkstat.html#a3029f24da03d40d2976c7223c908019c">st_ino</a>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="structkstat.html#a7dda59111ccfca356784cf30a8c6a15c">   72</a></span>&#160;    <a class="code" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a> <a class="code" href="structkstat.html#a7dda59111ccfca356784cf30a8c6a15c">st_mode</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="structkstat.html#af8d07f3ba24ab49960756f70afe1fcfa">   73</a></span>&#160;    <a class="code" href="types_8h.html#a1134b580f8da4de94ca6b1de4d37975e">uint32</a> <a class="code" href="structkstat.html#af8d07f3ba24ab49960756f70afe1fcfa">st_nlink</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="structkstat.html#a383bd33a0780993a5898d547e0823093">   74</a></span>&#160;    <a class="code" href="types_8h.html#a1134b580f8da4de94ca6b1de4d37975e">uint32</a> <a class="code" href="structkstat.html#a383bd33a0780993a5898d547e0823093">st_uid</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="structkstat.html#a1e72af54d87518bbdd2cef4c325abde6">   75</a></span>&#160;    <a class="code" href="types_8h.html#a1134b580f8da4de94ca6b1de4d37975e">uint32</a> <a class="code" href="structkstat.html#a1e72af54d87518bbdd2cef4c325abde6">st_gid</a>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="structkstat.html#aeef4f0679e42b46765a7551343b1ee20">   76</a></span>&#160;    <a class="code" href="types_8h.html#a29940ae63ec06c9998bba873e25407ad">uint64</a> <a class="code" href="structkstat.html#aeef4f0679e42b46765a7551343b1ee20">st_rdev</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="structkstat.html#ab5d49d4e0b0188b6f0b31c88b19f13cf">   77</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="structkstat.html#ab5d49d4e0b0188b6f0b31c88b19f13cf">__pad</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="structkstat.html#acb089ce5ac53aebc5b8fe5351e293dcd">   78</a></span>&#160;    <a class="code" href="file_8h.html#a053c614b69adbac710bb132a6eb9ccf6">off_t</a> <a class="code" href="structkstat.html#acb089ce5ac53aebc5b8fe5351e293dcd">st_size</a>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="structkstat.html#aac5763ac31d4bcd17723a1acb8b924ae">   79</a></span>&#160;    <a class="code" href="types_8h.html#a1134b580f8da4de94ca6b1de4d37975e">uint32</a> <a class="code" href="structkstat.html#aac5763ac31d4bcd17723a1acb8b924ae">st_blksize</a>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="structkstat.html#a30aaf8c3fe759e6f1244730f53e84ef8">   80</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structkstat.html#a30aaf8c3fe759e6f1244730f53e84ef8">__pad2</a>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="structkstat.html#a92ea89155b4b5753bebdfbe309a9483d">   81</a></span>&#160;    <a class="code" href="types_8h.html#a29940ae63ec06c9998bba873e25407ad">uint64</a> <a class="code" href="structkstat.html#a92ea89155b4b5753bebdfbe309a9483d">st_blocks</a>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="structkstat.html#aea79328138f8bdf97487a6fbfccd5d5c">   82</a></span>&#160;    <span class="keywordtype">long</span> <a class="code" href="structkstat.html#aea79328138f8bdf97487a6fbfccd5d5c">st_atime_sec</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="structkstat.html#abe1094a11b5752d7059526f537cee1b7">   83</a></span>&#160;    <span class="keywordtype">long</span> <a class="code" href="structkstat.html#abe1094a11b5752d7059526f537cee1b7">st_atime_nsec</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="structkstat.html#a3367fe6570767334ca284e626eb238d6">   84</a></span>&#160;    <span class="keywordtype">long</span> <a class="code" href="structkstat.html#a3367fe6570767334ca284e626eb238d6">st_mtime_sec</a>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="structkstat.html#af2993a781c201c64c4550ef956d2adab">   85</a></span>&#160;    <span class="keywordtype">long</span> <a class="code" href="structkstat.html#af2993a781c201c64c4550ef956d2adab">st_mtime_nsec</a>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="structkstat.html#a52fefa73230530c2fad355755d2b9947">   86</a></span>&#160;    <span class="keywordtype">long</span> <a class="code" href="structkstat.html#a52fefa73230530c2fad355755d2b9947">st_ctime_sec</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="structkstat.html#a04b3b935593a4a8f65bb927b568392b4">   87</a></span>&#160;    <span class="keywordtype">long</span> <a class="code" href="structkstat.html#a04b3b935593a4a8f65bb927b568392b4">st_ctime_nsec</a>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="structkstat.html#acd511b9312e5d30574bddc909818d8d0">   88</a></span>&#160;    <span class="keywordtype">unsigned</span> <a class="code" href="structkstat.html#acd511b9312e5d30574bddc909818d8d0">__unused</a>[2];</div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="fs_8h.html#a8785463dd1769d1167cff6b8f75f28db">   89</a></span>&#160;} <a class="code" href="fs_8h.html#a8785463dd1769d1167cff6b8f75f28db">kstat_t</a>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="fs_8h.html#ac677f873fca666bdf61682366d20da83">fs_start_sec</a>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a0b0e637c1f547aa6f6ca7691628f92b7">magic_number</a>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a5f1128f0cd5a06c77116acbc63fe8a76">sb_sec_offset</a>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">extern</span> <span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a2f4e9bd47b3cefa57d0dfb2a85c820bf">sb2_sec_offset</a>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="fs_8h.html#acc2dc61ae73011bff1251aa4452d64e7">iab_map_addr_offset</a>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="fs_8h.html#a042f425e0ae7469f118af0df971ba0b4">sec_map_addr_offset</a>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="fs_8h.html#a0e73a14af9616cdc44cd717fe7708371">iab_map_addr_size</a>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="fs_8h.html#a71520d0a98952499ba9dbd13ea5dcd7f">inode_addr_offset</a>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="fs_8h.html#af8170d3af43a590eb940712ba4b2d377">dir_addr_offset</a>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="fs_8h.html#a912b2fc18669005ba1e7f97e4a686c98">dir2_addr_offset</a>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="fs_8h.html#a5317348823569604760012466012b9a1">dir3_addr_offset</a>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="fs_8h.html#aa3b27ac05d0e5aac1613511254a69b0f">dir4_addr_offset</a>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="fs_8h.html#a5379d59f189668b142e0203c9db578eb">data_addr_offset</a>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="fs_8h.html#a25688e200d5d8f487dc3816055a92bc2">empty_block</a>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">// extern fentry_t fd[20];</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">// extern int nowfid;</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">// extern int freefid[20];</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">// extern int freenum;</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a1c701b3d5e133887389c2b3c9e2f331c">fs_load_file</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *name, uint8_t **bin, <span class="keywordtype">int</span> *len);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">// [FUNCTION REQUIREMENTS]</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="fs_8h.html#ac7c5c9e629cd40cf7f3ab374962d2610">fs_check_file_existence</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#af264b947ceef01d5bfb234c2002a3666">fs_init</a>();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keywordtype">long</span> <a class="code" href="fs_8h.html#a8febdf58a0f5691f83349e95eae8d074">sys_getcwd</a>(<span class="keywordtype">char</span> *<a class="code" href="structbuf.html">buf</a>, <span class="keywordtype">size_t</span> size);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a239a2e4b8412446aac813a9439350059">sys_pipe2</a>(<span class="keywordtype">int</span> *<a class="code" href="structfd.html">fd</a>, <a class="code" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a> flags);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a3c4b72a274d8b87700a689b13b232c5b">sys_dup</a>(<span class="keywordtype">int</span> old);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a52646d65d2bce20361d7ba0784868e04">sys_dup3</a>(<span class="keywordtype">int</span> old, <span class="keywordtype">int</span> <span class="keyword">new</span>, <a class="code" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a> flags);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a4bc8bf7d6d8a6475f4d2cc141318de7d">sys_mkdirat</a>(<span class="keywordtype">int</span> dirfd, <span class="keyword">const</span> <span class="keywordtype">char</span> *path, <a class="code" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a> mode);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a7948e6c31a074f7d53aa5836fec7fe12">sys_chdir</a>(<span class="keywordtype">char</span> *path);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#afa7db92317ec016b54afebbbcc6b273a">sys_getdents64</a>(<span class="keywordtype">int</span> <a class="code" href="structfd.html">fd</a>, <a class="code" href="structdirent64.html">dirent64_t</a> *dirent, <span class="keywordtype">size_t</span> len);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a8b008c50b5e190654619ffbbdfc8f1a4">sys_openat</a>(<span class="keywordtype">int</span> dirfd, <span class="keyword">const</span> <span class="keywordtype">char</span> *filename, <a class="code" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a> flags, <a class="code" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a> mode);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a9d94cbe3ac3c59ac54d9e884a024d9c5">sys_close</a>(<span class="keywordtype">int</span> <a class="code" href="structfd.html">fd</a>);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a4b77d64a45fc749afe7885dd223f85a1">sys_linkat</a>(<span class="keywordtype">int</span> old, <span class="keyword">const</span> <span class="keywordtype">char</span> *oldname, <span class="keywordtype">int</span> newd, <span class="keyword">const</span> <span class="keywordtype">char</span> *newname, <a class="code" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a> flags);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a8bbe4304ae2f8306454f8e9629ca35ac">sys_unlinkat</a>(<span class="keywordtype">int</span> dirfd, <span class="keyword">const</span> <span class="keywordtype">char</span> *path, <a class="code" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a> flags);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a17d30333f33f90c98570dc8c5f438283">sys_mount</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *special, <span class="keyword">const</span> <span class="keywordtype">char</span> *dir, <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="fat32_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a>, <a class="code" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a> flags, <span class="keywordtype">void</span> *data);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#ae98d4677cec7581b48efb2a2261cd61b">sys_umount2</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *special, <a class="code" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a> flags);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<a class="code" href="types_8h.html#af10f4c58d91a6fa30ccc8a19d0ecbf48">ssize_t</a> <a class="code" href="fs_8h.html#a538b392173a1c0fffcbed18345952d60">sys_read</a>(<span class="keywordtype">int</span> <a class="code" href="structfd.html">fd</a>, <span class="keywordtype">char</span> *<a class="code" href="structbuf.html">buf</a>, <span class="keywordtype">size_t</span> count);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<a class="code" href="types_8h.html#af10f4c58d91a6fa30ccc8a19d0ecbf48">ssize_t</a> <a class="code" href="fs_8h.html#a1669296484c126d069b1bceeb97af1e7">sys_write</a>(<span class="keywordtype">int</span> <a class="code" href="structfd.html">fd</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="structbuf.html">buf</a>, <span class="keywordtype">size_t</span> count);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#ab82f35605a94da4595380df6a1774b91">sys_fstat</a>(<span class="keywordtype">int</span> <a class="code" href="structfd.html">fd</a>, <a class="code" href="structkstat.html">kstat_t</a> *statbuf);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keywordtype">void</span> *<a class="code" href="fs_8h.html#a42e383603cf330e3ef86bab31f7f8893">sys_mmap</a>(<span class="keywordtype">void</span> *addr, <span class="keywordtype">size_t</span> length, <span class="keywordtype">int</span> prot, <span class="keywordtype">int</span> flags, <span class="keywordtype">int</span> <a class="code" href="structfd.html">fd</a>, <a class="code" href="file_8h.html#a053c614b69adbac710bb132a6eb9ccf6">off_t</a> offset);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keywordtype">int</span> <a class="code" href="fs_8h.html#a1dd9fbbb6f39b66c936d6a283481149f">sys_munmap</a>(<span class="keywordtype">void</span> *addr, <span class="keywordtype">size_t</span> length);</div>
+<div class="ttc" id="afat32_8h_html_a1d127017fb298b889f4ba24752d08b8e"><div class="ttname"><a href="fat32_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a></div><div class="ttdeci">uint8_t type</div><div class="ttdef"><b>Definition:</b> fat32.h:3</div></div>
+<div class="ttc" id="afile_8h_html_a053c614b69adbac710bb132a6eb9ccf6"><div class="ttname"><a href="file_8h.html#a053c614b69adbac710bb132a6eb9ccf6">off_t</a></div><div class="ttdeci">int64_t off_t</div><div class="ttdef"><b>Definition:</b> file.h:31</div></div>
+<div class="ttc" id="afile_8h_html_af8f4385bb42836d1e3ad4fea9d71d1b9"><div class="ttname"><a href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a></div><div class="ttdeci">uint32_t mode_t</div><div class="ttdef"><b>Definition:</b> file.h:27</div></div>
+<div class="ttc" id="afs_8h_html_a042f425e0ae7469f118af0df971ba0b4"><div class="ttname"><a href="fs_8h.html#a042f425e0ae7469f118af0df971ba0b4">sec_map_addr_offset</a></div><div class="ttdeci">uint64_t sec_map_addr_offset</div></div>
+<div class="ttc" id="afs_8h_html_a0b0e637c1f547aa6f6ca7691628f92b7"><div class="ttname"><a href="fs_8h.html#a0b0e637c1f547aa6f6ca7691628f92b7">magic_number</a></div><div class="ttdeci">int magic_number</div></div>
+<div class="ttc" id="afs_8h_html_a0e73a14af9616cdc44cd717fe7708371"><div class="ttname"><a href="fs_8h.html#a0e73a14af9616cdc44cd717fe7708371">iab_map_addr_size</a></div><div class="ttdeci">uint64_t iab_map_addr_size</div></div>
+<div class="ttc" id="afs_8h_html_a1669296484c126d069b1bceeb97af1e7"><div class="ttname"><a href="fs_8h.html#a1669296484c126d069b1bceeb97af1e7">sys_write</a></div><div class="ttdeci">ssize_t sys_write(int fd, const char *buf, size_t count)</div><div class="ttdef"><b>Definition:</b> fs.c:1263</div></div>
+<div class="ttc" id="afs_8h_html_a17d30333f33f90c98570dc8c5f438283"><div class="ttname"><a href="fs_8h.html#a17d30333f33f90c98570dc8c5f438283">sys_mount</a></div><div class="ttdeci">int sys_mount(const char *special, const char *dir, const char *type, mode_t flags, void *data)</div><div class="ttdef"><b>Definition:</b> fs.c:1206</div></div>
+<div class="ttc" id="afs_8h_html_a1c701b3d5e133887389c2b3c9e2f331c"><div class="ttname"><a href="fs_8h.html#a1c701b3d5e133887389c2b3c9e2f331c">fs_load_file</a></div><div class="ttdeci">int fs_load_file(const char *name, uint8_t **bin, int *len)</div><div class="ttdoc">load elf file in root dir, 0 success, -1 fail</div><div class="ttdef"><b>Definition:</b> fs.c:1357</div></div>
+<div class="ttc" id="afs_8h_html_a1dd9fbbb6f39b66c936d6a283481149f"><div class="ttname"><a href="fs_8h.html#a1dd9fbbb6f39b66c936d6a283481149f">sys_munmap</a></div><div class="ttdeci">int sys_munmap(void *addr, size_t length)</div><div class="ttdef"><b>Definition:</b> fs.c:1393</div></div>
+<div class="ttc" id="afs_8h_html_a239a2e4b8412446aac813a9439350059"><div class="ttname"><a href="fs_8h.html#a239a2e4b8412446aac813a9439350059">sys_pipe2</a></div><div class="ttdeci">int sys_pipe2(int *fd, mode_t flags)</div><div class="ttdoc">allocate pipe to fd[2].</div><div class="ttdef"><b>Definition:</b> fs.c:858</div></div>
+<div class="ttc" id="afs_8h_html_a24aad750df2ab79e1cab28e733481b6f"><div class="ttname"><a href="fs_8h.html#a24aad750df2ab79e1cab28e733481b6f">dirent64_t</a></div><div class="ttdeci">struct dirent64 dirent64_t</div></div>
+<div class="ttc" id="afs_8h_html_a25688e200d5d8f487dc3816055a92bc2"><div class="ttname"><a href="fs_8h.html#a25688e200d5d8f487dc3816055a92bc2">empty_block</a></div><div class="ttdeci">uint64_t empty_block</div></div>
+<div class="ttc" id="afs_8h_html_a2f4e9bd47b3cefa57d0dfb2a85c820bf"><div class="ttname"><a href="fs_8h.html#a2f4e9bd47b3cefa57d0dfb2a85c820bf">sb2_sec_offset</a></div><div class="ttdeci">int sb2_sec_offset</div></div>
+<div class="ttc" id="afs_8h_html_a3c4b72a274d8b87700a689b13b232c5b"><div class="ttname"><a href="fs_8h.html#a3c4b72a274d8b87700a689b13b232c5b">sys_dup</a></div><div class="ttdeci">int sys_dup(int old)</div><div class="ttdoc">copy a fd and return the new one</div><div class="ttdef"><b>Definition:</b> fs.c:893</div></div>
+<div class="ttc" id="afs_8h_html_a42e383603cf330e3ef86bab31f7f8893"><div class="ttname"><a href="fs_8h.html#a42e383603cf330e3ef86bab31f7f8893">sys_mmap</a></div><div class="ttdeci">void * sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)</div><div class="ttdef"><b>Definition:</b> fs.c:1377</div></div>
+<div class="ttc" id="afs_8h_html_a4b77d64a45fc749afe7885dd223f85a1"><div class="ttname"><a href="fs_8h.html#a4b77d64a45fc749afe7885dd223f85a1">sys_linkat</a></div><div class="ttdeci">int sys_linkat(int old, const char *oldname, int newd, const char *newname, mode_t flags)</div><div class="ttdef"><b>Definition:</b> fs.c:1106</div></div>
+<div class="ttc" id="afs_8h_html_a4bc8bf7d6d8a6475f4d2cc141318de7d"><div class="ttname"><a href="fs_8h.html#a4bc8bf7d6d8a6475f4d2cc141318de7d">sys_mkdirat</a></div><div class="ttdeci">int sys_mkdirat(int dirfd, const char *path, mode_t mode)</div><div class="ttdoc">mk dir at patch, success 0 fail -1</div><div class="ttdef"><b>Definition:</b> fs.c:934</div></div>
+<div class="ttc" id="afs_8h_html_a52646d65d2bce20361d7ba0784868e04"><div class="ttname"><a href="fs_8h.html#a52646d65d2bce20361d7ba0784868e04">sys_dup3</a></div><div class="ttdeci">int sys_dup3(int old, int new, mode_t flags)</div><div class="ttdoc">copy a fd and return the new one</div><div class="ttdef"><b>Definition:</b> fs.c:915</div></div>
+<div class="ttc" id="afs_8h_html_a5317348823569604760012466012b9a1"><div class="ttname"><a href="fs_8h.html#a5317348823569604760012466012b9a1">dir3_addr_offset</a></div><div class="ttdeci">uint64_t dir3_addr_offset</div></div>
+<div class="ttc" id="afs_8h_html_a5379d59f189668b142e0203c9db578eb"><div class="ttname"><a href="fs_8h.html#a5379d59f189668b142e0203c9db578eb">data_addr_offset</a></div><div class="ttdeci">uint64_t data_addr_offset</div></div>
+<div class="ttc" id="afs_8h_html_a538b392173a1c0fffcbed18345952d60"><div class="ttname"><a href="fs_8h.html#a538b392173a1c0fffcbed18345952d60">sys_read</a></div><div class="ttdeci">ssize_t sys_read(int fd, char *buf, size_t count)</div><div class="ttdoc">read count bytes to buf of fd file</div><div class="ttdef"><b>Definition:</b> fs.c:1222</div></div>
+<div class="ttc" id="afs_8h_html_a5f1128f0cd5a06c77116acbc63fe8a76"><div class="ttname"><a href="fs_8h.html#a5f1128f0cd5a06c77116acbc63fe8a76">sb_sec_offset</a></div><div class="ttdeci">int sb_sec_offset</div></div>
+<div class="ttc" id="afs_8h_html_a6810ca3ec203afd05ef15f2560289299"><div class="ttname"><a href="fs_8h.html#a6810ca3ec203afd05ef15f2560289299">dir_entry_t</a></div><div class="ttdeci">struct dir_entry dir_entry_t</div></div>
+<div class="ttc" id="afs_8h_html_a71520d0a98952499ba9dbd13ea5dcd7f"><div class="ttname"><a href="fs_8h.html#a71520d0a98952499ba9dbd13ea5dcd7f">inode_addr_offset</a></div><div class="ttdeci">uint64_t inode_addr_offset</div></div>
+<div class="ttc" id="afs_8h_html_a7948e6c31a074f7d53aa5836fec7fe12"><div class="ttname"><a href="fs_8h.html#a7948e6c31a074f7d53aa5836fec7fe12">sys_chdir</a></div><div class="ttdeci">int sys_chdir(char *path)</div><div class="ttdoc">change dir by patch, fail return -1</div><div class="ttdef"><b>Definition:</b> fs.c:981</div></div>
+<div class="ttc" id="afs_8h_html_a8785463dd1769d1167cff6b8f75f28db"><div class="ttname"><a href="fs_8h.html#a8785463dd1769d1167cff6b8f75f28db">kstat_t</a></div><div class="ttdeci">struct kstat kstat_t</div></div>
+<div class="ttc" id="afs_8h_html_a8b008c50b5e190654619ffbbdfc8f1a4"><div class="ttname"><a href="fs_8h.html#a8b008c50b5e190654619ffbbdfc8f1a4">sys_openat</a></div><div class="ttdeci">int sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode)</div><div class="ttdoc">open a file with path/cwd+path/dirfd+path</div><div class="ttdef"><b>Definition:</b> fs.c:1037</div></div>
+<div class="ttc" id="afs_8h_html_a8bbe4304ae2f8306454f8e9629ca35ac"><div class="ttname"><a href="fs_8h.html#a8bbe4304ae2f8306454f8e9629ca35ac">sys_unlinkat</a></div><div class="ttdeci">int sys_unlinkat(int dirfd, const char *path, mode_t flags)</div><div class="ttdoc">rm file directed by path, 0 success -1 fail</div><div class="ttdef"><b>Definition:</b> fs.c:1158</div></div>
+<div class="ttc" id="afs_8h_html_a8febdf58a0f5691f83349e95eae8d074"><div class="ttname"><a href="fs_8h.html#a8febdf58a0f5691f83349e95eae8d074">sys_getcwd</a></div><div class="ttdeci">long sys_getcwd(char *buf, size_t size)</div><div class="ttdef"><b>Definition:</b> fs.c:847</div></div>
+<div class="ttc" id="afs_8h_html_a912b2fc18669005ba1e7f97e4a686c98"><div class="ttname"><a href="fs_8h.html#a912b2fc18669005ba1e7f97e4a686c98">dir2_addr_offset</a></div><div class="ttdeci">uint64_t dir2_addr_offset</div></div>
+<div class="ttc" id="afs_8h_html_a9d94cbe3ac3c59ac54d9e884a024d9c5"><div class="ttname"><a href="fs_8h.html#a9d94cbe3ac3c59ac54d9e884a024d9c5">sys_close</a></div><div class="ttdeci">int sys_close(int fd)</div><div class="ttdef"><b>Definition:</b> fs.c:1102</div></div>
+<div class="ttc" id="afs_8h_html_aa3b27ac05d0e5aac1613511254a69b0f"><div class="ttname"><a href="fs_8h.html#aa3b27ac05d0e5aac1613511254a69b0f">dir4_addr_offset</a></div><div class="ttdeci">uint64_t dir4_addr_offset</div></div>
+<div class="ttc" id="afs_8h_html_aa8756db1aa96264ad9b7aa24a9180d4d"><div class="ttname"><a href="fs_8h.html#aa8756db1aa96264ad9b7aa24a9180d4d">super_block_t</a></div><div class="ttdeci">struct super_block super_block_t</div></div>
+<div class="ttc" id="afs_8h_html_aab3b0b3a37bb21267c3dd1be6aed1867"><div class="ttname"><a href="fs_8h.html#aab3b0b3a37bb21267c3dd1be6aed1867">fentry_t</a></div><div class="ttdeci">struct fentry fentry_t</div></div>
+<div class="ttc" id="afs_8h_html_ab82f35605a94da4595380df6a1774b91"><div class="ttname"><a href="fs_8h.html#ab82f35605a94da4595380df6a1774b91">sys_fstat</a></div><div class="ttdeci">int sys_fstat(int fd, kstat_t *statbuf)</div><div class="ttdef"><b>Definition:</b> fs.c:1307</div></div>
+<div class="ttc" id="afs_8h_html_ac677f873fca666bdf61682366d20da83"><div class="ttname"><a href="fs_8h.html#ac677f873fca666bdf61682366d20da83">fs_start_sec</a></div><div class="ttdeci">int fs_start_sec</div></div>
+<div class="ttc" id="afs_8h_html_ac7c5c9e629cd40cf7f3ab374962d2610"><div class="ttname"><a href="fs_8h.html#ac7c5c9e629cd40cf7f3ab374962d2610">fs_check_file_existence</a></div><div class="ttdeci">bool fs_check_file_existence(const char *name)</div><div class="ttdef"><b>Definition:</b> fs.c:1423</div></div>
+<div class="ttc" id="afs_8h_html_acc2dc61ae73011bff1251aa4452d64e7"><div class="ttname"><a href="fs_8h.html#acc2dc61ae73011bff1251aa4452d64e7">iab_map_addr_offset</a></div><div class="ttdeci">uint64_t iab_map_addr_offset</div></div>
+<div class="ttc" id="afs_8h_html_ae98d4677cec7581b48efb2a2261cd61b"><div class="ttname"><a href="fs_8h.html#ae98d4677cec7581b48efb2a2261cd61b">sys_umount2</a></div><div class="ttdeci">int sys_umount2(const char *special, mode_t flags)</div><div class="ttdef"><b>Definition:</b> fs.c:1211</div></div>
+<div class="ttc" id="afs_8h_html_af264b947ceef01d5bfb234c2002a3666"><div class="ttname"><a href="fs_8h.html#af264b947ceef01d5bfb234c2002a3666">fs_init</a></div><div class="ttdeci">int fs_init()</div><div class="ttdef"><b>Definition:</b> fs.c:665</div></div>
+<div class="ttc" id="afs_8h_html_af8170d3af43a590eb940712ba4b2d377"><div class="ttname"><a href="fs_8h.html#af8170d3af43a590eb940712ba4b2d377">dir_addr_offset</a></div><div class="ttdeci">uint64_t dir_addr_offset</div></div>
+<div class="ttc" id="afs_8h_html_afa7db92317ec016b54afebbbcc6b273a"><div class="ttname"><a href="fs_8h.html#afa7db92317ec016b54afebbbcc6b273a">sys_getdents64</a></div><div class="ttdeci">int sys_getdents64(int fd, dirent64_t *dirent, size_t len)</div><div class="ttdef"><b>Definition:</b> fs.c:1006</div></div>
+<div class="ttc" id="astructbuf_html"><div class="ttname"><a href="structbuf.html">buf</a></div><div class="ttdef"><b>Definition:</b> virtio.h:78</div></div>
+<div class="ttc" id="astructdir__entry_html"><div class="ttname"><a href="structdir__entry.html">dir_entry</a></div><div class="ttdef"><b>Definition:</b> fs.h:47</div></div>
+<div class="ttc" id="astructdir__entry_html_a0f1bee834016954567d63158f45184bc"><div class="ttname"><a href="structdir__entry.html#a0f1bee834016954567d63158f45184bc">dir_entry::last</a></div><div class="ttdeci">int last</div><div class="ttdef"><b>Definition:</b> fs.h:50</div></div>
+<div class="ttc" id="astructdir__entry_html_a30377ae9f18c4110c62527cd2e0ff036"><div class="ttname"><a href="structdir__entry.html#a30377ae9f18c4110c62527cd2e0ff036">dir_entry::name</a></div><div class="ttdeci">char name[20]</div><div class="ttdef"><b>Definition:</b> fs.h:48</div></div>
+<div class="ttc" id="astructdir__entry_html_a913b0765e55c5e041cfec39474019da9"><div class="ttname"><a href="structdir__entry.html#a913b0765e55c5e041cfec39474019da9">dir_entry::mode</a></div><div class="ttdeci">int mode</div><div class="ttdef"><b>Definition:</b> fs.h:51</div></div>
+<div class="ttc" id="astructdir__entry_html_aad84f5f6f839aab465ef48eb1242ba18"><div class="ttname"><a href="structdir__entry.html#aad84f5f6f839aab465ef48eb1242ba18">dir_entry::inode_id</a></div><div class="ttdeci">int inode_id</div><div class="ttdef"><b>Definition:</b> fs.h:49</div></div>
+<div class="ttc" id="astructdirent64_html"><div class="ttname"><a href="structdirent64.html">dirent64</a></div><div class="ttdef"><b>Definition:</b> fs.h:61</div></div>
+<div class="ttc" id="astructdirent64_html_a16dc8c4c2b92cd2dc6cb1a5f8bf76fa1"><div class="ttname"><a href="structdirent64.html#a16dc8c4c2b92cd2dc6cb1a5f8bf76fa1">dirent64::d_name</a></div><div class="ttdeci">char d_name[]</div><div class="ttdef"><b>Definition:</b> fs.h:66</div></div>
+<div class="ttc" id="astructdirent64_html_a4228c87afd910baab45a45ce745df789"><div class="ttname"><a href="structdirent64.html#a4228c87afd910baab45a45ce745df789">dirent64::d_type</a></div><div class="ttdeci">unsigned char d_type</div><div class="ttdef"><b>Definition:</b> fs.h:65</div></div>
+<div class="ttc" id="astructdirent64_html_a4472cd642ab74191bccff5fdb87ba57e"><div class="ttname"><a href="structdirent64.html#a4472cd642ab74191bccff5fdb87ba57e">dirent64::d_reclen</a></div><div class="ttdeci">unsigned short d_reclen</div><div class="ttdef"><b>Definition:</b> fs.h:64</div></div>
+<div class="ttc" id="astructdirent64_html_a75cbff7adaa1a45994be22687441e214"><div class="ttname"><a href="structdirent64.html#a75cbff7adaa1a45994be22687441e214">dirent64::d_off</a></div><div class="ttdeci">int64_t d_off</div><div class="ttdef"><b>Definition:</b> fs.h:63</div></div>
+<div class="ttc" id="astructdirent64_html_ac6e4ef85c65554400b54453e5cb017f7"><div class="ttname"><a href="structdirent64.html#ac6e4ef85c65554400b54453e5cb017f7">dirent64::d_ino</a></div><div class="ttdeci">uint64_t d_ino</div><div class="ttdef"><b>Definition:</b> fs.h:62</div></div>
+<div class="ttc" id="astructfd_html"><div class="ttname"><a href="structfd.html">fd</a></div><div class="ttdef"><b>Definition:</b> file.h:33</div></div>
+<div class="ttc" id="astructfentry_html"><div class="ttname"><a href="structfentry.html">fentry</a></div><div class="ttdef"><b>Definition:</b> fs.h:54</div></div>
+<div class="ttc" id="astructfentry_html_a22a130375e4c630f281a14fdef4d052a"><div class="ttname"><a href="structfentry.html#a22a130375e4c630f281a14fdef4d052a">fentry::pos_block</a></div><div class="ttdeci">int pos_block</div><div class="ttdef"><b>Definition:</b> fs.h:57</div></div>
+<div class="ttc" id="astructfentry_html_a5eeabf78e411225c27c0932b4919634a"><div class="ttname"><a href="structfentry.html#a5eeabf78e411225c27c0932b4919634a">fentry::inodeid</a></div><div class="ttdeci">int inodeid</div><div class="ttdef"><b>Definition:</b> fs.h:55</div></div>
+<div class="ttc" id="astructfentry_html_ad0aec17207ae39ebd8d735d825ee3926"><div class="ttname"><a href="structfentry.html#ad0aec17207ae39ebd8d735d825ee3926">fentry::prive</a></div><div class="ttdeci">int prive</div><div class="ttdef"><b>Definition:</b> fs.h:56</div></div>
+<div class="ttc" id="astructfentry_html_af95a8662e72c55a338442aab1d1a4880"><div class="ttname"><a href="structfentry.html#af95a8662e72c55a338442aab1d1a4880">fentry::pos_offset</a></div><div class="ttdeci">int pos_offset</div><div class="ttdef"><b>Definition:</b> fs.h:58</div></div>
+<div class="ttc" id="astructkstat_html"><div class="ttname"><a href="structkstat.html">kstat</a></div><div class="ttdef"><b>Definition:</b> fs.h:69</div></div>
+<div class="ttc" id="astructkstat_html_a04b3b935593a4a8f65bb927b568392b4"><div class="ttname"><a href="structkstat.html#a04b3b935593a4a8f65bb927b568392b4">kstat::st_ctime_nsec</a></div><div class="ttdeci">long st_ctime_nsec</div><div class="ttdef"><b>Definition:</b> fs.h:87</div></div>
+<div class="ttc" id="astructkstat_html_a1e72af54d87518bbdd2cef4c325abde6"><div class="ttname"><a href="structkstat.html#a1e72af54d87518bbdd2cef4c325abde6">kstat::st_gid</a></div><div class="ttdeci">uint32 st_gid</div><div class="ttdef"><b>Definition:</b> fs.h:75</div></div>
+<div class="ttc" id="astructkstat_html_a3029f24da03d40d2976c7223c908019c"><div class="ttname"><a href="structkstat.html#a3029f24da03d40d2976c7223c908019c">kstat::st_ino</a></div><div class="ttdeci">uint64 st_ino</div><div class="ttdef"><b>Definition:</b> fs.h:71</div></div>
+<div class="ttc" id="astructkstat_html_a30aaf8c3fe759e6f1244730f53e84ef8"><div class="ttname"><a href="structkstat.html#a30aaf8c3fe759e6f1244730f53e84ef8">kstat::__pad2</a></div><div class="ttdeci">int __pad2</div><div class="ttdef"><b>Definition:</b> fs.h:80</div></div>
+<div class="ttc" id="astructkstat_html_a3367fe6570767334ca284e626eb238d6"><div class="ttname"><a href="structkstat.html#a3367fe6570767334ca284e626eb238d6">kstat::st_mtime_sec</a></div><div class="ttdeci">long st_mtime_sec</div><div class="ttdef"><b>Definition:</b> fs.h:84</div></div>
+<div class="ttc" id="astructkstat_html_a383bd33a0780993a5898d547e0823093"><div class="ttname"><a href="structkstat.html#a383bd33a0780993a5898d547e0823093">kstat::st_uid</a></div><div class="ttdeci">uint32 st_uid</div><div class="ttdef"><b>Definition:</b> fs.h:74</div></div>
+<div class="ttc" id="astructkstat_html_a52fefa73230530c2fad355755d2b9947"><div class="ttname"><a href="structkstat.html#a52fefa73230530c2fad355755d2b9947">kstat::st_ctime_sec</a></div><div class="ttdeci">long st_ctime_sec</div><div class="ttdef"><b>Definition:</b> fs.h:86</div></div>
+<div class="ttc" id="astructkstat_html_a61010d90aaad1ca40bc863d2c6313452"><div class="ttname"><a href="structkstat.html#a61010d90aaad1ca40bc863d2c6313452">kstat::st_dev</a></div><div class="ttdeci">uint64 st_dev</div><div class="ttdef"><b>Definition:</b> fs.h:70</div></div>
+<div class="ttc" id="astructkstat_html_a7dda59111ccfca356784cf30a8c6a15c"><div class="ttname"><a href="structkstat.html#a7dda59111ccfca356784cf30a8c6a15c">kstat::st_mode</a></div><div class="ttdeci">mode_t st_mode</div><div class="ttdef"><b>Definition:</b> fs.h:72</div></div>
+<div class="ttc" id="astructkstat_html_a92ea89155b4b5753bebdfbe309a9483d"><div class="ttname"><a href="structkstat.html#a92ea89155b4b5753bebdfbe309a9483d">kstat::st_blocks</a></div><div class="ttdeci">uint64 st_blocks</div><div class="ttdef"><b>Definition:</b> fs.h:81</div></div>
+<div class="ttc" id="astructkstat_html_aac5763ac31d4bcd17723a1acb8b924ae"><div class="ttname"><a href="structkstat.html#aac5763ac31d4bcd17723a1acb8b924ae">kstat::st_blksize</a></div><div class="ttdeci">uint32 st_blksize</div><div class="ttdef"><b>Definition:</b> fs.h:79</div></div>
+<div class="ttc" id="astructkstat_html_ab5d49d4e0b0188b6f0b31c88b19f13cf"><div class="ttname"><a href="structkstat.html#ab5d49d4e0b0188b6f0b31c88b19f13cf">kstat::__pad</a></div><div class="ttdeci">unsigned long __pad</div><div class="ttdef"><b>Definition:</b> fs.h:77</div></div>
+<div class="ttc" id="astructkstat_html_abe1094a11b5752d7059526f537cee1b7"><div class="ttname"><a href="structkstat.html#abe1094a11b5752d7059526f537cee1b7">kstat::st_atime_nsec</a></div><div class="ttdeci">long st_atime_nsec</div><div class="ttdef"><b>Definition:</b> fs.h:83</div></div>
+<div class="ttc" id="astructkstat_html_acb089ce5ac53aebc5b8fe5351e293dcd"><div class="ttname"><a href="structkstat.html#acb089ce5ac53aebc5b8fe5351e293dcd">kstat::st_size</a></div><div class="ttdeci">off_t st_size</div><div class="ttdef"><b>Definition:</b> fs.h:78</div></div>
+<div class="ttc" id="astructkstat_html_acd511b9312e5d30574bddc909818d8d0"><div class="ttname"><a href="structkstat.html#acd511b9312e5d30574bddc909818d8d0">kstat::__unused</a></div><div class="ttdeci">unsigned __unused[2]</div><div class="ttdef"><b>Definition:</b> fs.h:88</div></div>
+<div class="ttc" id="astructkstat_html_aea79328138f8bdf97487a6fbfccd5d5c"><div class="ttname"><a href="structkstat.html#aea79328138f8bdf97487a6fbfccd5d5c">kstat::st_atime_sec</a></div><div class="ttdeci">long st_atime_sec</div><div class="ttdef"><b>Definition:</b> fs.h:82</div></div>
+<div class="ttc" id="astructkstat_html_aeef4f0679e42b46765a7551343b1ee20"><div class="ttname"><a href="structkstat.html#aeef4f0679e42b46765a7551343b1ee20">kstat::st_rdev</a></div><div class="ttdeci">uint64 st_rdev</div><div class="ttdef"><b>Definition:</b> fs.h:76</div></div>
+<div class="ttc" id="astructkstat_html_af2993a781c201c64c4550ef956d2adab"><div class="ttname"><a href="structkstat.html#af2993a781c201c64c4550ef956d2adab">kstat::st_mtime_nsec</a></div><div class="ttdeci">long st_mtime_nsec</div><div class="ttdef"><b>Definition:</b> fs.h:85</div></div>
+<div class="ttc" id="astructkstat_html_af8d07f3ba24ab49960756f70afe1fcfa"><div class="ttname"><a href="structkstat.html#af8d07f3ba24ab49960756f70afe1fcfa">kstat::st_nlink</a></div><div class="ttdeci">uint32 st_nlink</div><div class="ttdef"><b>Definition:</b> fs.h:73</div></div>
+<div class="ttc" id="astructsuper__block_html"><div class="ttname"><a href="structsuper__block.html">super_block</a></div><div class="ttdef"><b>Definition:</b> fs.h:30</div></div>
+<div class="ttc" id="astructsuper__block_html_a011e82bb85f96ca59d7762e043f4c469"><div class="ttname"><a href="structsuper__block.html#a011e82bb85f96ca59d7762e043f4c469">super_block::sector_used</a></div><div class="ttdeci">int sector_used</div><div class="ttdef"><b>Definition:</b> fs.h:42</div></div>
+<div class="ttc" id="astructsuper__block_html_a084682df06e62212689449b747188ffa"><div class="ttname"><a href="structsuper__block.html#a084682df06e62212689449b747188ffa">super_block::imap_sec_size</a></div><div class="ttdeci">int imap_sec_size</div><div class="ttdef"><b>Definition:</b> fs.h:35</div></div>
+<div class="ttc" id="astructsuper__block_html_a0d4ef7f96243a194affd2704b50544d0"><div class="ttname"><a href="structsuper__block.html#a0d4ef7f96243a194affd2704b50544d0">super_block::data_sec_size</a></div><div class="ttdeci">int data_sec_size</div><div class="ttdef"><b>Definition:</b> fs.h:41</div></div>
+<div class="ttc" id="astructsuper__block_html_a1f60f1e2636cac0bef5bec328943b5a5"><div class="ttname"><a href="structsuper__block.html#a1f60f1e2636cac0bef5bec328943b5a5">super_block::size</a></div><div class="ttdeci">int size</div><div class="ttdef"><b>Definition:</b> fs.h:33</div></div>
+<div class="ttc" id="astructsuper__block_html_a4169ac5bf8f45462c4b5620d2e1f92f4"><div class="ttname"><a href="structsuper__block.html#a4169ac5bf8f45462c4b5620d2e1f92f4">super_block::smap_sec_offset</a></div><div class="ttdeci">int smap_sec_offset</div><div class="ttdef"><b>Definition:</b> fs.h:36</div></div>
+<div class="ttc" id="astructsuper__block_html_a4a1395dce1a71fc6e913de47a83fbc0b"><div class="ttname"><a href="structsuper__block.html#a4a1395dce1a71fc6e913de47a83fbc0b">super_block::root_inode_offset</a></div><div class="ttdeci">int root_inode_offset</div><div class="ttdef"><b>Definition:</b> fs.h:44</div></div>
+<div class="ttc" id="astructsuper__block_html_a4b429cdf43ece8a599b4f2b45e1aa09b"><div class="ttname"><a href="structsuper__block.html#a4b429cdf43ece8a599b4f2b45e1aa09b">super_block::inode_sec_size</a></div><div class="ttdeci">int inode_sec_size</div><div class="ttdef"><b>Definition:</b> fs.h:39</div></div>
+<div class="ttc" id="astructsuper__block_html_a4c32683deec0bad9b3cd7846d41e42e6"><div class="ttname"><a href="structsuper__block.html#a4c32683deec0bad9b3cd7846d41e42e6">super_block::magic</a></div><div class="ttdeci">int magic</div><div class="ttdef"><b>Definition:</b> fs.h:31</div></div>
+<div class="ttc" id="astructsuper__block_html_a747c9f070b0982e0f0978e8b1badc8be"><div class="ttname"><a href="structsuper__block.html#a747c9f070b0982e0f0978e8b1badc8be">super_block::inode_sec_offset</a></div><div class="ttdeci">int inode_sec_offset</div><div class="ttdef"><b>Definition:</b> fs.h:38</div></div>
+<div class="ttc" id="astructsuper__block_html_aa5c82ede944d67eaec1291abc0b7c242"><div class="ttname"><a href="structsuper__block.html#aa5c82ede944d67eaec1291abc0b7c242">super_block::fs_start_sec</a></div><div class="ttdeci">int fs_start_sec</div><div class="ttdef"><b>Definition:</b> fs.h:32</div></div>
+<div class="ttc" id="astructsuper__block_html_ad3856e5948e5c1076b3d39949573970f"><div class="ttname"><a href="structsuper__block.html#ad3856e5948e5c1076b3d39949573970f">super_block::imap_sec_offset</a></div><div class="ttdeci">int imap_sec_offset</div><div class="ttdef"><b>Definition:</b> fs.h:34</div></div>
+<div class="ttc" id="astructsuper__block_html_ae4b6a52258a5f6e32aff406521c9c674"><div class="ttname"><a href="structsuper__block.html#ae4b6a52258a5f6e32aff406521c9c674">super_block::data_sec_offset</a></div><div class="ttdeci">int data_sec_offset</div><div class="ttdef"><b>Definition:</b> fs.h:40</div></div>
+<div class="ttc" id="astructsuper__block_html_af1aba1e5d6f1f4e9ac832b3a15c0ceef"><div class="ttname"><a href="structsuper__block.html#af1aba1e5d6f1f4e9ac832b3a15c0ceef">super_block::smap_sec_size</a></div><div class="ttdeci">int smap_sec_size</div><div class="ttdef"><b>Definition:</b> fs.h:37</div></div>
+<div class="ttc" id="astructsuper__block_html_af9b6f6d8831fd17e6f2f709da7cfbc19"><div class="ttname"><a href="structsuper__block.html#af9b6f6d8831fd17e6f2f709da7cfbc19">super_block::inode_used</a></div><div class="ttdeci">int inode_used</div><div class="ttdef"><b>Definition:</b> fs.h:43</div></div>
+<div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div></div>
+<div class="ttc" id="atypes_8h_html_a1134b580f8da4de94ca6b1de4d37975e"><div class="ttname"><a href="types_8h.html#a1134b580f8da4de94ca6b1de4d37975e">uint32</a></div><div class="ttdeci">unsigned int uint32</div><div class="ttdef"><b>Definition:</b> types.h:37</div></div>
+<div class="ttc" id="atypes_8h_html_a29940ae63ec06c9998bba873e25407ad"><div class="ttname"><a href="types_8h.html#a29940ae63ec06c9998bba873e25407ad">uint64</a></div><div class="ttdeci">unsigned long long uint64</div><div class="ttdef"><b>Definition:</b> types.h:39</div></div>
+<div class="ttc" id="atypes_8h_html_af10f4c58d91a6fa30ccc8a19d0ecbf48"><div class="ttname"><a href="types_8h.html#af10f4c58d91a6fa30ccc8a19d0ecbf48">ssize_t</a></div><div class="ttdeci">intptr_t ssize_t</div><div class="ttdef"><b>Definition:</b> types.h:55</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7d71b6c457a61cbf03a04bfdc57b6110.html">fs</a></li><li class="navelem"><a class="el" href="fs_8h.html">fs.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

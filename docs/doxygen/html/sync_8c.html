@@ -1,0 +1,858 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/kernel/sync/sync.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('sync_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">sync.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="math_8h_source.html">lib/math.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="string_8h_source.html">lib/string.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="lock_8h_source.html">os/lock.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="pcb_8h_source.html">os/pcb.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="sync_8h_source.html">os/sync.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+sync.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="sync_8c__incl.png" border="0" usemap="#asrc_2kernel_2sync_2sync_8c" alt=""/></div>
+<map name="asrc_2kernel_2sync_2sync_8c" id="asrc_2kernel_2sync_2sync_8c">
+<area shape="rect" title=" " alt="" coords="134,5,298,32"/>
+<area shape="rect" href="math_8h.html" title=" " alt="" coords="40,80,128,107"/>
+<area shape="rect" href="string_8h.html" title=" " alt="" coords="765,229,856,256"/>
+<area shape="rect" href="lock_8h.html" title=" " alt="" coords="5,155,85,181"/>
+<area shape="rect" href="pcb_8h.html" title=" " alt="" coords="321,80,397,107"/>
+<area shape="rect" href="sync_8h.html" title=" " alt="" coords="109,155,192,181"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="599,379,729,405"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="599,453,729,480"/>
+<area shape="rect" href="list_8h.html" title=" " alt="" coords="321,229,396,256"/>
+<area shape="rect" href="context_8h.html" title=" " alt="" coords="516,304,631,331"/>
+<area shape="rect" href="elf_8h.html" title=" " alt="" coords="619,155,730,181"/>
+<area shape="rect" href="cpu_8h.html" title=" " alt="" coords="217,155,293,181"/>
+<area shape="rect" href="mm_8h.html" title=" " alt="" coords="413,304,491,331"/>
+<area shape="rect" href="time_8h.html" title=" " alt="" coords="317,155,400,181"/>
+<area shape="rect" href="pgtable_8h.html" title=" " alt="" coords="576,229,691,256"/>
+<area shape="rect" href="sbi_8h.html" title=" " alt="" coords="761,304,847,331"/>
+<area shape="rect" href="sbidef_8h.html" title=" " alt="" coords="754,379,859,405"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:afe2045e58893e8db1e64e32aa0711611"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#afe2045e58893e8db1e64e32aa0711611">k_commop</a> (void *key_id, void *arg, int op)</td></tr>
+<tr class="separator:afe2045e58893e8db1e64e32aa0711611"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9002f0a50448440ef46fcc2ea02ceb9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#ad9002f0a50448440ef46fcc2ea02ceb9">k_semaphore_init</a> (int *key, int sem)</td></tr>
+<tr class="separator:ad9002f0a50448440ef46fcc2ea02ceb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51d680b00574663a8c4557ecb4ac2b02"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a51d680b00574663a8c4557ecb4ac2b02">k_semaphore_p</a> (int key)</td></tr>
+<tr class="separator:a51d680b00574663a8c4557ecb4ac2b02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3e7e7f87ebb9104b813ddcbf37a6a78"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#ad3e7e7f87ebb9104b813ddcbf37a6a78">k_semaphore_v</a> (int key)</td></tr>
+<tr class="separator:ad3e7e7f87ebb9104b813ddcbf37a6a78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a112bc96c616984d47cf03da6f04c94ee"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a112bc96c616984d47cf03da6f04c94ee">k_semaphore_destroy</a> (int *key)</td></tr>
+<tr class="separator:a112bc96c616984d47cf03da6f04c94ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c18a15f3a2e6487bab6c43693c76312"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a5c18a15f3a2e6487bab6c43693c76312">k_cond_init</a> (int *key)</td></tr>
+<tr class="separator:a5c18a15f3a2e6487bab6c43693c76312"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6991c22329d6a04effd8070cacf633bb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a6991c22329d6a04effd8070cacf633bb">k_cond_wait</a> (int key)</td></tr>
+<tr class="separator:a6991c22329d6a04effd8070cacf633bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6ee64d011805e837747cf4d0b5cf158"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#ab6ee64d011805e837747cf4d0b5cf158">k_cond_signal</a> (int key)</td></tr>
+<tr class="separator:ab6ee64d011805e837747cf4d0b5cf158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c696438609d648f6608d299ae507357"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a3c696438609d648f6608d299ae507357">k_cond_broadcast</a> (int key)</td></tr>
+<tr class="separator:a3c696438609d648f6608d299ae507357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75b6bff510a724ac07e5afbd0ae1ac89"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a75b6bff510a724ac07e5afbd0ae1ac89">k_cond_destroy</a> (int *key)</td></tr>
+<tr class="separator:a75b6bff510a724ac07e5afbd0ae1ac89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa65248a8d678799ddc08dc10306188"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#afaa65248a8d678799ddc08dc10306188">k_barrier_init</a> (int *key, int total)</td></tr>
+<tr class="separator:afaa65248a8d678799ddc08dc10306188"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d365dc31afc7095b56b702b3090c397"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a6d365dc31afc7095b56b702b3090c397">k_barrier_wait</a> (int key)</td></tr>
+<tr class="separator:a6d365dc31afc7095b56b702b3090c397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae92e1ad788ccd406933160f2ffb47780"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#ae92e1ad788ccd406933160f2ffb47780">k_barrier_destroy</a> (int *key)</td></tr>
+<tr class="separator:ae92e1ad788ccd406933160f2ffb47780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a515d4acfe510559477bb110678bfffbc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a515d4acfe510559477bb110678bfffbc">k_mbox_open</a> (int id_1, int id_2)</td></tr>
+<tr class="separator:a515d4acfe510559477bb110678bfffbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08bfc19179bb1e7656d993ea770b1956"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a08bfc19179bb1e7656d993ea770b1956">k_mbox_close</a> (int mbox_id)</td></tr>
+<tr class="separator:a08bfc19179bb1e7656d993ea770b1956"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bb8ff6db004056fd78710f8b40543d5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a7bb8ff6db004056fd78710f8b40543d5">k_mbox_send</a> (int key, <a class="el" href="sync_8h.html#a4f902d2856a0b3661b438a1cd9bfb666">mbox_t</a> *target, <a class="el" href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">mbox_arg_t</a> *arg)</td></tr>
+<tr class="separator:a7bb8ff6db004056fd78710f8b40543d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d75e952b9e2ef4f0f9d9ad1a3374573"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a9d75e952b9e2ef4f0f9d9ad1a3374573">k_mbox_recv</a> (int key, <a class="el" href="sync_8h.html#a4f902d2856a0b3661b438a1cd9bfb666">mbox_t</a> *target, <a class="el" href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">mbox_arg_t</a> *arg)</td></tr>
+<tr class="separator:a9d75e952b9e2ef4f0f9d9ad1a3374573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46ccee42babda2525ee360fea3da522c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a46ccee42babda2525ee360fea3da522c">k_mbox_try_send</a> (int key, <a class="el" href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">mbox_arg_t</a> *arg)</td></tr>
+<tr class="separator:a46ccee42babda2525ee360fea3da522c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90510833af804b78b51917d7df04c6b5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a90510833af804b78b51917d7df04c6b5">k_mbox_try_recv</a> (int key, <a class="el" href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">mbox_arg_t</a> *arg)</td></tr>
+<tr class="separator:a90510833af804b78b51917d7df04c6b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c5f6aa9763193e42afb7ebd6130e0ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a6c5f6aa9763193e42afb7ebd6130e0ed">k_pcb_mbox_init</a> (<a class="el" href="sync_8h.html#a5ae9fd101e3be74a3e8fd17058edc515">pcb_mbox_t</a> *target, int owner_id)</td></tr>
+<tr class="separator:a6c5f6aa9763193e42afb7ebd6130e0ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab303d9c3a5c4e2712c644968f4b012de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#ab303d9c3a5c4e2712c644968f4b012de">sys_mailread</a> (void *<a class="el" href="structbuf.html">buf</a>, int len)</td></tr>
+<tr class="separator:ab303d9c3a5c4e2712c644968f4b012de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae16be0c336e7ed1f035243641179ba2a"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#ae16be0c336e7ed1f035243641179ba2a">sys_mailwrite</a> (int pid, void *<a class="el" href="structbuf.html">buf</a>, int len)</td></tr>
+<tr class="separator:ae16be0c336e7ed1f035243641179ba2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a14e308b40e59d3eff23814e4e1174807"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a14e308b40e59d3eff23814e4e1174807">sem_first_time</a> = 1</td></tr>
+<tr class="separator:a14e308b40e59d3eff23814e4e1174807"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad07dc23f32885cdb29bd61e186bac854"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#ad07dc23f32885cdb29bd61e186bac854">cond_first_time</a> = 1</td></tr>
+<tr class="separator:ad07dc23f32885cdb29bd61e186bac854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bb26c973626c745194abcab450e1320"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a2bb26c973626c745194abcab450e1320">barrier_first_time</a> = 1</td></tr>
+<tr class="separator:a2bb26c973626c745194abcab450e1320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17f852105398ae455fe3b021ccf61527"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a17f852105398ae455fe3b021ccf61527">mbox_first_time</a> = 1</td></tr>
+<tr class="separator:a17f852105398ae455fe3b021ccf61527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac32f003cfdbda84d6d3ddf4c5931401b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="sync_8h.html#ac92780faa059424120392d0f3bf52b19">Semaphore_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#ac32f003cfdbda84d6d3ddf4c5931401b">sem_list</a> [<a class="el" href="sync_8h.html#a907bc51b623b28337a15bf6f15074b01">COMM_NUM</a>]</td></tr>
+<tr class="separator:ac32f003cfdbda84d6d3ddf4c5931401b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af14cdeb4ac131416a4da729869465429"><td class="memItemLeft" align="right" valign="top"><a class="el" href="sync_8h.html#a065d9c7d3ffb571b9120503d269ed113">cond_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#af14cdeb4ac131416a4da729869465429">cond_list</a> [<a class="el" href="sync_8h.html#a907bc51b623b28337a15bf6f15074b01">COMM_NUM</a>]</td></tr>
+<tr class="separator:af14cdeb4ac131416a4da729869465429"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fc1b4edd08805a2a27d85d10b1abe6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="sync_8h.html#a74d94f02486d264c8b29c8860a796d28">barrier_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a5fc1b4edd08805a2a27d85d10b1abe6c">barrier_list</a> [<a class="el" href="sync_8h.html#a907bc51b623b28337a15bf6f15074b01">COMM_NUM</a>]</td></tr>
+<tr class="separator:a5fc1b4edd08805a2a27d85d10b1abe6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c0fbcb4427ca1838c262c390503af4f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="sync_8h.html#a4f902d2856a0b3661b438a1cd9bfb666">mbox_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#a7c0fbcb4427ca1838c262c390503af4f">mbox_list</a> [<a class="el" href="sync_8h.html#a907bc51b623b28337a15bf6f15074b01">COMM_NUM</a>]</td></tr>
+<tr class="separator:a7c0fbcb4427ca1838c262c390503af4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9e2ca7d2b58883e618085a8389b5b91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="sync_8h.html#a5ae9fd101e3be74a3e8fd17058edc515">pcb_mbox_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sync_8c.html#ad9e2ca7d2b58883e618085a8389b5b91">pcb_mbox</a> [<a class="el" href="pcb_8h.html#a03193ee70511b814eb5ff595a92b6dd7">NUM_MAX_PROCESS</a>]</td></tr>
+<tr class="separator:ad9e2ca7d2b58883e618085a8389b5b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">函数说明</h2>
+<a id="ae92e1ad788ccd406933160f2ffb47780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae92e1ad788ccd406933160f2ffb47780">&#9670;&nbsp;</a></span>k_barrier_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_barrier_destroy </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afaa65248a8d678799ddc08dc10306188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaa65248a8d678799ddc08dc10306188">&#9670;&nbsp;</a></span>k_barrier_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_barrier_init </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>total</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6d365dc31afc7095b56b702b3090c397"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d365dc31afc7095b56b702b3090c397">&#9670;&nbsp;</a></span>k_barrier_wait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_barrier_wait </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe2045e58893e8db1e64e32aa0711611"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe2045e58893e8db1e64e32aa0711611">&#9670;&nbsp;</a></span>k_commop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_commop </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>key_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>arg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>op</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3c696438609d648f6608d299ae507357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c696438609d648f6608d299ae507357">&#9670;&nbsp;</a></span>k_cond_broadcast()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_cond_broadcast </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a75b6bff510a724ac07e5afbd0ae1ac89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75b6bff510a724ac07e5afbd0ae1ac89">&#9670;&nbsp;</a></span>k_cond_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_cond_destroy </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5c18a15f3a2e6487bab6c43693c76312"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c18a15f3a2e6487bab6c43693c76312">&#9670;&nbsp;</a></span>k_cond_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_cond_init </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab6ee64d011805e837747cf4d0b5cf158"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6ee64d011805e837747cf4d0b5cf158">&#9670;&nbsp;</a></span>k_cond_signal()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_cond_signal </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6991c22329d6a04effd8070cacf633bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6991c22329d6a04effd8070cacf633bb">&#9670;&nbsp;</a></span>k_cond_wait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_cond_wait </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a08bfc19179bb1e7656d993ea770b1956"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08bfc19179bb1e7656d993ea770b1956">&#9670;&nbsp;</a></span>k_mbox_close()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_mbox_close </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>mbox_id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a515d4acfe510559477bb110678bfffbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a515d4acfe510559477bb110678bfffbc">&#9670;&nbsp;</a></span>k_mbox_open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_mbox_open </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>id_2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d75e952b9e2ef4f0f9d9ad1a3374573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d75e952b9e2ef4f0f9d9ad1a3374573">&#9670;&nbsp;</a></span>k_mbox_recv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_mbox_recv </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="sync_8h.html#a4f902d2856a0b3661b438a1cd9bfb666">mbox_t</a> *&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">mbox_arg_t</a> *&#160;</td>
+          <td class="paramname"><em>arg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7bb8ff6db004056fd78710f8b40543d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb8ff6db004056fd78710f8b40543d5">&#9670;&nbsp;</a></span>k_mbox_send()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_mbox_send </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="sync_8h.html#a4f902d2856a0b3661b438a1cd9bfb666">mbox_t</a> *&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">mbox_arg_t</a> *&#160;</td>
+          <td class="paramname"><em>arg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a90510833af804b78b51917d7df04c6b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90510833af804b78b51917d7df04c6b5">&#9670;&nbsp;</a></span>k_mbox_try_recv()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_mbox_try_recv </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">mbox_arg_t</a> *&#160;</td>
+          <td class="paramname"><em>arg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a46ccee42babda2525ee360fea3da522c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46ccee42babda2525ee360fea3da522c">&#9670;&nbsp;</a></span>k_mbox_try_send()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_mbox_try_send </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">mbox_arg_t</a> *&#160;</td>
+          <td class="paramname"><em>arg</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c5f6aa9763193e42afb7ebd6130e0ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c5f6aa9763193e42afb7ebd6130e0ed">&#9670;&nbsp;</a></span>k_pcb_mbox_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_pcb_mbox_init </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="sync_8h.html#a5ae9fd101e3be74a3e8fd17058edc515">pcb_mbox_t</a> *&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>owner_id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a112bc96c616984d47cf03da6f04c94ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a112bc96c616984d47cf03da6f04c94ee">&#9670;&nbsp;</a></span>k_semaphore_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_semaphore_destroy </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9002f0a50448440ef46fcc2ea02ceb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9002f0a50448440ef46fcc2ea02ceb9">&#9670;&nbsp;</a></span>k_semaphore_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_semaphore_init </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>sem</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a51d680b00574663a8c4557ecb4ac2b02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51d680b00574663a8c4557ecb4ac2b02">&#9670;&nbsp;</a></span>k_semaphore_p()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_semaphore_p </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad3e7e7f87ebb9104b813ddcbf37a6a78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3e7e7f87ebb9104b813ddcbf37a6a78">&#9670;&nbsp;</a></span>k_semaphore_v()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int k_semaphore_v </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab303d9c3a5c4e2712c644968f4b012de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab303d9c3a5c4e2712c644968f4b012de">&#9670;&nbsp;</a></span>sys_mailread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int sys_mailread </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae16be0c336e7ed1f035243641179ba2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae16be0c336e7ed1f035243641179ba2a">&#9670;&nbsp;</a></span>sys_mailwrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int sys_mailwrite </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="a2bb26c973626c745194abcab450e1320"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bb26c973626c745194abcab450e1320">&#9670;&nbsp;</a></span>barrier_first_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int barrier_first_time = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5fc1b4edd08805a2a27d85d10b1abe6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fc1b4edd08805a2a27d85d10b1abe6c">&#9670;&nbsp;</a></span>barrier_list</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="sync_8h.html#a74d94f02486d264c8b29c8860a796d28">barrier_t</a>* barrier_list[<a class="el" href="sync_8h.html#a907bc51b623b28337a15bf6f15074b01">COMM_NUM</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad07dc23f32885cdb29bd61e186bac854"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad07dc23f32885cdb29bd61e186bac854">&#9670;&nbsp;</a></span>cond_first_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int cond_first_time = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af14cdeb4ac131416a4da729869465429"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af14cdeb4ac131416a4da729869465429">&#9670;&nbsp;</a></span>cond_list</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="sync_8h.html#a065d9c7d3ffb571b9120503d269ed113">cond_t</a>* cond_list[<a class="el" href="sync_8h.html#a907bc51b623b28337a15bf6f15074b01">COMM_NUM</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a17f852105398ae455fe3b021ccf61527"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17f852105398ae455fe3b021ccf61527">&#9670;&nbsp;</a></span>mbox_first_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mbox_first_time = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7c0fbcb4427ca1838c262c390503af4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c0fbcb4427ca1838c262c390503af4f">&#9670;&nbsp;</a></span>mbox_list</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="sync_8h.html#a4f902d2856a0b3661b438a1cd9bfb666">mbox_t</a>* mbox_list[<a class="el" href="sync_8h.html#a907bc51b623b28337a15bf6f15074b01">COMM_NUM</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9e2ca7d2b58883e618085a8389b5b91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9e2ca7d2b58883e618085a8389b5b91">&#9670;&nbsp;</a></span>pcb_mbox</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="sync_8h.html#a5ae9fd101e3be74a3e8fd17058edc515">pcb_mbox_t</a> <a class="el" href="structpcb__mbox.html">pcb_mbox</a>[<a class="el" href="pcb_8h.html#a03193ee70511b814eb5ff595a92b6dd7">NUM_MAX_PROCESS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a14e308b40e59d3eff23814e4e1174807"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14e308b40e59d3eff23814e4e1174807">&#9670;&nbsp;</a></span>sem_first_time</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int sem_first_time = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac32f003cfdbda84d6d3ddf4c5931401b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac32f003cfdbda84d6d3ddf4c5931401b">&#9670;&nbsp;</a></span>sem_list</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="sync_8h.html#ac92780faa059424120392d0f3bf52b19">Semaphore_t</a>* sem_list[<a class="el" href="sync_8h.html#a907bc51b623b28337a15bf6f15074b01">COMM_NUM</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cbd7f246bdf7dc0a50281a272327e6ed.html">kernel</a></li><li class="navelem"><a class="el" href="dir_0bad16966a5a8d1438c9252d5a62da0f.html">sync</a></li><li class="navelem"><a class="el" href="sync_8c.html">sync.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

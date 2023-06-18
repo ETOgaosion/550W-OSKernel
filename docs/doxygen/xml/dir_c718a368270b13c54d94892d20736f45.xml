@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="dir_c718a368270b13c54d94892d20736f45" kind="dir">
+    <compoundname>src/drivers</compoundname>
+    <innerdir refid="dir_e73d6a09cbff79528d35c0fb9f2ccf34">src/drivers/plic</innerdir>
+    <innerdir refid="dir_90abba871dc5d090c5f9cc1cda47fb8a">src/drivers/screen</innerdir>
+    <innerdir refid="dir_6d7bb3d98a790d25003c6f87df139573">src/drivers/virtio</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/drivers/"/>
+  </compounddef>
+</doxygen>

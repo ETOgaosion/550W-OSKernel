@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="stdio_8h" kind="file" language="C++">
+    <compoundname>stdio.h</compoundname>
+    <includes refid="stdarg_8h" local="no">lib/stdarg.h</includes>
+    <includedby refid="stack_8c" local="no">src/arch/riscv/kernel/init/stack.c</includedby>
+    <includedby refid="screen_8c" local="no">src/drivers/screen/screen.c</includedby>
+    <includedby refid="fs_8c" local="no">src/fs/fs.c</includedby>
+    <includedby refid="assert_8h" local="no">src/include/lib/assert.h</includedby>
+    <includedby refid="main_8c" local="no">src/init/main.c</includedby>
+    <includedby refid="irq_8c" local="no">src/kernel/irq/irq.c</includedby>
+    <includedby refid="pcb_8c" local="no">src/kernel/sys/pcb.c</includedby>
+    <includedby refid="printk_8c" local="no">src/lib/printk.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/include/lib/stdio.h</label>
+        <link refid="stdio_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>lib/stdarg.h</label>
+        <link refid="stdarg_8h"/>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>src/fs/fs.c</label>
+        <link refid="fs_8c"/>
+      </node>
+      <node id="3">
+        <label>src/drivers/screen/screen.c</label>
+        <link refid="screen_8c"/>
+      </node>
+      <node id="1">
+        <label>src/include/lib/stdio.h</label>
+        <link refid="stdio_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>src/lib/printk.c</label>
+        <link refid="printk_8c"/>
+      </node>
+      <node id="10">
+        <label>src/kernel/sys/pcb.c</label>
+        <link refid="pcb_8c"/>
+      </node>
+      <node id="9">
+        <label>src/init/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="7">
+        <label>src/kernel/irq/irq.c</label>
+        <link refid="irq_8c"/>
+      </node>
+      <node id="8">
+        <label>src/kernel/mm/mm.c</label>
+        <link refid="mm_8c"/>
+      </node>
+      <node id="6">
+        <label>src/drivers/virtio/virtio_blk.c</label>
+        <link refid="virtio__blk_8c"/>
+      </node>
+      <node id="2">
+        <label>src/arch/riscv/kernel/init/stack.c</label>
+        <link refid="stack_8c"/>
+      </node>
+      <node id="5">
+        <label>src/include/lib/assert.h</label>
+        <link refid="assert_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="stdio_8h_1a06d03ddc23233f125efb5d5daf6fcf79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int k_print</definition>
+        <argsstring>(const char *fmt,...)</argsstring>
+        <name>k_print</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/lib/stdio.h" line="6" column="5" bodyfile="src/lib/printk.c" bodystart="209" bodyend="218" declfile="src/include/lib/stdio.h" declline="6" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="stdio_8h_1aa2a4f08f586b2d4e96eeab93a36d3dfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int vk_print</definition>
+        <argsstring>(const char *fmt, va_list va)</argsstring>
+        <name>vk_print</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type><ref refid="stdarg_8h_1af53f622e3b6c080daeb167c1955d7ec1" kindref="member">va_list</ref></type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/lib/stdio.h" line="7" column="5" bodyfile="src/lib/printk.c" bodystart="205" bodyend="207" declfile="src/include/lib/stdio.h" declline="7" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int prints</definition>
+        <argsstring>(const char *fmt,...)</argsstring>
+        <name>prints</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type>...</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/lib/stdio.h" line="8" column="5" bodyfile="src/lib/printk.c" bodystart="224" bodyend="233" declfile="src/include/lib/stdio.h" declline="8" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="stdio_8h_1a0e325699784cd9e8c85c56203a5acdb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int vprints</definition>
+        <argsstring>(const char *fmt, va_list va)</argsstring>
+        <name>vprints</name>
+        <param>
+          <type>const char *</type>
+          <declname>fmt</declname>
+        </param>
+        <param>
+          <type><ref refid="stdarg_8h_1af53f622e3b6c080daeb167c1955d7ec1" kindref="member">va_list</ref></type>
+          <declname>va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/lib/stdio.h" line="9" column="5" bodyfile="src/lib/printk.c" bodystart="220" bodyend="222" declfile="src/include/lib/stdio.h" declline="9" declcolumn="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="stdarg_8h" kindref="compound">lib/stdarg.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>kernel<sp/>printf<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="stdio_8h_1a06d03ddc23233f125efb5d5daf6fcf79" kindref="member">k_print</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fmt,<sp/>...);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="stdio_8h_1aa2a4f08f586b2d4e96eeab93a36d3dfd" kindref="member">vk_print</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fmt,<sp/><ref refid="stdarg_8h_1af53f622e3b6c080daeb167c1955d7ec1" kindref="member">va_list</ref><sp/>va);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="stdio_8h_1a6538261d9c511ed65721af147c6c38ec" kindref="member">prints</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fmt,<sp/>...);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="stdio_8h_1a0e325699784cd9e8c85c56203a5acdb0" kindref="member">vprints</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fmt,<sp/><ref refid="stdarg_8h_1af53f622e3b6c080daeb167c1955d7ec1" kindref="member">va_list</ref><sp/>va);</highlight></codeline>
+    </programlisting>
+    <location file="src/include/lib/stdio.h"/>
+  </compounddef>
+</doxygen>

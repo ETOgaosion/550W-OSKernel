@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="dir_0bad16966a5a8d1438c9252d5a62da0f" kind="dir">
+    <compoundname>src/kernel/sync</compoundname>
+    <innerfile refid="lock_8c">lock.c</innerfile>
+    <innerfile refid="lock_8d">lock.d</innerfile>
+    <innerfile refid="sync_8c">sync.c</innerfile>
+    <innerfile refid="sync_8d">sync.d</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/kernel/sync/"/>
+  </compounddef>
+</doxygen>

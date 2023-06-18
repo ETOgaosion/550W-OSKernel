@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structuname" kind="struct" language="C++" prot="public">
+    <compoundname>uname</compoundname>
+    <includes refid="sys_8h" local="no">sys.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structuname_1a7d92ef35c14e513a9218ffaebc5fb388" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char uname::sysname[65]</definition>
+        <argsstring>[65]</argsstring>
+        <name>sysname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sys.h" line="4" column="10" bodyfile="src/include/os/sys.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuname_1a5eb2fad7ab6274c93d76d52a4b3d587e" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char uname::nodename[65]</definition>
+        <argsstring>[65]</argsstring>
+        <name>nodename</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sys.h" line="5" column="10" bodyfile="src/include/os/sys.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuname_1a2c668bff97a2d1e2aee31c5051f0b0df" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char uname::release[65]</definition>
+        <argsstring>[65]</argsstring>
+        <name>release</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sys.h" line="6" column="10" bodyfile="src/include/os/sys.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuname_1ae4d1fdd34b424838c0e9b926bc7da41e" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char uname::version[65]</definition>
+        <argsstring>[65]</argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sys.h" line="7" column="10" bodyfile="src/include/os/sys.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuname_1ae50b903b3a88b8b1435d084a95826d1c" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char uname::machine[65]</definition>
+        <argsstring>[65]</argsstring>
+        <name>machine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sys.h" line="8" column="10" bodyfile="src/include/os/sys.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structuname_1a594b3673b854a92b0319ca05df5c5c72" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char uname::domainname[65]</definition>
+        <argsstring>[65]</argsstring>
+        <name>domainname</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sys.h" line="9" column="10" bodyfile="src/include/os/sys.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/include/os/sys.h" line="3" column="1" bodyfile="src/include/os/sys.h" bodystart="3" bodyend="10"/>
+    <listofallmembers>
+      <member refid="structuname_1a594b3673b854a92b0319ca05df5c5c72" prot="public" virt="non-virtual"><scope>uname</scope><name>domainname</name></member>
+      <member refid="structuname_1ae50b903b3a88b8b1435d084a95826d1c" prot="public" virt="non-virtual"><scope>uname</scope><name>machine</name></member>
+      <member refid="structuname_1a5eb2fad7ab6274c93d76d52a4b3d587e" prot="public" virt="non-virtual"><scope>uname</scope><name>nodename</name></member>
+      <member refid="structuname_1a2c668bff97a2d1e2aee31c5051f0b0df" prot="public" virt="non-virtual"><scope>uname</scope><name>release</name></member>
+      <member refid="structuname_1a7d92ef35c14e513a9218ffaebc5fb388" prot="public" virt="non-virtual"><scope>uname</scope><name>sysname</name></member>
+      <member refid="structuname_1ae4d1fdd34b424838c0e9b926bc7da41e" prot="public" virt="non-virtual"><scope>uname</scope><name>version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

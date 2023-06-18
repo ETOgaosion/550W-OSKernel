@@ -1,0 +1,803 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/fs/file.h 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('file_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#define-members">宏定义</a> &#124;
+<a href="#typedef-members">类型定义</a> &#124;
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">file.h 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="types_8h_source.html">common/types.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="list_8h_source.html">lib/list.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="string_8h_source.html">lib/string.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="lock_8h_source.html">os/lock.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="mm_8h_source.html">os/mm.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+file.h 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="file_8h__incl.png" border="0" usemap="#asrc_2fs_2file_8h" alt=""/></div>
+<map name="asrc_2fs_2file_8h" id="asrc_2fs_2file_8h">
+<area shape="rect" title=" " alt="" coords="51,5,144,32"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="51,229,182,256"/>
+<area shape="rect" href="list_8h.html" title=" " alt="" coords="26,155,100,181"/>
+<area shape="rect" href="string_8h.html" title=" " alt="" coords="124,155,215,181"/>
+<area shape="rect" href="lock_8h.html" title=" " alt="" coords="58,80,138,107"/>
+<area shape="rect" href="mm_8h.html" title=" " alt="" coords="213,80,292,107"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="52,304,181,331"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+此图展示该文件直接或间接的被哪些文件引用了:</div>
+<div class="dyncontent">
+<div class="center"><img src="file_8h__dep__incl.png" border="0" usemap="#asrc_2fs_2file_8hdep" alt=""/></div>
+<map name="asrc_2fs_2file_8hdep" id="asrc_2fs_2file_8hdep">
+<area shape="rect" title=" " alt="" coords="111,5,204,32"/>
+<area shape="rect" href="fd_8c.html" title=" " alt="" coords="5,80,91,107"/>
+<area shape="rect" href="fs_8c.html" title=" " alt="" coords="115,80,199,107"/>
+<area shape="rect" href="main_8c.html" title=" " alt="" coords="224,80,339,107"/>
+</map>
+</div>
+</div>
+<p><a href="file_8h_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfd.html">fd</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structring__buffer.html">ring_buffer</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpipe.html">pipe</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a7a68c9ffaac7dbcd652225dd7c06a54b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a7a68c9ffaac7dbcd652225dd7c06a54b">O_RDONLY</a>&#160;&#160;&#160;0x00</td></tr>
+<tr class="separator:a7a68c9ffaac7dbcd652225dd7c06a54b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11b644a8526139c4cc1850dac1271ced"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a11b644a8526139c4cc1850dac1271ced">O_WRONLY</a>&#160;&#160;&#160;0x01</td></tr>
+<tr class="separator:a11b644a8526139c4cc1850dac1271ced"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb0586253488ee61072b73557eeb873b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#abb0586253488ee61072b73557eeb873b">O_RDWR</a>&#160;&#160;&#160;0x02</td></tr>
+<tr class="separator:abb0586253488ee61072b73557eeb873b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab40a23079c3b9a7e25ffdc8108c7fb02"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#ab40a23079c3b9a7e25ffdc8108c7fb02">O_CREATE</a>&#160;&#160;&#160;0x40</td></tr>
+<tr class="separator:ab40a23079c3b9a7e25ffdc8108c7fb02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6afd3dd2f570069804b40e6aa24fc966"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a6afd3dd2f570069804b40e6aa24fc966">O_DIRECTORY</a>&#160;&#160;&#160;0x0200000</td></tr>
+<tr class="separator:a6afd3dd2f570069804b40e6aa24fc966"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a301749b9aa4b9416c329bb8b19345216"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a301749b9aa4b9416c329bb8b19345216">AT_FDCWD</a>&#160;&#160;&#160;-100</td></tr>
+<tr class="separator:a301749b9aa4b9416c329bb8b19345216"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18f47dae5e59e6683441ef49754fe068"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a18f47dae5e59e6683441ef49754fe068">AT_REMOVEDIR</a>&#160;&#160;&#160;0x200 /* Remove directory instead of unlinking file.  */</td></tr>
+<tr class="separator:a18f47dae5e59e6683441ef49754fe068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd709f201d7643c3909621f620ea648a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#afd709f201d7643c3909621f620ea648a">MAX_NAME_LEN</a>&#160;&#160;&#160;256</td></tr>
+<tr class="separator:afd709f201d7643c3909621f620ea648a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9c7a3fcf619f9aeb244f8e85a68097f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#ae9c7a3fcf619f9aeb244f8e85a68097f">MAX_FD</a>&#160;&#160;&#160;200</td></tr>
+<tr class="separator:ae9c7a3fcf619f9aeb244f8e85a68097f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a779b513296068d2a6186659183ff3c2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a779b513296068d2a6186659183ff3c2c">RING_BUFFER_SIZE</a>&#160;&#160;&#160;4095</td></tr>
+<tr class="separator:a779b513296068d2a6186659183ff3c2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa166a3b17678004094547794e960f77d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#aa166a3b17678004094547794e960f77d">PIPE_NUM</a>&#160;&#160;&#160;200</td></tr>
+<tr class="separator:aa166a3b17678004094547794e960f77d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb702d8b501669a23aa0ab3b281b9384"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#abb702d8b501669a23aa0ab3b281b9384">min</a>(x,  y)&#160;&#160;&#160;((x) &lt; (y) ? (x) : (y))</td></tr>
+<tr class="separator:abb702d8b501669a23aa0ab3b281b9384"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+类型定义</h2></td></tr>
+<tr class="memitem:ac54958894c7df05a6ccda429331e0ddf"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#ac54958894c7df05a6ccda429331e0ddf">fd_num_t</a></td></tr>
+<tr class="separator:ac54958894c7df05a6ccda429331e0ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e39a1620e57d44a47f9e862b4cfebce"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a4e39a1620e57d44a47f9e862b4cfebce">pipe_num_t</a></td></tr>
+<tr class="separator:a4e39a1620e57d44a47f9e862b4cfebce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25ab4acd63db23ce8ebc580b48d6c32f"><td class="memItemLeft" align="right" valign="top">typedef uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a25ab4acd63db23ce8ebc580b48d6c32f">dev_t</a></td></tr>
+<tr class="separator:a25ab4acd63db23ce8ebc580b48d6c32f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05e26458c6a667897adbdb68b1ad6857"><td class="memItemLeft" align="right" valign="top">typedef uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a05e26458c6a667897adbdb68b1ad6857">ino_t</a></td></tr>
+<tr class="separator:a05e26458c6a667897adbdb68b1ad6857"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8f4385bb42836d1e3ad4fea9d71d1b9"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a></td></tr>
+<tr class="separator:af8f4385bb42836d1e3ad4fea9d71d1b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e3c03dae15b90102eb1770dd95adadc"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a9e3c03dae15b90102eb1770dd95adadc">nlink_t</a></td></tr>
+<tr class="separator:a9e3c03dae15b90102eb1770dd95adadc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2306308627701b66dc6f3babe821ab4"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#af2306308627701b66dc6f3babe821ab4">uid_t</a></td></tr>
+<tr class="separator:af2306308627701b66dc6f3babe821ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7352f1065fe606194d792e2b292cf83"><td class="memItemLeft" align="right" valign="top">typedef uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#aa7352f1065fe606194d792e2b292cf83">gid_t</a></td></tr>
+<tr class="separator:aa7352f1065fe606194d792e2b292cf83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a053c614b69adbac710bb132a6eb9ccf6"><td class="memItemLeft" align="right" valign="top">typedef int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a053c614b69adbac710bb132a6eb9ccf6">off_t</a></td></tr>
+<tr class="separator:a053c614b69adbac710bb132a6eb9ccf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc00d5703f6722526aeda522247c3ec6"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structfd.html">fd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#adc00d5703f6722526aeda522247c3ec6">fd_t</a></td></tr>
+<tr class="separator:adc00d5703f6722526aeda522247c3ec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e56d0e85fc7914f204312ebf0b15fea"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structpipe.html">pipe</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a6e56d0e85fc7914f204312ebf0b15fea">pipe_t</a></td></tr>
+<tr class="separator:a6e56d0e85fc7914f204312ebf0b15fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a6cb1ecabc3abc6e1cdfac5f1ea59dbcc"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a6cb1ecabc3abc6e1cdfac5f1ea59dbcc">fd_table_init</a> ()</td></tr>
+<tr class="separator:a6cb1ecabc3abc6e1cdfac5f1ea59dbcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d55425e16feb3bea1363d51fdf3a094"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a0d55425e16feb3bea1363d51fdf3a094">fd_alloc</a> ()</td></tr>
+<tr class="separator:a0d55425e16feb3bea1363d51fdf3a094"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f91d1842f703d4598574b0bcb74e8cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="file_8h.html#adc00d5703f6722526aeda522247c3ec6">fd_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a8f91d1842f703d4598574b0bcb74e8cc">fd_alloc_spec</a> (int <a class="el" href="structfd.html">fd</a>)</td></tr>
+<tr class="separator:a8f91d1842f703d4598574b0bcb74e8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7a4c8f3c3f91405b5f70fdc19533a16"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#ac7a4c8f3c3f91405b5f70fdc19533a16">fd_free</a> (int <a class="el" href="structfd.html">fd</a>)</td></tr>
+<tr class="separator:ac7a4c8f3c3f91405b5f70fdc19533a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15dcc53ce1c457472fc819d1ab3cf5e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="file_8h.html#adc00d5703f6722526aeda522247c3ec6">fd_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a15dcc53ce1c457472fc819d1ab3cf5e1">get_fd</a> (int <a class="el" href="structfd.html">fd</a>)</td></tr>
+<tr class="separator:a15dcc53ce1c457472fc819d1ab3cf5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a547b443fd97255c9aee93ea57d113518"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a547b443fd97255c9aee93ea57d113518">pipe_alloc</a> (int *<a class="el" href="structfd.html">fd</a>)</td></tr>
+<tr class="separator:a547b443fd97255c9aee93ea57d113518"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66278a5b48c7b0c3f6049bd9d4c880c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a66278a5b48c7b0c3f6049bd9d4c880c2">ring_buffer_init</a> (struct <a class="el" href="structring__buffer.html">ring_buffer</a> *rbuf)</td></tr>
+<tr class="separator:a66278a5b48c7b0c3f6049bd9d4c880c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee3154a72fa1e4fe6f9029c8df731a07"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#aee3154a72fa1e4fe6f9029c8df731a07">read_ring_buffer</a> (struct <a class="el" href="structring__buffer.html">ring_buffer</a> *rbuf, uint8_t *<a class="el" href="structbuf.html">buf</a>, <a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a> size)</td></tr>
+<tr class="separator:aee3154a72fa1e4fe6f9029c8df731a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1fb461c9d33d7c8c7dc4fb4674afae7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#ad1fb461c9d33d7c8c7dc4fb4674afae7">write_ring_buffer</a> (struct <a class="el" href="structring__buffer.html">ring_buffer</a> *rbuf, uint8_t *<a class="el" href="structbuf.html">buf</a>, <a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a> size)</td></tr>
+<tr class="separator:ad1fb461c9d33d7c8c7dc4fb4674afae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a5929f8b32860acf2a9d2216f1c4493f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="file_8h.html#adc00d5703f6722526aeda522247c3ec6">fd_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a5929f8b32860acf2a9d2216f1c4493f8">fd_table</a> [<a class="el" href="file_8h.html#ae9c7a3fcf619f9aeb244f8e85a68097f">MAX_FD</a>]</td></tr>
+<tr class="separator:a5929f8b32860acf2a9d2216f1c4493f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8025a26fe82fa76119549722ae508993"><td class="memItemLeft" align="right" valign="top"><a class="el" href="file_8h.html#a6e56d0e85fc7914f204312ebf0b15fea">pipe_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="file_8h.html#a8025a26fe82fa76119549722ae508993">pipe_table</a> [<a class="el" href="file_8h.html#aa166a3b17678004094547794e960f77d">PIPE_NUM</a>]</td></tr>
+<tr class="separator:a8025a26fe82fa76119549722ae508993"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a301749b9aa4b9416c329bb8b19345216"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a301749b9aa4b9416c329bb8b19345216">&#9670;&nbsp;</a></span>AT_FDCWD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AT_FDCWD&#160;&#160;&#160;-100</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a18f47dae5e59e6683441ef49754fe068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18f47dae5e59e6683441ef49754fe068">&#9670;&nbsp;</a></span>AT_REMOVEDIR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define AT_REMOVEDIR&#160;&#160;&#160;0x200 /* Remove directory instead of unlinking file.  */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae9c7a3fcf619f9aeb244f8e85a68097f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9c7a3fcf619f9aeb244f8e85a68097f">&#9670;&nbsp;</a></span>MAX_FD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_FD&#160;&#160;&#160;200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afd709f201d7643c3909621f620ea648a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd709f201d7643c3909621f620ea648a">&#9670;&nbsp;</a></span>MAX_NAME_LEN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_NAME_LEN&#160;&#160;&#160;256</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb702d8b501669a23aa0ab3b281b9384"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb702d8b501669a23aa0ab3b281b9384">&#9670;&nbsp;</a></span>min</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define min</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">y&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;((x) &lt; (y) ? (x) : (y))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab40a23079c3b9a7e25ffdc8108c7fb02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab40a23079c3b9a7e25ffdc8108c7fb02">&#9670;&nbsp;</a></span>O_CREATE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define O_CREATE&#160;&#160;&#160;0x40</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6afd3dd2f570069804b40e6aa24fc966"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6afd3dd2f570069804b40e6aa24fc966">&#9670;&nbsp;</a></span>O_DIRECTORY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define O_DIRECTORY&#160;&#160;&#160;0x0200000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7a68c9ffaac7dbcd652225dd7c06a54b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a68c9ffaac7dbcd652225dd7c06a54b">&#9670;&nbsp;</a></span>O_RDONLY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define O_RDONLY&#160;&#160;&#160;0x00</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abb0586253488ee61072b73557eeb873b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb0586253488ee61072b73557eeb873b">&#9670;&nbsp;</a></span>O_RDWR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define O_RDWR&#160;&#160;&#160;0x02</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a11b644a8526139c4cc1850dac1271ced"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11b644a8526139c4cc1850dac1271ced">&#9670;&nbsp;</a></span>O_WRONLY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define O_WRONLY&#160;&#160;&#160;0x01</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa166a3b17678004094547794e960f77d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa166a3b17678004094547794e960f77d">&#9670;&nbsp;</a></span>PIPE_NUM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PIPE_NUM&#160;&#160;&#160;200</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a779b513296068d2a6186659183ff3c2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a779b513296068d2a6186659183ff3c2c">&#9670;&nbsp;</a></span>RING_BUFFER_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RING_BUFFER_SIZE&#160;&#160;&#160;4095</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">类型定义说明</h2>
+<a id="a25ab4acd63db23ce8ebc580b48d6c32f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25ab4acd63db23ce8ebc580b48d6c32f">&#9670;&nbsp;</a></span>dev_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint64_t <a class="el" href="file_8h.html#a25ab4acd63db23ce8ebc580b48d6c32f">dev_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac54958894c7df05a6ccda429331e0ddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac54958894c7df05a6ccda429331e0ddf">&#9670;&nbsp;</a></span>fd_num_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t <a class="el" href="file_8h.html#ac54958894c7df05a6ccda429331e0ddf">fd_num_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc00d5703f6722526aeda522247c3ec6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc00d5703f6722526aeda522247c3ec6">&#9670;&nbsp;</a></span>fd_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structfd.html">fd</a> <a class="el" href="file_8h.html#adc00d5703f6722526aeda522247c3ec6">fd_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa7352f1065fe606194d792e2b292cf83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7352f1065fe606194d792e2b292cf83">&#9670;&nbsp;</a></span>gid_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t <a class="el" href="file_8h.html#aa7352f1065fe606194d792e2b292cf83">gid_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a05e26458c6a667897adbdb68b1ad6857"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05e26458c6a667897adbdb68b1ad6857">&#9670;&nbsp;</a></span>ino_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint64_t <a class="el" href="file_8h.html#a05e26458c6a667897adbdb68b1ad6857">ino_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af8f4385bb42836d1e3ad4fea9d71d1b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8f4385bb42836d1e3ad4fea9d71d1b9">&#9670;&nbsp;</a></span>mode_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t <a class="el" href="file_8h.html#af8f4385bb42836d1e3ad4fea9d71d1b9">mode_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9e3c03dae15b90102eb1770dd95adadc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e3c03dae15b90102eb1770dd95adadc">&#9670;&nbsp;</a></span>nlink_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t <a class="el" href="file_8h.html#a9e3c03dae15b90102eb1770dd95adadc">nlink_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a053c614b69adbac710bb132a6eb9ccf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a053c614b69adbac710bb132a6eb9ccf6">&#9670;&nbsp;</a></span>off_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int64_t <a class="el" href="file_8h.html#a053c614b69adbac710bb132a6eb9ccf6">off_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e39a1620e57d44a47f9e862b4cfebce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e39a1620e57d44a47f9e862b4cfebce">&#9670;&nbsp;</a></span>pipe_num_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t <a class="el" href="file_8h.html#a4e39a1620e57d44a47f9e862b4cfebce">pipe_num_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6e56d0e85fc7914f204312ebf0b15fea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e56d0e85fc7914f204312ebf0b15fea">&#9670;&nbsp;</a></span>pipe_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structpipe.html">pipe</a> <a class="el" href="file_8h.html#a6e56d0e85fc7914f204312ebf0b15fea">pipe_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af2306308627701b66dc6f3babe821ab4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2306308627701b66dc6f3babe821ab4">&#9670;&nbsp;</a></span>uid_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint32_t <a class="el" href="file_8h.html#af2306308627701b66dc6f3babe821ab4">uid_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="a0d55425e16feb3bea1363d51fdf3a094"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d55425e16feb3bea1363d51fdf3a094">&#9670;&nbsp;</a></span>fd_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int fd_alloc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8f91d1842f703d4598574b0bcb74e8cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f91d1842f703d4598574b0bcb74e8cc">&#9670;&nbsp;</a></span>fd_alloc_spec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="file_8h.html#adc00d5703f6722526aeda522247c3ec6">fd_t</a>* fd_alloc_spec </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac7a4c8f3c3f91405b5f70fdc19533a16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7a4c8f3c3f91405b5f70fdc19533a16">&#9670;&nbsp;</a></span>fd_free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int fd_free </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6cb1ecabc3abc6e1cdfac5f1ea59dbcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cb1ecabc3abc6e1cdfac5f1ea59dbcc">&#9670;&nbsp;</a></span>fd_table_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int fd_table_init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15dcc53ce1c457472fc819d1ab3cf5e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15dcc53ce1c457472fc819d1ab3cf5e1">&#9670;&nbsp;</a></span>get_fd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="file_8h.html#adc00d5703f6722526aeda522247c3ec6">fd_t</a>* get_fd </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>fd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a547b443fd97255c9aee93ea57d113518"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a547b443fd97255c9aee93ea57d113518">&#9670;&nbsp;</a></span>pipe_alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int pipe_alloc </td>
+          <td>(</td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>fd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee3154a72fa1e4fe6f9029c8df731a07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee3154a72fa1e4fe6f9029c8df731a07">&#9670;&nbsp;</a></span>read_ring_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a> read_ring_buffer </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structring__buffer.html">ring_buffer</a> *&#160;</td>
+          <td class="paramname"><em>rbuf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a>&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a66278a5b48c7b0c3f6049bd9d4c880c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66278a5b48c7b0c3f6049bd9d4c880c2">&#9670;&nbsp;</a></span>ring_buffer_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ring_buffer_init </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structring__buffer.html">ring_buffer</a> *&#160;</td>
+          <td class="paramname"><em>rbuf</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad1fb461c9d33d7c8c7dc4fb4674afae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1fb461c9d33d7c8c7dc4fb4674afae7">&#9670;&nbsp;</a></span>write_ring_buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a> write_ring_buffer </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structring__buffer.html">ring_buffer</a> *&#160;</td>
+          <td class="paramname"><em>rbuf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a>&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="a5929f8b32860acf2a9d2216f1c4493f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5929f8b32860acf2a9d2216f1c4493f8">&#9670;&nbsp;</a></span>fd_table</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="file_8h.html#adc00d5703f6722526aeda522247c3ec6">fd_t</a> fd_table[<a class="el" href="file_8h.html#ae9c7a3fcf619f9aeb244f8e85a68097f">MAX_FD</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8025a26fe82fa76119549722ae508993"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8025a26fe82fa76119549722ae508993">&#9670;&nbsp;</a></span>pipe_table</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="file_8h.html#a6e56d0e85fc7914f204312ebf0b15fea">pipe_t</a> pipe_table[<a class="el" href="file_8h.html#aa166a3b17678004094547794e960f77d">PIPE_NUM</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7d71b6c457a61cbf03a04bfdc57b6110.html">fs</a></li><li class="navelem"><a class="el" href="file_8h.html">file.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

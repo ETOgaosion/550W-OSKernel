@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="io_8c" kind="file" language="C++">
+    <compoundname>io.c</compoundname>
+    <includes refid="common_8h" local="no">asm/common.h</includes>
+    <includes refid="io_8h" local="no">asm/io.h</includes>
+    <includes refid="sbi_8h" local="no">asm/sbi.h</includes>
+    <includes refid="smp_8h" local="no">os/smp.h</includes>
+    <incdepgraph>
+      <node id="12">
+        <label>asm/pgtable.h</label>
+        <link refid="pgtable_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>os/mm.h</label>
+        <link refid="mm_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>common/elf.h</label>
+        <link refid="elf_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="5">
+        <label>asm/io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="2">
+        <label>asm/common.h</label>
+        <link refid="common_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>os/cpu.h</label>
+        <link refid="cpu_8h"/>
+      </node>
+      <node id="19">
+        <label>os/time.h</label>
+        <link refid="time_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>asm/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>asm/sbidef.h</label>
+        <link refid="sbidef_8h"/>
+      </node>
+      <node id="3">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/arch/riscv/sbi/io.c</label>
+        <link refid="io_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>os/smp.h</label>
+        <link refid="smp_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>asm/sbi.h</label>
+        <link refid="sbi_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>os/pcb.h</label>
+        <link refid="pcb_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>os/lock.h</label>
+        <link refid="lock_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>os/sync.h</label>
+        <link refid="sync_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>lib/list.h</label>
+        <link refid="list_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="io_8c_1ab4d273aae70f3b4269bb4069129bc912" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_port_write_ch</definition>
+        <argsstring>(char ch)</argsstring>
+        <name>k_port_write_ch</name>
+        <param>
+          <type>char</type>
+          <declname>ch</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/sbi/io.c" line="6" column="6" bodyfile="src/arch/riscv/sbi/io.c" bodystart="6" bodyend="8"/>
+      </memberdef>
+      <memberdef kind="function" id="io_8c_1a7d8148a0756a3017bb9be565dd26b72f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_port_write</definition>
+        <argsstring>(char *str)</argsstring>
+        <name>k_port_write</name>
+        <param>
+          <type>char *</type>
+          <declname>str</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/sbi/io.c" line="10" column="6" bodyfile="src/arch/riscv/sbi/io.c" bodystart="10" bodyend="12"/>
+      </memberdef>
+      <memberdef kind="function" id="io_8c_1af8b2177b61ff35b8b5582e5d214f3a21" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long k_port_read</definition>
+        <argsstring>()</argsstring>
+        <name>k_port_read</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/sbi/io.c" line="14" column="6" bodyfile="src/arch/riscv/sbi/io.c" bodystart="14" bodyend="16"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;<ref refid="common_8h" kindref="compound">asm/common.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="io_8h" kindref="compound">asm/io.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="sbi_8h" kindref="compound">asm/sbi.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="smp_8h" kindref="compound">os/smp.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="io_8c_1ab4d273aae70f3b4269bb4069129bc912" kindref="member">k_port_write_ch</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>ch)<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>sbi_console_putchar((</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)ch);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="io_8c_1a7d8148a0756a3017bb9be565dd26b72f" kindref="member">k_port_write</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*str)<sp/>{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>sbi_console_putstr(str);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="io_8c_1af8b2177b61ff35b8b5582e5d214f3a21" kindref="member">k_port_read</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sbi_console_getchar();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/arch/riscv/sbi/io.c"/>
+  </compounddef>
+</doxygen>

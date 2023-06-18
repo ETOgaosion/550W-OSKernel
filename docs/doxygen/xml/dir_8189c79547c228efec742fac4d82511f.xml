@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="dir_8189c79547c228efec742fac4d82511f" kind="dir">
+    <compoundname>src/include/lib</compoundname>
+    <innerfile refid="assert_8h">assert.h</innerfile>
+    <innerfile refid="list_8h">list.h</innerfile>
+    <innerfile refid="math_8h">math.h</innerfile>
+    <innerfile refid="stdarg_8h">stdarg.h</innerfile>
+    <innerfile refid="stdio_8h">stdio.h</innerfile>
+    <innerfile refid="string_8h">string.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/include/lib/"/>
+  </compounddef>
+</doxygen>

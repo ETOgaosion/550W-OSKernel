@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="dir_19fdbe551be96c79373895dfeb04a333" kind="dir">
+    <compoundname>src/arch/riscv/kernel</compoundname>
+    <innerdir refid="dir_05c3f5363df9de648e4891f69909c665">src/arch/riscv/kernel/init</innerdir>
+    <innerdir refid="dir_21de127de9d1bbf045d6bc4d23ae58eb">src/arch/riscv/kernel/sys</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/arch/riscv/kernel/"/>
+  </compounddef>
+</doxygen>

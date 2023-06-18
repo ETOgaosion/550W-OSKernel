@@ -1,0 +1,21 @@
+<map id="src/kernel/sys/smp.c" name="src/kernel/sys/smp.c">
+<area shape="rect" id="node1" title=" " alt="" coords="620,5,775,32"/>
+<area shape="rect" id="node2" href="$privileged_8h.html" title=" " alt="" coords="968,155,1099,181"/>
+<area shape="rect" id="node5" href="$sbi_8h.html" title=" " alt="" coords="57,379,143,405"/>
+<area shape="rect" id="node7" href="$irq_8h.html" title=" " alt="" coords="761,80,831,107"/>
+<area shape="rect" id="node8" href="$pcb_8h.html" title=" " alt="" coords="555,155,631,181"/>
+<area shape="rect" id="node15" href="$lock_8h.html" title=" " alt="" coords="813,229,893,256"/>
+<area shape="rect" id="node19" href="$smp_8h.html" title=" " alt="" coords="553,80,634,107"/>
+<area shape="rect" id="node3" href="$types_8h.html" title=" " alt="" coords="321,453,452,480"/>
+<area shape="rect" id="node4" href="$errno_8h.html" title=" " alt="" coords="322,528,451,555"/>
+<area shape="rect" id="node6" href="$sbidef_8h.html" title=" " alt="" coords="47,453,153,480"/>
+<area shape="rect" id="node9" href="$context_8h.html" title=" " alt="" coords="451,379,565,405"/>
+<area shape="rect" id="node10" href="$elf_8h.html" title=" " alt="" coords="191,229,302,256"/>
+<area shape="rect" id="node13" href="$list_8h.html" title=" " alt="" coords="565,304,640,331"/>
+<area shape="rect" id="node14" href="$cpu_8h.html" title=" " alt="" coords="713,229,789,256"/>
+<area shape="rect" id="node16" href="$mm_8h.html" title=" " alt="" coords="347,379,426,405"/>
+<area shape="rect" id="node17" href="$sync_8h.html" title=" " alt="" coords="605,229,688,256"/>
+<area shape="rect" id="node18" href="$time_8h.html" title=" " alt="" coords="499,229,581,256"/>
+<area shape="rect" id="node11" href="$pgtable_8h.html" title=" " alt="" coords="43,304,157,331"/>
+<area shape="rect" id="node12" href="$string_8h.html" title=" " alt="" coords="181,304,272,331"/>
+</map>

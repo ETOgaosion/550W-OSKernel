@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structmutex__lock" kind="struct" language="C++" prot="public">
+    <compoundname>mutex_lock</compoundname>
+    <includes refid="lock_8h" local="no">lock.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structmutex__lock_1a7cba1ec3d1f04d62968fb70d712043df" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mutex_lock::lock_id</definition>
+        <argsstring></argsstring>
+        <name>lock_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/lock.h" line="27" column="9" bodyfile="src/include/os/lock.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmutex__lock_1a9836b6e4156ff998fa18cddfbb32b3a4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int mutex_lock::initialized</definition>
+        <argsstring></argsstring>
+        <name>initialized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/lock.h" line="28" column="9" bodyfile="src/include/os/lock.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmutex__lock_1a7985e924097321e2b7acce4a74c6f6cb" prot="public" static="no" mutable="no">
+        <type><ref refid="lock_8h_1a15629cce5c1de7677e80adc70d348470" kindref="member">double_spin_lock_t</ref></type>
+        <definition>double_spin_lock_t mutex_lock::lock</definition>
+        <argsstring></argsstring>
+        <name>lock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/lock.h" line="29" column="24" bodyfile="src/include/os/lock.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structmutex__lock_1ab729634fbddf7b39d868fda5956e01a9" prot="public" static="no" mutable="no">
+        <type><ref refid="list_8h_1aa8e63a505e811a76625c05760bb04f7f" kindref="member">list_head</ref></type>
+        <definition>list_head mutex_lock::block_queue</definition>
+        <argsstring></argsstring>
+        <name>block_queue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/lock.h" line="30" column="15" bodyfile="src/include/os/lock.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>double_spin_lock</label>
+        <link refid="structdouble__spin__lock"/>
+      </node>
+      <node id="2">
+        <label>list_node</label>
+        <link refid="structlist__node"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>mutex_lock</label>
+        <link refid="structmutex__lock"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>block_queue</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>lock</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/include/os/lock.h" line="26" column="1" bodyfile="src/include/os/lock.h" bodystart="26" bodyend="31"/>
+    <listofallmembers>
+      <member refid="structmutex__lock_1ab729634fbddf7b39d868fda5956e01a9" prot="public" virt="non-virtual"><scope>mutex_lock</scope><name>block_queue</name></member>
+      <member refid="structmutex__lock_1a9836b6e4156ff998fa18cddfbb32b3a4" prot="public" virt="non-virtual"><scope>mutex_lock</scope><name>initialized</name></member>
+      <member refid="structmutex__lock_1a7985e924097321e2b7acce4a74c6f6cb" prot="public" virt="non-virtual"><scope>mutex_lock</scope><name>lock</name></member>
+      <member refid="structmutex__lock_1a7cba1ec3d1f04d62968fb70d712043df" prot="public" virt="non-virtual"><scope>mutex_lock</scope><name>lock_id</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

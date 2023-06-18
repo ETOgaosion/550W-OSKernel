@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="head_8d" kind="file" language="D">
+    <compoundname>head.d</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"><ref refid="virtio__blk_8c_1a2f3fce4bb758d0ed4c15a3ea8faac3ae" kindref="member">head</ref>.o:<sp/><ref refid="virtio__blk_8c_1a2f3fce4bb758d0ed4c15a3ea8faac3ae" kindref="member">head</ref>.S<sp/>../../include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">.h<sp/>../../include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/csr.h</highlight></codeline>
+    </programlisting>
+    <location file="src/arch/riscv/kernel/init/head.d"/>
+  </compounddef>
+</doxygen>

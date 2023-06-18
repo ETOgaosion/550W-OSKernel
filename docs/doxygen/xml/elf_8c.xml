@@ -1,0 +1,150 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="elf_8c" kind="file" language="C++">
+    <compoundname>elf.c</compoundname>
+    <includes refid="elf_8h" local="no">common/elf.h</includes>
+    <incdepgraph>
+      <node id="3">
+        <label>asm/pgtable.h</label>
+        <link refid="pgtable_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>common/elf.h</label>
+        <link refid="elf_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="5">
+        <label>asm/sbidef.h</label>
+        <link refid="sbidef_8h"/>
+      </node>
+      <node id="1">
+        <label>src/lib/elf.c</label>
+        <link refid="elf_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>asm/sbi.h</label>
+        <link refid="sbi_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="elf_8c_1a2d042539a0bd432f89e5ae93e1bb2f64" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref></type>
+        <definition>uintptr_t load_elf</definition>
+        <argsstring>(unsigned char elf_binary[], unsigned length, uintptr_t pgdir, uintptr_t(*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir))</argsstring>
+        <name>load_elf</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>elf_binary</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>unsigned</type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref></type>
+          <declname>pgdir</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref>(*)(<ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref> va, <ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref> pgdir)</type>
+          <declname>prepare_page_for_va</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/lib/elf.c" line="3" column="11" bodyfile="src/lib/elf.c" bodystart="3" bodyend="50"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;<ref refid="elf_8h" kindref="compound">common/elf.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/><ref refid="elf_8c_1a2d042539a0bd432f89e5ae93e1bb2f64" kindref="member">load_elf</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>elf_binary[],<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>length,<sp/><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>pgdir,<sp/><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>(*prepare_page_for_va)(<ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>va,<sp/><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>pgdir))<sp/>{</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structelf64__hdr" kindref="compound">Elf64_Ehdr</ref><sp/>*ehdr<sp/>=<sp/>(<ref refid="structelf64__hdr" kindref="compound">Elf64_Ehdr</ref><sp/>*)elf_binary;</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structelf64__phdr" kindref="compound">Elf64_Phdr</ref><sp/>*phdr<sp/>=<sp/><ref refid="types_8h_1a070d2ce7b6bb7e5c05602aa8c308d0c4" kindref="member">NULL</ref>;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>As<sp/>a<sp/>loader,<sp/>we<sp/>just<sp/>care<sp/>about<sp/>segment,</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>so<sp/>we<sp/>just<sp/>parse<sp/>program<sp/>headers.</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*ptr_ph_table<sp/>=<sp/><ref refid="types_8h_1a070d2ce7b6bb7e5c05602aa8c308d0c4" kindref="member">NULL</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="elf_8h_1adb6a5584018b431da3472e7c6a7fd731" kindref="member">Elf64_Half</ref><sp/>ph_entry_count;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="elf_8h_1adb6a5584018b431da3472e7c6a7fd731" kindref="member">Elf64_Half</ref><sp/>ph_entry_size;</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>check<sp/>whether<sp/>`binary`<sp/>is<sp/>a<sp/>ELF<sp/>file.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(length<sp/>&lt;<sp/>4<sp/>||<sp/>!is_elf_format(elf_binary))<sp/>{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;<sp/></highlight><highlight class="comment">//<sp/>return<sp/>NULL<sp/>when<sp/>error!</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>ptr_ph_table<sp/>=<sp/>elf_binary<sp/>+<sp/>ehdr-&gt;<ref refid="structelf64__hdr_1ae87fc9ce25b4b5c40ad58045609e522c" kindref="member">e_phoff</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>ph_entry_count<sp/>=<sp/>ehdr-&gt;<ref refid="structelf64__hdr_1aa90fd4904e5bb87fcaff192b9426e54c" kindref="member">e_phnum</ref>;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>ph_entry_size<sp/>=<sp/>ehdr-&gt;<ref refid="structelf64__hdr_1a00bb9e8e47ccd8f8e05da370e0f4d7d0" kindref="member">e_phentsize</ref>;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(ph_entry_count--)<sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>phdr<sp/>=<sp/>(<ref refid="structelf64__phdr" kindref="compound">Elf64_Phdr</ref><sp/>*)ptr_ph_table;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(phdr-&gt;<ref refid="structelf64__phdr_1ae01b36e7df69d0abd5d2139f90babbad" kindref="member">p_type</ref><sp/>==<sp/><ref refid="elf_8h_1a84d7768fd6c6ece599d297090900cf92" kindref="member">PT_LOAD</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>TODO:<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>phdr-&gt;<ref refid="structelf64__phdr_1a6d9567650d02982cc14daf8ac3b7d97f" kindref="member">p_memsz</ref>;<sp/>i<sp/>+=<sp/><ref refid="pgtable_8h_1a4d79b19c57b121d211b145092347ae82" kindref="member">NORMAL_PAGE_SIZE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>&lt;<sp/>phdr-&gt;p_filesz)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*bytes_of_page<sp/>=<sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*)prepare_page_for_va((<ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref>)(phdr-&gt;<ref refid="structelf64__phdr_1a329bea1c6f83765c71747fd0c0d1c3df" kindref="member">p_vaddr</ref><sp/>+<sp/>i),<sp/>pgdir);</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="string_8h_1a4985196d8a63d22e320cf33d904d2f92" kindref="member">k_memcpy</ref>(bytes_of_page,<sp/>elf_binary<sp/>+<sp/>phdr-&gt;<ref refid="structelf64__phdr_1a2646c1474931ab0c13e65a3814d7dc53" kindref="member">p_offset</ref><sp/>+<sp/>i,<sp/><ref refid="elf_8h_1a3acffbd305ee72dcd4593c0d8af64a4f" kindref="member">MIN</ref>(phdr-&gt;<ref refid="structelf64__phdr_1a82c400f3c9f6d428322695a62c82b6ad" kindref="member">p_filesz</ref><sp/>-<sp/>i,<sp/><ref refid="pgtable_8h_1a4d79b19c57b121d211b145092347ae82" kindref="member">NORMAL_PAGE_SIZE</ref>));</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(phdr-&gt;<ref refid="structelf64__phdr_1a82c400f3c9f6d428322695a62c82b6ad" kindref="member">p_filesz</ref><sp/>-<sp/>i<sp/>&lt;<sp/><ref refid="pgtable_8h_1a4d79b19c57b121d211b145092347ae82" kindref="member">NORMAL_PAGE_SIZE</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>phdr-&gt;<ref refid="structelf64__phdr_1a82c400f3c9f6d428322695a62c82b6ad" kindref="member">p_filesz</ref><sp/>%<sp/><ref refid="pgtable_8h_1a4d79b19c57b121d211b145092347ae82" kindref="member">NORMAL_PAGE_SIZE</ref>;<sp/>j<sp/>&lt;<sp/><ref refid="pgtable_8h_1a4d79b19c57b121d211b145092347ae82" kindref="member">NORMAL_PAGE_SIZE</ref>;<sp/>++j)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bytes_of_page[j]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>*bytes_of_page<sp/>=<sp/>(</highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>*)prepare_page_for_va((<ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref>)(phdr-&gt;<ref refid="structelf64__phdr_1a329bea1c6f83765c71747fd0c0d1c3df" kindref="member">p_vaddr</ref><sp/>+<sp/>i),<sp/>pgdir);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/><ref refid="pgtable_8h_1a4d79b19c57b121d211b145092347ae82" kindref="member">NORMAL_PAGE_SIZE</ref><sp/>/<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(long);<sp/>++j)<sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bytes_of_page[j]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ptr_ph_table<sp/>+=<sp/>ph_entry_size;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ehdr-&gt;<ref refid="structelf64__hdr_1ab06529dc2e99621df572c9862b8024c6" kindref="member">e_entry</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/lib/elf.c"/>
+  </compounddef>
+</doxygen>

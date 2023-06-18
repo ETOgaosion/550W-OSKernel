@@ -1,0 +1,572 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/drivers/screen/screen.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('screen_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">screen.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="io_8h_source.html">asm/io.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="screen_8h_source.html">drivers/screen/screen.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="stdio_8h_source.html">lib/stdio.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="string_8h_source.html">lib/string.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="irq_8h_source.html">os/irq.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="pcb_8h_source.html">os/pcb.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="smp_8h_source.html">os/smp.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+screen.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="screen_8c__incl.png" border="0" usemap="#asrc_2drivers_2screen_2screen_8c" alt=""/></div>
+<map name="asrc_2drivers_2screen_2screen_8c" id="asrc_2drivers_2screen_2screen_8c">
+<area shape="rect" title=" " alt="" coords="389,5,527,47"/>
+<area shape="rect" href="io_8h.html" title=" " alt="" coords="5,95,84,121"/>
+<area shape="rect" href="screen_8h.html" title=" " alt="" coords="109,95,282,121"/>
+<area shape="rect" href="stdio_8h.html" title=" " alt="" coords="307,95,393,121"/>
+<area shape="rect" href="string_8h.html" title=" " alt="" coords="775,319,866,345"/>
+<area shape="rect" href="irq_8h.html" title=" " alt="" coords="575,95,645,121"/>
+<area shape="rect" href="pcb_8h.html" title=" " alt="" coords="420,169,496,196"/>
+<area shape="rect" href="smp_8h.html" title=" " alt="" coords="417,95,499,121"/>
+<area shape="rect" href="stdarg_8h.html" title=" " alt="" coords="301,169,396,196"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="538,468,669,495"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="539,543,668,569"/>
+<area shape="rect" href="context_8h.html" title=" " alt="" coords="347,393,462,420"/>
+<area shape="rect" href="elf_8h.html" title=" " alt="" coords="613,244,724,271"/>
+<area shape="rect" href="list_8h.html" title=" " alt="" coords="273,319,347,345"/>
+<area shape="rect" href="cpu_8h.html" title=" " alt="" coords="67,244,143,271"/>
+<area shape="rect" href="lock_8h.html" title=" " alt="" coords="167,244,247,271"/>
+<area shape="rect" href="mm_8h.html" title=" " alt="" coords="487,393,565,420"/>
+<area shape="rect" href="sync_8h.html" title=" " alt="" coords="271,244,354,271"/>
+<area shape="rect" href="time_8h.html" title=" " alt="" coords="378,244,461,271"/>
+<area shape="rect" href="pgtable_8h.html" title=" " alt="" coords="637,319,751,345"/>
+<area shape="rect" href="sbi_8h.html" title=" " alt="" coords="691,393,777,420"/>
+<area shape="rect" href="sbidef_8h.html" title=" " alt="" coords="693,468,799,495"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a2cd109632a6dcccaa80b43561b1ab700"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a2cd109632a6dcccaa80b43561b1ab700">SCREEN_WIDTH</a>&#160;&#160;&#160;150</td></tr>
+<tr class="separator:a2cd109632a6dcccaa80b43561b1ab700"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6974d08a74da681b3957b2fead2608b8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a6974d08a74da681b3957b2fead2608b8">SCREEN_HEIGHT</a>&#160;&#160;&#160;150</td></tr>
+<tr class="separator:a6974d08a74da681b3957b2fead2608b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:ae6a9617fee585f792886db5031bc6d6a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#ae6a9617fee585f792886db5031bc6d6a">vt100_move_cursor</a> (int x, int y)</td></tr>
+<tr class="separator:ae6a9617fee585f792886db5031bc6d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d4741792d8b297eb2178b2054e43ebc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a1d4741792d8b297eb2178b2054e43ebc">vt100_clear</a> ()</td></tr>
+<tr class="separator:a1d4741792d8b297eb2178b2054e43ebc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a980787d70adcc86840bd92a0f332f10d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a980787d70adcc86840bd92a0f332f10d">vt100_hidden_cursor</a> ()</td></tr>
+<tr class="separator:a980787d70adcc86840bd92a0f332f10d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d30062fbfa98fd851e2c6faac153791"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a7d30062fbfa98fd851e2c6faac153791">screen_write_ch</a> (char ch)</td></tr>
+<tr class="separator:a7d30062fbfa98fd851e2c6faac153791"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71a74b6ec838d417fa0774e52b82ebe3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a71a74b6ec838d417fa0774e52b82ebe3">d_screen_init</a> (void)</td></tr>
+<tr class="separator:a71a74b6ec838d417fa0774e52b82ebe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1bab51fc7505f85540825f8161a1d67"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#ae1bab51fc7505f85540825f8161a1d67">sys_screen_clear</a> (void)</td></tr>
+<tr class="separator:ae1bab51fc7505f85540825f8161a1d67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add6d84ad5b56bf709147c47bab8051f4"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#add6d84ad5b56bf709147c47bab8051f4">sys_screen_move_cursor</a> (int x, int y)</td></tr>
+<tr class="separator:add6d84ad5b56bf709147c47bab8051f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bda076c33e4ef2c3667be3f9d47ca4f"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a4bda076c33e4ef2c3667be3f9d47ca4f">sys_screen_write_len</a> (char *buff, int len)</td></tr>
+<tr class="separator:a4bda076c33e4ef2c3667be3f9d47ca4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fcf46e5b64442d02d975f629d297ebb"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a3fcf46e5b64442d02d975f629d297ebb">sys_screen_write</a> (char *buff)</td></tr>
+<tr class="separator:a3fcf46e5b64442d02d975f629d297ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b626efc30296bf445ebc54a3840fb93"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a9b626efc30296bf445ebc54a3840fb93">d_screen_reflush</a> (void)</td></tr>
+<tr class="separator:a9b626efc30296bf445ebc54a3840fb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab038d12c63a475ae97c09cddc3b5007f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#ab038d12c63a475ae97c09cddc3b5007f">d_screen_load_curpcb_cursor</a> ()</td></tr>
+<tr class="separator:ab038d12c63a475ae97c09cddc3b5007f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1acdca6501d8a78cc9c70aecd16ffdc2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a1acdca6501d8a78cc9c70aecd16ffdc2">d_screen_kernel_move_cursor</a> (int x, int y)</td></tr>
+<tr class="separator:a1acdca6501d8a78cc9c70aecd16ffdc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a777812f451bc644308ced912b9054660"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a777812f451bc644308ced912b9054660">d_screen_pcb_move_cursor</a> (int x, int y)</td></tr>
+<tr class="separator:a777812f451bc644308ced912b9054660"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a4986730f4e0e0459b041a5a72eb0b2d6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a4986730f4e0e0459b041a5a72eb0b2d6">screen_cursor_x</a></td></tr>
+<tr class="separator:a4986730f4e0e0459b041a5a72eb0b2d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cd238f96911d9d1d4c25467b4cc77c5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a0cd238f96911d9d1d4c25467b4cc77c5">screen_cursor_y</a></td></tr>
+<tr class="separator:a0cd238f96911d9d1d4c25467b4cc77c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac712773ebb88a0e8a1e2eaf8abbba2bd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#ac712773ebb88a0e8a1e2eaf8abbba2bd">start_line</a> = 31</td></tr>
+<tr class="separator:ac712773ebb88a0e8a1e2eaf8abbba2bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5fb3081e50ef45e40ed03a8dfde3440"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#aa5fb3081e50ef45e40ed03a8dfde3440">new_screen</a> [<a class="el" href="screen_8c.html#a6974d08a74da681b3957b2fead2608b8">SCREEN_HEIGHT</a>][<a class="el" href="screen_8c.html#a2cd109632a6dcccaa80b43561b1ab700">SCREEN_WIDTH</a>] = {0}</td></tr>
+<tr class="separator:aa5fb3081e50ef45e40ed03a8dfde3440"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02a65609069eaeecfcdd7a0faa65e139"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="screen_8c.html#a02a65609069eaeecfcdd7a0faa65e139">old_screen</a> [<a class="el" href="screen_8c.html#a6974d08a74da681b3957b2fead2608b8">SCREEN_HEIGHT</a>][<a class="el" href="screen_8c.html#a2cd109632a6dcccaa80b43561b1ab700">SCREEN_WIDTH</a>] = {0}</td></tr>
+<tr class="separator:a02a65609069eaeecfcdd7a0faa65e139"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a6974d08a74da681b3957b2fead2608b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6974d08a74da681b3957b2fead2608b8">&#9670;&nbsp;</a></span>SCREEN_HEIGHT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCREEN_HEIGHT&#160;&#160;&#160;150</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2cd109632a6dcccaa80b43561b1ab700"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cd109632a6dcccaa80b43561b1ab700">&#9670;&nbsp;</a></span>SCREEN_WIDTH</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SCREEN_WIDTH&#160;&#160;&#160;150</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="a71a74b6ec838d417fa0774e52b82ebe3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71a74b6ec838d417fa0774e52b82ebe3">&#9670;&nbsp;</a></span>d_screen_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_screen_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1acdca6501d8a78cc9c70aecd16ffdc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1acdca6501d8a78cc9c70aecd16ffdc2">&#9670;&nbsp;</a></span>d_screen_kernel_move_cursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_screen_kernel_move_cursor </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab038d12c63a475ae97c09cddc3b5007f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab038d12c63a475ae97c09cddc3b5007f">&#9670;&nbsp;</a></span>d_screen_load_curpcb_cursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_screen_load_curpcb_cursor </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a777812f451bc644308ced912b9054660"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a777812f451bc644308ced912b9054660">&#9670;&nbsp;</a></span>d_screen_pcb_move_cursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_screen_pcb_move_cursor </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9b626efc30296bf445ebc54a3840fb93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b626efc30296bf445ebc54a3840fb93">&#9670;&nbsp;</a></span>d_screen_reflush()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long d_screen_reflush </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7d30062fbfa98fd851e2c6faac153791"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d30062fbfa98fd851e2c6faac153791">&#9670;&nbsp;</a></span>screen_write_ch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void screen_write_ch </td>
+          <td>(</td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>ch</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae1bab51fc7505f85540825f8161a1d67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1bab51fc7505f85540825f8161a1d67">&#9670;&nbsp;</a></span>sys_screen_clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_screen_clear </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="add6d84ad5b56bf709147c47bab8051f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add6d84ad5b56bf709147c47bab8051f4">&#9670;&nbsp;</a></span>sys_screen_move_cursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_screen_move_cursor </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3fcf46e5b64442d02d975f629d297ebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fcf46e5b64442d02d975f629d297ebb">&#9670;&nbsp;</a></span>sys_screen_write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_screen_write </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buff</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4bda076c33e4ef2c3667be3f9d47ca4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bda076c33e4ef2c3667be3f9d47ca4f">&#9670;&nbsp;</a></span>sys_screen_write_len()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_screen_write_len </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buff</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1d4741792d8b297eb2178b2054e43ebc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d4741792d8b297eb2178b2054e43ebc">&#9670;&nbsp;</a></span>vt100_clear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vt100_clear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a980787d70adcc86840bd92a0f332f10d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a980787d70adcc86840bd92a0f332f10d">&#9670;&nbsp;</a></span>vt100_hidden_cursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vt100_hidden_cursor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae6a9617fee585f792886db5031bc6d6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6a9617fee585f792886db5031bc6d6a">&#9670;&nbsp;</a></span>vt100_move_cursor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void vt100_move_cursor </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="aa5fb3081e50ef45e40ed03a8dfde3440"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5fb3081e50ef45e40ed03a8dfde3440">&#9670;&nbsp;</a></span>new_screen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char new_screen[<a class="el" href="screen_8c.html#a6974d08a74da681b3957b2fead2608b8">SCREEN_HEIGHT</a>][<a class="el" href="screen_8c.html#a2cd109632a6dcccaa80b43561b1ab700">SCREEN_WIDTH</a>] = {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02a65609069eaeecfcdd7a0faa65e139"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02a65609069eaeecfcdd7a0faa65e139">&#9670;&nbsp;</a></span>old_screen</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char old_screen[<a class="el" href="screen_8c.html#a6974d08a74da681b3957b2fead2608b8">SCREEN_HEIGHT</a>][<a class="el" href="screen_8c.html#a2cd109632a6dcccaa80b43561b1ab700">SCREEN_WIDTH</a>] = {0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4986730f4e0e0459b041a5a72eb0b2d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4986730f4e0e0459b041a5a72eb0b2d6">&#9670;&nbsp;</a></span>screen_cursor_x</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int screen_cursor_x</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0cd238f96911d9d1d4c25467b4cc77c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cd238f96911d9d1d4c25467b4cc77c5">&#9670;&nbsp;</a></span>screen_cursor_y</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int screen_cursor_y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac712773ebb88a0e8a1e2eaf8abbba2bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac712773ebb88a0e8a1e2eaf8abbba2bd">&#9670;&nbsp;</a></span>start_line</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int start_line = 31</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c718a368270b13c54d94892d20736f45.html">drivers</a></li><li class="navelem"><a class="el" href="dir_90abba871dc5d090c5f9cc1cda47fb8a.html">screen</a></li><li class="navelem"><a class="el" href="screen_8c.html">screen.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

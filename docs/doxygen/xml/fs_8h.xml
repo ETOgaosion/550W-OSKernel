@@ -1,0 +1,1303 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="fs_8h" kind="file" language="C++">
+    <compoundname>fs.h</compoundname>
+    <includes refid="types_8h" local="no">common/types.h</includes>
+    <includedby refid="fd_8c" local="no">src/fs/fd.c</includedby>
+    <includedby refid="fs_8c" local="no">src/fs/fs.c</includedby>
+    <includedby refid="include_2os_2syscall_8h" local="no">src/include/os/syscall.h</includedby>
+    <includedby refid="main_8c" local="no">src/init/main.c</includedby>
+    <includedby refid="pcb_8c" local="no">src/kernel/sys/pcb.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/fs/fs.h</label>
+        <link refid="fs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="2">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>src/fs/fs.c</label>
+        <link refid="fs_8c"/>
+      </node>
+      <node id="1">
+        <label>src/fs/fs.h</label>
+        <link refid="fs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/kernel/sys/pcb.c</label>
+        <link refid="pcb_8c"/>
+      </node>
+      <node id="4">
+        <label>src/include/os/syscall.h</label>
+        <link refid="include_2os_2syscall_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>src/init/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="5">
+        <label>src/kernel/irq/irq.c</label>
+        <link refid="irq_8c"/>
+      </node>
+      <node id="2">
+        <label>src/fs/fd.c</label>
+        <link refid="fd_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structsuper__block" prot="public">super_block</innerclass>
+    <innerclass refid="structdir__entry" prot="public">dir_entry</innerclass>
+    <innerclass refid="structfentry" prot="public">fentry</innerclass>
+    <innerclass refid="structdirent64" prot="public">dirent64</innerclass>
+    <innerclass refid="structkstat" prot="public">kstat</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="fs_8h_1a6c8de73bb604d91743c7f6f356eb171e" prot="public" static="no">
+        <name>DIR</name>
+        <initializer>0x040000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="12" column="9" bodyfile="src/fs/fs.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1a3e8cefeee58f762ff50bcef35fa12eec" prot="public" static="no">
+        <name>FILE</name>
+        <initializer>0x100000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="13" column="9" bodyfile="src/fs/fs.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1a0d112bae8fd35be772185b6ec6bcbe64" prot="public" static="no">
+        <name>SEEK_SET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="17" column="9" bodyfile="src/fs/fs.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1a4c8d0b76b470ba65a43ca46a88320f39" prot="public" static="no">
+        <name>SEEK_CUR</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="18" column="9" bodyfile="src/fs/fs.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1ad2a2e6c114780c3071efd24f16c7f7d8" prot="public" static="no">
+        <name>SEEK_END</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="19" column="9" bodyfile="src/fs/fs.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1ac00bfb46347d26fdc58568fe1ab5fa5b" prot="public" static="no">
+        <name>STDIN</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="21" column="9" bodyfile="src/fs/fs.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1a8875037d0772a4fc34516f1e03d7e238" prot="public" static="no">
+        <name>STDOUT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="22" column="9" bodyfile="src/fs/fs.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1a3a540e3eef339eec06aff31c4ba1eb25" prot="public" static="no">
+        <name>STDERR</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="23" column="9" bodyfile="src/fs/fs.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1a75e52edf7ba53611de040cb63c5b5588" prot="public" static="no">
+        <name>STDMAX</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="24" column="9" bodyfile="src/fs/fs.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1aaca70138f0cb63ddb026921afc635179" prot="public" static="no">
+        <name>stdin</name>
+        <initializer><ref refid="fs_8h_1ac00bfb46347d26fdc58568fe1ab5fa5b" kindref="member">STDIN</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="26" column="9" bodyfile="src/fs/fs.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1a0c0ef221f95f64e8632451312fd18cc8" prot="public" static="no">
+        <name>stdout</name>
+        <initializer><ref refid="fs_8h_1a8875037d0772a4fc34516f1e03d7e238" kindref="member">STDOUT</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="27" column="9" bodyfile="src/fs/fs.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fs_8h_1a5ce35bd5ba5021fd3b2e951e8f497656" prot="public" static="no">
+        <name>stderr</name>
+        <initializer><ref refid="fs_8h_1a3a540e3eef339eec06aff31c4ba1eb25" kindref="member">STDERR</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="28" column="9" bodyfile="src/fs/fs.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="fs_8h_1aa8756db1aa96264ad9b7aa24a9180d4d" prot="public" static="no">
+        <type>struct <ref refid="structsuper__block" kindref="compound">super_block</ref></type>
+        <definition>typedef struct super_block super_block_t</definition>
+        <argsstring></argsstring>
+        <name>super_block_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="45" column="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="fs_8h_1a6810ca3ec203afd05ef15f2560289299" prot="public" static="no">
+        <type>struct <ref refid="structdir__entry" kindref="compound">dir_entry</ref></type>
+        <definition>typedef struct dir_entry dir_entry_t</definition>
+        <argsstring></argsstring>
+        <name>dir_entry_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="52" column="13"/>
+      </memberdef>
+      <memberdef kind="typedef" id="fs_8h_1aab3b0b3a37bb21267c3dd1be6aed1867" prot="public" static="no">
+        <type>struct <ref refid="structfentry" kindref="compound">fentry</ref></type>
+        <definition>typedef struct fentry fentry_t</definition>
+        <argsstring></argsstring>
+        <name>fentry_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="59" column="10"/>
+      </memberdef>
+      <memberdef kind="typedef" id="fs_8h_1a24aad750df2ab79e1cab28e733481b6f" prot="public" static="no">
+        <type>struct <ref refid="structdirent64" kindref="compound">dirent64</ref></type>
+        <definition>typedef struct dirent64 dirent64_t</definition>
+        <argsstring></argsstring>
+        <name>dirent64_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="67" column="12"/>
+      </memberdef>
+      <memberdef kind="typedef" id="fs_8h_1a8785463dd1769d1167cff6b8f75f28db" prot="public" static="no">
+        <type>struct <ref refid="structkstat" kindref="compound">kstat</ref></type>
+        <definition>typedef struct kstat kstat_t</definition>
+        <argsstring></argsstring>
+        <name>kstat_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="89" column="9"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="fs_8h_1ac677f873fca666bdf61682366d20da83" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int fs_start_sec</definition>
+        <argsstring></argsstring>
+        <name>fs_start_sec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="91" column="12" declfile="src/fs/fs.h" declline="91" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1a0b0e637c1f547aa6f6ca7691628f92b7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int magic_number</definition>
+        <argsstring></argsstring>
+        <name>magic_number</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="92" column="12" declfile="src/fs/fs.h" declline="92" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1a5f1128f0cd5a06c77116acbc63fe8a76" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int sb_sec_offset</definition>
+        <argsstring></argsstring>
+        <name>sb_sec_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="93" column="12" declfile="src/fs/fs.h" declline="93" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1a2f4e9bd47b3cefa57d0dfb2a85c820bf" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int sb2_sec_offset</definition>
+        <argsstring></argsstring>
+        <name>sb2_sec_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="94" column="12" declfile="src/fs/fs.h" declline="94" declcolumn="12"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1acc2dc61ae73011bff1251aa4452d64e7" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t iab_map_addr_offset</definition>
+        <argsstring></argsstring>
+        <name>iab_map_addr_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="96" column="17" declfile="src/fs/fs.h" declline="96" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1a042f425e0ae7469f118af0df971ba0b4" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t sec_map_addr_offset</definition>
+        <argsstring></argsstring>
+        <name>sec_map_addr_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="97" column="17" declfile="src/fs/fs.h" declline="97" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1a0e73a14af9616cdc44cd717fe7708371" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t iab_map_addr_size</definition>
+        <argsstring></argsstring>
+        <name>iab_map_addr_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="98" column="17" declfile="src/fs/fs.h" declline="98" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1a71520d0a98952499ba9dbd13ea5dcd7f" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t inode_addr_offset</definition>
+        <argsstring></argsstring>
+        <name>inode_addr_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="100" column="17" declfile="src/fs/fs.h" declline="100" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1af8170d3af43a590eb940712ba4b2d377" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t dir_addr_offset</definition>
+        <argsstring></argsstring>
+        <name>dir_addr_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="101" column="17" declfile="src/fs/fs.h" declline="101" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1a912b2fc18669005ba1e7f97e4a686c98" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t dir2_addr_offset</definition>
+        <argsstring></argsstring>
+        <name>dir2_addr_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="102" column="17" declfile="src/fs/fs.h" declline="102" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1a5317348823569604760012466012b9a1" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t dir3_addr_offset</definition>
+        <argsstring></argsstring>
+        <name>dir3_addr_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="103" column="17" declfile="src/fs/fs.h" declline="103" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1aa3b27ac05d0e5aac1613511254a69b0f" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t dir4_addr_offset</definition>
+        <argsstring></argsstring>
+        <name>dir4_addr_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="104" column="17" declfile="src/fs/fs.h" declline="104" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1a5379d59f189668b142e0203c9db578eb" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t data_addr_offset</definition>
+        <argsstring></argsstring>
+        <name>data_addr_offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="105" column="17" declfile="src/fs/fs.h" declline="105" declcolumn="17"/>
+      </memberdef>
+      <memberdef kind="variable" id="fs_8h_1a25688e200d5d8f487dc3816055a92bc2" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t empty_block</definition>
+        <argsstring></argsstring>
+        <name>empty_block</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="106" column="17" declfile="src/fs/fs.h" declline="106" declcolumn="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="fs_8h_1a1c701b3d5e133887389c2b3c9e2f331c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fs_load_file</definition>
+        <argsstring>(const char *name, uint8_t **bin, int *len)</argsstring>
+        <name>fs_load_file</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <param>
+          <type>uint8_t **</type>
+          <declname>bin</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+<para>load elf file in root dir, 0 success, -1 fail </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>elf file should be loaded </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>elf bit array </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="113" column="5" bodyfile="src/fs/fs.c" bodystart="1357" bodyend="1375" declfile="src/fs/fs.h" declline="113" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1ac7c5c9e629cd40cf7f3ab374962d2610" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1a1062901a7428fdd9c7f180f5e01ea056" kindref="member">bool</ref></type>
+        <definition>bool fs_check_file_existence</definition>
+        <argsstring>(const char *name)</argsstring>
+        <name>fs_check_file_existence</name>
+        <param>
+          <type>const char *</type>
+          <declname>name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="116" column="6" bodyfile="src/fs/fs.c" bodystart="1423" bodyend="1425" declfile="src/fs/fs.h" declline="116" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1af264b947ceef01d5bfb234c2002a3666" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fs_init</definition>
+        <argsstring>()</argsstring>
+        <name>fs_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="118" column="5" bodyfile="src/fs/fs.c" bodystart="665" bodyend="840" declfile="src/fs/fs.h" declline="118" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a8febdf58a0f5691f83349e95eae8d074" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_getcwd</definition>
+        <argsstring>(char *buf, size_t size)</argsstring>
+        <name>sys_getcwd</name>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer for cur_dir path </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bytes of buf </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="120" column="6" bodyfile="src/fs/fs.c" bodystart="847" bodyend="850" declfile="src/fs/fs.h" declline="120" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a239a2e4b8412446aac813a9439350059" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_pipe2</definition>
+        <argsstring>(int *fd, mode_t flags)</argsstring>
+        <name>sys_pipe2</name>
+        <param>
+          <type>int *</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref></type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+<para>allocate pipe to fd[2]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>target fd array. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>-1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>failed 0: succeed </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="121" column="5" bodyfile="src/fs/fs.c" bodystart="858" bodyend="886" declfile="src/fs/fs.h" declline="121" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a3c4b72a274d8b87700a689b13b232c5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_dup</definition>
+        <argsstring>(int old)</argsstring>
+        <name>sys_dup</name>
+        <param>
+          <type>int</type>
+          <declname>old</declname>
+        </param>
+        <briefdescription>
+<para>copy a fd and return the new one </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>old</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>old fd </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="122" column="5" bodyfile="src/fs/fs.c" bodystart="893" bodyend="908" declfile="src/fs/fs.h" declline="122" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a52646d65d2bce20361d7ba0784868e04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_dup3</definition>
+        <argsstring>(int old, int new, mode_t flags)</argsstring>
+        <name>sys_dup3</name>
+        <param>
+          <type>int</type>
+          <declname>old</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>new</declname>
+        </param>
+        <param>
+          <type><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref></type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+<para>copy a fd and return the new one </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>old</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>old fd </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>new</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>new fd </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="123" column="5" bodyfile="src/fs/fs.c" bodystart="915" bodyend="926" declfile="src/fs/fs.h" declline="123" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a4bc8bf7d6d8a6475f4d2cc141318de7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_mkdirat</definition>
+        <argsstring>(int dirfd, const char *path, mode_t mode)</argsstring>
+        <name>sys_mkdirat</name>
+        <param>
+          <type>int</type>
+          <declname>dirfd</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+          <defname>path_0</defname>
+        </param>
+        <param>
+          <type><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref></type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+<para>mk dir at patch, success 0 fail -1 </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dir_fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>mkdir at this dir </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>flag</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>AT_FDCWD means mkdir at cwd </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>path if from &apos;/&apos;, other just means dir name </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="124" column="5" bodyfile="src/fs/fs.c" bodystart="934" bodyend="974" declfile="src/fs/fs.h" declline="124" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a7948e6c31a074f7d53aa5836fec7fe12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_chdir</definition>
+        <argsstring>(char *path)</argsstring>
+        <name>sys_chdir</name>
+        <param>
+          <type>char *</type>
+          <declname>path</declname>
+        </param>
+        <briefdescription>
+<para>change dir by patch, fail return -1 </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>buffer for dir path </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="125" column="5" bodyfile="src/fs/fs.c" bodystart="981" bodyend="1004" declfile="src/fs/fs.h" declline="125" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1afa7db92317ec016b54afebbbcc6b273a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_getdents64</definition>
+        <argsstring>(int fd, dirent64_t *dirent, size_t len)</argsstring>
+        <name>sys_getdents64</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type><ref refid="fs_8h_1a24aad750df2ab79e1cab28e733481b6f" kindref="member">dirent64_t</ref> *</type>
+          <declname>dirent</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="126" column="5" bodyfile="src/fs/fs.c" bodystart="1006" bodyend="1029" declfile="src/fs/fs.h" declline="126" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a8b008c50b5e190654619ffbbdfc8f1a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_openat</definition>
+        <argsstring>(int dirfd, const char *filename, mode_t flags, mode_t mode)</argsstring>
+        <name>sys_openat</name>
+        <param>
+          <type>int</type>
+          <declname>dirfd</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>filename</declname>
+        </param>
+        <param>
+          <type><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref></type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref></type>
+          <declname>mode</declname>
+        </param>
+        <briefdescription>
+<para>open a file with path/cwd+path/dirfd+path </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file descripter </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bytes buf </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>read len </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="127" column="5" bodyfile="src/fs/fs.c" bodystart="1037" bodyend="1100" declfile="src/fs/fs.h" declline="127" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a9d94cbe3ac3c59ac54d9e884a024d9c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_close</definition>
+        <argsstring>(int fd)</argsstring>
+        <name>sys_close</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="128" column="5" bodyfile="src/fs/fs.c" bodystart="1102" bodyend="1104" declfile="src/fs/fs.h" declline="128" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a4b77d64a45fc749afe7885dd223f85a1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_linkat</definition>
+        <argsstring>(int old, const char *oldname, int newd, const char *newname, mode_t flags)</argsstring>
+        <name>sys_linkat</name>
+        <param>
+          <type>int</type>
+          <declname>old</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>oldname</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>newd</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>newname</declname>
+        </param>
+        <param>
+          <type><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref></type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="129" column="5" bodyfile="src/fs/fs.c" bodystart="1106" bodyend="1150" declfile="src/fs/fs.h" declline="129" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a8bbe4304ae2f8306454f8e9629ca35ac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_unlinkat</definition>
+        <argsstring>(int dirfd, const char *path, mode_t flags)</argsstring>
+        <name>sys_unlinkat</name>
+        <param>
+          <type>int</type>
+          <declname>dirfd</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>path</declname>
+          <defname>path_0</defname>
+        </param>
+        <param>
+          <type><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref></type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+<para>rm file directed by path, 0 success -1 fail </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dirfd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file descripter </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>dile path </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 or AT_REMOVEDIR </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="130" column="5" bodyfile="src/fs/fs.c" bodystart="1158" bodyend="1204" declfile="src/fs/fs.h" declline="130" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a17d30333f33f90c98570dc8c5f438283" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_mount</definition>
+        <argsstring>(const char *special, const char *dir, const char *type, mode_t flags, void *data)</argsstring>
+        <name>sys_mount</name>
+        <param>
+          <type>const char *</type>
+          <declname>special</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>dir</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref></type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="131" column="5" bodyfile="src/fs/fs.c" bodystart="1206" bodyend="1209" declfile="src/fs/fs.h" declline="131" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1ae98d4677cec7581b48efb2a2261cd61b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_umount2</definition>
+        <argsstring>(const char *special, mode_t flags)</argsstring>
+        <name>sys_umount2</name>
+        <param>
+          <type>const char *</type>
+          <declname>special</declname>
+        </param>
+        <param>
+          <type><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref></type>
+          <declname>flags</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="132" column="5" bodyfile="src/fs/fs.c" bodystart="1211" bodyend="1214" declfile="src/fs/fs.h" declline="132" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a538b392173a1c0fffcbed18345952d60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1af10f4c58d91a6fa30ccc8a19d0ecbf48" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t sys_read</definition>
+        <argsstring>(int fd, char *buf, size_t count)</argsstring>
+        <name>sys_read</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+<para>read count bytes to buf of fd file </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fd</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>file descripter </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>bytes buf </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>read len </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="133" column="9" bodyfile="src/fs/fs.c" bodystart="1222" bodyend="1261" declfile="src/fs/fs.h" declline="133" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a1669296484c126d069b1bceeb97af1e7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1af10f4c58d91a6fa30ccc8a19d0ecbf48" kindref="member">ssize_t</ref></type>
+        <definition>ssize_t sys_write</definition>
+        <argsstring>(int fd, const char *buf, size_t count)</argsstring>
+        <name>sys_write</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+          <declname>count</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="134" column="9" bodyfile="src/fs/fs.c" bodystart="1263" bodyend="1305" declfile="src/fs/fs.h" declline="134" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1ab82f35605a94da4595380df6a1774b91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_fstat</definition>
+        <argsstring>(int fd, kstat_t *statbuf)</argsstring>
+        <name>sys_fstat</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type><ref refid="fs_8h_1a8785463dd1769d1167cff6b8f75f28db" kindref="member">kstat_t</ref> *</type>
+          <declname>statbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="135" column="5" bodyfile="src/fs/fs.c" bodystart="1307" bodyend="1350" declfile="src/fs/fs.h" declline="135" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a42e383603cf330e3ef86bab31f7f8893" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* sys_mmap</definition>
+        <argsstring>(void *addr, size_t length, int prot, int flags, int fd, off_t offset)</argsstring>
+        <name>sys_mmap</name>
+        <param>
+          <type>void *</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+          <declname>length</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>prot</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <param>
+          <type><ref refid="file_8h_1a053c614b69adbac710bb132a6eb9ccf6" kindref="member">off_t</ref></type>
+          <declname>offset</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="136" column="6" bodyfile="src/fs/fs.c" bodystart="1377" bodyend="1392" declfile="src/fs/fs.h" declline="136" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="fs_8h_1a1dd9fbbb6f39b66c936d6a283481149f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sys_munmap</definition>
+        <argsstring>(void *addr, size_t length)</argsstring>
+        <name>sys_munmap</name>
+        <param>
+          <type>void *</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+          <declname>length</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fs.h" line="137" column="5" bodyfile="src/fs/fs.c" bodystart="1393" bodyend="1395" declfile="src/fs/fs.h" declline="137" declcolumn="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">common/types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>O_RDONLY<sp/>0x000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>O_WRONLY<sp/>0x001</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>O_RDWR<sp/>0x002<sp/>//<sp/>可读可写</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>//#define<sp/>O_CREATE<sp/>0x200</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>O_CREATE<sp/>0x40</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>O_DIRECTORY<sp/>0x0200000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="fs_8h_1a6c8de73bb604d91743c7f6f356eb171e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DIR<sp/>0x040000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="fs_8h_1a3e8cefeee58f762ff50bcef35fa12eec" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FILE<sp/>0x100000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>AT_FDCWD<sp/>-100</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="fs_8h_1a0d112bae8fd35be772185b6ec6bcbe64" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SEEK_SET<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="fs_8h_1a4c8d0b76b470ba65a43ca46a88320f39" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SEEK_CUR<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="fs_8h_1ad2a2e6c114780c3071efd24f16c7f7d8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SEEK_END<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="fs_8h_1ac00bfb46347d26fdc58568fe1ab5fa5b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STDIN<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="fs_8h_1a8875037d0772a4fc34516f1e03d7e238" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STDOUT<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="fs_8h_1a3a540e3eef339eec06aff31c4ba1eb25" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STDERR<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="fs_8h_1a75e52edf7ba53611de040cb63c5b5588" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STDMAX<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="fs_8h_1aaca70138f0cb63ddb026921afc635179" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>stdin<sp/>STDIN</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="fs_8h_1a0c0ef221f95f64e8632451312fd18cc8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>stdout<sp/>STDOUT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="fs_8h_1a5ce35bd5ba5021fd3b2e951e8f497656" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>stderr<sp/>STDERR</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="structsuper__block" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structsuper__block" kindref="compound">super_block</ref><sp/>{</highlight></codeline>
+<codeline lineno="31" refid="structsuper__block_1a4c32683deec0bad9b3cd7846d41e42e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1a4c32683deec0bad9b3cd7846d41e42e6" kindref="member">magic</ref>;</highlight></codeline>
+<codeline lineno="32" refid="structsuper__block_1aa5c82ede944d67eaec1291abc0b7c242" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1aa5c82ede944d67eaec1291abc0b7c242" kindref="member">fs_start_sec</ref>;</highlight></codeline>
+<codeline lineno="33" refid="structsuper__block_1a1f60f1e2636cac0bef5bec328943b5a5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1a1f60f1e2636cac0bef5bec328943b5a5" kindref="member">size</ref>;</highlight></codeline>
+<codeline lineno="34" refid="structsuper__block_1ad3856e5948e5c1076b3d39949573970f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1ad3856e5948e5c1076b3d39949573970f" kindref="member">imap_sec_offset</ref>;</highlight></codeline>
+<codeline lineno="35" refid="structsuper__block_1a084682df06e62212689449b747188ffa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1a084682df06e62212689449b747188ffa" kindref="member">imap_sec_size</ref>;</highlight></codeline>
+<codeline lineno="36" refid="structsuper__block_1a4169ac5bf8f45462c4b5620d2e1f92f4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1a4169ac5bf8f45462c4b5620d2e1f92f4" kindref="member">smap_sec_offset</ref>;</highlight></codeline>
+<codeline lineno="37" refid="structsuper__block_1af1aba1e5d6f1f4e9ac832b3a15c0ceef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1af1aba1e5d6f1f4e9ac832b3a15c0ceef" kindref="member">smap_sec_size</ref>;</highlight></codeline>
+<codeline lineno="38" refid="structsuper__block_1a747c9f070b0982e0f0978e8b1badc8be" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1a747c9f070b0982e0f0978e8b1badc8be" kindref="member">inode_sec_offset</ref>;</highlight></codeline>
+<codeline lineno="39" refid="structsuper__block_1a4b429cdf43ece8a599b4f2b45e1aa09b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1a4b429cdf43ece8a599b4f2b45e1aa09b" kindref="member">inode_sec_size</ref>;</highlight></codeline>
+<codeline lineno="40" refid="structsuper__block_1ae4b6a52258a5f6e32aff406521c9c674" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1ae4b6a52258a5f6e32aff406521c9c674" kindref="member">data_sec_offset</ref>;</highlight></codeline>
+<codeline lineno="41" refid="structsuper__block_1a0d4ef7f96243a194affd2704b50544d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1a0d4ef7f96243a194affd2704b50544d0" kindref="member">data_sec_size</ref>;</highlight></codeline>
+<codeline lineno="42" refid="structsuper__block_1a011e82bb85f96ca59d7762e043f4c469" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1a011e82bb85f96ca59d7762e043f4c469" kindref="member">sector_used</ref>;</highlight></codeline>
+<codeline lineno="43" refid="structsuper__block_1af9b6f6d8831fd17e6f2f709da7cfbc19" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1af9b6f6d8831fd17e6f2f709da7cfbc19" kindref="member">inode_used</ref>;</highlight></codeline>
+<codeline lineno="44" refid="structsuper__block_1a4a1395dce1a71fc6e913de47a83fbc0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structsuper__block_1a4a1395dce1a71fc6e913de47a83fbc0b" kindref="member">root_inode_offset</ref>;</highlight></codeline>
+<codeline lineno="45" refid="fs_8h_1aa8756db1aa96264ad9b7aa24a9180d4d" refkind="member"><highlight class="normal">}<sp/><ref refid="fs_8h_1aa8756db1aa96264ad9b7aa24a9180d4d" kindref="member">super_block_t</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="structdir__entry" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdir__entry" kindref="compound">dir_entry</ref><sp/>{</highlight></codeline>
+<codeline lineno="48" refid="structdir__entry_1a30377ae9f18c4110c62527cd2e0ff036" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structdir__entry_1a30377ae9f18c4110c62527cd2e0ff036" kindref="member">name</ref>[20];</highlight></codeline>
+<codeline lineno="49" refid="structdir__entry_1aad84f5f6f839aab465ef48eb1242ba18" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdir__entry_1aad84f5f6f839aab465ef48eb1242ba18" kindref="member">inode_id</ref>;</highlight></codeline>
+<codeline lineno="50" refid="structdir__entry_1a0f1bee834016954567d63158f45184bc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdir__entry_1a0f1bee834016954567d63158f45184bc" kindref="member">last</ref>;</highlight></codeline>
+<codeline lineno="51" refid="structdir__entry_1a913b0765e55c5e041cfec39474019da9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdir__entry_1a913b0765e55c5e041cfec39474019da9" kindref="member">mode</ref>;</highlight></codeline>
+<codeline lineno="52" refid="fs_8h_1a6810ca3ec203afd05ef15f2560289299" refkind="member"><highlight class="normal">}<sp/><ref refid="fs_8h_1a6810ca3ec203afd05ef15f2560289299" kindref="member">dir_entry_t</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="structfentry" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structfentry" kindref="compound">fentry</ref><sp/>{</highlight></codeline>
+<codeline lineno="55" refid="structfentry_1a5eeabf78e411225c27c0932b4919634a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfentry_1a5eeabf78e411225c27c0932b4919634a" kindref="member">inodeid</ref>;</highlight></codeline>
+<codeline lineno="56" refid="structfentry_1ad0aec17207ae39ebd8d735d825ee3926" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfentry_1ad0aec17207ae39ebd8d735d825ee3926" kindref="member">prive</ref>;</highlight></codeline>
+<codeline lineno="57" refid="structfentry_1a22a130375e4c630f281a14fdef4d052a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfentry_1a22a130375e4c630f281a14fdef4d052a" kindref="member">pos_block</ref>;</highlight></codeline>
+<codeline lineno="58" refid="structfentry_1af95a8662e72c55a338442aab1d1a4880" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfentry_1af95a8662e72c55a338442aab1d1a4880" kindref="member">pos_offset</ref>;</highlight></codeline>
+<codeline lineno="59" refid="fs_8h_1aab3b0b3a37bb21267c3dd1be6aed1867" refkind="member"><highlight class="normal">}<sp/><ref refid="fs_8h_1aab3b0b3a37bb21267c3dd1be6aed1867" kindref="member">fentry_t</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="structdirent64" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdirent64" kindref="compound">dirent64</ref><sp/>{</highlight></codeline>
+<codeline lineno="62" refid="structdirent64_1ac6e4ef85c65554400b54453e5cb017f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/><ref refid="structdirent64_1ac6e4ef85c65554400b54453e5cb017f7" kindref="member">d_ino</ref>;</highlight></codeline>
+<codeline lineno="63" refid="structdirent64_1a75cbff7adaa1a45994be22687441e214" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int64_t<sp/><ref refid="structdirent64_1a75cbff7adaa1a45994be22687441e214" kindref="member">d_off</ref>;</highlight></codeline>
+<codeline lineno="64" refid="structdirent64_1a4472cd642ab74191bccff5fdb87ba57e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/><ref refid="structdirent64_1a4472cd642ab74191bccff5fdb87ba57e" kindref="member">d_reclen</ref>;</highlight></codeline>
+<codeline lineno="65" refid="structdirent64_1a4228c87afd910baab45a45ce745df789" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structdirent64_1a4228c87afd910baab45a45ce745df789" kindref="member">d_type</ref>;</highlight></codeline>
+<codeline lineno="66" refid="structdirent64_1a16dc8c4c2b92cd2dc6cb1a5f8bf76fa1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structdirent64_1a16dc8c4c2b92cd2dc6cb1a5f8bf76fa1" kindref="member">d_name</ref>[];</highlight></codeline>
+<codeline lineno="67" refid="fs_8h_1a24aad750df2ab79e1cab28e733481b6f" refkind="member"><highlight class="normal">}<sp/><ref refid="fs_8h_1a24aad750df2ab79e1cab28e733481b6f" kindref="member">dirent64_t</ref>;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="structkstat" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structkstat" kindref="compound">kstat</ref><sp/>{</highlight></codeline>
+<codeline lineno="70" refid="structkstat_1a61010d90aaad1ca40bc863d2c6313452" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a29940ae63ec06c9998bba873e25407ad" kindref="member">uint64</ref><sp/><ref refid="structkstat_1a61010d90aaad1ca40bc863d2c6313452" kindref="member">st_dev</ref>;</highlight></codeline>
+<codeline lineno="71" refid="structkstat_1a3029f24da03d40d2976c7223c908019c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a29940ae63ec06c9998bba873e25407ad" kindref="member">uint64</ref><sp/><ref refid="structkstat_1a3029f24da03d40d2976c7223c908019c" kindref="member">st_ino</ref>;</highlight></codeline>
+<codeline lineno="72" refid="structkstat_1a7dda59111ccfca356784cf30a8c6a15c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref><sp/><ref refid="structkstat_1a7dda59111ccfca356784cf30a8c6a15c" kindref="member">st_mode</ref>;</highlight></codeline>
+<codeline lineno="73" refid="structkstat_1af8d07f3ba24ab49960756f70afe1fcfa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref><sp/><ref refid="structkstat_1af8d07f3ba24ab49960756f70afe1fcfa" kindref="member">st_nlink</ref>;</highlight></codeline>
+<codeline lineno="74" refid="structkstat_1a383bd33a0780993a5898d547e0823093" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref><sp/><ref refid="structkstat_1a383bd33a0780993a5898d547e0823093" kindref="member">st_uid</ref>;</highlight></codeline>
+<codeline lineno="75" refid="structkstat_1a1e72af54d87518bbdd2cef4c325abde6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref><sp/><ref refid="structkstat_1a1e72af54d87518bbdd2cef4c325abde6" kindref="member">st_gid</ref>;</highlight></codeline>
+<codeline lineno="76" refid="structkstat_1aeef4f0679e42b46765a7551343b1ee20" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a29940ae63ec06c9998bba873e25407ad" kindref="member">uint64</ref><sp/><ref refid="structkstat_1aeef4f0679e42b46765a7551343b1ee20" kindref="member">st_rdev</ref>;</highlight></codeline>
+<codeline lineno="77" refid="structkstat_1ab5d49d4e0b0188b6f0b31c88b19f13cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structkstat_1ab5d49d4e0b0188b6f0b31c88b19f13cf" kindref="member">__pad</ref>;</highlight></codeline>
+<codeline lineno="78" refid="structkstat_1acb089ce5ac53aebc5b8fe5351e293dcd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="file_8h_1a053c614b69adbac710bb132a6eb9ccf6" kindref="member">off_t</ref><sp/><ref refid="structkstat_1acb089ce5ac53aebc5b8fe5351e293dcd" kindref="member">st_size</ref>;</highlight></codeline>
+<codeline lineno="79" refid="structkstat_1aac5763ac31d4bcd17723a1acb8b924ae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref><sp/><ref refid="structkstat_1aac5763ac31d4bcd17723a1acb8b924ae" kindref="member">st_blksize</ref>;</highlight></codeline>
+<codeline lineno="80" refid="structkstat_1a30aaf8c3fe759e6f1244730f53e84ef8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structkstat_1a30aaf8c3fe759e6f1244730f53e84ef8" kindref="member">__pad2</ref>;</highlight></codeline>
+<codeline lineno="81" refid="structkstat_1a92ea89155b4b5753bebdfbe309a9483d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a29940ae63ec06c9998bba873e25407ad" kindref="member">uint64</ref><sp/><ref refid="structkstat_1a92ea89155b4b5753bebdfbe309a9483d" kindref="member">st_blocks</ref>;</highlight></codeline>
+<codeline lineno="82" refid="structkstat_1aea79328138f8bdf97487a6fbfccd5d5c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structkstat_1aea79328138f8bdf97487a6fbfccd5d5c" kindref="member">st_atime_sec</ref>;</highlight></codeline>
+<codeline lineno="83" refid="structkstat_1abe1094a11b5752d7059526f537cee1b7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structkstat_1abe1094a11b5752d7059526f537cee1b7" kindref="member">st_atime_nsec</ref>;</highlight></codeline>
+<codeline lineno="84" refid="structkstat_1a3367fe6570767334ca284e626eb238d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structkstat_1a3367fe6570767334ca284e626eb238d6" kindref="member">st_mtime_sec</ref>;</highlight></codeline>
+<codeline lineno="85" refid="structkstat_1af2993a781c201c64c4550ef956d2adab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structkstat_1af2993a781c201c64c4550ef956d2adab" kindref="member">st_mtime_nsec</ref>;</highlight></codeline>
+<codeline lineno="86" refid="structkstat_1a52fefa73230530c2fad355755d2b9947" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structkstat_1a52fefa73230530c2fad355755d2b9947" kindref="member">st_ctime_sec</ref>;</highlight></codeline>
+<codeline lineno="87" refid="structkstat_1a04b3b935593a4a8f65bb927b568392b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structkstat_1a04b3b935593a4a8f65bb927b568392b4" kindref="member">st_ctime_nsec</ref>;</highlight></codeline>
+<codeline lineno="88" refid="structkstat_1acd511b9312e5d30574bddc909818d8d0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="structkstat_1acd511b9312e5d30574bddc909818d8d0" kindref="member">__unused</ref>[2];</highlight></codeline>
+<codeline lineno="89" refid="fs_8h_1a8785463dd1769d1167cff6b8f75f28db" refkind="member"><highlight class="normal">}<sp/><ref refid="fs_8h_1a8785463dd1769d1167cff6b8f75f28db" kindref="member">kstat_t</ref>;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1ac677f873fca666bdf61682366d20da83" kindref="member">fs_start_sec</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a0b0e637c1f547aa6f6ca7691628f92b7" kindref="member">magic_number</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a5f1128f0cd5a06c77116acbc63fe8a76" kindref="member">sb_sec_offset</ref>;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a2f4e9bd47b3cefa57d0dfb2a85c820bf" kindref="member">sb2_sec_offset</ref>;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="fs_8h_1acc2dc61ae73011bff1251aa4452d64e7" kindref="member">iab_map_addr_offset</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="fs_8h_1a042f425e0ae7469f118af0df971ba0b4" kindref="member">sec_map_addr_offset</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="fs_8h_1a0e73a14af9616cdc44cd717fe7708371" kindref="member">iab_map_addr_size</ref>;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="fs_8h_1a71520d0a98952499ba9dbd13ea5dcd7f" kindref="member">inode_addr_offset</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="fs_8h_1af8170d3af43a590eb940712ba4b2d377" kindref="member">dir_addr_offset</ref>;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="fs_8h_1a912b2fc18669005ba1e7f97e4a686c98" kindref="member">dir2_addr_offset</ref>;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="fs_8h_1a5317348823569604760012466012b9a1" kindref="member">dir3_addr_offset</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="fs_8h_1aa3b27ac05d0e5aac1613511254a69b0f" kindref="member">dir4_addr_offset</ref>;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="fs_8h_1a5379d59f189668b142e0203c9db578eb" kindref="member">data_addr_offset</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>uint64_t<sp/><ref refid="fs_8h_1a25688e200d5d8f487dc3816055a92bc2" kindref="member">empty_block</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="comment">//<sp/>extern<sp/>fentry_t<sp/>fd[20];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">//<sp/>extern<sp/>int<sp/>nowfid;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="comment">//<sp/>extern<sp/>int<sp/>freefid[20];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">//<sp/>extern<sp/>int<sp/>freenum;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a1c701b3d5e133887389c2b3c9e2f331c" kindref="member">fs_load_file</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name,<sp/>uint8_t<sp/>**bin,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*len);</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight><highlight class="comment">//<sp/>[FUNCTION<sp/>REQUIREMENTS]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1ac7c5c9e629cd40cf7f3ab374962d2610" kindref="member">fs_check_file_existence</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*name);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1af264b947ceef01d5bfb234c2002a3666" kindref="member">fs_init</ref>();</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a8febdf58a0f5691f83349e95eae8d074" kindref="member">sys_getcwd</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structbuf" kindref="compound">buf</ref>,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a239a2e4b8412446aac813a9439350059" kindref="member">sys_pipe2</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*<ref refid="structfd" kindref="compound">fd</ref>,<sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref><sp/>flags);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a3c4b72a274d8b87700a689b13b232c5b" kindref="member">sys_dup</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>old);</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a52646d65d2bce20361d7ba0784868e04" kindref="member">sys_dup3</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>old,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal">,<sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref><sp/>flags);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a4bc8bf7d6d8a6475f4d2cc141318de7d" kindref="member">sys_mkdirat</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dirfd,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*path,<sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref><sp/>mode);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a7948e6c31a074f7d53aa5836fec7fe12" kindref="member">sys_chdir</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*path);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1afa7db92317ec016b54afebbbcc6b273a" kindref="member">sys_getdents64</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>,<sp/><ref refid="structdirent64" kindref="compound">dirent64_t</ref><sp/>*dirent,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>len);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a8b008c50b5e190654619ffbbdfc8f1a4" kindref="member">sys_openat</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dirfd,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*filename,<sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref><sp/>flags,<sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref><sp/>mode);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a9d94cbe3ac3c59ac54d9e884a024d9c5" kindref="member">sys_close</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a4b77d64a45fc749afe7885dd223f85a1" kindref="member">sys_linkat</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>old,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*oldname,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>newd,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*newname,<sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref><sp/>flags);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a8bbe4304ae2f8306454f8e9629ca35ac" kindref="member">sys_unlinkat</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>dirfd,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*path,<sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref><sp/>flags);</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a17d30333f33f90c98570dc8c5f438283" kindref="member">sys_mount</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*special,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*dir,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="fat32_8h_1a1d127017fb298b889f4ba24752d08b8e" kindref="member">type</ref>,<sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref><sp/>flags,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*data);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1ae98d4677cec7581b48efb2a2261cd61b" kindref="member">sys_umount2</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*special,<sp/><ref refid="file_8h_1af8f4385bb42836d1e3ad4fea9d71d1b9" kindref="member">mode_t</ref><sp/>flags);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><ref refid="types_8h_1af10f4c58d91a6fa30ccc8a19d0ecbf48" kindref="member">ssize_t</ref><sp/><ref refid="fs_8h_1a538b392173a1c0fffcbed18345952d60" kindref="member">sys_read</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structbuf" kindref="compound">buf</ref>,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><ref refid="types_8h_1af10f4c58d91a6fa30ccc8a19d0ecbf48" kindref="member">ssize_t</ref><sp/><ref refid="fs_8h_1a1669296484c126d069b1bceeb97af1e7" kindref="member">sys_write</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="structbuf" kindref="compound">buf</ref>,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1ab82f35605a94da4595380df6a1774b91" kindref="member">sys_fstat</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>,<sp/><ref refid="structkstat" kindref="compound">kstat_t</ref><sp/>*statbuf);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="fs_8h_1a42e383603cf330e3ef86bab31f7f8893" kindref="member">sys_mmap</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*addr,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>length,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prot,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>flags,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>,<sp/><ref refid="file_8h_1a053c614b69adbac710bb132a6eb9ccf6" kindref="member">off_t</ref><sp/>offset);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fs_8h_1a1dd9fbbb6f39b66c936d6a283481149f" kindref="member">sys_munmap</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*addr,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>length);</highlight></codeline>
+    </programlisting>
+    <location file="src/fs/fs.h"/>
+  </compounddef>
+</doxygen>

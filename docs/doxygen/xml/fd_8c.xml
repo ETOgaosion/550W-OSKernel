@@ -1,0 +1,504 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="fd_8c" kind="file" language="C++">
+    <compoundname>fd.c</compoundname>
+    <includes refid="file_8h" local="no">fs/file.h</includes>
+    <includes refid="fs_8h" local="no">fs/fs.h</includes>
+    <includes refid="pcb_8h" local="no">os/pcb.h</includes>
+    <incdepgraph>
+      <node id="9">
+        <label>fs/fs.h</label>
+        <link refid="fs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>asm/pgtable.h</label>
+        <link refid="pgtable_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>os/mm.h</label>
+        <link refid="mm_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>common/elf.h</label>
+        <link refid="elf_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="16">
+        <label>os/cpu.h</label>
+        <link refid="cpu_8h"/>
+      </node>
+      <node id="18">
+        <label>os/time.h</label>
+        <link refid="time_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>asm/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>asm/sbidef.h</label>
+        <link refid="sbidef_8h"/>
+      </node>
+      <node id="3">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>asm/sbi.h</label>
+        <link refid="sbi_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>os/pcb.h</label>
+        <link refid="pcb_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/fs/fd.c</label>
+        <link refid="fd_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>fs/file.h</label>
+        <link refid="file_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>os/lock.h</label>
+        <link refid="lock_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>os/sync.h</label>
+        <link refid="sync_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>lib/list.h</label>
+        <link refid="list_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" prot="public" static="no" mutable="no">
+        <type><ref refid="file_8h_1adc00d5703f6722526aeda522247c3ec6" kindref="member">fd_t</ref></type>
+        <definition>fd_t fd_table[MAX_FD]</definition>
+        <argsstring>[MAX_FD]</argsstring>
+        <name>fd_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="7" column="6" bodyfile="src/fs/fd.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fd_8c_1a8025a26fe82fa76119549722ae508993" prot="public" static="no" mutable="no">
+        <type><ref refid="file_8h_1a6e56d0e85fc7914f204312ebf0b15fea" kindref="member">pipe_t</ref></type>
+        <definition>pipe_t pipe_table[PIPE_NUM]</definition>
+        <argsstring>[PIPE_NUM]</argsstring>
+        <name>pipe_table</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="8" column="8" bodyfile="src/fs/fd.c" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fd_8c_1a0dd779e7aabf6454ed557142cd6ddd55" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int pipe_cnt</definition>
+        <argsstring></argsstring>
+        <name>pipe_cnt</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="9" column="5" bodyfile="src/fs/fd.c" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="fd_8c_1a6cb1ecabc3abc6e1cdfac5f1ea59dbcc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fd_table_init</definition>
+        <argsstring>()</argsstring>
+        <name>fd_table_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="11" column="5" bodyfile="src/fs/fd.c" bodystart="11" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="fd_8c_1a0d55425e16feb3bea1363d51fdf3a094" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fd_alloc</definition>
+        <argsstring>()</argsstring>
+        <name>fd_alloc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="26" column="5" bodyfile="src/fs/fd.c" bodystart="26" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="fd_8c_1a547b443fd97255c9aee93ea57d113518" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int pipe_alloc</definition>
+        <argsstring>(int *fd)</argsstring>
+        <name>pipe_alloc</name>
+        <param>
+          <type>int *</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="38" column="5" bodyfile="src/fs/fd.c" bodystart="38" bodyend="68"/>
+      </memberdef>
+      <memberdef kind="function" id="fd_8c_1a8f91d1842f703d4598574b0bcb74e8cc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="file_8h_1adc00d5703f6722526aeda522247c3ec6" kindref="member">fd_t</ref> *</type>
+        <definition>fd_t* fd_alloc_spec</definition>
+        <argsstring>(int fd)</argsstring>
+        <name>fd_alloc_spec</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="70" column="6" bodyfile="src/fs/fd.c" bodystart="70" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="fd_8c_1ac7a4c8f3c3f91405b5f70fdc19533a16" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int fd_free</definition>
+        <argsstring>(int fd)</argsstring>
+        <name>fd_free</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="78" column="5" bodyfile="src/fs/fd.c" bodystart="78" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="fd_8c_1a15dcc53ce1c457472fc819d1ab3cf5e1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="file_8h_1adc00d5703f6722526aeda522247c3ec6" kindref="member">fd_t</ref> *</type>
+        <definition>fd_t* get_fd</definition>
+        <argsstring>(int fd)</argsstring>
+        <name>get_fd</name>
+        <param>
+          <type>int</type>
+          <declname>fd</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="90" column="6" bodyfile="src/fs/fd.c" bodystart="90" bodyend="95"/>
+      </memberdef>
+      <memberdef kind="function" id="fd_8c_1a66278a5b48c7b0c3f6049bd9d4c880c2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ring_buffer_init</definition>
+        <argsstring>(struct ring_buffer *rbuf)</argsstring>
+        <name>ring_buffer_init</name>
+        <param>
+          <type>struct <ref refid="structring__buffer" kindref="compound">ring_buffer</ref> *</type>
+          <declname>rbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="97" column="6" bodyfile="src/fs/fd.c" bodystart="97" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="function" id="fd_8c_1aee3154a72fa1e4fe6f9029c8df731a07" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+        <definition>size_t read_ring_buffer</definition>
+        <argsstring>(struct ring_buffer *rbuf, uint8_t *buf, size_t size)</argsstring>
+        <name>read_ring_buffer</name>
+        <param>
+          <type>struct <ref refid="structring__buffer" kindref="compound">ring_buffer</ref> *</type>
+          <declname>rbuf</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="108" column="8" bodyfile="src/fs/fd.c" bodystart="108" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="fd_8c_1ad1fb461c9d33d7c8c7dc4fb4674afae7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+        <definition>size_t write_ring_buffer</definition>
+        <argsstring>(struct ring_buffer *rbuf, uint8_t *buf, size_t size)</argsstring>
+        <name>write_ring_buffer</name>
+        <param>
+          <type>struct <ref refid="structring__buffer" kindref="compound">ring_buffer</ref> *</type>
+          <declname>rbuf</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fd.c" line="126" column="8" bodyfile="src/fs/fd.c" bodystart="126" bodyend="145"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;<ref refid="file_8h" kindref="compound">fs/file.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="fs_8h" kindref="compound">fs/fs.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&lt;os/time.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="pcb_8h" kindref="compound">os/pcb.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&lt;fs/pipe.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><ref refid="structfd" kindref="compound">fd_t</ref><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="file_8h_1ae9c7a3fcf619f9aeb244f8e85a68097f" kindref="member">MAX_FD</ref>];</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><ref refid="structpipe" kindref="compound">pipe_t</ref><sp/><ref refid="fd_8c_1a8025a26fe82fa76119549722ae508993" kindref="member">pipe_table</ref>[<ref refid="file_8h_1aa166a3b17678004094547794e960f77d" kindref="member">PIPE_NUM</ref>];</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fd_8c_1a0dd779e7aabf6454ed557142cd6ddd55" kindref="member">pipe_cnt</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fd_8c_1a6cb1ecabc3abc6e1cdfac5f1ea59dbcc" kindref="member">fd_table_init</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/><ref refid="fs_8h_1a75e52edf7ba53611de040cb63c5b5588" kindref="member">STDMAX</ref>;<sp/>i<sp/>&lt;<sp/><ref refid="file_8h_1ae9c7a3fcf619f9aeb244f8e85a68097f" kindref="member">MAX_FD</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].<ref refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" kindref="member">used</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO<sp/>:<sp/>init<sp/>std<sp/>in/out/err</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="fs_8h_1ac00bfb46347d26fdc58568fe1ab5fa5b" kindref="member">STDIN</ref>].<ref refid="structfd_1a18bc3b87f2dac145f951518a964fe306" kindref="member">file</ref><sp/>=<sp/><ref refid="fs_8h_1ac00bfb46347d26fdc58568fe1ab5fa5b" kindref="member">STDIN</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="fs_8h_1ac00bfb46347d26fdc58568fe1ab5fa5b" kindref="member">STDIN</ref>].<ref refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" kindref="member">used</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="fs_8h_1a8875037d0772a4fc34516f1e03d7e238" kindref="member">STDOUT</ref>].<ref refid="structfd_1a18bc3b87f2dac145f951518a964fe306" kindref="member">file</ref><sp/>=<sp/><ref refid="fs_8h_1a8875037d0772a4fc34516f1e03d7e238" kindref="member">STDOUT</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="fs_8h_1a8875037d0772a4fc34516f1e03d7e238" kindref="member">STDOUT</ref>].<ref refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" kindref="member">used</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="fs_8h_1a3a540e3eef339eec06aff31c4ba1eb25" kindref="member">STDERR</ref>].<ref refid="structfd_1a18bc3b87f2dac145f951518a964fe306" kindref="member">file</ref><sp/>=<sp/><ref refid="fs_8h_1a3a540e3eef339eec06aff31c4ba1eb25" kindref="member">STDERR</ref>;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="fs_8h_1a3a540e3eef339eec06aff31c4ba1eb25" kindref="member">STDERR</ref>].<ref refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" kindref="member">used</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fd_8c_1a0d55425e16feb3bea1363d51fdf3a094" kindref="member">fd_alloc</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/><ref refid="fs_8h_1a75e52edf7ba53611de040cb63c5b5588" kindref="member">STDMAX</ref>;<sp/>i<sp/>&lt;<sp/><ref refid="file_8h_1ae9c7a3fcf619f9aeb244f8e85a68097f" kindref="member">MAX_FD</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].used)<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="string_8h_1aaf442a6d4665859606fb0376506a349c" kindref="member">k_memset</ref>(&amp;<ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i],<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structfd" kindref="compound">fd_t</ref>));</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].<ref refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" kindref="member">used</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fd_8c_1a547b443fd97255c9aee93ea57d113518" kindref="member">pipe_alloc</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*<ref refid="structfd" kindref="compound">fd</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/>fd_0<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/><ref refid="fs_8h_1a75e52edf7ba53611de040cb63c5b5588" kindref="member">STDMAX</ref>;<sp/>i<sp/>&lt;<sp/><ref refid="file_8h_1ae9c7a3fcf619f9aeb244f8e85a68097f" kindref="member">MAX_FD</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].used)<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].<ref refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" kindref="member">used</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].<ref refid="structfd_1a83737c9fc04a24cc7a3c0f7331928d40" kindref="member">pip_num</ref><sp/>=<sp/><ref refid="fd_8c_1a0dd779e7aabf6454ed557142cd6ddd55" kindref="member">pipe_cnt</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].<ref refid="structfd_1a62e02f7c06fb7a737ddcb71a3fb68e68" kindref="member">is_pipe_read</ref><sp/>=<sp/><ref refid="types_8h_1aa8cecfc5c5c054d2875c03e77b7be15d" kindref="member">TRUE</ref>;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].<ref refid="structfd_1a6bbeed3999a7b76f6329862eba659fad" kindref="member">is_pipe_write</ref><sp/>=<sp/><ref refid="types_8h_1aa93f0eb578d23995850d61f7d61c55c1" kindref="member">FALSE</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structfd" kindref="compound">fd</ref>[0]<sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fd_0<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!fd_0)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/><ref refid="fs_8h_1a75e52edf7ba53611de040cb63c5b5588" kindref="member">STDMAX</ref>;<sp/>i<sp/>&lt;<sp/><ref refid="file_8h_1ae9c7a3fcf619f9aeb244f8e85a68097f" kindref="member">MAX_FD</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].used)<sp/>{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].<ref refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" kindref="member">used</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].<ref refid="structfd_1a83737c9fc04a24cc7a3c0f7331928d40" kindref="member">pip_num</ref><sp/>=<sp/><ref refid="fd_8c_1a0dd779e7aabf6454ed557142cd6ddd55" kindref="member">pipe_cnt</ref>++;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].<ref refid="structfd_1a62e02f7c06fb7a737ddcb71a3fb68e68" kindref="member">is_pipe_read</ref><sp/>=<sp/><ref refid="types_8h_1aa93f0eb578d23995850d61f7d61c55c1" kindref="member">FALSE</ref>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[i].<ref refid="structfd_1a6bbeed3999a7b76f6329862eba659fad" kindref="member">is_pipe_write</ref><sp/>=<sp/><ref refid="types_8h_1aa8cecfc5c5c054d2875c03e77b7be15d" kindref="member">TRUE</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structfd" kindref="compound">fd</ref>[1]<sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fd_0)<sp/>{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="fd_8c_1ac7a4c8f3c3f91405b5f70fdc19533a16" kindref="member">fd_free</ref>(<ref refid="structfd" kindref="compound">fd</ref>[0]);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><ref refid="structfd" kindref="compound">fd_t</ref><sp/>*<ref refid="fd_8c_1a8f91d1842f703d4598574b0bcb74e8cc" kindref="member">fd_alloc_spec</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="structfd" kindref="compound">fd</ref>].used)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a070d2ce7b6bb7e5c05602aa8c308d0c4" kindref="member">NULL</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="structfd" kindref="compound">fd</ref>].<ref refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" kindref="member">used</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;<ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="structfd" kindref="compound">fd</ref>];</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="fd_8c_1ac7a4c8f3c3f91405b5f70fdc19533a16" kindref="member">fd_free</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ret<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structfd" kindref="compound">fd &lt; STDMAX || fd &gt;</ref>=<sp/><ref refid="file_8h_1ae9c7a3fcf619f9aeb244f8e85a68097f" kindref="member">MAX_FD</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="structfd" kindref="compound">fd</ref>].used<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ret<sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="structfd" kindref="compound">fd</ref>].<ref refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" kindref="member">used</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><ref refid="structfd" kindref="compound">fd_t</ref><sp/>*<ref refid="fd_8c_1a15dcc53ce1c457472fc819d1ab3cf5e1" kindref="member">get_fd</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structfd" kindref="compound">fd</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structfd" kindref="compound">fd &lt; STDIN || fd &gt;</ref>=<sp/><ref refid="file_8h_1ae9c7a3fcf619f9aeb244f8e85a68097f" kindref="member">MAX_FD</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a070d2ce7b6bb7e5c05602aa8c308d0c4" kindref="member">NULL</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>&amp;<ref refid="fd_8c_1a5929f8b32860acf2a9d2216f1c4493f8" kindref="member">fd_table</ref>[<ref refid="structfd" kindref="compound">fd</ref>];</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="fd_8c_1a66278a5b48c7b0c3f6049bd9d4c880c2" kindref="member">ring_buffer_init</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>*rbuf)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>there<sp/>is<sp/>always<sp/>one<sp/>byte<sp/>which<sp/>should<sp/>not<sp/>be<sp/>read<sp/>or<sp/>written</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="string_8h_1aaf442a6d4665859606fb0376506a349c" kindref="member">k_memset</ref>(rbuf,<sp/>0,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref>));<sp/></highlight><highlight class="comment">/*<sp/>head<sp/>=<sp/>tail<sp/>=<sp/>0<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>rbuf-&gt;<ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref><sp/>=<sp/><ref refid="file_8h_1a779b513296068d2a6186659183ff3c2c" kindref="member">RING_BUFFER_SIZE</ref>;</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>rbuf-&gt;<ref refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" kindref="member">buf</ref><sp/>=<sp/><ref refid="mm_8h_1a00b0aa73fb7186a4c940dd83496dd199" kindref="member">k_mm_malloc</ref>(<ref refid="mm_8h_1a7d467c1d283fdfa1f2081ba1e0d01b6e" kindref="member">PAGE_SIZE</ref>);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="string_8h_1aaf442a6d4665859606fb0376506a349c" kindref="member">k_memset</ref>(rbuf-&gt;<ref refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" kindref="member">buf</ref>,<sp/>0,<sp/><ref refid="mm_8h_1a7d467c1d283fdfa1f2081ba1e0d01b6e" kindref="member">PAGE_SIZE</ref>);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO<sp/>INIT<sp/>LOCK</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1a5ecc66db27d505944136e8cb400d30f9" kindref="member">k_spin_lock_init</ref>(&amp;rbuf-&gt;<ref refid="structring__buffer_1a9dd0dc66c17b66b854906972136ec134" kindref="member">lock</ref>);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="fd_8c_1aee3154a72fa1e4fe6f9029c8df731a07" kindref="member">read_ring_buffer</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>*rbuf,<sp/>uint8_t<sp/>*<ref refid="structbuf" kindref="compound">buf</ref>,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO<sp/>pcb<sp/>and<sp/>lock</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1aa8b07da1c0d3b17f49429722404c9649" kindref="member">k_spin_lock_acquire</ref>(&amp;rbuf-&gt;<ref refid="structring__buffer_1a9dd0dc66c17b66b854906972136ec134" kindref="member">lock</ref>);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/>len<sp/>=<sp/><ref refid="fat32_8h_1abb702d8b501669a23aa0ab3b281b9384" kindref="member">min</ref>(ring_buffer_used(rbuf),<sp/>size);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(len<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rbuf-&gt;<ref refid="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" kindref="member">head</ref><sp/>+<sp/>len<sp/>&gt;<sp/>rbuf-&gt;<ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>right<sp/>=<sp/>rbuf-&gt;<ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref><sp/>-<sp/>rbuf-&gt;<ref refid="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" kindref="member">head</ref>,<sp/>left<sp/>=<sp/>len<sp/>-<sp/>right;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="string_8h_1a4985196d8a63d22e320cf33d904d2f92" kindref="member">k_memcpy</ref>(<ref refid="structbuf" kindref="compound">buf</ref>,<sp/>rbuf-&gt;<ref refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" kindref="member">buf</ref><sp/>+<sp/>rbuf-&gt;<ref refid="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" kindref="member">head</ref>,<sp/>right);</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="string_8h_1a4985196d8a63d22e320cf33d904d2f92" kindref="member">k_memcpy</ref>(<ref refid="structbuf" kindref="compound">buf</ref><sp/>+<sp/>right,<sp/>rbuf-&gt;<ref refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" kindref="member">buf</ref>,<sp/>left);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="string_8h_1a4985196d8a63d22e320cf33d904d2f92" kindref="member">k_memcpy</ref>(<ref refid="structbuf" kindref="compound">buf</ref>,<sp/>rbuf-&gt;<ref refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" kindref="member">buf</ref><sp/>+<sp/>rbuf-&gt;<ref refid="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" kindref="member">head</ref>,<sp/>len);</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rbuf-&gt;<ref refid="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" kindref="member">head</ref><sp/>=<sp/>(rbuf-&gt;<ref refid="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" kindref="member">head</ref><sp/>+<sp/>len)<sp/>%<sp/>(rbuf-&gt;<ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref>);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1a25c026e475e11a6e312925223a3e9d34" kindref="member">k_spin_lock_release</ref>(&amp;rbuf-&gt;<ref refid="structring__buffer_1a9dd0dc66c17b66b854906972136ec134" kindref="member">lock</ref>);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>len;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><ref refid="fd_8c_1ad1fb461c9d33d7c8c7dc4fb4674afae7" kindref="member">write_ring_buffer</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structring__buffer" kindref="compound">ring_buffer</ref><sp/>*rbuf,<sp/>uint8_t<sp/>*<ref refid="structbuf" kindref="compound">buf</ref>,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>size)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>TODO<sp/>SYNC<sp/>BY<sp/>LOCK</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1aa8b07da1c0d3b17f49429722404c9649" kindref="member">k_spin_lock_acquire</ref>(&amp;rbuf-&gt;<ref refid="structring__buffer_1a9dd0dc66c17b66b854906972136ec134" kindref="member">lock</ref>);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/>len<sp/>=<sp/><ref refid="fat32_8h_1abb702d8b501669a23aa0ab3b281b9384" kindref="member">min</ref>(ring_buffer_free(rbuf),<sp/>size);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(len<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rbuf-&gt;<ref refid="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" kindref="member">tail</ref><sp/>+<sp/>len<sp/>&gt;<sp/>rbuf-&gt;<ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>right<sp/>=<sp/>rbuf-&gt;<ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref><sp/>-<sp/>rbuf-&gt;<ref refid="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" kindref="member">tail</ref>,<sp/>left<sp/>=<sp/>len<sp/>-<sp/>right;</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="string_8h_1a4985196d8a63d22e320cf33d904d2f92" kindref="member">k_memcpy</ref>(rbuf-&gt;<ref refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" kindref="member">buf</ref><sp/>+<sp/>rbuf-&gt;<ref refid="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" kindref="member">tail</ref>,<sp/><ref refid="structbuf" kindref="compound">buf</ref>,<sp/>right);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(left<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="string_8h_1a4985196d8a63d22e320cf33d904d2f92" kindref="member">k_memcpy</ref>(rbuf-&gt;<ref refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" kindref="member">buf</ref>,<sp/><ref refid="structbuf" kindref="compound">buf</ref><sp/>+<sp/>right,<sp/>left);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="string_8h_1a4985196d8a63d22e320cf33d904d2f92" kindref="member">k_memcpy</ref>(rbuf-&gt;<ref refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" kindref="member">buf</ref><sp/>+<sp/>rbuf-&gt;<ref refid="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" kindref="member">tail</ref>,<sp/><ref refid="structbuf" kindref="compound">buf</ref>,<sp/>len);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rbuf-&gt;<ref refid="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" kindref="member">tail</ref><sp/>=<sp/>(rbuf-&gt;<ref refid="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" kindref="member">tail</ref><sp/>+<sp/>len)<sp/>%<sp/>(rbuf-&gt;<ref refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" kindref="member">size</ref>);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="lock_8h_1a25c026e475e11a6e312925223a3e9d34" kindref="member">k_spin_lock_release</ref>(&amp;rbuf-&gt;<ref refid="structring__buffer_1a9dd0dc66c17b66b854906972136ec134" kindref="member">lock</ref>);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>len;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/fs/fd.c"/>
+  </compounddef>
+</doxygen>

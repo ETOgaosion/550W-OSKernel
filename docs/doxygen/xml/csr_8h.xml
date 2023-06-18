@@ -1,0 +1,879 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="csr_8h" kind="file" language="C++">
+    <compoundname>csr.h</compoundname>
+    <includedby refid="stack_8c" local="no">src/arch/riscv/kernel/init/stack.c</includedby>
+    <invincdepgraph>
+      <node id="1">
+        <label>src/arch/riscv/include/asm/csr.h</label>
+        <link refid="csr_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/arch/riscv/kernel/init/stack.c</label>
+        <link refid="stack_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="csr_8h_1ab3c982c744b9e02798f4023d7ab901bb" prot="public" static="no">
+        <name>SR_SIE</name>
+        <initializer>0x00000002  /* Supervisor Interrupt Enable */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="8" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1af374785f0f372d2e9b78d30c9ffbcb6b" prot="public" static="no">
+        <name>SR_SPIE</name>
+        <initializer>0x00000020 /* Previous Supervisor IE */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="9" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a44127f7d87e6f5cfab84eecf77de9146" prot="public" static="no">
+        <name>SR_SPP</name>
+        <initializer>0x00000100  /* Previously Supervisor */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="10" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a74da9fba64fbe4c56536c44e9b33570e" prot="public" static="no">
+        <name>SR_SUM</name>
+        <initializer>0x00040000  /* Supervisor User Memory Access */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="11" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1ab5e6db23792b83c5df0e315eb77939b2" prot="public" static="no">
+        <name>SR_FS</name>
+        <initializer>0x00006000 /* Floating-point Status */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="13" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a246f0715400a46731a45d37c2491629a" prot="public" static="no">
+        <name>SR_FS_OFF</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="14" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a95700076440755382e904e143f7214ea" prot="public" static="no">
+        <name>SR_FS_INITIAL</name>
+        <initializer>0x00002000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="15" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1ab4a353dc4bffd49915651597fdbaf06a" prot="public" static="no">
+        <name>SR_FS_CLEAN</name>
+        <initializer>0x00004000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="16" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a341465beb7d256df6cdc394313056ee3" prot="public" static="no">
+        <name>SR_FS_DIRTY</name>
+        <initializer>0x00006000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="17" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1acf67ff46d36719be6759f2b46e760e32" prot="public" static="no">
+        <name>SR_XS</name>
+        <initializer>0x00018000 /* Extension Status */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="19" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a0328f2a38e312c1ae07a43bccb54aa5c" prot="public" static="no">
+        <name>SR_XS_OFF</name>
+        <initializer>0x00000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="20" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a053ec23a8906287bfcf056dc67a96d3a" prot="public" static="no">
+        <name>SR_XS_INITIAL</name>
+        <initializer>0x00008000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="21" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a54ae4f47dd1539dc68fa2b34be9f7895" prot="public" static="no">
+        <name>SR_XS_CLEAN</name>
+        <initializer>0x00010000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="22" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a454e97bf835a53d5855f72e08c5787bc" prot="public" static="no">
+        <name>SR_XS_DIRTY</name>
+        <initializer>0x00018000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="23" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a15e2549dcd0128f8f3956a51909144e6" prot="public" static="no">
+        <name>SR_SD</name>
+        <initializer>0x8000000000000000 /* FS/XS dirty */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="25" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a83401b52ff12b4ba046d974716494a05" prot="public" static="no">
+        <name>SATP_PPN</name>
+        <initializer>0x00000FFFFFFFFFFF</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="28" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1abe90ababbc031e196e373c27c729ecde" prot="public" static="no">
+        <name>SATP_MODE_39</name>
+        <initializer>0x8000000000000000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="29" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a226838ce5d151758cd980f7bddd15f5f" prot="public" static="no">
+        <name>SATP_MODE</name>
+        <initializer><ref refid="csr_8h_1abe90ababbc031e196e373c27c729ecde" kindref="member">SATP_MODE_39</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="30" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a6edeb2e7cf212240df827ea63f12448e" prot="public" static="no">
+        <name>SCAUSE_IRQ_FLAG</name>
+        <initializer>((uint64_t)1 &lt;&lt; 63)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="33" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1ad2a50b9af790bee88a134470ecb5e5d6" prot="public" static="no">
+        <name>IRQ_U_SOFT</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="35" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a1f426d6231a15fe1801b3206c712cf76" prot="public" static="no">
+        <name>IRQ_S_SOFT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="36" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a02e2db32b33eb8cf23622150ac372200" prot="public" static="no">
+        <name>IRQ_M_SOFT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="37" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a304a6d7db641f293f251782f70ec5b97" prot="public" static="no">
+        <name>IRQ_U_TIMER</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="38" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1ac7acfa6b0f632b9cd762a0e0abd1df08" prot="public" static="no">
+        <name>IRQ_S_TIMER</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="39" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1aa5b87ef0a6024ad69009faff8fd6a9d5" prot="public" static="no">
+        <name>IRQ_M_TIMER</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="40" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a505f81e4c51629f9ffa3f70fccc14caa" prot="public" static="no">
+        <name>IRQ_U_EXT</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="41" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1aedc582eeff2cc10dcb000c5f08dda3c3" prot="public" static="no">
+        <name>IRQ_S_EXT</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="42" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a43fba639eb8d7ee37648cc0af12cf59b" prot="public" static="no">
+        <name>IRQ_M_EXT</name>
+        <initializer>11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="43" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a4d8dd50ced627204e5b8612b6de5e8b7" prot="public" static="no">
+        <name>EXC_INST_MISALIGNED</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="45" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a043a039144acfaaad05ca69483ab099b" prot="public" static="no">
+        <name>EXC_INST_ACCESS</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="46" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a99aff0ae890d31fc23169c988a0dbd1f" prot="public" static="no">
+        <name>EXC_BREAKPOINT</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="47" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a92ca4fc0869271a8cd0fd3af792a75f2" prot="public" static="no">
+        <name>EXC_LOAD_ACCESS</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="48" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1aca2ce8f4d750589087d62f19202146cd" prot="public" static="no">
+        <name>EXC_STORE_ACCESS</name>
+        <initializer>7</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="49" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1ab6e3c7c4587ff8dfa1a2241e0066d5dd" prot="public" static="no">
+        <name>EXC_SYSCALL</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="50" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a2e63d0b22ee10b12aad7591403773210" prot="public" static="no">
+        <name>EXC_INST_PAGE_FAULT</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="51" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a7d8913c2b7929e84e7b76ed553cfdf1b" prot="public" static="no">
+        <name>EXC_LOAD_PAGE_FAULT</name>
+        <initializer>13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="52" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a4097ce0243dd1ed0daa0a73c232e9f4e" prot="public" static="no">
+        <name>EXC_STORE_PAGE_FAULT</name>
+        <initializer>15</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="53" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a02551379f9acab8fcea973ecbc8fcf20" prot="public" static="no">
+        <name>SIE_SSIE</name>
+        <initializer>(0x1 &lt;&lt; <ref refid="csr_8h_1a1f426d6231a15fe1801b3206c712cf76" kindref="member">IRQ_S_SOFT</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="56" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a819d8ea9e98335b93d6120c89dd9458b" prot="public" static="no">
+        <name>SIE_STIE</name>
+        <initializer>(0x1 &lt;&lt; <ref refid="csr_8h_1ac7acfa6b0f632b9cd762a0e0abd1df08" kindref="member">IRQ_S_TIMER</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="57" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a7ca797adbc936cc2e7d7b66a40325e63" prot="public" static="no">
+        <name>SIE_SEIE</name>
+        <initializer>(0x1 &lt;&lt; <ref refid="csr_8h_1aedc582eeff2cc10dcb000c5f08dda3c3" kindref="member">IRQ_S_EXT</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="58" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a431c67f7f0e4b5dbdf2048310ad814e0" prot="public" static="no">
+        <name>SSTATUS_UIE</name>
+        <initializer>(1 &lt;&lt; 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="60" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a1c1f1da0ecfca5bc4fc4db3acadf1bc8" prot="public" static="no">
+        <name>SSTATUS_SIE</name>
+        <initializer>(1 &lt;&lt; 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="61" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a796ad1a8b2314776082e72e13f4a30cf" prot="public" static="no">
+        <name>SSTATUS_UPIE</name>
+        <initializer>(1 &lt;&lt; 4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="62" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a3f9373ba6db2ce5e5c7ea28c2a5b3df9" prot="public" static="no">
+        <name>SSTATUS_SPIE</name>
+        <initializer>(1 &lt;&lt; 5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="63" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a4d0820d6a8b0c5b0fef6875a985d3370" prot="public" static="no">
+        <name>SSTATUS_SPP</name>
+        <initializer>(1 &lt;&lt; 8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="64" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1aff201911cccf15e446c43ba67b0f1aa7" prot="public" static="no">
+        <name>SSTATUS_FS</name>
+        <initializer>(3 &lt;&lt; 13)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="65" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a2abef254823774927e3bf6b029fbad9d" prot="public" static="no">
+        <name>SSTATUS_XS</name>
+        <initializer>(3 &lt;&lt; 15)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="66" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1ac8726a0a74700feb038f6b74dbb3dc0f" prot="public" static="no">
+        <name>SSTATUS_SUM</name>
+        <initializer>(1 &lt;&lt; 18)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="67" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a3387d409543279220628618c0909fe55" prot="public" static="no">
+        <name>SSTATUS_MXR</name>
+        <initializer>(1 &lt;&lt; 19)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="68" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a66d79e7ab75a06dbbd7d7f36d0c1c52a" prot="public" static="no">
+        <name>SSTATUS_UXL</name>
+        <initializer>(3 &lt;&lt; 34)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="69" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a83d7c2db8f3f6518850f2d51c797acdb" prot="public" static="no">
+        <name>SSTATUS_SD</name>
+        <initializer>(1 &lt;&lt; 63)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="70" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a9e9434c8a5b1f157f1a7b800c26321bb" prot="public" static="no">
+        <name>CSR_CYCLE</name>
+        <initializer>0xc00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="72" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a4bbdf33e8b20f4cb020869e7394e388a" prot="public" static="no">
+        <name>CSR_TIME</name>
+        <initializer>0xc01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="73" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a053f87dc2e911eb74a904232a0db20f5" prot="public" static="no">
+        <name>CSR_INSTRET</name>
+        <initializer>0xc02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="74" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a651e65251cc54d4a553702e4cf061ca7" prot="public" static="no">
+        <name>CSR_SSTATUS</name>
+        <initializer>0x100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="75" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1afe9299d8a7d0f21e963ab621a6a5a5cf" prot="public" static="no">
+        <name>CSR_SIE</name>
+        <initializer>0x104</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="76" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1ab1718f56f1c135bcd02a707b7172301b" prot="public" static="no">
+        <name>CSR_STVEC</name>
+        <initializer>0x105</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="77" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1ad07e81e0a35ac378254f2054e538a2b0" prot="public" static="no">
+        <name>CSR_SCOUNTEREN</name>
+        <initializer>0x106</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="78" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a545aa444d12109ef8e961ba29eb3ea54" prot="public" static="no">
+        <name>CSR_SSCRATCH</name>
+        <initializer>0x140</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="79" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a3981cba40ee737a2f7cf4228b2bdbb67" prot="public" static="no">
+        <name>CSR_SEPC</name>
+        <initializer>0x141</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="80" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a49e424a4449b3192d35ca1133e8f5dc2" prot="public" static="no">
+        <name>CSR_SCAUSE</name>
+        <initializer>0x142</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="81" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a705b54eb646ded8aba97f8e39acb9c77" prot="public" static="no">
+        <name>CSR_STVAL</name>
+        <initializer>0x143</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="82" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1ac79e54d601a25a8eed4e0c985fd30315" prot="public" static="no">
+        <name>CSR_SIP</name>
+        <initializer>0x144</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="83" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a93c6593dc41bd45407e263acd870dd6e" prot="public" static="no">
+        <name>CSR_SATP</name>
+        <initializer>0x180</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="84" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1af68e1fabef0868e0d41d8e69ba55cce9" prot="public" static="no">
+        <name>CSR_CYCLEH</name>
+        <initializer>0xc80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="85" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a2e2ce9bac3d1ad2128a4eb9438a1022d" prot="public" static="no">
+        <name>CSR_TIMEH</name>
+        <initializer>0xc81</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="86" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1af1e2e4353b163d307d974806a0031407" prot="public" static="no">
+        <name>CSR_INSTRETH</name>
+        <initializer>0xc82</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="87" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1a50cb52c60a3472620a819765e593f67e" prot="public" static="no">
+        <name>CSR_MHARTID</name>
+        <initializer>0xf14</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="89" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="csr_8h_1ab23f6e5e86405174d4def2085c7ae808" prot="public" static="no">
+        <name>BOOT_STACK_MASTER</name>
+        <initializer>0x80600000</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/csr.h" line="91" column="9" bodyfile="src/arch/riscv/include/asm/csr.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>SPDX-License-Identifier:<sp/>GPL-2.0-only<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(C)<sp/>2015<sp/>Regents<sp/>of<sp/>the<sp/>University<sp/>of<sp/>California</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Status<sp/>register<sp/>flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="csr_8h_1ab3c982c744b9e02798f4023d7ab901bb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_SIE<sp/>0x00000002<sp/><sp/></highlight><highlight class="comment">/*<sp/>Supervisor<sp/>Interrupt<sp/>Enable<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="csr_8h_1af374785f0f372d2e9b78d30c9ffbcb6b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_SPIE<sp/>0x00000020<sp/></highlight><highlight class="comment">/*<sp/>Previous<sp/>Supervisor<sp/>IE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="csr_8h_1a44127f7d87e6f5cfab84eecf77de9146" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_SPP<sp/>0x00000100<sp/><sp/></highlight><highlight class="comment">/*<sp/>Previously<sp/>Supervisor<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="csr_8h_1a74da9fba64fbe4c56536c44e9b33570e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_SUM<sp/>0x00040000<sp/><sp/></highlight><highlight class="comment">/*<sp/>Supervisor<sp/>User<sp/>Memory<sp/>Access<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="csr_8h_1ab5e6db23792b83c5df0e315eb77939b2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_FS<sp/>0x00006000<sp/></highlight><highlight class="comment">/*<sp/>Floating-point<sp/>Status<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="csr_8h_1a246f0715400a46731a45d37c2491629a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_FS_OFF<sp/>0x00000000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="csr_8h_1a95700076440755382e904e143f7214ea" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_FS_INITIAL<sp/>0x00002000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="csr_8h_1ab4a353dc4bffd49915651597fdbaf06a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_FS_CLEAN<sp/>0x00004000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="csr_8h_1a341465beb7d256df6cdc394313056ee3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_FS_DIRTY<sp/>0x00006000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="csr_8h_1acf67ff46d36719be6759f2b46e760e32" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_XS<sp/>0x00018000<sp/></highlight><highlight class="comment">/*<sp/>Extension<sp/>Status<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="csr_8h_1a0328f2a38e312c1ae07a43bccb54aa5c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_XS_OFF<sp/>0x00000000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="csr_8h_1a053ec23a8906287bfcf056dc67a96d3a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_XS_INITIAL<sp/>0x00008000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="csr_8h_1a54ae4f47dd1539dc68fa2b34be9f7895" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_XS_CLEAN<sp/>0x00010000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="csr_8h_1a454e97bf835a53d5855f72e08c5787bc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_XS_DIRTY<sp/>0x00018000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="csr_8h_1a15e2549dcd0128f8f3956a51909144e6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SR_SD<sp/>0x8000000000000000<sp/></highlight><highlight class="comment">/*<sp/>FS/XS<sp/>dirty<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SATP<sp/>flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="csr_8h_1a83401b52ff12b4ba046d974716494a05" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SATP_PPN<sp/>0x00000FFFFFFFFFFF</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="csr_8h_1abe90ababbc031e196e373c27c729ecde" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SATP_MODE_39<sp/>0x8000000000000000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="csr_8h_1a226838ce5d151758cd980f7bddd15f5f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SATP_MODE<sp/>SATP_MODE_39</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SCAUSE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="csr_8h_1a6edeb2e7cf212240df827ea63f12448e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SCAUSE_IRQ_FLAG<sp/>((uint64_t)1<sp/>&lt;&lt;<sp/>63)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="csr_8h_1ad2a50b9af790bee88a134470ecb5e5d6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRQ_U_SOFT<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="csr_8h_1a1f426d6231a15fe1801b3206c712cf76" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRQ_S_SOFT<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="csr_8h_1a02e2db32b33eb8cf23622150ac372200" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRQ_M_SOFT<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="csr_8h_1a304a6d7db641f293f251782f70ec5b97" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRQ_U_TIMER<sp/>4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="csr_8h_1ac7acfa6b0f632b9cd762a0e0abd1df08" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRQ_S_TIMER<sp/>5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="csr_8h_1aa5b87ef0a6024ad69009faff8fd6a9d5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRQ_M_TIMER<sp/>7</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="csr_8h_1a505f81e4c51629f9ffa3f70fccc14caa" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRQ_U_EXT<sp/>8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="csr_8h_1aedc582eeff2cc10dcb000c5f08dda3c3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRQ_S_EXT<sp/>9</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="csr_8h_1a43fba639eb8d7ee37648cc0af12cf59b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>IRQ_M_EXT<sp/>11</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="csr_8h_1a4d8dd50ced627204e5b8612b6de5e8b7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXC_INST_MISALIGNED<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="csr_8h_1a043a039144acfaaad05ca69483ab099b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXC_INST_ACCESS<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="csr_8h_1a99aff0ae890d31fc23169c988a0dbd1f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXC_BREAKPOINT<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="csr_8h_1a92ca4fc0869271a8cd0fd3af792a75f2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXC_LOAD_ACCESS<sp/>5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="csr_8h_1aca2ce8f4d750589087d62f19202146cd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXC_STORE_ACCESS<sp/>7</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="csr_8h_1ab6e3c7c4587ff8dfa1a2241e0066d5dd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXC_SYSCALL<sp/>8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="csr_8h_1a2e63d0b22ee10b12aad7591403773210" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXC_INST_PAGE_FAULT<sp/>12</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="csr_8h_1a7d8913c2b7929e84e7b76ed553cfdf1b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXC_LOAD_PAGE_FAULT<sp/>13</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="csr_8h_1a4097ce0243dd1ed0daa0a73c232e9f4e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXC_STORE_PAGE_FAULT<sp/>15</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>SIE<sp/>(Interrupt<sp/>Enable)<sp/>and<sp/>SIP<sp/>(Interrupt<sp/>Pending)<sp/>flags<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="csr_8h_1a02551379f9acab8fcea973ecbc8fcf20" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SIE_SSIE<sp/>(0x1<sp/>&lt;&lt;<sp/>IRQ_S_SOFT)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="csr_8h_1a819d8ea9e98335b93d6120c89dd9458b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SIE_STIE<sp/>(0x1<sp/>&lt;&lt;<sp/>IRQ_S_TIMER)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="csr_8h_1a7ca797adbc936cc2e7d7b66a40325e63" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SIE_SEIE<sp/>(0x1<sp/>&lt;&lt;<sp/>IRQ_S_EXT)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60" refid="csr_8h_1a431c67f7f0e4b5dbdf2048310ad814e0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_UIE<sp/>(1<sp/>&lt;&lt;<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="csr_8h_1a1c1f1da0ecfca5bc4fc4db3acadf1bc8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_SIE<sp/>(1<sp/>&lt;&lt;<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="csr_8h_1a796ad1a8b2314776082e72e13f4a30cf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_UPIE<sp/>(1<sp/>&lt;&lt;<sp/>4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="csr_8h_1a3f9373ba6db2ce5e5c7ea28c2a5b3df9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_SPIE<sp/>(1<sp/>&lt;&lt;<sp/>5)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="csr_8h_1a4d0820d6a8b0c5b0fef6875a985d3370" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_SPP<sp/>(1<sp/>&lt;&lt;<sp/>8)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="csr_8h_1aff201911cccf15e446c43ba67b0f1aa7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_FS<sp/>(3<sp/>&lt;&lt;<sp/>13)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="csr_8h_1a2abef254823774927e3bf6b029fbad9d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_XS<sp/>(3<sp/>&lt;&lt;<sp/>15)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="csr_8h_1ac8726a0a74700feb038f6b74dbb3dc0f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_SUM<sp/>(1<sp/>&lt;&lt;<sp/>18)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="csr_8h_1a3387d409543279220628618c0909fe55" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_MXR<sp/>(1<sp/>&lt;&lt;<sp/>19)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="csr_8h_1a66d79e7ab75a06dbbd7d7f36d0c1c52a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_UXL<sp/>(3<sp/>&lt;&lt;<sp/>34)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="csr_8h_1a83d7c2db8f3f6518850f2d51c797acdb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_SD<sp/>(1<sp/>&lt;&lt;<sp/>63)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="csr_8h_1a9e9434c8a5b1f157f1a7b800c26321bb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_CYCLE<sp/>0xc00</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="csr_8h_1a4bbdf33e8b20f4cb020869e7394e388a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_TIME<sp/>0xc01</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="csr_8h_1a053f87dc2e911eb74a904232a0db20f5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_INSTRET<sp/>0xc02</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="csr_8h_1a651e65251cc54d4a553702e4cf061ca7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_SSTATUS<sp/>0x100</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="csr_8h_1afe9299d8a7d0f21e963ab621a6a5a5cf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_SIE<sp/>0x104</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="csr_8h_1ab1718f56f1c135bcd02a707b7172301b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_STVEC<sp/>0x105</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="csr_8h_1ad07e81e0a35ac378254f2054e538a2b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_SCOUNTEREN<sp/>0x106</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="csr_8h_1a545aa444d12109ef8e961ba29eb3ea54" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_SSCRATCH<sp/>0x140</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="csr_8h_1a3981cba40ee737a2f7cf4228b2bdbb67" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_SEPC<sp/>0x141</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="csr_8h_1a49e424a4449b3192d35ca1133e8f5dc2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_SCAUSE<sp/>0x142</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="csr_8h_1a705b54eb646ded8aba97f8e39acb9c77" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_STVAL<sp/>0x143</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="csr_8h_1ac79e54d601a25a8eed4e0c985fd30315" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_SIP<sp/>0x144</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="csr_8h_1a93c6593dc41bd45407e263acd870dd6e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_SATP<sp/>0x180</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="csr_8h_1af68e1fabef0868e0d41d8e69ba55cce9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_CYCLEH<sp/>0xc80</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="csr_8h_1a2e2ce9bac3d1ad2128a4eb9438a1022d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_TIMEH<sp/>0xc81</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="csr_8h_1af1e2e4353b163d307d974806a0031407" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_INSTRETH<sp/>0xc82</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="csr_8h_1a50cb52c60a3472620a819765e593f67e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSR_MHARTID<sp/>0xf14</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="csr_8h_1ab23f6e5e86405174d4def2085c7ae808" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BOOT_STACK_MASTER<sp/>0x80600000</highlight></codeline>
+<codeline lineno="92"><highlight class="preprocessor">#define<sp/>BOOT_STACK_SLAVE<sp/>0x805ff000</highlight></codeline>
+    </programlisting>
+    <location file="src/arch/riscv/include/asm/csr.h"/>
+  </compounddef>
+</doxygen>

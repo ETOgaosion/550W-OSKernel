@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/include/os/irq.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('irq_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">irq.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="irq_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef IRQ_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define IRQ_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="types_8h.html">common/types.h</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="pcb_8h.html">os/pcb.h</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="irq_8h.html#a0656ff783d807daeb1e21b8c29b9cfd3">    7</a></span>&#160;<span class="preprocessor">#define PLIC_NR_IRQS 32</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="irq_8h.html#a89026971f404dbdfb80f91b41f7558c5">    8</a></span>&#160;<span class="preprocessor">#define PLIC_NR_CTXS 4</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="irq_8h.html#a2e2bf358c53c278fdff9b5bfba4efd66">    9</a></span>&#160;<span class="preprocessor">#define TIMER_INTERVAL 150000</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">/* ERROR code */</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380">   12</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380">IrqCode</a> {</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a0edd88889933e8582da0f201ebef4090">   13</a></span>&#160;    <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a0edd88889933e8582da0f201ebef4090">IRQC_U_SOFT</a> = 0,</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a94aa7ce8858448ce17e9af0f3baab705">   14</a></span>&#160;    <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a94aa7ce8858448ce17e9af0f3baab705">IRQC_S_SOFT</a> = 1,</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a0e8abd1b20ff164a813242e4b87704e7">   15</a></span>&#160;    <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a0e8abd1b20ff164a813242e4b87704e7">IRQC_M_SOFT</a> = 3,</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380aaf3a2b1d685bce636aa5ed5922eb6ca7">   16</a></span>&#160;    <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380aaf3a2b1d685bce636aa5ed5922eb6ca7">IRQC_U_TIMER</a> = 4,</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a992f577385ca798460c3830e922f00f1">   17</a></span>&#160;    <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a992f577385ca798460c3830e922f00f1">IRQC_S_TIMER</a> = 5,</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a3ae6c13023527d03b9ffc2e03b0a80d9">   18</a></span>&#160;    <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a3ae6c13023527d03b9ffc2e03b0a80d9">IRQC_M_TIMER</a> = 7,</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a24e09896b8a5699dc0b34a697ba9f802">   19</a></span>&#160;    <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a24e09896b8a5699dc0b34a697ba9f802">IRQC_U_EXT</a> = 8,</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a35018308a776e2fa55191d6a5920ab3e">   20</a></span>&#160;    <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a35018308a776e2fa55191d6a5920ab3e">IRQC_S_EXT</a> = 9,</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380aa62f1afd5757df79822e19ab528b6414">   21</a></span>&#160;    <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380aa62f1afd5757df79822e19ab528b6414">IRQC_M_EXT</a> = 11,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a9b352d5814f88a05620d0e0de9dc7d5c">IRQC_COUNT</a></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a9b352d5814f88a05620d0e0de9dc7d5c">   23</a></span>&#160;};</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4">   25</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4">ExcCode</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a2d109da6079c9ea543edd6b5cceba408">   26</a></span>&#160;    <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a2d109da6079c9ea543edd6b5cceba408">EXCC_INST_MISALIGNED</a> = 0,</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a39085c7d13344b8c13b1ed53f4f6c8cd">   27</a></span>&#160;    <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a39085c7d13344b8c13b1ed53f4f6c8cd">EXCC_INST_ACCESS</a> = 1,</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4ab18df30e9f93a4a2dfce21e83f63bf0c">   28</a></span>&#160;    <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4ab18df30e9f93a4a2dfce21e83f63bf0c">EXCC_BREAKPOINT</a> = 3,</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a9ce5f8170011327c993a0899a396ecea">   29</a></span>&#160;    <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a9ce5f8170011327c993a0899a396ecea">EXCC_LOAD_ACCESS</a> = 5,</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4aca1cdc948736777d32e9a44b705f31f0">   30</a></span>&#160;    <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4aca1cdc948736777d32e9a44b705f31f0">EXCC_STORE_ACCESS</a> = 7,</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4ae23b1bef48c6846e03faa67799aba850">   31</a></span>&#160;    <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4ae23b1bef48c6846e03faa67799aba850">EXCC_SYSCALL</a> = 8,</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a8a0e30d13500af3195f1afb68881409a">   32</a></span>&#160;    <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a8a0e30d13500af3195f1afb68881409a">EXCC_INST_PAGE_FAULT</a> = 12,</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a45be00d55b54996ae71ff811f44393ef">   33</a></span>&#160;    <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a45be00d55b54996ae71ff811f44393ef">EXCC_LOAD_PAGE_FAULT</a> = 13,</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a659caea716f716b39c6394c1f7175d43">   34</a></span>&#160;    <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a659caea716f716b39c6394c1f7175d43">EXCC_STORE_PAGE_FAULT</a> = 15,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a73eee780181fe4d5836562fc72e7c080">EXCC_COUNT</a></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a73eee780181fe4d5836562fc72e7c080">   36</a></span>&#160;};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="irq_8h.html#a3e2311e2fd275e62c8f5dd38da16d61f">   38</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="irq_8h.html#a3e2311e2fd275e62c8f5dd38da16d61f">IrqExtCode</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="irq_8h.html#a3e2311e2fd275e62c8f5dd38da16d61faee72e33a24a0011f8c79c7fb948250eb">   39</a></span>&#160;    <a class="code" href="irq_8h.html#a3e2311e2fd275e62c8f5dd38da16d61faee72e33a24a0011f8c79c7fb948250eb">IRQC_EXT_VIRTIO_BLK_IEQ</a> = 1,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="irq_8h.html#a3e2311e2fd275e62c8f5dd38da16d61fa86fb7f0a921b04084a0c02dfbc20ec68">IRQC_EXT_COUNT</a></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="irq_8h.html#a3e2311e2fd275e62c8f5dd38da16d61fa86fb7f0a921b04084a0c02dfbc20ec68">   41</a></span>&#160;};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="irq_8h.html#a0b931bafdc57df2a8c74294d4585ef38">   43</a></span>&#160;<span class="keyword">typedef</span> void (*<a class="code" href="irq_8h.html#a0b931bafdc57df2a8c74294d4585ef38">handler_t</a>)(<a class="code" href="structregs__context.html">regs_context_t</a> *, uint64_t, uint64_t, uint64_t);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#aa6e41eb17a307df20143dfc4aa6a8f6e">k_init_syscall</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#a5dc43942581aa4830113bfcd00fc3949">k_init_exception</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="irq_8h.html#a0eef7212d696278671fe694827d0a131">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#a0eef7212d696278671fe694827d0a131">setup_exception</a>();</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="irq_8h.html#a3665288f90082fad6acfda528f925f35">   49</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#a3665288f90082fad6acfda528f925f35">enable_interrupt</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="irq_8h.html#afa8cac971a125ca0d7cf62261336d550">   50</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#afa8cac971a125ca0d7cf62261336d550">disable_interrupt</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="irq_8h.html#a8382ff036b4917de1fe58da675961c94">   51</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#a8382ff036b4917de1fe58da675961c94">enable_software_interrupt</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="irq_8h.html#ab383228fc2f4127c927408250bbb0439">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#ab383228fc2f4127c927408250bbb0439">disable_software_interrupt</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="irq_8h.html#a07e7f551b290d02b62c4ac78cc74d1b5">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#a07e7f551b290d02b62c4ac78cc74d1b5">enable_timer_interrupt</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="irq_8h.html#ad526d0e7053f3b9a14e70dafd54682c6">   54</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#ad526d0e7053f3b9a14e70dafd54682c6">disable_timer_interrupt</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="irq_8h.html#a88eb032ea6b8ea8a8795003a9af4a5a2">   55</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#a88eb032ea6b8ea8a8795003a9af4a5a2">enable_external_interrupt</a>();</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="irq_8h.html#ac2e14890366d77a14f45d05138aa84e2">   56</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#ac2e14890366d77a14f45d05138aa84e2">disable_external_interrupt</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="irq_8h.html#ad8b09bd6e3a6d263211445a18bcc1bec">   57</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="irq_8h.html#ad8b09bd6e3a6d263211445a18bcc1bec">wfi</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="airq_8h_html_a07e7f551b290d02b62c4ac78cc74d1b5"><div class="ttname"><a href="irq_8h.html#a07e7f551b290d02b62c4ac78cc74d1b5">enable_timer_interrupt</a></div><div class="ttdeci">void enable_timer_interrupt()</div></div>
+<div class="ttc" id="airq_8h_html_a0b931bafdc57df2a8c74294d4585ef38"><div class="ttname"><a href="irq_8h.html#a0b931bafdc57df2a8c74294d4585ef38">handler_t</a></div><div class="ttdeci">void(* handler_t)(regs_context_t *, uint64_t, uint64_t, uint64_t)</div><div class="ttdef"><b>Definition:</b> irq.h:43</div></div>
+<div class="ttc" id="airq_8h_html_a0eef7212d696278671fe694827d0a131"><div class="ttname"><a href="irq_8h.html#a0eef7212d696278671fe694827d0a131">setup_exception</a></div><div class="ttdeci">void setup_exception()</div></div>
+<div class="ttc" id="airq_8h_html_a3665288f90082fad6acfda528f925f35"><div class="ttname"><a href="irq_8h.html#a3665288f90082fad6acfda528f925f35">enable_interrupt</a></div><div class="ttdeci">void enable_interrupt()</div></div>
+<div class="ttc" id="airq_8h_html_a3e2311e2fd275e62c8f5dd38da16d61f"><div class="ttname"><a href="irq_8h.html#a3e2311e2fd275e62c8f5dd38da16d61f">IrqExtCode</a></div><div class="ttdeci">IrqExtCode</div><div class="ttdef"><b>Definition:</b> irq.h:38</div></div>
+<div class="ttc" id="airq_8h_html_a3e2311e2fd275e62c8f5dd38da16d61fa86fb7f0a921b04084a0c02dfbc20ec68"><div class="ttname"><a href="irq_8h.html#a3e2311e2fd275e62c8f5dd38da16d61fa86fb7f0a921b04084a0c02dfbc20ec68">IRQC_EXT_COUNT</a></div><div class="ttdeci">@ IRQC_EXT_COUNT</div><div class="ttdef"><b>Definition:</b> irq.h:40</div></div>
+<div class="ttc" id="airq_8h_html_a3e2311e2fd275e62c8f5dd38da16d61faee72e33a24a0011f8c79c7fb948250eb"><div class="ttname"><a href="irq_8h.html#a3e2311e2fd275e62c8f5dd38da16d61faee72e33a24a0011f8c79c7fb948250eb">IRQC_EXT_VIRTIO_BLK_IEQ</a></div><div class="ttdeci">@ IRQC_EXT_VIRTIO_BLK_IEQ</div><div class="ttdef"><b>Definition:</b> irq.h:39</div></div>
+<div class="ttc" id="airq_8h_html_a5dc43942581aa4830113bfcd00fc3949"><div class="ttname"><a href="irq_8h.html#a5dc43942581aa4830113bfcd00fc3949">k_init_exception</a></div><div class="ttdeci">void k_init_exception()</div><div class="ttdef"><b>Definition:</b> irq.c:226</div></div>
+<div class="ttc" id="airq_8h_html_a8382ff036b4917de1fe58da675961c94"><div class="ttname"><a href="irq_8h.html#a8382ff036b4917de1fe58da675961c94">enable_software_interrupt</a></div><div class="ttdeci">void enable_software_interrupt()</div></div>
+<div class="ttc" id="airq_8h_html_a88eb032ea6b8ea8a8795003a9af4a5a2"><div class="ttname"><a href="irq_8h.html#a88eb032ea6b8ea8a8795003a9af4a5a2">enable_external_interrupt</a></div><div class="ttdeci">void enable_external_interrupt()</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380">IrqCode</a></div><div class="ttdeci">IrqCode</div><div class="ttdef"><b>Definition:</b> irq.h:12</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380a0e8abd1b20ff164a813242e4b87704e7"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a0e8abd1b20ff164a813242e4b87704e7">IRQC_M_SOFT</a></div><div class="ttdeci">@ IRQC_M_SOFT</div><div class="ttdef"><b>Definition:</b> irq.h:15</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380a0edd88889933e8582da0f201ebef4090"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a0edd88889933e8582da0f201ebef4090">IRQC_U_SOFT</a></div><div class="ttdeci">@ IRQC_U_SOFT</div><div class="ttdef"><b>Definition:</b> irq.h:13</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380a24e09896b8a5699dc0b34a697ba9f802"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a24e09896b8a5699dc0b34a697ba9f802">IRQC_U_EXT</a></div><div class="ttdeci">@ IRQC_U_EXT</div><div class="ttdef"><b>Definition:</b> irq.h:19</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380a35018308a776e2fa55191d6a5920ab3e"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a35018308a776e2fa55191d6a5920ab3e">IRQC_S_EXT</a></div><div class="ttdeci">@ IRQC_S_EXT</div><div class="ttdef"><b>Definition:</b> irq.h:20</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380a3ae6c13023527d03b9ffc2e03b0a80d9"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a3ae6c13023527d03b9ffc2e03b0a80d9">IRQC_M_TIMER</a></div><div class="ttdeci">@ IRQC_M_TIMER</div><div class="ttdef"><b>Definition:</b> irq.h:18</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380a94aa7ce8858448ce17e9af0f3baab705"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a94aa7ce8858448ce17e9af0f3baab705">IRQC_S_SOFT</a></div><div class="ttdeci">@ IRQC_S_SOFT</div><div class="ttdef"><b>Definition:</b> irq.h:14</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380a992f577385ca798460c3830e922f00f1"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a992f577385ca798460c3830e922f00f1">IRQC_S_TIMER</a></div><div class="ttdeci">@ IRQC_S_TIMER</div><div class="ttdef"><b>Definition:</b> irq.h:17</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380a9b352d5814f88a05620d0e0de9dc7d5c"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a9b352d5814f88a05620d0e0de9dc7d5c">IRQC_COUNT</a></div><div class="ttdeci">@ IRQC_COUNT</div><div class="ttdef"><b>Definition:</b> irq.h:22</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380aa62f1afd5757df79822e19ab528b6414"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380aa62f1afd5757df79822e19ab528b6414">IRQC_M_EXT</a></div><div class="ttdeci">@ IRQC_M_EXT</div><div class="ttdef"><b>Definition:</b> irq.h:21</div></div>
+<div class="ttc" id="airq_8h_html_a8eed9f51a8fe7cce211d55016fa34380aaf3a2b1d685bce636aa5ed5922eb6ca7"><div class="ttname"><a href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380aaf3a2b1d685bce636aa5ed5922eb6ca7">IRQC_U_TIMER</a></div><div class="ttdeci">@ IRQC_U_TIMER</div><div class="ttdef"><b>Definition:</b> irq.h:16</div></div>
+<div class="ttc" id="airq_8h_html_aa6e41eb17a307df20143dfc4aa6a8f6e"><div class="ttname"><a href="irq_8h.html#aa6e41eb17a307df20143dfc4aa6a8f6e">k_init_syscall</a></div><div class="ttdeci">void k_init_syscall(void)</div><div class="ttdef"><b>Definition:</b> irq.c:22</div></div>
+<div class="ttc" id="airq_8h_html_ab383228fc2f4127c927408250bbb0439"><div class="ttname"><a href="irq_8h.html#ab383228fc2f4127c927408250bbb0439">disable_software_interrupt</a></div><div class="ttdeci">void disable_software_interrupt()</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4">ExcCode</a></div><div class="ttdeci">ExcCode</div><div class="ttdef"><b>Definition:</b> irq.h:25</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4a2d109da6079c9ea543edd6b5cceba408"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a2d109da6079c9ea543edd6b5cceba408">EXCC_INST_MISALIGNED</a></div><div class="ttdeci">@ EXCC_INST_MISALIGNED</div><div class="ttdef"><b>Definition:</b> irq.h:26</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4a39085c7d13344b8c13b1ed53f4f6c8cd"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a39085c7d13344b8c13b1ed53f4f6c8cd">EXCC_INST_ACCESS</a></div><div class="ttdeci">@ EXCC_INST_ACCESS</div><div class="ttdef"><b>Definition:</b> irq.h:27</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4a45be00d55b54996ae71ff811f44393ef"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a45be00d55b54996ae71ff811f44393ef">EXCC_LOAD_PAGE_FAULT</a></div><div class="ttdeci">@ EXCC_LOAD_PAGE_FAULT</div><div class="ttdef"><b>Definition:</b> irq.h:33</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4a659caea716f716b39c6394c1f7175d43"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a659caea716f716b39c6394c1f7175d43">EXCC_STORE_PAGE_FAULT</a></div><div class="ttdeci">@ EXCC_STORE_PAGE_FAULT</div><div class="ttdef"><b>Definition:</b> irq.h:34</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4a73eee780181fe4d5836562fc72e7c080"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a73eee780181fe4d5836562fc72e7c080">EXCC_COUNT</a></div><div class="ttdeci">@ EXCC_COUNT</div><div class="ttdef"><b>Definition:</b> irq.h:35</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4a8a0e30d13500af3195f1afb68881409a"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a8a0e30d13500af3195f1afb68881409a">EXCC_INST_PAGE_FAULT</a></div><div class="ttdeci">@ EXCC_INST_PAGE_FAULT</div><div class="ttdef"><b>Definition:</b> irq.h:32</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4a9ce5f8170011327c993a0899a396ecea"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a9ce5f8170011327c993a0899a396ecea">EXCC_LOAD_ACCESS</a></div><div class="ttdeci">@ EXCC_LOAD_ACCESS</div><div class="ttdef"><b>Definition:</b> irq.h:29</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4ab18df30e9f93a4a2dfce21e83f63bf0c"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4ab18df30e9f93a4a2dfce21e83f63bf0c">EXCC_BREAKPOINT</a></div><div class="ttdeci">@ EXCC_BREAKPOINT</div><div class="ttdef"><b>Definition:</b> irq.h:28</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4aca1cdc948736777d32e9a44b705f31f0"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4aca1cdc948736777d32e9a44b705f31f0">EXCC_STORE_ACCESS</a></div><div class="ttdeci">@ EXCC_STORE_ACCESS</div><div class="ttdef"><b>Definition:</b> irq.h:30</div></div>
+<div class="ttc" id="airq_8h_html_abcc8a7c57cd8becefbfd621dbff5ffd4ae23b1bef48c6846e03faa67799aba850"><div class="ttname"><a href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4ae23b1bef48c6846e03faa67799aba850">EXCC_SYSCALL</a></div><div class="ttdeci">@ EXCC_SYSCALL</div><div class="ttdef"><b>Definition:</b> irq.h:31</div></div>
+<div class="ttc" id="airq_8h_html_ac2e14890366d77a14f45d05138aa84e2"><div class="ttname"><a href="irq_8h.html#ac2e14890366d77a14f45d05138aa84e2">disable_external_interrupt</a></div><div class="ttdeci">void disable_external_interrupt()</div></div>
+<div class="ttc" id="airq_8h_html_ad526d0e7053f3b9a14e70dafd54682c6"><div class="ttname"><a href="irq_8h.html#ad526d0e7053f3b9a14e70dafd54682c6">disable_timer_interrupt</a></div><div class="ttdeci">void disable_timer_interrupt()</div></div>
+<div class="ttc" id="airq_8h_html_ad8b09bd6e3a6d263211445a18bcc1bec"><div class="ttname"><a href="irq_8h.html#ad8b09bd6e3a6d263211445a18bcc1bec">wfi</a></div><div class="ttdeci">void wfi()</div></div>
+<div class="ttc" id="airq_8h_html_afa8cac971a125ca0d7cf62261336d550"><div class="ttname"><a href="irq_8h.html#afa8cac971a125ca0d7cf62261336d550">disable_interrupt</a></div><div class="ttdeci">void disable_interrupt()</div></div>
+<div class="ttc" id="apcb_8h_html"><div class="ttname"><a href="pcb_8h.html">pcb.h</a></div></div>
+<div class="ttc" id="astructregs__context_html"><div class="ttname"><a href="structregs__context.html">regs_context</a></div><div class="ttdef"><b>Definition:</b> context.h:8</div></div>
+<div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_adcb960af7f29dc0d179d1c8c5d4a40a.html">os</a></li><li class="navelem"><a class="el" href="irq_8h.html">irq.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

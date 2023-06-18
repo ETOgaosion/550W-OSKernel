@@ -1,0 +1,2016 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="pcb_8h" kind="file" language="C++">
+    <compoundname>pcb.h</compoundname>
+    <includes refid="context_8h" local="no">asm/context.h</includes>
+    <includes refid="elf_8h" local="no">common/elf.h</includes>
+    <includes refid="list_8h" local="no">lib/list.h</includes>
+    <includes refid="cpu_8h" local="no">os/cpu.h</includes>
+    <includes refid="lock_8h" local="no">os/lock.h</includes>
+    <includes refid="mm_8h" local="no">os/mm.h</includes>
+    <includes refid="sync_8h" local="no">os/sync.h</includes>
+    <includes refid="time_8h" local="no">os/time.h</includes>
+    <includedby refid="stack_8h" local="no">src/arch/riscv/include/asm/stack.h</includedby>
+    <includedby refid="screen_8c" local="no">src/drivers/screen/screen.c</includedby>
+    <includedby refid="virtio__blk_8c" local="no">src/drivers/virtio/virtio_blk.c</includedby>
+    <includedby refid="fd_8c" local="no">src/fs/fd.c</includedby>
+    <includedby refid="fs_8c" local="no">src/fs/fs.c</includedby>
+    <includedby refid="irq_8h" local="no">src/include/os/irq.h</includedby>
+    <includedby refid="smp_8h" local="no">src/include/os/smp.h</includedby>
+    <includedby refid="include_2os_2syscall_8h" local="no">src/include/os/syscall.h</includedby>
+    <includedby refid="main_8c" local="no">src/init/main.c</includedby>
+    <includedby refid="mm_8c" local="no">src/kernel/mm/mm.c</includedby>
+    <includedby refid="lock_8c" local="no">src/kernel/sync/lock.c</includedby>
+    <includedby refid="sync_8c" local="no">src/kernel/sync/sync.c</includedby>
+    <includedby refid="pcb_8c" local="no">src/kernel/sys/pcb.c</includedby>
+    <includedby refid="smp_8c" local="no">src/kernel/sys/smp.c</includedby>
+    <includedby refid="time_8c" local="no">src/kernel/sys/time.c</includedby>
+    <incdepgraph>
+      <node id="6">
+        <label>asm/pgtable.h</label>
+        <link refid="pgtable_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>os/mm.h</label>
+        <link refid="mm_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>common/elf.h</label>
+        <link refid="elf_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="11">
+        <label>os/cpu.h</label>
+        <link refid="cpu_8h"/>
+      </node>
+      <node id="15">
+        <label>os/time.h</label>
+        <link refid="time_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>asm/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>asm/sbidef.h</label>
+        <link refid="sbidef_8h"/>
+      </node>
+      <node id="3">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>asm/sbi.h</label>
+        <link refid="sbi_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/include/os/pcb.h</label>
+        <link refid="pcb_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>os/lock.h</label>
+        <link refid="lock_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>os/sync.h</label>
+        <link refid="sync_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>lib/list.h</label>
+        <link refid="list_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="9">
+        <label>src/fs/fs.c</label>
+        <link refid="fs_8c"/>
+      </node>
+      <node id="20">
+        <label>src/kernel/sync/lock.c</label>
+        <link refid="lock_8c"/>
+      </node>
+      <node id="16">
+        <label>src/drivers/plic/plic.c</label>
+        <link refid="plic_8c"/>
+      </node>
+      <node id="12">
+        <label>src/kernel/sys/smp.c</label>
+        <link refid="smp_8c"/>
+      </node>
+      <node id="6">
+        <label>src/drivers/screen/screen.c</label>
+        <link refid="screen_8c"/>
+      </node>
+      <node id="13">
+        <label>src/lib/printk.c</label>
+        <link refid="printk_8c"/>
+      </node>
+      <node id="21">
+        <label>src/kernel/sync/sync.c</label>
+        <link refid="sync_8c"/>
+      </node>
+      <node id="5">
+        <label>src/kernel/sys/pcb.c</label>
+        <link refid="pcb_8c"/>
+      </node>
+      <node id="19">
+        <label>src/include/os/syscall.h</label>
+        <link refid="include_2os_2syscall_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>src/kernel/sys/time.c</label>
+        <link refid="time_8c"/>
+      </node>
+      <node id="4">
+        <label>src/init/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="11">
+        <label>src/kernel/irq/irq.c</label>
+        <link refid="irq_8c"/>
+      </node>
+      <node id="10">
+        <label>src/include/os/irq.h</label>
+        <link refid="irq_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>src/kernel/mm/mm.c</label>
+        <link refid="mm_8c"/>
+      </node>
+      <node id="15">
+        <label>src/arch/riscv/sbi/io.c</label>
+        <link refid="io_8c"/>
+      </node>
+      <node id="14">
+        <label>src/include/os/smp.h</label>
+        <link refid="smp_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>src/drivers/virtio/virtio_blk.c</label>
+        <link refid="virtio__blk_8c"/>
+      </node>
+      <node id="2">
+        <label>src/arch/riscv/include/asm/stack.h</label>
+        <link refid="stack_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/include/os/pcb.h</label>
+        <link refid="pcb_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>src/fs/fd.c</label>
+        <link refid="fd_8c"/>
+      </node>
+      <node id="3">
+        <label>src/arch/riscv/kernel/init/stack.c</label>
+        <link refid="stack_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structprior" prot="public">prior</innerclass>
+    <innerclass refid="structrusage" prot="public">rusage</innerclass>
+    <innerclass refid="structpcb" prot="public">pcb</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="pcb_8h_1a9bdec823ad2bc9c3dbe8c3c96e3f9637" prot="public" static="no">
+        <name>NUM_MAX_PCB_NAME</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="12" column="9" bodyfile="src/include/os/pcb.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a03193ee70511b814eb5ff595a92b6dd7" prot="public" static="no">
+        <name>NUM_MAX_PROCESS</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="13" column="9" bodyfile="src/include/os/pcb.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1ad907dc7ff26c1a93783a8d9acb32b5d4" prot="public" static="no">
+        <name>NUM_MAX_CHILD</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="14" column="9" bodyfile="src/include/os/pcb.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1ac41e7a5c36c23f03748a8bbac96f4186" prot="public" static="no">
+        <name>NUM_MAX_CHILD_THREADS</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="15" column="9" bodyfile="src/include/os/pcb.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1aa2b9c743d2373fe9432fccc8fd645f78" prot="public" static="no">
+        <name>NUM_MAX_TASK</name>
+        <initializer>(1 + <ref refid="pcb_8h_1ad907dc7ff26c1a93783a8d9acb32b5d4" kindref="member">NUM_MAX_CHILD</ref> + <ref refid="pcb_8h_1ac41e7a5c36c23f03748a8bbac96f4186" kindref="member">NUM_MAX_CHILD_THREADS</ref>) * <ref refid="pcb_8h_1a03193ee70511b814eb5ff595a92b6dd7" kindref="member">NUM_MAX_PROCESS</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="16" column="9" bodyfile="src/include/os/pcb.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1ae832aa43270dd8ab9653406e40ffeeda" prot="public" static="no">
+        <name>NUM_MAX_LOCK</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="17" column="9" bodyfile="src/include/os/pcb.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1ac3ef89870895570461986a7b39b5609a" prot="public" static="no">
+        <name>NUM_MAX_MBOX</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="18" column="9" bodyfile="src/include/os/pcb.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1afa288d86b242c3005425a9c0f1682544" prot="public" static="no">
+        <name>WNOHANG</name>
+        <initializer>0x00000001</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="20" column="9" bodyfile="src/include/os/pcb.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1aecac6945e3b08baa2602557c684d6bfe" prot="public" static="no">
+        <name>WUNTRACED</name>
+        <initializer>0x00000002</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="21" column="9" bodyfile="src/include/os/pcb.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a34c9a2f671a03d4523a4e7d9642f908f" prot="public" static="no">
+        <name>WSTOPPED</name>
+        <initializer><ref refid="pcb_8h_1aecac6945e3b08baa2602557c684d6bfe" kindref="member">WUNTRACED</ref></initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="22" column="9" bodyfile="src/include/os/pcb.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a004990811e046790b928dbc7787ecfaa" prot="public" static="no">
+        <name>WEXITED</name>
+        <initializer>0x00000004</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="23" column="9" bodyfile="src/include/os/pcb.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1afcc090a70f53d677b748f4b1a4b896e6" prot="public" static="no">
+        <name>WCONTINUED</name>
+        <initializer>0x00000008</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="24" column="9" bodyfile="src/include/os/pcb.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a68e8ee6dc7b0115ddc033d974792fa94" prot="public" static="no">
+        <name>WNOWAIT</name>
+        <initializer>0x01000000 /* Don&apos;t reap, just poll status.  */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="25" column="9" bodyfile="src/include/os/pcb.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a69a860b0c285406ef7da344394314fb9" prot="public" static="no">
+        <name>__WNOTHREAD</name>
+        <initializer>0x20000000 /* Don&apos;t wait on children of other threads in this group */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="27" column="9" bodyfile="src/include/os/pcb.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a7fd14a22366abb406582723ffe7b46cb" prot="public" static="no">
+        <name>__WALL</name>
+        <initializer>0x40000000      /* Wait on all children, regardless of <ref refid="fat32_8h_1a1d127017fb298b889f4ba24752d08b8e" kindref="member">type</ref> */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="28" column="9" bodyfile="src/include/os/pcb.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a7b7f0251afca5fe5bdbcc570d4333b97" prot="public" static="no">
+        <name>__WCLONE</name>
+        <initializer>0x80000000    /* Wait only on non-SIGCHLD children */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="29" column="9" bodyfile="src/include/os/pcb.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a330874f181375d361adcea23407de477" prot="public" static="no">
+        <name>PRIO_MIN</name>
+        <initializer>(-20)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="31" column="9" bodyfile="src/include/os/pcb.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a66190d2aecfafef957fa492ce8a8c7f0" prot="public" static="no">
+        <name>PRIO_MAX</name>
+        <initializer>20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="32" column="9" bodyfile="src/include/os/pcb.h" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a5aab1c88012d4b577b034e9291e87419" prot="public" static="no">
+        <name>PRIO_PROCESS</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="34" column="9" bodyfile="src/include/os/pcb.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a9156ecb2854d071998278d63a107a215" prot="public" static="no">
+        <name>PRIO_PGRP</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="35" column="9" bodyfile="src/include/os/pcb.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1aee947842544cb755f74360d1da4aa193" prot="public" static="no">
+        <name>PRIO_USER</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="36" column="9" bodyfile="src/include/os/pcb.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1ae0d79ebfece4e0d1905e40f689a3986a" prot="public" static="no">
+        <name>CSIGNAL</name>
+        <initializer>0x000000ff              /* signal mask to be sent at exit */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="41" column="9" bodyfile="src/include/os/pcb.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1ac07965af2ad895ca67fdc8352303fbb5" prot="public" static="no">
+        <name>CLONE_VM</name>
+        <initializer>0x00000100             /* set if VM shared between processes */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="42" column="9" bodyfile="src/include/os/pcb.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1abf70cffabfa4515feef97f66bae6a5c7" prot="public" static="no">
+        <name>CLONE_FS</name>
+        <initializer>0x00000200             /* set if fs info shared between processes */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="43" column="9" bodyfile="src/include/os/pcb.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1ab062e8c87b92d645f7f4698a36e5b57a" prot="public" static="no">
+        <name>CLONE_FILES</name>
+        <initializer>0x00000400          /* set if open files shared between processes */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="44" column="9" bodyfile="src/include/os/pcb.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a36c57614f62361d9a91c75d2ef1bf854" prot="public" static="no">
+        <name>CLONE_SIGHAND</name>
+        <initializer>0x00000800        /* set if signal handlers and blocked signals shared */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="45" column="9" bodyfile="src/include/os/pcb.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1acc25c67d9c10a8e52067e7c53d15e5ee" prot="public" static="no">
+        <name>CLONE_PIDFD</name>
+        <initializer>0x00001000          /* set if a pidfd should be placed in parent */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="46" column="9" bodyfile="src/include/os/pcb.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a3d840224e4d7734b628800b9906491fe" prot="public" static="no">
+        <name>CLONE_PTRACE</name>
+        <initializer>0x00002000         /* set if we want to let tracing continue on the child too */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="47" column="9" bodyfile="src/include/os/pcb.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1ab197605ca12b5976dac64103a5f6cccc" prot="public" static="no">
+        <name>CLONE_VFORK</name>
+        <initializer>0x00004000          /* set if the parent wants the child to wake it up on mm_release */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="48" column="9" bodyfile="src/include/os/pcb.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a93d70879b6c53ae3475b3241d09c4741" prot="public" static="no">
+        <name>CLONE_PARENT</name>
+        <initializer>0x00008000         /* set if we want to have the same parent as the cloner */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="49" column="9" bodyfile="src/include/os/pcb.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a349a1461dd7321b43878ea9ecd5be8ee" prot="public" static="no">
+        <name>CLONE_THREAD</name>
+        <initializer>0x00010000         /* Same thread group? */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="50" column="9" bodyfile="src/include/os/pcb.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1aab02ccd05c3d9fa806d974e38a8debc4" prot="public" static="no">
+        <name>CLONE_NEWNS</name>
+        <initializer>0x00020000          /* New mount namespace group */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="51" column="9" bodyfile="src/include/os/pcb.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1adf7188a799214c0cc99c30dcc2594b37" prot="public" static="no">
+        <name>CLONE_SYSVSEM</name>
+        <initializer>0x00040000        /* share system V SEM_UNDO semantics */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="52" column="9" bodyfile="src/include/os/pcb.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a977f0a84f5dd94d49fbbc0fa194e26a3" prot="public" static="no">
+        <name>CLONE_SETTLS</name>
+        <initializer>0x00080000         /* create a new TLS for the child */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="53" column="9" bodyfile="src/include/os/pcb.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a1373b97ed9463892bebd97c564905043" prot="public" static="no">
+        <name>CLONE_PARENT_SETTID</name>
+        <initializer>0x00100000  /* set the TID in the parent */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="54" column="9" bodyfile="src/include/os/pcb.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a79914877b533fca7fbdb319640b42add" prot="public" static="no">
+        <name>CLONE_CHILD_CLEARTID</name>
+        <initializer>0x00200000 /* clear the TID in the child */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="55" column="9" bodyfile="src/include/os/pcb.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a4263cd6fbfe5ed33f52e09ef24c6de58" prot="public" static="no">
+        <name>CLONE_DETACHED</name>
+        <initializer>0x00400000       /* Unused, ignored */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="56" column="9" bodyfile="src/include/os/pcb.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a29244834ccba5811ef328921a5e9a482" prot="public" static="no">
+        <name>CLONE_UNTRACED</name>
+        <initializer>0x00800000       /* set if the tracing process can&apos;t force <ref refid="pcb_8h_1a3d840224e4d7734b628800b9906491fe" kindref="member">CLONE_PTRACE</ref> on this <ref refid="pcb_8c_1a6edad7da8809383ab626e5de7e3215a6" kindref="member">clone</ref> */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="57" column="9" bodyfile="src/include/os/pcb.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a816767a2cd31aaac3573d5bd6e32871c" prot="public" static="no">
+        <name>CLONE_CHILD_SETTID</name>
+        <initializer>0x01000000   /* set the TID in the child */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="58" column="9" bodyfile="src/include/os/pcb.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a9d5d88148a26086567c3731e2e5e110a" prot="public" static="no">
+        <name>CLONE_NEWCGROUP</name>
+        <initializer>0x02000000      /* New cgroup namespace */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="59" column="9" bodyfile="src/include/os/pcb.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1afaf1addd4b1e90196d1876896c1a53c3" prot="public" static="no">
+        <name>CLONE_NEWUTS</name>
+        <initializer>0x04000000         /* New utsname namespace */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="60" column="9" bodyfile="src/include/os/pcb.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a1f702bf1b80ed7a8cef30e363a87e3e3" prot="public" static="no">
+        <name>CLONE_NEWIPC</name>
+        <initializer>0x08000000         /* New ipc namespace */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="61" column="9" bodyfile="src/include/os/pcb.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a5d697cae6f0156524a1bd7d77bcf8e87" prot="public" static="no">
+        <name>CLONE_NEWUSER</name>
+        <initializer>0x10000000        /* New user namespace */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="62" column="9" bodyfile="src/include/os/pcb.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a2fa6801173606dd3492ca9061d1c4ad4" prot="public" static="no">
+        <name>CLONE_NEWPID</name>
+        <initializer>0x20000000         /* New pid namespace */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="63" column="9" bodyfile="src/include/os/pcb.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a2ba1673aa7423b46a7bcfa8f68cd2bce" prot="public" static="no">
+        <name>CLONE_NEWNET</name>
+        <initializer>0x40000000         /* New network namespace */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="64" column="9" bodyfile="src/include/os/pcb.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="pcb_8h_1a3e6aada28e7b8090ed425ff96e6ac191" prot="public" static="no">
+        <name>CLONE_IO</name>
+        <initializer>0x80000000             /* Clone io context */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="65" column="9" bodyfile="src/include/os/pcb.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="pcb_8h_1a095fa726e901542e80da596043d07e4b" prot="public" static="no" strong="no">
+        <type></type>
+        <name>task_status</name>
+        <enumvalue id="pcb_8h_1a095fa726e901542e80da596043d07e4ba108284117a3f463352658a08930a3888" prot="public">
+          <name>TASK_BLOCKED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1a095fa726e901542e80da596043d07e4ba9bd2895158d9e7c8cf80b57659fcba50" prot="public">
+          <name>TASK_RUNNING</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1a095fa726e901542e80da596043d07e4baebcd951a6127c3c50a4f197b2b637793" prot="public">
+          <name>TASK_READY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1a095fa726e901542e80da596043d07e4ba64d5f8a2cf37ebdf772858331e82a54a" prot="public">
+          <name>TASK_EXITED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="74" column="1" bodyfile="src/include/os/pcb.h" bodystart="74" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="enum" id="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eab" prot="public" static="no" strong="no">
+        <type></type>
+        <name>task_type</name>
+        <enumvalue id="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eaba1c35119539940167707b99a3368764ac" prot="public">
+          <name>KERNEL_PROCESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eabaac0a40b27514f74f1199a0951116012c" prot="public">
+          <name>KERNEL_THREAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eaba73247b7900083fb57378cfc9ef9a3172" prot="public">
+          <name>USER_PROCESS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eabacde3f46d6fbc48d008dff6af3e00cc11" prot="public">
+          <name>USER_THREAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="81" column="1" bodyfile="src/include/os/pcb.h" bodystart="81" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="enum" id="pcb_8h_1a63b43285903b7693f45e3699209d02ea" prot="public" static="no" strong="no">
+        <type></type>
+        <name>enqueue_way</name>
+        <enumvalue id="pcb_8h_1a63b43285903b7693f45e3699209d02eaa5c6945e962fca284e243730269169d5e" prot="public">
+          <name>ENQUEUE_LIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1a63b43285903b7693f45e3699209d02eaa152a16c77c36dbf44d70dc9d97ede789" prot="public">
+          <name>ENQUEUE_TIMER_LIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="88" column="1" bodyfile="src/include/os/pcb.h" bodystart="88" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="enum" id="pcb_8h_1a9079e92d38879b84401289583ab9ce20" prot="public" static="no" strong="no">
+        <type></type>
+        <name>dequeue_way</name>
+        <enumvalue id="pcb_8h_1a9079e92d38879b84401289583ab9ce20a3f8bf8702ce1a2d7da9a65f6cde82733" prot="public">
+          <name>DEQUEUE_LIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1a9079e92d38879b84401289583ab9ce20a7e62c005c2b4584320643f010988efec" prot="public">
+          <name>DEQUEUE_LIST_STRATEGY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="93" column="1" bodyfile="src/include/os/pcb.h" bodystart="93" bodyend="96"/>
+      </memberdef>
+      <memberdef kind="enum" id="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5e" prot="public" static="no" strong="no">
+        <type></type>
+        <name>unblock_way</name>
+        <enumvalue id="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5eafe90015272c7f1d525d23cc149b123d6" prot="public">
+          <name>UNBLOCK_TO_LIST_FRONT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5ea658485209c0207b8934534bd192f7e0c" prot="public">
+          <name>UNBLOCK_TO_LIST_BACK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5eaad96627c69bfb0c4b0a3aff418353d48" prot="public">
+          <name>UNBLOCK_ONLY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5eae79cd7b408cb9c190ad524869ef00c14" prot="public">
+          <name>UNBLOCK_TO_LIST_STRATEGY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="98" column="1" bodyfile="src/include/os/pcb.h" bodystart="98" bodyend="103"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="pcb_8h_1a5410d43bb81d9e035039cdc3ce2484be" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* void_task) ()</definition>
+        <argsstring>)()</argsstring>
+        <name>void_task</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="67" column="9" bodyfile="src/include/os/pcb.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="pcb_8h_1a928c9bb2819ad38b48980c1a3ec6501f" prot="public" static="no">
+        <type>struct <ref refid="structprior" kindref="compound">prior</ref></type>
+        <definition>typedef struct prior prior_t</definition>
+        <argsstring></argsstring>
+        <name>prior_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="72" column="9"/>
+      </memberdef>
+      <memberdef kind="typedef" id="pcb_8h_1a56d8914e799a3fccc321a984aad22f4b" prot="public" static="no">
+        <type>enum <ref refid="pcb_8h_1a095fa726e901542e80da596043d07e4b" kindref="member">task_status</ref></type>
+        <definition>typedef enum task_status task_status_t</definition>
+        <argsstring></argsstring>
+        <name>task_status_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="79" column="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="pcb_8h_1a02c2160f4d52670dcb8fdd49f0a5ffee" prot="public" static="no">
+        <type>enum <ref refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eab" kindref="member">task_type</ref></type>
+        <definition>typedef enum task_type task_type_t</definition>
+        <argsstring></argsstring>
+        <name>task_type_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="86" column="13"/>
+      </memberdef>
+      <memberdef kind="typedef" id="pcb_8h_1a01980b8e156378d98867d30058688333" prot="public" static="no">
+        <type>enum <ref refid="pcb_8h_1a63b43285903b7693f45e3699209d02ea" kindref="member">enqueue_way</ref></type>
+        <definition>typedef enum enqueue_way enqueue_way_t</definition>
+        <argsstring></argsstring>
+        <name>enqueue_way_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="91" column="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="pcb_8h_1a3b03c501b04f29e13e344d0b3514cfc5" prot="public" static="no">
+        <type>enum <ref refid="pcb_8h_1a9079e92d38879b84401289583ab9ce20" kindref="member">dequeue_way</ref></type>
+        <definition>typedef enum dequeue_way dequeue_way_t</definition>
+        <argsstring></argsstring>
+        <name>dequeue_way_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="96" column="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="pcb_8h_1a44d797e82ea4cda687ee34355a189481" prot="public" static="no">
+        <type>enum <ref refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5e" kindref="member">unblock_way</ref></type>
+        <definition>typedef enum unblock_way unblock_way_t</definition>
+        <argsstring></argsstring>
+        <name>unblock_way_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="103" column="15"/>
+      </memberdef>
+      <memberdef kind="typedef" id="pcb_8h_1a0027cfcb9634c5c6b7e635485f97e249" prot="public" static="no">
+        <type>struct <ref refid="structrusage" kindref="compound">rusage</ref></type>
+        <definition>typedef struct rusage rusage_t</definition>
+        <argsstring></argsstring>
+        <name>rusage_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="122" column="10"/>
+      </memberdef>
+      <memberdef kind="typedef" id="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" prot="public" static="no">
+        <type>struct <ref refid="structpcb" kindref="compound">pcb</ref></type>
+        <definition>typedef struct pcb pcb_t</definition>
+        <argsstring></argsstring>
+        <name>pcb_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="186" column="7"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="pcb_8h_1ad9e2ca7d2b58883e618085a8389b5b91" prot="public" static="no" mutable="no">
+        <type><ref refid="sync_8h_1a5ae9fd101e3be74a3e8fd17058edc515" kindref="member">pcb_mbox_t</ref></type>
+        <definition>pcb_mbox_t pcb_mbox[NUM_MAX_PROCESS]</definition>
+        <argsstring>[NUM_MAX_PROCESS]</argsstring>
+        <name>pcb_mbox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="124" column="19" bodyfile="src/kernel/sync/sync.c" bodystart="16" bodyend="-1" declfile="src/include/os/pcb.h" declline="124" declcolumn="19"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1a83f38b8c9da23021ed61d4031ab5aad3" prot="public" static="no" mutable="no">
+        <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref> *volatile</type>
+        <definition>pcb_t* volatile current_running0</definition>
+        <argsstring></argsstring>
+        <name>current_running0</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="189" column="23" bodyfile="src/kernel/sys/pcb.c" bodystart="15" bodyend="-1" declfile="src/include/os/pcb.h" declline="189" declcolumn="23"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1a5f57f427e7da8049da09de558fc72e2d" prot="public" static="no" mutable="no">
+        <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref> *volatile</type>
+        <definition>pcb_t* volatile current_running1</definition>
+        <argsstring></argsstring>
+        <name>current_running1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="190" column="23" bodyfile="src/kernel/sys/pcb.c" bodystart="16" bodyend="-1" declfile="src/include/os/pcb.h" declline="190" declcolumn="23"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1a775dd48cd2188c627cbdd19b03b37212" prot="public" static="no" mutable="no">
+        <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref> *volatile *volatile</type>
+        <definition>pcb_t* volatile* volatile current_running</definition>
+        <argsstring></argsstring>
+        <name>current_running</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="191" column="32" bodyfile="src/kernel/sys/pcb.c" bodystart="17" bodyend="-1" declfile="src/include/os/pcb.h" declline="191" declcolumn="32"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1a58658ee7ac1edae4ef80e87071be6b3d" prot="public" static="no" mutable="no">
+        <type><ref refid="list_8h_1aa8e63a505e811a76625c05760bb04f7f" kindref="member">list_head</ref></type>
+        <definition>list_head ready_queue</definition>
+        <argsstring></argsstring>
+        <name>ready_queue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="193" column="18" declfile="src/include/os/pcb.h" declline="193" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1a2faf8a6ddc84222929f0f6ef1a192537" prot="public" static="no" mutable="no">
+        <type><ref refid="list_8h_1aa8e63a505e811a76625c05760bb04f7f" kindref="member">list_head</ref></type>
+        <definition>list_head block_queue</definition>
+        <argsstring></argsstring>
+        <name>block_queue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="194" column="18" declfile="src/include/os/pcb.h" declline="194" declcolumn="18"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1ae51cf8adc1996b94136d81150db7f4ea" prot="public" static="no" mutable="no">
+        <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref></type>
+        <definition>pcb_t pcb[NUM_MAX_TASK]</definition>
+        <argsstring>[NUM_MAX_TASK]</argsstring>
+        <name>pcb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="196" column="14" bodyfile="src/kernel/sys/pcb.c" bodystart="22" bodyend="-1" declfile="src/include/os/pcb.h" declline="196" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1ad0430733a8767855b580810743c5fb87" prot="public" static="no" mutable="no">
+        <type>const <ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref></type>
+        <definition>const ptr_t pid0_stack</definition>
+        <argsstring></argsstring>
+        <name>pid0_stack</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="198" column="20" bodyfile="src/kernel/sys/pcb.c" bodystart="24" bodyend="-1" declfile="src/include/os/pcb.h" declline="198" declcolumn="20"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1a2480c4e3f86ff7b2575b89ef69e97355" prot="public" static="no" mutable="no">
+        <type>const <ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref></type>
+        <definition>const ptr_t pid0_stack2</definition>
+        <argsstring></argsstring>
+        <name>pid0_stack2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="199" column="20" bodyfile="src/kernel/sys/pcb.c" bodystart="25" bodyend="-1" declfile="src/include/os/pcb.h" declline="199" declcolumn="20"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1aaefceaf10125be70ceac97d46a4f2bc3" prot="public" static="no" mutable="no">
+        <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref></type>
+        <definition>pcb_t pid0_pcb</definition>
+        <argsstring></argsstring>
+        <name>pid0_pcb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="200" column="14" bodyfile="src/kernel/sys/pcb.c" bodystart="26" bodyend="-1" declfile="src/include/os/pcb.h" declline="200" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1a8176d551abe4fa60c56659184e032ab0" prot="public" static="no" mutable="no">
+        <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref></type>
+        <definition>pcb_t pid0_pcb2</definition>
+        <argsstring></argsstring>
+        <name>pid0_pcb2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="201" column="14" bodyfile="src/kernel/sys/pcb.c" bodystart="27" bodyend="-1" declfile="src/include/os/pcb.h" declline="201" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="variable" id="pcb_8h_1a86b2aece801dbd55da125691aa8b73a7" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+        <definition>pid_t freepid[NUM_MAX_TASK]</definition>
+        <argsstring>[NUM_MAX_TASK]</argsstring>
+        <name>freepid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="203" column="14" bodyfile="src/kernel/sys/pcb.c" bodystart="29" bodyend="-1" declfile="src/include/os/pcb.h" declline="203" declcolumn="14"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="pcb_8h_1af570f8c236ff40f11e384cbe069b87b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_pcb_init</definition>
+        <argsstring>()</argsstring>
+        <name>k_pcb_init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="205" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="123" bodyend="133" declfile="src/include/os/pcb.h" declline="205" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a2c1b41b2da3748be99fc9cba2ffdce7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void switch_to</definition>
+        <argsstring>(pcb_t *prev, pcb_t *next)</argsstring>
+        <name>switch_to</name>
+        <param>
+          <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref> *</type>
+          <declname>prev</declname>
+        </param>
+        <param>
+          <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref> *</type>
+          <declname>next</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="206" column="13" declfile="src/include/os/pcb.h" declline="206" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1ab235dcbe70f00d25d99f6d0bce4ec087" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long k_pcb_scheduler</definition>
+        <argsstring>(void)</argsstring>
+        <name>k_pcb_scheduler</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="207" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="290" bodyend="314" declfile="src/include/os/pcb.h" declline="207" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1ae1882c01875e9da5f9fb2d3dd2b697ec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_pcb_block</definition>
+        <argsstring>(list_head *, list_head *queue, enqueue_way_t way)</argsstring>
+        <name>k_pcb_block</name>
+        <param>
+          <type><ref refid="list_8h_1aa8e63a505e811a76625c05760bb04f7f" kindref="member">list_head</ref> *</type>
+          <declname>pcb_node</declname>
+        </param>
+        <param>
+          <type><ref refid="list_8h_1aa8e63a505e811a76625c05760bb04f7f" kindref="member">list_head</ref> *</type>
+          <declname>queue</declname>
+        </param>
+        <param>
+          <type><ref refid="pcb_8h_1a01980b8e156378d98867d30058688333" kindref="member">enqueue_way_t</ref></type>
+          <declname>way</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="208" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="320" bodyend="323" declfile="src/include/os/pcb.h" declline="208" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a0fe9ee993da3488530422db97ff3728a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_pcb_unblock</definition>
+        <argsstring>(list_head *, list_head *, unblock_way_t way)</argsstring>
+        <name>k_pcb_unblock</name>
+        <param>
+          <type><ref refid="list_8h_1aa8e63a505e811a76625c05760bb04f7f" kindref="member">list_head</ref> *</type>
+          <declname>from_queue</declname>
+        </param>
+        <param>
+          <type><ref refid="list_8h_1aa8e63a505e811a76625c05760bb04f7f" kindref="member">list_head</ref> *</type>
+          <declname>to_queue</declname>
+        </param>
+        <param>
+          <type><ref refid="pcb_8h_1a44d797e82ea4cda687ee34355a189481" kindref="member">unblock_way_t</ref></type>
+          <declname>way</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="209" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="325" bodyend="348" declfile="src/include/os/pcb.h" declline="209" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a4b625fcec2c1e98ec22be164cd02315c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long k_pcb_getpid</definition>
+        <argsstring>(void)</argsstring>
+        <name>k_pcb_getpid</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="210" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="702" bodyend="704" declfile="src/include/os/pcb.h" declline="210" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a5111ec3b899498d5951050cd72bfe21b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_pcb_sleep</definition>
+        <argsstring>(void *chan, spin_lock_t *lk)</argsstring>
+        <name>k_pcb_sleep</name>
+        <param>
+          <type>void *</type>
+          <declname>chan</declname>
+        </param>
+        <param>
+          <type><ref refid="lock_8h_1a78e3055bd891f045188756c613a5ad92" kindref="member">spin_lock_t</ref> *</type>
+          <declname>lk</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="211" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="724" bodyend="731" declfile="src/include/os/pcb.h" declline="211" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a2d546871750b175deb1f3c0279c64e3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_pcb_wakeup</definition>
+        <argsstring>(void *chan)</argsstring>
+        <name>k_pcb_wakeup</name>
+        <param>
+          <type>void *</type>
+          <declname>chan</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="212" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="733" bodyend="739" declfile="src/include/os/pcb.h" declline="212" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1aa38a6ba4849edd0e34a225dbb2975f94" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_sched_yield</definition>
+        <argsstring>(void)</argsstring>
+        <name>sys_sched_yield</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="214" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="316" bodyend="318" declfile="src/include/os/pcb.h" declline="214" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a85b5fc5efbbb65668438fecad67c06e4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_nanosleep</definition>
+        <argsstring>(nanotime_val_t *rqtp, nanotime_val_t *rmtp)</argsstring>
+        <name>sys_nanosleep</name>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>rqtp</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>rmtp</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="215" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="263" bodyend="271" declfile="src/include/os/pcb.h" declline="215" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a5a2119b4304437c4e3aff0e8c7484b1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_spawn</definition>
+        <argsstring>(const char *file_name)</argsstring>
+        <name>sys_spawn</name>
+        <param>
+          <type>const char *</type>
+          <declname>file_name</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="216" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="404" bodyend="410" declfile="src/include/os/pcb.h" declline="216" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a87598ed5f2025ad83a009b186aa28f93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_fork</definition>
+        <argsstring>(void)</argsstring>
+        <name>sys_fork</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="217" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="412" bodyend="440" declfile="src/include/os/pcb.h" declline="217" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a6f26d791d6f69063f9ea40becd52e9f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_exec</definition>
+        <argsstring>(const char *file_name, const char *argv[], const char *envp[])</argsstring>
+        <name>sys_exec</name>
+        <param>
+          <type>const char *</type>
+          <declname>file_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>envp</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="218" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="634" bodyend="636" declfile="src/include/os/pcb.h" declline="218" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1ae34299981375e7a3b8f691b4137a8213" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_execve</definition>
+        <argsstring>(const char *file_name, const char *argv[], const char *envp[])</argsstring>
+        <name>sys_execve</name>
+        <param>
+          <type>const char *</type>
+          <declname>file_name</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>envp</declname>
+          <array>[]</array>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="219" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="638" bodyend="645" declfile="src/include/os/pcb.h" declline="219" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1afe960c5f4c95cd9efa9f058741d089fa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_clone</definition>
+        <argsstring>(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t *child_tid)</argsstring>
+        <name>sys_clone</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>stack</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref> *</type>
+          <declname>parent_tid</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>tls</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref> *</type>
+          <declname>child_tid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="220" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="698" bodyend="700" declfile="src/include/os/pcb.h" declline="220" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1ab6bb3d2baf7ab70bf6e832bba98c5e31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_kill</definition>
+        <argsstring>(pid_t pid)</argsstring>
+        <name>sys_kill</name>
+        <param>
+          <type><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+          <declname>pid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="221" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="479" bodyend="489" declfile="src/include/os/pcb.h" declline="221" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1aa97ee001038378e557b20535e2347aed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_exit</definition>
+        <argsstring>(int error_code)</argsstring>
+        <name>sys_exit</name>
+        <param>
+          <type>int</type>
+          <declname>error_code</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="222" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="491" bodyend="506" declfile="src/include/os/pcb.h" declline="222" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a5ac8dc14c787aa11829c507e87c9b908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_wait4</definition>
+        <argsstring>(pid_t pid, int *stat_addr, int options, rusage_t *ru)</argsstring>
+        <name>sys_wait4</name>
+        <param>
+          <type><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+          <declname>pid</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>stat_addr</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>options</declname>
+        </param>
+        <param>
+          <type><ref refid="pcb_8h_1a0027cfcb9634c5c6b7e635485f97e249" kindref="member">rusage_t</ref> *</type>
+          <declname>ru</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="223" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="508" bodyend="548" declfile="src/include/os/pcb.h" declline="223" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a70451e498144bba3b0eda268e137e3e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_process_show</definition>
+        <argsstring>()</argsstring>
+        <name>sys_process_show</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="224" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="550" bodyend="602" declfile="src/include/os/pcb.h" declline="224" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a37c9544a2403eb490c70ddb6d9126030" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_setpriority</definition>
+        <argsstring>(int which, int who, int niceval)</argsstring>
+        <name>sys_setpriority</name>
+        <param>
+          <type>int</type>
+          <declname>which</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>who</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>niceval</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="225" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="135" bodyend="162" declfile="src/include/os/pcb.h" declline="225" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a762a6d6fd8537d9842e21faa0972abb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_getpriority</definition>
+        <argsstring>(int which, int who)</argsstring>
+        <name>sys_getpriority</name>
+        <param>
+          <type>int</type>
+          <declname>which</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>who</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="226" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="164" bodyend="166" declfile="src/include/os/pcb.h" declline="226" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a3f6f6baa9b4585982911245d81a8aac8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_getpid</definition>
+        <argsstring>(void)</argsstring>
+        <name>sys_getpid</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>[SYSCALL] getpid: get current task process id </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>long </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="227" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="711" bodyend="713" declfile="src/include/os/pcb.h" declline="227" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1ab35efd726514d8af8695b21b061f9b6d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_getppid</definition>
+        <argsstring>(void)</argsstring>
+        <name>sys_getppid</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>[SYSCALL] getppid: get parent of current task pid </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>long </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="228" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="720" bodyend="722" declfile="src/include/os/pcb.h" declline="228" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a4f073b476c8bdff4947b84817ed4582c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_sched_setaffinity</definition>
+        <argsstring>(pid_t pid, unsigned int len, const uint8_t *user_mask_ptr)</argsstring>
+        <name>sys_sched_setaffinity</name>
+        <param>
+          <type><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+          <declname>pid</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>user_mask_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="229" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="350" bodyend="362" declfile="src/include/os/pcb.h" declline="229" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="pcb_8h_1a172a2eb43df307e23df85372199a4cda" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_sched_getaffinity</definition>
+        <argsstring>(pid_t pid, unsigned int len, uint8_t *user_mask_ptr)</argsstring>
+        <name>sys_sched_getaffinity</name>
+        <param>
+          <type><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+          <declname>pid</declname>
+        </param>
+        <param>
+          <type>unsigned int</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>user_mask_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/pcb.h" line="230" column="6" bodyfile="src/kernel/sys/pcb.c" bodystart="364" bodyend="376" declfile="src/include/os/pcb.h" declline="230" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="context_8h" kindref="compound">asm/context.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="elf_8h" kindref="compound">common/elf.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="list_8h" kindref="compound">lib/list.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="cpu_8h" kindref="compound">os/cpu.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="lock_8h" kindref="compound">os/lock.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="mm_8h" kindref="compound">os/mm.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="sync_8h" kindref="compound">os/sync.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="time_8h" kindref="compound">os/time.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="pcb_8h_1a9bdec823ad2bc9c3dbe8c3c96e3f9637" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUM_MAX_PCB_NAME<sp/>20</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="pcb_8h_1a03193ee70511b814eb5ff595a92b6dd7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUM_MAX_PROCESS<sp/>16</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="pcb_8h_1ad907dc7ff26c1a93783a8d9acb32b5d4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUM_MAX_CHILD<sp/>5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="pcb_8h_1ac41e7a5c36c23f03748a8bbac96f4186" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUM_MAX_CHILD_THREADS<sp/>5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="pcb_8h_1aa2b9c743d2373fe9432fccc8fd645f78" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUM_MAX_TASK<sp/>(1<sp/>+<sp/>NUM_MAX_CHILD<sp/>+<sp/>NUM_MAX_CHILD_THREADS)<sp/>*<sp/>NUM_MAX_PROCESS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="pcb_8h_1ae832aa43270dd8ab9653406e40ffeeda" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUM_MAX_LOCK<sp/>16</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="pcb_8h_1ac3ef89870895570461986a7b39b5609a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NUM_MAX_MBOX<sp/>16</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="pcb_8h_1afa288d86b242c3005425a9c0f1682544" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WNOHANG<sp/>0x00000001</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="pcb_8h_1aecac6945e3b08baa2602557c684d6bfe" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WUNTRACED<sp/>0x00000002</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="pcb_8h_1a34c9a2f671a03d4523a4e7d9642f908f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WSTOPPED<sp/>WUNTRACED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="pcb_8h_1a004990811e046790b928dbc7787ecfaa" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WEXITED<sp/>0x00000004</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="pcb_8h_1afcc090a70f53d677b748f4b1a4b896e6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WCONTINUED<sp/>0x00000008</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="pcb_8h_1a68e8ee6dc7b0115ddc033d974792fa94" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WNOWAIT<sp/>0x01000000<sp/></highlight><highlight class="comment">/*<sp/>Don&apos;t<sp/>reap,<sp/>just<sp/>poll<sp/>status.<sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="pcb_8h_1a69a860b0c285406ef7da344394314fb9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>__WNOTHREAD<sp/>0x20000000<sp/></highlight><highlight class="comment">/*<sp/>Don&apos;t<sp/>wait<sp/>on<sp/>children<sp/>of<sp/>other<sp/>threads<sp/>in<sp/>this<sp/>group<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="pcb_8h_1a7fd14a22366abb406582723ffe7b46cb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>__WALL<sp/>0x40000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>on<sp/>all<sp/>children,<sp/>regardless<sp/>of<sp/>type<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="pcb_8h_1a7b7f0251afca5fe5bdbcc570d4333b97" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>__WCLONE<sp/>0x80000000<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>only<sp/>on<sp/>non-SIGCHLD<sp/>children<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="pcb_8h_1a330874f181375d361adcea23407de477" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PRIO_MIN<sp/>(-20)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32" refid="pcb_8h_1a66190d2aecfafef957fa492ce8a8c7f0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PRIO_MAX<sp/>20</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="pcb_8h_1a5aab1c88012d4b577b034e9291e87419" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PRIO_PROCESS<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="pcb_8h_1a9156ecb2854d071998278d63a107a215" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PRIO_PGRP<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="pcb_8h_1aee947842544cb755f74360d1da4aa193" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PRIO_USER<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="39"><highlight class="comment"><sp/>*<sp/>cloning<sp/>flags:</highlight></codeline>
+<codeline lineno="40"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="pcb_8h_1ae0d79ebfece4e0d1905e40f689a3986a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CSIGNAL<sp/>0x000000ff<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>signal<sp/>mask<sp/>to<sp/>be<sp/>sent<sp/>at<sp/>exit<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="pcb_8h_1ac07965af2ad895ca67fdc8352303fbb5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_VM<sp/>0x00000100<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>if<sp/>VM<sp/>shared<sp/>between<sp/>processes<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="pcb_8h_1abf70cffabfa4515feef97f66bae6a5c7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_FS<sp/>0x00000200<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>if<sp/>fs<sp/>info<sp/>shared<sp/>between<sp/>processes<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="pcb_8h_1ab062e8c87b92d645f7f4698a36e5b57a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_FILES<sp/>0x00000400<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>if<sp/>open<sp/>files<sp/>shared<sp/>between<sp/>processes<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="pcb_8h_1a36c57614f62361d9a91c75d2ef1bf854" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_SIGHAND<sp/>0x00000800<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>if<sp/>signal<sp/>handlers<sp/>and<sp/>blocked<sp/>signals<sp/>shared<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="pcb_8h_1acc25c67d9c10a8e52067e7c53d15e5ee" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_PIDFD<sp/>0x00001000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>if<sp/>a<sp/>pidfd<sp/>should<sp/>be<sp/>placed<sp/>in<sp/>parent<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="pcb_8h_1a3d840224e4d7734b628800b9906491fe" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_PTRACE<sp/>0x00002000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>if<sp/>we<sp/>want<sp/>to<sp/>let<sp/>tracing<sp/>continue<sp/>on<sp/>the<sp/>child<sp/>too<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="pcb_8h_1ab197605ca12b5976dac64103a5f6cccc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_VFORK<sp/>0x00004000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>if<sp/>the<sp/>parent<sp/>wants<sp/>the<sp/>child<sp/>to<sp/>wake<sp/>it<sp/>up<sp/>on<sp/>mm_release<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="pcb_8h_1a93d70879b6c53ae3475b3241d09c4741" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_PARENT<sp/>0x00008000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>if<sp/>we<sp/>want<sp/>to<sp/>have<sp/>the<sp/>same<sp/>parent<sp/>as<sp/>the<sp/>cloner<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="pcb_8h_1a349a1461dd7321b43878ea9ecd5be8ee" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_THREAD<sp/>0x00010000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Same<sp/>thread<sp/>group?<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="pcb_8h_1aab02ccd05c3d9fa806d974e38a8debc4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_NEWNS<sp/>0x00020000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>New<sp/>mount<sp/>namespace<sp/>group<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="pcb_8h_1adf7188a799214c0cc99c30dcc2594b37" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_SYSVSEM<sp/>0x00040000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>share<sp/>system<sp/>V<sp/>SEM_UNDO<sp/>semantics<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="pcb_8h_1a977f0a84f5dd94d49fbbc0fa194e26a3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_SETTLS<sp/>0x00080000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>create<sp/>a<sp/>new<sp/>TLS<sp/>for<sp/>the<sp/>child<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="pcb_8h_1a1373b97ed9463892bebd97c564905043" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_PARENT_SETTID<sp/>0x00100000<sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>the<sp/>TID<sp/>in<sp/>the<sp/>parent<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="pcb_8h_1a79914877b533fca7fbdb319640b42add" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_CHILD_CLEARTID<sp/>0x00200000<sp/></highlight><highlight class="comment">/*<sp/>clear<sp/>the<sp/>TID<sp/>in<sp/>the<sp/>child<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="pcb_8h_1a4263cd6fbfe5ed33f52e09ef24c6de58" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_DETACHED<sp/>0x00400000<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Unused,<sp/>ignored<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="pcb_8h_1a29244834ccba5811ef328921a5e9a482" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_UNTRACED<sp/>0x00800000<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>if<sp/>the<sp/>tracing<sp/>process<sp/>can&apos;t<sp/>force<sp/>CLONE_PTRACE<sp/>on<sp/>this<sp/>clone<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="pcb_8h_1a816767a2cd31aaac3573d5bd6e32871c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_CHILD_SETTID<sp/>0x01000000<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>set<sp/>the<sp/>TID<sp/>in<sp/>the<sp/>child<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="pcb_8h_1a9d5d88148a26086567c3731e2e5e110a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_NEWCGROUP<sp/>0x02000000<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>New<sp/>cgroup<sp/>namespace<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60" refid="pcb_8h_1afaf1addd4b1e90196d1876896c1a53c3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_NEWUTS<sp/>0x04000000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>New<sp/>utsname<sp/>namespace<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="pcb_8h_1a1f702bf1b80ed7a8cef30e363a87e3e3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_NEWIPC<sp/>0x08000000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>New<sp/>ipc<sp/>namespace<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="pcb_8h_1a5d697cae6f0156524a1bd7d77bcf8e87" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_NEWUSER<sp/>0x10000000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>New<sp/>user<sp/>namespace<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="pcb_8h_1a2fa6801173606dd3492ca9061d1c4ad4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_NEWPID<sp/>0x20000000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>New<sp/>pid<sp/>namespace<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="pcb_8h_1a2ba1673aa7423b46a7bcfa8f68cd2bce" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_NEWNET<sp/>0x40000000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>New<sp/>network<sp/>namespace<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="pcb_8h_1a3e6aada28e7b8090ed425ff96e6ac191" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CLONE_IO<sp/>0x80000000<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Clone<sp/>io<sp/>context<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="pcb_8h_1a5410d43bb81d9e035039cdc3ce2484be" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="pcb_8h_1a5410d43bb81d9e035039cdc3ce2484be" kindref="member">void_task</ref>)();</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="structprior" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structprior" kindref="compound">prior</ref><sp/>{</highlight></codeline>
+<codeline lineno="70" refid="structprior_1a69e9b33fe0a6940f13a8dc846a048791" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structprior_1a69e9b33fe0a6940f13a8dc846a048791" kindref="member">priority</ref>;</highlight></codeline>
+<codeline lineno="71" refid="structprior_1ab970c35de8e877613777afe6b8568f55" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/><ref refid="structprior_1ab970c35de8e877613777afe6b8568f55" kindref="member">last_sched_time</ref>;</highlight></codeline>
+<codeline lineno="72" refid="pcb_8h_1a928c9bb2819ad38b48980c1a3ec6501f" refkind="member"><highlight class="normal">}<sp/><ref refid="pcb_8h_1a928c9bb2819ad38b48980c1a3ec6501f" kindref="member">prior_t</ref>;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="pcb_8h_1a095fa726e901542e80da596043d07e4b" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a095fa726e901542e80da596043d07e4b" kindref="member">task_status</ref><sp/>{</highlight></codeline>
+<codeline lineno="75" refid="pcb_8h_1a095fa726e901542e80da596043d07e4ba108284117a3f463352658a08930a3888" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a095fa726e901542e80da596043d07e4ba108284117a3f463352658a08930a3888" kindref="member">TASK_BLOCKED</ref>,</highlight></codeline>
+<codeline lineno="76" refid="pcb_8h_1a095fa726e901542e80da596043d07e4ba9bd2895158d9e7c8cf80b57659fcba50" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a095fa726e901542e80da596043d07e4ba9bd2895158d9e7c8cf80b57659fcba50" kindref="member">TASK_RUNNING</ref>,</highlight></codeline>
+<codeline lineno="77" refid="pcb_8h_1a095fa726e901542e80da596043d07e4baebcd951a6127c3c50a4f197b2b637793" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a095fa726e901542e80da596043d07e4baebcd951a6127c3c50a4f197b2b637793" kindref="member">TASK_READY</ref>,</highlight></codeline>
+<codeline lineno="78" refid="pcb_8h_1a095fa726e901542e80da596043d07e4ba64d5f8a2cf37ebdf772858331e82a54a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a095fa726e901542e80da596043d07e4ba64d5f8a2cf37ebdf772858331e82a54a" kindref="member">TASK_EXITED</ref>,</highlight></codeline>
+<codeline lineno="79" refid="pcb_8h_1a56d8914e799a3fccc321a984aad22f4b" refkind="member"><highlight class="normal">}<sp/><ref refid="pcb_8h_1a56d8914e799a3fccc321a984aad22f4b" kindref="member">task_status_t</ref>;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eab" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eab" kindref="member">task_type</ref><sp/>{</highlight></codeline>
+<codeline lineno="82" refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eaba1c35119539940167707b99a3368764ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eaba1c35119539940167707b99a3368764ac" kindref="member">KERNEL_PROCESS</ref>,</highlight></codeline>
+<codeline lineno="83" refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eabaac0a40b27514f74f1199a0951116012c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eabaac0a40b27514f74f1199a0951116012c" kindref="member">KERNEL_THREAD</ref>,</highlight></codeline>
+<codeline lineno="84" refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eaba73247b7900083fb57378cfc9ef9a3172" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eaba73247b7900083fb57378cfc9ef9a3172" kindref="member">USER_PROCESS</ref>,</highlight></codeline>
+<codeline lineno="85" refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eabacde3f46d6fbc48d008dff6af3e00cc11" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1ab8d9e3d1f9fdf95a31d7b4ce32768eabacde3f46d6fbc48d008dff6af3e00cc11" kindref="member">USER_THREAD</ref>,</highlight></codeline>
+<codeline lineno="86" refid="pcb_8h_1a02c2160f4d52670dcb8fdd49f0a5ffee" refkind="member"><highlight class="normal">}<sp/><ref refid="pcb_8h_1a02c2160f4d52670dcb8fdd49f0a5ffee" kindref="member">task_type_t</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="pcb_8h_1a63b43285903b7693f45e3699209d02ea" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a63b43285903b7693f45e3699209d02ea" kindref="member">enqueue_way</ref><sp/>{</highlight></codeline>
+<codeline lineno="89" refid="pcb_8h_1a63b43285903b7693f45e3699209d02eaa5c6945e962fca284e243730269169d5e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a63b43285903b7693f45e3699209d02eaa5c6945e962fca284e243730269169d5e" kindref="member">ENQUEUE_LIST</ref>,</highlight></codeline>
+<codeline lineno="90" refid="pcb_8h_1a63b43285903b7693f45e3699209d02eaa152a16c77c36dbf44d70dc9d97ede789" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a63b43285903b7693f45e3699209d02eaa152a16c77c36dbf44d70dc9d97ede789" kindref="member">ENQUEUE_TIMER_LIST</ref>,</highlight></codeline>
+<codeline lineno="91" refid="pcb_8h_1a01980b8e156378d98867d30058688333" refkind="member"><highlight class="normal">}<sp/><ref refid="pcb_8h_1a01980b8e156378d98867d30058688333" kindref="member">enqueue_way_t</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="pcb_8h_1a9079e92d38879b84401289583ab9ce20" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a9079e92d38879b84401289583ab9ce20" kindref="member">dequeue_way</ref><sp/>{</highlight></codeline>
+<codeline lineno="94" refid="pcb_8h_1a9079e92d38879b84401289583ab9ce20a3f8bf8702ce1a2d7da9a65f6cde82733" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a9079e92d38879b84401289583ab9ce20a3f8bf8702ce1a2d7da9a65f6cde82733" kindref="member">DEQUEUE_LIST</ref>,</highlight></codeline>
+<codeline lineno="95" refid="pcb_8h_1a9079e92d38879b84401289583ab9ce20a7e62c005c2b4584320643f010988efec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a9079e92d38879b84401289583ab9ce20a7e62c005c2b4584320643f010988efec" kindref="member">DEQUEUE_LIST_STRATEGY</ref>,</highlight></codeline>
+<codeline lineno="96" refid="pcb_8h_1a3b03c501b04f29e13e344d0b3514cfc5" refkind="member"><highlight class="normal">}<sp/><ref refid="pcb_8h_1a3b03c501b04f29e13e344d0b3514cfc5" kindref="member">dequeue_way_t</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98" refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5e" kindref="member">unblock_way</ref><sp/>{</highlight></codeline>
+<codeline lineno="99" refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5eafe90015272c7f1d525d23cc149b123d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5eafe90015272c7f1d525d23cc149b123d6" kindref="member">UNBLOCK_TO_LIST_FRONT</ref>,</highlight></codeline>
+<codeline lineno="100" refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5ea658485209c0207b8934534bd192f7e0c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5ea658485209c0207b8934534bd192f7e0c" kindref="member">UNBLOCK_TO_LIST_BACK</ref>,</highlight></codeline>
+<codeline lineno="101" refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5eaad96627c69bfb0c4b0a3aff418353d48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5eaad96627c69bfb0c4b0a3aff418353d48" kindref="member">UNBLOCK_ONLY</ref>,</highlight></codeline>
+<codeline lineno="102" refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5eae79cd7b408cb9c190ad524869ef00c14" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a88409d37561d84ec48058b9f84bb3d5eae79cd7b408cb9c190ad524869ef00c14" kindref="member">UNBLOCK_TO_LIST_STRATEGY</ref>,</highlight></codeline>
+<codeline lineno="103" refid="pcb_8h_1a44d797e82ea4cda687ee34355a189481" refkind="member"><highlight class="normal">}<sp/><ref refid="pcb_8h_1a44d797e82ea4cda687ee34355a189481" kindref="member">unblock_way_t</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="structrusage" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structrusage" kindref="compound">rusage</ref><sp/>{</highlight></codeline>
+<codeline lineno="106" refid="structrusage_1a20e49fe541031dd1fb3abb08c299745c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1a7dd29374115d5c9b3750fbbf9a325963" kindref="member">__kernel_timeval_t</ref><sp/><ref refid="structrusage_1a20e49fe541031dd1fb3abb08c299745c" kindref="member">ru_utime</ref>;<sp/></highlight><highlight class="comment">/*<sp/>user<sp/>time<sp/>used<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="structrusage_1aa060da934655b8e0330fd29bc2130956" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1a7dd29374115d5c9b3750fbbf9a325963" kindref="member">__kernel_timeval_t</ref><sp/><ref refid="structrusage_1aa060da934655b8e0330fd29bc2130956" kindref="member">ru_stime</ref>;<sp/></highlight><highlight class="comment">/*<sp/>system<sp/>time<sp/>used<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="structrusage_1afec02a5f725f616a6e88f13e51e8584c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1afec02a5f725f616a6e88f13e51e8584c" kindref="member">ru_maxrss</ref>;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>maximum<sp/>resident<sp/>set<sp/>size<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="structrusage_1a9982dce21c3f163d2e7af8ffa62114fc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a9982dce21c3f163d2e7af8ffa62114fc" kindref="member">ru_ixrss</ref>;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>integral<sp/>shared<sp/>memory<sp/>size<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="structrusage_1a32d88159fc531e248707b0cce4b2282d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a32d88159fc531e248707b0cce4b2282d" kindref="member">ru_idrss</ref>;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>integral<sp/>unshared<sp/>data<sp/>size<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="structrusage_1a375a1d6db120bcad8ea45f9b66a51689" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a375a1d6db120bcad8ea45f9b66a51689" kindref="member">ru_isrss</ref>;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>integral<sp/>unshared<sp/>stack<sp/>size<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="structrusage_1a420471466dce1cbd22776b8dd424a4f2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a420471466dce1cbd22776b8dd424a4f2" kindref="member">ru_minflt</ref>;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>page<sp/>reclaims<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="structrusage_1a95b04c721fa92bbef705d18ae9abb109" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a95b04c721fa92bbef705d18ae9abb109" kindref="member">ru_majflt</ref>;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>page<sp/>faults<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="structrusage_1a336e9bd6e1ccf18f34448f26424ba2cd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a336e9bd6e1ccf18f34448f26424ba2cd" kindref="member">ru_nswap</ref>;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>swaps<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="structrusage_1a10fed9a9d83f45cee32c003fcfa7062b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a10fed9a9d83f45cee32c003fcfa7062b" kindref="member">ru_inblock</ref>;<sp/><sp/></highlight><highlight class="comment">/*<sp/>block<sp/>input<sp/>operations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="structrusage_1ac24f6506962e272c8c75b872e739c2ae" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1ac24f6506962e272c8c75b872e739c2ae" kindref="member">ru_oublock</ref>;<sp/><sp/></highlight><highlight class="comment">/*<sp/>block<sp/>output<sp/>operations<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="structrusage_1a4933639bb74365bd29e8e0842b4ef000" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a4933639bb74365bd29e8e0842b4ef000" kindref="member">ru_msgsnd</ref>;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>messages<sp/>sent<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="structrusage_1a8bba3780411a23060a65632e58baa80f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a8bba3780411a23060a65632e58baa80f" kindref="member">ru_msgrcv</ref>;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>messages<sp/>received<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119" refid="structrusage_1ad4134bad8d6fae3423bdf36ee5921bbe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1ad4134bad8d6fae3423bdf36ee5921bbe" kindref="member">ru_nsignals</ref>;<sp/></highlight><highlight class="comment">/*<sp/>signals<sp/>received<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="structrusage_1a0d92990593d26489b756bccc6b236797" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a0d92990593d26489b756bccc6b236797" kindref="member">ru_nvcsw</ref>;<sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>voluntary<sp/>context<sp/>switches<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="structrusage_1a02334bed939cf8ef245af7bdf8bedb03" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1acb23a31fd3f12a07b990857b671d9a09" kindref="member">__kernel_long_t</ref><sp/><ref refid="structrusage_1a02334bed939cf8ef245af7bdf8bedb03" kindref="member">ru_nivcsw</ref>;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>involuntary<sp/>&quot;<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="pcb_8h_1a0027cfcb9634c5c6b7e635485f97e249" refkind="member"><highlight class="normal">}<sp/><ref refid="pcb_8h_1a0027cfcb9634c5c6b7e635485f97e249" kindref="member">rusage_t</ref>;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structpcb__mbox" kindref="compound">pcb_mbox_t</ref><sp/><ref refid="structpcb__mbox" kindref="compound">pcb_mbox</ref>[<ref refid="pcb_8h_1a03193ee70511b814eb5ff595a92b6dd7" kindref="member">NUM_MAX_PROCESS</ref>];</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Process<sp/>Control<sp/>Block<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="structpcb" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structpcb" kindref="compound">pcb</ref><sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>register<sp/>context<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>must<sp/>be<sp/>this<sp/>order!!<sp/>The<sp/>order<sp/>is<sp/>defined<sp/>in<sp/>regs.h</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130" refid="structpcb_1a3f6b08a1cf6af57de3fcc0c9b3757e1f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a62065ae2bc90ff72892eddfeedcffafa" kindref="member">reg_t</ref><sp/><ref refid="structpcb_1a3f6b08a1cf6af57de3fcc0c9b3757e1f" kindref="member">kernel_sp</ref>;</highlight></codeline>
+<codeline lineno="131" refid="structpcb_1a0d1415d6fed4316bac80be592898778c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a62065ae2bc90ff72892eddfeedcffafa" kindref="member">reg_t</ref><sp/><ref refid="structpcb_1a0d1415d6fed4316bac80be592898778c" kindref="member">user_sp</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>previous,<sp/>next<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="structpcb_1a120965426502b0d148c111eacb5d420b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structlist__node" kindref="compound">list_node_t</ref><sp/><ref refid="structpcb_1a120965426502b0d148c111eacb5d420b" kindref="member">list</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="structpcb_1a9a2040071a0df89c67b0fb11ee84f407" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*<ref refid="structpcb_1a9a2040071a0df89c67b0fb11ee84f407" kindref="member">save_context</ref>;</highlight></codeline>
+<codeline lineno="137" refid="structpcb_1ab6a33c97f624d5b5052d1823aedf1710" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structswitchto__context" kindref="compound">switchto_context_t</ref><sp/>*<ref refid="structpcb_1ab6a33c97f624d5b5052d1823aedf1710" kindref="member">switch_context</ref>;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139" refid="structpcb_1aeab75f925365bc4d7a91d2e86e16108b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structpcb_1aeab75f925365bc4d7a91d2e86e16108b" kindref="member">in_use</ref>;</highlight></codeline>
+<codeline lineno="140" refid="structpcb_1a9e01b0ed9228b750263cceb10b9cb95c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structELF__info" kindref="compound">ELF_info_t</ref><sp/><ref refid="structpcb_1a9e01b0ed9228b750263cceb10b9cb95c" kindref="member">elf</ref>;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>process<sp/>id<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="structpcb_1ab45cca0ed8e8b4596c1c91ee9cde2f12" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structpcb_1ab45cca0ed8e8b4596c1c91ee9cde2f12" kindref="member">name</ref>[<ref refid="pcb_8h_1a9bdec823ad2bc9c3dbe8c3c96e3f9637" kindref="member">NUM_MAX_PCB_NAME</ref>];</highlight></codeline>
+<codeline lineno="144" refid="structpcb_1a1da0b84097537a6227022e4328977916" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/><ref refid="structpcb_1a1da0b84097537a6227022e4328977916" kindref="member">pid</ref>;<sp/><sp/></highlight><highlight class="comment">//<sp/>real<sp/>offset<sp/>of<sp/>pcb[]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145" refid="structpcb_1acaf7915f3732a9dbff4ffb44fbaf5a31" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/><ref refid="structpcb_1acaf7915f3732a9dbff4ffb44fbaf5a31" kindref="member">fpid</ref>;<sp/></highlight><highlight class="comment">//<sp/>threads&apos;<sp/>fpid<sp/>is<sp/>process<sp/>pid</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146" refid="structpcb_1a3e6585d1ce411a8971166a156a094da9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/><ref refid="structpcb_1a3e6585d1ce411a8971166a156a094da9" kindref="member">tid</ref>;</highlight></codeline>
+<codeline lineno="147" refid="structpcb_1af39cf8644c1cdb46a475927d7937b204" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>*<ref refid="structpcb_1af39cf8644c1cdb46a475927d7937b204" kindref="member">clear_ctid</ref>;</highlight></codeline>
+<codeline lineno="148" refid="structpcb_1a231eaf6e04f879192b2fa61bc4665dde" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/><ref refid="structpcb_1a231eaf6e04f879192b2fa61bc4665dde" kindref="member">father_pid</ref>;</highlight></codeline>
+<codeline lineno="149" refid="structpcb_1a0c21f904d8f109d1fcb20085141b5919" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/><ref refid="structpcb_1a0c21f904d8f109d1fcb20085141b5919" kindref="member">child_pids</ref>[<ref refid="pcb_8h_1ad907dc7ff26c1a93783a8d9acb32b5d4" kindref="member">NUM_MAX_CHILD</ref>];</highlight></codeline>
+<codeline lineno="150" refid="structpcb_1a5add1aa788bd688a674d39b5cd859cb3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpcb_1a5add1aa788bd688a674d39b5cd859cb3" kindref="member">child_num</ref>;</highlight></codeline>
+<codeline lineno="151" refid="structpcb_1a5fd86d270fad0c39c55cea36b46552b7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*<ref refid="structpcb_1a5fd86d270fad0c39c55cea36b46552b7" kindref="member">child_stat_addrs</ref>[<ref refid="pcb_8h_1ad907dc7ff26c1a93783a8d9acb32b5d4" kindref="member">NUM_MAX_CHILD</ref>];</highlight></codeline>
+<codeline lineno="152" refid="structpcb_1a820404fdc4929f0736ee527d5d38bbc7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpcb_1a820404fdc4929f0736ee527d5d38bbc7" kindref="member">threadsum</ref>;</highlight></codeline>
+<codeline lineno="153" refid="structpcb_1a2e509ff11344184bb8659be9f1301833" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpcb_1a2e509ff11344184bb8659be9f1301833" kindref="member">thread_ids</ref>[<ref refid="pcb_8h_1ac41e7a5c36c23f03748a8bbac96f4186" kindref="member">NUM_MAX_CHILD_THREADS</ref>];</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>kernel/user<sp/>thread/process<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156" refid="structpcb_1a8026314d08eef0fefc7321eadac2b95a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a02c2160f4d52670dcb8fdd49f0a5ffee" kindref="member">task_type_t</ref><sp/><ref refid="structpcb_1a8026314d08eef0fefc7321eadac2b95a" kindref="member">type</ref>;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>BLOCK<sp/>|<sp/>READY<sp/>|<sp/>RUNNING<sp/>|<sp/>ZOMBIE<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159" refid="structpcb_1ac727b3a53fceae0d702663b5e6690105" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="pcb_8h_1a56d8914e799a3fccc321a984aad22f4b" kindref="member">task_status_t</ref><sp/><ref refid="structpcb_1ac727b3a53fceae0d702663b5e6690105" kindref="member">status</ref>;</highlight></codeline>
+<codeline lineno="160" refid="structpcb_1af06a1a97b569274bfe7531ee9b323aff" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpcb_1af06a1a97b569274bfe7531ee9b323aff" kindref="member">exit_status</ref>;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>cursor<sp/>position<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163" refid="structpcb_1a3af2c933461a2a7bd3ada61290103667" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpcb_1a3af2c933461a2a7bd3ada61290103667" kindref="member">cursor_x</ref>;</highlight></codeline>
+<codeline lineno="164" refid="structpcb_1a05ac392d4980070cd3883bed31d16988" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpcb_1a05ac392d4980070cd3883bed31d16988" kindref="member">cursor_y</ref>;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166" refid="structpcb_1a91159e803cbc7cfa350b62f8d5faec98" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structprior" kindref="compound">prior_t</ref><sp/><ref refid="structpcb_1a91159e803cbc7cfa350b62f8d5faec98" kindref="member">priority</ref>;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168" refid="structpcb_1ad7ee741cb61788a57d8d655c8e558fb4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structpcb_1ad7ee741cb61788a57d8d655c8e558fb4" kindref="member">core_mask</ref>[CPU_SET_SIZE];</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170" refid="structpcb_1a4c9597d737c8e1674c2f844b76b10aeb" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/><ref refid="structpcb_1a4c9597d737c8e1674c2f844b76b10aeb" kindref="member">pgdir</ref>;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172" refid="structpcb_1adcf91d83e29c48860b340324da1dd29c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpcb_1adcf91d83e29c48860b340324da1dd29c" kindref="member">locksum</ref>;</highlight></codeline>
+<codeline lineno="173" refid="structpcb_1aae99a0206cb0303f06aee6eb81797a90" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structpcb_1aae99a0206cb0303f06aee6eb81797a90" kindref="member">lock_ids</ref>[<ref refid="pcb_8h_1ae832aa43270dd8ab9653406e40ffeeda" kindref="member">NUM_MAX_LOCK</ref>];</highlight></codeline>
+<codeline lineno="174" refid="structpcb_1af5e6c7a63f5ff6d61a0d36c08a80d2e3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structpcb_1af5e6c7a63f5ff6d61a0d36c08a80d2e3" kindref="member">chan</ref>;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176" refid="structpcb_1aebaa414dd2f387f642f22b2518229e44" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structpcb__mbox" kindref="compound">pcb_mbox_t</ref><sp/>*<ref refid="structpcb_1aebaa414dd2f387f642f22b2518229e44" kindref="member">mbox</ref>;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="structpcb_1a07301d71e7733a7179b91d5bda95b41b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1a7dd29374115d5c9b3750fbbf9a325963" kindref="member">__kernel_timeval_t</ref><sp/><ref refid="structpcb_1a07301d71e7733a7179b91d5bda95b41b" kindref="member">stime_last</ref>;<sp/></highlight><highlight class="comment">//<sp/>last<sp/>time<sp/>into<sp/>kernel</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180" refid="structpcb_1a1c768743d1bef4c196b65cc8e1910f99" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="time_8h_1a7dd29374115d5c9b3750fbbf9a325963" kindref="member">__kernel_timeval_t</ref><sp/><ref refid="structpcb_1a1c768743d1bef4c196b65cc8e1910f99" kindref="member">utime_last</ref>;<sp/></highlight><highlight class="comment">//<sp/>last<sp/>time<sp/>out<sp/>kernel</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181" refid="structpcb_1a8fb558468f9c7b8f2e371e53cbb31a4e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structpcbtimer" kindref="compound">pcbtimer_t</ref><sp/><ref refid="structpcb_1a8fb558468f9c7b8f2e371e53cbb31a4e" kindref="member">timer</ref>;</highlight></codeline>
+<codeline lineno="182" refid="structpcb_1af8e1a58c4304d8b577cc4876bf2191b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a51c032d75ce7eda10961bee8c5b5589f" kindref="member">__kernel_clock_t</ref><sp/><ref refid="structpcb_1af8e1a58c4304d8b577cc4876bf2191b5" kindref="member">dead_child_stime</ref>;</highlight></codeline>
+<codeline lineno="183" refid="structpcb_1a05dde3bef033363a18b449d8e81ca2e1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="types_8h_1a51c032d75ce7eda10961bee8c5b5589f" kindref="member">__kernel_clock_t</ref><sp/><ref refid="structpcb_1a05dde3bef033363a18b449d8e81ca2e1" kindref="member">dead_child_utime</ref>;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185" refid="structpcb_1afd18b6c3c18534c5587abce4cde24974" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structrusage" kindref="compound">rusage_t</ref><sp/><ref refid="structpcb_1afd18b6c3c18534c5587abce4cde24974" kindref="member">resources</ref>;</highlight></codeline>
+<codeline lineno="186" refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" refkind="member"><highlight class="normal">}<sp/><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref>;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>current<sp/>running<sp/>task<sp/>PCB<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a83f38b8c9da23021ed61d4031ab5aad3" kindref="member">current_running0</ref>;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a5f57f427e7da8049da09de558fc72e2d" kindref="member">current_running1</ref>;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>*</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a775dd48cd2188c627cbdd19b03b37212" kindref="member">current_running</ref>;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>ready<sp/>queue<sp/>to<sp/>run<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structlist__node" kindref="compound">list_head</ref><sp/><ref refid="pcb_8h_1a58658ee7ac1edae4ef80e87071be6b3d" kindref="member">ready_queue</ref>;</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structlist__node" kindref="compound">list_head</ref><sp/><ref refid="pcb_8h_1a2faf8a6ddc84222929f0f6ef1a192537" kindref="member">block_queue</ref>;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/><ref refid="structpcb" kindref="compound">pcb</ref>[<ref refid="pcb_8h_1aa2b9c743d2373fe9432fccc8fd645f78" kindref="member">NUM_MAX_TASK</ref>];</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">//<sp/>pcb_t<sp/>kernel_pcb[NR_CPUS];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref><sp/><ref refid="pcb_8h_1ad0430733a8767855b580810743c5fb87" kindref="member">pid0_stack</ref>;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref><sp/><ref refid="pcb_8h_1a2480c4e3f86ff7b2575b89ef69e97355" kindref="member">pid0_stack2</ref>;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/><ref refid="pcb_8h_1aaefceaf10125be70ceac97d46a4f2bc3" kindref="member">pid0_pcb</ref>;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/><ref refid="pcb_8h_1a8176d551abe4fa60c56659184e032ab0" kindref="member">pid0_pcb2</ref>;</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/><ref refid="pcb_8h_1a86b2aece801dbd55da125691aa8b73a7" kindref="member">freepid</ref>[<ref refid="pcb_8h_1aa2b9c743d2373fe9432fccc8fd645f78" kindref="member">NUM_MAX_TASK</ref>];</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1af570f8c236ff40f11e384cbe069b87b5" kindref="member">k_pcb_init</ref>();</highlight></codeline>
+<codeline lineno="206" refid="pcb_8h_1a2c1b41b2da3748be99fc9cba2ffdce7b" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a2c1b41b2da3748be99fc9cba2ffdce7b" kindref="member">switch_to</ref>(<ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*prev,<sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*next);</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1ab235dcbe70f00d25d99f6d0bce4ec087" kindref="member">k_pcb_scheduler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1ae1882c01875e9da5f9fb2d3dd2b697ec" kindref="member">k_pcb_block</ref>(<ref refid="structlist__node" kindref="compound">list_head</ref><sp/>*,<sp/><ref refid="structlist__node" kindref="compound">list_head</ref><sp/>*queue,<sp/><ref refid="pcb_8h_1a01980b8e156378d98867d30058688333" kindref="member">enqueue_way_t</ref><sp/>way);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a0fe9ee993da3488530422db97ff3728a" kindref="member">k_pcb_unblock</ref>(<ref refid="structlist__node" kindref="compound">list_head</ref><sp/>*,<sp/><ref refid="structlist__node" kindref="compound">list_head</ref><sp/>*,<sp/><ref refid="pcb_8h_1a44d797e82ea4cda687ee34355a189481" kindref="member">unblock_way_t</ref><sp/>way);</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a4b625fcec2c1e98ec22be164cd02315c" kindref="member">k_pcb_getpid</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a5111ec3b899498d5951050cd72bfe21b" kindref="member">k_pcb_sleep</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*chan,<sp/><ref refid="structspin__lock" kindref="compound">spin_lock_t</ref><sp/>*lk);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a2d546871750b175deb1f3c0279c64e3f" kindref="member">k_pcb_wakeup</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*chan);</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1aa38a6ba4849edd0e34a225dbb2975f94" kindref="member">sys_sched_yield</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a85b5fc5efbbb65668438fecad67c06e4" kindref="member">sys_nanosleep</ref>(<ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*rqtp,<sp/><ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*rmtp);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a5a2119b4304437c4e3aff0e8c7484b1e" kindref="member">sys_spawn</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file_name);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a87598ed5f2025ad83a009b186aa28f93" kindref="member">sys_fork</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a6f26d791d6f69063f9ea40becd52e9f5" kindref="member">sys_exec</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file_name,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*argv[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*envp[]);</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1ae34299981375e7a3b8f691b4137a8213" kindref="member">sys_execve</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*file_name,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*argv[],<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*envp[]);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1afe960c5f4c95cd9efa9f058741d089fa" kindref="member">sys_clone</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>flags,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*stack,<sp/><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/>*parent_tid,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*tls,<sp/><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/>*child_tid);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1ab6bb3d2baf7ab70bf6e832bba98c5e31" kindref="member">sys_kill</ref>(<ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/>pid);</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1aa97ee001038378e557b20535e2347aed" kindref="member">sys_exit</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>error_code);</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a5ac8dc14c787aa11829c507e87c9b908" kindref="member">sys_wait4</ref>(<ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/>pid,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*stat_addr,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>options,<sp/><ref refid="structrusage" kindref="compound">rusage_t</ref><sp/>*ru);</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a70451e498144bba3b0eda268e137e3e8" kindref="member">sys_process_show</ref>();</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a37c9544a2403eb490c70ddb6d9126030" kindref="member">sys_setpriority</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>which,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>who,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>niceval);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a762a6d6fd8537d9842e21faa0972abb1" kindref="member">sys_getpriority</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>which,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>who);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a3f6f6baa9b4585982911245d81a8aac8" kindref="member">sys_getpid</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1ab35efd726514d8af8695b21b061f9b6d" kindref="member">sys_getppid</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a4f073b476c8bdff4947b84817ed4582c" kindref="member">sys_sched_setaffinity</ref>(<ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/>pid,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>len,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*user_mask_ptr);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="pcb_8h_1a172a2eb43df307e23df85372199a4cda" kindref="member">sys_sched_getaffinity</ref>(<ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/>pid,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>len,<sp/>uint8_t<sp/>*user_mask_ptr);</highlight></codeline>
+    </programlisting>
+    <location file="src/include/os/pcb.h"/>
+  </compounddef>
+</doxygen>

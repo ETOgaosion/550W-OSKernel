@@ -1,0 +1,198 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structshort__name__entry" kind="struct" language="C++" prot="public">
+    <compoundname>short_name_entry</compoundname>
+    <includes refid="fat32_8h" local="no">fat32.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structshort__name__entry_1aeab9e065d8387bffbb41ef92c807e26d" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char short_name_entry::name1[SHORT_FIR_NAME]</definition>
+        <argsstring>[SHORT_FIR_NAME]</argsstring>
+        <name>name1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="62" column="10" bodyfile="src/fs/fat32.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1a0a1f13c7f9779a78654ce402f084614b" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char short_name_entry::name2[SHORT_EXT_NAME]</definition>
+        <argsstring>[SHORT_EXT_NAME]</argsstring>
+        <name>name2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="63" column="10" bodyfile="src/fs/fat32.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1a0e3b36ca302ee2bc7446cad811097dec" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t short_name_entry::attr</definition>
+        <argsstring></argsstring>
+        <name>attr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="64" column="13" bodyfile="src/fs/fat32.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1aad0cd3be0e7857322fa6ad65dc168244" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t short_name_entry::nt_res</definition>
+        <argsstring></argsstring>
+        <name>nt_res</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="65" column="13" bodyfile="src/fs/fat32.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1a7c68544742ba7f82dd2a86440b468db1" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t short_name_entry::crt_time_tenth</definition>
+        <argsstring></argsstring>
+        <name>crt_time_tenth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="66" column="13" bodyfile="src/fs/fat32.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1a456f5fe5d283be52167140eb371e40cc" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t short_name_entry::crt_time</definition>
+        <argsstring></argsstring>
+        <name>crt_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="67" column="14" bodyfile="src/fs/fat32.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1a7e463c318f1699a6783772dc1c8ee553" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t short_name_entry::crt_date</definition>
+        <argsstring></argsstring>
+        <name>crt_date</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="68" column="14" bodyfile="src/fs/fat32.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1ac7967571cbdf9699109001858d5b0c7e" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t short_name_entry::lst_acce_date</definition>
+        <argsstring></argsstring>
+        <name>lst_acce_date</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="69" column="14" bodyfile="src/fs/fat32.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1a01f9b3783c82837dcf545ca2de4e41f7" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t short_name_entry::fst_clus_hi</definition>
+        <argsstring></argsstring>
+        <name>fst_clus_hi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="70" column="14" bodyfile="src/fs/fat32.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1a0bb15df651a35c9fef7f62d5ff8cca65" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t short_name_entry::lst_wrt_time</definition>
+        <argsstring></argsstring>
+        <name>lst_wrt_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="71" column="14" bodyfile="src/fs/fat32.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1afaa62bcf5b3ae351c53f2ac7564e6298" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t short_name_entry::lst_wrt_date</definition>
+        <argsstring></argsstring>
+        <name>lst_wrt_date</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="72" column="14" bodyfile="src/fs/fat32.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1a95495bd7a60339978d34518b8834efe9" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t short_name_entry::fst_clus_lo</definition>
+        <argsstring></argsstring>
+        <name>fst_clus_lo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="73" column="14" bodyfile="src/fs/fat32.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structshort__name__entry_1a94646da7aaf9f50864f0392cd8fcf822" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t short_name_entry::file_size</definition>
+        <argsstring></argsstring>
+        <name>file_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="74" column="14" bodyfile="src/fs/fat32.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/fs/fat32.h" line="61" column="1" bodyfile="src/fs/fat32.h" bodystart="61" bodyend="75"/>
+    <listofallmembers>
+      <member refid="structshort__name__entry_1a0e3b36ca302ee2bc7446cad811097dec" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>attr</name></member>
+      <member refid="structshort__name__entry_1a7e463c318f1699a6783772dc1c8ee553" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>crt_date</name></member>
+      <member refid="structshort__name__entry_1a456f5fe5d283be52167140eb371e40cc" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>crt_time</name></member>
+      <member refid="structshort__name__entry_1a7c68544742ba7f82dd2a86440b468db1" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>crt_time_tenth</name></member>
+      <member refid="structshort__name__entry_1a94646da7aaf9f50864f0392cd8fcf822" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>file_size</name></member>
+      <member refid="structshort__name__entry_1a01f9b3783c82837dcf545ca2de4e41f7" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>fst_clus_hi</name></member>
+      <member refid="structshort__name__entry_1a95495bd7a60339978d34518b8834efe9" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>fst_clus_lo</name></member>
+      <member refid="structshort__name__entry_1ac7967571cbdf9699109001858d5b0c7e" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>lst_acce_date</name></member>
+      <member refid="structshort__name__entry_1afaa62bcf5b3ae351c53f2ac7564e6298" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>lst_wrt_date</name></member>
+      <member refid="structshort__name__entry_1a0bb15df651a35c9fef7f62d5ff8cca65" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>lst_wrt_time</name></member>
+      <member refid="structshort__name__entry_1aeab9e065d8387bffbb41ef92c807e26d" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>name1</name></member>
+      <member refid="structshort__name__entry_1a0a1f13c7f9779a78654ce402f084614b" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>name2</name></member>
+      <member refid="structshort__name__entry_1aad0cd3be0e7857322fa6ad65dc168244" prot="public" virt="non-virtual"><scope>short_name_entry</scope><name>nt_res</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

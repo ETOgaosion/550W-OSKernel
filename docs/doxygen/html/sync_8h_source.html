@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/include/os/sync.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('sync_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">sync.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="sync_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="list_8h.html">lib/list.h</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="sync_8h.html#a907bc51b623b28337a15bf6f15074b01">    5</a></span>&#160;<span class="preprocessor">#define COMM_NUM 32</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="sync_8h.html#a5e3f532d311bd2ff4ba3c55dfde0e510">    6</a></span>&#160;<span class="preprocessor">#define MBOX_NAME_LEN 64</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="sync_8h.html#ad00f49c62943bc384ea35f471a0aa19c">    7</a></span>&#160;<span class="preprocessor">#define MBOX_MSG_MAX_LEN 128</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="sync_8h.html#a89e21796c1b76a02f43f83ff364b9509">    8</a></span>&#160;<span class="preprocessor">#define MBOX_MAX_USER 10</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="sync_8h.html#a7ec2ad5d75dada13055475c42d110f17">   10</a></span>&#160;<span class="preprocessor">#define PCB_MBOX_MAX_MSG_NUM 16</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="sync_8h.html#aa71288aa3193a457dc75fb14746dbf00">   11</a></span>&#160;<span class="preprocessor">#define PCB_MBOX_MSG_MAX_LEN 256</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structbasic__info.html">   13</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structbasic__info.html">basic_info</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="structbasic__info.html#a9fc747019e8cd575d37b79c5f71f5319">   14</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structbasic__info.html#a9fc747019e8cd575d37b79c5f71f5319">id</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="structbasic__info.html#a965c707f58ce92560224db3d996b7c50">   15</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structbasic__info.html#a965c707f58ce92560224db3d996b7c50">initialized</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="sync_8h.html#acd5677713c27dd566fe26bf891111b7b">   16</a></span>&#160;} <a class="code" href="sync_8h.html#acd5677713c27dd566fe26bf891111b7b">basic_info_t</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structSemaphore.html">   18</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structSemaphore.html">Semaphore</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="structSemaphore.html#a9abb12eed75a68466973ceb4dd6f09fb">   19</a></span>&#160;    <a class="code" href="structbasic__info.html">basic_info_t</a> <a class="code" href="structSemaphore.html#a9abb12eed75a68466973ceb4dd6f09fb">sem_info</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structSemaphore.html#a72c1db3525816436a9ec101615cd3268">   20</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structSemaphore.html#a72c1db3525816436a9ec101615cd3268">sem</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structSemaphore.html#a165121d43de7345319d8c5bf4374d584">   21</a></span>&#160;    <a class="code" href="structlist__node.html">list_head</a> <a class="code" href="structSemaphore.html#a165121d43de7345319d8c5bf4374d584">wait_queue</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="sync_8h.html#ac92780faa059424120392d0f3bf52b19">   22</a></span>&#160;} <a class="code" href="sync_8h.html#ac92780faa059424120392d0f3bf52b19">Semaphore_t</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="structcond.html">   24</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structcond.html">cond</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structcond.html#a1812237b8900a2f4289c3a7787e1780a">   25</a></span>&#160;    <a class="code" href="structbasic__info.html">basic_info_t</a> <a class="code" href="structcond.html#a1812237b8900a2f4289c3a7787e1780a">cond_info</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structcond.html#ae9a1a467405aa9c07544374f5034e231">   26</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structcond.html#ae9a1a467405aa9c07544374f5034e231">num_wait</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structcond.html#a67fe90b2bfec283aea50c6032c08f29d">   27</a></span>&#160;    <a class="code" href="structlist__node.html">list_head</a> <a class="code" href="structcond.html#a67fe90b2bfec283aea50c6032c08f29d">wait_queue</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="sync_8h.html#a065d9c7d3ffb571b9120503d269ed113">   28</a></span>&#160;} <a class="code" href="sync_8h.html#a065d9c7d3ffb571b9120503d269ed113">cond_t</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structbarrier.html">   30</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structbarrier.html">barrier</a> {</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structbarrier.html#a3ac971f92dc65f4fe9d468a8dee026fa">   31</a></span>&#160;    <a class="code" href="structbasic__info.html">basic_info_t</a> <a class="code" href="structbarrier.html#a3ac971f92dc65f4fe9d468a8dee026fa">barrier_info</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="structbarrier.html#a94e6627a244819a7aa2f111a93167f99">   32</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structbarrier.html#a94e6627a244819a7aa2f111a93167f99">count</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="structbarrier.html#af62bd297c2aa0803cb0081c90d97fa10">   33</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structbarrier.html#af62bd297c2aa0803cb0081c90d97fa10">total</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="comment">// int mutex_id;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structbarrier.html#a369d0aa1244db2f06bdf6b6197ef21ed">   35</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structbarrier.html#a369d0aa1244db2f06bdf6b6197ef21ed">cond_id</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="sync_8h.html#a74d94f02486d264c8b29c8860a796d28">   36</a></span>&#160;} <a class="code" href="sync_8h.html#a74d94f02486d264c8b29c8860a796d28">barrier_t</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structmbox.html">   38</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structmbox.html">mbox</a> {</div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structmbox.html#afc85c6dec5627f1f1836591b125c2f58">   39</a></span>&#160;    <a class="code" href="structbasic__info.html">basic_info_t</a> <a class="code" href="structmbox.html#afc85c6dec5627f1f1836591b125c2f58">mailbox_info</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structmbox.html#aeba60a760c7d5b4aca44fee744e0c4a9">   40</a></span>&#160;    <span class="keywordtype">int</span> <span class="keywordtype">id</span>[2];</div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structmbox.html#a13bcf1720e9456929d17c7966d81a9e0">   41</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="structmbox.html#a13bcf1720e9456929d17c7966d81a9e0">buff</a>[<a class="code" href="sync_8h.html#ad00f49c62943bc384ea35f471a0aa19c">MBOX_MSG_MAX_LEN</a>];</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="structmbox.html#a5f66d0bd82ad9778daeb3b7694e0b009">   42</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structmbox.html#a5f66d0bd82ad9778daeb3b7694e0b009">read_head</a>, <a class="code" href="structmbox.html#a8568de79041c22de7225c7edf0258fd5">write_tail</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="structmbox.html#a21325cc2f2a8320c2b34a48f84cc50aa">   43</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structmbox.html#a21325cc2f2a8320c2b34a48f84cc50aa">used_units</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="comment">// int mutex_id;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="structmbox.html#aae5b90a884ecbb796d19c91f6928e5de">   45</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structmbox.html#aae5b90a884ecbb796d19c91f6928e5de">full_cond_id</a>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="structmbox.html#ae910da2904704ba65ffc2f2dac861b0d">   46</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structmbox.html#ae910da2904704ba65ffc2f2dac861b0d">empty_cond_id</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="sync_8h.html#a4f902d2856a0b3661b438a1cd9bfb666">   47</a></span>&#160;} <a class="code" href="sync_8h.html#a4f902d2856a0b3661b438a1cd9bfb666">mbox_t</a>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="structmbox__arg.html">   49</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structmbox__arg.html">mbox_arg</a> {</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structmbox__arg.html#a867ce7c71bddb19af981d3a370b4b41d">   50</a></span>&#160;    <span class="keywordtype">void</span> *<a class="code" href="structmbox__arg.html#a867ce7c71bddb19af981d3a370b4b41d">msg</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="structmbox__arg.html#aa8428b0b78a77ef3e00b2454cd8954e7">   51</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structmbox__arg.html#aa8428b0b78a77ef3e00b2454cd8954e7">msg_length</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="structmbox__arg.html#a1573a71c8f4109aaad13fc21e59f9398">   52</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structmbox__arg.html#a1573a71c8f4109aaad13fc21e59f9398">sleep_operation</a>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">   53</a></span>&#160;} <a class="code" href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">mbox_arg_t</a>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="structpcb__mbox.html">   55</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structpcb__mbox.html">pcb_mbox</a> {</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structpcb__mbox.html#a2dcd75f56e5d08f073ab2b600d9d9bc0">   56</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structpcb__mbox.html#a2dcd75f56e5d08f073ab2b600d9d9bc0">pcb_i</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="structpcb__mbox.html#a3669c197b5397b29bff5f9911e002c24">   57</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="structpcb__mbox.html#a3669c197b5397b29bff5f9911e002c24">buff</a>[<a class="code" href="sync_8h.html#a7ec2ad5d75dada13055475c42d110f17">PCB_MBOX_MAX_MSG_NUM</a>][<a class="code" href="sync_8h.html#aa71288aa3193a457dc75fb14746dbf00">PCB_MBOX_MSG_MAX_LEN</a>];</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="structpcb__mbox.html#aac48a5f17c5675a784d82c657d3f2df9">   58</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structpcb__mbox.html#aac48a5f17c5675a784d82c657d3f2df9">read_head</a>, <a class="code" href="structpcb__mbox.html#a72a2bab8ebceb566d66d342839baefad">write_head</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="structpcb__mbox.html#a8850e9d3e80ca72aab6f57303c1a8b1a">   59</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structpcb__mbox.html#a8850e9d3e80ca72aab6f57303c1a8b1a">used_units</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="sync_8h.html#a5ae9fd101e3be74a3e8fd17058edc515">   60</a></span>&#160;} <a class="code" href="sync_8h.html#a5ae9fd101e3be74a3e8fd17058edc515">pcb_mbox_t</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#afe2045e58893e8db1e64e32aa0711611">k_commop</a>(<span class="keywordtype">void</span> *key_id, <span class="keywordtype">void</span> *arg, <span class="keywordtype">int</span> op);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#ad9002f0a50448440ef46fcc2ea02ceb9">k_semaphore_init</a>(<span class="keywordtype">int</span> *key, <span class="keywordtype">int</span> sem);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a51d680b00574663a8c4557ecb4ac2b02">k_semaphore_p</a>(<span class="keywordtype">int</span> key);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#ad3e7e7f87ebb9104b813ddcbf37a6a78">k_semaphore_v</a>(<span class="keywordtype">int</span> key);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a112bc96c616984d47cf03da6f04c94ee">k_semaphore_destroy</a>(<span class="keywordtype">int</span> *key);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a5c18a15f3a2e6487bab6c43693c76312">k_cond_init</a>(<span class="keywordtype">int</span> *key);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">// int k_cond_wait(int key, int lock_id);</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a6991c22329d6a04effd8070cacf633bb">k_cond_wait</a>(<span class="keywordtype">int</span> key);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#ab6ee64d011805e837747cf4d0b5cf158">k_cond_signal</a>(<span class="keywordtype">int</span> key);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a3c696438609d648f6608d299ae507357">k_cond_broadcast</a>(<span class="keywordtype">int</span> key);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a75b6bff510a724ac07e5afbd0ae1ac89">k_cond_destroy</a>(<span class="keywordtype">int</span> *key);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#afaa65248a8d678799ddc08dc10306188">k_barrier_init</a>(<span class="keywordtype">int</span> *key, <span class="keywordtype">int</span> total);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a6d365dc31afc7095b56b702b3090c397">k_barrier_wait</a>(<span class="keywordtype">int</span> key);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#ae92e1ad788ccd406933160f2ffb47780">k_barrier_destroy</a>(<span class="keywordtype">int</span> *key);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a515d4acfe510559477bb110678bfffbc">k_mbox_open</a>(<span class="keywordtype">int</span> id_1, <span class="keywordtype">int</span> id_2);</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="sync_8h.html#a8dcb51e79842beb9f47af6d0e9bbab35">   81</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a8dcb51e79842beb9f47af6d0e9bbab35">k_mbox_close</a>();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a7bb8ff6db004056fd78710f8b40543d5">k_mbox_send</a>(<span class="keywordtype">int</span> key, <a class="code" href="structmbox.html">mbox_t</a> *target, <a class="code" href="structmbox__arg.html">mbox_arg_t</a> *arg);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a9d75e952b9e2ef4f0f9d9ad1a3374573">k_mbox_recv</a>(<span class="keywordtype">int</span> key, <a class="code" href="structmbox.html">mbox_t</a> *target, <a class="code" href="structmbox__arg.html">mbox_arg_t</a> *arg);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a46ccee42babda2525ee360fea3da522c">k_mbox_try_send</a>(<span class="keywordtype">int</span> key, <a class="code" href="structmbox__arg.html">mbox_arg_t</a> *arg);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#a90510833af804b78b51917d7df04c6b5">k_mbox_try_recv</a>(<span class="keywordtype">int</span> key, <a class="code" href="structmbox__arg.html">mbox_arg_t</a> *arg);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keywordtype">void</span> <a class="code" href="sync_8h.html#a6c5f6aa9763193e42afb7ebd6130e0ed">k_pcb_mbox_init</a>(<a class="code" href="structpcb__mbox.html">pcb_mbox_t</a> *target, <span class="keywordtype">int</span> owner_id);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#ab303d9c3a5c4e2712c644968f4b012de">sys_mailread</a>(<span class="keywordtype">void</span> *<a class="code" href="structbuf.html">buf</a>, <span class="keywordtype">int</span> len);</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keywordtype">int</span> <a class="code" href="sync_8h.html#ae16be0c336e7ed1f035243641179ba2a">sys_mailwrite</a>(<span class="keywordtype">int</span> pid, <span class="keywordtype">void</span> *<a class="code" href="structbuf.html">buf</a>, <span class="keywordtype">int</span> len);</div>
+<div class="ttc" id="alist_8h_html"><div class="ttname"><a href="list_8h.html">list.h</a></div></div>
+<div class="ttc" id="astructSemaphore_html"><div class="ttname"><a href="structSemaphore.html">Semaphore</a></div><div class="ttdef"><b>Definition:</b> sync.h:18</div></div>
+<div class="ttc" id="astructSemaphore_html_a165121d43de7345319d8c5bf4374d584"><div class="ttname"><a href="structSemaphore.html#a165121d43de7345319d8c5bf4374d584">Semaphore::wait_queue</a></div><div class="ttdeci">list_head wait_queue</div><div class="ttdef"><b>Definition:</b> sync.h:21</div></div>
+<div class="ttc" id="astructSemaphore_html_a72c1db3525816436a9ec101615cd3268"><div class="ttname"><a href="structSemaphore.html#a72c1db3525816436a9ec101615cd3268">Semaphore::sem</a></div><div class="ttdeci">int sem</div><div class="ttdef"><b>Definition:</b> sync.h:20</div></div>
+<div class="ttc" id="astructSemaphore_html_a9abb12eed75a68466973ceb4dd6f09fb"><div class="ttname"><a href="structSemaphore.html#a9abb12eed75a68466973ceb4dd6f09fb">Semaphore::sem_info</a></div><div class="ttdeci">basic_info_t sem_info</div><div class="ttdef"><b>Definition:</b> sync.h:19</div></div>
+<div class="ttc" id="astructbarrier_html"><div class="ttname"><a href="structbarrier.html">barrier</a></div><div class="ttdef"><b>Definition:</b> sync.h:30</div></div>
+<div class="ttc" id="astructbarrier_html_a369d0aa1244db2f06bdf6b6197ef21ed"><div class="ttname"><a href="structbarrier.html#a369d0aa1244db2f06bdf6b6197ef21ed">barrier::cond_id</a></div><div class="ttdeci">int cond_id</div><div class="ttdef"><b>Definition:</b> sync.h:35</div></div>
+<div class="ttc" id="astructbarrier_html_a3ac971f92dc65f4fe9d468a8dee026fa"><div class="ttname"><a href="structbarrier.html#a3ac971f92dc65f4fe9d468a8dee026fa">barrier::barrier_info</a></div><div class="ttdeci">basic_info_t barrier_info</div><div class="ttdef"><b>Definition:</b> sync.h:31</div></div>
+<div class="ttc" id="astructbarrier_html_a94e6627a244819a7aa2f111a93167f99"><div class="ttname"><a href="structbarrier.html#a94e6627a244819a7aa2f111a93167f99">barrier::count</a></div><div class="ttdeci">int count</div><div class="ttdef"><b>Definition:</b> sync.h:32</div></div>
+<div class="ttc" id="astructbarrier_html_af62bd297c2aa0803cb0081c90d97fa10"><div class="ttname"><a href="structbarrier.html#af62bd297c2aa0803cb0081c90d97fa10">barrier::total</a></div><div class="ttdeci">int total</div><div class="ttdef"><b>Definition:</b> sync.h:33</div></div>
+<div class="ttc" id="astructbasic__info_html"><div class="ttname"><a href="structbasic__info.html">basic_info</a></div><div class="ttdef"><b>Definition:</b> sync.h:13</div></div>
+<div class="ttc" id="astructbasic__info_html_a965c707f58ce92560224db3d996b7c50"><div class="ttname"><a href="structbasic__info.html#a965c707f58ce92560224db3d996b7c50">basic_info::initialized</a></div><div class="ttdeci">int initialized</div><div class="ttdef"><b>Definition:</b> sync.h:15</div></div>
+<div class="ttc" id="astructbasic__info_html_a9fc747019e8cd575d37b79c5f71f5319"><div class="ttname"><a href="structbasic__info.html#a9fc747019e8cd575d37b79c5f71f5319">basic_info::id</a></div><div class="ttdeci">int id</div><div class="ttdef"><b>Definition:</b> sync.h:14</div></div>
+<div class="ttc" id="astructbuf_html"><div class="ttname"><a href="structbuf.html">buf</a></div><div class="ttdef"><b>Definition:</b> virtio.h:78</div></div>
+<div class="ttc" id="astructcond_html"><div class="ttname"><a href="structcond.html">cond</a></div><div class="ttdef"><b>Definition:</b> sync.h:24</div></div>
+<div class="ttc" id="astructcond_html_a1812237b8900a2f4289c3a7787e1780a"><div class="ttname"><a href="structcond.html#a1812237b8900a2f4289c3a7787e1780a">cond::cond_info</a></div><div class="ttdeci">basic_info_t cond_info</div><div class="ttdef"><b>Definition:</b> sync.h:25</div></div>
+<div class="ttc" id="astructcond_html_a67fe90b2bfec283aea50c6032c08f29d"><div class="ttname"><a href="structcond.html#a67fe90b2bfec283aea50c6032c08f29d">cond::wait_queue</a></div><div class="ttdeci">list_head wait_queue</div><div class="ttdef"><b>Definition:</b> sync.h:27</div></div>
+<div class="ttc" id="astructcond_html_ae9a1a467405aa9c07544374f5034e231"><div class="ttname"><a href="structcond.html#ae9a1a467405aa9c07544374f5034e231">cond::num_wait</a></div><div class="ttdeci">int num_wait</div><div class="ttdef"><b>Definition:</b> sync.h:26</div></div>
+<div class="ttc" id="astructlist__node_html"><div class="ttname"><a href="structlist__node.html">list_node</a></div><div class="ttdef"><b>Definition:</b> list.h:7</div></div>
+<div class="ttc" id="astructmbox__arg_html"><div class="ttname"><a href="structmbox__arg.html">mbox_arg</a></div><div class="ttdef"><b>Definition:</b> sync.h:49</div></div>
+<div class="ttc" id="astructmbox__arg_html_a1573a71c8f4109aaad13fc21e59f9398"><div class="ttname"><a href="structmbox__arg.html#a1573a71c8f4109aaad13fc21e59f9398">mbox_arg::sleep_operation</a></div><div class="ttdeci">int sleep_operation</div><div class="ttdef"><b>Definition:</b> sync.h:52</div></div>
+<div class="ttc" id="astructmbox__arg_html_a867ce7c71bddb19af981d3a370b4b41d"><div class="ttname"><a href="structmbox__arg.html#a867ce7c71bddb19af981d3a370b4b41d">mbox_arg::msg</a></div><div class="ttdeci">void * msg</div><div class="ttdef"><b>Definition:</b> sync.h:50</div></div>
+<div class="ttc" id="astructmbox__arg_html_aa8428b0b78a77ef3e00b2454cd8954e7"><div class="ttname"><a href="structmbox__arg.html#aa8428b0b78a77ef3e00b2454cd8954e7">mbox_arg::msg_length</a></div><div class="ttdeci">int msg_length</div><div class="ttdef"><b>Definition:</b> sync.h:51</div></div>
+<div class="ttc" id="astructmbox_html"><div class="ttname"><a href="structmbox.html">mbox</a></div><div class="ttdef"><b>Definition:</b> sync.h:38</div></div>
+<div class="ttc" id="astructmbox_html_a13bcf1720e9456929d17c7966d81a9e0"><div class="ttname"><a href="structmbox.html#a13bcf1720e9456929d17c7966d81a9e0">mbox::buff</a></div><div class="ttdeci">char buff[MBOX_MSG_MAX_LEN]</div><div class="ttdef"><b>Definition:</b> sync.h:41</div></div>
+<div class="ttc" id="astructmbox_html_a21325cc2f2a8320c2b34a48f84cc50aa"><div class="ttname"><a href="structmbox.html#a21325cc2f2a8320c2b34a48f84cc50aa">mbox::used_units</a></div><div class="ttdeci">int used_units</div><div class="ttdef"><b>Definition:</b> sync.h:43</div></div>
+<div class="ttc" id="astructmbox_html_a5f66d0bd82ad9778daeb3b7694e0b009"><div class="ttname"><a href="structmbox.html#a5f66d0bd82ad9778daeb3b7694e0b009">mbox::read_head</a></div><div class="ttdeci">int read_head</div><div class="ttdef"><b>Definition:</b> sync.h:42</div></div>
+<div class="ttc" id="astructmbox_html_a8568de79041c22de7225c7edf0258fd5"><div class="ttname"><a href="structmbox.html#a8568de79041c22de7225c7edf0258fd5">mbox::write_tail</a></div><div class="ttdeci">int write_tail</div><div class="ttdef"><b>Definition:</b> sync.h:42</div></div>
+<div class="ttc" id="astructmbox_html_aae5b90a884ecbb796d19c91f6928e5de"><div class="ttname"><a href="structmbox.html#aae5b90a884ecbb796d19c91f6928e5de">mbox::full_cond_id</a></div><div class="ttdeci">int full_cond_id</div><div class="ttdef"><b>Definition:</b> sync.h:45</div></div>
+<div class="ttc" id="astructmbox_html_ae910da2904704ba65ffc2f2dac861b0d"><div class="ttname"><a href="structmbox.html#ae910da2904704ba65ffc2f2dac861b0d">mbox::empty_cond_id</a></div><div class="ttdeci">int empty_cond_id</div><div class="ttdef"><b>Definition:</b> sync.h:46</div></div>
+<div class="ttc" id="astructmbox_html_afc85c6dec5627f1f1836591b125c2f58"><div class="ttname"><a href="structmbox.html#afc85c6dec5627f1f1836591b125c2f58">mbox::mailbox_info</a></div><div class="ttdeci">basic_info_t mailbox_info</div><div class="ttdef"><b>Definition:</b> sync.h:39</div></div>
+<div class="ttc" id="astructpcb__mbox_html"><div class="ttname"><a href="structpcb__mbox.html">pcb_mbox</a></div><div class="ttdef"><b>Definition:</b> sync.h:55</div></div>
+<div class="ttc" id="astructpcb__mbox_html_a2dcd75f56e5d08f073ab2b600d9d9bc0"><div class="ttname"><a href="structpcb__mbox.html#a2dcd75f56e5d08f073ab2b600d9d9bc0">pcb_mbox::pcb_i</a></div><div class="ttdeci">int pcb_i</div><div class="ttdef"><b>Definition:</b> sync.h:56</div></div>
+<div class="ttc" id="astructpcb__mbox_html_a3669c197b5397b29bff5f9911e002c24"><div class="ttname"><a href="structpcb__mbox.html#a3669c197b5397b29bff5f9911e002c24">pcb_mbox::buff</a></div><div class="ttdeci">char buff[PCB_MBOX_MAX_MSG_NUM][PCB_MBOX_MSG_MAX_LEN]</div><div class="ttdef"><b>Definition:</b> sync.h:57</div></div>
+<div class="ttc" id="astructpcb__mbox_html_a72a2bab8ebceb566d66d342839baefad"><div class="ttname"><a href="structpcb__mbox.html#a72a2bab8ebceb566d66d342839baefad">pcb_mbox::write_head</a></div><div class="ttdeci">int write_head</div><div class="ttdef"><b>Definition:</b> sync.h:58</div></div>
+<div class="ttc" id="astructpcb__mbox_html_a8850e9d3e80ca72aab6f57303c1a8b1a"><div class="ttname"><a href="structpcb__mbox.html#a8850e9d3e80ca72aab6f57303c1a8b1a">pcb_mbox::used_units</a></div><div class="ttdeci">int used_units</div><div class="ttdef"><b>Definition:</b> sync.h:59</div></div>
+<div class="ttc" id="astructpcb__mbox_html_aac48a5f17c5675a784d82c657d3f2df9"><div class="ttname"><a href="structpcb__mbox.html#aac48a5f17c5675a784d82c657d3f2df9">pcb_mbox::read_head</a></div><div class="ttdeci">int read_head</div><div class="ttdef"><b>Definition:</b> sync.h:58</div></div>
+<div class="ttc" id="async_8h_html_a065d9c7d3ffb571b9120503d269ed113"><div class="ttname"><a href="sync_8h.html#a065d9c7d3ffb571b9120503d269ed113">cond_t</a></div><div class="ttdeci">struct cond cond_t</div></div>
+<div class="ttc" id="async_8h_html_a112bc96c616984d47cf03da6f04c94ee"><div class="ttname"><a href="sync_8h.html#a112bc96c616984d47cf03da6f04c94ee">k_semaphore_destroy</a></div><div class="ttdeci">int k_semaphore_destroy(int *key)</div><div class="ttdef"><b>Definition:</b> sync.c:155</div></div>
+<div class="ttc" id="async_8h_html_a2ac2f3456050522038aa52e611af13c0"><div class="ttname"><a href="sync_8h.html#a2ac2f3456050522038aa52e611af13c0">mbox_arg_t</a></div><div class="ttdeci">struct mbox_arg mbox_arg_t</div></div>
+<div class="ttc" id="async_8h_html_a3c696438609d648f6608d299ae507357"><div class="ttname"><a href="sync_8h.html#a3c696438609d648f6608d299ae507357">k_cond_broadcast</a></div><div class="ttdeci">int k_cond_broadcast(int key)</div><div class="ttdef"><b>Definition:</b> sync.c:211</div></div>
+<div class="ttc" id="async_8h_html_a46ccee42babda2525ee360fea3da522c"><div class="ttname"><a href="sync_8h.html#a46ccee42babda2525ee360fea3da522c">k_mbox_try_send</a></div><div class="ttdeci">int k_mbox_try_send(int key, mbox_arg_t *arg)</div><div class="ttdef"><b>Definition:</b> sync.c:387</div></div>
+<div class="ttc" id="async_8h_html_a4f902d2856a0b3661b438a1cd9bfb666"><div class="ttname"><a href="sync_8h.html#a4f902d2856a0b3661b438a1cd9bfb666">mbox_t</a></div><div class="ttdeci">struct mbox mbox_t</div></div>
+<div class="ttc" id="async_8h_html_a515d4acfe510559477bb110678bfffbc"><div class="ttname"><a href="sync_8h.html#a515d4acfe510559477bb110678bfffbc">k_mbox_open</a></div><div class="ttdeci">int k_mbox_open(int id_1, int id_2)</div><div class="ttdef"><b>Definition:</b> sync.c:282</div></div>
+<div class="ttc" id="async_8h_html_a51d680b00574663a8c4557ecb4ac2b02"><div class="ttname"><a href="sync_8h.html#a51d680b00574663a8c4557ecb4ac2b02">k_semaphore_p</a></div><div class="ttdeci">int k_semaphore_p(int key)</div><div class="ttdef"><b>Definition:</b> sync.c:132</div></div>
+<div class="ttc" id="async_8h_html_a5ae9fd101e3be74a3e8fd17058edc515"><div class="ttname"><a href="sync_8h.html#a5ae9fd101e3be74a3e8fd17058edc515">pcb_mbox_t</a></div><div class="ttdeci">struct pcb_mbox pcb_mbox_t</div></div>
+<div class="ttc" id="async_8h_html_a5c18a15f3a2e6487bab6c43693c76312"><div class="ttname"><a href="sync_8h.html#a5c18a15f3a2e6487bab6c43693c76312">k_cond_init</a></div><div class="ttdeci">int k_cond_init(int *key)</div><div class="ttdef"><b>Definition:</b> sync.c:164</div></div>
+<div class="ttc" id="async_8h_html_a6991c22329d6a04effd8070cacf633bb"><div class="ttname"><a href="sync_8h.html#a6991c22329d6a04effd8070cacf633bb">k_cond_wait</a></div><div class="ttdeci">int k_cond_wait(int key)</div><div class="ttdef"><b>Definition:</b> sync.c:190</div></div>
+<div class="ttc" id="async_8h_html_a6c5f6aa9763193e42afb7ebd6130e0ed"><div class="ttname"><a href="sync_8h.html#a6c5f6aa9763193e42afb7ebd6130e0ed">k_pcb_mbox_init</a></div><div class="ttdeci">void k_pcb_mbox_init(pcb_mbox_t *target, int owner_id)</div><div class="ttdef"><b>Definition:</b> sync.c:407</div></div>
+<div class="ttc" id="async_8h_html_a6d365dc31afc7095b56b702b3090c397"><div class="ttname"><a href="sync_8h.html#a6d365dc31afc7095b56b702b3090c397">k_barrier_wait</a></div><div class="ttdeci">int k_barrier_wait(int key)</div><div class="ttdef"><b>Definition:</b> sync.c:259</div></div>
+<div class="ttc" id="async_8h_html_a74d94f02486d264c8b29c8860a796d28"><div class="ttname"><a href="sync_8h.html#a74d94f02486d264c8b29c8860a796d28">barrier_t</a></div><div class="ttdeci">struct barrier barrier_t</div></div>
+<div class="ttc" id="async_8h_html_a75b6bff510a724ac07e5afbd0ae1ac89"><div class="ttname"><a href="sync_8h.html#a75b6bff510a724ac07e5afbd0ae1ac89">k_cond_destroy</a></div><div class="ttdeci">int k_cond_destroy(int *key)</div><div class="ttdef"><b>Definition:</b> sync.c:222</div></div>
+<div class="ttc" id="async_8h_html_a7bb8ff6db004056fd78710f8b40543d5"><div class="ttname"><a href="sync_8h.html#a7bb8ff6db004056fd78710f8b40543d5">k_mbox_send</a></div><div class="ttdeci">int k_mbox_send(int key, mbox_t *target, mbox_arg_t *arg)</div><div class="ttdef"><b>Definition:</b> sync.c:325</div></div>
+<div class="ttc" id="async_8h_html_a7ec2ad5d75dada13055475c42d110f17"><div class="ttname"><a href="sync_8h.html#a7ec2ad5d75dada13055475c42d110f17">PCB_MBOX_MAX_MSG_NUM</a></div><div class="ttdeci">#define PCB_MBOX_MAX_MSG_NUM</div><div class="ttdef"><b>Definition:</b> sync.h:10</div></div>
+<div class="ttc" id="async_8h_html_a8dcb51e79842beb9f47af6d0e9bbab35"><div class="ttname"><a href="sync_8h.html#a8dcb51e79842beb9f47af6d0e9bbab35">k_mbox_close</a></div><div class="ttdeci">int k_mbox_close()</div></div>
+<div class="ttc" id="async_8h_html_a90510833af804b78b51917d7df04c6b5"><div class="ttname"><a href="sync_8h.html#a90510833af804b78b51917d7df04c6b5">k_mbox_try_recv</a></div><div class="ttdeci">int k_mbox_try_recv(int key, mbox_arg_t *arg)</div><div class="ttdef"><b>Definition:</b> sync.c:397</div></div>
+<div class="ttc" id="async_8h_html_a9d75e952b9e2ef4f0f9d9ad1a3374573"><div class="ttname"><a href="sync_8h.html#a9d75e952b9e2ef4f0f9d9ad1a3374573">k_mbox_recv</a></div><div class="ttdeci">int k_mbox_recv(int key, mbox_t *target, mbox_arg_t *arg)</div><div class="ttdef"><b>Definition:</b> sync.c:354</div></div>
+<div class="ttc" id="async_8h_html_aa71288aa3193a457dc75fb14746dbf00"><div class="ttname"><a href="sync_8h.html#aa71288aa3193a457dc75fb14746dbf00">PCB_MBOX_MSG_MAX_LEN</a></div><div class="ttdeci">#define PCB_MBOX_MSG_MAX_LEN</div><div class="ttdef"><b>Definition:</b> sync.h:11</div></div>
+<div class="ttc" id="async_8h_html_ab303d9c3a5c4e2712c644968f4b012de"><div class="ttname"><a href="sync_8h.html#ab303d9c3a5c4e2712c644968f4b012de">sys_mailread</a></div><div class="ttdeci">int sys_mailread(void *buf, int len)</div><div class="ttdef"><b>Definition:</b> sync.c:412</div></div>
+<div class="ttc" id="async_8h_html_ab6ee64d011805e837747cf4d0b5cf158"><div class="ttname"><a href="sync_8h.html#ab6ee64d011805e837747cf4d0b5cf158">k_cond_signal</a></div><div class="ttdeci">int k_cond_signal(int key)</div><div class="ttdef"><b>Definition:</b> sync.c:200</div></div>
+<div class="ttc" id="async_8h_html_ac92780faa059424120392d0f3bf52b19"><div class="ttname"><a href="sync_8h.html#ac92780faa059424120392d0f3bf52b19">Semaphore_t</a></div><div class="ttdeci">struct Semaphore Semaphore_t</div></div>
+<div class="ttc" id="async_8h_html_acd5677713c27dd566fe26bf891111b7b"><div class="ttname"><a href="sync_8h.html#acd5677713c27dd566fe26bf891111b7b">basic_info_t</a></div><div class="ttdeci">struct basic_info basic_info_t</div></div>
+<div class="ttc" id="async_8h_html_ad00f49c62943bc384ea35f471a0aa19c"><div class="ttname"><a href="sync_8h.html#ad00f49c62943bc384ea35f471a0aa19c">MBOX_MSG_MAX_LEN</a></div><div class="ttdeci">#define MBOX_MSG_MAX_LEN</div><div class="ttdef"><b>Definition:</b> sync.h:7</div></div>
+<div class="ttc" id="async_8h_html_ad3e7e7f87ebb9104b813ddcbf37a6a78"><div class="ttname"><a href="sync_8h.html#ad3e7e7f87ebb9104b813ddcbf37a6a78">k_semaphore_v</a></div><div class="ttdeci">int k_semaphore_v(int key)</div><div class="ttdef"><b>Definition:</b> sync.c:144</div></div>
+<div class="ttc" id="async_8h_html_ad9002f0a50448440ef46fcc2ea02ceb9"><div class="ttname"><a href="sync_8h.html#ad9002f0a50448440ef46fcc2ea02ceb9">k_semaphore_init</a></div><div class="ttdeci">int k_semaphore_init(int *key, int sem)</div><div class="ttdef"><b>Definition:</b> sync.c:106</div></div>
+<div class="ttc" id="async_8h_html_ae16be0c336e7ed1f035243641179ba2a"><div class="ttname"><a href="sync_8h.html#ae16be0c336e7ed1f035243641179ba2a">sys_mailwrite</a></div><div class="ttdeci">int sys_mailwrite(int pid, void *buf, int len)</div><div class="ttdef"><b>Definition:</b> sync.c:430</div></div>
+<div class="ttc" id="async_8h_html_ae92e1ad788ccd406933160f2ffb47780"><div class="ttname"><a href="sync_8h.html#ae92e1ad788ccd406933160f2ffb47780">k_barrier_destroy</a></div><div class="ttdeci">int k_barrier_destroy(int *key)</div><div class="ttdef"><b>Definition:</b> sync.c:272</div></div>
+<div class="ttc" id="async_8h_html_afaa65248a8d678799ddc08dc10306188"><div class="ttname"><a href="sync_8h.html#afaa65248a8d678799ddc08dc10306188">k_barrier_init</a></div><div class="ttdeci">int k_barrier_init(int *key, int total)</div><div class="ttdef"><b>Definition:</b> sync.c:231</div></div>
+<div class="ttc" id="async_8h_html_afe2045e58893e8db1e64e32aa0711611"><div class="ttname"><a href="sync_8h.html#afe2045e58893e8db1e64e32aa0711611">k_commop</a></div><div class="ttdeci">int k_commop(void *key_id, void *arg, int op)</div><div class="ttdef"><b>Definition:</b> sync.c:63</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_adcb960af7f29dc0d179d1c8c5d4a40a.html">os</a></li><li class="navelem"><a class="el" href="sync_8h.html">sync.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

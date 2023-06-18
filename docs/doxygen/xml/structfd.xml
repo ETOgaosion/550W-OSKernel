@@ -1,0 +1,506 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structfd" kind="struct" language="C++" prot="public">
+    <compoundname>fd</compoundname>
+    <includes refid="file_8h" local="no">file.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structfd_1a18bc3b87f2dac145f951518a964fe306" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fd::file</definition>
+        <argsstring></argsstring>
+        <name>file</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="35" column="13" bodyfile="src/fs/file.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a8ae494856c95ccc9dc7fadc4423471f6" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char fd::name[MAX_NAME_LEN]</definition>
+        <argsstring>[MAX_NAME_LEN]</argsstring>
+        <name>name</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="37" column="10" bodyfile="src/fs/file.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a8e675d589d95a1c6a7d99bd45164dbb9" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t fd::dev</definition>
+        <argsstring></argsstring>
+        <name>dev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="39" column="13" bodyfile="src/fs/file.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1aa3d778b06e093523359f0e04dbeb8599" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fd::first_cluster</definition>
+        <argsstring></argsstring>
+        <name>first_cluster</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="41" column="14" bodyfile="src/fs/file.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a186b68a5c96f7e13f1148ee474ce7cbb" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fd::mode</definition>
+        <argsstring></argsstring>
+        <name>mode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="43" column="14" bodyfile="src/fs/file.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a2cfdb78805b3a952d9eba494e1ae005c" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fd::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="45" column="14" bodyfile="src/fs/file.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1ab8a702fe2f6bf2e32278fac665966e7b" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t fd::pos</definition>
+        <argsstring></argsstring>
+        <name>pos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="47" column="14" bodyfile="src/fs/file.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a60eabea029590e8f49eae78e5181450e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fd::cur_clus_num</definition>
+        <argsstring></argsstring>
+        <name>cur_clus_num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="48" column="14" bodyfile="src/fs/file.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a05ac683ed52f0851b0aece8f854b0805" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t fd::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="50" column="14" bodyfile="src/fs/file.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1ac042f1ec3c6b3fa09d2aad75616a2399" prot="public" static="no" mutable="no">
+        <type><ref refid="file_8h_1ac54958894c7df05a6ccda429331e0ddf" kindref="member">fd_num_t</ref></type>
+        <definition>fd_num_t fd::fd_num</definition>
+        <argsstring></argsstring>
+        <name>fd_num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="56" column="14" bodyfile="src/fs/file.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a5f20cad6c5f78f2dea64731e7857b599" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 fd::used</definition>
+        <argsstring></argsstring>
+        <name>used</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="59" column="11" bodyfile="src/fs/file.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a63ade5f538bbe983b05764b919f15079" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 fd::redirected</definition>
+        <argsstring></argsstring>
+        <name>redirected</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="61" column="11" bodyfile="src/fs/file.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a1a342c7e243d138ce7773e84ca6b9fd6" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 fd::redirected_fd_index</definition>
+        <argsstring></argsstring>
+        <name>redirected_fd_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="62" column="11" bodyfile="src/fs/file.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a83737c9fc04a24cc7a3c0f7331928d40" prot="public" static="no" mutable="no">
+        <type><ref refid="file_8h_1a4e39a1620e57d44a47f9e862b4cfebce" kindref="member">pipe_num_t</ref></type>
+        <definition>pipe_num_t fd::pip_num</definition>
+        <argsstring></argsstring>
+        <name>pip_num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="65" column="16" bodyfile="src/fs/file.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a62e02f7c06fb7a737ddcb71a3fb68e68" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 fd::is_pipe_read</definition>
+        <argsstring></argsstring>
+        <name>is_pipe_read</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="66" column="11" bodyfile="src/fs/file.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a6bbeed3999a7b76f6329862eba659fad" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 fd::is_pipe_write</definition>
+        <argsstring></argsstring>
+        <name>is_pipe_write</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="67" column="11" bodyfile="src/fs/file.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1aeeab2f955980f9916cf3c8f590a23901" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 fd::sock_num</definition>
+        <argsstring></argsstring>
+        <name>sock_num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="69" column="11" bodyfile="src/fs/file.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a832d2c93b0f74eba58778001a83130c1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int fd::used</definition>
+        <argsstring></argsstring>
+        <name>used</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="72" column="13" bodyfile="src/fs/file.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a15cdf8e0176e37dbc1aabf2b238c7813" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* fd::start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="73" column="14" bodyfile="src/fs/file.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a6924a33835d57e389a45e5eae794f115" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+        <definition>size_t fd::len</definition>
+        <argsstring></argsstring>
+        <name>len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="74" column="16" bodyfile="src/fs/file.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a6888843a9217a562666cdff26eaa8607" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int fd::prot</definition>
+        <argsstring></argsstring>
+        <name>prot</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="75" column="13" bodyfile="src/fs/file.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a36f6bdb205f91cf4918fa5bc428ece78" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int fd::flags</definition>
+        <argsstring></argsstring>
+        <name>flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="76" column="13" bodyfile="src/fs/file.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a65f965bc198a370d781bda7a55dd318d" prot="public" static="no" mutable="no">
+        <type><ref refid="file_8h_1a053c614b69adbac710bb132a6eb9ccf6" kindref="member">off_t</ref></type>
+        <definition>off_t fd::off</definition>
+        <argsstring></argsstring>
+        <name>off</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="77" column="15" bodyfile="src/fs/file.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a40224c689c29d43d30b86dcd996b0e5e" prot="public" static="no" mutable="no">
+        <type>struct fd::@3</type>
+        <definition>struct fd::@3 fd::mmap</definition>
+        <argsstring></argsstring>
+        <name>mmap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="78" column="10"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a5e70603d411b32368d2a961ff28f5326" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 fd::nlink</definition>
+        <argsstring></argsstring>
+        <name>nlink</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="82" column="11" bodyfile="src/fs/file.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a9cc26c18f99b24f36a0e007985aadea6" prot="public" static="no" mutable="no">
+        <type><ref refid="file_8h_1af2306308627701b66dc6f3babe821ab4" kindref="member">uid_t</ref></type>
+        <definition>uid_t fd::uid</definition>
+        <argsstring></argsstring>
+        <name>uid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="85" column="11" bodyfile="src/fs/file.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a9545de6d20ad8aa7f5881b65cc2efc0d" prot="public" static="no" mutable="no">
+        <type><ref refid="file_8h_1aa7352f1065fe606194d792e2b292cf83" kindref="member">gid_t</ref></type>
+        <definition>gid_t fd::gid</definition>
+        <argsstring></argsstring>
+        <name>gid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="86" column="11" bodyfile="src/fs/file.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a56690df82a7b78fe9ce769bdffcfde76" prot="public" static="no" mutable="no">
+        <type><ref refid="file_8h_1a25ab4acd63db23ce8ebc580b48d6c32f" kindref="member">dev_t</ref></type>
+        <definition>dev_t fd::rdev</definition>
+        <argsstring></argsstring>
+        <name>rdev</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="88" column="11" bodyfile="src/fs/file.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a229b7b0f70ebfac9f6673fb149e12542" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long fd::atime_sec</definition>
+        <argsstring></argsstring>
+        <name>atime_sec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="92" column="10" bodyfile="src/fs/file.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1ab0443dc680505af7ffd0eab7f79966e8" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long fd::atime_nsec</definition>
+        <argsstring></argsstring>
+        <name>atime_nsec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="93" column="10" bodyfile="src/fs/file.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a4d181582482ccf5e6ca6279ee7a68830" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long fd::mtime_sec</definition>
+        <argsstring></argsstring>
+        <name>mtime_sec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="94" column="10" bodyfile="src/fs/file.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a773f139cb6efa2c9c4527cb7f4b89598" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long fd::mtime_nsec</definition>
+        <argsstring></argsstring>
+        <name>mtime_nsec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="95" column="10" bodyfile="src/fs/file.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a1f5169e16ac0badb6aae067fb743a187" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long fd::ctime_sec</definition>
+        <argsstring></argsstring>
+        <name>ctime_sec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="96" column="10" bodyfile="src/fs/file.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1aa363e0b07cf36af070c92ec5dc26d8ef" prot="public" static="no" mutable="no">
+        <type>long</type>
+        <definition>long fd::ctime_nsec</definition>
+        <argsstring></argsstring>
+        <name>ctime_nsec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="97" column="10" bodyfile="src/fs/file.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structfd_1a38cc2e5878e108cdd70327a1cf2e2133" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int fd::mailbox</definition>
+        <argsstring></argsstring>
+        <name>mailbox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="99" column="9" bodyfile="src/fs/file.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/fs/file.h" line="33" column="1" bodyfile="src/fs/file.h" bodystart="33" bodyend="105"/>
+    <listofallmembers>
+      <member refid="structfd_1ab0443dc680505af7ffd0eab7f79966e8" prot="public" virt="non-virtual"><scope>fd</scope><name>atime_nsec</name></member>
+      <member refid="structfd_1a229b7b0f70ebfac9f6673fb149e12542" prot="public" virt="non-virtual"><scope>fd</scope><name>atime_sec</name></member>
+      <member refid="structfd_1aa363e0b07cf36af070c92ec5dc26d8ef" prot="public" virt="non-virtual"><scope>fd</scope><name>ctime_nsec</name></member>
+      <member refid="structfd_1a1f5169e16ac0badb6aae067fb743a187" prot="public" virt="non-virtual"><scope>fd</scope><name>ctime_sec</name></member>
+      <member refid="structfd_1a60eabea029590e8f49eae78e5181450e" prot="public" virt="non-virtual"><scope>fd</scope><name>cur_clus_num</name></member>
+      <member refid="structfd_1a8e675d589d95a1c6a7d99bd45164dbb9" prot="public" virt="non-virtual"><scope>fd</scope><name>dev</name></member>
+      <member refid="structfd_1ac042f1ec3c6b3fa09d2aad75616a2399" prot="public" virt="non-virtual"><scope>fd</scope><name>fd_num</name></member>
+      <member refid="structfd_1a18bc3b87f2dac145f951518a964fe306" prot="public" virt="non-virtual"><scope>fd</scope><name>file</name></member>
+      <member refid="structfd_1aa3d778b06e093523359f0e04dbeb8599" prot="public" virt="non-virtual"><scope>fd</scope><name>first_cluster</name></member>
+      <member refid="structfd_1a2cfdb78805b3a952d9eba494e1ae005c" prot="public" virt="non-virtual"><scope>fd</scope><name>flags</name></member>
+      <member refid="structfd_1a36f6bdb205f91cf4918fa5bc428ece78" prot="public" virt="non-virtual"><scope>fd</scope><name>flags</name></member>
+      <member refid="structfd_1a9545de6d20ad8aa7f5881b65cc2efc0d" prot="public" virt="non-virtual"><scope>fd</scope><name>gid</name></member>
+      <member refid="structfd_1a62e02f7c06fb7a737ddcb71a3fb68e68" prot="public" virt="non-virtual"><scope>fd</scope><name>is_pipe_read</name></member>
+      <member refid="structfd_1a6bbeed3999a7b76f6329862eba659fad" prot="public" virt="non-virtual"><scope>fd</scope><name>is_pipe_write</name></member>
+      <member refid="structfd_1a6924a33835d57e389a45e5eae794f115" prot="public" virt="non-virtual"><scope>fd</scope><name>len</name></member>
+      <member refid="structfd_1a38cc2e5878e108cdd70327a1cf2e2133" prot="public" virt="non-virtual"><scope>fd</scope><name>mailbox</name></member>
+      <member refid="structfd_1a40224c689c29d43d30b86dcd996b0e5e" prot="public" virt="non-virtual"><scope>fd</scope><name>mmap</name></member>
+      <member refid="structfd_1a186b68a5c96f7e13f1148ee474ce7cbb" prot="public" virt="non-virtual"><scope>fd</scope><name>mode</name></member>
+      <member refid="structfd_1a773f139cb6efa2c9c4527cb7f4b89598" prot="public" virt="non-virtual"><scope>fd</scope><name>mtime_nsec</name></member>
+      <member refid="structfd_1a4d181582482ccf5e6ca6279ee7a68830" prot="public" virt="non-virtual"><scope>fd</scope><name>mtime_sec</name></member>
+      <member refid="structfd_1a8ae494856c95ccc9dc7fadc4423471f6" prot="public" virt="non-virtual"><scope>fd</scope><name>name</name></member>
+      <member refid="structfd_1a5e70603d411b32368d2a961ff28f5326" prot="public" virt="non-virtual"><scope>fd</scope><name>nlink</name></member>
+      <member refid="structfd_1a65f965bc198a370d781bda7a55dd318d" prot="public" virt="non-virtual"><scope>fd</scope><name>off</name></member>
+      <member refid="structfd_1a83737c9fc04a24cc7a3c0f7331928d40" prot="public" virt="non-virtual"><scope>fd</scope><name>pip_num</name></member>
+      <member refid="structfd_1ab8a702fe2f6bf2e32278fac665966e7b" prot="public" virt="non-virtual"><scope>fd</scope><name>pos</name></member>
+      <member refid="structfd_1a6888843a9217a562666cdff26eaa8607" prot="public" virt="non-virtual"><scope>fd</scope><name>prot</name></member>
+      <member refid="structfd_1a56690df82a7b78fe9ce769bdffcfde76" prot="public" virt="non-virtual"><scope>fd</scope><name>rdev</name></member>
+      <member refid="structfd_1a63ade5f538bbe983b05764b919f15079" prot="public" virt="non-virtual"><scope>fd</scope><name>redirected</name></member>
+      <member refid="structfd_1a1a342c7e243d138ce7773e84ca6b9fd6" prot="public" virt="non-virtual"><scope>fd</scope><name>redirected_fd_index</name></member>
+      <member refid="structfd_1a05ac683ed52f0851b0aece8f854b0805" prot="public" virt="non-virtual"><scope>fd</scope><name>size</name></member>
+      <member refid="structfd_1aeeab2f955980f9916cf3c8f590a23901" prot="public" virt="non-virtual"><scope>fd</scope><name>sock_num</name></member>
+      <member refid="structfd_1a15cdf8e0176e37dbc1aabf2b238c7813" prot="public" virt="non-virtual"><scope>fd</scope><name>start</name></member>
+      <member refid="structfd_1a9cc26c18f99b24f36a0e007985aadea6" prot="public" virt="non-virtual"><scope>fd</scope><name>uid</name></member>
+      <member refid="structfd_1a5f20cad6c5f78f2dea64731e7857b599" prot="public" virt="non-virtual"><scope>fd</scope><name>used</name></member>
+      <member refid="structfd_1a832d2c93b0f74eba58778001a83130c1" prot="public" virt="non-virtual"><scope>fd</scope><name>used</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

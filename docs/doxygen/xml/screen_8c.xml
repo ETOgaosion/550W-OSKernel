@@ -1,0 +1,654 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="screen_8c" kind="file" language="C++">
+    <compoundname>screen.c</compoundname>
+    <includes refid="io_8h" local="no">asm/io.h</includes>
+    <includes refid="screen_8h" local="no">drivers/screen/screen.h</includes>
+    <includes refid="stdio_8h" local="no">lib/stdio.h</includes>
+    <includes refid="string_8h" local="no">lib/string.h</includes>
+    <includes refid="irq_8h" local="no">os/irq.h</includes>
+    <includes refid="pcb_8h" local="no">os/pcb.h</includes>
+    <includes refid="smp_8h" local="no">os/smp.h</includes>
+    <incdepgraph>
+      <node id="13">
+        <label>asm/pgtable.h</label>
+        <link refid="pgtable_8h"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>os/mm.h</label>
+        <link refid="mm_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/drivers/screen/screen.c</label>
+        <link refid="screen_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>drivers/screen/screen.h</label>
+        <link refid="screen_8h"/>
+      </node>
+      <node id="4">
+        <label>lib/stdio.h</label>
+        <link refid="stdio_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>common/elf.h</label>
+        <link refid="elf_8h"/>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="2">
+        <label>asm/io.h</label>
+        <link refid="io_8h"/>
+      </node>
+      <node id="17">
+        <label>os/cpu.h</label>
+        <link refid="cpu_8h"/>
+      </node>
+      <node id="21">
+        <label>os/time.h</label>
+        <link refid="time_8h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>asm/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>os/irq.h</label>
+        <link refid="irq_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>asm/sbidef.h</label>
+        <link refid="sbidef_8h"/>
+      </node>
+      <node id="7">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="22">
+        <label>os/smp.h</label>
+        <link refid="smp_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>asm/sbi.h</label>
+        <link refid="sbi_8h"/>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>os/pcb.h</label>
+        <link refid="pcb_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
+      <node id="18">
+        <label>os/lock.h</label>
+        <link refid="lock_8h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>lib/stdarg.h</label>
+        <link refid="stdarg_8h"/>
+      </node>
+      <node id="20">
+        <label>os/sync.h</label>
+        <link refid="sync_8h"/>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>lib/list.h</label>
+        <link refid="list_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="screen_8c_1a2cd109632a6dcccaa80b43561b1ab700" prot="public" static="no">
+        <name>SCREEN_WIDTH</name>
+        <initializer>150</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="9" column="9" bodyfile="src/drivers/screen/screen.c" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="screen_8c_1a6974d08a74da681b3957b2fead2608b8" prot="public" static="no">
+        <name>SCREEN_HEIGHT</name>
+        <initializer>150</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="10" column="9" bodyfile="src/drivers/screen/screen.c" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int screen_cursor_x</definition>
+        <argsstring></argsstring>
+        <name>screen_cursor_x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="12" column="5" bodyfile="src/drivers/screen/screen.c" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int screen_cursor_y</definition>
+        <argsstring></argsstring>
+        <name>screen_cursor_y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="13" column="5" bodyfile="src/drivers/screen/screen.c" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="screen_8c_1ac712773ebb88a0e8a1e2eaf8abbba2bd" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int start_line</definition>
+        <argsstring></argsstring>
+        <name>start_line</name>
+        <initializer>= 31</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="15" column="5" bodyfile="src/drivers/screen/screen.c" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char new_screen[SCREEN_HEIGHT][SCREEN_WIDTH]</definition>
+        <argsstring>[SCREEN_HEIGHT][SCREEN_WIDTH]</argsstring>
+        <name>new_screen</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="17" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="screen_8c_1a02a65609069eaeecfcdd7a0faa65e139" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char old_screen[SCREEN_HEIGHT][SCREEN_WIDTH]</definition>
+        <argsstring>[SCREEN_HEIGHT][SCREEN_WIDTH]</argsstring>
+        <name>old_screen</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="18" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="screen_8c_1ae6a9617fee585f792886db5031bc6d6a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void vt100_move_cursor</definition>
+        <argsstring>(int x, int y)</argsstring>
+        <name>vt100_move_cursor</name>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="21" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="21" bodyend="26"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1a1d4741792d8b297eb2178b2054e43ebc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void vt100_clear</definition>
+        <argsstring>()</argsstring>
+        <name>vt100_clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="29" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="29" bodyend="32"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1a980787d70adcc86840bd92a0f332f10d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void vt100_hidden_cursor</definition>
+        <argsstring>()</argsstring>
+        <name>vt100_hidden_cursor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="35" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="35" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1a7d30062fbfa98fd851e2c6faac153791" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void screen_write_ch</definition>
+        <argsstring>(char ch)</argsstring>
+        <name>screen_write_ch</name>
+        <param>
+          <type>char</type>
+          <declname>ch</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="41" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="41" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1a71a74b6ec838d417fa0774e52b82ebe3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void d_screen_init</definition>
+        <argsstring>(void)</argsstring>
+        <name>d_screen_init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="68" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="68" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1ae1bab51fc7505f85540825f8161a1d67" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_screen_clear</definition>
+        <argsstring>(void)</argsstring>
+        <name>sys_screen_clear</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="73" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="73" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1add6d84ad5b56bf709147c47bab8051f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_screen_move_cursor</definition>
+        <argsstring>(int x, int y)</argsstring>
+        <name>sys_screen_move_cursor</name>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="86" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="86" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1a4bda076c33e4ef2c3667be3f9d47ca4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_screen_write_len</definition>
+        <argsstring>(char *buff, int len)</argsstring>
+        <name>sys_screen_write_len</name>
+        <param>
+          <type>char *</type>
+          <declname>buff</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>len</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="95" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="95" bodyend="100"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1a3fcf46e5b64442d02d975f629d297ebb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_screen_write</definition>
+        <argsstring>(char *buff)</argsstring>
+        <name>sys_screen_write</name>
+        <param>
+          <type>char *</type>
+          <declname>buff</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="102" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="102" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1a9b626efc30296bf445ebc54a3840fb93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long d_screen_reflush</definition>
+        <argsstring>(void)</argsstring>
+        <name>d_screen_reflush</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="113" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="113" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1ab038d12c63a475ae97c09cddc3b5007f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void d_screen_load_curpcb_cursor</definition>
+        <argsstring>()</argsstring>
+        <name>d_screen_load_curpcb_cursor</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="141" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="141" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1a1acdca6501d8a78cc9c70aecd16ffdc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void d_screen_kernel_move_cursor</definition>
+        <argsstring>(int x, int y)</argsstring>
+        <name>d_screen_kernel_move_cursor</name>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="145" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="145" bodyend="149"/>
+      </memberdef>
+      <memberdef kind="function" id="screen_8c_1a777812f451bc644308ced912b9054660" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void d_screen_pcb_move_cursor</definition>
+        <argsstring>(int x, int y)</argsstring>
+        <name>d_screen_pcb_move_cursor</name>
+        <param>
+          <type>int</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/screen/screen.c" line="151" column="6" bodyfile="src/drivers/screen/screen.c" bodystart="151" bodyend="154"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;<ref refid="io_8h" kindref="compound">asm/io.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="screen_8h" kindref="compound">drivers/screen/screen.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="stdio_8h" kindref="compound">lib/stdio.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="string_8h" kindref="compound">lib/string.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="irq_8h" kindref="compound">os/irq.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="pcb_8h" kindref="compound">os/pcb.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="smp_8h" kindref="compound">os/smp.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SCREEN_WIDTH<sp/>150</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SCREEN_HEIGHT<sp/>150</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref>;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1ac712773ebb88a0e8a1e2eaf8abbba2bd" kindref="member">start_line</ref><sp/>=<sp/>31;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>screen<sp/>buffer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[<ref refid="screen_8c_1a6974d08a74da681b3957b2fead2608b8" kindref="member">SCREEN_HEIGHT</ref>][<ref refid="screen_8c_1a2cd109632a6dcccaa80b43561b1ab700" kindref="member">SCREEN_WIDTH</ref>]<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a02a65609069eaeecfcdd7a0faa65e139" kindref="member">old_screen</ref>[<ref refid="screen_8c_1a6974d08a74da681b3957b2fead2608b8" kindref="member">SCREEN_HEIGHT</ref>][<ref refid="screen_8c_1a2cd109632a6dcccaa80b43561b1ab700" kindref="member">SCREEN_WIDTH</ref>]<sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>cursor<sp/>position<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1ae6a9617fee585f792886db5031bc6d6a" kindref="member">vt100_move_cursor</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y)<sp/>{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>\033[y;xH</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>k_print(&quot;%c[%d;%dH&quot;,<sp/>27,<sp/>y,<sp/>x);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref><sp/>=<sp/>x;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref><sp/>=<sp/>y;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>clear<sp/>screen<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a1d4741792d8b297eb2178b2054e43ebc" kindref="member">vt100_clear</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>\033[2J</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>k_print(&quot;%c[2J&quot;,<sp/>27);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>hidden<sp/>cursor<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a980787d70adcc86840bd92a0f332f10d" kindref="member">vt100_hidden_cursor</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>\033[?25l</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>k_print(&quot;%c[?25l&quot;,<sp/>27);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>write<sp/>a<sp/>char<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a7d30062fbfa98fd851e2c6faac153791" kindref="member">screen_write_ch</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>ch)<sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ch<sp/>==<sp/></highlight><highlight class="charliteral">&apos;\n&apos;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[<ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref>][(<ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref><sp/>-<sp/>1)]<sp/>=<sp/>ch;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref><sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref>++;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref><sp/>&gt;=<sp/><ref refid="screen_8c_1a6974d08a74da681b3957b2fead2608b8" kindref="member">SCREEN_HEIGHT</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a9b626efc30296bf445ebc54a3840fb93" kindref="member">d_screen_reflush</ref>();</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/><ref refid="screen_8c_1ac712773ebb88a0e8a1e2eaf8abbba2bd" kindref="member">start_line</ref>;<sp/>i<sp/>&lt;<sp/><ref refid="screen_8c_1a6974d08a74da681b3957b2fead2608b8" kindref="member">SCREEN_HEIGHT</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/><ref refid="screen_8c_1a2cd109632a6dcccaa80b43561b1ab700" kindref="member">SCREEN_WIDTH</ref>;<sp/>j++)<sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(i<sp/>==<sp/><ref refid="screen_8c_1a6974d08a74da681b3957b2fead2608b8" kindref="member">SCREEN_HEIGHT</ref><sp/>-<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[i][j]<sp/>=<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[i][j]<sp/>=<sp/><ref refid="screen_8c_1a02a65609069eaeecfcdd7a0faa65e139" kindref="member">old_screen</ref>[i<sp/>+<sp/>1][j];</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref><sp/>=<sp/><ref refid="screen_8c_1a6974d08a74da681b3957b2fead2608b8" kindref="member">SCREEN_HEIGHT</ref><sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ch<sp/>==<sp/>8<sp/>||<sp/>ch<sp/>==<sp/>127)<sp/>{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[<ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref>][(<ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref><sp/>-<sp/>2)]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref>--;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[<ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref>][(<ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref><sp/>-<sp/>1)]<sp/>=<sp/>ch;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref>++;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a71a74b6ec838d417fa0774e52b82ebe3" kindref="member">d_screen_init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a980787d70adcc86840bd92a0f332f10d" kindref="member">vt100_hidden_cursor</ref>();</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a1d4741792d8b297eb2178b2054e43ebc" kindref="member">vt100_clear</ref>();</highlight></codeline>
+<codeline lineno="71"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1ae1bab51fc7505f85540825f8161a1d67" kindref="member">sys_screen_clear</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>vt100_move_cursor(0,<sp/>0);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>vt100_clear();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/>j;</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="screen_8c_1a6974d08a74da681b3957b2fead2608b8" kindref="member">SCREEN_HEIGHT</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/><ref refid="screen_8c_1a2cd109632a6dcccaa80b43561b1ab700" kindref="member">SCREEN_WIDTH</ref>;<sp/>j++)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[i][j]<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a9b626efc30296bf445ebc54a3840fb93" kindref="member">d_screen_reflush</ref>();</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1add6d84ad5b56bf709147c47bab8051f4" kindref="member">sys_screen_move_cursor</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y)<sp/>{</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref><sp/>=<sp/>x;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>if(y&gt;SCREEN_HEIGHT)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>screen_cursor_y<sp/>=<sp/>y<sp/>-<sp/>SCREEN_HEIGHT<sp/>+<sp/>start_line-1;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref><sp/>=<sp/>y;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a4bda076c33e4ef2c3667be3f9d47ca4f" kindref="member">sys_screen_write_len</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*buff,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>len)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>len;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="io_8h_1ab4d273aae70f3b4269bb4069129bc912" kindref="member">k_port_write_ch</ref>(buff[i]);</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a3fcf46e5b64442d02d975f629d297ebb" kindref="member">sys_screen_write</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*buff)<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a4bda076c33e4ef2c3667be3f9d47ca4f" kindref="member">sys_screen_write_len</ref>(buff,<sp/><ref refid="string_8h_1ae096c40164c6e072e600751bd7151fb9" kindref="member">k_strlen</ref>(buff));</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/>*<sp/>This<sp/>function<sp/>is<sp/>used<sp/>to<sp/>print<sp/>the<sp/>serial<sp/>port<sp/>when<sp/>the<sp/>clock</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/>*<sp/>interrupt<sp/>is<sp/>triggered.<sp/>However,<sp/>we<sp/>need<sp/>to<sp/>pay<sp/>attention<sp/>to</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/>*<sp/>the<sp/>fact<sp/>that<sp/>in<sp/>order<sp/>to<sp/>speed<sp/>up<sp/>printing,<sp/>we<sp/>only<sp/>refresh</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/>*<sp/>the<sp/>characters<sp/>that<sp/>have<sp/>been<sp/>modified<sp/>since<sp/>this<sp/>time.</highlight></codeline>
+<codeline lineno="112"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a9b626efc30296bf445ebc54a3840fb93" kindref="member">d_screen_reflush</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/>j;</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prex<sp/>=<sp/><ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref>;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>prey<sp/>=<sp/><ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref>;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>here<sp/>to<sp/>reflush<sp/>screen<sp/>buffer<sp/>to<sp/>serial<sp/>port<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="screen_8c_1a6974d08a74da681b3957b2fead2608b8" kindref="member">SCREEN_HEIGHT</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/><ref refid="screen_8c_1a2cd109632a6dcccaa80b43561b1ab700" kindref="member">SCREEN_WIDTH</ref>;<sp/>j++)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>We<sp/>only<sp/>print<sp/>the<sp/>data<sp/>of<sp/>the<sp/>modified<sp/>location.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[i][j]<sp/>!=<sp/><ref refid="screen_8c_1a02a65609069eaeecfcdd7a0faa65e139" kindref="member">old_screen</ref>[i][j])<sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1ae6a9617fee585f792886db5031bc6d6a" kindref="member">vt100_move_cursor</ref>(j<sp/>+<sp/>1,<sp/>i<sp/>+<sp/>1);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[i][j]<sp/>==<sp/></highlight><highlight class="charliteral">&apos;\n&apos;</highlight><highlight class="normal">)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="io_8h_1ab4d273aae70f3b4269bb4069129bc912" kindref="member">k_port_write_ch</ref>(</highlight><highlight class="charliteral">&apos;\n&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[i][j]<sp/>&lt;<sp/>20<sp/>||<sp/><ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[i][j]<sp/>&gt;<sp/>126)<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="io_8h_1ab4d273aae70f3b4269bb4069129bc912" kindref="member">k_port_write_ch</ref>(</highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="io_8h_1ab4d273aae70f3b4269bb4069129bc912" kindref="member">k_port_write_ch</ref>(<ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[i][j]);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a02a65609069eaeecfcdd7a0faa65e139" kindref="member">old_screen</ref>[i][j]<sp/>=<sp/><ref refid="screen_8c_1aa5fb3081e50ef45e40ed03a8dfde3440" kindref="member">new_screen</ref>[i][j];</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>recover<sp/>cursor<sp/>position<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1ae6a9617fee585f792886db5031bc6d6a" kindref="member">vt100_move_cursor</ref>(prex,<sp/>prey);</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1ab038d12c63a475ae97c09cddc3b5007f" kindref="member">d_screen_load_curpcb_cursor</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a1acdca6501d8a78cc9c70aecd16ffdc2" kindref="member">d_screen_kernel_move_cursor</ref>(<ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref>,<sp/><ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref>);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a1acdca6501d8a78cc9c70aecd16ffdc2" kindref="member">d_screen_kernel_move_cursor</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y)<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>\033[y;xH</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref><sp/>=<sp/>x;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref><sp/>=<sp/>y;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="screen_8c_1a777812f451bc644308ced912b9054660" kindref="member">d_screen_pcb_move_cursor</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y)<sp/>{</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a4986730f4e0e0459b041a5a72eb0b2d6" kindref="member">screen_cursor_x</ref><sp/>=<sp/>x;</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="screen_8c_1a0cd238f96911d9d1d4c25467b4cc77c5" kindref="member">screen_cursor_y</ref><sp/>=<sp/>y;</highlight></codeline>
+<codeline lineno="154"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/drivers/screen/screen.c"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="arch_2riscv_2kernel_2sys_2smp_8d" kind="file" language="D">
+    <compoundname>smp.d</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">smp.o:<sp/>smp.S<sp/>../../include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">.h<sp/>../../include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/csr.h</highlight></codeline>
+    </programlisting>
+    <location file="src/arch/riscv/kernel/sys/smp.d"/>
+  </compounddef>
+</doxygen>

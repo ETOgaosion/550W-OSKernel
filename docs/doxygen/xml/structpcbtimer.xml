@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structpcbtimer" kind="struct" language="C++" prot="public">
+    <compoundname>pcbtimer</compoundname>
+    <includes refid="time_8h" local="no">time.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpcbtimer_1a8de809b1b2e7923768e30bfc175dca83" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a1062901a7428fdd9c7f180f5e01ea056" kindref="member">bool</ref></type>
+        <definition>bool pcbtimer::initialized</definition>
+        <argsstring></argsstring>
+        <name>initialized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/time.h" line="34" column="10" bodyfile="src/include/os/time.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpcbtimer_1acbc6f8ade72c982b355a75a376dc1f84" prot="public" static="no" mutable="no">
+        <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref></type>
+        <definition>nanotime_val_t pcbtimer::start_time</definition>
+        <argsstring></argsstring>
+        <name>start_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/time.h" line="35" column="20" bodyfile="src/include/os/time.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpcbtimer_1afe1272eacb16ce7bb0f4476f9bae8c7f" prot="public" static="no" mutable="no">
+        <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref></type>
+        <definition>nanotime_val_t pcbtimer::end_time</definition>
+        <argsstring></argsstring>
+        <name>end_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/time.h" line="36" column="20" bodyfile="src/include/os/time.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpcbtimer_1ae941d0e400394eefca4d2dfb3b75e522" prot="public" static="no" mutable="no">
+        <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+        <definition>nanotime_val_t* pcbtimer::remain_time</definition>
+        <argsstring></argsstring>
+        <name>remain_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/time.h" line="37" column="20" bodyfile="src/include/os/time.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>nanotime_val</label>
+        <link refid="structnanotime__val"/>
+      </node>
+      <node id="1">
+        <label>pcbtimer</label>
+        <link refid="structpcbtimer"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>end_time</edgelabel>
+          <edgelabel>remain_time</edgelabel>
+          <edgelabel>start_time</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/include/os/time.h" line="33" column="1" bodyfile="src/include/os/time.h" bodystart="33" bodyend="38"/>
+    <listofallmembers>
+      <member refid="structpcbtimer_1afe1272eacb16ce7bb0f4476f9bae8c7f" prot="public" virt="non-virtual"><scope>pcbtimer</scope><name>end_time</name></member>
+      <member refid="structpcbtimer_1a8de809b1b2e7923768e30bfc175dca83" prot="public" virt="non-virtual"><scope>pcbtimer</scope><name>initialized</name></member>
+      <member refid="structpcbtimer_1ae941d0e400394eefca4d2dfb3b75e522" prot="public" virt="non-virtual"><scope>pcbtimer</scope><name>remain_time</name></member>
+      <member refid="structpcbtimer_1acbc6f8ade72c982b355a75a376dc1f84" prot="public" virt="non-virtual"><scope>pcbtimer</scope><name>start_time</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

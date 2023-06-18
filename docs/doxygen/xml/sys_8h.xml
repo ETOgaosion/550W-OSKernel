@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="sys_8h" kind="file" language="C++">
+    <compoundname>sys.h</compoundname>
+    <includedby refid="include_2os_2syscall_8h" local="no">src/include/os/syscall.h</includedby>
+    <includedby refid="info_8c" local="no">src/kernel/sys/info.c</includedby>
+    <invincdepgraph>
+      <node id="1">
+        <label>src/include/os/sys.h</label>
+        <link refid="sys_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/kernel/sys/info.c</label>
+        <link refid="info_8c"/>
+      </node>
+      <node id="2">
+        <label>src/include/os/syscall.h</label>
+        <link refid="include_2os_2syscall_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/kernel/irq/irq.c</label>
+        <link refid="irq_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structuname" prot="public">uname</innerclass>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="sys_8h_1ab068ce194f020320accb53ca8d1cb11b" prot="public" static="no">
+        <type>struct <ref refid="structuname" kindref="compound">uname</ref></type>
+        <definition>typedef struct uname uname_t</definition>
+        <argsstring></argsstring>
+        <name>uname_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sys.h" line="10" column="9"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="sys_8h_1ad44f752c5ff3321da139e5c549ad371f" prot="public" static="no" mutable="no">
+        <type><ref refid="sys_8h_1ab068ce194f020320accb53ca8d1cb11b" kindref="member">uname_t</ref></type>
+        <definition>uname_t uname_550w</definition>
+        <argsstring></argsstring>
+        <name>uname_550w</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sys.h" line="12" column="16" bodyfile="src/kernel/sys/info.c" bodystart="4" bodyend="-1" declfile="src/include/os/sys.h" declline="12" declcolumn="16"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="sys_8h_1ab1db879461c2e763546feb47ecbcb548" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_uname</definition>
+        <argsstring>(uname_t *)</argsstring>
+        <name>sys_uname</name>
+        <param>
+          <type><ref refid="sys_8h_1ab068ce194f020320accb53ca8d1cb11b" kindref="member">uname_t</ref> *</type>
+          <declname>dest</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/sys.h" line="14" column="6" bodyfile="src/kernel/sys/info.c" bodystart="6" bodyend="9" declfile="src/include/os/sys.h" declline="14" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3" refid="structuname" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structuname" kindref="compound">uname</ref><sp/>{</highlight></codeline>
+<codeline lineno="4" refid="structuname_1a7d92ef35c14e513a9218ffaebc5fb388" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structuname_1a7d92ef35c14e513a9218ffaebc5fb388" kindref="member">sysname</ref>[65];</highlight></codeline>
+<codeline lineno="5" refid="structuname_1a5eb2fad7ab6274c93d76d52a4b3d587e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structuname_1a5eb2fad7ab6274c93d76d52a4b3d587e" kindref="member">nodename</ref>[65];</highlight></codeline>
+<codeline lineno="6" refid="structuname_1a2c668bff97a2d1e2aee31c5051f0b0df" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structuname_1a2c668bff97a2d1e2aee31c5051f0b0df" kindref="member">release</ref>[65];</highlight></codeline>
+<codeline lineno="7" refid="structuname_1ae4d1fdd34b424838c0e9b926bc7da41e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structuname_1ae4d1fdd34b424838c0e9b926bc7da41e" kindref="member">version</ref>[65];</highlight></codeline>
+<codeline lineno="8" refid="structuname_1ae50b903b3a88b8b1435d084a95826d1c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structuname_1ae50b903b3a88b8b1435d084a95826d1c" kindref="member">machine</ref>[65];</highlight></codeline>
+<codeline lineno="9" refid="structuname_1a594b3673b854a92b0319ca05df5c5c72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structuname_1a594b3673b854a92b0319ca05df5c5c72" kindref="member">domainname</ref>[65];</highlight></codeline>
+<codeline lineno="10" refid="sys_8h_1ab068ce194f020320accb53ca8d1cb11b" refkind="member"><highlight class="normal">}<sp/><ref refid="sys_8h_1ab068ce194f020320accb53ca8d1cb11b" kindref="member">uname_t</ref>;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structuname" kindref="compound">uname_t</ref><sp/><ref refid="sys_8h_1ad44f752c5ff3321da139e5c549ad371f" kindref="member">uname_550w</ref>;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="sys_8h_1ab1db879461c2e763546feb47ecbcb548" kindref="member">sys_uname</ref>(<ref refid="structuname" kindref="compound">uname_t</ref><sp/>*);</highlight></codeline>
+    </programlisting>
+    <location file="src/include/os/sys.h"/>
+  </compounddef>
+</doxygen>

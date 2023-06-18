@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structtms" kind="struct" language="C++" prot="public">
+    <compoundname>tms</compoundname>
+    <includes refid="time_8h" local="no">time.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtms_1a4e69f8c6ac77f57f15f9c712c82ae1b1" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a51c032d75ce7eda10961bee8c5b5589f" kindref="member">__kernel_clock_t</ref></type>
+        <definition>__kernel_clock_t tms::tms_utime</definition>
+        <argsstring></argsstring>
+        <name>tms_utime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/time.h" line="22" column="22" bodyfile="src/include/os/time.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtms_1aedfe14156d5942c15505cf7046f7dcef" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a51c032d75ce7eda10961bee8c5b5589f" kindref="member">__kernel_clock_t</ref></type>
+        <definition>__kernel_clock_t tms::tms_stime</definition>
+        <argsstring></argsstring>
+        <name>tms_stime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/time.h" line="23" column="22" bodyfile="src/include/os/time.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtms_1ae07749ecba0207ca1c4fe46d404d8647" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a51c032d75ce7eda10961bee8c5b5589f" kindref="member">__kernel_clock_t</ref></type>
+        <definition>__kernel_clock_t tms::tms_cutime</definition>
+        <argsstring></argsstring>
+        <name>tms_cutime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/time.h" line="24" column="22" bodyfile="src/include/os/time.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtms_1a25b61c3e117430c84ffa08977478592f" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a51c032d75ce7eda10961bee8c5b5589f" kindref="member">__kernel_clock_t</ref></type>
+        <definition>__kernel_clock_t tms::tms_cstime</definition>
+        <argsstring></argsstring>
+        <name>tms_cstime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/time.h" line="25" column="22" bodyfile="src/include/os/time.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/include/os/time.h" line="21" column="1" bodyfile="src/include/os/time.h" bodystart="21" bodyend="26"/>
+    <listofallmembers>
+      <member refid="structtms_1a25b61c3e117430c84ffa08977478592f" prot="public" virt="non-virtual"><scope>tms</scope><name>tms_cstime</name></member>
+      <member refid="structtms_1ae07749ecba0207ca1c4fe46d404d8647" prot="public" virt="non-virtual"><scope>tms</scope><name>tms_cutime</name></member>
+      <member refid="structtms_1aedfe14156d5942c15505cf7046f7dcef" prot="public" virt="non-virtual"><scope>tms</scope><name>tms_stime</name></member>
+      <member refid="structtms_1a4e69f8c6ac77f57f15f9c712c82ae1b1" prot="public" virt="non-virtual"><scope>tms</scope><name>tms_utime</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

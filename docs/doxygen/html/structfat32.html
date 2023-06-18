@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: fat32结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('structfat32.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public 属性</a> &#124;
+<a href="structfat32-members.html">所有成员列表</a>  </div>
+  <div class="headertitle">
+<div class="title">fat32结构体 参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="fat32_8h_source.html">fat32.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public 属性</h2></td></tr>
+<tr class="memitem:a409e6b408769b27b603d57dc1f15a5ed"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a790304e9dfcf63c8174a67ad87271320"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="structfat32.html#ac6ee0f9ae1d10f22427bbc7595d10c91">bytes_per_sec</a></td></tr>
+<tr class="separator:a790304e9dfcf63c8174a67ad87271320"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accef8b914dd48011f98d8a1bebf3421d"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="structfat32.html#a91fb9d11ed7a79a2547dcdca7204b6ac">sec_per_cluster</a></td></tr>
+<tr class="separator:accef8b914dd48011f98d8a1bebf3421d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad425030de91b07455e08038f4a2c6c13"><td class="memItemLeft" >&#160;&#160;&#160;uint16_t&#160;&#160;&#160;<a class="el" href="structfat32.html#ab7d658e44fbbcf59d0a9b04b67cf407a">rsvd_sec_cnt</a></td></tr>
+<tr class="separator:ad425030de91b07455e08038f4a2c6c13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e26714f22b888e78f2042383d2bef6f"><td class="memItemLeft" >&#160;&#160;&#160;uint8_t&#160;&#160;&#160;<a class="el" href="structfat32.html#a921f1311f3e7f7b167fcbcbe378b945b">fat_num</a></td></tr>
+<tr class="separator:a1e26714f22b888e78f2042383d2bef6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a446cae721375c77bdb56e90ecade6c6f"><td class="memItemLeft" >&#160;&#160;&#160;uint32_t&#160;&#160;&#160;<a class="el" href="structfat32.html#a253922b4d29a6f3d7df54b1c0055271f">hidd_sec</a></td></tr>
+<tr class="separator:a446cae721375c77bdb56e90ecade6c6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3ecf73c77f8783ec72ac096f30a77fb"><td class="memItemLeft" >&#160;&#160;&#160;uint32_t&#160;&#160;&#160;<a class="el" href="structfat32.html#aee381a8a01b4792cda133fe688b22faf">totl_sec</a></td></tr>
+<tr class="separator:aa3ecf73c77f8783ec72ac096f30a77fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36c71778cfcb5349408959a674926505"><td class="memItemLeft" >&#160;&#160;&#160;uint32_t&#160;&#160;&#160;<a class="el" href="structfat32.html#a45e47a9225e413c14d15737c392d4d6d">sec_per_fat</a></td></tr>
+<tr class="separator:a36c71778cfcb5349408959a674926505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6389b5fcdcb2e7a7e34a423373857e78"><td class="memItemLeft" >&#160;&#160;&#160;uint32_t&#160;&#160;&#160;<a class="el" href="structfat32.html#a0c3185d3dd1309f5a4751b4b8a58f4d9">root_cluster</a></td></tr>
+<tr class="separator:a6389b5fcdcb2e7a7e34a423373857e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a409e6b408769b27b603d57dc1f15a5ed"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfat32.html#a409e6b408769b27b603d57dc1f15a5ed">bpb</a></td></tr>
+<tr class="separator:a409e6b408769b27b603d57dc1f15a5ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d895f7663cfbeeb117a02cc4691c4aa"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfat32.html#a5d895f7663cfbeeb117a02cc4691c4aa">first_data_sec</a></td></tr>
+<tr class="separator:a5d895f7663cfbeeb117a02cc4691c4aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0178cabae422e7fc8c732e6732bfdd2a"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfat32.html#a0178cabae422e7fc8c732e6732bfdd2a">data_sec_cnt</a></td></tr>
+<tr class="separator:a0178cabae422e7fc8c732e6732bfdd2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb75a52b1f365390f28e7a07b0a36844"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfat32.html#acb75a52b1f365390f28e7a07b0a36844">data_cluster_cnt</a></td></tr>
+<tr class="separator:acb75a52b1f365390f28e7a07b0a36844"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fc7659eb603d602a275dadaf686b849"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfat32.html#a5fc7659eb603d602a275dadaf686b849">bytes_per_cluster</a></td></tr>
+<tr class="separator:a5fc7659eb603d602a275dadaf686b849"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5620c49b36cce0cd5f5b78694b40da76"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfat32.html#a5620c49b36cce0cd5f5b78694b40da76">entry_per_sec</a></td></tr>
+<tr class="separator:a5620c49b36cce0cd5f5b78694b40da76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac39eecb53bcba471597a8a80c34fc5b6"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfat32.html#ac39eecb53bcba471597a8a80c34fc5b6">free_clusters</a></td></tr>
+<tr class="separator:ac39eecb53bcba471597a8a80c34fc5b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e9da26e844b565694e339bdc607b439"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfat32.html#a0e9da26e844b565694e339bdc607b439">next_free_cluster</a></td></tr>
+<tr class="separator:a0e9da26e844b565694e339bdc607b439"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf4c3a05a4408284a41c05651b441e9b"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structfat32.html#abf4c3a05a4408284a41c05651b441e9b">next_free_fat_sec</a></td></tr>
+<tr class="separator:abf4c3a05a4408284a41c05651b441e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="a409e6b408769b27b603d57dc1f15a5ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a409e6b408769b27b603d57dc1f15a5ed">&#9670;&nbsp;</a></span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  fat32::bpb</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5fc7659eb603d602a275dadaf686b849"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fc7659eb603d602a275dadaf686b849">&#9670;&nbsp;</a></span>bytes_per_cluster</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::bytes_per_cluster</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac6ee0f9ae1d10f22427bbc7595d10c91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6ee0f9ae1d10f22427bbc7595d10c91">&#9670;&nbsp;</a></span>bytes_per_sec</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t fat32::bytes_per_sec</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acb75a52b1f365390f28e7a07b0a36844"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb75a52b1f365390f28e7a07b0a36844">&#9670;&nbsp;</a></span>data_cluster_cnt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::data_cluster_cnt</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0178cabae422e7fc8c732e6732bfdd2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0178cabae422e7fc8c732e6732bfdd2a">&#9670;&nbsp;</a></span>data_sec_cnt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::data_sec_cnt</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5620c49b36cce0cd5f5b78694b40da76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5620c49b36cce0cd5f5b78694b40da76">&#9670;&nbsp;</a></span>entry_per_sec</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::entry_per_sec</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a921f1311f3e7f7b167fcbcbe378b945b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a921f1311f3e7f7b167fcbcbe378b945b">&#9670;&nbsp;</a></span>fat_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t fat32::fat_num</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d895f7663cfbeeb117a02cc4691c4aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d895f7663cfbeeb117a02cc4691c4aa">&#9670;&nbsp;</a></span>first_data_sec</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::first_data_sec</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac39eecb53bcba471597a8a80c34fc5b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac39eecb53bcba471597a8a80c34fc5b6">&#9670;&nbsp;</a></span>free_clusters</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::free_clusters</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a253922b4d29a6f3d7df54b1c0055271f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a253922b4d29a6f3d7df54b1c0055271f">&#9670;&nbsp;</a></span>hidd_sec</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::hidd_sec</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e9da26e844b565694e339bdc607b439"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e9da26e844b565694e339bdc607b439">&#9670;&nbsp;</a></span>next_free_cluster</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::next_free_cluster</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf4c3a05a4408284a41c05651b441e9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf4c3a05a4408284a41c05651b441e9b">&#9670;&nbsp;</a></span>next_free_fat_sec</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::next_free_fat_sec</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0c3185d3dd1309f5a4751b4b8a58f4d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c3185d3dd1309f5a4751b4b8a58f4d9">&#9670;&nbsp;</a></span>root_cluster</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::root_cluster</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab7d658e44fbbcf59d0a9b04b67cf407a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d658e44fbbcf59d0a9b04b67cf407a">&#9670;&nbsp;</a></span>rsvd_sec_cnt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t fat32::rsvd_sec_cnt</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a91fb9d11ed7a79a2547dcdca7204b6ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91fb9d11ed7a79a2547dcdca7204b6ac">&#9670;&nbsp;</a></span>sec_per_cluster</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t fat32::sec_per_cluster</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a45e47a9225e413c14d15737c392d4d6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45e47a9225e413c14d15737c392d4d6d">&#9670;&nbsp;</a></span>sec_per_fat</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::sec_per_fat</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee381a8a01b4792cda133fe688b22faf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee381a8a01b4792cda133fe688b22faf">&#9670;&nbsp;</a></span>totl_sec</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t fat32::totl_sec</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>src/fs/<a class="el" href="fat32_8h_source.html">fat32.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structfat32.html">fat32</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

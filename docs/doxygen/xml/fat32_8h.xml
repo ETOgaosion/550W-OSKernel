@@ -1,0 +1,1110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="fat32_8h" kind="file" language="C++">
+    <compoundname>fat32.h</compoundname>
+    <includes refid="types_8h" local="no">common/types.h</includes>
+    <includedby refid="fs_8c" local="no">src/fs/fs.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/fs/fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="2">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/fs/fs.c</label>
+        <link refid="fs_8c"/>
+      </node>
+      <node id="1">
+        <label>src/fs/fat32.h</label>
+        <link refid="fat32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structfat32" prot="public">fat32</innerclass>
+    <innerclass refid="structshort__name__entry" prot="public">short_name_entry</innerclass>
+    <innerclass refid="structlong__name__entry" prot="public">long_name_entry</innerclass>
+    <innerclass refid="uniondentry" prot="public">dentry</innerclass>
+    <innerclass refid="structdir__info" prot="public">dir_info</innerclass>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="fat32_8h_1ac39d9cef6a5e030ba8d9e11121054268" prot="public" static="no">
+        <name>max</name>
+        <param><defname>x</defname></param>
+        <param><defname>y</defname></param>
+        <initializer>(((x) &gt; (y)) ? (x) : (y))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="5" column="9" bodyfile="src/fs/fat32.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1abb702d8b501669a23aa0ab3b281b9384" prot="public" static="no">
+        <name>min</name>
+        <param><defname>x</defname></param>
+        <param><defname>y</defname></param>
+        <initializer>(((x) &gt; (y)) ? (y) : (x))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="6" column="9" bodyfile="src/fs/fat32.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a538cbf03f87e88410397e3bf51c3dbd8" prot="public" static="no">
+        <name>FAT32_BOOT_SEC</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="8" column="9" bodyfile="src/fs/fat32.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a1ecb533ef27737750a95f2cdb9a0f43b" prot="public" static="no">
+        <name>BPB_BYTES_PER_SEC</name>
+        <initializer>0x0B</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="10" column="9" bodyfile="src/fs/fat32.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a4d33cc730b9a26d5b31a223a239d3a8d" prot="public" static="no">
+        <name>BPB_SEC_PER_CLUSTER</name>
+        <initializer>0x0D</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="11" column="9" bodyfile="src/fs/fat32.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1aceaeaa4ad72f292ff407f6789a3d49b1" prot="public" static="no">
+        <name>BPB_RSVD_SEC_CNT</name>
+        <initializer>0x0E</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="12" column="9" bodyfile="src/fs/fat32.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a55ce87cd9e26f21c76ba06e7b514993d" prot="public" static="no">
+        <name>BPB_FAT_NUM</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="13" column="9" bodyfile="src/fs/fat32.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1adcc1172b9cd884e5b5e349740928a6e1" prot="public" static="no">
+        <name>BPB_HIDD_SEC</name>
+        <initializer>0x1C</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="14" column="9" bodyfile="src/fs/fat32.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1ab278ee63f0bda2e75f566e689265c656" prot="public" static="no">
+        <name>BPB_TOTL_SEC</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="15" column="9" bodyfile="src/fs/fat32.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a394f5e2cf6b7cdebfbc56ab5f9490986" prot="public" static="no">
+        <name>BPB_SEC_PER_FAT</name>
+        <initializer>0x24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="16" column="9" bodyfile="src/fs/fat32.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1ae2da53692da5a321d90d429d8713912b" prot="public" static="no">
+        <name>BPB_ROOT_CLUSTER</name>
+        <initializer>0x2c</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="17" column="9" bodyfile="src/fs/fat32.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a154ecd3eb374bee87efec220f2d5106f" prot="public" static="no">
+        <name>ATTR_READ_WRITE</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="42" column="9" bodyfile="src/fs/fat32.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1aef018487342a3344aa32ee15ddcb4410" prot="public" static="no">
+        <name>ATTR_READ_ONLY</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="43" column="9" bodyfile="src/fs/fat32.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a42249a182dc832d4647b67281c2ffc90" prot="public" static="no">
+        <name>ATTR_HIDDEN</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="44" column="9" bodyfile="src/fs/fat32.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a1c1250075cd2ca065a67a44fc9fc3222" prot="public" static="no">
+        <name>ATTR_SYSTEM</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="45" column="9" bodyfile="src/fs/fat32.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1ab14d118689e61ffb3e29f83d38f1f135" prot="public" static="no">
+        <name>ATTR_VOLUME_ID</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="46" column="9" bodyfile="src/fs/fat32.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1afa13d3c1c60925f7b1e639233a799860" prot="public" static="no">
+        <name>ATTR_DIRECTORY</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="47" column="9" bodyfile="src/fs/fat32.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a1b257aa7e0fdd8b11372edf885302176" prot="public" static="no">
+        <name>ATTR_ARCHIVE</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="48" column="9" bodyfile="src/fs/fat32.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a8ebe014bd4f0c93090bd1c884c7285d5" prot="public" static="no">
+        <name>ATTR_LONG_FILE_NAME</name>
+        <initializer>0x0F</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="49" column="9" bodyfile="src/fs/fat32.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a134b0a56cd9289f94d5fbb0be67652af" prot="public" static="no">
+        <name>ATTR_LINK</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="51" column="9" bodyfile="src/fs/fat32.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a07c53a8ec2098d5d57aac0dd3184c34a" prot="public" static="no">
+        <name>ATTR_CHARACTER_DEVICE</name>
+        <initializer>0x80</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="52" column="9" bodyfile="src/fs/fat32.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a75db02ccc1974b51db069507421816f8" prot="public" static="no">
+        <name>SHORT_FIR_NAME</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="54" column="9" bodyfile="src/fs/fat32.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a561925648134af559971d6567ae0a2fd" prot="public" static="no">
+        <name>SHORT_EXT_NAME</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="55" column="9" bodyfile="src/fs/fat32.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1ae9a2edbdc1d8f4a69f20b638c1f127e1" prot="public" static="no">
+        <name>MAX_SHORT_NAME</name>
+        <initializer>11</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="56" column="9" bodyfile="src/fs/fat32.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1afd709f201d7643c3909621f620ea648a" prot="public" static="no">
+        <name>MAX_NAME_LEN</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="57" column="9" bodyfile="src/fs/fat32.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1abdd33f362ae3bbdacb5de76473aa8a2f" prot="public" static="no">
+        <name>MAX_PATH_LEN</name>
+        <initializer>512 /* TODO : is there any limitation? */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="58" column="9" bodyfile="src/fs/fat32.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a0e9bf759d4f45f4b9aecd8d6a1bf3ab4" prot="public" static="no">
+        <name>DENTRY_LEN</name>
+        <initializer>32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="59" column="9" bodyfile="src/fs/fat32.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a497ba0a9b3f71e6d1d16f35e59e0ee41" prot="public" static="no">
+        <name>LONG_NAME1_LEN</name>
+        <initializer>5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="77" column="9" bodyfile="src/fs/fat32.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1aeed41609dfc0a8f9e8045482e6fde0c6" prot="public" static="no">
+        <name>LONG_NAME2_LEN</name>
+        <initializer>6</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="78" column="9" bodyfile="src/fs/fat32.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a0649f275ab8a919df26b672f5c59562d" prot="public" static="no">
+        <name>LONG_NAME3_LEN</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="79" column="9" bodyfile="src/fs/fat32.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1ac790975f8ecfdee44f4e4d86c259fa6b" prot="public" static="no">
+        <name>LONG_NAME_LEN</name>
+        <initializer>(<ref refid="fat32_8h_1a497ba0a9b3f71e6d1d16f35e59e0ee41" kindref="member">LONG_NAME1_LEN</ref> + <ref refid="fat32_8h_1aeed41609dfc0a8f9e8045482e6fde0c6" kindref="member">LONG_NAME2_LEN</ref> + <ref refid="fat32_8h_1a0649f275ab8a919df26b672f5c59562d" kindref="member">LONG_NAME3_LEN</ref>)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="80" column="9" bodyfile="src/fs/fat32.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a96e90331356a0d3455a9c449f9bd424d" prot="public" static="no">
+        <name>LAST_LONG_ENTRY</name>
+        <initializer>0x40</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="81" column="9" bodyfile="src/fs/fat32.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a58626af35e23c5b34253a8934f2d87eb" prot="public" static="no">
+        <name>LONG_ENTRY_SEQ</name>
+        <initializer>0x1f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="82" column="9" bodyfile="src/fs/fat32.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a283ce77ac13408cf4b039da8f9df7dd2" prot="public" static="no">
+        <name>FAT_MASK</name>
+        <initializer>0x0fffffffu</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="132" column="9" bodyfile="src/fs/fat32.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a214588323c8c933e0f2955490b0670ff" prot="public" static="no">
+        <name>FAT_MAX</name>
+        <initializer>0x0ffffff8u /* end of the file */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="133" column="9" bodyfile="src/fs/fat32.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1a324d17db9fc3f741180c9e4dbc61e79d" prot="public" static="no">
+        <name>FAT_BAD</name>
+        <initializer>0x0ffffff7u /* bad cluster of SDcard */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="134" column="9" bodyfile="src/fs/fat32.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="fat32_8h_1af0f5c0eccc13102f73ced92774e6ec83" prot="public" static="no">
+        <name>FAT_ENTRY_SIZE</name>
+        <initializer>4</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="135" column="9" bodyfile="src/fs/fat32.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="fat32_8h_1a9435cc3223d5ebe7b4dcf66c22c8e455" prot="public" static="no">
+        <type>struct <ref refid="structfat32" kindref="compound">fat32</ref></type>
+        <definition>typedef struct fat32 fat32_t</definition>
+        <argsstring></argsstring>
+        <name>fat32_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="38" column="9"/>
+      </memberdef>
+      <memberdef kind="typedef" id="fat32_8h_1adea5e9d8af4a39aaf5ea29b82359b74c" prot="public" static="no">
+        <type>union <ref refid="uniondentry" kindref="compound">dentry</ref></type>
+        <definition>typedef union dentry dentry_t</definition>
+        <argsstring></argsstring>
+        <name>dentry_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="97" column="10"/>
+      </memberdef>
+      <memberdef kind="typedef" id="fat32_8h_1a980c2de82bdbc2af89d6e36b540baf6e" prot="public" static="no">
+        <type>struct <ref refid="structdir__info" kindref="compound">dir_info</ref></type>
+        <definition>typedef struct dir_info dir_info_t</definition>
+        <argsstring></argsstring>
+        <name>dir_info_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="103" column="12"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="fat32_8h_1aedf326fe429f8658c6dfcd69bf33dc38" prot="public" static="no" mutable="no">
+        <type><ref refid="fat32_8h_1a9435cc3223d5ebe7b4dcf66c22c8e455" kindref="member">fat32_t</ref></type>
+        <definition>fat32_t fat</definition>
+        <argsstring></argsstring>
+        <name>fat</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="40" column="16" bodyfile="src/fs/fs.c" bodystart="19" bodyend="-1" declfile="src/fs/fat32.h" declline="40" declcolumn="16"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a909106b46b3b3dccb78a5e3ad9750e9b" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>uint16_t name1</definition>
+        <argsstring>[SHORT_FIR_NAME]</argsstring>
+        <name>name1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="0" column="10" bodyfile="src/fs/fat32.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1ab22d53293a9a984edfcb1cf6f0e55bec" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>uint16_t name2</definition>
+        <argsstring>[SHORT_EXT_NAME]</argsstring>
+        <name>name2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="1" column="10" bodyfile="src/fs/fat32.h" bodystart="1" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a28478ea2856f6286899bc90b2c6a1ec4" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t attr</definition>
+        <argsstring></argsstring>
+        <name>attr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="2" column="13" bodyfile="src/fs/fat32.h" bodystart="2" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a7cd34d27e4ec6f942a06129c8af77527" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t nt_res</definition>
+        <argsstring></argsstring>
+        <name>nt_res</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="3" column="13" bodyfile="src/fs/fat32.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a15ea3713b7857599395a2711dca0d69a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t crt_time_tenth</definition>
+        <argsstring></argsstring>
+        <name>crt_time_tenth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="4" column="13" bodyfile="src/fs/fat32.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1af51030d3bc65095e968dcee26b915d27" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t crt_time</definition>
+        <argsstring></argsstring>
+        <name>crt_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="5" column="14" bodyfile="src/fs/fat32.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a137c641e9c9c08007dd8cf3f711ed6c8" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t crt_date</definition>
+        <argsstring></argsstring>
+        <name>crt_date</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="6" column="14" bodyfile="src/fs/fat32.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a45575e11636a9231721c99b60872b8e8" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t lst_acce_date</definition>
+        <argsstring></argsstring>
+        <name>lst_acce_date</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="7" column="14" bodyfile="src/fs/fat32.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a860ab219cbe70f1430539b8cd0b068dc" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t fst_clus_hi</definition>
+        <argsstring></argsstring>
+        <name>fst_clus_hi</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="8" column="14" bodyfile="src/fs/fat32.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a27213e68ae6a6595dd32cdcac9c67db3" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t lst_wrt_time</definition>
+        <argsstring></argsstring>
+        <name>lst_wrt_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="9" column="14" bodyfile="src/fs/fat32.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a92a9d5f0513ef705d35b2c8ed9d01d1c" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t lst_wrt_date</definition>
+        <argsstring></argsstring>
+        <name>lst_wrt_date</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="10" column="14" bodyfile="src/fs/fat32.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1abc6bcd884a58006249290dc285412a45" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t fst_clus_lo</definition>
+        <argsstring></argsstring>
+        <name>fst_clus_lo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="11" column="14" bodyfile="src/fs/fat32.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1acfc905fb689f590842c0152e3b8cd92e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t file_size</definition>
+        <argsstring></argsstring>
+        <name>file_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="12" column="14" bodyfile="src/fs/fat32.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1aa44597f38af03f4bb6ef069ba7efb24c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t order</definition>
+        <argsstring></argsstring>
+        <name>order</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="0" column="13" bodyfile="src/fs/fat32.h" bodystart="0" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a1d127017fb298b889f4ba24752d08b8e" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="3" column="13" bodyfile="src/fs/fat32.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a59eac9627282a484fbaf0aa7aa3b8a9a" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t checksum</definition>
+        <argsstring></argsstring>
+        <name>checksum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="4" column="13" bodyfile="src/fs/fat32.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1ac6afa72984587556813605e9102d667d" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t rsvd</definition>
+        <argsstring></argsstring>
+        <name>rsvd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="6" column="14" bodyfile="src/fs/fat32.h" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a13f50e165236fbe26394686e5a2245d5" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t name3[LONG_NAME3_LEN]</definition>
+        <argsstring>[LONG_NAME3_LEN]</argsstring>
+        <name>name3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="7" column="14" bodyfile="src/fs/fat32.h" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1ab49ea0634e50fbcf6723c042807d010d" prot="public" static="no" mutable="no">
+        <type><ref refid="fat32_8h_1a980c2de82bdbc2af89d6e36b540baf6e" kindref="member">dir_info_t</ref></type>
+        <definition>dir_info_t root_dir</definition>
+        <argsstring></argsstring>
+        <name>root_dir</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="105" column="19" bodyfile="src/fs/fs.c" bodystart="20" bodyend="-1" declfile="src/fs/fat32.h" declline="105" declcolumn="19"/>
+      </memberdef>
+      <memberdef kind="variable" id="fat32_8h_1a7ed1f339a9c42b1a180ffbf41bb91d10" prot="public" static="no" mutable="no">
+        <type><ref refid="fat32_8h_1a980c2de82bdbc2af89d6e36b540baf6e" kindref="member">dir_info_t</ref></type>
+        <definition>dir_info_t cur_dir</definition>
+        <argsstring></argsstring>
+        <name>cur_dir</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="105" column="28" bodyfile="src/fs/fat32.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="fat32_8h_1a3a4a667ab08f78bd5eaf440d6d8015ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structshort__name__entry" kindref="compound">short_name_entry</ref></type>
+        <definition>struct short_name_entry __attribute__</definition>
+        <argsstring>((packed, aligned(4))) short_name_entry_t</argsstring>
+        <name>__attribute__</name>
+        <param>
+          <type>(packed, aligned(4))</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="40" column="16" declfile="src/fs/fat32.h" declline="40" declcolumn="16"/>
+      </memberdef>
+      <memberdef kind="function" id="fat32_8h_1aa3b9a3e9f6f2b1fe010d9525802c6849" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t fat_cluster2sec</definition>
+        <argsstring>(uint32_t cluster)</argsstring>
+        <name>fat_cluster2sec</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>cluster</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="112" column="24" bodyfile="src/fs/fat32.h" bodystart="112" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="fat32_8h_1a77566c1dfcafa6014c29312848bb38b1" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t fat_sec2cluster</definition>
+        <argsstring>(uint32_t sec)</argsstring>
+        <name>fat_sec2cluster</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>sec</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="119" column="24" bodyfile="src/fs/fat32.h" bodystart="119" bodyend="121"/>
+      </memberdef>
+      <memberdef kind="function" id="fat32_8h_1a9f801847c1865bd284fca5a850dfa41b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="types_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>static uint32 fat32_dentry2fcluster</definition>
+        <argsstring>(dentry_t *p)</argsstring>
+        <name>fat32_dentry2fcluster</name>
+        <param>
+          <type><ref refid="fat32_8h_1adea5e9d8af4a39aaf5ea29b82359b74c" kindref="member">dentry_t</ref> *</type>
+          <declname>p</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="123" column="22" bodyfile="src/fs/fat32.h" bodystart="123" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="fat32_8h_1aa3d3343de5676602035455000f5adc3c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void fat32_fcluster2dentry</definition>
+        <argsstring>(dentry_t *p, uint32 cluster)</argsstring>
+        <name>fat32_fcluster2dentry</name>
+        <param>
+          <type><ref refid="fat32_8h_1adea5e9d8af4a39aaf5ea29b82359b74c" kindref="member">dentry_t</ref> *</type>
+          <declname>p</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+          <declname>cluster</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="127" column="20" bodyfile="src/fs/fat32.h" bodystart="127" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="fat32_8h_1aaa592b584dc79210d3ca7c4b31ef82bc" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t fat_cluster2fatsec</definition>
+        <argsstring>(uint32_t cluster)</argsstring>
+        <name>fat_cluster2fatsec</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>cluster</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="140" column="24" bodyfile="src/fs/fat32.h" bodystart="140" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="fat32_8h_1ab156c6b264b70a5e292c3721bb5e8953" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t fat_cluster2fatoff</definition>
+        <argsstring>(uint32_t cluster)</argsstring>
+        <name>fat_cluster2fatoff</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>cluster</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="144" column="24" bodyfile="src/fs/fat32.h" bodystart="144" bodyend="146"/>
+      </memberdef>
+      <memberdef kind="function" id="fat32_8h_1a86f3fdf5e9db0287a730e3e64400d824" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>char</type>
+        <definition>static char unicode2char</definition>
+        <argsstring>(uint16_t unich)</argsstring>
+        <name>unicode2char</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>unich</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="168" column="20" bodyfile="src/fs/fat32.h" bodystart="168" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="fat32_8h_1a66fd120a17396fcf5719b93334d1eeda" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>static uint16_t char2unicode</definition>
+        <argsstring>(char ch)</argsstring>
+        <name>char2unicode</name>
+        <param>
+          <type>char</type>
+          <declname>ch</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/fat32.h" line="171" column="24" bodyfile="src/fs/fat32.h" bodystart="171" bodyend="173"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1" refid="fat32_8h_1ab22d53293a9a984edfcb1cf6f0e55bec" refkind="member"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2" refid="fat32_8h_1a28478ea2856f6286899bc90b2c6a1ec4" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3" refid="fat32_8h_1a7cd34d27e4ec6f942a06129c8af77527" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">common/types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="fat32_8h_1a59eac9627282a484fbaf0aa7aa3b8a9a" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="fat32_8h_1af51030d3bc65095e968dcee26b915d27" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>max(x,<sp/>y)<sp/>(((x)<sp/>&gt;<sp/>(y))<sp/>?<sp/>(x)<sp/>:<sp/>(y))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="fat32_8h_1a137c641e9c9c08007dd8cf3f711ed6c8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>min(x,<sp/>y)<sp/>(((x)<sp/>&gt;<sp/>(y))<sp/>?<sp/>(y)<sp/>:<sp/>(x))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="fat32_8h_1a45575e11636a9231721c99b60872b8e8" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="fat32_8h_1a538cbf03f87e88410397e3bf51c3dbd8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FAT32_BOOT_SEC<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="fat32_8h_1a27213e68ae6a6595dd32cdcac9c67db3" refkind="member"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="fat32_8h_1a1ecb533ef27737750a95f2cdb9a0f43b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BPB_BYTES_PER_SEC<sp/>0x0B</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="fat32_8h_1a4d33cc730b9a26d5b31a223a239d3a8d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BPB_SEC_PER_CLUSTER<sp/>0x0D</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="fat32_8h_1aceaeaa4ad72f292ff407f6789a3d49b1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BPB_RSVD_SEC_CNT<sp/>0x0E</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="fat32_8h_1a55ce87cd9e26f21c76ba06e7b514993d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BPB_FAT_NUM<sp/>0x10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="fat32_8h_1adcc1172b9cd884e5b5e349740928a6e1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BPB_HIDD_SEC<sp/>0x1C</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="fat32_8h_1ab278ee63f0bda2e75f566e689265c656" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BPB_TOTL_SEC<sp/>0x20</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="fat32_8h_1a394f5e2cf6b7cdebfbc56ab5f9490986" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BPB_SEC_PER_FAT<sp/>0x24</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="fat32_8h_1ae2da53692da5a321d90d429d8713912b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BPB_ROOT_CLUSTER<sp/>0x2c</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="structfat32" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structfat32" kindref="compound">fat32</ref><sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21" refid="structfat32_1ac6ee0f9ae1d10f22427bbc7595d10c91" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structfat32_1ac6ee0f9ae1d10f22427bbc7595d10c91" kindref="member">bytes_per_sec</ref>;</highlight></codeline>
+<codeline lineno="22" refid="structfat32_1a91fb9d11ed7a79a2547dcdca7204b6ac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structfat32_1a91fb9d11ed7a79a2547dcdca7204b6ac" kindref="member">sec_per_cluster</ref>;</highlight></codeline>
+<codeline lineno="23" refid="structfat32_1ab7d658e44fbbcf59d0a9b04b67cf407a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structfat32_1ab7d658e44fbbcf59d0a9b04b67cf407a" kindref="member">rsvd_sec_cnt</ref>;<sp/></highlight><highlight class="comment">/*<sp/>count<sp/>of<sp/>reserved<sp/>sectors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="structfat32_1a921f1311f3e7f7b167fcbcbe378b945b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structfat32_1a921f1311f3e7f7b167fcbcbe378b945b" kindref="member">fat_num</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>count<sp/>of<sp/>FAT<sp/>regions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="structfat32_1a253922b4d29a6f3d7df54b1c0055271f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1a253922b4d29a6f3d7df54b1c0055271f" kindref="member">hidd_sec</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>count<sp/>of<sp/>hidden<sp/>sectors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="structfat32_1aee381a8a01b4792cda133fe688b22faf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1aee381a8a01b4792cda133fe688b22faf" kindref="member">totl_sec</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>total<sp/>count<sp/>of<sp/>sectors<sp/>including<sp/>all<sp/>regions<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="structfat32_1a45e47a9225e413c14d15737c392d4d6d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1a45e47a9225e413c14d15737c392d4d6d" kindref="member">sec_per_fat</ref>;<sp/><sp/></highlight><highlight class="comment">/*<sp/>count<sp/>of<sp/>sectors<sp/>for<sp/>a<sp/>FAT<sp/>region<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="structfat32_1a0c3185d3dd1309f5a4751b4b8a58f4d9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1a0c3185d3dd1309f5a4751b4b8a58f4d9" kindref="member">root_cluster</ref>;<sp/></highlight><highlight class="comment">/*<sp/>cluster<sp/>num<sp/>of<sp/>root<sp/>dir,<sp/>typically<sp/>is<sp/>2<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="structfat32_1a409e6b408769b27b603d57dc1f15a5ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><ref refid="structfat32_1a409e6b408769b27b603d57dc1f15a5ed" kindref="member">bpb</ref>;</highlight></codeline>
+<codeline lineno="30" refid="structfat32_1a5d895f7663cfbeeb117a02cc4691c4aa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1a5d895f7663cfbeeb117a02cc4691c4aa" kindref="member">first_data_sec</ref>;<sp/></highlight><highlight class="comment">/*<sp/>root<sp/>dir<sp/>sec<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="structfat32_1a0178cabae422e7fc8c732e6732bfdd2a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1a0178cabae422e7fc8c732e6732bfdd2a" kindref="member">data_sec_cnt</ref>;</highlight></codeline>
+<codeline lineno="32" refid="structfat32_1acb75a52b1f365390f28e7a07b0a36844" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1acb75a52b1f365390f28e7a07b0a36844" kindref="member">data_cluster_cnt</ref>;<sp/></highlight><highlight class="comment">/*<sp/>num<sp/>of<sp/>data<sp/>clusters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="structfat32_1a5fc7659eb603d602a275dadaf686b849" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1a5fc7659eb603d602a275dadaf686b849" kindref="member">bytes_per_cluster</ref>;</highlight></codeline>
+<codeline lineno="34" refid="structfat32_1a5620c49b36cce0cd5f5b78694b40da76" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1a5620c49b36cce0cd5f5b78694b40da76" kindref="member">entry_per_sec</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>entry<sp/>num<sp/>per<sp/>fat<sp/>sec<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="structfat32_1ac39eecb53bcba471597a8a80c34fc5b6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1ac39eecb53bcba471597a8a80c34fc5b6" kindref="member">free_clusters</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>num<sp/>of<sp/>rest<sp/>clusters<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="structfat32_1a0e9da26e844b565694e339bdc607b439" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1a0e9da26e844b565694e339bdc607b439" kindref="member">next_free_cluster</ref>;<sp/></highlight><highlight class="comment">/*<sp/>sequentially<sp/>quick<sp/>alloc,<sp/>need<sp/>a<sp/>flag(TODO:reuse<sp/>of<sp/>hole<sp/>in<sp/>SDcard)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="structfat32_1abf4c3a05a4408284a41c05651b441e9b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structfat32_1abf4c3a05a4408284a41c05651b441e9b" kindref="member">next_free_fat_sec</ref>;<sp/></highlight><highlight class="comment">/*<sp/>get<sp/>fat<sp/>sec<sp/>quickly<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="fat32_8h_1a9435cc3223d5ebe7b4dcf66c22c8e455" refkind="member"><highlight class="normal">}<sp/><ref refid="fat32_8h_1a9435cc3223d5ebe7b4dcf66c22c8e455" kindref="member">fat32_t</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="fat32_8h_1a3a4a667ab08f78bd5eaf440d6d8015ca" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structfat32" kindref="compound">fat32_t</ref><sp/><ref refid="fat32_8h_1aedf326fe429f8658c6dfcd69bf33dc38" kindref="member">fat</ref>;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="fat32_8h_1a154ecd3eb374bee87efec220f2d5106f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_READ_WRITE<sp/>0x00</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="fat32_8h_1aef018487342a3344aa32ee15ddcb4410" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_READ_ONLY<sp/>0x01</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="fat32_8h_1a42249a182dc832d4647b67281c2ffc90" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_HIDDEN<sp/>0x02</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="fat32_8h_1a1c1250075cd2ca065a67a44fc9fc3222" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_SYSTEM<sp/>0x04</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="fat32_8h_1ab14d118689e61ffb3e29f83d38f1f135" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_VOLUME_ID<sp/>0x08</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="fat32_8h_1afa13d3c1c60925f7b1e639233a799860" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_DIRECTORY<sp/>0x10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="fat32_8h_1a1b257aa7e0fdd8b11372edf885302176" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_ARCHIVE<sp/>0x20</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="fat32_8h_1a8ebe014bd4f0c93090bd1c884c7285d5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_LONG_FILE_NAME<sp/>0x0F</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">//<sp/>TODO<sp/>:<sp/>for<sp/>future<sp/>use?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="fat32_8h_1a134b0a56cd9289f94d5fbb0be67652af" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_LINK<sp/>0x40</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="fat32_8h_1a07c53a8ec2098d5d57aac0dd3184c34a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_CHARACTER_DEVICE<sp/>0x80</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="fat32_8h_1a75db02ccc1974b51db069507421816f8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SHORT_FIR_NAME<sp/>8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="fat32_8h_1a561925648134af559971d6567ae0a2fd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SHORT_EXT_NAME<sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="fat32_8h_1ae9a2edbdc1d8f4a69f20b638c1f127e1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_SHORT_NAME<sp/>11</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="fat32_8h_1afd709f201d7643c3909621f620ea648a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_NAME_LEN<sp/>256</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="fat32_8h_1abdd33f362ae3bbdacb5de76473aa8a2f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_PATH_LEN<sp/>512<sp/></highlight><highlight class="comment">/*<sp/>TODO<sp/>:<sp/>is<sp/>there<sp/>any<sp/>limitation?<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="fat32_8h_1a0e9bf759d4f45f4b9aecd8d6a1bf3ab4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DENTRY_LEN<sp/>32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//<sp/>TODO:<sp/>get_file_name,<sp/>file<sp/>name<sp/>in<sp/>char*<sp/>and<sp/>num<sp/>increased<sp/>of<sp/>next<sp/>entry</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61" refid="structshort__name__entry" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structshort__name__entry" kindref="compound">short_name_entry</ref><sp/>{</highlight></codeline>
+<codeline lineno="62" refid="structshort__name__entry_1aeab9e065d8387bffbb41ef92c807e26d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structshort__name__entry_1aeab9e065d8387bffbb41ef92c807e26d" kindref="member">name1</ref>[<ref refid="fat32_8h_1a75db02ccc1974b51db069507421816f8" kindref="member">SHORT_FIR_NAME</ref>];</highlight></codeline>
+<codeline lineno="63" refid="structshort__name__entry_1a0a1f13c7f9779a78654ce402f084614b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structshort__name__entry_1a0a1f13c7f9779a78654ce402f084614b" kindref="member">name2</ref>[<ref refid="fat32_8h_1a561925648134af559971d6567ae0a2fd" kindref="member">SHORT_EXT_NAME</ref>];</highlight></codeline>
+<codeline lineno="64" refid="structshort__name__entry_1a0e3b36ca302ee2bc7446cad811097dec" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structshort__name__entry_1a0e3b36ca302ee2bc7446cad811097dec" kindref="member">attr</ref>;</highlight></codeline>
+<codeline lineno="65" refid="structshort__name__entry_1aad0cd3be0e7857322fa6ad65dc168244" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structshort__name__entry_1aad0cd3be0e7857322fa6ad65dc168244" kindref="member">nt_res</ref>;</highlight></codeline>
+<codeline lineno="66" refid="structshort__name__entry_1a7c68544742ba7f82dd2a86440b468db1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structshort__name__entry_1a7c68544742ba7f82dd2a86440b468db1" kindref="member">crt_time_tenth</ref>;<sp/></highlight><highlight class="comment">//<sp/>39-32<sp/>of<sp/>access</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="structshort__name__entry_1a456f5fe5d283be52167140eb371e40cc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structshort__name__entry_1a456f5fe5d283be52167140eb371e40cc" kindref="member">crt_time</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>31-16<sp/>of<sp/>access</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="structshort__name__entry_1a7e463c318f1699a6783772dc1c8ee553" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structshort__name__entry_1a7e463c318f1699a6783772dc1c8ee553" kindref="member">crt_date</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>15-0<sp/>of<sp/>access</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="structshort__name__entry_1ac7967571cbdf9699109001858d5b0c7e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structshort__name__entry_1ac7967571cbdf9699109001858d5b0c7e" kindref="member">lst_acce_date</ref>;<sp/></highlight><highlight class="comment">//<sp/>47-32<sp/>of<sp/>modify</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="structshort__name__entry_1a01f9b3783c82837dcf545ca2de4e41f7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structshort__name__entry_1a01f9b3783c82837dcf545ca2de4e41f7" kindref="member">fst_clus_hi</ref>;</highlight></codeline>
+<codeline lineno="71" refid="structshort__name__entry_1a0bb15df651a35c9fef7f62d5ff8cca65" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structshort__name__entry_1a0bb15df651a35c9fef7f62d5ff8cca65" kindref="member">lst_wrt_time</ref>;<sp/></highlight><highlight class="comment">//<sp/>31-16<sp/>of<sp/>modify</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="structshort__name__entry_1afaa62bcf5b3ae351c53f2ac7564e6298" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structshort__name__entry_1afaa62bcf5b3ae351c53f2ac7564e6298" kindref="member">lst_wrt_date</ref>;<sp/></highlight><highlight class="comment">//<sp/>15-0<sp/>of<sp/>modify</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="structshort__name__entry_1a95495bd7a60339978d34518b8834efe9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structshort__name__entry_1a95495bd7a60339978d34518b8834efe9" kindref="member">fst_clus_lo</ref>;</highlight></codeline>
+<codeline lineno="74" refid="structshort__name__entry_1a94646da7aaf9f50864f0392cd8fcf822" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structshort__name__entry_1a94646da7aaf9f50864f0392cd8fcf822" kindref="member">file_size</ref>;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">}<sp/><ref refid="fat32_8h_1a3a4a667ab08f78bd5eaf440d6d8015ca" kindref="member">__attribute__</ref>((packed,<sp/>aligned(4)))<sp/>short_name_entry_t;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="fat32_8h_1a497ba0a9b3f71e6d1d16f35e59e0ee41" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LONG_NAME1_LEN<sp/>5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="fat32_8h_1aeed41609dfc0a8f9e8045482e6fde0c6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LONG_NAME2_LEN<sp/>6</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="fat32_8h_1a0649f275ab8a919df26b672f5c59562d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LONG_NAME3_LEN<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="fat32_8h_1ac790975f8ecfdee44f4e4d86c259fa6b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LONG_NAME_LEN<sp/>(LONG_NAME1_LEN<sp/>+<sp/>LONG_NAME2_LEN<sp/>+<sp/>LONG_NAME3_LEN)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="fat32_8h_1a96e90331356a0d3455a9c449f9bd424d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LAST_LONG_ENTRY<sp/>0x40</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="fat32_8h_1a58626af35e23c5b34253a8934f2d87eb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LONG_ENTRY_SEQ<sp/>0x1f</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="structlong__name__entry" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structlong__name__entry" kindref="compound">long_name_entry</ref><sp/>{</highlight></codeline>
+<codeline lineno="84" refid="structlong__name__entry_1ab692723f63c013dbb28324597e3613ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structlong__name__entry_1ab692723f63c013dbb28324597e3613ea" kindref="member">order</ref>;<sp/></highlight><highlight class="comment">/*<sp/>we<sp/>used<sp/>this<sp/>as<sp/>the<sp/>order<sp/>of<sp/>next<sp/>name<sp/>part,<sp/>255<sp/>means<sp/>end*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="structlong__name__entry_1a717a694fd4053ae19e02e6433568a56b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structlong__name__entry_1a717a694fd4053ae19e02e6433568a56b" kindref="member">name1</ref>[<ref refid="fat32_8h_1a497ba0a9b3f71e6d1d16f35e59e0ee41" kindref="member">LONG_NAME1_LEN</ref>];</highlight></codeline>
+<codeline lineno="86" refid="structlong__name__entry_1af56969e54ce701cd6322d39ebcc9fa2d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structlong__name__entry_1af56969e54ce701cd6322d39ebcc9fa2d" kindref="member">attr</ref>;</highlight></codeline>
+<codeline lineno="87" refid="structlong__name__entry_1a13493b2a1fc22de36b08cc3a4f6edcf8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structlong__name__entry_1a13493b2a1fc22de36b08cc3a4f6edcf8" kindref="member">type</ref>;</highlight></codeline>
+<codeline lineno="88" refid="structlong__name__entry_1addf910141f2e32db6c0e12af0ae66814" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structlong__name__entry_1addf910141f2e32db6c0e12af0ae66814" kindref="member">checksum</ref>;</highlight></codeline>
+<codeline lineno="89" refid="structlong__name__entry_1a63b3bf6b53ef629b8b8b108b04deccac" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structlong__name__entry_1a63b3bf6b53ef629b8b8b108b04deccac" kindref="member">name2</ref>[<ref refid="fat32_8h_1aeed41609dfc0a8f9e8045482e6fde0c6" kindref="member">LONG_NAME2_LEN</ref>];</highlight></codeline>
+<codeline lineno="90" refid="structlong__name__entry_1a0b66df815f9fe798d6e477f38ce1856f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structlong__name__entry_1a0b66df815f9fe798d6e477f38ce1856f" kindref="member">rsvd</ref>;</highlight></codeline>
+<codeline lineno="91" refid="structlong__name__entry_1a9c9c5e4f192e021f987456e664ea4acd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structlong__name__entry_1a9c9c5e4f192e021f987456e664ea4acd" kindref="member">name3</ref>[<ref refid="fat32_8h_1a0649f275ab8a919df26b672f5c59562d" kindref="member">LONG_NAME3_LEN</ref>];</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}<sp/><ref refid="fat32_8h_1a3a4a667ab08f78bd5eaf440d6d8015ca" kindref="member">__attribute__</ref>((packed,<sp/>aligned(4)))<sp/>long_name_entry_t;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94" refid="uniondentry" refkind="compound"><highlight class="normal">typedef<sp/>union<sp/><ref refid="uniondentry" kindref="compound">dentry</ref><sp/>{</highlight></codeline>
+<codeline lineno="95" refid="uniondentry_1a2e0a48bc674187147905b55e289be834" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>short_name_entry_t<sp/><ref refid="uniondentry_1a2e0a48bc674187147905b55e289be834" kindref="member">sn</ref>;</highlight></codeline>
+<codeline lineno="96" refid="uniondentry_1ad80b95b5fb6a045a49f69ddf519c9325" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>long_name_entry_t<sp/><ref refid="uniondentry_1ad80b95b5fb6a045a49f69ddf519c9325" kindref="member">ln</ref>;</highlight></codeline>
+<codeline lineno="97" refid="fat32_8h_1adea5e9d8af4a39aaf5ea29b82359b74c" refkind="member"><highlight class="normal">}<sp/><ref refid="fat32_8h_1adea5e9d8af4a39aaf5ea29b82359b74c" kindref="member">dentry_t</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="structdir__info" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdir__info" kindref="compound">dir_info</ref><sp/>{</highlight></codeline>
+<codeline lineno="100" refid="structdir__info_1abaebc1e16cce85b498775b3011dfba8c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structdir__info_1abaebc1e16cce85b498775b3011dfba8c" kindref="member">first_cluster</ref>;</highlight></codeline>
+<codeline lineno="101" refid="structdir__info_1a01d3b3430c4ebe7468166e4b8daf9958" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structdir__info_1a01d3b3430c4ebe7468166e4b8daf9958" kindref="member">size</ref>;</highlight></codeline>
+<codeline lineno="102" refid="structdir__info_1a1d08207729ecb85a7e1562dc7432b598" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structdir__info_1a1d08207729ecb85a7e1562dc7432b598" kindref="member">name</ref>[<ref refid="fat32_8h_1abdd33f362ae3bbdacb5de76473aa8a2f" kindref="member">MAX_PATH_LEN</ref>];<sp/></highlight><highlight class="comment">//<sp/>real<sp/>path</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="fat32_8h_1a980c2de82bdbc2af89d6e36b540baf6e" refkind="member"><highlight class="normal">}<sp/><ref refid="fat32_8h_1a980c2de82bdbc2af89d6e36b540baf6e" kindref="member">dir_info_t</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="fat32_8h_1a7ed1f339a9c42b1a180ffbf41bb91d10" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structdir__info" kindref="compound">dir_info_t</ref><sp/><ref refid="fat32_8h_1ab49ea0634e50fbcf6723c042807d010d" kindref="member">root_dir</ref>,<sp/><ref refid="fat32_8h_1a7ed1f339a9c42b1a180ffbf41bb91d10" kindref="member">cur_dir</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>TODO<sp/>:<sp/>file<sp/>descriptor?*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/>*<sp/>translate<sp/>cluster<sp/>to<sp/>fisrt<sp/>sec</highlight></codeline>
+<codeline lineno="111"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>fat_cluster2sec(uint32_t<sp/>cluster)<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((cluster<sp/>-<sp/>2)<sp/>*<sp/><ref refid="fat32_8h_1aedf326fe429f8658c6dfcd69bf33dc38" kindref="member">fat</ref>.<ref refid="structfat32_1a409e6b408769b27b603d57dc1f15a5ed" kindref="member">bpb</ref>.<ref refid="structfat32_1a91fb9d11ed7a79a2547dcdca7204b6ac" kindref="member">sec_per_cluster</ref>)<sp/>+<sp/><ref refid="fat32_8h_1aedf326fe429f8658c6dfcd69bf33dc38" kindref="member">fat</ref>.<ref refid="structfat32_1a5d895f7663cfbeeb117a02cc4691c4aa" kindref="member">first_data_sec</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="117"><highlight class="comment"><sp/>*<sp/>translate<sp/>sec<sp/>to<sp/>cluster<sp/>belonged<sp/>to</highlight></codeline>
+<codeline lineno="118"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>fat_sec2cluster(uint32_t<sp/>sec)<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(sec<sp/>-<sp/><ref refid="fat32_8h_1aedf326fe429f8658c6dfcd69bf33dc38" kindref="member">fat</ref>.<ref refid="structfat32_1a5d895f7663cfbeeb117a02cc4691c4aa" kindref="member">first_data_sec</ref>)<sp/>/<sp/><ref refid="fat32_8h_1aedf326fe429f8658c6dfcd69bf33dc38" kindref="member">fat</ref>.<ref refid="structfat32_1a409e6b408769b27b603d57dc1f15a5ed" kindref="member">bpb</ref>.<ref refid="structfat32_1a91fb9d11ed7a79a2547dcdca7204b6ac" kindref="member">sec_per_cluster</ref><sp/>+<sp/>2;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="types_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref><sp/>fat32_dentry2fcluster(<ref refid="uniondentry" kindref="compound">dentry_t</ref><sp/>*p)<sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>((uint32_t)p-&gt;<ref refid="uniondentry_1a2e0a48bc674187147905b55e289be834" kindref="member">sn</ref>.fst_clus_hi<sp/>&lt;&lt;<sp/>16)<sp/>+<sp/>p-&gt;<ref refid="uniondentry_1a2e0a48bc674187147905b55e289be834" kindref="member">sn</ref>.fst_clus_lo;</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>fat32_fcluster2dentry(<ref refid="uniondentry" kindref="compound">dentry_t</ref><sp/>*p,<sp/><ref refid="types_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref><sp/>cluster)<sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>p-&gt;<ref refid="uniondentry_1a2e0a48bc674187147905b55e289be834" kindref="member">sn</ref>.fst_clus_hi<sp/>=<sp/>(cluster<sp/>&gt;&gt;<sp/>16)<sp/>&amp;<sp/>((1lu<sp/>&lt;&lt;<sp/>16)<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>p-&gt;<ref refid="uniondentry_1a2e0a48bc674187147905b55e289be834" kindref="member">sn</ref>.fst_clus_lo<sp/>=<sp/>cluster<sp/>&amp;<sp/>((1lu<sp/>&lt;&lt;<sp/>16)<sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="fat32_8h_1a283ce77ac13408cf4b039da8f9df7dd2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FAT_MASK<sp/>0x0fffffffu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="fat32_8h_1a214588323c8c933e0f2955490b0670ff" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FAT_MAX<sp/>0x0ffffff8u<sp/></highlight><highlight class="comment">/*<sp/>end<sp/>of<sp/>the<sp/>file<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="fat32_8h_1a324d17db9fc3f741180c9e4dbc61e79d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FAT_BAD<sp/>0x0ffffff7u<sp/></highlight><highlight class="comment">/*<sp/>bad<sp/>cluster<sp/>of<sp/>SDcard<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135" refid="fat32_8h_1af0f5c0eccc13102f73ced92774e6ec83" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FAT_ENTRY_SIZE<sp/>4</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="138"><highlight class="comment"><sp/>*<sp/>translate<sp/>cluster<sp/>to<sp/>sec<sp/>and<sp/>offset<sp/>of<sp/>fat1(TODO:<sp/>no<sp/>use<sp/>of<sp/>fat2)</highlight></codeline>
+<codeline lineno="139"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>fat_cluster2fatsec(uint32_t<sp/>cluster)<sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cluster<sp/>/<sp/><ref refid="fat32_8h_1aedf326fe429f8658c6dfcd69bf33dc38" kindref="member">fat</ref>.<ref refid="structfat32_1a5620c49b36cce0cd5f5b78694b40da76" kindref="member">entry_per_sec</ref><sp/>+<sp/><ref refid="fat32_8h_1aedf326fe429f8658c6dfcd69bf33dc38" kindref="member">fat</ref>.<ref refid="structfat32_1a409e6b408769b27b603d57dc1f15a5ed" kindref="member">bpb</ref>.<ref refid="structfat32_1a253922b4d29a6f3d7df54b1c0055271f" kindref="member">hidd_sec</ref><sp/>+<sp/><ref refid="fat32_8h_1aedf326fe429f8658c6dfcd69bf33dc38" kindref="member">fat</ref>.<ref refid="structfat32_1a409e6b408769b27b603d57dc1f15a5ed" kindref="member">bpb</ref>.<ref refid="structfat32_1ab7d658e44fbbcf59d0a9b04b67cf407a" kindref="member">rsvd_sec_cnt</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>fat_cluster2fatoff(uint32_t<sp/>cluster)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cluster<sp/>%<sp/><ref refid="fat32_8h_1aedf326fe429f8658c6dfcd69bf33dc38" kindref="member">fat</ref>.<ref refid="structfat32_1a5620c49b36cce0cd5f5b78694b40da76" kindref="member">entry_per_sec</ref>;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="comment">//<sp/>static<sp/>inline<sp/>uint32_t<sp/>fat_fcluster2size(uint32_t<sp/>first){</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>ftable[fat.bpb.bytes_per_sec];</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>size<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>cur_fat_sec<sp/>=<sp/>0xffffffff;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>do{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>if(cur_fat_sec<sp/>==<sp/>0xffffffff<sp/>||<sp/>fat_cluster2fatsec(first)<sp/>!=<sp/>cur_fat_sec){</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cur_fat_sec<sp/>=<sp/>fat_cluster2fatsec(first);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>TODO:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//fseek(fp,cur_fat_sec*fat.bpb.bytes_per_sec,0);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//fread(ftable,fat.bpb.bytes_per_sec,1,fp);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>first<sp/>=<sp/>ftable[fat_cluster2fatoff(first)]<sp/>&amp;<sp/>FAT_MASK;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>size<sp/>+=<sp/>fat.bpb.sec_per_cluster;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>}while(first<sp/>&lt;<sp/>FAT_MAX);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>size<sp/>=<sp/>size<sp/>*<sp/>fat.bpb.bytes_per_sec;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/>return<sp/>size;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">//<sp/>}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="comment">//<sp/>utils</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>unicode2char(uint16_t<sp/>unich)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(unich<sp/>&gt;=<sp/>65<sp/>&amp;&amp;<sp/>unich<sp/>&lt;=<sp/>90)<sp/>?<sp/>unich<sp/>-<sp/>65<sp/>+<sp/></highlight><highlight class="charliteral">&apos;A&apos;</highlight><highlight class="normal"><sp/>:<sp/>(unich<sp/>&gt;=<sp/>48<sp/>&amp;&amp;<sp/>unich<sp/>&lt;=<sp/>57)<sp/>?<sp/>unich<sp/>-<sp/>48<sp/>+<sp/></highlight><highlight class="charliteral">&apos;0&apos;</highlight><highlight class="normal"><sp/>:<sp/>(unich<sp/>&gt;=<sp/>97<sp/>&amp;&amp;<sp/>unich<sp/>&lt;=<sp/>122)<sp/>?<sp/>unich<sp/>-<sp/>97<sp/>+<sp/></highlight><highlight class="charliteral">&apos;a&apos;</highlight><highlight class="normal"><sp/>:<sp/>(unich<sp/>==<sp/>95)<sp/>?<sp/></highlight><highlight class="charliteral">&apos;_&apos;</highlight><highlight class="normal"><sp/>:<sp/>(unich<sp/>==<sp/>46)<sp/>?<sp/></highlight><highlight class="charliteral">&apos;.&apos;</highlight><highlight class="normal"><sp/>:<sp/>(unich<sp/>==<sp/>0x20)<sp/>?<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal"><sp/>:<sp/>(unich<sp/>==<sp/>45)<sp/>?<sp/></highlight><highlight class="charliteral">&apos;-&apos;</highlight><highlight class="normal"><sp/>:<sp/>0;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint16_t<sp/>char2unicode(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>ch)<sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(ch<sp/>&gt;=<sp/></highlight><highlight class="charliteral">&apos;A&apos;</highlight><highlight class="normal"><sp/>&amp;&amp;<sp/>ch<sp/>&lt;=<sp/></highlight><highlight class="charliteral">&apos;Z&apos;</highlight><highlight class="normal">)<sp/>?<sp/>65<sp/>+<sp/>ch<sp/>-<sp/></highlight><highlight class="charliteral">&apos;A&apos;</highlight><highlight class="normal"><sp/>:<sp/>(ch<sp/>&gt;=<sp/></highlight><highlight class="charliteral">&apos;a&apos;</highlight><highlight class="normal"><sp/>&amp;&amp;<sp/>ch<sp/>&lt;=<sp/></highlight><highlight class="charliteral">&apos;z&apos;</highlight><highlight class="normal">)<sp/>?<sp/>97<sp/>+<sp/>ch<sp/>-<sp/></highlight><highlight class="charliteral">&apos;a&apos;</highlight><highlight class="normal"><sp/>:<sp/>(ch<sp/>&gt;=<sp/></highlight><highlight class="charliteral">&apos;0&apos;</highlight><highlight class="normal"><sp/>&amp;&amp;<sp/>ch<sp/>&lt;=<sp/></highlight><highlight class="charliteral">&apos;9&apos;</highlight><highlight class="normal">)<sp/>?<sp/>48<sp/>+<sp/>ch<sp/>-<sp/></highlight><highlight class="charliteral">&apos;0&apos;</highlight><highlight class="normal"><sp/>:<sp/>(ch<sp/>==<sp/></highlight><highlight class="charliteral">&apos;_&apos;</highlight><highlight class="normal">)<sp/>?<sp/>95<sp/>:<sp/>(ch<sp/>==<sp/></highlight><highlight class="charliteral">&apos;.&apos;</highlight><highlight class="normal">)<sp/>?<sp/>46<sp/>:<sp/>(ch<sp/>==<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">)<sp/>?<sp/>0x20<sp/>:<sp/>(ch<sp/>==<sp/></highlight><highlight class="charliteral">&apos;-&apos;</highlight><highlight class="normal">)<sp/>?<sp/>45<sp/>:<sp/>0;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/fs/fat32.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,285 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="stack_8h" kind="file" language="C++">
+    <compoundname>stack.h</compoundname>
+    <includes refid="types_8h" local="no">common/types.h</includes>
+    <includes refid="pcb_8h" local="no">os/pcb.h</includes>
+    <includedby refid="stack_8c" local="no">src/arch/riscv/kernel/init/stack.c</includedby>
+    <includedby refid="main_8c" local="no">src/init/main.c</includedby>
+    <includedby refid="pcb_8c" local="no">src/kernel/sys/pcb.c</includedby>
+    <incdepgraph>
+      <node id="7">
+        <label>asm/pgtable.h</label>
+        <link refid="pgtable_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>os/mm.h</label>
+        <link refid="mm_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>common/elf.h</label>
+        <link refid="elf_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="12">
+        <label>os/cpu.h</label>
+        <link refid="cpu_8h"/>
+      </node>
+      <node id="16">
+        <label>os/time.h</label>
+        <link refid="time_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>asm/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>asm/sbidef.h</label>
+        <link refid="sbidef_8h"/>
+      </node>
+      <node id="2">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/arch/riscv/include/asm/stack.h</label>
+        <link refid="stack_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>asm/sbi.h</label>
+        <link refid="sbi_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>os/pcb.h</label>
+        <link refid="pcb_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>os/lock.h</label>
+        <link refid="lock_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>os/sync.h</label>
+        <link refid="sync_8h"/>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>lib/list.h</label>
+        <link refid="list_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>src/kernel/sys/pcb.c</label>
+        <link refid="pcb_8c"/>
+      </node>
+      <node id="3">
+        <label>src/init/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="1">
+        <label>src/arch/riscv/include/asm/stack.h</label>
+        <link refid="stack_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/arch/riscv/kernel/init/stack.c</label>
+        <link refid="stack_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="stack_8h_1ad72f726c9f29ef22f7a26cdf0fd601ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref></type>
+        <definition>ptr_t get_kernel_address</definition>
+        <argsstring>(pid_t pid)</argsstring>
+        <name>get_kernel_address</name>
+        <param>
+          <type><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+          <declname>pid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/stack.h" line="6" column="7" bodyfile="src/arch/riscv/kernel/init/stack.c" bodystart="15" bodyend="17" declfile="src/arch/riscv/include/asm/stack.h" declline="6" declcolumn="7"/>
+      </memberdef>
+      <memberdef kind="function" id="stack_8h_1a4619d60667f4a7c84a28f9cd741f7ba4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void init_context_stack</definition>
+        <argsstring>(ptr_t kernel_stack, ptr_t user_stack, int argc, char *argv[], ptr_t entry_point, pcb_t *pcb)</argsstring>
+        <name>init_context_stack</name>
+        <param>
+          <type><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref></type>
+          <declname>kernel_stack</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref></type>
+          <declname>user_stack</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>argv</declname>
+          <array>[]</array>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref></type>
+          <declname>entry_point</declname>
+        </param>
+        <param>
+          <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref> *</type>
+          <declname>pcb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/stack.h" line="8" column="6" bodyfile="src/arch/riscv/kernel/init/stack.c" bodystart="23" bodyend="49" declfile="src/arch/riscv/include/asm/stack.h" declline="8" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="stack_8h_1a8a2fff3cc3f61aaf7d825c92a36819d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void fork_pcb_stack</definition>
+        <argsstring>(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb)</argsstring>
+        <name>fork_pcb_stack</name>
+        <param>
+          <type><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref></type>
+          <declname>kernel_stack</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref></type>
+          <declname>user_stack</declname>
+        </param>
+        <param>
+          <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref> *</type>
+          <declname>pcb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/stack.h" line="10" column="6" bodyfile="src/arch/riscv/kernel/init/stack.c" bodystart="51" bodyend="78" declfile="src/arch/riscv/include/asm/stack.h" declline="10" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="stack_8h_1a858d10edc3b587179159d2e575df5ebb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void clone_pcb_stack</definition>
+        <argsstring>(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned long flags, void *tls)</argsstring>
+        <name>clone_pcb_stack</name>
+        <param>
+          <type><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref></type>
+          <declname>kernel_stack</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref></type>
+          <declname>user_stack</declname>
+        </param>
+        <param>
+          <type><ref refid="pcb_8h_1a3c0f153d2844c3c3248a1795b159ae37" kindref="member">pcb_t</ref> *</type>
+          <declname>pcb</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>flags</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>tls</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/stack.h" line="12" column="6" bodyfile="src/arch/riscv/kernel/init/stack.c" bodystart="80" bodyend="120" declfile="src/arch/riscv/include/asm/stack.h" declline="12" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">common/types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="pcb_8h" kindref="compound">os/pcb.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref><sp/><ref refid="stack_8h_1ad72f726c9f29ef22f7a26cdf0fd601ef" kindref="member">get_kernel_address</ref>(<ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref><sp/>pid);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="stack_8h_1a4619d60667f4a7c84a28f9cd741f7ba4" kindref="member">init_context_stack</ref>(<ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref><sp/>kernel_stack,<sp/><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref><sp/>user_stack,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*argv[],<sp/><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref><sp/>entry_point,<sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*<ref refid="structpcb" kindref="compound">pcb</ref>);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="stack_8h_1a8a2fff3cc3f61aaf7d825c92a36819d5" kindref="member">fork_pcb_stack</ref>(<ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref><sp/>kernel_stack,<sp/><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref><sp/>user_stack,<sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*<ref refid="structpcb" kindref="compound">pcb</ref>);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="stack_8h_1a858d10edc3b587179159d2e575df5ebb" kindref="member">clone_pcb_stack</ref>(<ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref><sp/>kernel_stack,<sp/><ref refid="types_8h_1a3f13e4d5a59d909d6303f569fe5e6524" kindref="member">ptr_t</ref><sp/>user_stack,<sp/><ref refid="structpcb" kindref="compound">pcb_t</ref><sp/>*<ref refid="structpcb" kindref="compound">pcb</ref>,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>flags,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*tls);</highlight></codeline>
+    </programlisting>
+    <location file="src/arch/riscv/include/asm/stack.h"/>
+  </compounddef>
+</doxygen>

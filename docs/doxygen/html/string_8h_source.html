@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/include/lib/string.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('string_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">string.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="string_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="types_8h.html">common/types.h</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keywordtype">int</span> <a class="code" href="string_8h.html#ac03af82466c30fadbb52b0bd96cd26f3">k_isspace</a>(<span class="keywordtype">int</span> c);</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keywordtype">int</span> <a class="code" href="string_8h.html#a0eea1897991c4fe22521d22db09c4c56">k_isdigit</a>(<span class="keywordtype">int</span> c);</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keywordtype">int</span> <a class="code" href="string_8h.html#acacfcfff91441c7553fbc5bc30821a05">k_isalpha</a>(<span class="keywordtype">int</span> x);</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">int</span> <a class="code" href="string_8h.html#a0cf23537c31602e7a3a60f3d9fdd2c1b">k_isupper</a>(<span class="keywordtype">int</span> x);</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordtype">long</span> <a class="code" href="string_8h.html#a3c3dfa8b99c16c1c0654bc24597bb0da">k_atol</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">int</span> <a class="code" href="string_8h.html#a5101d780842a59c3f03743ced7f46c66">k_atoi</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keywordtype">void</span> <a class="code" href="string_8h.html#a4985196d8a63d22e320cf33d904d2f92">k_memcpy</a>(uint8_t *dest, <span class="keyword">const</span> uint8_t *src, uint32_t len);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> <a class="code" href="string_8h.html#aaf442a6d4665859606fb0376506a349c">k_memset</a>(<span class="keywordtype">void</span> *dest, uint8_t val, uint32_t len);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> <a class="code" href="string_8h.html#aeda98d87407f4e928e8c47a2e7de1e94">k_bzero</a>(<span class="keywordtype">void</span> *dest, uint32_t len);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">int</span> <a class="code" href="string_8h.html#ad3fbffdca65397cb78cd0d3d38f7758f">k_strcmp</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str1, <span class="keyword">const</span> <span class="keywordtype">char</span> *str2);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">int</span> <a class="code" href="string_8h.html#ab247ff09c9f6dc2e9a0b645a4e8ca6d7">k_strncmp</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *_l, <span class="keyword">const</span> <span class="keywordtype">char</span> *_r, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">char</span> *<a class="code" href="string_8h.html#a36d0589c17e8a5bba8c6e569ea0109f5">k_strcpy</a>(<span class="keywordtype">char</span> *dest, <span class="keyword">const</span> <span class="keywordtype">char</span> *src);</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="string_8h.html#a17a4290b9c58dce19468efb2139a5fb8">   20</a></span>&#160;<span class="keywordtype">char</span> *<a class="code" href="string_8h.html#a17a4290b9c58dce19468efb2139a5fb8">k_strncpy</a>(<span class="keywordtype">char</span> *restrict d, <span class="keyword">const</span> <span class="keywordtype">char</span> *restrict s, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">char</span> *<a class="code" href="string_8h.html#a3ffa6c0492a0ff6b656c748a32e1bfcf">k_strcat</a>(<span class="keywordtype">char</span> *dest, <span class="keyword">const</span> <span class="keywordtype">char</span> *src);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">int</span> <a class="code" href="string_8h.html#ae096c40164c6e072e600751bd7151fb9">k_strlen</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *src);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">size_t</span> <a class="code" href="string_8h.html#aa8a53745ab243c018da1ae7a41a5d0f9">k_strnlen</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *s, <span class="keywordtype">size_t</span> n);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">int</span> <a class="code" href="string_8h.html#aac6baff2271e498b362a65320c5d5941">k_strlistlen</a>(<span class="keywordtype">char</span> *src[]);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">char</span> *<a class="code" href="string_8h.html#a3010e3dc6dc13be23b7dbe36284327e5">k_strtok</a>(<span class="keywordtype">char</span> *substr, <span class="keywordtype">char</span> *str, <span class="keyword">const</span> <span class="keywordtype">char</span> delim, <span class="keywordtype">int</span> length);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">long</span> <a class="code" href="string_8h.html#ac7732068bb0c32e1cde3cb29191335ba">k_strtol</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *nptr, <span class="keywordtype">char</span> **endptr, <span class="keyword">register</span> <span class="keywordtype">int</span> base);</div>
+<div class="ttc" id="astring_8h_html_a0cf23537c31602e7a3a60f3d9fdd2c1b"><div class="ttname"><a href="string_8h.html#a0cf23537c31602e7a3a60f3d9fdd2c1b">k_isupper</a></div><div class="ttdeci">int k_isupper(int x)</div><div class="ttdef"><b>Definition:</b> string.c:25</div></div>
+<div class="ttc" id="astring_8h_html_a0eea1897991c4fe22521d22db09c4c56"><div class="ttname"><a href="string_8h.html#a0eea1897991c4fe22521d22db09c4c56">k_isdigit</a></div><div class="ttdeci">int k_isdigit(int c)</div><div class="ttdef"><b>Definition:</b> string.c:13</div></div>
+<div class="ttc" id="astring_8h_html_a17a4290b9c58dce19468efb2139a5fb8"><div class="ttname"><a href="string_8h.html#a17a4290b9c58dce19468efb2139a5fb8">k_strncpy</a></div><div class="ttdeci">char * k_strncpy(char *restrict d, const char *restrict s, size_t n)</div></div>
+<div class="ttc" id="astring_8h_html_a3010e3dc6dc13be23b7dbe36284327e5"><div class="ttname"><a href="string_8h.html#a3010e3dc6dc13be23b7dbe36284327e5">k_strtok</a></div><div class="ttdeci">char * k_strtok(char *substr, char *str, const char delim, int length)</div><div class="ttdef"><b>Definition:</b> string.c:206</div></div>
+<div class="ttc" id="astring_8h_html_a36d0589c17e8a5bba8c6e569ea0109f5"><div class="ttname"><a href="string_8h.html#a36d0589c17e8a5bba8c6e569ea0109f5">k_strcpy</a></div><div class="ttdeci">char * k_strcpy(char *dest, const char *src)</div><div class="ttdef"><b>Definition:</b> string.c:115</div></div>
+<div class="ttc" id="astring_8h_html_a3c3dfa8b99c16c1c0654bc24597bb0da"><div class="ttname"><a href="string_8h.html#a3c3dfa8b99c16c1c0654bc24597bb0da">k_atol</a></div><div class="ttdeci">long k_atol(const char *str)</div><div class="ttdef"><b>Definition:</b> string.c:32</div></div>
+<div class="ttc" id="astring_8h_html_a3ffa6c0492a0ff6b656c748a32e1bfcf"><div class="ttname"><a href="string_8h.html#a3ffa6c0492a0ff6b656c748a32e1bfcf">k_strcat</a></div><div class="ttdeci">char * k_strcat(char *dest, const char *src)</div><div class="ttdef"><b>Definition:</b> string.c:152</div></div>
+<div class="ttc" id="astring_8h_html_a4985196d8a63d22e320cf33d904d2f92"><div class="ttname"><a href="string_8h.html#a4985196d8a63d22e320cf33d904d2f92">k_memcpy</a></div><div class="ttdeci">void k_memcpy(uint8_t *dest, const uint8_t *src, uint32_t len)</div><div class="ttdef"><b>Definition:</b> string.c:76</div></div>
+<div class="ttc" id="astring_8h_html_a5101d780842a59c3f03743ced7f46c66"><div class="ttname"><a href="string_8h.html#a5101d780842a59c3f03743ced7f46c66">k_atoi</a></div><div class="ttdeci">int k_atoi(const char *s)</div><div class="ttdef"><b>Definition:</b> string.c:58</div></div>
+<div class="ttc" id="astring_8h_html_aa8a53745ab243c018da1ae7a41a5d0f9"><div class="ttname"><a href="string_8h.html#aa8a53745ab243c018da1ae7a41a5d0f9">k_strnlen</a></div><div class="ttdeci">size_t k_strnlen(const char *s, size_t n)</div><div class="ttdef"><b>Definition:</b> string.c:191</div></div>
+<div class="ttc" id="astring_8h_html_aac6baff2271e498b362a65320c5d5941"><div class="ttname"><a href="string_8h.html#aac6baff2271e498b362a65320c5d5941">k_strlistlen</a></div><div class="ttdeci">int k_strlistlen(char *src[])</div><div class="ttdef"><b>Definition:</b> string.c:196</div></div>
+<div class="ttc" id="astring_8h_html_aaf442a6d4665859606fb0376506a349c"><div class="ttname"><a href="string_8h.html#aaf442a6d4665859606fb0376506a349c">k_memset</a></div><div class="ttdeci">void k_memset(void *dest, uint8_t val, uint32_t len)</div><div class="ttdef"><b>Definition:</b> string.c:82</div></div>
+<div class="ttc" id="astring_8h_html_ab247ff09c9f6dc2e9a0b645a4e8ca6d7"><div class="ttname"><a href="string_8h.html#ab247ff09c9f6dc2e9a0b645a4e8ca6d7">k_strncmp</a></div><div class="ttdeci">int k_strncmp(const char *_l, const char *_r, size_t n)</div><div class="ttdef"><b>Definition:</b> string.c:105</div></div>
+<div class="ttc" id="astring_8h_html_ac03af82466c30fadbb52b0bd96cd26f3"><div class="ttname"><a href="string_8h.html#ac03af82466c30fadbb52b0bd96cd26f3">k_isspace</a></div><div class="ttdeci">int k_isspace(int c)</div><div class="ttdef"><b>Definition:</b> string.c:9</div></div>
+<div class="ttc" id="astring_8h_html_ac7732068bb0c32e1cde3cb29191335ba"><div class="ttname"><a href="string_8h.html#ac7732068bb0c32e1cde3cb29191335ba">k_strtol</a></div><div class="ttdeci">long k_strtol(const char *nptr, char **endptr, register int base)</div><div class="ttdef"><b>Definition:</b> string.c:235</div></div>
+<div class="ttc" id="astring_8h_html_acacfcfff91441c7553fbc5bc30821a05"><div class="ttname"><a href="string_8h.html#acacfcfff91441c7553fbc5bc30821a05">k_isalpha</a></div><div class="ttdeci">int k_isalpha(int x)</div><div class="ttdef"><b>Definition:</b> string.c:17</div></div>
+<div class="ttc" id="astring_8h_html_ad3fbffdca65397cb78cd0d3d38f7758f"><div class="ttname"><a href="string_8h.html#ad3fbffdca65397cb78cd0d3d38f7758f">k_strcmp</a></div><div class="ttdeci">int k_strcmp(const char *str1, const char *str2)</div><div class="ttdef"><b>Definition:</b> string.c:94</div></div>
+<div class="ttc" id="astring_8h_html_ae096c40164c6e072e600751bd7151fb9"><div class="ttname"><a href="string_8h.html#ae096c40164c6e072e600751bd7151fb9">k_strlen</a></div><div class="ttdeci">int k_strlen(const char *src)</div><div class="ttdef"><b>Definition:</b> string.c:167</div></div>
+<div class="ttc" id="astring_8h_html_aeda98d87407f4e928e8c47a2e7de1e94"><div class="ttname"><a href="string_8h.html#aeda98d87407f4e928e8c47a2e7de1e94">k_bzero</a></div><div class="ttdeci">void k_bzero(void *dest, uint32_t len)</div><div class="ttdef"><b>Definition:</b> string.c:90</div></div>
+<div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_8189c79547c228efec742fac4d82511f.html">lib</a></li><li class="navelem"><a class="el" href="string_8h.html">string.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

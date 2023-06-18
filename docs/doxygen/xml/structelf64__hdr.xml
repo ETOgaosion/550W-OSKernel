@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structelf64__hdr" kind="struct" language="C++" prot="public">
+    <compoundname>elf64_hdr</compoundname>
+    <includes refid="elf_8h" local="no">elf.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structelf64__hdr_1ae749a41fb2e797798eb8e2eee50e0eac" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char elf64_hdr::e_ident[EI_NIDENT]</definition>
+        <argsstring>[EI_NIDENT]</argsstring>
+        <name>e_ident</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="58" column="19" bodyfile="src/include/common/elf.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1a5888b4428b3b6f0bb4788c3284e3ca32" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1adb6a5584018b431da3472e7c6a7fd731" kindref="member">Elf64_Half</ref></type>
+        <definition>Elf64_Half elf64_hdr::e_type</definition>
+        <argsstring></argsstring>
+        <name>e_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="59" column="16" bodyfile="src/include/common/elf.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1adb53ff20a7c010c42c703dce66ae7f62" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1adb6a5584018b431da3472e7c6a7fd731" kindref="member">Elf64_Half</ref></type>
+        <definition>Elf64_Half elf64_hdr::e_machine</definition>
+        <argsstring></argsstring>
+        <name>e_machine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="60" column="16" bodyfile="src/include/common/elf.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1a3c9f5feb04790dee640ecafbabfbda34" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1aa3aa1920ed115b7ef7e99716fece4401" kindref="member">Elf64_Word</ref></type>
+        <definition>Elf64_Word elf64_hdr::e_version</definition>
+        <argsstring></argsstring>
+        <name>e_version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="61" column="16" bodyfile="src/include/common/elf.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1ab06529dc2e99621df572c9862b8024c6" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1aeed51d08e3a950d637f8ec1f0cd4ef65" kindref="member">Elf64_Addr</ref></type>
+        <definition>Elf64_Addr elf64_hdr::e_entry</definition>
+        <argsstring></argsstring>
+        <name>e_entry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="62" column="16" bodyfile="src/include/common/elf.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1ae87fc9ce25b4b5c40ad58045609e522c" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1a6f7837bc80df7a68291fce54ff088849" kindref="member">Elf64_Off</ref></type>
+        <definition>Elf64_Off elf64_hdr::e_phoff</definition>
+        <argsstring></argsstring>
+        <name>e_phoff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="63" column="15" bodyfile="src/include/common/elf.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1adbf80ace75d46820117f58618b5f2870" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1a6f7837bc80df7a68291fce54ff088849" kindref="member">Elf64_Off</ref></type>
+        <definition>Elf64_Off elf64_hdr::e_shoff</definition>
+        <argsstring></argsstring>
+        <name>e_shoff</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="64" column="15" bodyfile="src/include/common/elf.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1aeb06582a83061ea85bcccc3b9d847e04" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1aa3aa1920ed115b7ef7e99716fece4401" kindref="member">Elf64_Word</ref></type>
+        <definition>Elf64_Word elf64_hdr::e_flags</definition>
+        <argsstring></argsstring>
+        <name>e_flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="65" column="16" bodyfile="src/include/common/elf.h" bodystart="65" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1ad0871de7a5ff0ab8e0e521ccd450bf79" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1adb6a5584018b431da3472e7c6a7fd731" kindref="member">Elf64_Half</ref></type>
+        <definition>Elf64_Half elf64_hdr::e_ehsize</definition>
+        <argsstring></argsstring>
+        <name>e_ehsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="66" column="16" bodyfile="src/include/common/elf.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1a00bb9e8e47ccd8f8e05da370e0f4d7d0" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1adb6a5584018b431da3472e7c6a7fd731" kindref="member">Elf64_Half</ref></type>
+        <definition>Elf64_Half elf64_hdr::e_phentsize</definition>
+        <argsstring></argsstring>
+        <name>e_phentsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="67" column="16" bodyfile="src/include/common/elf.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1aa90fd4904e5bb87fcaff192b9426e54c" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1adb6a5584018b431da3472e7c6a7fd731" kindref="member">Elf64_Half</ref></type>
+        <definition>Elf64_Half elf64_hdr::e_phnum</definition>
+        <argsstring></argsstring>
+        <name>e_phnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="68" column="16" bodyfile="src/include/common/elf.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1a20dcb50b814120b82f934d622af1f34a" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1adb6a5584018b431da3472e7c6a7fd731" kindref="member">Elf64_Half</ref></type>
+        <definition>Elf64_Half elf64_hdr::e_shentsize</definition>
+        <argsstring></argsstring>
+        <name>e_shentsize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="69" column="16" bodyfile="src/include/common/elf.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1a43fa0c51b15fb5acca4fa91275da8154" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1adb6a5584018b431da3472e7c6a7fd731" kindref="member">Elf64_Half</ref></type>
+        <definition>Elf64_Half elf64_hdr::e_shnum</definition>
+        <argsstring></argsstring>
+        <name>e_shnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="70" column="16" bodyfile="src/include/common/elf.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structelf64__hdr_1aca6991f9d3d4452c42d43ec1c7081c7d" prot="public" static="no" mutable="no">
+        <type><ref refid="elf_8h_1adb6a5584018b431da3472e7c6a7fd731" kindref="member">Elf64_Half</ref></type>
+        <definition>Elf64_Half elf64_hdr::e_shstrndx</definition>
+        <argsstring></argsstring>
+        <name>e_shstrndx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/elf.h" line="71" column="16" bodyfile="src/include/common/elf.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/include/common/elf.h" line="57" column="1" bodyfile="src/include/common/elf.h" bodystart="57" bodyend="72"/>
+    <listofallmembers>
+      <member refid="structelf64__hdr_1ad0871de7a5ff0ab8e0e521ccd450bf79" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_ehsize</name></member>
+      <member refid="structelf64__hdr_1ab06529dc2e99621df572c9862b8024c6" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_entry</name></member>
+      <member refid="structelf64__hdr_1aeb06582a83061ea85bcccc3b9d847e04" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_flags</name></member>
+      <member refid="structelf64__hdr_1ae749a41fb2e797798eb8e2eee50e0eac" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_ident</name></member>
+      <member refid="structelf64__hdr_1adb53ff20a7c010c42c703dce66ae7f62" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_machine</name></member>
+      <member refid="structelf64__hdr_1a00bb9e8e47ccd8f8e05da370e0f4d7d0" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_phentsize</name></member>
+      <member refid="structelf64__hdr_1aa90fd4904e5bb87fcaff192b9426e54c" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_phnum</name></member>
+      <member refid="structelf64__hdr_1ae87fc9ce25b4b5c40ad58045609e522c" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_phoff</name></member>
+      <member refid="structelf64__hdr_1a20dcb50b814120b82f934d622af1f34a" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_shentsize</name></member>
+      <member refid="structelf64__hdr_1a43fa0c51b15fb5acca4fa91275da8154" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_shnum</name></member>
+      <member refid="structelf64__hdr_1adbf80ace75d46820117f58618b5f2870" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_shoff</name></member>
+      <member refid="structelf64__hdr_1aca6991f9d3d4452c42d43ec1c7081c7d" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_shstrndx</name></member>
+      <member refid="structelf64__hdr_1a5888b4428b3b6f0bb4788c3284e3ca32" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_type</name></member>
+      <member refid="structelf64__hdr_1a3c9f5feb04790dee640ecafbabfbda34" prot="public" virt="non-virtual"><scope>elf64_hdr</scope><name>e_version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

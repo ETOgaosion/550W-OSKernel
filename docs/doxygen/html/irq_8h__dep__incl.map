@@ -1,0 +1,10 @@
+<map id="src/include/os/irq.h" name="src/include/os/irq.h">
+<area shape="rect" id="node1" title=" " alt="" coords="455,5,599,32"/>
+<area shape="rect" id="node2" href="$screen_8c.html" title=" " alt="" coords="5,80,143,121"/>
+<area shape="rect" id="node3" href="$virtio__blk_8c.html" title=" " alt="" coords="167,80,295,121"/>
+<area shape="rect" id="node4" href="$main_8c.html" title=" " alt="" coords="319,87,434,114"/>
+<area shape="rect" id="node5" href="$irq_8c.html" title=" " alt="" coords="458,87,597,114"/>
+<area shape="rect" id="node6" href="$pcb_8c.html" title=" " alt="" coords="621,87,770,114"/>
+<area shape="rect" id="node7" href="$smp_8c.html" title=" " alt="" coords="794,87,949,114"/>
+<area shape="rect" id="node8" href="$printk_8c.html" title=" " alt="" coords="973,87,1087,114"/>
+</map>

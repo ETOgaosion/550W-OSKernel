@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structring__buffer" kind="struct" language="C++" prot="public">
+    <compoundname>ring_buffer</compoundname>
+    <includes refid="file_8h" local="no">file.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structring__buffer_1a9dd0dc66c17b66b854906972136ec134" prot="public" static="no" mutable="no">
+        <type><ref refid="lock_8h_1a78e3055bd891f045188756c613a5ad92" kindref="member">spin_lock_t</ref></type>
+        <definition>spin_lock_t ring_buffer::lock</definition>
+        <argsstring></argsstring>
+        <name>lock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="120" column="17" bodyfile="src/fs/file.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1afeaa5ef46acd844422607ca6602691ef" kindref="member">size_t</ref></type>
+        <definition>size_t ring_buffer::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="121" column="12" bodyfile="src/fs/file.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t ring_buffer::head</definition>
+        <argsstring></argsstring>
+        <name>head</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="122" column="13" bodyfile="src/fs/file.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t ring_buffer::tail</definition>
+        <argsstring></argsstring>
+        <name>tail</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="123" column="13" bodyfile="src/fs/file.h" bodystart="123" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structring__buffer_1ace142f98d860b911489633b7a66818cd" prot="public" static="no" mutable="no">
+        <type>uint8_t *</type>
+        <definition>uint8_t* ring_buffer::buf</definition>
+        <argsstring></argsstring>
+        <name>buf</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="125" column="13" bodyfile="src/fs/file.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>ring_buffer</label>
+        <link refid="structring__buffer"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>lock</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>spin_lock</label>
+        <link refid="structspin__lock"/>
+      </node>
+    </collaborationgraph>
+    <location file="src/fs/file.h" line="119" column="1" bodyfile="src/fs/file.h" bodystart="119" bodyend="126"/>
+    <listofallmembers>
+      <member refid="structring__buffer_1ace142f98d860b911489633b7a66818cd" prot="public" virt="non-virtual"><scope>ring_buffer</scope><name>buf</name></member>
+      <member refid="structring__buffer_1a7f84e368bdfc9b1e4cea83f0686929ad" prot="public" virt="non-virtual"><scope>ring_buffer</scope><name>head</name></member>
+      <member refid="structring__buffer_1a9dd0dc66c17b66b854906972136ec134" prot="public" virt="non-virtual"><scope>ring_buffer</scope><name>lock</name></member>
+      <member refid="structring__buffer_1a8afcfc6689e5c6b485cbdcc2037d03c0" prot="public" virt="non-virtual"><scope>ring_buffer</scope><name>size</name></member>
+      <member refid="structring__buffer_1a54f2d65409134dc3db8dc129b8e0abff" prot="public" virt="non-virtual"><scope>ring_buffer</scope><name>tail</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

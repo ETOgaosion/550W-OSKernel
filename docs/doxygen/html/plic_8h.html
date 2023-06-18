@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/drivers/plic/plic.h 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('plic_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a>  </div>
+  <div class="headertitle">
+<div class="title">plic.h 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><div class="dynheader">
+此图展示该文件直接或间接的被哪些文件引用了:</div>
+<div class="dyncontent">
+<div class="center"><img src="plic_8h__dep__incl.png" border="0" usemap="#asrc_2drivers_2plic_2plic_8hdep" alt=""/></div>
+<map name="asrc_2drivers_2plic_2plic_8hdep" id="asrc_2drivers_2plic_2plic_8hdep">
+<area shape="rect" title=" " alt="" coords="163,5,319,32"/>
+<area shape="rect" href="plic_8c.html" title=" " alt="" coords="5,80,160,107"/>
+<area shape="rect" href="main_8c.html" title=" " alt="" coords="184,80,299,107"/>
+<area shape="rect" href="irq_8c.html" title=" " alt="" coords="323,80,461,107"/>
+</map>
+</div>
+</div>
+<p><a href="plic_8h_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a833c8df01544588f5a71e2cbff8aa266"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="plic_8h.html#a833c8df01544588f5a71e2cbff8aa266">UART_IRQ</a>&#160;&#160;&#160;10</td></tr>
+<tr class="separator:a833c8df01544588f5a71e2cbff8aa266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4418ba0a43d90fbf7575699dbd71dee3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="plic_8h.html#a4418ba0a43d90fbf7575699dbd71dee3">DISK_IRQ</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a4418ba0a43d90fbf7575699dbd71dee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a5665cb73fa6e584e3b3bcb19e24de415"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="plic_8h.html#a5665cb73fa6e584e3b3bcb19e24de415">d_plic_init</a> (void)</td></tr>
+<tr class="separator:a5665cb73fa6e584e3b3bcb19e24de415"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41c43a3327c6a2d61ae34ec9875e4cb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="plic_8h.html#a41c43a3327c6a2d61ae34ec9875e4cb0">d_plic_init_hart</a> (void)</td></tr>
+<tr class="separator:a41c43a3327c6a2d61ae34ec9875e4cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cd6ff12109bfb9d663783e2104001c6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="plic_8h.html#a4cd6ff12109bfb9d663783e2104001c6">d_plic_claim</a> (void)</td></tr>
+<tr class="separator:a4cd6ff12109bfb9d663783e2104001c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b3c50ef143c61fbafa4705fd71c5a8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="plic_8h.html#a5b3c50ef143c61fbafa4705fd71c5a8c">d_plic_complete</a> (int irq)</td></tr>
+<tr class="separator:a5b3c50ef143c61fbafa4705fd71c5a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a4418ba0a43d90fbf7575699dbd71dee3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4418ba0a43d90fbf7575699dbd71dee3">&#9670;&nbsp;</a></span>DISK_IRQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DISK_IRQ&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a833c8df01544588f5a71e2cbff8aa266"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a833c8df01544588f5a71e2cbff8aa266">&#9670;&nbsp;</a></span>UART_IRQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UART_IRQ&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="a4cd6ff12109bfb9d663783e2104001c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cd6ff12109bfb9d663783e2104001c6">&#9670;&nbsp;</a></span>d_plic_claim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int d_plic_claim </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5b3c50ef143c61fbafa4705fd71c5a8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b3c50ef143c61fbafa4705fd71c5a8c">&#9670;&nbsp;</a></span>d_plic_complete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_plic_complete </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>irq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5665cb73fa6e584e3b3bcb19e24de415"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5665cb73fa6e584e3b3bcb19e24de415">&#9670;&nbsp;</a></span>d_plic_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_plic_init </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a41c43a3327c6a2d61ae34ec9875e4cb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41c43a3327c6a2d61ae34ec9875e4cb0">&#9670;&nbsp;</a></span>d_plic_init_hart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_plic_init_hart </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c718a368270b13c54d94892d20736f45.html">drivers</a></li><li class="navelem"><a class="el" href="dir_e73d6a09cbff79528d35c0fb9f2ccf34.html">plic</a></li><li class="navelem"><a class="el" href="plic_8h.html">plic.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

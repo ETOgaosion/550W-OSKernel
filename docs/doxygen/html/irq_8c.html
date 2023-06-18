@@ -1,0 +1,691 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/kernel/irq/irq.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('irq_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">irq.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="atomic_8h_source.html">asm/atomic.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="pgtable_8h_source.html">asm/pgtable.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="privileged_8h_source.html">asm/privileged.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="sbi_8h_source.html">asm/sbi.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="arch_2riscv_2include_2asm_2syscall_8h_source.html">asm/syscall.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="plic_8h_source.html">drivers/plic/plic.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="virtio_8h_source.html">drivers/virtio/virtio.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="assert_8h_source.html">lib/assert.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="list_8h_source.html">lib/list.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="stdio_8h_source.html">lib/stdio.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="irq_8h_source.html">os/irq.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="smp_8h_source.html">os/smp.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="include_2os_2syscall_8h_source.html">os/syscall.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+irq.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="irq_8c__incl.png" border="0" usemap="#asrc_2kernel_2irq_2irq_8c" alt=""/></div>
+<map name="asrc_2kernel_2irq_2irq_8c" id="asrc_2kernel_2irq_2irq_8c">
+<area shape="rect" title=" " alt="" coords="838,5,977,32"/>
+<area shape="rect" href="atomic_8h.html" title=" " alt="" coords="1393,379,1504,405"/>
+<area shape="rect" href="pgtable_8h.html" title=" " alt="" coords="167,304,282,331"/>
+<area shape="rect" href="sbi_8h.html" title=" " alt="" coords="15,379,101,405"/>
+<area shape="rect" href="privileged_8h.html" title=" " alt="" coords="1545,379,1675,405"/>
+<area shape="rect" href="arch_2riscv_2include_2asm_2syscall_8h.html" title=" " alt="" coords="1176,80,1287,107"/>
+<area shape="rect" href="plic_8h.html" title=" " alt="" coords="1663,80,1797,107"/>
+<area shape="rect" href="virtio_8h.html" title=" " alt="" coords="245,155,399,181"/>
+<area shape="rect" href="list_8h.html" title=" " alt="" coords="717,304,791,331"/>
+<area shape="rect" href="assert_8h.html" title=" " alt="" coords="1821,80,1916,107"/>
+<area shape="rect" href="stdio_8h.html" title=" " alt="" coords="1868,155,1955,181"/>
+<area shape="rect" href="irq_8h.html" title=" " alt="" coords="360,80,431,107"/>
+<area shape="rect" href="smp_8h.html" title=" " alt="" coords="709,80,791,107"/>
+<area shape="rect" href="include_2os_2syscall_8h.html" title=" " alt="" coords="858,80,957,107"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="775,453,906,480"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="776,528,905,555"/>
+<area shape="rect" href="sbidef_8h.html" title=" " alt="" coords="5,453,111,480"/>
+<area shape="rect" href="context_8h.html" title=" " alt="" coords="1079,229,1194,256"/>
+<area shape="rect" href="syscall__number_8h.html" title=" " alt="" coords="1371,155,1537,181"/>
+<area shape="rect" href="lock_8h.html" title=" " alt="" coords="506,229,586,256"/>
+<area shape="rect" href="stdarg_8h.html" title=" " alt="" coords="1864,229,1959,256"/>
+<area shape="rect" href="pcb_8h.html" title=" " alt="" coords="669,155,745,181"/>
+<area shape="rect" href="elf_8h.html" title=" " alt="" coords="320,229,431,256"/>
+<area shape="rect" href="cpu_8h.html" title=" " alt="" coords="611,229,687,256"/>
+<area shape="rect" href="mm_8h.html" title=" " alt="" coords="976,229,1055,256"/>
+<area shape="rect" href="sync_8h.html" title=" " alt="" coords="762,229,845,256"/>
+<area shape="rect" href="time_8h.html" title=" " alt="" coords="869,229,951,256"/>
+<area shape="rect" href="string_8h.html" title=" " alt="" coords="562,304,653,331"/>
+<area shape="rect" href="common_8h.html" title=" " alt="" coords="1173,304,1295,331"/>
+<area shape="rect" href="screen_8h.html" title=" " alt="" coords="1021,155,1194,181"/>
+<area shape="rect" href="fs_8h.html" title=" " alt="" coords="1275,379,1337,405"/>
+<area shape="rect" href="sys_8h.html" title=" " alt="" coords="770,155,845,181"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:ae72d8e23da34c758d3f860fc35d0016a"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#ae72d8e23da34c758d3f860fc35d0016a">sys_undefined_syscall</a> (<a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *regs, uint64_t interrupt, uint64_t cause)</td></tr>
+<tr class="separator:ae72d8e23da34c758d3f860fc35d0016a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6e41eb17a307df20143dfc4aa6a8f6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#aa6e41eb17a307df20143dfc4aa6a8f6e">k_init_syscall</a> (void)</td></tr>
+<tr class="separator:aa6e41eb17a307df20143dfc4aa6a8f6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af13e5d949b692ee7785b7c8fe87d6e74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#af13e5d949b692ee7785b7c8fe87d6e74">reset_irq_timer</a> ()</td></tr>
+<tr class="separator:af13e5d949b692ee7785b7c8fe87d6e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab45000cc578fd01564e38b8a42a0bd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#aab45000cc578fd01564e38b8a42a0bd4">user_interrupt_helper</a> (<a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *regs, uint64_t stval, uint64_t cause, uint64_t cpuid)</td></tr>
+<tr class="separator:aab45000cc578fd01564e38b8a42a0bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cc8577978995d9fde6d11477fe444ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#a9cc8577978995d9fde6d11477fe444ba">kernel_interrupt_helper</a> (<a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *regs, uint64_t stval, uint64_t cause, uint64_t cpuid)</td></tr>
+<tr class="separator:a9cc8577978995d9fde6d11477fe444ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8afb23725eefc4b8122e2b098471727"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#ae8afb23725eefc4b8122e2b098471727">handle_int_irq</a> (<a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid)</td></tr>
+<tr class="separator:ae8afb23725eefc4b8122e2b098471727"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29043b45d0b50f1bc174664f6ef07c0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#a29043b45d0b50f1bc174664f6ef07c0e">handle_ext_irq</a> (<a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid)</td></tr>
+<tr class="separator:a29043b45d0b50f1bc174664f6ef07c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bb4a0c25612e40c2bc23dc73af365c0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#a4bb4a0c25612e40c2bc23dc73af365c0">handler_virtio_intr</a> (<a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *regs, uint64_t stval, uint64_t cause, uint64_t cpuid)</td></tr>
+<tr class="separator:a4bb4a0c25612e40c2bc23dc73af365c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f9a7235b6de1452d9903051121b57c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#aa3f9a7235b6de1452d9903051121b57c">check_pf</a> (uint64_t va, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *pgdir)</td></tr>
+<tr class="separator:aa3f9a7235b6de1452d9903051121b57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ecc039a94290831df30bdce9bbc3754"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#a8ecc039a94290831df30bdce9bbc3754">handle_disk_exc</a> (uint64_t stval, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *pte_addr)</td></tr>
+<tr class="separator:a8ecc039a94290831df30bdce9bbc3754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b626dabfdd22a7d1f4b42a490a316d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#a2b626dabfdd22a7d1f4b42a490a316d7">handle_pf_exc</a> (<a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *regs, uint64_t stval, uint64_t cause, uint64_t cpuid)</td></tr>
+<tr class="separator:a2b626dabfdd22a7d1f4b42a490a316d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d7df3208bcaf0e96c8978746974ca4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#a5d7df3208bcaf0e96c8978746974ca4b">handle_other</a> (<a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *regs, uint64_t stval, uint64_t cause, uint64_t cpuid)</td></tr>
+<tr class="separator:a5d7df3208bcaf0e96c8978746974ca4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dc43942581aa4830113bfcd00fc3949"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#a5dc43942581aa4830113bfcd00fc3949">k_init_exception</a> ()</td></tr>
+<tr class="separator:a5dc43942581aa4830113bfcd00fc3949"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a36a86609276b398aa7eb5d47adf012df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="irq_8h.html#a0b931bafdc57df2a8c74294d4585ef38">handler_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#a36a86609276b398aa7eb5d47adf012df">irq_table</a> [<a class="el" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a9b352d5814f88a05620d0e0de9dc7d5c">IRQC_COUNT</a>]</td></tr>
+<tr class="separator:a36a86609276b398aa7eb5d47adf012df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bfb10be6317990a6a28d7a0fbf722b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="irq_8h.html#a0b931bafdc57df2a8c74294d4585ef38">handler_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#a1bfb10be6317990a6a28d7a0fbf722b1">exc_table</a> [<a class="el" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a73eee780181fe4d5836562fc72e7c080">EXCC_COUNT</a>]</td></tr>
+<tr class="separator:a1bfb10be6317990a6a28d7a0fbf722b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad501f008ad2bbd64f9a64029a42bf7e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="irq_8h.html#a0b931bafdc57df2a8c74294d4585ef38">handler_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#ad501f008ad2bbd64f9a64029a42bf7e1">irq_ext_table</a> [<a class="el" href="irq_8h.html#a0656ff783d807daeb1e21b8c29b9cfd3">PLIC_NR_IRQS</a>]</td></tr>
+<tr class="separator:ad501f008ad2bbd64f9a64029a42bf7e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1947fe6c9eeff0cf542dd6c5e2c3967a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#a1947fe6c9eeff0cf542dd6c5e2c3967a">riscv_dtb</a></td></tr>
+<tr class="separator:a1947fe6c9eeff0cf542dd6c5e2c3967a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad09ecaf5565e9ad4734995e0c672272b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lock_8h.html#a78e3055bd891f045188756c613a5ad92">spin_lock_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="irq_8c.html#ad09ecaf5565e9ad4734995e0c672272b">kernel_exception_lock</a> = {.flag = <a class="el" href="lock_8h.html#afa2ed542fe4226abf3cc19f5f16f439fa4ade5a087dd858a01c36ce7ad8f64e36">UNLOCKED</a>}</td></tr>
+<tr class="separator:ad09ecaf5565e9ad4734995e0c672272b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">函数说明</h2>
+<a id="aa3f9a7235b6de1452d9903051121b57c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3f9a7235b6de1452d9903051121b57c">&#9670;&nbsp;</a></span>check_pf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a>* check_pf </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>va</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8ecc039a94290831df30bdce9bbc3754"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ecc039a94290831df30bdce9bbc3754">&#9670;&nbsp;</a></span>handle_disk_exc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handle_disk_exc </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>stval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>pte_addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29043b45d0b50f1bc174664f6ef07c0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29043b45d0b50f1bc174664f6ef07c0e">&#9670;&nbsp;</a></span>handle_ext_irq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handle_ext_irq </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *&#160;</td>
+          <td class="paramname"><em>regs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>interrupt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cause</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cpuid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae8afb23725eefc4b8122e2b098471727"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8afb23725eefc4b8122e2b098471727">&#9670;&nbsp;</a></span>handle_int_irq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handle_int_irq </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *&#160;</td>
+          <td class="paramname"><em>regs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>interrupt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cause</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cpuid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d7df3208bcaf0e96c8978746974ca4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d7df3208bcaf0e96c8978746974ca4b">&#9670;&nbsp;</a></span>handle_other()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handle_other </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *&#160;</td>
+          <td class="paramname"><em>regs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>stval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cause</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cpuid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2b626dabfdd22a7d1f4b42a490a316d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b626dabfdd22a7d1f4b42a490a316d7">&#9670;&nbsp;</a></span>handle_pf_exc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handle_pf_exc </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *&#160;</td>
+          <td class="paramname"><em>regs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>stval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cause</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cpuid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4bb4a0c25612e40c2bc23dc73af365c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bb4a0c25612e40c2bc23dc73af365c0">&#9670;&nbsp;</a></span>handler_virtio_intr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handler_virtio_intr </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *&#160;</td>
+          <td class="paramname"><em>regs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>stval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cause</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cpuid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5dc43942581aa4830113bfcd00fc3949"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dc43942581aa4830113bfcd00fc3949">&#9670;&nbsp;</a></span>k_init_exception()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_init_exception </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa6e41eb17a307df20143dfc4aa6a8f6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6e41eb17a307df20143dfc4aa6a8f6e">&#9670;&nbsp;</a></span>k_init_syscall()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_init_syscall </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9cc8577978995d9fde6d11477fe444ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc8577978995d9fde6d11477fe444ba">&#9670;&nbsp;</a></span>kernel_interrupt_helper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void kernel_interrupt_helper </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *&#160;</td>
+          <td class="paramname"><em>regs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>stval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cause</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cpuid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af13e5d949b692ee7785b7c8fe87d6e74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af13e5d949b692ee7785b7c8fe87d6e74">&#9670;&nbsp;</a></span>reset_irq_timer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void reset_irq_timer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae72d8e23da34c758d3f860fc35d0016a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae72d8e23da34c758d3f860fc35d0016a">&#9670;&nbsp;</a></span>sys_undefined_syscall()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_undefined_syscall </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *&#160;</td>
+          <td class="paramname"><em>regs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>interrupt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cause</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab45000cc578fd01564e38b8a42a0bd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab45000cc578fd01564e38b8a42a0bd4">&#9670;&nbsp;</a></span>user_interrupt_helper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void user_interrupt_helper </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="context_8h.html#a2d9a070cd557ba1cedeb93d7f14abcd5">regs_context_t</a> *&#160;</td>
+          <td class="paramname"><em>regs</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>stval</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cause</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>cpuid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="a1bfb10be6317990a6a28d7a0fbf722b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bfb10be6317990a6a28d7a0fbf722b1">&#9670;&nbsp;</a></span>exc_table</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="irq_8h.html#a0b931bafdc57df2a8c74294d4585ef38">handler_t</a> exc_table[<a class="el" href="irq_8h.html#abcc8a7c57cd8becefbfd621dbff5ffd4a73eee780181fe4d5836562fc72e7c080">EXCC_COUNT</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad501f008ad2bbd64f9a64029a42bf7e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad501f008ad2bbd64f9a64029a42bf7e1">&#9670;&nbsp;</a></span>irq_ext_table</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="irq_8h.html#a0b931bafdc57df2a8c74294d4585ef38">handler_t</a> irq_ext_table[<a class="el" href="irq_8h.html#a0656ff783d807daeb1e21b8c29b9cfd3">PLIC_NR_IRQS</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a36a86609276b398aa7eb5d47adf012df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36a86609276b398aa7eb5d47adf012df">&#9670;&nbsp;</a></span>irq_table</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="irq_8h.html#a0b931bafdc57df2a8c74294d4585ef38">handler_t</a> irq_table[<a class="el" href="irq_8h.html#a8eed9f51a8fe7cce211d55016fa34380a9b352d5814f88a05620d0e0de9dc7d5c">IRQC_COUNT</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad09ecaf5565e9ad4734995e0c672272b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad09ecaf5565e9ad4734995e0c672272b">&#9670;&nbsp;</a></span>kernel_exception_lock</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="lock_8h.html#a78e3055bd891f045188756c613a5ad92">spin_lock_t</a> kernel_exception_lock = {.flag = <a class="el" href="lock_8h.html#afa2ed542fe4226abf3cc19f5f16f439fa4ade5a087dd858a01c36ce7ad8f64e36">UNLOCKED</a>}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1947fe6c9eeff0cf542dd6c5e2c3967a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1947fe6c9eeff0cf542dd6c5e2c3967a">&#9670;&nbsp;</a></span>riscv_dtb</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> riscv_dtb</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cbd7f246bdf7dc0a50281a272327e6ed.html">kernel</a></li><li class="navelem"><a class="el" href="dir_85263bf66ec51f037c9f56cf26a1797a.html">irq</a></li><li class="navelem"><a class="el" href="irq_8c.html">irq.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

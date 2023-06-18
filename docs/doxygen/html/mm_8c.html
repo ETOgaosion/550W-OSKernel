@@ -1,0 +1,1024 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/kernel/mm/mm.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('mm_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#define-members">宏定义</a> &#124;
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">mm.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="pgtable_8h_source.html">asm/pgtable.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="sbi_8h_source.html">asm/sbi.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="elf_8h_source.html">common/elf.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="screen_8h_source.html">drivers/screen/screen.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="assert_8h_source.html">lib/assert.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="math_8h_source.html">lib/math.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="mm_8h_source.html">os/mm.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="pcb_8h_source.html">os/pcb.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="smp_8h_source.html">os/smp.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+mm.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="mm_8c__incl.png" border="0" usemap="#asrc_2kernel_2mm_2mm_8c" alt=""/></div>
+<map name="asrc_2kernel_2mm_2mm_8c" id="asrc_2kernel_2mm_2mm_8c">
+<area shape="rect" title=" " alt="" coords="351,5,507,32"/>
+<area shape="rect" href="pgtable_8h.html" title=" " alt="" coords="82,304,197,331"/>
+<area shape="rect" href="sbi_8h.html" title=" " alt="" coords="15,379,101,405"/>
+<area shape="rect" href="elf_8h.html" title=" " alt="" coords="177,229,288,256"/>
+<area shape="rect" href="screen_8h.html" title=" " alt="" coords="545,80,718,107"/>
+<area shape="rect" href="assert_8h.html" title=" " alt="" coords="743,80,837,107"/>
+<area shape="rect" href="math_8h.html" title=" " alt="" coords="862,80,950,107"/>
+<area shape="rect" href="mm_8h.html" title=" " alt="" coords="312,229,391,256"/>
+<area shape="rect" href="pcb_8h.html" title=" " alt="" coords="469,155,545,181"/>
+<area shape="rect" href="smp_8h.html" title=" " alt="" coords="388,80,469,107"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="238,453,369,480"/>
+<area shape="rect" href="sbidef_8h.html" title=" " alt="" coords="5,453,111,480"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="239,528,368,555"/>
+<area shape="rect" href="string_8h.html" title=" " alt="" coords="175,379,266,405"/>
+<area shape="rect" href="stdio_8h.html" title=" " alt="" coords="843,155,929,181"/>
+<area shape="rect" href="stdarg_8h.html" title=" " alt="" coords="936,229,1031,256"/>
+<area shape="rect" href="context_8h.html" title=" " alt="" coords="391,379,506,405"/>
+<area shape="rect" href="list_8h.html" title=" " alt="" coords="650,304,725,331"/>
+<area shape="rect" href="cpu_8h.html" title=" " alt="" coords="573,229,649,256"/>
+<area shape="rect" href="lock_8h.html" title=" " alt="" coords="725,229,805,256"/>
+<area shape="rect" href="sync_8h.html" title=" " alt="" coords="829,229,911,256"/>
+<area shape="rect" href="time_8h.html" title=" " alt="" coords="466,229,549,256"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structshm.html">shm</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a7fd108a102df19dfc97ef2bf1d40e585"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a7fd108a102df19dfc97ef2bf1d40e585">MAXPAGES</a>&#160;&#160;&#160;1000</td></tr>
+<tr class="separator:a7fd108a102df19dfc97ef2bf1d40e585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6642ece62d3018f1ed1bb9868eaa04ff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a6642ece62d3018f1ed1bb9868eaa04ff">STARTPAGE</a>&#160;&#160;&#160;30</td></tr>
+<tr class="separator:a6642ece62d3018f1ed1bb9868eaa04ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a9fe3a67073555fa485dce879e75baffe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a9fe3a67073555fa485dce879e75baffe">k_mm_get_kva</a> (<a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> entry)</td></tr>
+<tr class="separator:a9fe3a67073555fa485dce879e75baffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8197dbf98089500838012155e374ac8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a8197dbf98089500838012155e374ac8b">k_mm_getback_page</a> (int pid)</td></tr>
+<tr class="separator:a8197dbf98089500838012155e374ac8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9079f07451d515ac424e5a626c166a51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a9079f07451d515ac424e5a626c166a51">k_mm_move_to_disk</a> (uint64_t pg_kva, uint64_t user_va)</td></tr>
+<tr class="separator:a9079f07451d515ac424e5a626c166a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8a30ee892e6e43cab491fad98ac1822"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#ab8a30ee892e6e43cab491fad98ac1822">k_mm_get_back_disk</a> (uint64_t user_va, uint64_t new_addr)</td></tr>
+<tr class="separator:ab8a30ee892e6e43cab491fad98ac1822"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a0537a45221069eb767d02a67a66435"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a0a0537a45221069eb767d02a67a66435">k_mm_en_invalid</a> (uint64_t va, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *pgdir)</td></tr>
+<tr class="separator:a0a0537a45221069eb767d02a67a66435"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e15dde735f424123b40961751f40945"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a0e15dde735f424123b40961751f40945">k_mm_alloc_mem</a> (int numPage, uint64_t user_va)</td></tr>
+<tr class="separator:a0e15dde735f424123b40961751f40945"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15a9cb45278812554529da95588e9209"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a15a9cb45278812554529da95588e9209">k_mm_alloc_page</a> (int numPage)</td></tr>
+<tr class="separator:a15a9cb45278812554529da95588e9209"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50c3edde56bf0a3a364dc575067691f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a50c3edde56bf0a3a364dc575067691f7">k_mm_free_page</a> (<a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> baseAddr, int numPage)</td></tr>
+<tr class="separator:a50c3edde56bf0a3a364dc575067691f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00b0aa73fb7186a4c940dd83496dd199"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a00b0aa73fb7186a4c940dd83496dd199">k_mm_malloc</a> (<a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a> size)</td></tr>
+<tr class="separator:a00b0aa73fb7186a4c940dd83496dd199"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f6d4865e00774e6ee9a47c82423bd4a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a0f6d4865e00774e6ee9a47c82423bd4a">k_mm_alloc_newva</a> ()</td></tr>
+<tr class="separator:a0f6d4865e00774e6ee9a47c82423bd4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9a320abb99210e232d4cfbad40a107f"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#ab9a320abb99210e232d4cfbad40a107f">k_mm_shm_page_get</a> (int key)</td></tr>
+<tr class="separator:ab9a320abb99210e232d4cfbad40a107f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af62a2c905fbc578282a02392902ab988"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#af62a2c905fbc578282a02392902ab988">k_mm_shm_page_dt</a> (<a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> addr)</td></tr>
+<tr class="separator:af62a2c905fbc578282a02392902ab988"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed1b9a35c0f6f6039f48c12957dfccb1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#aed1b9a35c0f6f6039f48c12957dfccb1">k_mm_share_pgtable</a> (<a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *dest_pgdir, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *src_pgdir)</td></tr>
+<tr class="separator:aed1b9a35c0f6f6039f48c12957dfccb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adad693c99d9b33d077b78a75aa5201ce"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#adad693c99d9b33d077b78a75aa5201ce">k_mm_fork_pgtable</a> (<a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *dest_pgdir, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *src_pgdir)</td></tr>
+<tr class="separator:adad693c99d9b33d077b78a75aa5201ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab68122be1820f55a6202989ad866daf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#aab68122be1820f55a6202989ad866daf">k_mm_fork_page_helper</a> (<a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> va, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *destpgdir, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *srcpgdir)</td></tr>
+<tr class="separator:aab68122be1820f55a6202989ad866daf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ac89a697d37de67b2f7a8861c3a1e8e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a0ac89a697d37de67b2f7a8861c3a1e8e">k_mm_alloc_page_helper</a> (<a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> va, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *pgdir)</td></tr>
+<tr class="separator:a0ac89a697d37de67b2f7a8861c3a1e8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdbd898096585a80bc2856c062477425"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#abdbd898096585a80bc2856c062477425">k_mm_get_kva_from_va</a> (uint64_t va, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *pgdir)</td></tr>
+<tr class="separator:abdbd898096585a80bc2856c062477425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad12ebf232abab87dcf17f47fc5e66c9f"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#ad12ebf232abab87dcf17f47fc5e66c9f">k_mm_getpa</a> (uint64_t va)</td></tr>
+<tr class="separator:ad12ebf232abab87dcf17f47fc5e66c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c8f487e853159370c9535438212a9ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a6c8f487e853159370c9535438212a9ca">k_mm_map_kp</a> (uint64_t va, uint64_t pa, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *pgdir)</td></tr>
+<tr class="separator:a6c8f487e853159370c9535438212a9ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a117231889d5f62def392fe8c07e8c39c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a117231889d5f62def392fe8c07e8c39c">map_fs_space</a> ()</td></tr>
+<tr class="separator:a117231889d5f62def392fe8c07e8c39c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88dba7dbe2c5f022becc2615e51fc92f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a88dba7dbe2c5f022becc2615e51fc92f">k_mm_map</a> (uint64_t va, uint64_t pa, <a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *pgdir)</td></tr>
+<tr class="separator:a88dba7dbe2c5f022becc2615e51fc92f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3744132e8f6d53531d3d2882240b710"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#ac3744132e8f6d53531d3d2882240b710">k_mm_cancel_pg</a> (<a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *pgdir)</td></tr>
+<tr class="separator:ac3744132e8f6d53531d3d2882240b710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1d88534b3351f6ab9cdb287bc4a373c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#af1d88534b3351f6ab9cdb287bc4a373c">check_page_map</a> (<a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> vta, <a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> pgdir)</td></tr>
+<tr class="separator:af1d88534b3351f6ab9cdb287bc4a373c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab61920085b664b3369f8793eb46628b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#ab61920085b664b3369f8793eb46628b6">free_page_helper</a> (<a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> va, <a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> pgdir)</td></tr>
+<tr class="separator:ab61920085b664b3369f8793eb46628b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada51c92c7d14bf2ca5630a30e8c8e4f6"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#ada51c92c7d14bf2ca5630a30e8c8e4f6">sys_brk</a> (unsigned long brk)</td></tr>
+<tr class="separator:ada51c92c7d14bf2ca5630a30e8c8e4f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a85908fe2c4b3ddd59b1e22eaae68e94b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a85908fe2c4b3ddd59b1e22eaae68e94b">memCurr</a> = <a class="el" href="mm_8h.html#a2e47ec7ce19d2f57a60da284f1d7b0ab">FREEMEM</a></td></tr>
+<tr class="separator:a85908fe2c4b3ddd59b1e22eaae68e94b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd92f200d7c77a9379222dad63149cf7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#afd92f200d7c77a9379222dad63149cf7">k_mem</a> = <a class="el" href="mm_8h.html#a911693d82fa9bad70039623e03a40920">FREEMEMK</a></td></tr>
+<tr class="separator:afd92f200d7c77a9379222dad63149cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55de389522fc33657cd15e41999dad29"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a55de389522fc33657cd15e41999dad29">diskpg_num</a> = 0</td></tr>
+<tr class="separator:a55de389522fc33657cd15e41999dad29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61ed6c712cdd883d1c3cf7951ef088f9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a61ed6c712cdd883d1c3cf7951ef088f9">freepg_num</a> = 0</td></tr>
+<tr class="separator:a61ed6c712cdd883d1c3cf7951ef088f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7026ffc0fe22c95b2cd6d1b93c03c15a"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a7026ffc0fe22c95b2cd6d1b93c03c15a">diskpg</a> [1000]</td></tr>
+<tr class="separator:a7026ffc0fe22c95b2cd6d1b93c03c15a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7638374d4c5723571f35c719ac4f838e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a7638374d4c5723571f35c719ac4f838e">freepg</a> [1000]</td></tr>
+<tr class="separator:a7638374d4c5723571f35c719ac4f838e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cfcfe51cdaa6aeaf14652edd1abc0f2"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a8cfcfe51cdaa6aeaf14652edd1abc0f2">allpg</a> [20][<a class="el" href="mm_8c.html#a7fd108a102df19dfc97ef2bf1d40e585">MAXPAGES</a>]</td></tr>
+<tr class="separator:a8cfcfe51cdaa6aeaf14652edd1abc0f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac0c4fffb2097388081b9c727d805318"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#aac0c4fffb2097388081b9c727d805318">allmem</a> [20][<a class="el" href="mm_8c.html#a7fd108a102df19dfc97ef2bf1d40e585">MAXPAGES</a>]</td></tr>
+<tr class="separator:aac0c4fffb2097388081b9c727d805318"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe3051edbea44873191107a359ccf131"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#abe3051edbea44873191107a359ccf131">alluserva</a> [20][100]</td></tr>
+<tr class="separator:abe3051edbea44873191107a359ccf131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abacb39a242e93ba091fd312ed1c579c1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#abacb39a242e93ba091fd312ed1c579c1">shm_num</a> = 0</td></tr>
+<tr class="separator:abacb39a242e93ba091fd312ed1c579c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cf39179d92c85814bd090a8ebda784c"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structshm.html">shm</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mm_8c.html#a3cf39179d92c85814bd090a8ebda784c">shm_all</a> [10]</td></tr>
+<tr class="separator:a3cf39179d92c85814bd090a8ebda784c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a7fd108a102df19dfc97ef2bf1d40e585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fd108a102df19dfc97ef2bf1d40e585">&#9670;&nbsp;</a></span>MAXPAGES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAXPAGES&#160;&#160;&#160;1000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6642ece62d3018f1ed1bb9868eaa04ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6642ece62d3018f1ed1bb9868eaa04ff">&#9670;&nbsp;</a></span>STARTPAGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STARTPAGE&#160;&#160;&#160;30</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="af1d88534b3351f6ab9cdb287bc4a373c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1d88534b3351f6ab9cdb287bc4a373c">&#9670;&nbsp;</a></span>check_page_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t check_page_map </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td>
+          <td class="paramname"><em>vta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td>
+          <td class="paramname"><em>pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab61920085b664b3369f8793eb46628b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab61920085b664b3369f8793eb46628b6">&#9670;&nbsp;</a></span>free_page_helper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> free_page_helper </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td>
+          <td class="paramname"><em>va</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td>
+          <td class="paramname"><em>pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e15dde735f424123b40961751f40945"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e15dde735f424123b40961751f40945">&#9670;&nbsp;</a></span>k_mm_alloc_mem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> k_mm_alloc_mem </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numPage</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>user_va</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0f6d4865e00774e6ee9a47c82423bd4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f6d4865e00774e6ee9a47c82423bd4a">&#9670;&nbsp;</a></span>k_mm_alloc_newva()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t k_mm_alloc_newva </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a15a9cb45278812554529da95588e9209"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a9cb45278812554529da95588e9209">&#9670;&nbsp;</a></span>k_mm_alloc_page()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> k_mm_alloc_page </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numPage</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ac89a697d37de67b2f7a8861c3a1e8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ac89a697d37de67b2f7a8861c3a1e8e">&#9670;&nbsp;</a></span>k_mm_alloc_page_helper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> k_mm_alloc_page_helper </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td>
+          <td class="paramname"><em>va</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac3744132e8f6d53531d3d2882240b710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3744132e8f6d53531d3d2882240b710">&#9670;&nbsp;</a></span>k_mm_cancel_pg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_cancel_pg </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>pgdir</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0a0537a45221069eb767d02a67a66435"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a0537a45221069eb767d02a67a66435">&#9670;&nbsp;</a></span>k_mm_en_invalid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_en_invalid </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>va</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab68122be1820f55a6202989ad866daf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab68122be1820f55a6202989ad866daf">&#9670;&nbsp;</a></span>k_mm_fork_page_helper()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_fork_page_helper </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td>
+          <td class="paramname"><em>va</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>destpgdir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>srcpgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adad693c99d9b33d077b78a75aa5201ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adad693c99d9b33d077b78a75aa5201ce">&#9670;&nbsp;</a></span>k_mm_fork_pgtable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_fork_pgtable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>dest_pgdir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>src_pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a50c3edde56bf0a3a364dc575067691f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50c3edde56bf0a3a364dc575067691f7">&#9670;&nbsp;</a></span>k_mm_free_page()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_free_page </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a>&#160;</td>
+          <td class="paramname"><em>baseAddr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>numPage</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab8a30ee892e6e43cab491fad98ac1822"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8a30ee892e6e43cab491fad98ac1822">&#9670;&nbsp;</a></span>k_mm_get_back_disk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_get_back_disk </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>user_va</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>new_addr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9fe3a67073555fa485dce879e75baffe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fe3a67073555fa485dce879e75baffe">&#9670;&nbsp;</a></span>k_mm_get_kva()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a>* k_mm_get_kva </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a>&#160;</td>
+          <td class="paramname"><em>entry</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abdbd898096585a80bc2856c062477425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdbd898096585a80bc2856c062477425">&#9670;&nbsp;</a></span>k_mm_get_kva_from_va()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t k_mm_get_kva_from_va </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>va</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8197dbf98089500838012155e374ac8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8197dbf98089500838012155e374ac8b">&#9670;&nbsp;</a></span>k_mm_getback_page()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_getback_page </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>pid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad12ebf232abab87dcf17f47fc5e66c9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad12ebf232abab87dcf17f47fc5e66c9f">&#9670;&nbsp;</a></span>k_mm_getpa()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long k_mm_getpa </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>va</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a00b0aa73fb7186a4c940dd83496dd199"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00b0aa73fb7186a4c940dd83496dd199">&#9670;&nbsp;</a></span>k_mm_malloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* k_mm_malloc </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#afeaa5ef46acd844422607ca6602691ef">size_t</a>&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a88dba7dbe2c5f022becc2615e51fc92f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88dba7dbe2c5f022becc2615e51fc92f">&#9670;&nbsp;</a></span>k_mm_map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_map </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>va</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>pa</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c8f487e853159370c9535438212a9ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c8f487e853159370c9535438212a9ca">&#9670;&nbsp;</a></span>k_mm_map_kp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_map_kp </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>va</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>pa</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9079f07451d515ac424e5a626c166a51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9079f07451d515ac424e5a626c166a51">&#9670;&nbsp;</a></span>k_mm_move_to_disk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_move_to_disk </td>
+          <td>(</td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>pg_kva</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint64_t&#160;</td>
+          <td class="paramname"><em>user_va</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aed1b9a35c0f6f6039f48c12957dfccb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed1b9a35c0f6f6039f48c12957dfccb1">&#9670;&nbsp;</a></span>k_mm_share_pgtable()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_mm_share_pgtable </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>dest_pgdir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pgtable_8h.html#a84884de9218381c7120044a50c84eeba">PTE</a> *&#160;</td>
+          <td class="paramname"><em>src_pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af62a2c905fbc578282a02392902ab988"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af62a2c905fbc578282a02392902ab988">&#9670;&nbsp;</a></span>k_mm_shm_page_dt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long k_mm_shm_page_dt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td>
+          <td class="paramname"><em>addr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab9a320abb99210e232d4cfbad40a107f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9a320abb99210e232d4cfbad40a107f">&#9670;&nbsp;</a></span>k_mm_shm_page_get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long k_mm_shm_page_get </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>key</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a117231889d5f62def392fe8c07e8c39c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a117231889d5f62def392fe8c07e8c39c">&#9670;&nbsp;</a></span>map_fs_space()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void map_fs_space </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ada51c92c7d14bf2ca5630a30e8c8e4f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada51c92c7d14bf2ca5630a30e8c8e4f6">&#9670;&nbsp;</a></span>sys_brk()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_brk </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>brk</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="aac0c4fffb2097388081b9c727d805318"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac0c4fffb2097388081b9c727d805318">&#9670;&nbsp;</a></span>allmem</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t allmem[20][<a class="el" href="mm_8c.html#a7fd108a102df19dfc97ef2bf1d40e585">MAXPAGES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8cfcfe51cdaa6aeaf14652edd1abc0f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cfcfe51cdaa6aeaf14652edd1abc0f2">&#9670;&nbsp;</a></span>allpg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t allpg[20][<a class="el" href="mm_8c.html#a7fd108a102df19dfc97ef2bf1d40e585">MAXPAGES</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abe3051edbea44873191107a359ccf131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe3051edbea44873191107a359ccf131">&#9670;&nbsp;</a></span>alluserva</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t alluserva[20][100]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7026ffc0fe22c95b2cd6d1b93c03c15a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7026ffc0fe22c95b2cd6d1b93c03c15a">&#9670;&nbsp;</a></span>diskpg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t diskpg[1000]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a55de389522fc33657cd15e41999dad29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55de389522fc33657cd15e41999dad29">&#9670;&nbsp;</a></span>diskpg_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int diskpg_num = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7638374d4c5723571f35c719ac4f838e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7638374d4c5723571f35c719ac4f838e">&#9670;&nbsp;</a></span>freepg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t freepg[1000]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a61ed6c712cdd883d1c3cf7951ef088f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61ed6c712cdd883d1c3cf7951ef088f9">&#9670;&nbsp;</a></span>freepg_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int freepg_num = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afd92f200d7c77a9379222dad63149cf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd92f200d7c77a9379222dad63149cf7">&#9670;&nbsp;</a></span>k_mem</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> k_mem = <a class="el" href="mm_8h.html#a911693d82fa9bad70039623e03a40920">FREEMEMK</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a85908fe2c4b3ddd59b1e22eaae68e94b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85908fe2c4b3ddd59b1e22eaae68e94b">&#9670;&nbsp;</a></span>memCurr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> memCurr = <a class="el" href="mm_8h.html#a2e47ec7ce19d2f57a60da284f1d7b0ab">FREEMEM</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3cf39179d92c85814bd090a8ebda784c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cf39179d92c85814bd090a8ebda784c">&#9670;&nbsp;</a></span>shm_all</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct <a class="el" href="structshm.html">shm</a> shm_all[10]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abacb39a242e93ba091fd312ed1c579c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abacb39a242e93ba091fd312ed1c579c1">&#9670;&nbsp;</a></span>shm_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int shm_num = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_cbd7f246bdf7dc0a50281a272327e6ed.html">kernel</a></li><li class="navelem"><a class="el" href="dir_80965eb3ba1160063c01e5ec79f497d2.html">mm</a></li><li class="navelem"><a class="el" href="mm_8c.html">mm.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

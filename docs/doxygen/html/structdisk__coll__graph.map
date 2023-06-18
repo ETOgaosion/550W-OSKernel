@@ -1,0 +1,9 @@
+<map id="disk" name="disk">
+<area shape="rect" id="node1" title=" " alt="" coords="147,276,197,303"/>
+<area shape="rect" id="node2" href="$structspin__lock.html" title=" " alt="" coords="5,5,88,32"/>
+<area shape="rect" id="node7" href="$structsleep__lock.html" title=" " alt="" coords="75,95,165,121"/>
+<area shape="rect" id="node3" href="$structvring__used__area.html" title=" " alt="" coords="195,185,325,212"/>
+<area shape="rect" id="node4" href="$structvring__used__elem.html" title=" " alt="" coords="193,95,327,121"/>
+<area shape="rect" id="node5" href="$structvring__desc__t.html" title=" " alt="" coords="349,185,453,212"/>
+<area shape="rect" id="node6" href="$structbuf.html" title=" " alt="" coords="71,185,113,212"/>
+</map>

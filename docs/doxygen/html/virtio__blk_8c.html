@@ -1,0 +1,468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/drivers/virtio/virtio_blk.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('virtio__blk_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">virtio_blk.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="screen_8h_source.html">drivers/screen/screen.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="virtio_8h_source.html">drivers/virtio/virtio.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="assert_8h_source.html">lib/assert.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="string_8h_source.html">lib/string.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ioremap_8h_source.html">os/ioremap.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="irq_8h_source.html">os/irq.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="mm_8h_source.html">os/mm.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="pcb_8h_source.html">os/pcb.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="smp_8h_source.html">os/smp.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+virtio_blk.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="virtio__blk_8c__incl.png" border="0" usemap="#asrc_2drivers_2virtio_2virtio__blk_8c" alt=""/></div>
+<map name="asrc_2drivers_2virtio_2virtio__blk_8c" id="asrc_2drivers_2virtio_2virtio__blk_8c">
+<area shape="rect" title=" " alt="" coords="413,5,541,47"/>
+<area shape="rect" href="screen_8h.html" title=" " alt="" coords="5,95,179,121"/>
+<area shape="rect" href="virtio_8h.html" title=" " alt="" coords="195,169,349,196"/>
+<area shape="rect" href="assert_8h.html" title=" " alt="" coords="203,95,298,121"/>
+<area shape="rect" href="string_8h.html" title=" " alt="" coords="431,319,521,345"/>
+<area shape="rect" href="ioremap_8h.html" title=" " alt="" coords="424,95,531,121"/>
+<area shape="rect" href="irq_8h.html" title=" " alt="" coords="713,95,783,121"/>
+<area shape="rect" href="pcb_8h.html" title=" " alt="" coords="695,169,771,196"/>
+<area shape="rect" href="mm_8h.html" title=" " alt="" coords="1081,244,1159,271"/>
+<area shape="rect" href="smp_8h.html" title=" " alt="" coords="555,95,637,121"/>
+<area shape="rect" href="pgtable_8h.html" title=" " alt="" coords="292,319,407,345"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="493,468,624,495"/>
+<area shape="rect" href="lock_8h.html" title=" " alt="" coords="509,244,589,271"/>
+<area shape="rect" href="sbi_8h.html" title=" " alt="" coords="311,393,396,420"/>
+<area shape="rect" href="sbidef_8h.html" title=" " alt="" coords="301,468,406,495"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="494,543,623,569"/>
+<area shape="rect" href="list_8h.html" title=" " alt="" coords="617,319,692,345"/>
+<area shape="rect" href="stdio_8h.html" title=" " alt="" coords="83,169,170,196"/>
+<area shape="rect" href="stdarg_8h.html" title=" " alt="" coords="79,244,174,271"/>
+<area shape="rect" href="context_8h.html" title=" " alt="" coords="792,393,907,420"/>
+<area shape="rect" href="elf_8h.html" title=" " alt="" coords="374,244,485,271"/>
+<area shape="rect" href="cpu_8h.html" title=" " alt="" coords="771,244,847,271"/>
+<area shape="rect" href="sync_8h.html" title=" " alt="" coords="872,244,955,271"/>
+<area shape="rect" href="time_8h.html" title=" " alt="" coords="613,244,696,271"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a363dd90d7728cc25a788786c6703a162"><td class="memItemLeft" align="right" valign="top"><a class="el" href="virtio_8h.html#a8d653a4500a141fdb698c92dab13cab6">disk_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#a363dd90d7728cc25a788786c6703a162">__attribute__</a> ((aligned(<a class="el" href="pgtable_8h.html#a4d79b19c57b121d211b145092347ae82">NORMAL_PAGE_SIZE</a>)))</td></tr>
+<tr class="separator:a363dd90d7728cc25a788786c6703a162"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9cc8ace726fbd2f55efe7bac40d4ee31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#a9cc8ace726fbd2f55efe7bac40d4ee31">d_virtio_disk_rw</a> (<a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *b, int write)</td></tr>
+<tr class="separator:a9cc8ace726fbd2f55efe7bac40d4ee31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ddc08c99fd7de9077364679f3e88a1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#a8ddc08c99fd7de9077364679f3e88a1b">d_binit</a> (void)</td></tr>
+<tr class="separator:a8ddc08c99fd7de9077364679f3e88a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbe29775b1e823f8656e762918301b19"><td class="memItemLeft" align="right" valign="top"><a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#abbe29775b1e823f8656e762918301b19">d_bread</a> (<a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> dev, <a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> sectorno)</td></tr>
+<tr class="separator:abbe29775b1e823f8656e762918301b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab30ee70ddb637afdcdcc27c5c1186601"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#ab30ee70ddb637afdcdcc27c5c1186601">d_bwrite</a> (<a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *b)</td></tr>
+<tr class="separator:ab30ee70ddb637afdcdcc27c5c1186601"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e86b21b9d263f9fc0237363e4538858"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#a4e86b21b9d263f9fc0237363e4538858">d_brelse</a> (<a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *b)</td></tr>
+<tr class="separator:a4e86b21b9d263f9fc0237363e4538858"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbc4ceecde1af6b734b07cb37714f926"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#abbc4ceecde1af6b734b07cb37714f926">bpin</a> (<a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *b)</td></tr>
+<tr class="separator:abbc4ceecde1af6b734b07cb37714f926"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4511e8aa57fd419643e35fa073c0c299"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#a4511e8aa57fd419643e35fa073c0c299">bunpin</a> (<a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *b)</td></tr>
+<tr class="separator:a4511e8aa57fd419643e35fa073c0c299"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7173e75b343137611ed74ed0278e3ea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#ab7173e75b343137611ed74ed0278e3ea">d_sd_read</a> (char *buffers, <a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> *start_block_ids, <a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> block_num)</td></tr>
+<tr class="separator:ab7173e75b343137611ed74ed0278e3ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ba8dbd5d9de7f8bb698576b733f17c2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#a3ba8dbd5d9de7f8bb698576b733f17c2">d_sd_write</a> (char *buffers, <a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> *start_block_ids, <a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> block_num)</td></tr>
+<tr class="separator:a3ba8dbd5d9de7f8bb698576b733f17c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:a484cc4a6a6fe40f324eaab3f87b0c74e"><td class="memItemLeft" >struct {</td></tr>
+<tr class="memitem:a7074424bd80edd523d2037d32f9d91b0"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="lock_8h.html#a78e3055bd891f045188756c613a5ad92">spin_lock_t</a>&#160;&#160;&#160;<a class="el" href="virtio__blk_8c.html#a63f4138a272db1e1892f31c0f2473301">lock</a></td></tr>
+<tr class="separator:a7074424bd80edd523d2037d32f9d91b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a669f86ad9b3742a89fa0df31c38a97dc"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a>&#160;&#160;&#160;<a class="el" href="virtio__blk_8c.html#a2841fd18a733a1bc41ab17873c8aab74">buf</a> [<a class="el" href="virtio_8h.html#ad51e2f8dffd163c263ec676a268d0f0a">NBUF</a>]</td></tr>
+<tr class="separator:a669f86ad9b3742a89fa0df31c38a97dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5e0e81a52b44889c110f344e4cad4e2"><td class="memItemLeft" >&#160;&#160;&#160;<a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a>&#160;&#160;&#160;<a class="el" href="virtio__blk_8c.html#a2f3fce4bb758d0ed4c15a3ea8faac3ae">head</a></td></tr>
+<tr class="separator:ae5e0e81a52b44889c110f344e4cad4e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a484cc4a6a6fe40f324eaab3f87b0c74e"><td class="memItemLeft" valign="top">}&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="virtio__blk_8c.html#a484cc4a6a6fe40f324eaab3f87b0c74e">bcache</a></td></tr>
+<tr class="separator:a484cc4a6a6fe40f324eaab3f87b0c74e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">函数说明</h2>
+<a id="a363dd90d7728cc25a788786c6703a162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a363dd90d7728cc25a788786c6703a162">&#9670;&nbsp;</a></span>__attribute__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="virtio_8h.html#a8d653a4500a141fdb698c92dab13cab6">disk_t</a> __attribute__ </td>
+          <td>(</td>
+          <td class="paramtype">(aligned(<a class="el" href="pgtable_8h.html#a4d79b19c57b121d211b145092347ae82">NORMAL_PAGE_SIZE</a>))&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abbc4ceecde1af6b734b07cb37714f926"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbc4ceecde1af6b734b07cb37714f926">&#9670;&nbsp;</a></span>bpin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bpin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4511e8aa57fd419643e35fa073c0c299"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4511e8aa57fd419643e35fa073c0c299">&#9670;&nbsp;</a></span>bunpin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void bunpin </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8ddc08c99fd7de9077364679f3e88a1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ddc08c99fd7de9077364679f3e88a1b">&#9670;&nbsp;</a></span>d_binit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_binit </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abbe29775b1e823f8656e762918301b19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbe29775b1e823f8656e762918301b19">&#9670;&nbsp;</a></span>d_bread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a>* d_bread </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td>
+          <td class="paramname"><em>dev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td>
+          <td class="paramname"><em>sectorno</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4e86b21b9d263f9fc0237363e4538858"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e86b21b9d263f9fc0237363e4538858">&#9670;&nbsp;</a></span>d_brelse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_brelse </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab30ee70ddb637afdcdcc27c5c1186601"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab30ee70ddb637afdcdcc27c5c1186601">&#9670;&nbsp;</a></span>d_bwrite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_bwrite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab7173e75b343137611ed74ed0278e3ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7173e75b343137611ed74ed0278e3ea">&#9670;&nbsp;</a></span>d_sd_read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_sd_read </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> *&#160;</td>
+          <td class="paramname"><em>start_block_ids</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td>
+          <td class="paramname"><em>block_num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3ba8dbd5d9de7f8bb698576b733f17c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ba8dbd5d9de7f8bb698576b733f17c2">&#9670;&nbsp;</a></span>d_sd_write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_sd_write </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buffers</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a> *&#160;</td>
+          <td class="paramname"><em>start_block_ids</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td>
+          <td class="paramname"><em>block_num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9cc8ace726fbd2f55efe7bac40d4ee31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc8ace726fbd2f55efe7bac40d4ee31">&#9670;&nbsp;</a></span>d_virtio_disk_rw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void d_virtio_disk_rw </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> *&#160;</td>
+          <td class="paramname"><em>b</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>write</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="a484cc4a6a6fe40f324eaab3f87b0c74e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a484cc4a6a6fe40f324eaab3f87b0c74e">&#9670;&nbsp;</a></span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">struct { ... }  bcache</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2841fd18a733a1bc41ab17873c8aab74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2841fd18a733a1bc41ab17873c8aab74">&#9670;&nbsp;</a></span>buf</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> <a class="el" href="structbuf.html">buf</a>[<a class="el" href="virtio_8h.html#ad51e2f8dffd163c263ec676a268d0f0a">NBUF</a>]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2f3fce4bb758d0ed4c15a3ea8faac3ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f3fce4bb758d0ed4c15a3ea8faac3ae">&#9670;&nbsp;</a></span>head</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="virtio_8h.html#abeec8e43c27af535cdc9eecf74feec14">buf_t</a> head</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a63f4138a272db1e1892f31c0f2473301"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63f4138a272db1e1892f31c0f2473301">&#9670;&nbsp;</a></span>lock</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="lock_8h.html#a78e3055bd891f045188756c613a5ad92">spin_lock_t</a> lock</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_c718a368270b13c54d94892d20736f45.html">drivers</a></li><li class="navelem"><a class="el" href="dir_6d7bb3d98a790d25003c6f87df139573.html">virtio</a></li><li class="navelem"><a class="el" href="virtio__blk_8c.html">virtio_blk.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

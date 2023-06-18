@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/include/os/smp.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('smp_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">smp.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="smp_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="pcb_8h.html">os/pcb.h</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// #define NR_CPUS 2</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// void* cpu_stack_pointer[NR_CPUS];</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// void* cpu_pcb_pointer[NR_CPUS];</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">extern</span> <a class="code" href="structspin__lock.html">spin_lock_t</a> <a class="code" href="smp_8h.html#aa5e506b8190fa63efcd7811cab8f5b5e">kernel_lock</a>;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordtype">void</span> <a class="code" href="smp_8h.html#a792b4b25fc040911b4d949b124d7ad34">k_smp_init</a>();</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">void</span> <a class="code" href="smp_8h.html#af5b07a0d64f6e98aa6c4638845062ff7">k_smp_wakeup_other_hart</a>();</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="smp_8h.html#af01b72c2ec67649abee4185ad9d9fa34">   12</a></span>&#160;uint64_t <a class="code" href="smp_8h.html#af01b72c2ec67649abee4185ad9d9fa34">k_smp_get_current_cpu_id</a>();</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<a class="code" href="structpcb.html">pcb_t</a> *<span class="keyword">volatile</span> *<a class="code" href="smp_8h.html#ad31b9c256d6f7d32ec99b5f892f40c8c">k_smp_get_current_running</a>();</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> <a class="code" href="smp_8h.html#ad98816cc172e077f1a7eaf7e9bf85eba">k_smp_lock_kernel</a>();</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> <a class="code" href="smp_8h.html#ad7e65e693eb06f2de4fb1b84fbc9b4d2">k_smp_unlock_kernel</a>();</div>
+<div class="ttc" id="apcb_8h_html"><div class="ttname"><a href="pcb_8h.html">pcb.h</a></div></div>
+<div class="ttc" id="asmp_8h_html_a792b4b25fc040911b4d949b124d7ad34"><div class="ttname"><a href="smp_8h.html#a792b4b25fc040911b4d949b124d7ad34">k_smp_init</a></div><div class="ttdeci">void k_smp_init()</div><div class="ttdef"><b>Definition:</b> smp.c:10</div></div>
+<div class="ttc" id="asmp_8h_html_aa5e506b8190fa63efcd7811cab8f5b5e"><div class="ttname"><a href="smp_8h.html#aa5e506b8190fa63efcd7811cab8f5b5e">kernel_lock</a></div><div class="ttdeci">spin_lock_t kernel_lock</div><div class="ttdef"><b>Definition:</b> smp.c:8</div></div>
+<div class="ttc" id="asmp_8h_html_ad31b9c256d6f7d32ec99b5f892f40c8c"><div class="ttname"><a href="smp_8h.html#ad31b9c256d6f7d32ec99b5f892f40c8c">k_smp_get_current_running</a></div><div class="ttdeci">pcb_t *volatile * k_smp_get_current_running()</div><div class="ttdef"><b>Definition:</b> smp.c:35</div></div>
+<div class="ttc" id="asmp_8h_html_ad7e65e693eb06f2de4fb1b84fbc9b4d2"><div class="ttname"><a href="smp_8h.html#ad7e65e693eb06f2de4fb1b84fbc9b4d2">k_smp_unlock_kernel</a></div><div class="ttdeci">void k_smp_unlock_kernel()</div><div class="ttdef"><b>Definition:</b> smp.c:31</div></div>
+<div class="ttc" id="asmp_8h_html_ad98816cc172e077f1a7eaf7e9bf85eba"><div class="ttname"><a href="smp_8h.html#ad98816cc172e077f1a7eaf7e9bf85eba">k_smp_lock_kernel</a></div><div class="ttdeci">void k_smp_lock_kernel()</div><div class="ttdef"><b>Definition:</b> smp.c:21</div></div>
+<div class="ttc" id="asmp_8h_html_af01b72c2ec67649abee4185ad9d9fa34"><div class="ttname"><a href="smp_8h.html#af01b72c2ec67649abee4185ad9d9fa34">k_smp_get_current_cpu_id</a></div><div class="ttdeci">uint64_t k_smp_get_current_cpu_id()</div></div>
+<div class="ttc" id="asmp_8h_html_af5b07a0d64f6e98aa6c4638845062ff7"><div class="ttname"><a href="smp_8h.html#af5b07a0d64f6e98aa6c4638845062ff7">k_smp_wakeup_other_hart</a></div><div class="ttdeci">void k_smp_wakeup_other_hart()</div><div class="ttdef"><b>Definition:</b> smp.c:14</div></div>
+<div class="ttc" id="astructpcb_html"><div class="ttname"><a href="structpcb.html">pcb</a></div><div class="ttdef"><b>Definition:</b> pcb.h:127</div></div>
+<div class="ttc" id="astructspin__lock_html"><div class="ttname"><a href="structspin__lock.html">spin_lock</a></div><div class="ttdef"><b>Definition:</b> lock.h:17</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_adcb960af7f29dc0d179d1c8c5d4a40a.html">os</a></li><li class="navelem"><a class="el" href="smp_8h.html">smp.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/init/vm.c 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('init_2vm_8c.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">类型定义</a> &#124;
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">vm.c 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="context_8h_source.html">asm/context.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="pgtable_8h_source.html">asm/pgtable.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="vm_8h_source.html">asm/vm.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="elf_8h_source.html">common/elf.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+vm.c 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="init_2vm_8c__incl.png" border="0" usemap="#asrc_2init_2vm_8c" alt=""/></div>
+<map name="asrc_2init_2vm_8c" id="asrc_2init_2vm_8c">
+<area shape="rect" title=" " alt="" coords="203,5,305,32"/>
+<area shape="rect" href="context_8h.html" title=" " alt="" coords="319,229,434,256"/>
+<area shape="rect" href="pgtable_8h.html" title=" " alt="" coords="42,155,157,181"/>
+<area shape="rect" href="vm_8h.html" title=" " alt="" coords="272,80,359,107"/>
+<area shape="rect" href="elf_8h.html" title=" " alt="" coords="137,80,248,107"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="134,304,265,331"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="135,379,264,405"/>
+<area shape="rect" href="sbi_8h.html" title=" " alt="" coords="21,229,106,256"/>
+<area shape="rect" href="sbidef_8h.html" title=" " alt="" coords="5,304,111,331"/>
+<area shape="rect" href="string_8h.html" title=" " alt="" coords="231,155,322,181"/>
+</map>
+</div>
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+类型定义</h2></td></tr>
+<tr class="memitem:a6b2f54f2a4f6d2aa7a4acdc10e476444"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_2vm_8c.html#a6b2f54f2a4f6d2aa7a4acdc10e476444">kernel_entry_t</a>) (unsigned long, <a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>)</td></tr>
+<tr class="separator:a6b2f54f2a4f6d2aa7a4acdc10e476444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:a243417bb6b1096cbc1bbe73ae40bab7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_2vm_8c.html#a243417bb6b1096cbc1bbe73ae40bab7b">directmap</a> (<a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> kva, <a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> pgdir)</td></tr>
+<tr class="separator:a243417bb6b1096cbc1bbe73ae40bab7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9176c07622c438e95d96ec4d3cded6c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_2vm_8c.html#a9176c07622c438e95d96ec4d3cded6c7">prepare_vm</a> (unsigned long mhartid, <a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> <a class="el" href="irq_8c.html#a1947fe6c9eeff0cf542dd6c5e2c3967a">riscv_dtb</a>)</td></tr>
+<tr class="separator:a9176c07622c438e95d96ec4d3cded6c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:ab5e267b0d57c965af09422515a6fa2f0"><td class="memItemLeft" align="right" valign="top">unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_2vm_8c.html#ab5e267b0d57c965af09422515a6fa2f0">_elf_main</a> []</td></tr>
+<tr class="separator:ab5e267b0d57c965af09422515a6fa2f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13807b6e67170a0d8931435dd3cb252a"><td class="memItemLeft" align="right" valign="top">unsigned&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="init_2vm_8c.html#a13807b6e67170a0d8931435dd3cb252a">_length_main</a></td></tr>
+<tr class="separator:a13807b6e67170a0d8931435dd3cb252a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">类型定义说明</h2>
+<a id="a6b2f54f2a4f6d2aa7a4acdc10e476444"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b2f54f2a4f6d2aa7a4acdc10e476444">&#9670;&nbsp;</a></span>kernel_entry_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* kernel_entry_t) (unsigned long, <a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="a243417bb6b1096cbc1bbe73ae40bab7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a243417bb6b1096cbc1bbe73ae40bab7b">&#9670;&nbsp;</a></span>directmap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a> directmap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td>
+          <td class="paramname"><em>kva</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td>
+          <td class="paramname"><em>pgdir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9176c07622c438e95d96ec4d3cded6c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9176c07622c438e95d96ec4d3cded6c7">&#9670;&nbsp;</a></span>prepare_vm()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int prepare_vm </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>mhartid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#ad6cb5da84246290b3d730166b020f2a8">uintptr_t</a>&#160;</td>
+          <td class="paramname"><em>riscv_dtb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="ab5e267b0d57c965af09422515a6fa2f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5e267b0d57c965af09422515a6fa2f0">&#9670;&nbsp;</a></span>_elf_main</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned char _elf_main[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a13807b6e67170a0d8931435dd3cb252a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a13807b6e67170a0d8931435dd3cb252a">&#9670;&nbsp;</a></span>_length_main</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned _length_main</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_93ef7a03ae011ca5032e526d863e8f9f.html">init</a></li><li class="navelem"><a class="el" href="init_2vm_8c.html">vm.c</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

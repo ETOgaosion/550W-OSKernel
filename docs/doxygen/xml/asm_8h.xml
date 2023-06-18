@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="asm_8h" kind="file" language="C++">
+    <compoundname>asm.h</compoundname>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="asm_8h_1a019e28261e73c1165e653b3b5202c4be" prot="public" static="no">
+        <name>END</name>
+        <param><defname>function</defname></param>
+        <initializer>       .size function, .- function</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/asm.h" line="5" column="9" bodyfile="src/arch/riscv/include/asm/asm.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="asm_8h_1a277c14629f1a11ba836bb17eed03ff7b" prot="public" static="no">
+        <name>ENDPROC</name>
+        <param><defname>name</defname></param>
+        <initializer>        .<ref refid="fat32_8h_1a1d127017fb298b889f4ba24752d08b8e" kindref="member">type</ref> name, @function;                  \
+        <ref refid="asm_8h_1a019e28261e73c1165e653b3b5202c4be" kindref="member">END</ref>(name)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/asm.h" line="8" column="9" bodyfile="src/arch/riscv/include/asm/asm.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="asm_8h_1a1f8bc8913038063215a3fae67b2a5ef6" prot="public" static="no">
+        <name>EXPORT</name>
+        <param><defname>symbol</defname></param>
+        <initializer>        .globl symbol; \
+        symbol:</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/asm.h" line="12" column="9" bodyfile="src/arch/riscv/include/asm/asm.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="asm_8h_1a165cb5ca19388fef2f3f63f660f393ef" prot="public" static="no">
+        <name>FEXPORT</name>
+        <param><defname>symbol</defname></param>
+        <initializer>        .globl symbol;               \
+        .<ref refid="fat32_8h_1a1d127017fb298b889f4ba24752d08b8e" kindref="member">type</ref> symbol, @function;     \
+        symbol:</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/asm.h" line="16" column="9" bodyfile="src/arch/riscv/include/asm/asm.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="asm_8h_1a3eaf7ea3408047a3c086306a150a5fe6" prot="public" static="no">
+        <name>ENTRY</name>
+        <param><defname>name</defname></param>
+        <initializer>        .globl name;                            \
+        .balign 4;                              \
+        name:</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/asm.h" line="21" column="9" bodyfile="src/arch/riscv/include/asm/asm.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="asm_8h_1af0720be73909455be32f4f1d4db3d415" prot="public" static="no">
+        <name>RISCV_PTR</name>
+        <initializer>.dword</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/asm.h" line="26" column="9" bodyfile="src/arch/riscv/include/asm/asm.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="asm_8h_1a40e679a2cc09c9aeadd971214d41acaf" prot="public" static="no">
+        <name>RISCV_SZPTR</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/asm.h" line="27" column="9" bodyfile="src/arch/riscv/include/asm/asm.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="asm_8h_1a6d9b4e5031a77446e8f360f0feefd7be" prot="public" static="no">
+        <name>RISCV_LGPTR</name>
+        <initializer>3</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/asm.h" line="28" column="9" bodyfile="src/arch/riscv/include/asm/asm.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>clang-format<sp/>off<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="asm_8h_1a019e28261e73c1165e653b3b5202c4be" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>END(function)<sp/><sp/>\</highlight></codeline>
+<codeline lineno="6"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.size<sp/>function,<sp/>.-<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="asm_8h_1a277c14629f1a11ba836bb17eed03ff7b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENDPROC(name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="9"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.type<sp/>name,<sp/>@function;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="10"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>END(name)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="asm_8h_1a1f8bc8913038063215a3fae67b2a5ef6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EXPORT(symbol)<sp/>\</highlight></codeline>
+<codeline lineno="13"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.globl<sp/>symbol;<sp/>\</highlight></codeline>
+<codeline lineno="14"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>symbol:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="asm_8h_1a165cb5ca19388fef2f3f63f660f393ef" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FEXPORT(symbol)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="17"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.globl<sp/>symbol;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="18"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.type<sp/>symbol,<sp/>@function;<sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="19"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>symbol:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="asm_8h_1a3eaf7ea3408047a3c086306a150a5fe6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ENTRY(name)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="22"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.globl<sp/>name;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="23"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.balign<sp/>4;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>\</highlight></codeline>
+<codeline lineno="24"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>name:</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="asm_8h_1af0720be73909455be32f4f1d4db3d415" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RISCV_PTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/>.dword</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="asm_8h_1a40e679a2cc09c9aeadd971214d41acaf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RISCV_SZPTR<sp/><sp/><sp/><sp/><sp/>8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="asm_8h_1a6d9b4e5031a77446e8f360f0feefd7be" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RISCV_LGPTR<sp/><sp/><sp/><sp/><sp/>3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>clang-format<sp/>on<sp/>*/</highlight></codeline>
+    </programlisting>
+    <location file="src/arch/riscv/include/asm/asm.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/fs/fat32.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('fat32_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">fat32.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="fat32_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="fat32_8h.html#ab22d53293a9a984edfcb1cf6f0e55bec">    1</a></span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno"><a class="line" href="fat32_8h.html#a28478ea2856f6286899bc90b2c6a1ec4">    2</a></span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="fat32_8h.html#a7cd34d27e4ec6f942a06129c8af77527">    3</a></span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="types_8h.html">common/types.h</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="fat32_8h.html#a59eac9627282a484fbaf0aa7aa3b8a9a">    4</a></span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="fat32_8h.html#af51030d3bc65095e968dcee26b915d27">    5</a></span>&#160;<span class="preprocessor">#define max(x, y) (((x) &gt; (y)) ? (x) : (y))</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="fat32_8h.html#a137c641e9c9c08007dd8cf3f711ed6c8">    6</a></span>&#160;<span class="preprocessor">#define min(x, y) (((x) &gt; (y)) ? (y) : (x))</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="fat32_8h.html#a45575e11636a9231721c99b60872b8e8">    7</a></span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="fat32_8h.html#a538cbf03f87e88410397e3bf51c3dbd8">    8</a></span>&#160;<span class="preprocessor">#define FAT32_BOOT_SEC 0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="fat32_8h.html#a27213e68ae6a6595dd32cdcac9c67db3">    9</a></span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="fat32_8h.html#a1ecb533ef27737750a95f2cdb9a0f43b">   10</a></span>&#160;<span class="preprocessor">#define BPB_BYTES_PER_SEC 0x0B</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="fat32_8h.html#a4d33cc730b9a26d5b31a223a239d3a8d">   11</a></span>&#160;<span class="preprocessor">#define BPB_SEC_PER_CLUSTER 0x0D</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="fat32_8h.html#aceaeaa4ad72f292ff407f6789a3d49b1">   12</a></span>&#160;<span class="preprocessor">#define BPB_RSVD_SEC_CNT 0x0E</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="fat32_8h.html#a55ce87cd9e26f21c76ba06e7b514993d">   13</a></span>&#160;<span class="preprocessor">#define BPB_FAT_NUM 0x10</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="fat32_8h.html#adcc1172b9cd884e5b5e349740928a6e1">   14</a></span>&#160;<span class="preprocessor">#define BPB_HIDD_SEC 0x1C</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="fat32_8h.html#ab278ee63f0bda2e75f566e689265c656">   15</a></span>&#160;<span class="preprocessor">#define BPB_TOTL_SEC 0x20</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="fat32_8h.html#a394f5e2cf6b7cdebfbc56ab5f9490986">   16</a></span>&#160;<span class="preprocessor">#define BPB_SEC_PER_FAT 0x24</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="fat32_8h.html#ae2da53692da5a321d90d429d8713912b">   17</a></span>&#160;<span class="preprocessor">#define BPB_ROOT_CLUSTER 0x2c</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="structfat32.html">   19</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structfat32.html">fat32</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">struct </span>{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structfat32.html#ac6ee0f9ae1d10f22427bbc7595d10c91">   21</a></span>&#160;        uint16_t <a class="code" href="structfat32.html#ac6ee0f9ae1d10f22427bbc7595d10c91">bytes_per_sec</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="structfat32.html#a91fb9d11ed7a79a2547dcdca7204b6ac">   22</a></span>&#160;        uint8_t <a class="code" href="structfat32.html#a91fb9d11ed7a79a2547dcdca7204b6ac">sec_per_cluster</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="structfat32.html#ab7d658e44fbbcf59d0a9b04b67cf407a">   23</a></span>&#160;        uint16_t <a class="code" href="structfat32.html#ab7d658e44fbbcf59d0a9b04b67cf407a">rsvd_sec_cnt</a>; <span class="comment">/* count of reserved sectors */</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="structfat32.html#a921f1311f3e7f7b167fcbcbe378b945b">   24</a></span>&#160;        uint8_t <a class="code" href="structfat32.html#a921f1311f3e7f7b167fcbcbe378b945b">fat_num</a>;       <span class="comment">/* count of FAT regions */</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structfat32.html#a253922b4d29a6f3d7df54b1c0055271f">   25</a></span>&#160;        uint32_t <a class="code" href="structfat32.html#a253922b4d29a6f3d7df54b1c0055271f">hidd_sec</a>;     <span class="comment">/* count of hidden sectors */</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structfat32.html#aee381a8a01b4792cda133fe688b22faf">   26</a></span>&#160;        uint32_t <a class="code" href="structfat32.html#aee381a8a01b4792cda133fe688b22faf">totl_sec</a>;     <span class="comment">/* total count of sectors including all regions */</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structfat32.html#a45e47a9225e413c14d15737c392d4d6d">   27</a></span>&#160;        uint32_t <a class="code" href="structfat32.html#a45e47a9225e413c14d15737c392d4d6d">sec_per_fat</a>;  <span class="comment">/* count of sectors for a FAT region */</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structfat32.html#a0c3185d3dd1309f5a4751b4b8a58f4d9">   28</a></span>&#160;        uint32_t <a class="code" href="structfat32.html#a0c3185d3dd1309f5a4751b4b8a58f4d9">root_cluster</a>; <span class="comment">/* cluster num of root dir, typically is 2 */</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="structfat32.html#a409e6b408769b27b603d57dc1f15a5ed">   29</a></span>&#160;    } <a class="code" href="structfat32.html#a409e6b408769b27b603d57dc1f15a5ed">bpb</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structfat32.html#a5d895f7663cfbeeb117a02cc4691c4aa">   30</a></span>&#160;    uint32_t <a class="code" href="structfat32.html#a5d895f7663cfbeeb117a02cc4691c4aa">first_data_sec</a>; <span class="comment">/* root dir sec */</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structfat32.html#a0178cabae422e7fc8c732e6732bfdd2a">   31</a></span>&#160;    uint32_t <a class="code" href="structfat32.html#a0178cabae422e7fc8c732e6732bfdd2a">data_sec_cnt</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="structfat32.html#acb75a52b1f365390f28e7a07b0a36844">   32</a></span>&#160;    uint32_t <a class="code" href="structfat32.html#acb75a52b1f365390f28e7a07b0a36844">data_cluster_cnt</a>; <span class="comment">/* num of data clusters */</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="structfat32.html#a5fc7659eb603d602a275dadaf686b849">   33</a></span>&#160;    uint32_t <a class="code" href="structfat32.html#a5fc7659eb603d602a275dadaf686b849">bytes_per_cluster</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structfat32.html#a5620c49b36cce0cd5f5b78694b40da76">   34</a></span>&#160;    uint32_t <a class="code" href="structfat32.html#a5620c49b36cce0cd5f5b78694b40da76">entry_per_sec</a>;     <span class="comment">/* entry num per fat sec */</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structfat32.html#ac39eecb53bcba471597a8a80c34fc5b6">   35</a></span>&#160;    uint32_t <a class="code" href="structfat32.html#ac39eecb53bcba471597a8a80c34fc5b6">free_clusters</a>;     <span class="comment">/* num of rest clusters */</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structfat32.html#a0e9da26e844b565694e339bdc607b439">   36</a></span>&#160;    uint32_t <a class="code" href="structfat32.html#a0e9da26e844b565694e339bdc607b439">next_free_cluster</a>; <span class="comment">/* sequentially quick alloc, need a flag(TODO:reuse of hole in SDcard) */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structfat32.html#abf4c3a05a4408284a41c05651b441e9b">   37</a></span>&#160;    uint32_t <a class="code" href="structfat32.html#abf4c3a05a4408284a41c05651b441e9b">next_free_fat_sec</a>; <span class="comment">/* get fat sec quickly */</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="fat32_8h.html#a9435cc3223d5ebe7b4dcf66c22c8e455">   38</a></span>&#160;} <a class="code" href="fat32_8h.html#a9435cc3223d5ebe7b4dcf66c22c8e455">fat32_t</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="fat32_8h.html#a3a4a667ab08f78bd5eaf440d6d8015ca">   40</a></span>&#160;<span class="keyword">extern</span> <a class="code" href="structfat32.html">fat32_t</a> <a class="code" href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="fat32_8h.html#a154ecd3eb374bee87efec220f2d5106f">   42</a></span>&#160;<span class="preprocessor">#define ATTR_READ_WRITE 0x00</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="fat32_8h.html#aef018487342a3344aa32ee15ddcb4410">   43</a></span>&#160;<span class="preprocessor">#define ATTR_READ_ONLY 0x01</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="fat32_8h.html#a42249a182dc832d4647b67281c2ffc90">   44</a></span>&#160;<span class="preprocessor">#define ATTR_HIDDEN 0x02</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="fat32_8h.html#a1c1250075cd2ca065a67a44fc9fc3222">   45</a></span>&#160;<span class="preprocessor">#define ATTR_SYSTEM 0x04</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="fat32_8h.html#ab14d118689e61ffb3e29f83d38f1f135">   46</a></span>&#160;<span class="preprocessor">#define ATTR_VOLUME_ID 0x08</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="fat32_8h.html#afa13d3c1c60925f7b1e639233a799860">   47</a></span>&#160;<span class="preprocessor">#define ATTR_DIRECTORY 0x10</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="fat32_8h.html#a1b257aa7e0fdd8b11372edf885302176">   48</a></span>&#160;<span class="preprocessor">#define ATTR_ARCHIVE 0x20</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="fat32_8h.html#a8ebe014bd4f0c93090bd1c884c7285d5">   49</a></span>&#160;<span class="preprocessor">#define ATTR_LONG_FILE_NAME 0x0F</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">// TODO : for future use?</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="fat32_8h.html#a134b0a56cd9289f94d5fbb0be67652af">   51</a></span>&#160;<span class="preprocessor">#define ATTR_LINK 0x40</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="fat32_8h.html#a07c53a8ec2098d5d57aac0dd3184c34a">   52</a></span>&#160;<span class="preprocessor">#define ATTR_CHARACTER_DEVICE 0x80</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="fat32_8h.html#a75db02ccc1974b51db069507421816f8">   54</a></span>&#160;<span class="preprocessor">#define SHORT_FIR_NAME 8</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="fat32_8h.html#a561925648134af559971d6567ae0a2fd">   55</a></span>&#160;<span class="preprocessor">#define SHORT_EXT_NAME 3</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="fat32_8h.html#ae9a2edbdc1d8f4a69f20b638c1f127e1">   56</a></span>&#160;<span class="preprocessor">#define MAX_SHORT_NAME 11</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="fat32_8h.html#afd709f201d7643c3909621f620ea648a">   57</a></span>&#160;<span class="preprocessor">#define MAX_NAME_LEN 256</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="fat32_8h.html#abdd33f362ae3bbdacb5de76473aa8a2f">   58</a></span>&#160;<span class="preprocessor">#define MAX_PATH_LEN 512 </span><span class="comment">/* TODO : is there any limitation? */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="fat32_8h.html#a0e9bf759d4f45f4b9aecd8d6a1bf3ab4">   59</a></span>&#160;<span class="preprocessor">#define DENTRY_LEN 32</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">// TODO: get_file_name, file name in char* and num increased of next entry</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="structshort__name__entry.html">   61</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structshort__name__entry.html">short_name_entry</a> {</div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#aeab9e065d8387bffbb41ef92c807e26d">   62</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="structshort__name__entry.html#aeab9e065d8387bffbb41ef92c807e26d">name1</a>[<a class="code" href="fat32_8h.html#a75db02ccc1974b51db069507421816f8">SHORT_FIR_NAME</a>];</div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#a0a1f13c7f9779a78654ce402f084614b">   63</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="structshort__name__entry.html#a0a1f13c7f9779a78654ce402f084614b">name2</a>[<a class="code" href="fat32_8h.html#a561925648134af559971d6567ae0a2fd">SHORT_EXT_NAME</a>];</div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#a0e3b36ca302ee2bc7446cad811097dec">   64</a></span>&#160;    uint8_t <a class="code" href="structshort__name__entry.html#a0e3b36ca302ee2bc7446cad811097dec">attr</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#aad0cd3be0e7857322fa6ad65dc168244">   65</a></span>&#160;    uint8_t <a class="code" href="structshort__name__entry.html#aad0cd3be0e7857322fa6ad65dc168244">nt_res</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#a7c68544742ba7f82dd2a86440b468db1">   66</a></span>&#160;    uint8_t <a class="code" href="structshort__name__entry.html#a7c68544742ba7f82dd2a86440b468db1">crt_time_tenth</a>; <span class="comment">// 39-32 of access</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#a456f5fe5d283be52167140eb371e40cc">   67</a></span>&#160;    uint16_t <a class="code" href="structshort__name__entry.html#a456f5fe5d283be52167140eb371e40cc">crt_time</a>;      <span class="comment">// 31-16 of access</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#a7e463c318f1699a6783772dc1c8ee553">   68</a></span>&#160;    uint16_t <a class="code" href="structshort__name__entry.html#a7e463c318f1699a6783772dc1c8ee553">crt_date</a>;      <span class="comment">// 15-0 of access</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#ac7967571cbdf9699109001858d5b0c7e">   69</a></span>&#160;    uint16_t <a class="code" href="structshort__name__entry.html#ac7967571cbdf9699109001858d5b0c7e">lst_acce_date</a>; <span class="comment">// 47-32 of modify</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#a01f9b3783c82837dcf545ca2de4e41f7">   70</a></span>&#160;    uint16_t <a class="code" href="structshort__name__entry.html#a01f9b3783c82837dcf545ca2de4e41f7">fst_clus_hi</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#a0bb15df651a35c9fef7f62d5ff8cca65">   71</a></span>&#160;    uint16_t <a class="code" href="structshort__name__entry.html#a0bb15df651a35c9fef7f62d5ff8cca65">lst_wrt_time</a>; <span class="comment">// 31-16 of modify</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#afaa62bcf5b3ae351c53f2ac7564e6298">   72</a></span>&#160;    uint16_t <a class="code" href="structshort__name__entry.html#afaa62bcf5b3ae351c53f2ac7564e6298">lst_wrt_date</a>; <span class="comment">// 15-0 of modify</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#a95495bd7a60339978d34518b8834efe9">   73</a></span>&#160;    uint16_t <a class="code" href="structshort__name__entry.html#a95495bd7a60339978d34518b8834efe9">fst_clus_lo</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="structshort__name__entry.html#a94646da7aaf9f50864f0392cd8fcf822">   74</a></span>&#160;    uint32_t <a class="code" href="structshort__name__entry.html#a94646da7aaf9f50864f0392cd8fcf822">file_size</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <a class="code" href="fat32_8h.html#a3a4a667ab08f78bd5eaf440d6d8015ca">__attribute__</a>((packed, aligned(4))) short_name_entry_t;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="fat32_8h.html#a497ba0a9b3f71e6d1d16f35e59e0ee41">   77</a></span>&#160;<span class="preprocessor">#define LONG_NAME1_LEN 5</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="fat32_8h.html#aeed41609dfc0a8f9e8045482e6fde0c6">   78</a></span>&#160;<span class="preprocessor">#define LONG_NAME2_LEN 6</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="fat32_8h.html#a0649f275ab8a919df26b672f5c59562d">   79</a></span>&#160;<span class="preprocessor">#define LONG_NAME3_LEN 2</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="fat32_8h.html#ac790975f8ecfdee44f4e4d86c259fa6b">   80</a></span>&#160;<span class="preprocessor">#define LONG_NAME_LEN (LONG_NAME1_LEN + LONG_NAME2_LEN + LONG_NAME3_LEN)</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="fat32_8h.html#a96e90331356a0d3455a9c449f9bd424d">   81</a></span>&#160;<span class="preprocessor">#define LAST_LONG_ENTRY 0x40</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="fat32_8h.html#a58626af35e23c5b34253a8934f2d87eb">   82</a></span>&#160;<span class="preprocessor">#define LONG_ENTRY_SEQ 0x1f</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="structlong__name__entry.html">   83</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structlong__name__entry.html">long_name_entry</a> {</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="structlong__name__entry.html#ab692723f63c013dbb28324597e3613ea">   84</a></span>&#160;    uint8_t <a class="code" href="structlong__name__entry.html#ab692723f63c013dbb28324597e3613ea">order</a>; <span class="comment">/* we used this as the order of next name part, 255 means end*/</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="structlong__name__entry.html#a717a694fd4053ae19e02e6433568a56b">   85</a></span>&#160;    uint16_t <a class="code" href="structlong__name__entry.html#a717a694fd4053ae19e02e6433568a56b">name1</a>[<a class="code" href="fat32_8h.html#a497ba0a9b3f71e6d1d16f35e59e0ee41">LONG_NAME1_LEN</a>];</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="structlong__name__entry.html#af56969e54ce701cd6322d39ebcc9fa2d">   86</a></span>&#160;    uint8_t <a class="code" href="structlong__name__entry.html#af56969e54ce701cd6322d39ebcc9fa2d">attr</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="structlong__name__entry.html#a13493b2a1fc22de36b08cc3a4f6edcf8">   87</a></span>&#160;    uint8_t <a class="code" href="structlong__name__entry.html#a13493b2a1fc22de36b08cc3a4f6edcf8">type</a>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="structlong__name__entry.html#addf910141f2e32db6c0e12af0ae66814">   88</a></span>&#160;    uint8_t <a class="code" href="structlong__name__entry.html#addf910141f2e32db6c0e12af0ae66814">checksum</a>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="structlong__name__entry.html#a63b3bf6b53ef629b8b8b108b04deccac">   89</a></span>&#160;    uint16_t <a class="code" href="structlong__name__entry.html#a63b3bf6b53ef629b8b8b108b04deccac">name2</a>[<a class="code" href="fat32_8h.html#aeed41609dfc0a8f9e8045482e6fde0c6">LONG_NAME2_LEN</a>];</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="structlong__name__entry.html#a0b66df815f9fe798d6e477f38ce1856f">   90</a></span>&#160;    uint16_t <a class="code" href="structlong__name__entry.html#a0b66df815f9fe798d6e477f38ce1856f">rsvd</a>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="structlong__name__entry.html#a9c9c5e4f192e021f987456e664ea4acd">   91</a></span>&#160;    uint16_t <a class="code" href="structlong__name__entry.html#a9c9c5e4f192e021f987456e664ea4acd">name3</a>[<a class="code" href="fat32_8h.html#a0649f275ab8a919df26b672f5c59562d">LONG_NAME3_LEN</a>];</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;} <a class="code" href="fat32_8h.html#a3a4a667ab08f78bd5eaf440d6d8015ca">__attribute__</a>((packed, aligned(4))) long_name_entry_t;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="uniondentry.html">   94</a></span>&#160;typedef union <a class="code" href="uniondentry.html">dentry</a> {</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="uniondentry.html#a2e0a48bc674187147905b55e289be834">   95</a></span>&#160;    short_name_entry_t <a class="code" href="uniondentry.html#a2e0a48bc674187147905b55e289be834">sn</a>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="uniondentry.html#ad80b95b5fb6a045a49f69ddf519c9325">   96</a></span>&#160;    long_name_entry_t <a class="code" href="uniondentry.html#ad80b95b5fb6a045a49f69ddf519c9325">ln</a>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="fat32_8h.html#adea5e9d8af4a39aaf5ea29b82359b74c">   97</a></span>&#160;} <a class="code" href="fat32_8h.html#adea5e9d8af4a39aaf5ea29b82359b74c">dentry_t</a>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="structdir__info.html">   99</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structdir__info.html">dir_info</a> {</div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="structdir__info.html#abaebc1e16cce85b498775b3011dfba8c">  100</a></span>&#160;    uint32_t <a class="code" href="structdir__info.html#abaebc1e16cce85b498775b3011dfba8c">first_cluster</a>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="structdir__info.html#a01d3b3430c4ebe7468166e4b8daf9958">  101</a></span>&#160;    uint32_t <a class="code" href="structdir__info.html#a01d3b3430c4ebe7468166e4b8daf9958">size</a>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="structdir__info.html#a1d08207729ecb85a7e1562dc7432b598">  102</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="structdir__info.html#a1d08207729ecb85a7e1562dc7432b598">name</a>[<a class="code" href="fat32_8h.html#abdd33f362ae3bbdacb5de76473aa8a2f">MAX_PATH_LEN</a>]; <span class="comment">// real path</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="fat32_8h.html#a980c2de82bdbc2af89d6e36b540baf6e">  103</a></span>&#160;} <a class="code" href="fat32_8h.html#a980c2de82bdbc2af89d6e36b540baf6e">dir_info_t</a>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="fat32_8h.html#a7ed1f339a9c42b1a180ffbf41bb91d10">  105</a></span>&#160;<span class="keyword">extern</span> <a class="code" href="structdir__info.html">dir_info_t</a> <a class="code" href="fat32_8h.html#ab49ea0634e50fbcf6723c042807d010d">root_dir</a>, <a class="code" href="fat32_8h.html#a7ed1f339a9c42b1a180ffbf41bb91d10">cur_dir</a>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">/* TODO : file descriptor?*/</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment"> * translate cluster to fisrt sec</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint32_t fat_cluster2sec(uint32_t cluster) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">return</span> ((cluster - 2) * <a class="code" href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a>.<a class="code" href="structfat32.html#a409e6b408769b27b603d57dc1f15a5ed">bpb</a>.<a class="code" href="structfat32.html#a91fb9d11ed7a79a2547dcdca7204b6ac">sec_per_cluster</a>) + <a class="code" href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a>.<a class="code" href="structfat32.html#a5d895f7663cfbeeb117a02cc4691c4aa">first_data_sec</a>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment"> * translate sec to cluster belonged to</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint32_t fat_sec2cluster(uint32_t sec) {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> (sec - <a class="code" href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a>.<a class="code" href="structfat32.html#a5d895f7663cfbeeb117a02cc4691c4aa">first_data_sec</a>) / <a class="code" href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a>.<a class="code" href="structfat32.html#a409e6b408769b27b603d57dc1f15a5ed">bpb</a>.<a class="code" href="structfat32.html#a91fb9d11ed7a79a2547dcdca7204b6ac">sec_per_cluster</a> + 2;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <a class="code" href="types_8h.html#a1134b580f8da4de94ca6b1de4d37975e">uint32</a> fat32_dentry2fcluster(<a class="code" href="uniondentry.html">dentry_t</a> *p) {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">return</span> ((uint32_t)p-&gt;<a class="code" href="uniondentry.html#a2e0a48bc674187147905b55e289be834">sn</a>.fst_clus_hi &lt;&lt; 16) + p-&gt;<a class="code" href="uniondentry.html#a2e0a48bc674187147905b55e289be834">sn</a>.fst_clus_lo;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span> fat32_fcluster2dentry(<a class="code" href="uniondentry.html">dentry_t</a> *p, <a class="code" href="types_8h.html#a1134b580f8da4de94ca6b1de4d37975e">uint32</a> cluster) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    p-&gt;<a class="code" href="uniondentry.html#a2e0a48bc674187147905b55e289be834">sn</a>.fst_clus_hi = (cluster &gt;&gt; 16) &amp; ((1lu &lt;&lt; 16) - 1);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    p-&gt;<a class="code" href="uniondentry.html#a2e0a48bc674187147905b55e289be834">sn</a>.fst_clus_lo = cluster &amp; ((1lu &lt;&lt; 16) - 1);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="fat32_8h.html#a283ce77ac13408cf4b039da8f9df7dd2">  132</a></span>&#160;<span class="preprocessor">#define FAT_MASK 0x0fffffffu</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="fat32_8h.html#a214588323c8c933e0f2955490b0670ff">  133</a></span>&#160;<span class="preprocessor">#define FAT_MAX 0x0ffffff8u </span><span class="comment">/* end of the file */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="fat32_8h.html#a324d17db9fc3f741180c9e4dbc61e79d">  134</a></span>&#160;<span class="preprocessor">#define FAT_BAD 0x0ffffff7u </span><span class="comment">/* bad cluster of SDcard */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="fat32_8h.html#af0f5c0eccc13102f73ced92774e6ec83">  135</a></span>&#160;<span class="preprocessor">#define FAT_ENTRY_SIZE 4</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment"> * translate cluster to sec and offset of fat1(TODO: no use of fat2)</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint32_t fat_cluster2fatsec(uint32_t cluster) {</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">return</span> cluster / <a class="code" href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a>.<a class="code" href="structfat32.html#a5620c49b36cce0cd5f5b78694b40da76">entry_per_sec</a> + <a class="code" href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a>.<a class="code" href="structfat32.html#a409e6b408769b27b603d57dc1f15a5ed">bpb</a>.<a class="code" href="structfat32.html#a253922b4d29a6f3d7df54b1c0055271f">hidd_sec</a> + <a class="code" href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a>.<a class="code" href="structfat32.html#a409e6b408769b27b603d57dc1f15a5ed">bpb</a>.<a class="code" href="structfat32.html#ab7d658e44fbbcf59d0a9b04b67cf407a">rsvd_sec_cnt</a>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint32_t fat_cluster2fatoff(uint32_t cluster) {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">return</span> cluster % <a class="code" href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a>.<a class="code" href="structfat32.html#a5620c49b36cce0cd5f5b78694b40da76">entry_per_sec</a>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">// static inline uint32_t fat_fcluster2size(uint32_t first){</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">//     uint32_t ftable[fat.bpb.bytes_per_sec];</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">//     uint32_t size = 0;</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">//     uint32_t cur_fat_sec = 0xffffffff;</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">//     do{</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment">//         if(cur_fat_sec == 0xffffffff || fat_cluster2fatsec(first) != cur_fat_sec){</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">//             cur_fat_sec = fat_cluster2fatsec(first);</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">//             // TODO:</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">//             //fseek(fp,cur_fat_sec*fat.bpb.bytes_per_sec,0);</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">//             //fread(ftable,fat.bpb.bytes_per_sec,1,fp);</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">//         }</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">//         first = ftable[fat_cluster2fatoff(first)] &amp; FAT_MASK;</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">//         size += fat.bpb.sec_per_cluster;</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">//     }while(first &lt; FAT_MAX);</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">//     size = size * fat.bpb.bytes_per_sec;</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">//     return size;</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">// }</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">// utils</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">char</span> unicode2char(uint16_t unich) {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordflow">return</span> (unich &gt;= 65 &amp;&amp; unich &lt;= 90) ? unich - 65 + <span class="charliteral">&#39;A&#39;</span> : (unich &gt;= 48 &amp;&amp; unich &lt;= 57) ? unich - 48 + <span class="charliteral">&#39;0&#39;</span> : (unich &gt;= 97 &amp;&amp; unich &lt;= 122) ? unich - 97 + <span class="charliteral">&#39;a&#39;</span> : (unich == 95) ? <span class="charliteral">&#39;_&#39;</span> : (unich == 46) ? <span class="charliteral">&#39;.&#39;</span> : (unich == 0x20) ? <span class="charliteral">&#39; &#39;</span> : (unich == 45) ? <span class="charliteral">&#39;-&#39;</span> : 0;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;}</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="keyword">static</span> <span class="keyword">inline</span> uint16_t char2unicode(<span class="keywordtype">char</span> ch) {</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">return</span> (ch &gt;= <span class="charliteral">&#39;A&#39;</span> &amp;&amp; ch &lt;= <span class="charliteral">&#39;Z&#39;</span>) ? 65 + ch - <span class="charliteral">&#39;A&#39;</span> : (ch &gt;= <span class="charliteral">&#39;a&#39;</span> &amp;&amp; ch &lt;= <span class="charliteral">&#39;z&#39;</span>) ? 97 + ch - <span class="charliteral">&#39;a&#39;</span> : (ch &gt;= <span class="charliteral">&#39;0&#39;</span> &amp;&amp; ch &lt;= <span class="charliteral">&#39;9&#39;</span>) ? 48 + ch - <span class="charliteral">&#39;0&#39;</span> : (ch == <span class="charliteral">&#39;_&#39;</span>) ? 95 : (ch == <span class="charliteral">&#39;.&#39;</span>) ? 46 : (ch == <span class="charliteral">&#39; &#39;</span>) ? 0x20 : (ch == <span class="charliteral">&#39;-&#39;</span>) ? 45 : 0;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;}</div>
+<div class="ttc" id="afat32_8h_html_a0649f275ab8a919df26b672f5c59562d"><div class="ttname"><a href="fat32_8h.html#a0649f275ab8a919df26b672f5c59562d">LONG_NAME3_LEN</a></div><div class="ttdeci">#define LONG_NAME3_LEN</div><div class="ttdef"><b>Definition:</b> fat32.h:79</div></div>
+<div class="ttc" id="afat32_8h_html_a3a4a667ab08f78bd5eaf440d6d8015ca"><div class="ttname"><a href="fat32_8h.html#a3a4a667ab08f78bd5eaf440d6d8015ca">__attribute__</a></div><div class="ttdeci">struct short_name_entry __attribute__((packed, aligned(4))) short_name_entry_t</div></div>
+<div class="ttc" id="afat32_8h_html_a497ba0a9b3f71e6d1d16f35e59e0ee41"><div class="ttname"><a href="fat32_8h.html#a497ba0a9b3f71e6d1d16f35e59e0ee41">LONG_NAME1_LEN</a></div><div class="ttdeci">#define LONG_NAME1_LEN</div><div class="ttdef"><b>Definition:</b> fat32.h:77</div></div>
+<div class="ttc" id="afat32_8h_html_a561925648134af559971d6567ae0a2fd"><div class="ttname"><a href="fat32_8h.html#a561925648134af559971d6567ae0a2fd">SHORT_EXT_NAME</a></div><div class="ttdeci">#define SHORT_EXT_NAME</div><div class="ttdef"><b>Definition:</b> fat32.h:55</div></div>
+<div class="ttc" id="afat32_8h_html_a75db02ccc1974b51db069507421816f8"><div class="ttname"><a href="fat32_8h.html#a75db02ccc1974b51db069507421816f8">SHORT_FIR_NAME</a></div><div class="ttdeci">#define SHORT_FIR_NAME</div><div class="ttdef"><b>Definition:</b> fat32.h:54</div></div>
+<div class="ttc" id="afat32_8h_html_a7ed1f339a9c42b1a180ffbf41bb91d10"><div class="ttname"><a href="fat32_8h.html#a7ed1f339a9c42b1a180ffbf41bb91d10">cur_dir</a></div><div class="ttdeci">dir_info_t cur_dir</div><div class="ttdef"><b>Definition:</b> fat32.h:105</div></div>
+<div class="ttc" id="afat32_8h_html_a9435cc3223d5ebe7b4dcf66c22c8e455"><div class="ttname"><a href="fat32_8h.html#a9435cc3223d5ebe7b4dcf66c22c8e455">fat32_t</a></div><div class="ttdeci">struct fat32 fat32_t</div></div>
+<div class="ttc" id="afat32_8h_html_a980c2de82bdbc2af89d6e36b540baf6e"><div class="ttname"><a href="fat32_8h.html#a980c2de82bdbc2af89d6e36b540baf6e">dir_info_t</a></div><div class="ttdeci">struct dir_info dir_info_t</div></div>
+<div class="ttc" id="afat32_8h_html_ab49ea0634e50fbcf6723c042807d010d"><div class="ttname"><a href="fat32_8h.html#ab49ea0634e50fbcf6723c042807d010d">root_dir</a></div><div class="ttdeci">dir_info_t root_dir</div><div class="ttdef"><b>Definition:</b> fs.c:20</div></div>
+<div class="ttc" id="afat32_8h_html_abdd33f362ae3bbdacb5de76473aa8a2f"><div class="ttname"><a href="fat32_8h.html#abdd33f362ae3bbdacb5de76473aa8a2f">MAX_PATH_LEN</a></div><div class="ttdeci">#define MAX_PATH_LEN</div><div class="ttdef"><b>Definition:</b> fat32.h:58</div></div>
+<div class="ttc" id="afat32_8h_html_adea5e9d8af4a39aaf5ea29b82359b74c"><div class="ttname"><a href="fat32_8h.html#adea5e9d8af4a39aaf5ea29b82359b74c">dentry_t</a></div><div class="ttdeci">union dentry dentry_t</div></div>
+<div class="ttc" id="afat32_8h_html_aedf326fe429f8658c6dfcd69bf33dc38"><div class="ttname"><a href="fat32_8h.html#aedf326fe429f8658c6dfcd69bf33dc38">fat</a></div><div class="ttdeci">fat32_t fat</div><div class="ttdef"><b>Definition:</b> fs.c:19</div></div>
+<div class="ttc" id="afat32_8h_html_aeed41609dfc0a8f9e8045482e6fde0c6"><div class="ttname"><a href="fat32_8h.html#aeed41609dfc0a8f9e8045482e6fde0c6">LONG_NAME2_LEN</a></div><div class="ttdeci">#define LONG_NAME2_LEN</div><div class="ttdef"><b>Definition:</b> fat32.h:78</div></div>
+<div class="ttc" id="astructdir__info_html"><div class="ttname"><a href="structdir__info.html">dir_info</a></div><div class="ttdef"><b>Definition:</b> fat32.h:99</div></div>
+<div class="ttc" id="astructdir__info_html_a01d3b3430c4ebe7468166e4b8daf9958"><div class="ttname"><a href="structdir__info.html#a01d3b3430c4ebe7468166e4b8daf9958">dir_info::size</a></div><div class="ttdeci">uint32_t size</div><div class="ttdef"><b>Definition:</b> fat32.h:101</div></div>
+<div class="ttc" id="astructdir__info_html_a1d08207729ecb85a7e1562dc7432b598"><div class="ttname"><a href="structdir__info.html#a1d08207729ecb85a7e1562dc7432b598">dir_info::name</a></div><div class="ttdeci">char name[MAX_PATH_LEN]</div><div class="ttdef"><b>Definition:</b> fat32.h:102</div></div>
+<div class="ttc" id="astructdir__info_html_abaebc1e16cce85b498775b3011dfba8c"><div class="ttname"><a href="structdir__info.html#abaebc1e16cce85b498775b3011dfba8c">dir_info::first_cluster</a></div><div class="ttdeci">uint32_t first_cluster</div><div class="ttdef"><b>Definition:</b> fat32.h:100</div></div>
+<div class="ttc" id="astructfat32_html"><div class="ttname"><a href="structfat32.html">fat32</a></div><div class="ttdef"><b>Definition:</b> fat32.h:19</div></div>
+<div class="ttc" id="astructfat32_html_a0178cabae422e7fc8c732e6732bfdd2a"><div class="ttname"><a href="structfat32.html#a0178cabae422e7fc8c732e6732bfdd2a">fat32::data_sec_cnt</a></div><div class="ttdeci">uint32_t data_sec_cnt</div><div class="ttdef"><b>Definition:</b> fat32.h:31</div></div>
+<div class="ttc" id="astructfat32_html_a0c3185d3dd1309f5a4751b4b8a58f4d9"><div class="ttname"><a href="structfat32.html#a0c3185d3dd1309f5a4751b4b8a58f4d9">fat32::root_cluster</a></div><div class="ttdeci">uint32_t root_cluster</div><div class="ttdef"><b>Definition:</b> fat32.h:28</div></div>
+<div class="ttc" id="astructfat32_html_a0e9da26e844b565694e339bdc607b439"><div class="ttname"><a href="structfat32.html#a0e9da26e844b565694e339bdc607b439">fat32::next_free_cluster</a></div><div class="ttdeci">uint32_t next_free_cluster</div><div class="ttdef"><b>Definition:</b> fat32.h:36</div></div>
+<div class="ttc" id="astructfat32_html_a253922b4d29a6f3d7df54b1c0055271f"><div class="ttname"><a href="structfat32.html#a253922b4d29a6f3d7df54b1c0055271f">fat32::hidd_sec</a></div><div class="ttdeci">uint32_t hidd_sec</div><div class="ttdef"><b>Definition:</b> fat32.h:25</div></div>
+<div class="ttc" id="astructfat32_html_a409e6b408769b27b603d57dc1f15a5ed"><div class="ttname"><a href="structfat32.html#a409e6b408769b27b603d57dc1f15a5ed">fat32::bpb</a></div><div class="ttdeci">struct fat32::@2 bpb</div></div>
+<div class="ttc" id="astructfat32_html_a45e47a9225e413c14d15737c392d4d6d"><div class="ttname"><a href="structfat32.html#a45e47a9225e413c14d15737c392d4d6d">fat32::sec_per_fat</a></div><div class="ttdeci">uint32_t sec_per_fat</div><div class="ttdef"><b>Definition:</b> fat32.h:27</div></div>
+<div class="ttc" id="astructfat32_html_a5620c49b36cce0cd5f5b78694b40da76"><div class="ttname"><a href="structfat32.html#a5620c49b36cce0cd5f5b78694b40da76">fat32::entry_per_sec</a></div><div class="ttdeci">uint32_t entry_per_sec</div><div class="ttdef"><b>Definition:</b> fat32.h:34</div></div>
+<div class="ttc" id="astructfat32_html_a5d895f7663cfbeeb117a02cc4691c4aa"><div class="ttname"><a href="structfat32.html#a5d895f7663cfbeeb117a02cc4691c4aa">fat32::first_data_sec</a></div><div class="ttdeci">uint32_t first_data_sec</div><div class="ttdef"><b>Definition:</b> fat32.h:30</div></div>
+<div class="ttc" id="astructfat32_html_a5fc7659eb603d602a275dadaf686b849"><div class="ttname"><a href="structfat32.html#a5fc7659eb603d602a275dadaf686b849">fat32::bytes_per_cluster</a></div><div class="ttdeci">uint32_t bytes_per_cluster</div><div class="ttdef"><b>Definition:</b> fat32.h:33</div></div>
+<div class="ttc" id="astructfat32_html_a91fb9d11ed7a79a2547dcdca7204b6ac"><div class="ttname"><a href="structfat32.html#a91fb9d11ed7a79a2547dcdca7204b6ac">fat32::sec_per_cluster</a></div><div class="ttdeci">uint8_t sec_per_cluster</div><div class="ttdef"><b>Definition:</b> fat32.h:22</div></div>
+<div class="ttc" id="astructfat32_html_a921f1311f3e7f7b167fcbcbe378b945b"><div class="ttname"><a href="structfat32.html#a921f1311f3e7f7b167fcbcbe378b945b">fat32::fat_num</a></div><div class="ttdeci">uint8_t fat_num</div><div class="ttdef"><b>Definition:</b> fat32.h:24</div></div>
+<div class="ttc" id="astructfat32_html_ab7d658e44fbbcf59d0a9b04b67cf407a"><div class="ttname"><a href="structfat32.html#ab7d658e44fbbcf59d0a9b04b67cf407a">fat32::rsvd_sec_cnt</a></div><div class="ttdeci">uint16_t rsvd_sec_cnt</div><div class="ttdef"><b>Definition:</b> fat32.h:23</div></div>
+<div class="ttc" id="astructfat32_html_abf4c3a05a4408284a41c05651b441e9b"><div class="ttname"><a href="structfat32.html#abf4c3a05a4408284a41c05651b441e9b">fat32::next_free_fat_sec</a></div><div class="ttdeci">uint32_t next_free_fat_sec</div><div class="ttdef"><b>Definition:</b> fat32.h:37</div></div>
+<div class="ttc" id="astructfat32_html_ac39eecb53bcba471597a8a80c34fc5b6"><div class="ttname"><a href="structfat32.html#ac39eecb53bcba471597a8a80c34fc5b6">fat32::free_clusters</a></div><div class="ttdeci">uint32_t free_clusters</div><div class="ttdef"><b>Definition:</b> fat32.h:35</div></div>
+<div class="ttc" id="astructfat32_html_ac6ee0f9ae1d10f22427bbc7595d10c91"><div class="ttname"><a href="structfat32.html#ac6ee0f9ae1d10f22427bbc7595d10c91">fat32::bytes_per_sec</a></div><div class="ttdeci">uint16_t bytes_per_sec</div><div class="ttdef"><b>Definition:</b> fat32.h:21</div></div>
+<div class="ttc" id="astructfat32_html_acb75a52b1f365390f28e7a07b0a36844"><div class="ttname"><a href="structfat32.html#acb75a52b1f365390f28e7a07b0a36844">fat32::data_cluster_cnt</a></div><div class="ttdeci">uint32_t data_cluster_cnt</div><div class="ttdef"><b>Definition:</b> fat32.h:32</div></div>
+<div class="ttc" id="astructfat32_html_aee381a8a01b4792cda133fe688b22faf"><div class="ttname"><a href="structfat32.html#aee381a8a01b4792cda133fe688b22faf">fat32::totl_sec</a></div><div class="ttdeci">uint32_t totl_sec</div><div class="ttdef"><b>Definition:</b> fat32.h:26</div></div>
+<div class="ttc" id="astructlong__name__entry_html"><div class="ttname"><a href="structlong__name__entry.html">long_name_entry</a></div><div class="ttdef"><b>Definition:</b> fat32.h:83</div></div>
+<div class="ttc" id="astructlong__name__entry_html_a0b66df815f9fe798d6e477f38ce1856f"><div class="ttname"><a href="structlong__name__entry.html#a0b66df815f9fe798d6e477f38ce1856f">long_name_entry::rsvd</a></div><div class="ttdeci">uint16_t rsvd</div><div class="ttdef"><b>Definition:</b> fat32.h:90</div></div>
+<div class="ttc" id="astructlong__name__entry_html_a13493b2a1fc22de36b08cc3a4f6edcf8"><div class="ttname"><a href="structlong__name__entry.html#a13493b2a1fc22de36b08cc3a4f6edcf8">long_name_entry::type</a></div><div class="ttdeci">uint8_t type</div><div class="ttdef"><b>Definition:</b> fat32.h:87</div></div>
+<div class="ttc" id="astructlong__name__entry_html_a63b3bf6b53ef629b8b8b108b04deccac"><div class="ttname"><a href="structlong__name__entry.html#a63b3bf6b53ef629b8b8b108b04deccac">long_name_entry::name2</a></div><div class="ttdeci">uint16_t name2[LONG_NAME2_LEN]</div><div class="ttdef"><b>Definition:</b> fat32.h:89</div></div>
+<div class="ttc" id="astructlong__name__entry_html_a717a694fd4053ae19e02e6433568a56b"><div class="ttname"><a href="structlong__name__entry.html#a717a694fd4053ae19e02e6433568a56b">long_name_entry::name1</a></div><div class="ttdeci">uint16_t name1[LONG_NAME1_LEN]</div><div class="ttdef"><b>Definition:</b> fat32.h:85</div></div>
+<div class="ttc" id="astructlong__name__entry_html_a9c9c5e4f192e021f987456e664ea4acd"><div class="ttname"><a href="structlong__name__entry.html#a9c9c5e4f192e021f987456e664ea4acd">long_name_entry::name3</a></div><div class="ttdeci">uint16_t name3[LONG_NAME3_LEN]</div><div class="ttdef"><b>Definition:</b> fat32.h:91</div></div>
+<div class="ttc" id="astructlong__name__entry_html_ab692723f63c013dbb28324597e3613ea"><div class="ttname"><a href="structlong__name__entry.html#ab692723f63c013dbb28324597e3613ea">long_name_entry::order</a></div><div class="ttdeci">uint8_t order</div><div class="ttdef"><b>Definition:</b> fat32.h:84</div></div>
+<div class="ttc" id="astructlong__name__entry_html_addf910141f2e32db6c0e12af0ae66814"><div class="ttname"><a href="structlong__name__entry.html#addf910141f2e32db6c0e12af0ae66814">long_name_entry::checksum</a></div><div class="ttdeci">uint8_t checksum</div><div class="ttdef"><b>Definition:</b> fat32.h:88</div></div>
+<div class="ttc" id="astructlong__name__entry_html_af56969e54ce701cd6322d39ebcc9fa2d"><div class="ttname"><a href="structlong__name__entry.html#af56969e54ce701cd6322d39ebcc9fa2d">long_name_entry::attr</a></div><div class="ttdeci">uint8_t attr</div><div class="ttdef"><b>Definition:</b> fat32.h:86</div></div>
+<div class="ttc" id="astructshort__name__entry_html"><div class="ttname"><a href="structshort__name__entry.html">short_name_entry</a></div><div class="ttdef"><b>Definition:</b> fat32.h:61</div></div>
+<div class="ttc" id="astructshort__name__entry_html_a01f9b3783c82837dcf545ca2de4e41f7"><div class="ttname"><a href="structshort__name__entry.html#a01f9b3783c82837dcf545ca2de4e41f7">short_name_entry::fst_clus_hi</a></div><div class="ttdeci">uint16_t fst_clus_hi</div><div class="ttdef"><b>Definition:</b> fat32.h:70</div></div>
+<div class="ttc" id="astructshort__name__entry_html_a0a1f13c7f9779a78654ce402f084614b"><div class="ttname"><a href="structshort__name__entry.html#a0a1f13c7f9779a78654ce402f084614b">short_name_entry::name2</a></div><div class="ttdeci">char name2[SHORT_EXT_NAME]</div><div class="ttdef"><b>Definition:</b> fat32.h:63</div></div>
+<div class="ttc" id="astructshort__name__entry_html_a0bb15df651a35c9fef7f62d5ff8cca65"><div class="ttname"><a href="structshort__name__entry.html#a0bb15df651a35c9fef7f62d5ff8cca65">short_name_entry::lst_wrt_time</a></div><div class="ttdeci">uint16_t lst_wrt_time</div><div class="ttdef"><b>Definition:</b> fat32.h:71</div></div>
+<div class="ttc" id="astructshort__name__entry_html_a0e3b36ca302ee2bc7446cad811097dec"><div class="ttname"><a href="structshort__name__entry.html#a0e3b36ca302ee2bc7446cad811097dec">short_name_entry::attr</a></div><div class="ttdeci">uint8_t attr</div><div class="ttdef"><b>Definition:</b> fat32.h:64</div></div>
+<div class="ttc" id="astructshort__name__entry_html_a456f5fe5d283be52167140eb371e40cc"><div class="ttname"><a href="structshort__name__entry.html#a456f5fe5d283be52167140eb371e40cc">short_name_entry::crt_time</a></div><div class="ttdeci">uint16_t crt_time</div><div class="ttdef"><b>Definition:</b> fat32.h:67</div></div>
+<div class="ttc" id="astructshort__name__entry_html_a7c68544742ba7f82dd2a86440b468db1"><div class="ttname"><a href="structshort__name__entry.html#a7c68544742ba7f82dd2a86440b468db1">short_name_entry::crt_time_tenth</a></div><div class="ttdeci">uint8_t crt_time_tenth</div><div class="ttdef"><b>Definition:</b> fat32.h:66</div></div>
+<div class="ttc" id="astructshort__name__entry_html_a7e463c318f1699a6783772dc1c8ee553"><div class="ttname"><a href="structshort__name__entry.html#a7e463c318f1699a6783772dc1c8ee553">short_name_entry::crt_date</a></div><div class="ttdeci">uint16_t crt_date</div><div class="ttdef"><b>Definition:</b> fat32.h:68</div></div>
+<div class="ttc" id="astructshort__name__entry_html_a94646da7aaf9f50864f0392cd8fcf822"><div class="ttname"><a href="structshort__name__entry.html#a94646da7aaf9f50864f0392cd8fcf822">short_name_entry::file_size</a></div><div class="ttdeci">uint32_t file_size</div><div class="ttdef"><b>Definition:</b> fat32.h:74</div></div>
+<div class="ttc" id="astructshort__name__entry_html_a95495bd7a60339978d34518b8834efe9"><div class="ttname"><a href="structshort__name__entry.html#a95495bd7a60339978d34518b8834efe9">short_name_entry::fst_clus_lo</a></div><div class="ttdeci">uint16_t fst_clus_lo</div><div class="ttdef"><b>Definition:</b> fat32.h:73</div></div>
+<div class="ttc" id="astructshort__name__entry_html_aad0cd3be0e7857322fa6ad65dc168244"><div class="ttname"><a href="structshort__name__entry.html#aad0cd3be0e7857322fa6ad65dc168244">short_name_entry::nt_res</a></div><div class="ttdeci">uint8_t nt_res</div><div class="ttdef"><b>Definition:</b> fat32.h:65</div></div>
+<div class="ttc" id="astructshort__name__entry_html_ac7967571cbdf9699109001858d5b0c7e"><div class="ttname"><a href="structshort__name__entry.html#ac7967571cbdf9699109001858d5b0c7e">short_name_entry::lst_acce_date</a></div><div class="ttdeci">uint16_t lst_acce_date</div><div class="ttdef"><b>Definition:</b> fat32.h:69</div></div>
+<div class="ttc" id="astructshort__name__entry_html_aeab9e065d8387bffbb41ef92c807e26d"><div class="ttname"><a href="structshort__name__entry.html#aeab9e065d8387bffbb41ef92c807e26d">short_name_entry::name1</a></div><div class="ttdeci">char name1[SHORT_FIR_NAME]</div><div class="ttdef"><b>Definition:</b> fat32.h:62</div></div>
+<div class="ttc" id="astructshort__name__entry_html_afaa62bcf5b3ae351c53f2ac7564e6298"><div class="ttname"><a href="structshort__name__entry.html#afaa62bcf5b3ae351c53f2ac7564e6298">short_name_entry::lst_wrt_date</a></div><div class="ttdeci">uint16_t lst_wrt_date</div><div class="ttdef"><b>Definition:</b> fat32.h:72</div></div>
+<div class="ttc" id="atypes_8h_html"><div class="ttname"><a href="types_8h.html">types.h</a></div></div>
+<div class="ttc" id="atypes_8h_html_a1134b580f8da4de94ca6b1de4d37975e"><div class="ttname"><a href="types_8h.html#a1134b580f8da4de94ca6b1de4d37975e">uint32</a></div><div class="ttdeci">unsigned int uint32</div><div class="ttdef"><b>Definition:</b> types.h:37</div></div>
+<div class="ttc" id="auniondentry_html"><div class="ttname"><a href="uniondentry.html">dentry</a></div><div class="ttdef"><b>Definition:</b> fat32.h:94</div></div>
+<div class="ttc" id="auniondentry_html_a2e0a48bc674187147905b55e289be834"><div class="ttname"><a href="uniondentry.html#a2e0a48bc674187147905b55e289be834">dentry::sn</a></div><div class="ttdeci">short_name_entry_t sn</div><div class="ttdef"><b>Definition:</b> fat32.h:95</div></div>
+<div class="ttc" id="auniondentry_html_ad80b95b5fb6a045a49f69ddf519c9325"><div class="ttname"><a href="uniondentry.html#ad80b95b5fb6a045a49f69ddf519c9325">dentry::ln</a></div><div class="ttdeci">long_name_entry_t ln</div><div class="ttdef"><b>Definition:</b> fat32.h:96</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7d71b6c457a61cbf03a04bfdc57b6110.html">fs</a></li><li class="navelem"><a class="el" href="fat32_8h.html">fat32.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

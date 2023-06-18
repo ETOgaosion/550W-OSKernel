@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="vm_8h" kind="file" language="C++">
+    <compoundname>vm.h</compoundname>
+    <includedby refid="arch_2riscv_2kernel_2init_2vm_8c" local="no">src/arch/riscv/kernel/init/vm.c</includedby>
+    <includedby refid="init_2vm_8c" local="no">src/init/vm.c</includedby>
+    <invincdepgraph>
+      <node id="3">
+        <label>src/init/vm.c</label>
+        <link refid="init_2vm_8c"/>
+      </node>
+      <node id="1">
+        <label>src/arch/riscv/include/asm/vm.h</label>
+        <link refid="vm_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/arch/riscv/kernel/init/vm.c</label>
+        <link refid="arch_2riscv_2kernel_2init_2vm_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="vm_8h_1a6e001ee96453344451e59af9f2edafc8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void setup_vm</definition>
+        <argsstring>()</argsstring>
+        <name>setup_vm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/vm.h" line="3" column="6" bodyfile="src/arch/riscv/kernel/init/vm.c" bodystart="37" bodyend="51" declfile="src/arch/riscv/include/asm/vm.h" declline="3" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="vm_8h_1aba2a09dcc0bd6e59edc7493047932058" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void enable_vm</definition>
+        <argsstring>()</argsstring>
+        <name>enable_vm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/vm.h" line="5" column="6" bodyfile="src/arch/riscv/kernel/init/vm.c" bodystart="27" bodyend="31" declfile="src/arch/riscv/include/asm/vm.h" declline="5" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="vm_8h_1a9176c07622c438e95d96ec4d3cded6c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int prepare_vm</definition>
+        <argsstring>(unsigned long mhartid, uintptr_t riscv_dtb)</argsstring>
+        <name>prepare_vm</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>mhartid</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref></type>
+          <declname>riscv_dtb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/vm.h" line="7" column="5" bodyfile="src/init/vm.c" bodystart="19" bodyend="28" declfile="src/arch/riscv/include/asm/vm.h" declline="7" declcolumn="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="vm_8h_1a6e001ee96453344451e59af9f2edafc8" kindref="member">setup_vm</ref>();</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="vm_8h_1aba2a09dcc0bd6e59edc7493047932058" kindref="member">enable_vm</ref>();</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="vm_8h_1a9176c07622c438e95d96ec4d3cded6c7" kindref="member">prepare_vm</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>mhartid,<sp/><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/><ref refid="irq_8c_1a1947fe6c9eeff0cf542dd6c5e2c3967a" kindref="member">riscv_dtb</ref>);</highlight></codeline>
+    </programlisting>
+    <location file="src/arch/riscv/include/asm/vm.h"/>
+  </compounddef>
+</doxygen>

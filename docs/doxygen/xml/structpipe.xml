@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structpipe" kind="struct" language="C++" prot="public">
+    <compoundname>pipe</compoundname>
+    <includes refid="file_8h" local="no">file.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpipe_1a5ee26c9cdf246d2e2fbf6fccf0282da4" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int pipe::mailbox</definition>
+        <argsstring></argsstring>
+        <name>mailbox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="131" column="9" bodyfile="src/fs/file.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpipe_1a9446fe28965572a7c074b97110e7726d" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a288e13e815d43b06e75819f8939524df" kindref="member">pid_t</ref></type>
+        <definition>pid_t pipe::pid</definition>
+        <argsstring></argsstring>
+        <name>pid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="132" column="11" bodyfile="src/fs/file.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpipe_1a90b0138f2c230048d4fdfab506fce9aa" prot="public" static="no" mutable="no">
+        <type><ref refid="list_8h_1aa8e63a505e811a76625c05760bb04f7f" kindref="member">list_head</ref></type>
+        <definition>list_head pipe::r_list</definition>
+        <argsstring></argsstring>
+        <name>r_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="133" column="15" bodyfile="src/fs/file.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpipe_1a8ba6fca95ede65bb5e1bad37b8db55ec" prot="public" static="no" mutable="no">
+        <type><ref refid="list_8h_1aa8e63a505e811a76625c05760bb04f7f" kindref="member">list_head</ref></type>
+        <definition>list_head pipe::w_list</definition>
+        <argsstring></argsstring>
+        <name>w_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="134" column="15" bodyfile="src/fs/file.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpipe_1afcf26d833296bf47f8d2210591eb6a9f" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 pipe::r_valid</definition>
+        <argsstring></argsstring>
+        <name>r_valid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="135" column="11" bodyfile="src/fs/file.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpipe_1a729795bc415b421b99ef7dc4d4286d13" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1adde6aaee8457bee49c2a92621fe22b79" kindref="member">uint8</ref></type>
+        <definition>uint8 pipe::w_valid</definition>
+        <argsstring></argsstring>
+        <name>w_valid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/fs/file.h" line="136" column="11" bodyfile="src/fs/file.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>pipe</label>
+        <link refid="structpipe"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>r_list</edgelabel>
+          <edgelabel>w_list</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>list_node</label>
+        <link refid="structlist__node"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>next</edgelabel>
+          <edgelabel>prev</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="src/fs/file.h" line="129" column="1" bodyfile="src/fs/file.h" bodystart="129" bodyend="137"/>
+    <listofallmembers>
+      <member refid="structpipe_1a5ee26c9cdf246d2e2fbf6fccf0282da4" prot="public" virt="non-virtual"><scope>pipe</scope><name>mailbox</name></member>
+      <member refid="structpipe_1a9446fe28965572a7c074b97110e7726d" prot="public" virt="non-virtual"><scope>pipe</scope><name>pid</name></member>
+      <member refid="structpipe_1a90b0138f2c230048d4fdfab506fce9aa" prot="public" virt="non-virtual"><scope>pipe</scope><name>r_list</name></member>
+      <member refid="structpipe_1afcf26d833296bf47f8d2210591eb6a9f" prot="public" virt="non-virtual"><scope>pipe</scope><name>r_valid</name></member>
+      <member refid="structpipe_1a8ba6fca95ede65bb5e1bad37b8db55ec" prot="public" virt="non-virtual"><scope>pipe</scope><name>w_list</name></member>
+      <member refid="structpipe_1a729795bc415b421b99ef7dc4d4286d13" prot="public" virt="non-virtual"><scope>pipe</scope><name>w_valid</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,26 @@
+var searchData=
+[
+  ['d_5fino_2515',['d_ino',['../structdirent64.html#ac6e4ef85c65554400b54453e5cb017f7',1,'dirent64']]],
+  ['d_5fname_2516',['d_name',['../structdirent64.html#a16dc8c4c2b92cd2dc6cb1a5f8bf76fa1',1,'dirent64']]],
+  ['d_5foff_2517',['d_off',['../structdirent64.html#a75cbff7adaa1a45994be22687441e214',1,'dirent64']]],
+  ['d_5freclen_2518',['d_reclen',['../structdirent64.html#a4472cd642ab74191bccff5fdb87ba57e',1,'dirent64']]],
+  ['d_5ftype_2519',['d_type',['../structdirent64.html#a4228c87afd910baab45a45ce745df789',1,'dirent64']]],
+  ['data_2520',['data',['../structbuf.html#a6f4829eccb5ca803fb56d9998aa2b7e4',1,'buf']]],
+  ['data_5faddr_5foffset_2521',['data_addr_offset',['../fs_8h.html#a5379d59f189668b142e0203c9db578eb',1,'fs.h']]],
+  ['data_5fcluster_5fcnt_2522',['data_cluster_cnt',['../structfat32.html#acb75a52b1f365390f28e7a07b0a36844',1,'fat32']]],
+  ['data_5fsec_5fcnt_2523',['data_sec_cnt',['../structfat32.html#a0178cabae422e7fc8c732e6732bfdd2a',1,'fat32']]],
+  ['data_5fsec_5foffset_2524',['data_sec_offset',['../structsuper__block.html#ae4b6a52258a5f6e32aff406521c9c674',1,'super_block']]],
+  ['data_5fsec_5fsize_2525',['data_sec_size',['../structsuper__block.html#a0d4ef7f96243a194affd2704b50544d0',1,'super_block']]],
+  ['dead_5fchild_5fstime_2526',['dead_child_stime',['../structpcb.html#af8e1a58c4304d8b577cc4876bf2191b5',1,'pcb']]],
+  ['dead_5fchild_5futime_2527',['dead_child_utime',['../structpcb.html#a05dde3bef033363a18b449d8e81ca2e1',1,'pcb']]],
+  ['desc_2528',['desc',['../structdisk.html#a7b2400d9c769854a3efed9b5b65839db',1,'disk']]],
+  ['dev_2529',['dev',['../structbuf.html#ac96082c2b5f22133ac7092ef81487227',1,'buf::dev()'],['../structfd.html#a8e675d589d95a1c6a7d99bd45164dbb9',1,'fd::dev()']]],
+  ['dir2_5faddr_5foffset_2530',['dir2_addr_offset',['../fs_8h.html#a912b2fc18669005ba1e7f97e4a686c98',1,'fs.h']]],
+  ['dir3_5faddr_5foffset_2531',['dir3_addr_offset',['../fs_8h.html#a5317348823569604760012466012b9a1',1,'fs.h']]],
+  ['dir4_5faddr_5foffset_2532',['dir4_addr_offset',['../fs_8h.html#aa3b27ac05d0e5aac1613511254a69b0f',1,'fs.h']]],
+  ['dir_5faddr_5foffset_2533',['dir_addr_offset',['../fs_8h.html#af8170d3af43a590eb940712ba4b2d377',1,'fs.h']]],
+  ['disk_2534',['disk',['../structbuf.html#a598c840a233e368937d47cd1b7a5f3a2',1,'buf::disk()'],['../virtio_8h.html#affcceda12b139f26819f4929be705eb1',1,'disk():&#160;virtio.h']]],
+  ['diskpg_2535',['diskpg',['../mm_8h.html#a797fdb9f830559ca5d351b4b0c73cbda',1,'diskpg():&#160;mm.c'],['../mm_8c.html#a7026ffc0fe22c95b2cd6d1b93c03c15a',1,'diskpg():&#160;mm.c']]],
+  ['diskpg_5fnum_2536',['diskpg_num',['../mm_8h.html#a55de389522fc33657cd15e41999dad29',1,'diskpg_num():&#160;mm.c'],['../mm_8c.html#a55de389522fc33657cd15e41999dad29',1,'diskpg_num():&#160;mm.c']]],
+  ['domainname_2537',['domainname',['../structuname.html#a594b3673b854a92b0319ca05df5c5c72',1,'uname']]]
+];

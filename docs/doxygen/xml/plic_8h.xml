@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="plic_8h" kind="file" language="C++">
+    <compoundname>plic.h</compoundname>
+    <includedby refid="plic_8c" local="no">src/drivers/plic/plic.c</includedby>
+    <includedby refid="main_8c" local="no">src/init/main.c</includedby>
+    <includedby refid="irq_8c" local="no">src/kernel/irq/irq.c</includedby>
+    <invincdepgraph>
+      <node id="2">
+        <label>src/drivers/plic/plic.c</label>
+        <link refid="plic_8c"/>
+      </node>
+      <node id="1">
+        <label>src/drivers/plic/plic.h</label>
+        <link refid="plic_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/init/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="4">
+        <label>src/kernel/irq/irq.c</label>
+        <link refid="irq_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="plic_8h_1a833c8df01544588f5a71e2cbff8aa266" prot="public" static="no">
+        <name>UART_IRQ</name>
+        <initializer>10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/plic/plic.h" line="3" column="9" bodyfile="src/drivers/plic/plic.h" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="plic_8h_1a4418ba0a43d90fbf7575699dbd71dee3" prot="public" static="no">
+        <name>DISK_IRQ</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/plic/plic.h" line="4" column="9" bodyfile="src/drivers/plic/plic.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="plic_8h_1a5665cb73fa6e584e3b3bcb19e24de415" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void d_plic_init</definition>
+        <argsstring>(void)</argsstring>
+        <name>d_plic_init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/plic/plic.h" line="6" column="6" bodyfile="src/drivers/plic/plic.c" bodystart="20" bodyend="23" declfile="src/drivers/plic/plic.h" declline="6" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="plic_8h_1a41c43a3327c6a2d61ae34ec9875e4cb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void d_plic_init_hart</definition>
+        <argsstring>(void)</argsstring>
+        <name>d_plic_init_hart</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/plic/plic.h" line="9" column="6" bodyfile="src/drivers/plic/plic.c" bodystart="25" bodyend="31" declfile="src/drivers/plic/plic.h" declline="9" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="plic_8h_1a4cd6ff12109bfb9d663783e2104001c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int d_plic_claim</definition>
+        <argsstring>(void)</argsstring>
+        <name>d_plic_claim</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/plic/plic.h" line="12" column="5" bodyfile="src/drivers/plic/plic.c" bodystart="34" bodyend="39" declfile="src/drivers/plic/plic.h" declline="12" declcolumn="5"/>
+      </memberdef>
+      <memberdef kind="function" id="plic_8h_1a5b3c50ef143c61fbafa4705fd71c5a8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void d_plic_complete</definition>
+        <argsstring>(int irq)</argsstring>
+        <name>d_plic_complete</name>
+        <param>
+          <type>int</type>
+          <declname>irq</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/plic/plic.h" line="15" column="6" bodyfile="src/drivers/plic/plic.c" bodystart="42" bodyend="45" declfile="src/drivers/plic/plic.h" declline="15" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3" refid="plic_8h_1a833c8df01544588f5a71e2cbff8aa266" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UART_IRQ<sp/>10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="plic_8h_1a4418ba0a43d90fbf7575699dbd71dee3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DISK_IRQ<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="plic_8h_1a5665cb73fa6e584e3b3bcb19e24de415" kindref="member">d_plic_init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/>enable<sp/>PLIC<sp/>for<sp/>each<sp/>hart</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="plic_8h_1a41c43a3327c6a2d61ae34ec9875e4cb0" kindref="member">d_plic_init_hart</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="comment">//<sp/>ask<sp/>PLIC<sp/>what<sp/>interrupt<sp/>we<sp/>should<sp/>serve</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="plic_8h_1a4cd6ff12109bfb9d663783e2104001c6" kindref="member">d_plic_claim</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">//<sp/>tell<sp/>PLIC<sp/>that<sp/>we&apos;ve<sp/>served<sp/>this<sp/>IRQ</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="plic_8h_1a5b3c50ef143c61fbafa4705fd71c5a8c" kindref="member">d_plic_complete</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>irq);</highlight></codeline>
+    </programlisting>
+    <location file="src/drivers/plic/plic.h"/>
+  </compounddef>
+</doxygen>

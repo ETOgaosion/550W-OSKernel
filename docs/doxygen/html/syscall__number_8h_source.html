@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/include/uapi/syscall_number.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('syscall__number_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">syscall_number.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="syscall__number_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aabed7f7d1400564ec843acd4dfb72e59">    3</a></span>&#160;<span class="preprocessor">#define IGNORE 0</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a378d5f7b0a0cdc5fc21b2bea873fdeac">    4</a></span>&#160;<span class="preprocessor">#define NUM_SYSCALLS 512</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">/* define */</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6b52de4cf05d696712d4c3fadfc301e6">    7</a></span>&#160;<span class="preprocessor">#define SYS_io_setup 0</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6d33fb26eb4b1d0bf7cb01266ec1bc3e">    8</a></span>&#160;<span class="preprocessor">#define SYS_io_destroy 1</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a01d390837efdbbabdf1f2229c7efb442">    9</a></span>&#160;<span class="preprocessor">#define SYS_io_submit 2</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8733c4c2527db5dfd77eda0ca53d7086">   10</a></span>&#160;<span class="preprocessor">#define SYS_io_cancel 3</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a88e2829676fd6030e8bcaced74f8eab2">   11</a></span>&#160;<span class="preprocessor">#define SYS_io_getevents 4</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a621e1e4a2b9c488ef8f79fa01f5c2a05">   12</a></span>&#160;<span class="preprocessor">#define SYS_setxattr 5</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6089675d9925d4228bba1e26d790ad79">   13</a></span>&#160;<span class="preprocessor">#define SYS_lsetxattr 6</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a078bedb71908c4882417ebf817bf5acb">   14</a></span>&#160;<span class="preprocessor">#define SYS_fsetxattr 7</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae6a9ef977d2a1ee0f562919d7b72d060">   15</a></span>&#160;<span class="preprocessor">#define SYS_getxattr 8</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a5cf020f97a59a5f87b43aa425e2a0067">   16</a></span>&#160;<span class="preprocessor">#define SYS_lgetxattr 9</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6340a41a45011cc2664b8c9de3cdd709">   17</a></span>&#160;<span class="preprocessor">#define SYS_fgetxattr 10</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a70489e52b323e031ebc4d3398255be3e">   18</a></span>&#160;<span class="preprocessor">#define SYS_listxattr 11</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#acb8ac9eaf41354fc719e80cd72077166">   19</a></span>&#160;<span class="preprocessor">#define SYS_llistxattr 12</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abac45e8f22eca8eaedfd0baa387b0bcb">   20</a></span>&#160;<span class="preprocessor">#define SYS_flistxattr 13</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a98239c4d2c2a3b36109ea78216cf8be0">   21</a></span>&#160;<span class="preprocessor">#define SYS_removexattr 14</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a42f4180ada6877bb405d8feec99ce0a6">   22</a></span>&#160;<span class="preprocessor">#define SYS_lremovexattr 15</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aa9698ae3659bf0f891a9204513c410a3">   23</a></span>&#160;<span class="preprocessor">#define SYS_fremovexattr 16</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#adad972f3197eb425927a6a9f4ee0ef6e">   24</a></span>&#160;<span class="preprocessor">#define SYS_getcwd 17</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a213a5b42747b397adce5b4619b5d5e8c">   25</a></span>&#160;<span class="preprocessor">#define SYS_lookup_dcookie 18</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae9d2d6e47cd0c1fd6749d1edef3643d1">   26</a></span>&#160;<span class="preprocessor">#define SYS_eventfd2 19</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad19b6e7bfe0b019b9e3230fa7a423075">   27</a></span>&#160;<span class="preprocessor">#define SYS_epoll_create1 20</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab22fd893a35ca437fffdfda172bbb080">   28</a></span>&#160;<span class="preprocessor">#define SYS_epoll_ctl 21</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#acfdfff5fdba343e577e8ab6785a54646">   29</a></span>&#160;<span class="preprocessor">#define SYS_epoll_pwait 22</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6e98a8f905993a259782ac57a85dbcfc">   30</a></span>&#160;<span class="preprocessor">#define SYS_dup 23</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aaa87b10f18cb891f9263472fe52a9a50">   31</a></span>&#160;<span class="preprocessor">#define SYS_dup3 24</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a922d8748ef61f9507b802789f8b69710">   32</a></span>&#160;<span class="preprocessor">#define SYS_fcntl 25</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a786e493618adc7a5d375ee6c9e7150eb">   33</a></span>&#160;<span class="preprocessor">#define SYS_inotify_init1 26</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a327fa1d6cdd1da63ba9bd9437e7aef8b">   34</a></span>&#160;<span class="preprocessor">#define SYS_inotify_add_watch 27</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ac901a5ea1c0276510c7f49902eda4913">   35</a></span>&#160;<span class="preprocessor">#define SYS_inotify_rm_watch 28</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aa7d6a57243fe6ef7dc4fc9bc676c4299">   36</a></span>&#160;<span class="preprocessor">#define SYS_ioctl 29</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a41af78a15f209759bfafbbafb3f5d39a">   37</a></span>&#160;<span class="preprocessor">#define SYS_ioprio_set 30</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ac08321654ec994b798af29fe1a4208cf">   38</a></span>&#160;<span class="preprocessor">#define SYS_ioprio_get 31</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a3f00deb5d1d53be0f27277397b66f474">   39</a></span>&#160;<span class="preprocessor">#define SYS_flock 32</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a676e31d4c47844cc3c3f26eb4cbd516f">   40</a></span>&#160;<span class="preprocessor">#define SYS_mknodat 33</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#acb934da72f3952f58e0317b00e4b29bc">   41</a></span>&#160;<span class="preprocessor">#define SYS_mkdirat 34</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ada023f80dd6b43b2356faba9353e1856">   42</a></span>&#160;<span class="preprocessor">#define SYS_unlinkat 35</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a376c75d991c3a42d6aab73360c225e7c">   43</a></span>&#160;<span class="preprocessor">#define SYS_symlinkat 36</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a14862374076cfa604067beaa32f6d347">   44</a></span>&#160;<span class="preprocessor">#define SYS_linkat 37</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a4d2de10e70a83a4f3b57d7fc6ef272ae">   45</a></span>&#160;<span class="preprocessor">#define SYS_umount2 39</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad0d778a1560bac993a094f181e512c9d">   46</a></span>&#160;<span class="preprocessor">#define SYS_mount 40</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a20d5301e5e7237f00ea9937651149371">   47</a></span>&#160;<span class="preprocessor">#define SYS_pivot_root 41</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a714011d9d89aee518979770105e72c8c">   48</a></span>&#160;<span class="preprocessor">#define SYS_nfsservctl 42</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a1bdc76d907e88b1f2c53f20d0a833878">   49</a></span>&#160;<span class="preprocessor">#define SYS_statfs 43</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ac9a283c555bd3c0f244a82a18cd41cf0">   50</a></span>&#160;<span class="preprocessor">#define SYS_fstatfs 44</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab8d1f6702bc2f5ca74cb808dee86d7d7">   51</a></span>&#160;<span class="preprocessor">#define SYS_truncate 45</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a0b4cd8f544f5d93d12fca7a5b77659f9">   52</a></span>&#160;<span class="preprocessor">#define SYS_ftruncate 46</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#adcc524413d4b917ed1422d04b77e381c">   53</a></span>&#160;<span class="preprocessor">#define SYS_fallocate 47</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aec33ca8cfa5215baecc809aad7b8ac44">   54</a></span>&#160;<span class="preprocessor">#define SYS_faccessat 48</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a02542ea0a822502c309e22863d71b849">   55</a></span>&#160;<span class="preprocessor">#define SYS_chdir 49</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae737c8e8e0ea0a996f24118c7635d9f3">   56</a></span>&#160;<span class="preprocessor">#define SYS_fchdir 50</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a624ef3bb2bd77a67d51246c2bb318890">   57</a></span>&#160;<span class="preprocessor">#define SYS_chroot 51</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#add91b11aef87a8d8b234fad75093dfd4">   58</a></span>&#160;<span class="preprocessor">#define SYS_fchmod 52</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8179a89ff66bfd5d58830b5979746719">   59</a></span>&#160;<span class="preprocessor">#define SYS_fchmodat 53</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad3a770472a0bec095e69fa03b919d385">   60</a></span>&#160;<span class="preprocessor">#define SYS_fchownat 54</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abfce389f57aaf8a529f7fecc41a45655">   61</a></span>&#160;<span class="preprocessor">#define SYS_fchown 55</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#adc8f5467b14f701dce000c7226575a6e">   62</a></span>&#160;<span class="preprocessor">#define SYS_openat 56</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8ac7ddcf0e4789f3e705f35b8da40af3">   63</a></span>&#160;<span class="preprocessor">#define SYS_close 57</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a31844693b1e2b39d4afe3b1a30e535c9">   64</a></span>&#160;<span class="preprocessor">#define SYS_vhangup 58</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2b74162da7b76787ef3a69ef13aba26c">   65</a></span>&#160;<span class="preprocessor">#define SYS_pipe2 59</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aaa611cd49dc0c99c83c643bdc5f0298b">   66</a></span>&#160;<span class="preprocessor">#define SYS_quotactl 60</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aff20c06a5c9a3d2f0a039a8741d11aa3">   67</a></span>&#160;<span class="preprocessor">#define SYS_getdents64 61</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aaafd617a1c739e39d3a183d5806be86f">   68</a></span>&#160;<span class="preprocessor">#define SYS_lseek 62</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a4481bc3f0d65944cd6a9ecd6c5b93a55">   69</a></span>&#160;<span class="preprocessor">#define SYS_read 63</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aa7425a6f80dc9c0ec789079cb6547542">   70</a></span>&#160;<span class="preprocessor">#define SYS_write 64</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a35f27ffa82e15e63fefa689ffdc1423e">   71</a></span>&#160;<span class="preprocessor">#define SYS_readv 65</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad59d85a4549a70e5714ab8388aa374f2">   72</a></span>&#160;<span class="preprocessor">#define SYS_writev 66</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad584b4d0fa2d85e3b853203db443997b">   73</a></span>&#160;<span class="preprocessor">#define SYS_pread64 67</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8f2a0b8211e80a4edf3e6cc8b70d429a">   74</a></span>&#160;<span class="preprocessor">#define SYS_pwrite64 68</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab82108de9c007bf18cac2f27bebe70ea">   75</a></span>&#160;<span class="preprocessor">#define SYS_preadv 69</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a7617079c60d3315179b6a34a6d4cd1d4">   76</a></span>&#160;<span class="preprocessor">#define SYS_pwritev 70</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a1e315fc6b4ca7e30fe688889ed049950">   77</a></span>&#160;<span class="preprocessor">#define SYS_sendfile 71</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a00d05d17590c1292b5871c584a318f5f">   78</a></span>&#160;<span class="preprocessor">#define SYS_pselect6 72</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abe031dfe699622b5f44152accd1bbbaf">   79</a></span>&#160;<span class="preprocessor">#define SYS_ppoll 73</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#afad22e418f2f0d812c339156e81f6411">   80</a></span>&#160;<span class="preprocessor">#define SYS_signalfd4 74</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a486dc7758150b5eb96ba54745dcef9a1">   81</a></span>&#160;<span class="preprocessor">#define SYS_vmsplice 75</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6fcc0346f44c048176b1ec06b07e957f">   82</a></span>&#160;<span class="preprocessor">#define SYS_splice 76</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a608bbce289ffd918423bf31d8136bc85">   83</a></span>&#160;<span class="preprocessor">#define SYS_tee 77</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a94d70dca695c4916ce3f86f053c756ba">   84</a></span>&#160;<span class="preprocessor">#define SYS_readlinkat 78</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a62f3be7f55347062aa28fcd8af0699c2">   85</a></span>&#160;<span class="preprocessor">#define SYS_fstatat 79</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a71105a873ad172a54a16aa2f2d85534a">   86</a></span>&#160;<span class="preprocessor">#define SYS_fstat 80</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a7199729b3a91e5f533c7acb2ab0cf95e">   87</a></span>&#160;<span class="preprocessor">#define SYS_sync 81</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab716e4affd7d1a3f0f761ba76d718950">   88</a></span>&#160;<span class="preprocessor">#define SYS_fsync 82</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a3b4a2b43d3690f85a9faf652f4f7189b">   89</a></span>&#160;<span class="preprocessor">#define SYS_fdatasync 83</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#afa80126cecf62dc73be85f54ee24f103">   90</a></span>&#160;<span class="preprocessor">#define SYS_sync_file_range 84</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a837c4cff4811883b03278a9910f7b0b9">   91</a></span>&#160;<span class="preprocessor">#define SYS_timerfd_create 85</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8d36e1ca33f87a0fb8b465706d8b9de7">   92</a></span>&#160;<span class="preprocessor">#define SYS_timerfd_settime 86</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a136665f60ec9fafa9a0cb136cc3896d0">   93</a></span>&#160;<span class="preprocessor">#define SYS_timerfd_gettime 87</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a9950fac814760e4a45d9250d3197dbbf">   94</a></span>&#160;<span class="preprocessor">#define SYS_utimensat 88</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a874c69b8e8e3f2de38d31dfcc711cf52">   95</a></span>&#160;<span class="preprocessor">#define SYS_acct 89</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae0b79705c046680dd8b6c27456f40537">   96</a></span>&#160;<span class="preprocessor">#define SYS_capget 90</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8ce001da3d904636ee0f300d271519da">   97</a></span>&#160;<span class="preprocessor">#define SYS_capset 91</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ac364178eba9f957d4053b3fdebdb4824">   98</a></span>&#160;<span class="preprocessor">#define SYS_personality 92</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a9ffbbdd04d43fb4c0d05d4363d351772">   99</a></span>&#160;<span class="preprocessor">#define SYS_exit 93</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6956e0641f4f12bc3b1743480aa36f7f">  100</a></span>&#160;<span class="preprocessor">#define SYS_exit_group 94</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a0a0bed89558b92820bfb443776728e87">  101</a></span>&#160;<span class="preprocessor">#define SYS_waitid 95</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a4906fc9ce97bfb7766c1bc9f58932d28">  102</a></span>&#160;<span class="preprocessor">#define SYS_set_tid_address 96</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8322728467dfa64496b7afb10e0ce28c">  103</a></span>&#160;<span class="preprocessor">#define SYS_unshare 97</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a927cfa958d7f7b84a81e690f53f56143">  104</a></span>&#160;<span class="preprocessor">#define SYS_futex 98</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abfc49421d3511fddfab043bc2c959ad4">  105</a></span>&#160;<span class="preprocessor">#define SYS_set_robust_list 99</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a58480399dc7f794ba2eafbd514a7d54d">  106</a></span>&#160;<span class="preprocessor">#define SYS_get_robust_list 100</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad21e1ccef0a67a28fce46b0d4678c4b9">  107</a></span>&#160;<span class="preprocessor">#define SYS_nanosleep 101</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a9a400999d387a6cc66617c5ce3c2c82d">  108</a></span>&#160;<span class="preprocessor">#define SYS_getitimer 102</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a43994602e9919ddff7d4b3ef84a8bd36">  109</a></span>&#160;<span class="preprocessor">#define SYS_setitimer 103</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a4f432efe18c273792626b5c9e50f95e9">  110</a></span>&#160;<span class="preprocessor">#define SYS_kexec_load 104</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a95b20e821ea7bad3dc57e804e5e58966">  111</a></span>&#160;<span class="preprocessor">#define SYS_init_module 105</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a53e60871c0ad2f9f62224500c78da199">  112</a></span>&#160;<span class="preprocessor">#define SYS_delete_module 106</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a7af91dfd98ede09d8d8848fc76906649">  113</a></span>&#160;<span class="preprocessor">#define SYS_timer_create 107</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#adc10c1ef25dc83128b2af0a0e2e6fb33">  114</a></span>&#160;<span class="preprocessor">#define SYS_timer_gettime 108</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a33fd6210c6ea12f275f6f7cd90a01d92">  115</a></span>&#160;<span class="preprocessor">#define SYS_timer_getoverrun 109</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a44330df0950ed154c803919f236d93d7">  116</a></span>&#160;<span class="preprocessor">#define SYS_timer_settime 110</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab4d3b9e43d97e255a892efe2941cb074">  117</a></span>&#160;<span class="preprocessor">#define SYS_timer_delete 111</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a08d92aed14b05e8f1d21a10a4f486b55">  118</a></span>&#160;<span class="preprocessor">#define SYS_clock_settime 112</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8c8c4698e2de73ab545825e9fa5ae732">  119</a></span>&#160;<span class="preprocessor">#define SYS_clock_gettime 113</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#afaf5e47b25bcc83ddd65826a289fd415">  120</a></span>&#160;<span class="preprocessor">#define SYS_clock_getres 114</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aa341a054c813f9de41ee0604b112a30b">  121</a></span>&#160;<span class="preprocessor">#define SYS_clock_nanosleep 115</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abd59bbffe2df45c246612187bd14ed0c">  122</a></span>&#160;<span class="preprocessor">#define SYS_syslog 116</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a5fa9cb2c4e4b856101f33cec11a86dd0">  123</a></span>&#160;<span class="preprocessor">#define SYS_ptrace 117</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae09726f93225db386e3fef15c65f3be7">  124</a></span>&#160;<span class="preprocessor">#define SYS_sched_setparam 118</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a83b58abe256c9f1e54bb99c557c55916">  125</a></span>&#160;<span class="preprocessor">#define SYS_sched_setscheduler 119</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a3131e555ec9a51021f4a53c76fa1bd78">  126</a></span>&#160;<span class="preprocessor">#define SYS_sched_getscheduler 120</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab634f827d2c81fe9e5a0e2c9c43f8412">  127</a></span>&#160;<span class="preprocessor">#define SYS_sched_getparam 121</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a632bf5e95a556b9c999e8796985044b0">  128</a></span>&#160;<span class="preprocessor">#define SYS_sched_setaffinity 122</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a4977b0676d8dec80d2ff3441790fb799">  129</a></span>&#160;<span class="preprocessor">#define SYS_sched_getaffinity 123</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a7c3edea299ead2c36eb3a3deddd4f62f">  130</a></span>&#160;<span class="preprocessor">#define SYS_sched_yield 124</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae3d006a619102cf48aad7f0dee6c855c">  131</a></span>&#160;<span class="preprocessor">#define SYS_sched_get_priority_max 125</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a54a89edd10a41d4970afcb3c592fc8fb">  132</a></span>&#160;<span class="preprocessor">#define SYS_sched_get_priority_min 126</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a36fe392d30d271b4aea537fbc30a84b2">  133</a></span>&#160;<span class="preprocessor">#define SYS_sched_rr_get_interval 127</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a9ba35bdb823f33c2b931cae679264893">  134</a></span>&#160;<span class="preprocessor">#define SYS_restart_syscall 128</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae72be7145975bab983df852500f507f4">  135</a></span>&#160;<span class="preprocessor">#define SYS_kill 129</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abcd45de1f1fa6eeaae1b96e2425ec7a0">  136</a></span>&#160;<span class="preprocessor">#define SYS_tkill 130</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a0549acfd65e732d83a2153a212c7e178">  137</a></span>&#160;<span class="preprocessor">#define SYS_tgkill 131</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6d8be0bdb72dcc0c0072535778a357a7">  138</a></span>&#160;<span class="preprocessor">#define SYS_sigaltstack 132</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a68f7705268cc85587675917908a63cd3">  139</a></span>&#160;<span class="preprocessor">#define SYS_rt_sigsuspend 133</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8c1060a3bde6d1dfe5432580cb2bf145">  140</a></span>&#160;<span class="preprocessor">#define SYS_rt_sigaction 134</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae5708f5087cd1b66a5ebd83bd9eefa59">  141</a></span>&#160;<span class="preprocessor">#define SYS_rt_sigprocmask 135</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a43a1e2b4ab0a4fc2efabd07ced5056f4">  142</a></span>&#160;<span class="preprocessor">#define SYS_rt_sigpending 136</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ace4ac5c88f8018ad4de06e000a6a7c2f">  143</a></span>&#160;<span class="preprocessor">#define SYS_rt_sigtimedwait 137</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae507d75280a6147e984aa926cd354a1b">  144</a></span>&#160;<span class="preprocessor">#define SYS_rt_sigqueueinfo 138</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2a8b733faf474355aadcdfae48f0aa60">  145</a></span>&#160;<span class="preprocessor">#define SYS_rt_sigreturn 139</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6775958f8805eee416083f71facb26a5">  146</a></span>&#160;<span class="preprocessor">#define SYS_setpriority 140</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a5c02c5f052a3f2c176ece0f1ccc24cee">  147</a></span>&#160;<span class="preprocessor">#define SYS_getpriority 141</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2365bddc6ec1ad88201cfa3838480756">  148</a></span>&#160;<span class="preprocessor">#define SYS_reboot 142</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aad462ce5b73a3d4a9236b0469cd5b0b0">  149</a></span>&#160;<span class="preprocessor">#define SYS_setregid 143</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#af4f25d0aefb9c0ea7f998e818318b81c">  150</a></span>&#160;<span class="preprocessor">#define SYS_setgid 144</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a0c85a82db9caced634e4f78816ec8267">  151</a></span>&#160;<span class="preprocessor">#define SYS_setreuid 145</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a7ae6545d62bbde3c033c1d523cf08641">  152</a></span>&#160;<span class="preprocessor">#define SYS_setuid 146</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a4a01e1cb852dcffc6b388b5e754b83c0">  153</a></span>&#160;<span class="preprocessor">#define SYS_setresuid 147</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#adc421f77cfb3b410275e7854dd06658e">  154</a></span>&#160;<span class="preprocessor">#define SYS_getresuid 148</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abbfff85aff47f5a23355f04213530398">  155</a></span>&#160;<span class="preprocessor">#define SYS_setresgid 149</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a82d0eface0d7a4d58b039a24de629c0e">  156</a></span>&#160;<span class="preprocessor">#define SYS_getresgid 150</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6a57ca2b170018dcedd92fcaf9ad77ea">  157</a></span>&#160;<span class="preprocessor">#define SYS_setfsuid 151</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae30395c1e426c58aeb76319d5d37af78">  158</a></span>&#160;<span class="preprocessor">#define SYS_setfsgid 152</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a4433af982785f880ec47c983322a20e9">  159</a></span>&#160;<span class="preprocessor">#define SYS_times 153</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2bd4e4fe4a2db9a4af4a174b9bbc7c01">  160</a></span>&#160;<span class="preprocessor">#define SYS_time 1062</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a72d755b618421da27d038f002580e4c6">  161</a></span>&#160;<span class="preprocessor">#define SYS_setpgid 154</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a1342bf2b0eedfc629958832b0a766d44">  162</a></span>&#160;<span class="preprocessor">#define SYS_getpgid 155</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abb2ee4ee83606319f756b46c7fb7ee18">  163</a></span>&#160;<span class="preprocessor">#define SYS_getsid 156</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a911e09d22be074d4ca7569a3223eea8a">  164</a></span>&#160;<span class="preprocessor">#define SYS_setsid 157</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a9f22fa552d5b859739d5b0e7444c2493">  165</a></span>&#160;<span class="preprocessor">#define SYS_getgroups 158</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aafc7539f1508f0da6a33ba6f723ae312">  166</a></span>&#160;<span class="preprocessor">#define SYS_setgroups 159</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abf29f9745bf1bfdc24ec62f135fe1a4c">  167</a></span>&#160;<span class="preprocessor">#define SYS_uname 160</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6132c0de17adde584497d677d37d34a6">  168</a></span>&#160;<span class="preprocessor">#define SYS_sethostname 161</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a001ea2a55749716e00cc90ec1e3f0a97">  169</a></span>&#160;<span class="preprocessor">#define SYS_setdomainname 162</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2c1268bb7291f643af22185851474876">  170</a></span>&#160;<span class="preprocessor">#define SYS_getrlimit 163</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aea0e618d17f952c1b84fee187c126c6d">  171</a></span>&#160;<span class="preprocessor">#define SYS_setrlimit 164</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2fd38329425be4822841cf2fc664aa3c">  172</a></span>&#160;<span class="preprocessor">#define SYS_getrusage 165</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6f6570544caf722601cd529d4c953ce5">  173</a></span>&#160;<span class="preprocessor">#define SYS_umask 166</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ac9a85810804fc5e5df81c30292bcb1e9">  174</a></span>&#160;<span class="preprocessor">#define SYS_prctl 167</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad2d78ee437062b6c8f88ffa4d5257fe4">  175</a></span>&#160;<span class="preprocessor">#define SYS_getcpu 168</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a73fb0a2f77abad2ef9fa7824e21ba0e0">  176</a></span>&#160;<span class="preprocessor">#define SYS_gettimeofday 169</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a7d9db38ee6220e66b536953e9bb4ad3f">  177</a></span>&#160;<span class="preprocessor">#define SYS_settimeofday 170</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a4235e7121dbdfb16dc223d8e57a27472">  178</a></span>&#160;<span class="preprocessor">#define SYS_adjtimex 171</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a7e0844c7709356d697013151cf51c69e">  179</a></span>&#160;<span class="preprocessor">#define SYS_getpid 172</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a784a01e249e903ffe5ec3cb90c6e6251">  180</a></span>&#160;<span class="preprocessor">#define SYS_getppid 173</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aefb1df4573b25269597d7f3d1a5ca381">  181</a></span>&#160;<span class="preprocessor">#define SYS_getuid 174</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2dbb3b89f704b5e14aefca6caac442ff">  182</a></span>&#160;<span class="preprocessor">#define SYS_geteuid 175</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6e96e803dc7f10987d21da31766580c9">  183</a></span>&#160;<span class="preprocessor">#define SYS_getgid 176</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8985fa524a58178569e154e7917eb1ce">  184</a></span>&#160;<span class="preprocessor">#define SYS_getegid 177</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a98d5496cc05bf5e337246d98c279302b">  185</a></span>&#160;<span class="preprocessor">#define SYS_gettid 178</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a61e109a2dbcb4ba24a8c9bf8ad381c59">  186</a></span>&#160;<span class="preprocessor">#define SYS_sysinfo 179</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a525f99dcd64b741f654d3e0994002372">  187</a></span>&#160;<span class="preprocessor">#define SYS_mq_open 180</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a62e827bc4eaafb861ba9922bf953b8c5">  188</a></span>&#160;<span class="preprocessor">#define SYS_mq_unlink 181</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a5805e9e1636a4909d11383f44a0a68b3">  189</a></span>&#160;<span class="preprocessor">#define SYS_mq_timedsend 182</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab534b8d905d2c873a979f70358bfa7dc">  190</a></span>&#160;<span class="preprocessor">#define SYS_mq_timedreceive 183</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad838b5b4290c5347a22c5cda8f66b119">  191</a></span>&#160;<span class="preprocessor">#define SYS_mq_notify 184</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#acdf6662b396a425148856eec7ac53ada">  192</a></span>&#160;<span class="preprocessor">#define SYS_mq_getsetattr 185</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a08a648eb5f16a2a4500f89467e2f9c84">  193</a></span>&#160;<span class="preprocessor">#define SYS_msgget 186</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abf588baec07f498b6363405809b10dd8">  194</a></span>&#160;<span class="preprocessor">#define SYS_msgctl 187</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a745ba6411b7fb80d3748184d66fee087">  195</a></span>&#160;<span class="preprocessor">#define SYS_msgrcv 188</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a22a08adfd588b44eec6f0d5cfc190cd4">  196</a></span>&#160;<span class="preprocessor">#define SYS_msgsnd 189</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aa2d02dbeb8e3ee43a874c947352be778">  197</a></span>&#160;<span class="preprocessor">#define SYS_semget 190</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8c32983f086016397e1503231223a6c4">  198</a></span>&#160;<span class="preprocessor">#define SYS_semctl 191</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a3e776931377dad70bfee727e98bcce0b">  199</a></span>&#160;<span class="preprocessor">#define SYS_semtimedop 192</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aa7cda54578e8be8d1875eaa665b375cd">  200</a></span>&#160;<span class="preprocessor">#define SYS_semop 193</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ac6f012f945f002e844bc433ba35b7cb9">  201</a></span>&#160;<span class="preprocessor">#define SYS_shmget 194</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aabdae70f9c01fa9a5dcc05bb1beff3a7">  202</a></span>&#160;<span class="preprocessor">#define SYS_shmctl 195</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a1f0e05e3b246fdf979b3a993b93eaff7">  203</a></span>&#160;<span class="preprocessor">#define SYS_shmat 196</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab98ce31740a0f043858318cfad79b814">  204</a></span>&#160;<span class="preprocessor">#define SYS_shmdt 197</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab7d2ec447b9b329153a51c26a109b593">  205</a></span>&#160;<span class="preprocessor">#define SYS_socket 198</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a48c86cbb5516d54de6adc2cdef9569a4">  206</a></span>&#160;<span class="preprocessor">#define SYS_socketpair 199</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a55f5ef6d0bc774b1debf04307729c0de">  207</a></span>&#160;<span class="preprocessor">#define SYS_bind 200</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a0a4f41ad3c4c337bae98326c0b34148f">  208</a></span>&#160;<span class="preprocessor">#define SYS_listen 201</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab9b81727ecd6ea8b668d1dcfbbac8b39">  209</a></span>&#160;<span class="preprocessor">#define SYS_accept 202</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ac61520da3b8f4398362b13301c05f0d4">  210</a></span>&#160;<span class="preprocessor">#define SYS_connect 203</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a497781a2bf7db4bdb016c250360d99ba">  211</a></span>&#160;<span class="preprocessor">#define SYS_getsockname 204</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ac70550a1fb1a33a79f781ce989d7b428">  212</a></span>&#160;<span class="preprocessor">#define SYS_getpeername 205</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a45dae387aafba14246db135bf5f6c9ff">  213</a></span>&#160;<span class="preprocessor">#define SYS_sendto 206</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a9e4b16ef610fa73cdad95cb17a9d7ee4">  214</a></span>&#160;<span class="preprocessor">#define SYS_recvfrom 207</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab6b96386233273325da461abfa5b80c7">  215</a></span>&#160;<span class="preprocessor">#define SYS_setsockopt 208</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a1854ef3ca5988f96dd6df8bd95f899cf">  216</a></span>&#160;<span class="preprocessor">#define SYS_getsockopt 209</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a25e38b5c88d165457f60cdb4074f3797">  217</a></span>&#160;<span class="preprocessor">#define SYS_shutdown 210</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab15c4612869376086f9afc024229d52a">  218</a></span>&#160;<span class="preprocessor">#define SYS_sendmsg 211</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a3645e9463624bd7a218cdb4fd2bd1188">  219</a></span>&#160;<span class="preprocessor">#define SYS_recvmsg 212</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aa9a14bb3d92c0a872bbd8da6a7bd1ae4">  220</a></span>&#160;<span class="preprocessor">#define SYS_readahead 213</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#af108d15cba04878eac778176897d7b8a">  221</a></span>&#160;<span class="preprocessor">#define SYS_brk 214</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8c1bfc3db75fdec6680ff99de3e7c803">  222</a></span>&#160;<span class="preprocessor">#define SYS_munmap 215</span></div>
+<div class="line"><a name="l00223"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#af99baab1099d4edd4372f80c71afeede">  223</a></span>&#160;<span class="preprocessor">#define SYS_mremap 216</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#af8ce25630ecc9cdc17b78f19639f5ba4">  224</a></span>&#160;<span class="preprocessor">#define SYS_add_key 217</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#addeba31dec833104223c7ac9b58f9993">  225</a></span>&#160;<span class="preprocessor">#define SYS_request_key 218</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2384572123ba82902616da8b928ff28f">  226</a></span>&#160;<span class="preprocessor">#define SYS_keyctl 219</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a4b343ed718d030851c3f496ad1e091de">  227</a></span>&#160;<span class="preprocessor">#define SYS_clone 220</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a5acb0eedfc936e5835ab259a669d8183">  228</a></span>&#160;<span class="preprocessor">#define SYS_execve 221</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae3d2e90b3cdfe8df1e6fcb09ae2cee24">  229</a></span>&#160;<span class="preprocessor">#define SYS_mmap 222</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a60859151222a93cba68045c925e668a6">  230</a></span>&#160;<span class="preprocessor">#define SYS_fadvise64 223</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a222771a1eb8c07d345021b3b223e1dc5">  231</a></span>&#160;<span class="preprocessor">#define SYS_swapon 224</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a9f9a85428ec6ec1cd6a2973c195dd9be">  232</a></span>&#160;<span class="preprocessor">#define SYS_swapoff 225</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a04976c48274ff54065527309daebceda">  233</a></span>&#160;<span class="preprocessor">#define SYS_mprotect 226</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a7ee9381364c6c238381fd818e3dd30d7">  234</a></span>&#160;<span class="preprocessor">#define SYS_msync 227</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae284e58029ef8f1c3d554634fb8e2769">  235</a></span>&#160;<span class="preprocessor">#define SYS_mlock 228</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad3daeadb66bf9fccb6f1d80d85eb0fac">  236</a></span>&#160;<span class="preprocessor">#define SYS_munlock 229</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a9331cd03ad511a1ec3e8fd9706428644">  237</a></span>&#160;<span class="preprocessor">#define SYS_mlockall 230</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8a96dff5b03769c272ac72d4e2b2f0bf">  238</a></span>&#160;<span class="preprocessor">#define SYS_munlockall 231</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aad36931ec2fff7759f31f7e93eb1e2a2">  239</a></span>&#160;<span class="preprocessor">#define SYS_mincore 232</span></div>
+<div class="line"><a name="l00240"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a83995737962d3755b58ad3408880f8dc">  240</a></span>&#160;<span class="preprocessor">#define SYS_madvise 233</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a39e067d2dd46b7ee16012730bdccf000">  241</a></span>&#160;<span class="preprocessor">#define SYS_remap_file_pages 234</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a92dab0e5fc2326b6f0b73dbbc7a37367">  242</a></span>&#160;<span class="preprocessor">#define SYS_mbind 235</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a3fd141a327a24c3254752a15eac71145">  243</a></span>&#160;<span class="preprocessor">#define SYS_get_mempolicy 236</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a7bf9f1b393aefa3bb6b446e9b8c153e0">  244</a></span>&#160;<span class="preprocessor">#define SYS_set_mempolicy 237</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#af6b2308d799a8681b479d0d089853671">  245</a></span>&#160;<span class="preprocessor">#define SYS_migrate_pages 238</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#acdd7388cf89382453173d7a96ef9e7de">  246</a></span>&#160;<span class="preprocessor">#define SYS_move_pages 239</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ae9a88ed8fad4e19fb782d64de4d41722">  247</a></span>&#160;<span class="preprocessor">#define SYS_rt_tgsigqueueinfo 240</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a67373f9d6467674f955e1520752b1d1b">  248</a></span>&#160;<span class="preprocessor">#define SYS_perf_event_open 241</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a794eb94d2a5369de9f55f87c8e5f9563">  249</a></span>&#160;<span class="preprocessor">#define SYS_accept4 242</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2dde860145002ee3ec5834ff8012617c">  250</a></span>&#160;<span class="preprocessor">#define SYS_recvmmsg 243</span></div>
+<div class="line"><a name="l00251"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#abaadb94166ee103fc6b4eba691d0c7bb">  251</a></span>&#160;<span class="preprocessor">#define SYS_arch_specific_syscall 244</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aa6805e3dea8b4c185b55c95789443e6f">  252</a></span>&#160;<span class="preprocessor">#define SYS_riscv_flush_icache 259</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#acb9fcb954fbfd66a9447787ea8c0ae4a">  253</a></span>&#160;<span class="preprocessor">#define SYS_wait4 260</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a471fb0957cb757e6f9de7ab912dc3e4f">  254</a></span>&#160;<span class="preprocessor">#define SYS_prlimit64 261</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad6a04d3fda41a87bd694370ca11b53fc">  255</a></span>&#160;<span class="preprocessor">#define SYS_fanotify_init 262</span></div>
+<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a5b77aff2d97a60b7f1c4d1381b47bcde">  256</a></span>&#160;<span class="preprocessor">#define SYS_fanotify_mark 263</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a9ba72dff7e0d1dded1fbe3e73a2b880c">  257</a></span>&#160;<span class="preprocessor">#define SYS_name_to_handle_at 264</span></div>
+<div class="line"><a name="l00258"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad6db6d2e765b43938606eea2cd5edafd">  258</a></span>&#160;<span class="preprocessor">#define SYS_open_by_handle_at 265</span></div>
+<div class="line"><a name="l00259"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a33702d99cfda335b5465ee44d35eb0ac">  259</a></span>&#160;<span class="preprocessor">#define SYS_clock_adjtime 266</span></div>
+<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a7660f57cca7e2b5fb57c558462ae3397">  260</a></span>&#160;<span class="preprocessor">#define SYS_syncfs 267</span></div>
+<div class="line"><a name="l00261"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2bf0b6f17ba43f1905d592b0acfef62c">  261</a></span>&#160;<span class="preprocessor">#define SYS_setns 268</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#acc44916637dbba2b6c63c9b0cb66bb68">  262</a></span>&#160;<span class="preprocessor">#define SYS_sendmmsg 269</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a40ab0843980fd1d0bb57c320d8d4003b">  263</a></span>&#160;<span class="preprocessor">#define SYS_process_vm_readv 270</span></div>
+<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ac2ad55deef5366ce8e37b6627f69963e">  264</a></span>&#160;<span class="preprocessor">#define SYS_process_vm_writev 271</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a3f44841b2f61c84c410677773cec9444">  265</a></span>&#160;<span class="preprocessor">#define SYS_kcmp 272</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a45f8163214fa903dc8a000e5ac98c624">  266</a></span>&#160;<span class="preprocessor">#define SYS_finit_module 273</span></div>
+<div class="line"><a name="l00267"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#adafbf993b97d4e8eb39fffd9fc2bb8a0">  267</a></span>&#160;<span class="preprocessor">#define SYS_sched_setattr 274</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a5619cab98a28438ed7ca68214aea7a4d">  268</a></span>&#160;<span class="preprocessor">#define SYS_sched_getattr 275</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab15ae51351cfb58996c7ba8b59f56cda">  269</a></span>&#160;<span class="preprocessor">#define SYS_renameat2 276</span></div>
+<div class="line"><a name="l00270"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a1f5ade4abead3047ef78e378ef68fbe7">  270</a></span>&#160;<span class="preprocessor">#define SYS_seccomp 277</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a3ec91a53a065858aa1840d3aeed0bbe5">  271</a></span>&#160;<span class="preprocessor">#define SYS_getrandom 278</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a420405113aae945259207c6307cfaa19">  272</a></span>&#160;<span class="preprocessor">#define SYS_memfd_create 279</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a12a5ae33b275bff3d138077893bc92bc">  273</a></span>&#160;<span class="preprocessor">#define SYS_bpf 280</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a1112a8d0cb5ee32b802e0726a43fc105">  274</a></span>&#160;<span class="preprocessor">#define SYS_execveat 281</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a1434e136b251cae60685a670cf0c7db6">  275</a></span>&#160;<span class="preprocessor">#define SYS_userfaultfd 282</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#af6eeeea42e59a852997e31a49d625c1d">  276</a></span>&#160;<span class="preprocessor">#define SYS_membarrier 283</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a027d73bd981be0e3ee40235762bf8537">  277</a></span>&#160;<span class="preprocessor">#define SYS_mlock2 284</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a2481c37b5d96c7bec4124f0964cd00a5">  278</a></span>&#160;<span class="preprocessor">#define SYS_copy_file_range 285</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a6447fd6bec1fa3671f540175accfeca6">  279</a></span>&#160;<span class="preprocessor">#define SYS_preadv2 286</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab597cf4f042ee9597adb18e7b8d3e0d7">  280</a></span>&#160;<span class="preprocessor">#define SYS_pwritev2 287</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a9484a308ea013002f2548407ae829bcb">  281</a></span>&#160;<span class="preprocessor">#define SYS_pkey_mprotect 288</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ab13e0c9c6f962751992be250c17a026f">  282</a></span>&#160;<span class="preprocessor">#define SYS_pkey_alloc 289</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#af7466dbdfb707430838c8b1de990b7c6">  283</a></span>&#160;<span class="preprocessor">#define SYS_pkey_free 290</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#aec47791ac804ab6509ed5ccc8539fb28">  284</a></span>&#160;<span class="preprocessor">#define SYS_statx 291</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a953768f8580545b50b548a35c2d48321">  285</a></span>&#160;<span class="preprocessor">#define SYS_io_pgetevents 292</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a8503337ae7ea8ef8298985c8289aaf43">  286</a></span>&#160;<span class="preprocessor">#define SYS_rseq 293</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a3d018d2df1e899f4e8c2a15c81afaf25">  287</a></span>&#160;<span class="preprocessor">#define SYS_kexec_file_load 294</span></div>
+<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad49eb51546a2e6325605cc5960bf5cd1">  288</a></span>&#160;<span class="preprocessor">#define SYS_spawn 400</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a3b353897fe3a0e45e7ac7ba7f7d6ed5f">  289</a></span>&#160;<span class="preprocessor">#define SYS_mailread 401</span></div>
+<div class="line"><a name="l00290"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#acea5744c4783a3af791e81eada869e72">  290</a></span>&#160;<span class="preprocessor">#define SYS_mailwrite 402</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
+<div class="line"><a name="l00292"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#a5808ba94a2e4e46b86c476d087e6649f">  292</a></span>&#160;<span class="preprocessor">#define SYS_move_cursor 403</span></div>
+<div class="line"><a name="l00293"></a><span class="lineno"><a class="line" href="syscall__number_8h.html#ad11d376404a05544637faeab1aa21e9e">  293</a></span>&#160;<span class="preprocessor">#define SYS_screen_clear 404</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160; </div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="preprocessor">#define SYS_process_show 405</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_de6dd9082ceeada79f358d76730c18b3.html">uapi</a></li><li class="navelem"><a class="el" href="syscall__number_8h.html">syscall_number.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

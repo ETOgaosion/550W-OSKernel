@@ -1,0 +1,1071 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="privileged_8h" kind="file" language="C++">
+    <compoundname>privileged.h</compoundname>
+    <includes refid="types_8h" local="no">common/types.h</includes>
+    <includedby refid="main_8c" local="no">src/init/main.c</includedby>
+    <includedby refid="irq_8c" local="no">src/kernel/irq/irq.c</includedby>
+    <includedby refid="smp_8c" local="no">src/kernel/sys/smp.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/arch/riscv/include/asm/privileged.h</label>
+        <link refid="privileged_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="2">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>src/kernel/sys/smp.c</label>
+        <link refid="smp_8c"/>
+      </node>
+      <node id="1">
+        <label>src/arch/riscv/include/asm/privileged.h</label>
+        <link refid="privileged_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/init/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="3">
+        <label>src/kernel/irq/irq.c</label>
+        <link refid="irq_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="define">
+      <memberdef kind="define" id="privileged_8h_1a16d6d0c403a36d5c6be7915bb7b830b7" prot="public" static="no">
+        <name>MSTATUS_MPP_MASK</name>
+        <initializer>(3L &lt;&lt; 11)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="14" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1aa6621785868a067469e73ac9babeed99" prot="public" static="no">
+        <name>MSTATUS_MPP_M</name>
+        <initializer>(3L &lt;&lt; 11)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="15" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a484f2297ebe1535484c13f12f70e602a" prot="public" static="no">
+        <name>MSTATUS_MPP_S</name>
+        <initializer>(1L &lt;&lt; 11)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="16" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1aebc8dae20b3f619d03f0291db287f6de" prot="public" static="no">
+        <name>MSTATUS_MPP_U</name>
+        <initializer>(0L &lt;&lt; 11)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="17" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a225cb34e3b991318fa87f090cfc3fc5f" prot="public" static="no">
+        <name>MSTATUS_MIE</name>
+        <initializer>(1L &lt;&lt; 3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="18" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a4d0820d6a8b0c5b0fef6875a985d3370" prot="public" static="no">
+        <name>SSTATUS_SPP</name>
+        <initializer>(1L &lt;&lt; 8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="39" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a3f9373ba6db2ce5e5c7ea28c2a5b3df9" prot="public" static="no">
+        <name>SSTATUS_SPIE</name>
+        <initializer>(1L &lt;&lt; 5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="40" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a796ad1a8b2314776082e72e13f4a30cf" prot="public" static="no">
+        <name>SSTATUS_UPIE</name>
+        <initializer>(1L &lt;&lt; 4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="41" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a1c1f1da0ecfca5bc4fc4db3acadf1bc8" prot="public" static="no">
+        <name>SSTATUS_SIE</name>
+        <initializer>(1L &lt;&lt; 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="42" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a431c67f7f0e4b5dbdf2048310ad814e0" prot="public" static="no">
+        <name>SSTATUS_UIE</name>
+        <initializer>(1L &lt;&lt; 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="43" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a7ca797adbc936cc2e7d7b66a40325e63" prot="public" static="no">
+        <name>SIE_SEIE</name>
+        <initializer>(1L &lt;&lt; 9)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="67" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a819d8ea9e98335b93d6120c89dd9458b" prot="public" static="no">
+        <name>SIE_STIE</name>
+        <initializer>(1L &lt;&lt; 5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="68" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a02551379f9acab8fcea973ecbc8fcf20" prot="public" static="no">
+        <name>SIE_SSIE</name>
+        <initializer>(1L &lt;&lt; 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="69" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1ab4e2e4b72ec1e13b315dcdc910f5595b" prot="public" static="no">
+        <name>MIE_MEIE</name>
+        <initializer>(1L &lt;&lt; 11)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="81" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a88f0c7a5a13f0570ecbaa43b912b0fe4" prot="public" static="no">
+        <name>MIE_MTIE</name>
+        <initializer>(1L &lt;&lt; 7)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="82" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1acdb82cffb46911d1a236dcf651b24b05" prot="public" static="no">
+        <name>MIE_MSIE</name>
+        <initializer>(1L &lt;&lt; 3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="83" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1ade6b65dbf23c28fca39d543364b61113" prot="public" static="no">
+        <name>SATP_SV39</name>
+        <initializer>(8L &lt;&lt; 60)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="147" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="privileged_8h_1a7f4cdb98920ced01e9f94ee090d46164" prot="public" static="no">
+        <name>MAKE_SATP</name>
+        <param><defname>pagetable</defname></param>
+        <initializer>(<ref refid="privileged_8h_1ade6b65dbf23c28fca39d543364b61113" kindref="member">SATP_SV39</ref> | (((uint64_t)pagetable) &gt;&gt; 12))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="149" column="9" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="privileged_8h_1a18f1635c58ec031af9c9bd9abf733429" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_mhartid</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_mhartid</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="6" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="6" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a5379eebbe4cec242ae7b62917c86f2ad" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_mstatus</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_mstatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="20" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="20" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a93fb292af40bce4d8636af9bcf26a363" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_mstatus</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_mstatus</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="26" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="26" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a05d88aa436e91b0641894079b091a006" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_mepc</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_mepc</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="33" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="33" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1ac1878c020408d0b19b8b34a4df60b0ce" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_sstatus</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_sstatus</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="45" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="45" bodyend="49"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1aad0fd377a1ec38f9be229f1e0ceffb7b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_sstatus</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_sstatus</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="51" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="51" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1abaee9e8e8861750307fc3565ac5fd835" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_sip</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_sip</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="56" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="56" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a722e5db055b1bfbab0518f869b7ae444" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_sip</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_sip</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="62" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="62" bodyend="64"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a4c427d1352e24fcda4ce4df8f666701e" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_sie</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_sie</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="70" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="70" bodyend="74"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a48d099765ff74487ad05b5dcf4d7b010" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_sie</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_sie</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="76" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="76" bodyend="78"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1ae15d29ea1950d9c45ddd15e8d91c3e15" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_mie</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_mie</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="84" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="84" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a5c80b5248def7cc0d46426500bbe38fb" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_mie</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_mie</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="90" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="90" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a93f0888ea8705e4bd9d277a0e135f582" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_sepc</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_sepc</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="97" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="97" bodyend="99"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a69f0f7555717ab38f9f206e55bb0fbd3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_sepc</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_sepc</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="101" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="101" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a42de3b63a2da2f8f5bab0a6e14fafee3" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_medeleg</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_medeleg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="108" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="108" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1acc3db8fb39cf4dde9039676123bfb297" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_medeleg</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_medeleg</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="114" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="114" bodyend="116"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1adb3fb2809f87decdd116216af845b90f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_mideleg</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_mideleg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="119" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="119" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1af588e0bee6647d9b86a31b3de88c46b0" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_mideleg</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_mideleg</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="125" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="125" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a97efbc843810c1e9eec595f7ad3cdece" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_stvec</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_stvec</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="131" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="131" bodyend="133"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a96d810a1e7af4def5f84dab127a98004" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_stvec</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_stvec</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="135" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="135" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a75b39dc5a8028e486afb29a4ed059084" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_mtvec</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_mtvec</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="142" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="142" bodyend="144"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1ab5913a3916b444a659d6aa3b01b1ce6d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_satp</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_satp</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="153" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="153" bodyend="155"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a61a181d2f1c8358924ae46719e281217" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_satp</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_satp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="157" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="157" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a8b1f870027ed4f7086aec1b5014d2fc8" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_sscratch</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_sscratch</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="164" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="164" bodyend="166"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a87629eb3cba84c46c9ce1e7aba301c63" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_mscratch</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_mscratch</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="168" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="168" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a42d415306cd4e3080c125a992cb45cb0" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_scause</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_scause</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="173" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="173" bodyend="177"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1ad2c996e6168513d789fedb91854c317b" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_stval</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_stval</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="180" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="180" bodyend="184"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1ab554b1f8e91c8348d61a5a894c2a8eaa" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_mcounteren</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_mcounteren</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="187" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="187" bodyend="189"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a43cdb1d44ca562defb66319b26681b1d" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_mcounteren</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_mcounteren</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="191" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="191" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a502e05db09f7a5da48237359d86025e4" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_time</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="198" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="198" bodyend="204"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a65e7f41e1f519fc3bf7bac5343e55998" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void intr_on</definition>
+        <argsstring>()</argsstring>
+        <name>intr_on</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="207" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="207" bodyend="209"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a49607689e31cfb52b40c4ee19cc71cf1" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void intr_off</definition>
+        <argsstring>()</argsstring>
+        <name>intr_off</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="212" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="212" bodyend="214"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a5b16c58012240db2a9008f93ad734b8c" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int</type>
+        <definition>static int intr_get</definition>
+        <argsstring>()</argsstring>
+        <name>intr_get</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="217" column="19" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="217" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1abf640f7adcea4c8d1473145633688b70" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_sp</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_sp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="222" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="222" bodyend="226"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1ae2d41d2ba5296c2b5ffba6ae015f9026" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_tp</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_tp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="230" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="230" bodyend="234"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1af49540f7dde14e5a1b1c611d748caf12" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void asm_w_tp</definition>
+        <argsstring>(uint64_t x)</argsstring>
+        <name>asm_w_tp</name>
+        <param>
+          <type>uint64_t</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="236" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="236" bodyend="238"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a27f77e7ed5ad15073279a9f4338d50b8" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>static uint64_t asm_r_ra</definition>
+        <argsstring>()</argsstring>
+        <name>asm_r_ra</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="240" column="24" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="240" bodyend="244"/>
+      </memberdef>
+      <memberdef kind="function" id="privileged_8h_1a71eae5f1e0cf2bff00e7f41256f22449" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void sfence_vma</definition>
+        <argsstring>()</argsstring>
+        <name>sfence_vma</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/privileged.h" line="247" column="20" bodyfile="src/arch/riscv/include/asm/privileged.h" bodystart="247" bodyend="251"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">common/types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//<sp/>which<sp/>hart<sp/>(core)<sp/>is<sp/>this?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_mhartid()<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>mhartid&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Machine<sp/>Status<sp/>Register,<sp/>mstatus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="privileged_8h_1a16d6d0c403a36d5c6be7915bb7b830b7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MSTATUS_MPP_MASK<sp/>(3L<sp/>&lt;&lt;<sp/>11)<sp/></highlight><highlight class="comment">//<sp/>previous<sp/>mode.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="privileged_8h_1aa6621785868a067469e73ac9babeed99" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MSTATUS_MPP_M<sp/>(3L<sp/>&lt;&lt;<sp/>11)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="privileged_8h_1a484f2297ebe1535484c13f12f70e602a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MSTATUS_MPP_S<sp/>(1L<sp/>&lt;&lt;<sp/>11)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="privileged_8h_1aebc8dae20b3f619d03f0291db287f6de" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MSTATUS_MPP_U<sp/>(0L<sp/>&lt;&lt;<sp/>11)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="privileged_8h_1a225cb34e3b991318fa87f090cfc3fc5f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MSTATUS_MIE<sp/>(1L<sp/>&lt;&lt;<sp/>3)<sp/></highlight><highlight class="comment">//<sp/>machine-mode<sp/>interrupt<sp/>enable.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_mstatus()<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>mstatus&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_mstatus(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>mstatus,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/>machine<sp/>exception<sp/>program<sp/>counter,<sp/>holds<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/>instruction<sp/>address<sp/>to<sp/>which<sp/>a<sp/>return<sp/>from</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/>exception<sp/>will<sp/>go.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_mepc(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>mepc,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Supervisor<sp/>Status<sp/>Register,<sp/>sstatus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="privileged_8h_1a4d0820d6a8b0c5b0fef6875a985d3370" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_SPP<sp/>(1L<sp/>&lt;&lt;<sp/>8)<sp/><sp/></highlight><highlight class="comment">//<sp/>Previous<sp/>mode,<sp/>1=Supervisor,<sp/>0=User</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="privileged_8h_1a3f9373ba6db2ce5e5c7ea28c2a5b3df9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_SPIE<sp/>(1L<sp/>&lt;&lt;<sp/>5)<sp/></highlight><highlight class="comment">//<sp/>Supervisor<sp/>Previous<sp/>Interrupt<sp/>Enable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="privileged_8h_1a796ad1a8b2314776082e72e13f4a30cf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_UPIE<sp/>(1L<sp/>&lt;&lt;<sp/>4)<sp/></highlight><highlight class="comment">//<sp/>User<sp/>Previous<sp/>Interrupt<sp/>Enable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="privileged_8h_1a1c1f1da0ecfca5bc4fc4db3acadf1bc8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_SIE<sp/>(1L<sp/>&lt;&lt;<sp/>1)<sp/><sp/></highlight><highlight class="comment">//<sp/>Supervisor<sp/>Interrupt<sp/>Enable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="privileged_8h_1a431c67f7f0e4b5dbdf2048310ad814e0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SSTATUS_UIE<sp/>(1L<sp/>&lt;&lt;<sp/>0)<sp/><sp/></highlight><highlight class="comment">//<sp/>User<sp/>Interrupt<sp/>Enable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_sstatus()<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>sstatus&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_sstatus(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>sstatus,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Supervisor<sp/>Interrupt<sp/>Pending</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_sip()<sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>sip&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_sip(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>sip,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Supervisor<sp/>Interrupt<sp/>Enable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="privileged_8h_1a7ca797adbc936cc2e7d7b66a40325e63" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SIE_SEIE<sp/>(1L<sp/>&lt;&lt;<sp/>9)<sp/></highlight><highlight class="comment">//<sp/>external</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="privileged_8h_1a819d8ea9e98335b93d6120c89dd9458b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SIE_STIE<sp/>(1L<sp/>&lt;&lt;<sp/>5)<sp/></highlight><highlight class="comment">//<sp/>timer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="privileged_8h_1a02551379f9acab8fcea973ecbc8fcf20" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SIE_SSIE<sp/>(1L<sp/>&lt;&lt;<sp/>1)<sp/></highlight><highlight class="comment">//<sp/>software</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_sie()<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>sie&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_sie(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>sie,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="78"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Machine-mode<sp/>Interrupt<sp/>Enable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="privileged_8h_1ab4e2e4b72ec1e13b315dcdc910f5595b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MIE_MEIE<sp/>(1L<sp/>&lt;&lt;<sp/>11)<sp/></highlight><highlight class="comment">//<sp/>external</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="privileged_8h_1a88f0c7a5a13f0570ecbaa43b912b0fe4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MIE_MTIE<sp/>(1L<sp/>&lt;&lt;<sp/>7)<sp/><sp/></highlight><highlight class="comment">//<sp/>timer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="privileged_8h_1acdb82cffb46911d1a236dcf651b24b05" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MIE_MSIE<sp/>(1L<sp/>&lt;&lt;<sp/>3)<sp/><sp/></highlight><highlight class="comment">//<sp/>software</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_mie()<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>mie&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_mie(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>mie,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">//<sp/>machine<sp/>exception<sp/>program<sp/>counter,<sp/>holds<sp/>the</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">//<sp/>instruction<sp/>address<sp/>to<sp/>which<sp/>a<sp/>return<sp/>from</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">//<sp/>exception<sp/>will<sp/>go.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_sepc(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>sepc,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="99"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_sepc()<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>sepc&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Machine<sp/>Exception<sp/>Delegation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_medeleg()<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>medeleg&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_medeleg(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>medeleg,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="116"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Machine<sp/>Interrupt<sp/>Delegation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_mideleg()<sp/>{</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>mideleg&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_mideleg(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>mideleg,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Supervisor<sp/>Trap-Vector<sp/>Base<sp/>Address</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="comment">//<sp/>low<sp/>two<sp/>bits<sp/>are<sp/>mode.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_stvec(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>stvec,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_stvec()<sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>stvec&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Machine-mode<sp/>interrupt<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_mtvec(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>mtvec,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="144"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">//<sp/>use<sp/>riscv&apos;s<sp/>sv39<sp/>page<sp/>table<sp/>scheme.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147" refid="privileged_8h_1ade6b65dbf23c28fca39d543364b61113" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SATP_SV39<sp/>(8L<sp/>&lt;&lt;<sp/>60)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149" refid="privileged_8h_1a7f4cdb98920ced01e9f94ee090d46164" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAKE_SATP(pagetable)<sp/>(SATP_SV39<sp/>|<sp/>(((uint64_t)pagetable)<sp/>&gt;&gt;<sp/>12))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="comment">//<sp/>supervisor<sp/>address<sp/>translation<sp/>and<sp/>protection;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="comment">//<sp/>holds<sp/>the<sp/>address<sp/>of<sp/>the<sp/>page<sp/>table.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_satp(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>satp,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="155"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_satp()<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>satp&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Supervisor<sp/>Scratch<sp/>register,<sp/>for<sp/>early<sp/>trap<sp/>handler<sp/>in<sp/>trampoline.S.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_sscratch(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>sscratch,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="166"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_mscratch(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>mscratch,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Supervisor<sp/>Trap<sp/>Cause</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_scause()<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>scause&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Supervisor<sp/>Trap<sp/>Value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_stval()<sp/>{</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>stval&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="184"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Machine-mode<sp/>Counter-Enable</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_mcounteren(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrw<sp/>mcounteren,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="189"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_mcounteren()<sp/>{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;csrr<sp/>%0,<sp/>mcounteren&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">//<sp/>supervisor-mode<sp/>cycle<sp/>counter</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_time()<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>asm<sp/>volatile(&quot;csrr<sp/>%0,<sp/>time&quot;<sp/>:<sp/>&quot;=r&quot;<sp/>(x)<sp/>);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>instruction<sp/>will<sp/>trap<sp/>in<sp/>SBI</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;rdtime<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="204"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="comment">//<sp/>enable<sp/>device<sp/>interrupts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>intr_on()<sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>asm_w_sstatus(asm_r_sstatus()<sp/>|<sp/><ref refid="privileged_8h_1a1c1f1da0ecfca5bc4fc4db3acadf1bc8" kindref="member">SSTATUS_SIE</ref>);</highlight></codeline>
+<codeline lineno="209"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight><highlight class="comment">//<sp/>disable<sp/>device<sp/>interrupts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>intr_off()<sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>asm_w_sstatus(asm_r_sstatus()<sp/>&amp;<sp/>~<ref refid="privileged_8h_1a1c1f1da0ecfca5bc4fc4db3acadf1bc8" kindref="member">SSTATUS_SIE</ref>);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight><highlight class="comment">//<sp/>are<sp/>device<sp/>interrupts<sp/>enabled?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>intr_get()<sp/>{</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x<sp/>=<sp/>asm_r_sstatus();</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(x<sp/>&amp;<sp/><ref refid="privileged_8h_1a1c1f1da0ecfca5bc4fc4db3acadf1bc8" kindref="member">SSTATUS_SIE</ref>)<sp/>!=<sp/>0;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_sp()<sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;mv<sp/>%0,<sp/>sp&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight><highlight class="comment">//<sp/>read<sp/>and<sp/>write<sp/>tp,<sp/>the<sp/>thread<sp/>pointer,<sp/>which<sp/>holds</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight><highlight class="comment">//<sp/>this<sp/>core&apos;s<sp/>hartid<sp/>(core<sp/>number),<sp/>the<sp/>index<sp/>into<sp/>cpus[].</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_tp()<sp/>{</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;mv<sp/>%0,<sp/>tp&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>asm_w_tp(uint64_t<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;mv<sp/>tp,<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/>:<sp/></highlight><highlight class="stringliteral">&quot;r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="238"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>asm_r_ra()<sp/>{</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>x;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;mv<sp/>%0,<sp/>ra&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(x));</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="244"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight><highlight class="comment">//<sp/>flush<sp/>the<sp/>TLB.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>sfence_vma()<sp/>{</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>zero,<sp/>zero<sp/>means<sp/>flush<sp/>all<sp/>TLB<sp/>entries.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>asm<sp/>volatile(&quot;sfence.vma<sp/>zero,<sp/>zero&quot;);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">asm</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal">(</highlight><highlight class="stringliteral">&quot;sfence.vma&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/arch/riscv/include/asm/privileged.h"/>
+  </compounddef>
+</doxygen>

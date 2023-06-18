@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="struct____kernel__fsid__t" kind="struct" language="C++" prot="public">
+    <compoundname>__kernel_fsid_t</compoundname>
+    <includes refid="types_8h" local="no">types.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct____kernel__fsid__t_1a4c4858302bbc65a623e03d752af92e02" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int __kernel_fsid_t::val[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>val</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/common/types.h" line="139" column="9" bodyfile="src/include/common/types.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/include/common/types.h" line="138" column="1" bodyfile="src/include/common/types.h" bodystart="138" bodyend="140"/>
+    <listofallmembers>
+      <member refid="struct____kernel__fsid__t_1a4c4858302bbc65a623e03d752af92e02" prot="public" virt="non-virtual"><scope>__kernel_fsid_t</scope><name>val</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

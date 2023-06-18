@@ -644,7 +644,7 @@ long sys_execve(const char *file_name, const char *argv[], const char *envp[]) {
     return ret;
 }
 
-long sys_clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t *child_tid) {
+long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t *child_tid) {
     int i = nextpid();
     pid_t fpid = (*current_running)->pid;
 
@@ -695,14 +695,28 @@ long sys_clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, p
     return i;
 }
 
+long sys_clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t *child_tid) {
+    return clone(flags, stack, parent_tid, tls, child_tid); 
+}
+
 long k_pcb_getpid(void) {
     return (*current_running)->fpid;
 }
 
+/**
+ * @brief [SYSCALL] getpid: get current task process id
+ * 
+ * @return long 
+ */
 long sys_getpid() {
     return k_pcb_getpid();
 }
 
+/**
+ * @brief [SYSCALL] getppid: get parent of current task pid
+ * 
+ * @return long 
+ */
 long sys_getppid() {
     return (*current_running)->father_pid + 1;
 }

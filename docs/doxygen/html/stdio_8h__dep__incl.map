@@ -1,0 +1,13 @@
+<map id="src/include/lib/stdio.h" name="src/include/lib/stdio.h">
+<area shape="rect" id="node1" title=" " alt="" coords="516,5,676,32"/>
+<area shape="rect" id="node2" href="$stack_8c.html" title=" " alt="" coords="5,80,157,121"/>
+<area shape="rect" id="node3" href="$screen_8c.html" title=" " alt="" coords="182,80,319,121"/>
+<area shape="rect" id="node4" href="$fs_8c.html" title=" " alt="" coords="343,87,427,114"/>
+<area shape="rect" id="node5" href="$assert_8h.html" title=" " alt="" coords="452,87,620,114"/>
+<area shape="rect" id="node7" href="$irq_8c.html" title=" " alt="" coords="613,177,752,203"/>
+<area shape="rect" id="node9" href="$main_8c.html" title=" " alt="" coords="695,87,809,114"/>
+<area shape="rect" id="node10" href="$pcb_8c.html" title=" " alt="" coords="833,87,983,114"/>
+<area shape="rect" id="node11" href="$printk_8c.html" title=" " alt="" coords="1007,87,1121,114"/>
+<area shape="rect" id="node6" href="$virtio__blk_8c.html" title=" " alt="" coords="280,169,408,211"/>
+<area shape="rect" id="node8" href="$mm_8c.html" title=" " alt="" coords="433,177,589,203"/>
+</map>

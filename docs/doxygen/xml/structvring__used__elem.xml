@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structvring__used__elem" kind="struct" language="C++" prot="public">
+    <compoundname>vring_used_elem</compoundname>
+    <includes refid="virtio_8h" local="no">virtio.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structvring__used__elem_1a6c72e1ef35061bac3540fc0c53377b57" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 vring_used_elem::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="98" column="12" bodyfile="src/drivers/virtio/virtio.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structvring__used__elem_1a84d88b0fd1a6147344ac24fe5e5e939b" prot="public" static="no" mutable="no">
+        <type><ref refid="types_8h_1a1134b580f8da4de94ca6b1de4d37975e" kindref="member">uint32</ref></type>
+        <definition>uint32 vring_used_elem::len</definition>
+        <argsstring></argsstring>
+        <name>len</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/drivers/virtio/virtio.h" line="99" column="12" bodyfile="src/drivers/virtio/virtio.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/drivers/virtio/virtio.h" line="97" column="1" bodyfile="src/drivers/virtio/virtio.h" bodystart="97" bodyend="100"/>
+    <listofallmembers>
+      <member refid="structvring__used__elem_1a6c72e1ef35061bac3540fc0c53377b57" prot="public" virt="non-virtual"><scope>vring_used_elem</scope><name>id</name></member>
+      <member refid="structvring__used__elem_1a84d88b0fd1a6147344ac24fe5e5e939b" prot="public" virt="non-virtual"><scope>vring_used_elem</scope><name>len</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

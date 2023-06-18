@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="dir_cbd7f246bdf7dc0a50281a272327e6ed" kind="dir">
+    <compoundname>src/kernel</compoundname>
+    <innerdir refid="dir_85263bf66ec51f037c9f56cf26a1797a">src/kernel/irq</innerdir>
+    <innerdir refid="dir_80965eb3ba1160063c01e5ec79f497d2">src/kernel/mm</innerdir>
+    <innerdir refid="dir_0bad16966a5a8d1438c9252d5a62da0f">src/kernel/sync</innerdir>
+    <innerdir refid="dir_4b0b675971e8b75ff33680b3a878a76d">src/kernel/sys</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/kernel/"/>
+  </compounddef>
+</doxygen>

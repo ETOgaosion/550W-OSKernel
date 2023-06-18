@@ -1,0 +1,738 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="time_8c" kind="file" language="C++">
+    <compoundname>time.c</compoundname>
+    <includes refid="types_8h" local="no">common/types.h</includes>
+    <includes refid="list_8h" local="no">lib/list.h</includes>
+    <includes refid="pcb_8h" local="no">os/pcb.h</includes>
+    <includes refid="smp_8h" local="no">os/smp.h</includes>
+    <includes refid="time_8h" local="no">os/time.h</includes>
+    <incdepgraph>
+      <node id="8">
+        <label>asm/pgtable.h</label>
+        <link refid="pgtable_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>os/mm.h</label>
+        <link refid="mm_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>common/elf.h</label>
+        <link refid="elf_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="12">
+        <label>os/cpu.h</label>
+        <link refid="cpu_8h"/>
+      </node>
+      <node id="16">
+        <label>os/time.h</label>
+        <link refid="time_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/kernel/sys/time.c</label>
+        <link refid="time_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>asm/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>asm/sbidef.h</label>
+        <link refid="sbidef_8h"/>
+      </node>
+      <node id="2">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>os/smp.h</label>
+        <link refid="smp_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>asm/sbi.h</label>
+        <link refid="sbi_8h"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>os/pcb.h</label>
+        <link refid="pcb_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>os/lock.h</label>
+        <link refid="lock_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>os/sync.h</label>
+        <link refid="sync_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>lib/list.h</label>
+        <link refid="list_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t time_base</definition>
+        <argsstring></argsstring>
+        <name>time_base</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="7" column="10" bodyfile="src/kernel/sys/time.c" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="time_8c_1ab320f26aea896e624e2be00b73604c2b" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t time_elapsed</definition>
+        <argsstring></argsstring>
+        <name>time_elapsed</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="8" column="10" bodyfile="src/kernel/sys/time.c" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="time_8c_1a0bbed12ae35f0784a3f7d9c29e283ea2" prot="public" static="no" mutable="no">
+        <type><ref refid="list_8h_1aa8e63a505e811a76625c05760bb04f7f" kindref="member">list_head</ref></type>
+        <definition>list_head timers</definition>
+        <argsstring></argsstring>
+        <name>timers</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="9" column="11" bodyfile="src/kernel/sys/time.c" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="time_8c_1afac53a8ef867e814be7f17a6d4dd7fdb" prot="public" static="no" mutable="no">
+        <type><ref refid="time_8h_1aeb9dc63fd2475889cae0920118e87f81" kindref="member">timezone_t</ref></type>
+        <definition>timezone_t timezone_550W</definition>
+        <argsstring></argsstring>
+        <name>timezone_550W</name>
+        <initializer>= {.tz_minuteswest = -480, .tz_dsttime = 0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="11" column="12" bodyfile="src/kernel/sys/time.c" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="time_8c_1abecbf6dd4576a3e60f7eb58b2f630f98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long k_time_get_ticks</definition>
+        <argsstring>()</argsstring>
+        <name>k_time_get_ticks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="13" column="6" bodyfile="src/kernel/sys/time.c" bodystart="13" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1a24c17479c62cbd20a0e74ff0752f623e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t get_timer</definition>
+        <argsstring>()</argsstring>
+        <name>get_timer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="18" column="10" bodyfile="src/kernel/sys/time.c" bodystart="18" bodyend="20"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1ae22885f7b30f2ac1fefb29305dfe6a9c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t k_time_get_times_base</definition>
+        <argsstring>()</argsstring>
+        <name>k_time_get_times_base</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="22" column="10" bodyfile="src/kernel/sys/time.c" bodystart="22" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1af8db0b39aba068a0ee578c93ab788039" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_time_nano_u_time_converter</definition>
+        <argsstring>(nanotime_val_t *nanotime, time_val_t *utime, bool direction)</argsstring>
+        <name>k_time_nano_u_time_converter</name>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>nanotime</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>utime</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1a1062901a7428fdd9c7f180f5e01ea056" kindref="member">bool</ref></type>
+          <declname>direction</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="26" column="6" bodyfile="src/kernel/sys/time.c" bodystart="26" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1a723c6615d70bae09da02cb9d16344ee4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_time_get_nanotime</definition>
+        <argsstring>(nanotime_val_t *ntimebuf)</argsstring>
+        <name>k_time_get_nanotime</name>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>ntimebuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="36" column="6" bodyfile="src/kernel/sys/time.c" bodystart="36" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1a444571cbcd4c1d24b059811d270b97f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t k_time_get_ticks_from_nanotime</definition>
+        <argsstring>(nanotime_val_t *ntimebuf)</argsstring>
+        <name>k_time_get_ticks_from_nanotime</name>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>ntimebuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="42" column="10" bodyfile="src/kernel/sys/time.c" bodystart="42" bodyend="45"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1ab100eaf213b061d6ab7e8f54071a74e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_time_copy_nanotime</definition>
+        <argsstring>(nanotime_val_t *dst, nanotime_val_t *src)</argsstring>
+        <name>k_time_copy_nanotime</name>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>dst</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>src</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="47" column="6" bodyfile="src/kernel/sys/time.c" bodystart="47" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1abb6ccf4f333a67368ff2709e1defb61d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_time_minus_nanotime</definition>
+        <argsstring>(nanotime_val_t *first, nanotime_val_t *sec, nanotime_val_t *res)</argsstring>
+        <name>k_time_minus_nanotime</name>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>sec</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="52" column="6" bodyfile="src/kernel/sys/time.c" bodystart="52" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1a0190f196ef401ddd8e6dcd075cab531c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_time_add_nanotime</definition>
+        <argsstring>(nanotime_val_t *first, nanotime_val_t *sec, nanotime_val_t *res)</argsstring>
+        <name>k_time_add_nanotime</name>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>sec</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="62" column="6" bodyfile="src/kernel/sys/time.c" bodystart="62" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1a7fe46bf79cad6f526d80bae9f12d7eb6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int k_time_cmp_nanotime</definition>
+        <argsstring>(nanotime_val_t *first, nanotime_val_t *sec)</argsstring>
+        <name>k_time_cmp_nanotime</name>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a093648f8a2bb94f4426f2dcc6af104f8" kindref="member">nanotime_val_t</ref> *</type>
+          <declname>sec</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="68" column="5" bodyfile="src/kernel/sys/time.c" bodystart="68" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1a2becded4e81a6ea36df9e9215b2f8fbe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_time_get_utime</definition>
+        <argsstring>(time_val_t *utimebuf)</argsstring>
+        <name>k_time_get_utime</name>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>utimebuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="84" column="6" bodyfile="src/kernel/sys/time.c" bodystart="84" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1a3deef70e8beeb519ae927eabe660143d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint64_t</type>
+        <definition>uint64_t k_time_get_ticks_from_time</definition>
+        <argsstring>(time_val_t *ntimebuf)</argsstring>
+        <name>k_time_get_ticks_from_time</name>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>ntimebuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="90" column="10" bodyfile="src/kernel/sys/time.c" bodystart="90" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1aeffb4fbc5ea000e6ffe358743d817991" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_time_copy_utime</definition>
+        <argsstring>(time_val_t *src, time_val_t *dst)</argsstring>
+        <name>k_time_copy_utime</name>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>src</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>dst</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="95" column="6" bodyfile="src/kernel/sys/time.c" bodystart="95" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1a06a1833ccbcd5cc6f6629b246f6dfe61" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_time_minus_utime</definition>
+        <argsstring>(time_val_t *first, time_val_t *sec, time_val_t *res)</argsstring>
+        <name>k_time_minus_utime</name>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>sec</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="100" column="6" bodyfile="src/kernel/sys/time.c" bodystart="100" bodyend="108"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1a003938989bcf21f9ae02af2585f9f3d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void k_time_add_utime</definition>
+        <argsstring>(time_val_t *first, time_val_t *sec, time_val_t *res)</argsstring>
+        <name>k_time_add_utime</name>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>sec</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>res</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="110" column="6" bodyfile="src/kernel/sys/time.c" bodystart="110" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1aefc71d72ca052fee32f1faa93f6a8a6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int k_time_cmp_utime</definition>
+        <argsstring>(time_val_t *first, time_val_t *sec)</argsstring>
+        <name>k_time_cmp_utime</name>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>first</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>sec</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="116" column="5" bodyfile="src/kernel/sys/time.c" bodystart="116" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1ad2a439cbb73c16f491163cdb4010c50d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_time</definition>
+        <argsstring>(__kernel_time_t *tloc)</argsstring>
+        <name>sys_time</name>
+        <param>
+          <type><ref refid="types_8h_1a46b18e17fe5ee9ab433cec7e1ec8f295" kindref="member">__kernel_time_t</ref> *</type>
+          <declname>tloc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="132" column="6" bodyfile="src/kernel/sys/time.c" bodystart="132" bodyend="136"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1ac1449f007c2a4c074678ac82b7e761c8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_times</definition>
+        <argsstring>(tms_t *tbuf)</argsstring>
+        <name>sys_times</name>
+        <param>
+          <type><ref refid="time_8h_1ab9d02468772a025e2461930c437575bc" kindref="member">tms_t</ref> *</type>
+          <declname>tbuf</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="138" column="6" bodyfile="src/kernel/sys/time.c" bodystart="138" bodyend="151"/>
+      </memberdef>
+      <memberdef kind="function" id="time_8c_1ac0a572ef7aa1434e5a31bd166120f0f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_gettimeofday</definition>
+        <argsstring>(time_val_t *tv, timezone_t *tz)</argsstring>
+        <name>sys_gettimeofday</name>
+        <param>
+          <type><ref refid="time_8h_1a36129e2fc228b3441a5a2fb11293b737" kindref="member">time_val_t</ref> *</type>
+          <declname>tv</declname>
+        </param>
+        <param>
+          <type><ref refid="time_8h_1aeb9dc63fd2475889cae0920118e87f81" kindref="member">timezone_t</ref> *</type>
+          <declname>tz</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/time.c" line="153" column="6" bodyfile="src/kernel/sys/time.c" bodystart="153" bodyend="162"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;<ref refid="types_8h" kindref="compound">common/types.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="list_8h" kindref="compound">lib/list.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="pcb_8h" kindref="compound">os/pcb.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="smp_8h" kindref="compound">os/smp.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="time_8h" kindref="compound">os/time.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal">uint32_t<sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">uint64_t<sp/><ref refid="time_8c_1ab320f26aea896e624e2be00b73604c2b" kindref="member">time_elapsed</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><ref refid="structlist__node" kindref="compound">list_head</ref><sp/><ref refid="time_8c_1a0bbed12ae35f0784a3f7d9c29e283ea2" kindref="member">timers</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><ref refid="structtimezone" kindref="compound">timezone_t</ref><sp/><ref refid="time_8c_1afac53a8ef867e814be7f17a6d4dd7fdb" kindref="member">timezone_550W</ref><sp/>=<sp/>{.<ref refid="structtimezone_1a3042f7eff6e1b980728def76b1fa0eb7" kindref="member">tz_minuteswest</ref><sp/>=<sp/>-480,<sp/>.tz_dsttime<sp/>=<sp/>0};</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="time_8c_1abecbf6dd4576a3e60f7eb58b2f630f98" kindref="member">k_time_get_ticks</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>__asm__<sp/>__volatile__(</highlight><highlight class="stringliteral">&quot;rdtime<sp/>%0&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal">(<ref refid="time_8c_1ab320f26aea896e624e2be00b73604c2b" kindref="member">time_elapsed</ref>));</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="time_8c_1ab320f26aea896e624e2be00b73604c2b" kindref="member">time_elapsed</ref>;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">uint64_t<sp/><ref refid="time_8c_1a24c17479c62cbd20a0e74ff0752f623e" kindref="member">get_timer</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="time_8c_1abecbf6dd4576a3e60f7eb58b2f630f98" kindref="member">k_time_get_ticks</ref>()<sp/>/<sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal">uint64_t<sp/><ref refid="time_8c_1ae22885f7b30f2ac1fefb29305dfe6a9c" kindref="member">k_time_get_times_base</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref>;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="time_8c_1af8db0b39aba068a0ee578c93ab788039" kindref="member">k_time_nano_u_time_converter</ref>(<ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*nanotime,<sp/><ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*utime,<sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>direction)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(direction)<sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>utime-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>=<sp/>nanotime-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref>;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>utime-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>=<sp/>nanotime-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>*<sp/>1000;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nanotime-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>=<sp/>utime-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nanotime-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>=<sp/>utime-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>/<sp/>1000;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="time_8c_1a723c6615d70bae09da02cb9d16344ee4" kindref="member">k_time_get_nanotime</ref>(<ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*ntimebuf)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>ticks<sp/>=<sp/><ref refid="time_8c_1abecbf6dd4576a3e60f7eb58b2f630f98" kindref="member">k_time_get_ticks</ref>();</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>ntimebuf-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>=<sp/>ticks<sp/>/<sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>ntimebuf-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>=<sp/>((ticks<sp/>%<sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref>)<sp/>*<sp/>1000000000)<sp/>/<sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal">uint64_t<sp/><ref refid="time_8c_1a444571cbcd4c1d24b059811d270b97f6" kindref="member">k_time_get_ticks_from_nanotime</ref>(<ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*ntimebuf)<sp/>{</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>ticks<sp/>=<sp/>(ntimebuf-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>*<sp/>1000000000<sp/>+<sp/>ntimebuf-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref>)<sp/>*<sp/>1000000000<sp/>/<sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref>;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ticks;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="time_8c_1ab100eaf213b061d6ab7e8f54071a74e6" kindref="member">k_time_copy_nanotime</ref>(<ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*dst,<sp/><ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*src)<sp/>{</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>dst-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>=<sp/>src-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref>;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>dst-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>=<sp/>src-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="time_8c_1abb6ccf4f333a67368ff2709e1defb61d" kindref="member">k_time_minus_nanotime</ref>(<ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*first,<sp/><ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*sec,<sp/><ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*res)<sp/>{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>&lt;<sp/>sec-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>=<sp/>first-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>-<sp/>sec-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>=<sp/>first-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>+<sp/>1000000000<sp/>-<sp/>sec-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>=<sp/>first-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>-<sp/>sec-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref>;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>=<sp/>first-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>-<sp/>sec-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="time_8c_1a0190f196ef401ddd8e6dcd075cab531c" kindref="member">k_time_add_nanotime</ref>(<ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*first,<sp/><ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*sec,<sp/><ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*res)<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nsec<sp/>=<sp/>first-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>+<sp/>sec-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref>;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>=<sp/>nsec<sp/>%<sp/>(int)1000000000;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>=<sp/>first-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>+<sp/>sec-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>+<sp/>nsec<sp/>/<sp/>(int)1000000000;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="time_8c_1a7fe46bf79cad6f526d80bae9f12d7eb6" kindref="member">k_time_cmp_nanotime</ref>(<ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*first,<sp/><ref refid="structnanotime__val" kindref="compound">nanotime_val_t</ref><sp/>*sec)<sp/>{</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>==<sp/>sec-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>&gt;<sp/>sec-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref><sp/>==<sp/>sec-&gt;<ref refid="structnanotime__val_1af6a5bbbd8b3afe6517daff0d2ff0f0e8" kindref="member">nsec</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref><sp/>&gt;<sp/>sec-&gt;<ref refid="structnanotime__val_1a46e99a6ed5552516ffc814a3b0b2c81a" kindref="member">sec</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="time_8c_1a2becded4e81a6ea36df9e9215b2f8fbe" kindref="member">k_time_get_utime</ref>(<ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*utimebuf)<sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>ticks<sp/>=<sp/><ref refid="time_8c_1abecbf6dd4576a3e60f7eb58b2f630f98" kindref="member">k_time_get_ticks</ref>();</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>utimebuf-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>=<sp/>ticks<sp/>/<sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref>;</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/>utimebuf-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>=<sp/>((ticks<sp/>%<sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref>)<sp/>*<sp/>1000000)<sp/>/<sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref>;</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal">uint64_t<sp/><ref refid="time_8c_1a3deef70e8beeb519ae927eabe660143d" kindref="member">k_time_get_ticks_from_time</ref>(<ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*ntimebuf)<sp/>{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>ticks<sp/>=<sp/>(ntimebuf-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>*<sp/>1000000<sp/>+<sp/>ntimebuf-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref>)<sp/>*<sp/>1000000<sp/>/<sp/><ref refid="time_8c_1a7a54d04596d6bde610b1b8ae299e947e" kindref="member">time_base</ref>;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ticks;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="time_8c_1aeffb4fbc5ea000e6ffe358743d817991" kindref="member">k_time_copy_utime</ref>(<ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*src,<sp/><ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*dst)<sp/>{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>dst-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>=<sp/>src-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref>;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>dst-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>=<sp/>src-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref>;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="time_8c_1a06a1833ccbcd5cc6f6629b246f6dfe61" kindref="member">k_time_minus_utime</ref>(<ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*first,<sp/><ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*sec,<sp/><ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*res)<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>&lt;<sp/>sec-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>=<sp/>first-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>-<sp/>sec-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>=<sp/>first-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>+<sp/>1000000000<sp/>-<sp/>sec-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref>;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>=<sp/>first-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>-<sp/>sec-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref>;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>=<sp/>first-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>-<sp/>sec-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref>;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="time_8c_1a003938989bcf21f9ae02af2585f9f3d2" kindref="member">k_time_add_utime</ref>(<ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*first,<sp/><ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*sec,<sp/><ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*res)<sp/>{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>usec<sp/>=<sp/>first-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>+<sp/>sec-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref>;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>=<sp/>usec<sp/>%<sp/>(int)1000000;</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>res-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>=<sp/>first-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>+<sp/>sec-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>+<sp/>usec<sp/>/<sp/>(int)1000000;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="time_8c_1aefc71d72ca052fee32f1faa93f6a8a6e" kindref="member">k_time_cmp_utime</ref>(<ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*first,<sp/><ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*sec)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>==<sp/>sec-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>&gt;<sp/>sec-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref><sp/>==<sp/>sec-&gt;<ref refid="structtime__val_1a5673cd026ac38c05ef649b20990f975f" kindref="member">usec</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(first-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref><sp/>&gt;<sp/>sec-&gt;<ref refid="structtime__val_1a0f46e955395beddba4bdf26e260c1920" kindref="member">sec</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="time_8c_1ad2a439cbb73c16f491163cdb4010c50d" kindref="member">sys_time</ref>(<ref refid="types_8h_1a46b18e17fe5ee9ab433cec7e1ec8f295" kindref="member">__kernel_time_t</ref><sp/>*tloc)<sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>ret<sp/>=<sp/><ref refid="time_8c_1a24c17479c62cbd20a0e74ff0752f623e" kindref="member">get_timer</ref>();</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>*tloc<sp/>=<sp/>ret;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ret;</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="time_8c_1ac1449f007c2a4c074678ac82b7e761c8" kindref="member">sys_times</ref>(<ref refid="structtms" kindref="compound">tms_t</ref><sp/>*tbuf)<sp/>{</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>tbuf-&gt;<ref refid="structtms_1aedfe14156d5942c15505cf7046f7dcef" kindref="member">tms_stime</ref><sp/>=<sp/><ref refid="time_8c_1a3deef70e8beeb519ae927eabe660143d" kindref="member">k_time_get_ticks_from_time</ref>(&amp;(*current_running)-&gt;resources.ru_stime);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/>tbuf-&gt;<ref refid="structtms_1a4e69f8c6ac77f57f15f9c712c82ae1b1" kindref="member">tms_utime</ref><sp/>=<sp/><ref refid="time_8c_1a3deef70e8beeb519ae927eabe660143d" kindref="member">k_time_get_ticks_from_time</ref>(&amp;(*current_running)-&gt;resources.ru_utime);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>tbuf-&gt;<ref refid="structtms_1a25b61c3e117430c84ffa08977478592f" kindref="member">tms_cstime</ref><sp/>=<sp/>(*current_running)-&gt;dead_child_stime;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>tbuf-&gt;<ref refid="structtms_1ae07749ecba0207ca1c4fe46d404d8647" kindref="member">tms_cutime</ref><sp/>=<sp/>(*current_running)-&gt;dead_child_utime;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="pcb_8h_1ad907dc7ff26c1a93783a8d9acb32b5d4" kindref="member">NUM_MAX_CHILD</ref>;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((*current_running)-&gt;child_pids[i]<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tbuf-&gt;<ref refid="structtms_1a25b61c3e117430c84ffa08977478592f" kindref="member">tms_cstime</ref><sp/>+=<sp/><ref refid="time_8c_1a3deef70e8beeb519ae927eabe660143d" kindref="member">k_time_get_ticks_from_time</ref>(&amp;<ref refid="structpcb" kindref="compound">pcb</ref>[(*current_running)-&gt;child_pids[i]].<ref refid="structpcb_1afd18b6c3c18534c5587abce4cde24974" kindref="member">resources</ref>.<ref refid="structrusage_1aa060da934655b8e0330fd29bc2130956" kindref="member">ru_stime</ref>);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tbuf-&gt;<ref refid="structtms_1ae07749ecba0207ca1c4fe46d404d8647" kindref="member">tms_cutime</ref><sp/>+=<sp/><ref refid="time_8c_1a3deef70e8beeb519ae927eabe660143d" kindref="member">k_time_get_ticks_from_time</ref>(&amp;<ref refid="structpcb" kindref="compound">pcb</ref>[(*current_running)-&gt;child_pids[i]].<ref refid="structpcb_1afd18b6c3c18534c5587abce4cde24974" kindref="member">resources</ref>.<ref refid="structrusage_1a20e49fe541031dd1fb3abb08c299745c" kindref="member">ru_utime</ref>);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="time_8c_1abecbf6dd4576a3e60f7eb58b2f630f98" kindref="member">k_time_get_ticks</ref>();</highlight></codeline>
+<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="time_8c_1ac0a572ef7aa1434e5a31bd166120f0f3" kindref="member">sys_gettimeofday</ref>(<ref refid="structtime__val" kindref="compound">time_val_t</ref><sp/>*tv,<sp/><ref refid="structtimezone" kindref="compound">timezone_t</ref><sp/>*tz)<sp/>{</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tv)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="time_8c_1a2becded4e81a6ea36df9e9215b2f8fbe" kindref="member">k_time_get_utime</ref>(tv);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(tz)<sp/>{</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tz-&gt;<ref refid="structtimezone_1a3042f7eff6e1b980728def76b1fa0eb7" kindref="member">tz_minuteswest</ref><sp/>=<sp/><ref refid="time_8c_1afac53a8ef867e814be7f17a6d4dd7fdb" kindref="member">timezone_550W</ref>.<ref refid="structtimezone_1a3042f7eff6e1b980728def76b1fa0eb7" kindref="member">tz_minuteswest</ref>;</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tz-&gt;<ref refid="structtimezone_1a85259977aeb63b17e6ce94f19afdfd99" kindref="member">tz_dsttime</ref><sp/>=<sp/><ref refid="time_8c_1afac53a8ef867e814be7f17a6d4dd7fdb" kindref="member">timezone_550W</ref>.<ref refid="structtimezone_1a85259977aeb63b17e6ce94f19afdfd99" kindref="member">tz_dsttime</ref>;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/kernel/sys/time.c"/>
+  </compounddef>
+</doxygen>

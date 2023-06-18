@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['chan_2491',['chan',['../structpcb.html#af5e6c7a63f5ff6d61a0d36c08a80d2e3',1,'pcb']]],
+  ['checksum_2492',['checksum',['../structlong__name__entry.html#addf910141f2e32db6c0e12af0ae66814',1,'long_name_entry::checksum()'],['../fat32_8h.html#a59eac9627282a484fbaf0aa7aa3b8a9a',1,'checksum():&#160;fat32.h']]],
+  ['child_5fnum_2493',['child_num',['../structpcb.html#a5add1aa788bd688a674d39b5cd859cb3',1,'pcb']]],
+  ['child_5fpids_2494',['child_pids',['../structpcb.html#a0c21f904d8f109d1fcb20085141b5919',1,'pcb']]],
+  ['child_5fstat_5faddrs_2495',['child_stat_addrs',['../structpcb.html#a5fd86d270fad0c39c55cea36b46552b7',1,'pcb']]],
+  ['clear_5fctid_2496',['clear_ctid',['../structpcb.html#af39cf8644c1cdb46a475927d7937b204',1,'pcb']]],
+  ['cond_5ffirst_5ftime_2497',['cond_first_time',['../sync_8c.html#ad07dc23f32885cdb29bd61e186bac854',1,'sync.c']]],
+  ['cond_5fid_2498',['cond_id',['../structbarrier.html#a369d0aa1244db2f06bdf6b6197ef21ed',1,'barrier']]],
+  ['cond_5finfo_2499',['cond_info',['../structcond.html#a1812237b8900a2f4289c3a7787e1780a',1,'cond']]],
+  ['cond_5flist_2500',['cond_list',['../sync_8c.html#af14cdeb4ac131416a4da729869465429',1,'sync.c']]],
+  ['core_5fmask_2501',['core_mask',['../structpcb.html#ad7ee741cb61788a57d8d655c8e558fb4',1,'pcb']]],
+  ['count_2502',['count',['../structbarrier.html#a94e6627a244819a7aa2f111a93167f99',1,'barrier']]],
+  ['crt_5fdate_2503',['crt_date',['../fat32_8h.html#a137c641e9c9c08007dd8cf3f711ed6c8',1,'crt_date():&#160;fat32.h'],['../structshort__name__entry.html#a7e463c318f1699a6783772dc1c8ee553',1,'short_name_entry::crt_date()']]],
+  ['crt_5ftime_2504',['crt_time',['../fat32_8h.html#af51030d3bc65095e968dcee26b915d27',1,'crt_time():&#160;fat32.h'],['../structshort__name__entry.html#a456f5fe5d283be52167140eb371e40cc',1,'short_name_entry::crt_time()']]],
+  ['crt_5ftime_5ftenth_2505',['crt_time_tenth',['../fat32_8h.html#a15ea3713b7857599395a2711dca0d69a',1,'crt_time_tenth():&#160;fat32.h'],['../structshort__name__entry.html#a7c68544742ba7f82dd2a86440b468db1',1,'short_name_entry::crt_time_tenth()']]],
+  ['ctime_5fnsec_2506',['ctime_nsec',['../structfd.html#aa363e0b07cf36af070c92ec5dc26d8ef',1,'fd']]],
+  ['ctime_5fsec_2507',['ctime_sec',['../structfd.html#a1f5169e16ac0badb6aae067fb743a187',1,'fd']]],
+  ['cur_5fclus_5fnum_2508',['cur_clus_num',['../structfd.html#a60eabea029590e8f49eae78e5181450e',1,'fd']]],
+  ['cur_5fdir_2509',['cur_dir',['../fat32_8h.html#a7ed1f339a9c42b1a180ffbf41bb91d10',1,'cur_dir():&#160;fat32.h'],['../fs_8c.html#a7ed1f339a9c42b1a180ffbf41bb91d10',1,'cur_dir():&#160;fs.c']]],
+  ['current_5frunning_2510',['current_running',['../pcb_8h.html#a775dd48cd2188c627cbdd19b03b37212',1,'current_running():&#160;pcb.c'],['../pcb_8c.html#a775dd48cd2188c627cbdd19b03b37212',1,'current_running():&#160;pcb.c']]],
+  ['current_5frunning0_2511',['current_running0',['../pcb_8h.html#a83f38b8c9da23021ed61d4031ab5aad3',1,'current_running0():&#160;pcb.c'],['../pcb_8c.html#a83f38b8c9da23021ed61d4031ab5aad3',1,'current_running0():&#160;pcb.c']]],
+  ['current_5frunning1_2512',['current_running1',['../pcb_8h.html#a5f57f427e7da8049da09de558fc72e2d',1,'current_running1():&#160;pcb.c'],['../pcb_8c.html#a5f57f427e7da8049da09de558fc72e2d',1,'current_running1():&#160;pcb.c']]],
+  ['cursor_5fx_2513',['cursor_x',['../structpcb.html#a3af2c933461a2a7bd3ada61290103667',1,'pcb']]],
+  ['cursor_5fy_2514',['cursor_y',['../structpcb.html#a05ac392d4980070cd3883bed31d16988',1,'pcb']]]
+];

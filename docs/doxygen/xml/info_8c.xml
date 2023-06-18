@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="info_8c" kind="file" language="C++">
+    <compoundname>info.c</compoundname>
+    <includes refid="string_8h" local="no">lib/string.h</includes>
+    <includes refid="sys_8h" local="no">os/sys.h</includes>
+    <incdepgraph>
+      <node id="5">
+        <label>os/sys.h</label>
+        <link refid="sys_8h"/>
+      </node>
+      <node id="4">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="1">
+        <label>src/kernel/sys/info.c</label>
+        <link refid="info_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="info_8c_1ad44f752c5ff3321da139e5c549ad371f" prot="public" static="no" mutable="no">
+        <type><ref refid="sys_8h_1ab068ce194f020320accb53ca8d1cb11b" kindref="member">uname_t</ref></type>
+        <definition>uname_t uname_550w</definition>
+        <argsstring></argsstring>
+        <name>uname_550w</name>
+        <initializer>= {.sysname = &quot;MOSS&quot;, .nodename = &quot;oscomp&quot;, .release = &quot;1.0.0&quot;, .version = &quot;#1&quot;, .machine = &quot;550W&quot;, .domainname = &quot;bluespace.moss.com&quot;}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/info.c" line="4" column="9" bodyfile="src/kernel/sys/info.c" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="info_8c_1a35e24d2c7e2af7a33da7db9ef145d6eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>long</type>
+        <definition>long sys_uname</definition>
+        <argsstring>(uname_t *dest)</argsstring>
+        <name>sys_uname</name>
+        <param>
+          <type><ref refid="sys_8h_1ab068ce194f020320accb53ca8d1cb11b" kindref="member">uname_t</ref> *</type>
+          <declname>dest</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/kernel/sys/info.c" line="6" column="6" bodyfile="src/kernel/sys/info.c" bodystart="6" bodyend="9"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;<ref refid="string_8h" kindref="compound">lib/string.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="sys_8h" kindref="compound">os/sys.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><ref refid="structuname" kindref="compound">uname_t</ref><sp/><ref refid="info_8c_1ad44f752c5ff3321da139e5c549ad371f" kindref="member">uname_550w</ref><sp/>=<sp/>{.<ref refid="structuname_1a7d92ef35c14e513a9218ffaebc5fb388" kindref="member">sysname</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;MOSS&quot;</highlight><highlight class="normal">,<sp/>.nodename<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;oscomp&quot;</highlight><highlight class="normal">,<sp/>.release<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;1.0.0&quot;</highlight><highlight class="normal">,<sp/>.version<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;#1&quot;</highlight><highlight class="normal">,<sp/>.machine<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;550W&quot;</highlight><highlight class="normal">,<sp/>.domainname<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;bluespace.moss.com&quot;</highlight><highlight class="normal">};</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="info_8c_1a35e24d2c7e2af7a33da7db9ef145d6eb" kindref="member">sys_uname</ref>(<ref refid="structuname" kindref="compound">uname_t</ref><sp/>*dest)<sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="string_8h_1a4985196d8a63d22e320cf33d904d2f92" kindref="member">k_memcpy</ref>((uint8_t<sp/>*)dest,<sp/>(uint8_t<sp/>*)&amp;<ref refid="info_8c_1ad44f752c5ff3321da139e5c549ad371f" kindref="member">uname_550w</ref>,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structuname" kindref="compound">uname_t</ref>));</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/kernel/sys/info.c"/>
+  </compounddef>
+</doxygen>

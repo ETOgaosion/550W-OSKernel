@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="dir_6d7bb3d98a790d25003c6f87df139573" kind="dir">
+    <compoundname>src/drivers/virtio</compoundname>
+    <innerfile refid="virtio_8h">virtio.h</innerfile>
+    <innerfile refid="virtio__blk_8c">virtio_blk.c</innerfile>
+    <innerfile refid="virtio__blk_8d">virtio_blk.d</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/drivers/virtio/"/>
+  </compounddef>
+</doxygen>

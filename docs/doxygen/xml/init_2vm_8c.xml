@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="init_2vm_8c" kind="file" language="C++">
+    <compoundname>vm.c</compoundname>
+    <includes refid="context_8h" local="no">asm/context.h</includes>
+    <includes refid="pgtable_8h" local="no">asm/pgtable.h</includes>
+    <includes refid="vm_8h" local="no">asm/vm.h</includes>
+    <includes refid="elf_8h" local="no">common/elf.h</includes>
+    <incdepgraph>
+      <node id="5">
+        <label>asm/pgtable.h</label>
+        <link refid="pgtable_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>common/elf.h</label>
+        <link refid="elf_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="2">
+        <label>asm/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>asm/sbidef.h</label>
+        <link refid="sbidef_8h"/>
+      </node>
+      <node id="1">
+        <label>src/init/vm.c</label>
+        <link refid="init_2vm_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>asm/vm.h</label>
+        <link refid="vm_8h"/>
+      </node>
+      <node id="10">
+        <label>lib/string.h</label>
+        <link refid="string_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>asm/sbi.h</label>
+        <link refid="sbi_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="init_2vm_8c_1a6b2f54f2a4f6d2aa7a4acdc10e476444" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* kernel_entry_t) (unsigned long, uintptr_t)</definition>
+        <argsstring>)(unsigned long, uintptr_t)</argsstring>
+        <name>kernel_entry_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/init/vm.c" line="6" column="9" bodyfile="src/init/vm.c" bodystart="6" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="init_2vm_8c_1ab5e267b0d57c965af09422515a6fa2f0" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char _elf_main[]</definition>
+        <argsstring>[]</argsstring>
+        <name>_elf_main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/init/vm.c" line="8" column="22" declfile="src/init/vm.c" declline="8" declcolumn="22"/>
+      </memberdef>
+      <memberdef kind="variable" id="init_2vm_8c_1a13807b6e67170a0d8931435dd3cb252a" prot="public" static="no" mutable="no">
+        <type>unsigned</type>
+        <definition>unsigned _length_main</definition>
+        <argsstring></argsstring>
+        <name>_length_main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/init/vm.c" line="9" column="17" declfile="src/init/vm.c" declline="9" declcolumn="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="init_2vm_8c_1a243417bb6b1096cbc1bbe73ae40bab7b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref></type>
+        <definition>uintptr_t directmap</definition>
+        <argsstring>(uintptr_t kva, uintptr_t pgdir)</argsstring>
+        <name>directmap</name>
+        <param>
+          <type><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref></type>
+          <declname>kva</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref></type>
+          <declname>pgdir</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/init/vm.c" line="11" column="11" bodyfile="src/init/vm.c" bodystart="11" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="init_2vm_8c_1a9176c07622c438e95d96ec4d3cded6c7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int prepare_vm</definition>
+        <argsstring>(unsigned long mhartid, uintptr_t riscv_dtb)</argsstring>
+        <name>prepare_vm</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>mhartid</declname>
+        </param>
+        <param>
+          <type><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref></type>
+          <declname>riscv_dtb</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/init/vm.c" line="19" column="5" bodyfile="src/init/vm.c" bodystart="19" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;<ref refid="context_8h" kindref="compound">asm/context.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="pgtable_8h" kindref="compound">asm/pgtable.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="vm_8h" kindref="compound">asm/vm.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="elf_8h" kindref="compound">common/elf.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="init_2vm_8c_1a6b2f54f2a4f6d2aa7a4acdc10e476444" kindref="member">kernel_entry_t</ref>)(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/>long,<sp/><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref>);</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="init_2vm_8c_1ab5e267b0d57c965af09422515a6fa2f0" kindref="member">_elf_main</ref>[];</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/><ref refid="init_2vm_8c_1a13807b6e67170a0d8931435dd3cb252a" kindref="member">_length_main</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/><ref refid="init_2vm_8c_1a243417bb6b1096cbc1bbe73ae40bab7b" kindref="member">directmap</ref>(<ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>kva,<sp/><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/>pgdir)<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ignore<sp/>pgdir</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>kva;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>kernel_entry_t<sp/>start_kernel<sp/>=<sp/>NULL;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">/***********<sp/>start<sp/>here<sp/>**************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="init_2vm_8c_1a9176c07622c438e95d96ec4d3cded6c7" kindref="member">prepare_vm</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>mhartid,<sp/><ref refid="types_8h_1ad6cb5da84246290b3d730166b020f2a8" kindref="member">uintptr_t</ref><sp/><ref refid="irq_8c_1a1947fe6c9eeff0cf542dd6c5e2c3967a" kindref="member">riscv_dtb</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(mhartid<sp/>==<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2kernel_2init_2vm_8c_1a6e001ee96453344451e59af9f2edafc8" kindref="member">setup_vm</ref>();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>start_kernel<sp/>=<sp/>(kernel_entry_t)load_elf(_elf_main,<sp/>_length_main,<sp/>PGDIR_PA,<sp/>directmap);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="arch_2riscv_2kernel_2init_2vm_8c_1aba2a09dcc0bd6e59edc7493047932058" kindref="member">enable_vm</ref>();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>start_kernel(mhartid,<sp/>riscv_dtb);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/init/vm.c"/>
+  </compounddef>
+</doxygen>

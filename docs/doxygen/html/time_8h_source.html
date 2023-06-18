@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/include/os/time.h 源文件</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('time_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">time.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="time_8h.html">浏览该文件的文档.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="list_8h.html">lib/list.h</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="time_8h.html#a78681f91a4ca23ff381300a0f8724c90">    5</a></span>&#160;<span class="preprocessor">#define TICKS_INTERVAL 100000</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="time_8h.html#a296b7cbcbec259fee56864f17ad46ed5">    6</a></span>&#160;<span class="preprocessor">#define TIME_BASE_DEFAULT 10000000</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="time_8h.html#a847b99b287f7c6555ab0f1cb4ed52119">    7</a></span>&#160;<span class="preprocessor">#define TIME_INTERVAL TIME_BASE_DEFAULT / TICKS_INTERVAL</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="structtime__val.html">    9</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structtime__val.html">time_val</a> {</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="structtime__val.html#a0f46e955395beddba4bdf26e260c1920">   10</a></span>&#160;    <a class="code" href="types_8h.html#ae8cc8cff200b2e06c869444802cbba84">__kernel_time64_t</a> <a class="code" href="structtime__val.html#a0f46e955395beddba4bdf26e260c1920">sec</a>; <span class="comment">// 自 Unix 纪元起的秒数</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="structtime__val.html#a5673cd026ac38c05ef649b20990f975f">   11</a></span>&#160;    <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code" href="structtime__val.html#a5673cd026ac38c05ef649b20990f975f">usec</a>;        <span class="comment">// 微秒数</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">   12</a></span>&#160;} <a class="code" href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="time_8h.html#a7dd29374115d5c9b3750fbbf9a325963">   14</a></span>&#160;<span class="preprocessor">#define __kernel_timeval_t time_val_t</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structnanotime__val.html">   16</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structnanotime__val.html">nanotime_val</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structnanotime__val.html#a46e99a6ed5552516ffc814a3b0b2c81a">   17</a></span>&#160;    <a class="code" href="types_8h.html#ae8cc8cff200b2e06c869444802cbba84">__kernel_time64_t</a> <a class="code" href="structnanotime__val.html#a46e99a6ed5552516ffc814a3b0b2c81a">sec</a>;  <span class="comment">// 自 Unix 纪元起的秒数</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="structnanotime__val.html#af6a5bbbd8b3afe6517daff0d2ff0f0e8">   18</a></span>&#160;    <a class="code" href="types_8h.html#ae8cc8cff200b2e06c869444802cbba84">__kernel_time64_t</a> <a class="code" href="structnanotime__val.html#af6a5bbbd8b3afe6517daff0d2ff0f0e8">nsec</a>; <span class="comment">// 微秒数</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">   19</a></span>&#160;} <a class="code" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structtms.html">   21</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structtms.html">tms</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="structtms.html#a4e69f8c6ac77f57f15f9c712c82ae1b1">   22</a></span>&#160;    <a class="code" href="types_8h.html#a51c032d75ce7eda10961bee8c5b5589f">__kernel_clock_t</a> <a class="code" href="structtms.html#a4e69f8c6ac77f57f15f9c712c82ae1b1">tms_utime</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="structtms.html#aedfe14156d5942c15505cf7046f7dcef">   23</a></span>&#160;    <a class="code" href="types_8h.html#a51c032d75ce7eda10961bee8c5b5589f">__kernel_clock_t</a> <a class="code" href="structtms.html#aedfe14156d5942c15505cf7046f7dcef">tms_stime</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="structtms.html#ae07749ecba0207ca1c4fe46d404d8647">   24</a></span>&#160;    <a class="code" href="types_8h.html#a51c032d75ce7eda10961bee8c5b5589f">__kernel_clock_t</a> <a class="code" href="structtms.html#ae07749ecba0207ca1c4fe46d404d8647">tms_cutime</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structtms.html#a25b61c3e117430c84ffa08977478592f">   25</a></span>&#160;    <a class="code" href="types_8h.html#a51c032d75ce7eda10961bee8c5b5589f">__kernel_clock_t</a> <a class="code" href="structtms.html#a25b61c3e117430c84ffa08977478592f">tms_cstime</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="time_8h.html#ab9d02468772a025e2461930c437575bc">   26</a></span>&#160;} <a class="code" href="time_8h.html#ab9d02468772a025e2461930c437575bc">tms_t</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structtimezone.html">   28</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structtimezone.html">timezone</a> {</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="structtimezone.html#a3042f7eff6e1b980728def76b1fa0eb7">   29</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structtimezone.html#a3042f7eff6e1b980728def76b1fa0eb7">tz_minuteswest</a>; <span class="comment">/* minutes west of Greenwich */</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structtimezone.html#a85259977aeb63b17e6ce94f19afdfd99">   30</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structtimezone.html#a85259977aeb63b17e6ce94f19afdfd99">tz_dsttime</a>;     <span class="comment">/* type of dst correction */</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="time_8h.html#aeb9dc63fd2475889cae0920118e87f81">   31</a></span>&#160;} <a class="code" href="time_8h.html#aeb9dc63fd2475889cae0920118e87f81">timezone_t</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="structpcbtimer.html">   33</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structpcbtimer.html">pcbtimer</a> {</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="structpcbtimer.html#a8de809b1b2e7923768e30bfc175dca83">   34</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="structpcbtimer.html#a8de809b1b2e7923768e30bfc175dca83">initialized</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="structpcbtimer.html#acbc6f8ade72c982b355a75a376dc1f84">   35</a></span>&#160;    <a class="code" href="structnanotime__val.html">nanotime_val_t</a> <a class="code" href="structpcbtimer.html#acbc6f8ade72c982b355a75a376dc1f84">start_time</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="structpcbtimer.html#afe1272eacb16ce7bb0f4476f9bae8c7f">   36</a></span>&#160;    <a class="code" href="structnanotime__val.html">nanotime_val_t</a> <a class="code" href="structpcbtimer.html#afe1272eacb16ce7bb0f4476f9bae8c7f">end_time</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structpcbtimer.html#ae941d0e400394eefca4d2dfb3b75e522">   37</a></span>&#160;    <a class="code" href="structnanotime__val.html">nanotime_val_t</a> *<a class="code" href="structpcbtimer.html#ae941d0e400394eefca4d2dfb3b75e522">remain_time</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="time_8h.html#aaef0b24ca7d5e8fb6e81c08184b23e98">   38</a></span>&#160;} <a class="code" href="time_8h.html#aaef0b24ca7d5e8fb6e81c08184b23e98">pcbtimer_t</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">extern</span> uint32_t <a class="code" href="time_8h.html#a7a54d04596d6bde610b1b8ae299e947e">time_base</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">extern</span> uint64_t <a class="code" href="time_8h.html#ab320f26aea896e624e2be00b73604c2b">time_elapsed</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">extern</span> <a class="code" href="structlist__node.html">list_head</a> <a class="code" href="time_8h.html#a0bbed12ae35f0784a3f7d9c29e283ea2">timers</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;uint64_t <a class="code" href="time_8h.html#ae22885f7b30f2ac1fefb29305dfe6a9c">k_time_get_times_base</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">long</span> <a class="code" href="time_8h.html#a74c6574a43231a37176bb2156bfc4ee7">k_time_get_ticks</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> <a class="code" href="time_8h.html#af8db0b39aba068a0ee578c93ab788039">k_time_nano_u_time_converter</a>(<a class="code" href="structnanotime__val.html">nanotime_val_t</a> *nanotime, <a class="code" href="structtime__val.html">time_val_t</a> *utime, <span class="keywordtype">bool</span> direction);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">void</span> <a class="code" href="time_8h.html#a723c6615d70bae09da02cb9d16344ee4">k_time_get_nanotime</a>(<a class="code" href="structnanotime__val.html">nanotime_val_t</a> *ntimebuf);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;uint64_t <a class="code" href="time_8h.html#a444571cbcd4c1d24b059811d270b97f6">k_time_get_ticks_from_nanotime</a>(<a class="code" href="structnanotime__val.html">nanotime_val_t</a> *ntimebuf);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">void</span> <a class="code" href="time_8h.html#af48446b81ab12ddd069c57e3a0d757b5">k_time_copy_nanotime</a>(<a class="code" href="structnanotime__val.html">nanotime_val_t</a> *src, <a class="code" href="structnanotime__val.html">nanotime_val_t</a> *dst);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">void</span> <a class="code" href="time_8h.html#abb6ccf4f333a67368ff2709e1defb61d">k_time_minus_nanotime</a>(<a class="code" href="structnanotime__val.html">nanotime_val_t</a> *first, <a class="code" href="structnanotime__val.html">nanotime_val_t</a> *sec, <a class="code" href="structnanotime__val.html">nanotime_val_t</a> *res);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">void</span> <a class="code" href="time_8h.html#a0190f196ef401ddd8e6dcd075cab531c">k_time_add_nanotime</a>(<a class="code" href="structnanotime__val.html">nanotime_val_t</a> *first, <a class="code" href="structnanotime__val.html">nanotime_val_t</a> *sec, <a class="code" href="structnanotime__val.html">nanotime_val_t</a> *res);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">int</span> <a class="code" href="time_8h.html#a7fe46bf79cad6f526d80bae9f12d7eb6">k_time_cmp_nanotime</a>(<a class="code" href="structnanotime__val.html">nanotime_val_t</a> *first, <a class="code" href="structnanotime__val.html">nanotime_val_t</a> *sec);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keywordtype">void</span> <a class="code" href="time_8h.html#afc69ba2cb0405d6e9b69eef60607f46c">k_time_get_utime</a>(<a class="code" href="structtime__val.html">time_val_t</a> *ntimebuf);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;uint64_t <a class="code" href="time_8h.html#ab5bf28d945be01eed14d8195c0f01537">k_time_get_ticks_from_time</a>(<a class="code" href="structtime__val.html">time_val_t</a> *timebuf);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keywordtype">void</span> <a class="code" href="time_8h.html#aeffb4fbc5ea000e6ffe358743d817991">k_time_copy_utime</a>(<a class="code" href="structtime__val.html">time_val_t</a> *src, <a class="code" href="structtime__val.html">time_val_t</a> *dst);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keywordtype">void</span> <a class="code" href="time_8h.html#a06a1833ccbcd5cc6f6629b246f6dfe61">k_time_minus_utime</a>(<a class="code" href="structtime__val.html">time_val_t</a> *first, <a class="code" href="structtime__val.html">time_val_t</a> *sec, <a class="code" href="structtime__val.html">time_val_t</a> *res);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keywordtype">void</span> <a class="code" href="time_8h.html#a003938989bcf21f9ae02af2585f9f3d2">k_time_add_utime</a>(<a class="code" href="structtime__val.html">time_val_t</a> *first, <a class="code" href="structtime__val.html">time_val_t</a> *sec, <a class="code" href="structtime__val.html">time_val_t</a> *res);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">int</span> <a class="code" href="time_8h.html#aefc71d72ca052fee32f1faa93f6a8a6e">k_time_cmp_utime</a>(<a class="code" href="structtime__val.html">time_val_t</a> *first, <a class="code" href="structtime__val.html">time_val_t</a> *sec);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keywordtype">long</span> <a class="code" href="time_8h.html#ad2a439cbb73c16f491163cdb4010c50d">sys_time</a>(<a class="code" href="types_8h.html#a46b18e17fe5ee9ab433cec7e1ec8f295">__kernel_time_t</a> *tloc);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keywordtype">long</span> <a class="code" href="time_8h.html#ac1449f007c2a4c074678ac82b7e761c8">sys_times</a>(<a class="code" href="structtms.html">tms_t</a> *tbuf);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">long</span> <a class="code" href="time_8h.html#ac0a572ef7aa1434e5a31bd166120f0f3">sys_gettimeofday</a>(<a class="code" href="structtime__val.html">time_val_t</a> *tv, <a class="code" href="structtimezone.html">timezone_t</a> *tz);</div>
+<div class="ttc" id="alist_8h_html"><div class="ttname"><a href="list_8h.html">list.h</a></div></div>
+<div class="ttc" id="astructlist__node_html"><div class="ttname"><a href="structlist__node.html">list_node</a></div><div class="ttdef"><b>Definition:</b> list.h:7</div></div>
+<div class="ttc" id="astructnanotime__val_html"><div class="ttname"><a href="structnanotime__val.html">nanotime_val</a></div><div class="ttdef"><b>Definition:</b> time.h:16</div></div>
+<div class="ttc" id="astructnanotime__val_html_a46e99a6ed5552516ffc814a3b0b2c81a"><div class="ttname"><a href="structnanotime__val.html#a46e99a6ed5552516ffc814a3b0b2c81a">nanotime_val::sec</a></div><div class="ttdeci">__kernel_time64_t sec</div><div class="ttdef"><b>Definition:</b> time.h:17</div></div>
+<div class="ttc" id="astructnanotime__val_html_af6a5bbbd8b3afe6517daff0d2ff0f0e8"><div class="ttname"><a href="structnanotime__val.html#af6a5bbbd8b3afe6517daff0d2ff0f0e8">nanotime_val::nsec</a></div><div class="ttdeci">__kernel_time64_t nsec</div><div class="ttdef"><b>Definition:</b> time.h:18</div></div>
+<div class="ttc" id="astructpcbtimer_html"><div class="ttname"><a href="structpcbtimer.html">pcbtimer</a></div><div class="ttdef"><b>Definition:</b> time.h:33</div></div>
+<div class="ttc" id="astructpcbtimer_html_a8de809b1b2e7923768e30bfc175dca83"><div class="ttname"><a href="structpcbtimer.html#a8de809b1b2e7923768e30bfc175dca83">pcbtimer::initialized</a></div><div class="ttdeci">bool initialized</div><div class="ttdef"><b>Definition:</b> time.h:34</div></div>
+<div class="ttc" id="astructpcbtimer_html_acbc6f8ade72c982b355a75a376dc1f84"><div class="ttname"><a href="structpcbtimer.html#acbc6f8ade72c982b355a75a376dc1f84">pcbtimer::start_time</a></div><div class="ttdeci">nanotime_val_t start_time</div><div class="ttdef"><b>Definition:</b> time.h:35</div></div>
+<div class="ttc" id="astructpcbtimer_html_ae941d0e400394eefca4d2dfb3b75e522"><div class="ttname"><a href="structpcbtimer.html#ae941d0e400394eefca4d2dfb3b75e522">pcbtimer::remain_time</a></div><div class="ttdeci">nanotime_val_t * remain_time</div><div class="ttdef"><b>Definition:</b> time.h:37</div></div>
+<div class="ttc" id="astructpcbtimer_html_afe1272eacb16ce7bb0f4476f9bae8c7f"><div class="ttname"><a href="structpcbtimer.html#afe1272eacb16ce7bb0f4476f9bae8c7f">pcbtimer::end_time</a></div><div class="ttdeci">nanotime_val_t end_time</div><div class="ttdef"><b>Definition:</b> time.h:36</div></div>
+<div class="ttc" id="astructtime__val_html"><div class="ttname"><a href="structtime__val.html">time_val</a></div><div class="ttdef"><b>Definition:</b> time.h:9</div></div>
+<div class="ttc" id="astructtime__val_html_a0f46e955395beddba4bdf26e260c1920"><div class="ttname"><a href="structtime__val.html#a0f46e955395beddba4bdf26e260c1920">time_val::sec</a></div><div class="ttdeci">__kernel_time64_t sec</div><div class="ttdef"><b>Definition:</b> time.h:10</div></div>
+<div class="ttc" id="astructtime__val_html_a5673cd026ac38c05ef649b20990f975f"><div class="ttname"><a href="structtime__val.html#a5673cd026ac38c05ef649b20990f975f">time_val::usec</a></div><div class="ttdeci">long long usec</div><div class="ttdef"><b>Definition:</b> time.h:11</div></div>
+<div class="ttc" id="astructtimezone_html"><div class="ttname"><a href="structtimezone.html">timezone</a></div><div class="ttdef"><b>Definition:</b> time.h:28</div></div>
+<div class="ttc" id="astructtimezone_html_a3042f7eff6e1b980728def76b1fa0eb7"><div class="ttname"><a href="structtimezone.html#a3042f7eff6e1b980728def76b1fa0eb7">timezone::tz_minuteswest</a></div><div class="ttdeci">int tz_minuteswest</div><div class="ttdef"><b>Definition:</b> time.h:29</div></div>
+<div class="ttc" id="astructtimezone_html_a85259977aeb63b17e6ce94f19afdfd99"><div class="ttname"><a href="structtimezone.html#a85259977aeb63b17e6ce94f19afdfd99">timezone::tz_dsttime</a></div><div class="ttdeci">int tz_dsttime</div><div class="ttdef"><b>Definition:</b> time.h:30</div></div>
+<div class="ttc" id="astructtms_html"><div class="ttname"><a href="structtms.html">tms</a></div><div class="ttdef"><b>Definition:</b> time.h:21</div></div>
+<div class="ttc" id="astructtms_html_a25b61c3e117430c84ffa08977478592f"><div class="ttname"><a href="structtms.html#a25b61c3e117430c84ffa08977478592f">tms::tms_cstime</a></div><div class="ttdeci">__kernel_clock_t tms_cstime</div><div class="ttdef"><b>Definition:</b> time.h:25</div></div>
+<div class="ttc" id="astructtms_html_a4e69f8c6ac77f57f15f9c712c82ae1b1"><div class="ttname"><a href="structtms.html#a4e69f8c6ac77f57f15f9c712c82ae1b1">tms::tms_utime</a></div><div class="ttdeci">__kernel_clock_t tms_utime</div><div class="ttdef"><b>Definition:</b> time.h:22</div></div>
+<div class="ttc" id="astructtms_html_ae07749ecba0207ca1c4fe46d404d8647"><div class="ttname"><a href="structtms.html#ae07749ecba0207ca1c4fe46d404d8647">tms::tms_cutime</a></div><div class="ttdeci">__kernel_clock_t tms_cutime</div><div class="ttdef"><b>Definition:</b> time.h:24</div></div>
+<div class="ttc" id="astructtms_html_aedfe14156d5942c15505cf7046f7dcef"><div class="ttname"><a href="structtms.html#aedfe14156d5942c15505cf7046f7dcef">tms::tms_stime</a></div><div class="ttdeci">__kernel_clock_t tms_stime</div><div class="ttdef"><b>Definition:</b> time.h:23</div></div>
+<div class="ttc" id="atime_8h_html_a003938989bcf21f9ae02af2585f9f3d2"><div class="ttname"><a href="time_8h.html#a003938989bcf21f9ae02af2585f9f3d2">k_time_add_utime</a></div><div class="ttdeci">void k_time_add_utime(time_val_t *first, time_val_t *sec, time_val_t *res)</div><div class="ttdef"><b>Definition:</b> time.c:110</div></div>
+<div class="ttc" id="atime_8h_html_a0190f196ef401ddd8e6dcd075cab531c"><div class="ttname"><a href="time_8h.html#a0190f196ef401ddd8e6dcd075cab531c">k_time_add_nanotime</a></div><div class="ttdeci">void k_time_add_nanotime(nanotime_val_t *first, nanotime_val_t *sec, nanotime_val_t *res)</div><div class="ttdef"><b>Definition:</b> time.c:62</div></div>
+<div class="ttc" id="atime_8h_html_a06a1833ccbcd5cc6f6629b246f6dfe61"><div class="ttname"><a href="time_8h.html#a06a1833ccbcd5cc6f6629b246f6dfe61">k_time_minus_utime</a></div><div class="ttdeci">void k_time_minus_utime(time_val_t *first, time_val_t *sec, time_val_t *res)</div><div class="ttdef"><b>Definition:</b> time.c:100</div></div>
+<div class="ttc" id="atime_8h_html_a093648f8a2bb94f4426f2dcc6af104f8"><div class="ttname"><a href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a></div><div class="ttdeci">struct nanotime_val nanotime_val_t</div></div>
+<div class="ttc" id="atime_8h_html_a0bbed12ae35f0784a3f7d9c29e283ea2"><div class="ttname"><a href="time_8h.html#a0bbed12ae35f0784a3f7d9c29e283ea2">timers</a></div><div class="ttdeci">list_head timers</div><div class="ttdef"><b>Definition:</b> time.c:9</div></div>
+<div class="ttc" id="atime_8h_html_a36129e2fc228b3441a5a2fb11293b737"><div class="ttname"><a href="time_8h.html#a36129e2fc228b3441a5a2fb11293b737">time_val_t</a></div><div class="ttdeci">struct time_val time_val_t</div></div>
+<div class="ttc" id="atime_8h_html_a444571cbcd4c1d24b059811d270b97f6"><div class="ttname"><a href="time_8h.html#a444571cbcd4c1d24b059811d270b97f6">k_time_get_ticks_from_nanotime</a></div><div class="ttdeci">uint64_t k_time_get_ticks_from_nanotime(nanotime_val_t *ntimebuf)</div><div class="ttdef"><b>Definition:</b> time.c:42</div></div>
+<div class="ttc" id="atime_8h_html_a723c6615d70bae09da02cb9d16344ee4"><div class="ttname"><a href="time_8h.html#a723c6615d70bae09da02cb9d16344ee4">k_time_get_nanotime</a></div><div class="ttdeci">void k_time_get_nanotime(nanotime_val_t *ntimebuf)</div><div class="ttdef"><b>Definition:</b> time.c:36</div></div>
+<div class="ttc" id="atime_8h_html_a74c6574a43231a37176bb2156bfc4ee7"><div class="ttname"><a href="time_8h.html#a74c6574a43231a37176bb2156bfc4ee7">k_time_get_ticks</a></div><div class="ttdeci">long k_time_get_ticks(void)</div><div class="ttdef"><b>Definition:</b> time.c:13</div></div>
+<div class="ttc" id="atime_8h_html_a7a54d04596d6bde610b1b8ae299e947e"><div class="ttname"><a href="time_8h.html#a7a54d04596d6bde610b1b8ae299e947e">time_base</a></div><div class="ttdeci">uint32_t time_base</div><div class="ttdef"><b>Definition:</b> time.c:7</div></div>
+<div class="ttc" id="atime_8h_html_a7fe46bf79cad6f526d80bae9f12d7eb6"><div class="ttname"><a href="time_8h.html#a7fe46bf79cad6f526d80bae9f12d7eb6">k_time_cmp_nanotime</a></div><div class="ttdeci">int k_time_cmp_nanotime(nanotime_val_t *first, nanotime_val_t *sec)</div><div class="ttdef"><b>Definition:</b> time.c:68</div></div>
+<div class="ttc" id="atime_8h_html_aaef0b24ca7d5e8fb6e81c08184b23e98"><div class="ttname"><a href="time_8h.html#aaef0b24ca7d5e8fb6e81c08184b23e98">pcbtimer_t</a></div><div class="ttdeci">struct pcbtimer pcbtimer_t</div></div>
+<div class="ttc" id="atime_8h_html_ab320f26aea896e624e2be00b73604c2b"><div class="ttname"><a href="time_8h.html#ab320f26aea896e624e2be00b73604c2b">time_elapsed</a></div><div class="ttdeci">uint64_t time_elapsed</div><div class="ttdef"><b>Definition:</b> time.c:8</div></div>
+<div class="ttc" id="atime_8h_html_ab5bf28d945be01eed14d8195c0f01537"><div class="ttname"><a href="time_8h.html#ab5bf28d945be01eed14d8195c0f01537">k_time_get_ticks_from_time</a></div><div class="ttdeci">uint64_t k_time_get_ticks_from_time(time_val_t *timebuf)</div><div class="ttdef"><b>Definition:</b> time.c:90</div></div>
+<div class="ttc" id="atime_8h_html_ab9d02468772a025e2461930c437575bc"><div class="ttname"><a href="time_8h.html#ab9d02468772a025e2461930c437575bc">tms_t</a></div><div class="ttdeci">struct tms tms_t</div></div>
+<div class="ttc" id="atime_8h_html_abb6ccf4f333a67368ff2709e1defb61d"><div class="ttname"><a href="time_8h.html#abb6ccf4f333a67368ff2709e1defb61d">k_time_minus_nanotime</a></div><div class="ttdeci">void k_time_minus_nanotime(nanotime_val_t *first, nanotime_val_t *sec, nanotime_val_t *res)</div><div class="ttdef"><b>Definition:</b> time.c:52</div></div>
+<div class="ttc" id="atime_8h_html_ac0a572ef7aa1434e5a31bd166120f0f3"><div class="ttname"><a href="time_8h.html#ac0a572ef7aa1434e5a31bd166120f0f3">sys_gettimeofday</a></div><div class="ttdeci">long sys_gettimeofday(time_val_t *tv, timezone_t *tz)</div><div class="ttdef"><b>Definition:</b> time.c:153</div></div>
+<div class="ttc" id="atime_8h_html_ac1449f007c2a4c074678ac82b7e761c8"><div class="ttname"><a href="time_8h.html#ac1449f007c2a4c074678ac82b7e761c8">sys_times</a></div><div class="ttdeci">long sys_times(tms_t *tbuf)</div><div class="ttdef"><b>Definition:</b> time.c:138</div></div>
+<div class="ttc" id="atime_8h_html_ad2a439cbb73c16f491163cdb4010c50d"><div class="ttname"><a href="time_8h.html#ad2a439cbb73c16f491163cdb4010c50d">sys_time</a></div><div class="ttdeci">long sys_time(__kernel_time_t *tloc)</div><div class="ttdef"><b>Definition:</b> time.c:132</div></div>
+<div class="ttc" id="atime_8h_html_ae22885f7b30f2ac1fefb29305dfe6a9c"><div class="ttname"><a href="time_8h.html#ae22885f7b30f2ac1fefb29305dfe6a9c">k_time_get_times_base</a></div><div class="ttdeci">uint64_t k_time_get_times_base()</div><div class="ttdef"><b>Definition:</b> time.c:22</div></div>
+<div class="ttc" id="atime_8h_html_aeb9dc63fd2475889cae0920118e87f81"><div class="ttname"><a href="time_8h.html#aeb9dc63fd2475889cae0920118e87f81">timezone_t</a></div><div class="ttdeci">struct timezone timezone_t</div></div>
+<div class="ttc" id="atime_8h_html_aefc71d72ca052fee32f1faa93f6a8a6e"><div class="ttname"><a href="time_8h.html#aefc71d72ca052fee32f1faa93f6a8a6e">k_time_cmp_utime</a></div><div class="ttdeci">int k_time_cmp_utime(time_val_t *first, time_val_t *sec)</div><div class="ttdef"><b>Definition:</b> time.c:116</div></div>
+<div class="ttc" id="atime_8h_html_aeffb4fbc5ea000e6ffe358743d817991"><div class="ttname"><a href="time_8h.html#aeffb4fbc5ea000e6ffe358743d817991">k_time_copy_utime</a></div><div class="ttdeci">void k_time_copy_utime(time_val_t *src, time_val_t *dst)</div><div class="ttdef"><b>Definition:</b> time.c:95</div></div>
+<div class="ttc" id="atime_8h_html_af48446b81ab12ddd069c57e3a0d757b5"><div class="ttname"><a href="time_8h.html#af48446b81ab12ddd069c57e3a0d757b5">k_time_copy_nanotime</a></div><div class="ttdeci">void k_time_copy_nanotime(nanotime_val_t *src, nanotime_val_t *dst)</div><div class="ttdef"><b>Definition:</b> time.c:47</div></div>
+<div class="ttc" id="atime_8h_html_af8db0b39aba068a0ee578c93ab788039"><div class="ttname"><a href="time_8h.html#af8db0b39aba068a0ee578c93ab788039">k_time_nano_u_time_converter</a></div><div class="ttdeci">void k_time_nano_u_time_converter(nanotime_val_t *nanotime, time_val_t *utime, bool direction)</div><div class="ttdef"><b>Definition:</b> time.c:26</div></div>
+<div class="ttc" id="atime_8h_html_afc69ba2cb0405d6e9b69eef60607f46c"><div class="ttname"><a href="time_8h.html#afc69ba2cb0405d6e9b69eef60607f46c">k_time_get_utime</a></div><div class="ttdeci">void k_time_get_utime(time_val_t *ntimebuf)</div><div class="ttdef"><b>Definition:</b> time.c:84</div></div>
+<div class="ttc" id="atypes_8h_html_a46b18e17fe5ee9ab433cec7e1ec8f295"><div class="ttname"><a href="types_8h.html#a46b18e17fe5ee9ab433cec7e1ec8f295">__kernel_time_t</a></div><div class="ttdeci">__kernel_long_t __kernel_time_t</div><div class="ttdef"><b>Definition:</b> types.h:148</div></div>
+<div class="ttc" id="atypes_8h_html_a51c032d75ce7eda10961bee8c5b5589f"><div class="ttname"><a href="types_8h.html#a51c032d75ce7eda10961bee8c5b5589f">__kernel_clock_t</a></div><div class="ttdeci">__kernel_long_t __kernel_clock_t</div><div class="ttdef"><b>Definition:</b> types.h:150</div></div>
+<div class="ttc" id="atypes_8h_html_ae8cc8cff200b2e06c869444802cbba84"><div class="ttname"><a href="types_8h.html#ae8cc8cff200b2e06c869444802cbba84">__kernel_time64_t</a></div><div class="ttdeci">long long __kernel_time64_t</div><div class="ttdef"><b>Definition:</b> types.h:149</div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_adcb960af7f29dc0d179d1c8c5d4a40a.html">os</a></li><li class="navelem"><a class="el" href="time_8h.html">time.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

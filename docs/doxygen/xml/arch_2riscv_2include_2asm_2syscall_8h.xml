@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="arch_2riscv_2include_2asm_2syscall_8h" kind="file" language="C++">
+    <compoundname>syscall.h</compoundname>
+    <includes refid="context_8h" local="no">asm/context.h</includes>
+    <includes refid="syscall__number_8h" local="no">uapi/syscall_number.h</includes>
+    <includedby refid="syscall_8c" local="no">src/arch/riscv/kernel/sys/syscall.c</includedby>
+    <includedby refid="irq_8c" local="no">src/kernel/irq/irq.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>src/arch/riscv/include/asm/syscall.h</label>
+        <link refid="arch_2riscv_2include_2asm_2syscall_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>uapi/syscall_number.h</label>
+        <link refid="syscall__number_8h"/>
+      </node>
+      <node id="4">
+        <label>common/errno.h</label>
+        <link refid="errno_8h"/>
+      </node>
+      <node id="2">
+        <label>asm/context.h</label>
+        <link refid="context_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>common/types.h</label>
+        <link refid="types_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>src/arch/riscv/include/asm/syscall.h</label>
+        <link refid="arch_2riscv_2include_2asm_2syscall_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/arch/riscv/kernel/sys/syscall.c</label>
+        <link refid="syscall_8c"/>
+      </node>
+      <node id="3">
+        <label>src/kernel/irq/irq.c</label>
+        <link refid="irq_8c"/>
+      </node>
+    </invincdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" prot="public" static="no" mutable="no">
+        <type>long(*</type>
+        <definition>long(* syscall[NUM_SYSCALLS])()</definition>
+        <argsstring>[NUM_SYSCALLS])()</argsstring>
+        <name>syscall</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/syscall.h" line="7" column="8" bodyfile="src/arch/riscv/kernel/sys/syscall.c" bodystart="5" bodyend="-1" declfile="src/arch/riscv/include/asm/syscall.h" declline="7" declcolumn="8"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="arch_2riscv_2include_2asm_2syscall_8h_1a7d4c1c0a8e5531511ace57e76ca4cf52" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void handle_syscall_exc</definition>
+        <argsstring>(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid)</argsstring>
+        <name>handle_syscall_exc</name>
+        <param>
+          <type><ref refid="context_8h_1a2d9a070cd557ba1cedeb93d7f14abcd5" kindref="member">regs_context_t</ref> *</type>
+          <declname>regs</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>interrupt</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cause</declname>
+        </param>
+        <param>
+          <type>uint64_t</type>
+          <declname>cpuid</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/arch/riscv/include/asm/syscall.h" line="8" column="6" bodyfile="src/arch/riscv/kernel/sys/syscall.c" bodystart="7" bodyend="11" declfile="src/arch/riscv/include/asm/syscall.h" declline="8" declcolumn="6"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="context_8h" kindref="compound">asm/context.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="syscall__number_8h" kindref="compound">uapi/syscall_number.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>syscall<sp/>function<sp/>pointer<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>long<sp/>(*<ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>[<ref refid="syscall__number_8h_1a378d5f7b0a0cdc5fc21b2bea873fdeac" kindref="member">NUM_SYSCALLS</ref>])();</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1a7d4c1c0a8e5531511ace57e76ca4cf52" kindref="member">handle_syscall_exc</ref>(<ref refid="structregs__context" kindref="compound">regs_context_t</ref><sp/>*regs,<sp/>uint64_t<sp/>interrupt,<sp/>uint64_t<sp/>cause,<sp/>uint64_t<sp/>cpuid);</highlight></codeline>
+    </programlisting>
+    <location file="src/arch/riscv/include/asm/syscall.h"/>
+  </compounddef>
+</doxygen>

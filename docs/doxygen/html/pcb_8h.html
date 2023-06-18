@@ -1,0 +1,2194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: src/include/os/pcb.h 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('pcb_8h.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">类</a> &#124;
+<a href="#define-members">宏定义</a> &#124;
+<a href="#typedef-members">类型定义</a> &#124;
+<a href="#enum-members">枚举</a> &#124;
+<a href="#func-members">函数</a> &#124;
+<a href="#var-members">变量</a>  </div>
+  <div class="headertitle">
+<div class="title">pcb.h 文件参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;<a class="el" href="context_8h_source.html">asm/context.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="elf_8h_source.html">common/elf.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="list_8h_source.html">lib/list.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="cpu_8h_source.html">os/cpu.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="lock_8h_source.html">os/lock.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="mm_8h_source.html">os/mm.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="sync_8h_source.html">os/sync.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="time_8h_source.html">os/time.h</a>&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+pcb.h 的引用(Include)关系图:</div>
+<div class="dyncontent">
+<div class="center"><img src="pcb_8h__incl.png" border="0" usemap="#asrc_2include_2os_2pcb_8h" alt=""/></div>
+<map name="asrc_2include_2os_2pcb_8h" id="asrc_2include_2os_2pcb_8h">
+<area shape="rect" title=" " alt="" coords="327,5,477,32"/>
+<area shape="rect" href="context_8h.html" title=" " alt="" coords="597,229,711,256"/>
+<area shape="rect" href="elf_8h.html" title=" " alt="" coords="20,80,131,107"/>
+<area shape="rect" href="list_8h.html" title=" " alt="" coords="341,155,415,181"/>
+<area shape="rect" href="cpu_8h.html" title=" " alt="" coords="313,80,389,107"/>
+<area shape="rect" href="lock_8h.html" title=" " alt="" coords="414,80,494,107"/>
+<area shape="rect" href="mm_8h.html" title=" " alt="" coords="424,229,503,256"/>
+<area shape="rect" href="sync_8h.html" title=" " alt="" coords="518,80,601,107"/>
+<area shape="rect" href="time_8h.html" title=" " alt="" coords="155,80,238,107"/>
+<area shape="rect" href="types_8h.html" title=" " alt="" coords="206,304,337,331"/>
+<area shape="rect" href="errno_8h.html" title=" " alt="" coords="207,379,336,405"/>
+<area shape="rect" href="pgtable_8h.html" title=" " alt="" coords="18,155,133,181"/>
+<area shape="rect" href="string_8h.html" title=" " alt="" coords="226,155,317,181"/>
+<area shape="rect" href="sbi_8h.html" title=" " alt="" coords="15,229,101,256"/>
+<area shape="rect" href="sbidef_8h.html" title=" " alt="" coords="5,304,111,331"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+此图展示该文件直接或间接的被哪些文件引用了:</div>
+<div class="dyncontent">
+<div class="center"><img src="pcb_8h__dep__incl.png" border="0" usemap="#asrc_2include_2os_2pcb_8hdep" alt=""/></div>
+<map name="asrc_2include_2os_2pcb_8hdep" id="asrc_2include_2os_2pcb_8hdep">
+<area shape="rect" title=" " alt="" coords="1095,5,1246,32"/>
+<area shape="rect" href="stack_8h.html" title=" " alt="" coords="202,80,361,121"/>
+<area shape="rect" href="main_8c.html" title=" " alt="" coords="5,177,120,203"/>
+<area shape="rect" href="pcb_8c.html" title=" " alt="" coords="144,177,293,203"/>
+<area shape="rect" href="screen_8c.html" title=" " alt="" coords="633,169,770,211"/>
+<area shape="rect" href="virtio__blk_8c.html" title=" " alt="" coords="795,169,923,211"/>
+<area shape="rect" href="fd_8c.html" title=" " alt="" coords="1424,87,1509,114"/>
+<area shape="rect" href="fs_8c.html" title=" " alt="" coords="1534,87,1618,114"/>
+<area shape="rect" href="irq_8h.html" title=" " alt="" coords="627,87,771,114"/>
+<area shape="rect" href="smp_8c.html" title=" " alt="" coords="1293,177,1448,203"/>
+<area shape="rect" href="smp_8h.html" title=" " alt="" coords="1093,87,1248,114"/>
+<area shape="rect" href="mm_8c.html" title=" " alt="" coords="1651,177,1807,203"/>
+<area shape="rect" href="time_8c.html" title=" " alt="" coords="1831,177,1987,203"/>
+<area shape="rect" href="include_2os_2syscall_8h.html" title=" " alt="" coords="897,87,1069,114"/>
+<area shape="rect" href="lock_8c.html" title=" " alt="" coords="1642,87,1803,114"/>
+<area shape="rect" href="sync_8c.html" title=" " alt="" coords="1827,87,1991,114"/>
+<area shape="rect" href="stack_8c.html" title=" " alt="" coords="317,169,469,211"/>
+<area shape="rect" href="irq_8c.html" title=" " alt="" coords="947,177,1085,203"/>
+<area shape="rect" href="printk_8c.html" title=" " alt="" coords="493,177,608,203"/>
+<area shape="rect" href="io_8c.html" title=" " alt="" coords="1110,177,1269,203"/>
+<area shape="rect" href="plic_8c.html" title=" " alt="" coords="1472,177,1627,203"/>
+</map>
+</div>
+</div>
+<p><a href="pcb_8h_source.html">浏览源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+类</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structprior.html">prior</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html">rusage</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structpcb.html">pcb</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a9bdec823ad2bc9c3dbe8c3c96e3f9637"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a9bdec823ad2bc9c3dbe8c3c96e3f9637">NUM_MAX_PCB_NAME</a>&#160;&#160;&#160;20</td></tr>
+<tr class="separator:a9bdec823ad2bc9c3dbe8c3c96e3f9637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03193ee70511b814eb5ff595a92b6dd7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a03193ee70511b814eb5ff595a92b6dd7">NUM_MAX_PROCESS</a>&#160;&#160;&#160;16</td></tr>
+<tr class="separator:a03193ee70511b814eb5ff595a92b6dd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad907dc7ff26c1a93783a8d9acb32b5d4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ad907dc7ff26c1a93783a8d9acb32b5d4">NUM_MAX_CHILD</a>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:ad907dc7ff26c1a93783a8d9acb32b5d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac41e7a5c36c23f03748a8bbac96f4186"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ac41e7a5c36c23f03748a8bbac96f4186">NUM_MAX_CHILD_THREADS</a>&#160;&#160;&#160;5</td></tr>
+<tr class="separator:ac41e7a5c36c23f03748a8bbac96f4186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2b9c743d2373fe9432fccc8fd645f78"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#aa2b9c743d2373fe9432fccc8fd645f78">NUM_MAX_TASK</a>&#160;&#160;&#160;(1 + <a class="el" href="pcb_8h.html#ad907dc7ff26c1a93783a8d9acb32b5d4">NUM_MAX_CHILD</a> + <a class="el" href="pcb_8h.html#ac41e7a5c36c23f03748a8bbac96f4186">NUM_MAX_CHILD_THREADS</a>) * <a class="el" href="pcb_8h.html#a03193ee70511b814eb5ff595a92b6dd7">NUM_MAX_PROCESS</a></td></tr>
+<tr class="separator:aa2b9c743d2373fe9432fccc8fd645f78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae832aa43270dd8ab9653406e40ffeeda"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ae832aa43270dd8ab9653406e40ffeeda">NUM_MAX_LOCK</a>&#160;&#160;&#160;16</td></tr>
+<tr class="separator:ae832aa43270dd8ab9653406e40ffeeda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3ef89870895570461986a7b39b5609a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ac3ef89870895570461986a7b39b5609a">NUM_MAX_MBOX</a>&#160;&#160;&#160;16</td></tr>
+<tr class="separator:ac3ef89870895570461986a7b39b5609a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa288d86b242c3005425a9c0f1682544"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#afa288d86b242c3005425a9c0f1682544">WNOHANG</a>&#160;&#160;&#160;0x00000001</td></tr>
+<tr class="separator:afa288d86b242c3005425a9c0f1682544"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecac6945e3b08baa2602557c684d6bfe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#aecac6945e3b08baa2602557c684d6bfe">WUNTRACED</a>&#160;&#160;&#160;0x00000002</td></tr>
+<tr class="separator:aecac6945e3b08baa2602557c684d6bfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34c9a2f671a03d4523a4e7d9642f908f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a34c9a2f671a03d4523a4e7d9642f908f">WSTOPPED</a>&#160;&#160;&#160;<a class="el" href="pcb_8h.html#aecac6945e3b08baa2602557c684d6bfe">WUNTRACED</a></td></tr>
+<tr class="separator:a34c9a2f671a03d4523a4e7d9642f908f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a004990811e046790b928dbc7787ecfaa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a004990811e046790b928dbc7787ecfaa">WEXITED</a>&#160;&#160;&#160;0x00000004</td></tr>
+<tr class="separator:a004990811e046790b928dbc7787ecfaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcc090a70f53d677b748f4b1a4b896e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#afcc090a70f53d677b748f4b1a4b896e6">WCONTINUED</a>&#160;&#160;&#160;0x00000008</td></tr>
+<tr class="separator:afcc090a70f53d677b748f4b1a4b896e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68e8ee6dc7b0115ddc033d974792fa94"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a68e8ee6dc7b0115ddc033d974792fa94">WNOWAIT</a>&#160;&#160;&#160;0x01000000 /* Don't reap, just poll status.  */</td></tr>
+<tr class="separator:a68e8ee6dc7b0115ddc033d974792fa94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69a860b0c285406ef7da344394314fb9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a69a860b0c285406ef7da344394314fb9">__WNOTHREAD</a>&#160;&#160;&#160;0x20000000 /* Don't wait on children of other threads in this group */</td></tr>
+<tr class="separator:a69a860b0c285406ef7da344394314fb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fd14a22366abb406582723ffe7b46cb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a7fd14a22366abb406582723ffe7b46cb">__WALL</a>&#160;&#160;&#160;0x40000000      /* Wait on all children, regardless of <a class="el" href="fat32_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a> */</td></tr>
+<tr class="separator:a7fd14a22366abb406582723ffe7b46cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b7f0251afca5fe5bdbcc570d4333b97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a7b7f0251afca5fe5bdbcc570d4333b97">__WCLONE</a>&#160;&#160;&#160;0x80000000    /* Wait only on non-SIGCHLD children */</td></tr>
+<tr class="separator:a7b7f0251afca5fe5bdbcc570d4333b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a330874f181375d361adcea23407de477"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a330874f181375d361adcea23407de477">PRIO_MIN</a>&#160;&#160;&#160;(-20)</td></tr>
+<tr class="separator:a330874f181375d361adcea23407de477"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66190d2aecfafef957fa492ce8a8c7f0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a66190d2aecfafef957fa492ce8a8c7f0">PRIO_MAX</a>&#160;&#160;&#160;20</td></tr>
+<tr class="separator:a66190d2aecfafef957fa492ce8a8c7f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5aab1c88012d4b577b034e9291e87419"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a5aab1c88012d4b577b034e9291e87419">PRIO_PROCESS</a>&#160;&#160;&#160;0</td></tr>
+<tr class="separator:a5aab1c88012d4b577b034e9291e87419"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9156ecb2854d071998278d63a107a215"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a9156ecb2854d071998278d63a107a215">PRIO_PGRP</a>&#160;&#160;&#160;1</td></tr>
+<tr class="separator:a9156ecb2854d071998278d63a107a215"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee947842544cb755f74360d1da4aa193"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#aee947842544cb755f74360d1da4aa193">PRIO_USER</a>&#160;&#160;&#160;2</td></tr>
+<tr class="separator:aee947842544cb755f74360d1da4aa193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0d79ebfece4e0d1905e40f689a3986a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ae0d79ebfece4e0d1905e40f689a3986a">CSIGNAL</a>&#160;&#160;&#160;0x000000ff              /* signal mask to be sent at exit */</td></tr>
+<tr class="separator:ae0d79ebfece4e0d1905e40f689a3986a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac07965af2ad895ca67fdc8352303fbb5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ac07965af2ad895ca67fdc8352303fbb5">CLONE_VM</a>&#160;&#160;&#160;0x00000100             /* set if VM shared between processes */</td></tr>
+<tr class="separator:ac07965af2ad895ca67fdc8352303fbb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf70cffabfa4515feef97f66bae6a5c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#abf70cffabfa4515feef97f66bae6a5c7">CLONE_FS</a>&#160;&#160;&#160;0x00000200             /* set if fs info shared between processes */</td></tr>
+<tr class="separator:abf70cffabfa4515feef97f66bae6a5c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab062e8c87b92d645f7f4698a36e5b57a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ab062e8c87b92d645f7f4698a36e5b57a">CLONE_FILES</a>&#160;&#160;&#160;0x00000400          /* set if open files shared between processes */</td></tr>
+<tr class="separator:ab062e8c87b92d645f7f4698a36e5b57a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36c57614f62361d9a91c75d2ef1bf854"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a36c57614f62361d9a91c75d2ef1bf854">CLONE_SIGHAND</a>&#160;&#160;&#160;0x00000800        /* set if signal handlers and blocked signals shared */</td></tr>
+<tr class="separator:a36c57614f62361d9a91c75d2ef1bf854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc25c67d9c10a8e52067e7c53d15e5ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#acc25c67d9c10a8e52067e7c53d15e5ee">CLONE_PIDFD</a>&#160;&#160;&#160;0x00001000          /* set if a pidfd should be placed in parent */</td></tr>
+<tr class="separator:acc25c67d9c10a8e52067e7c53d15e5ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d840224e4d7734b628800b9906491fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a3d840224e4d7734b628800b9906491fe">CLONE_PTRACE</a>&#160;&#160;&#160;0x00002000         /* set if we want to let tracing continue on the child too */</td></tr>
+<tr class="separator:a3d840224e4d7734b628800b9906491fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab197605ca12b5976dac64103a5f6cccc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ab197605ca12b5976dac64103a5f6cccc">CLONE_VFORK</a>&#160;&#160;&#160;0x00004000          /* set if the parent wants the child to wake it up on mm_release */</td></tr>
+<tr class="separator:ab197605ca12b5976dac64103a5f6cccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93d70879b6c53ae3475b3241d09c4741"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a93d70879b6c53ae3475b3241d09c4741">CLONE_PARENT</a>&#160;&#160;&#160;0x00008000         /* set if we want to have the same parent as the cloner */</td></tr>
+<tr class="separator:a93d70879b6c53ae3475b3241d09c4741"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a349a1461dd7321b43878ea9ecd5be8ee"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a349a1461dd7321b43878ea9ecd5be8ee">CLONE_THREAD</a>&#160;&#160;&#160;0x00010000         /* Same thread group? */</td></tr>
+<tr class="separator:a349a1461dd7321b43878ea9ecd5be8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab02ccd05c3d9fa806d974e38a8debc4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#aab02ccd05c3d9fa806d974e38a8debc4">CLONE_NEWNS</a>&#160;&#160;&#160;0x00020000          /* New mount namespace group */</td></tr>
+<tr class="separator:aab02ccd05c3d9fa806d974e38a8debc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf7188a799214c0cc99c30dcc2594b37"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#adf7188a799214c0cc99c30dcc2594b37">CLONE_SYSVSEM</a>&#160;&#160;&#160;0x00040000        /* share system V SEM_UNDO semantics */</td></tr>
+<tr class="separator:adf7188a799214c0cc99c30dcc2594b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a977f0a84f5dd94d49fbbc0fa194e26a3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a977f0a84f5dd94d49fbbc0fa194e26a3">CLONE_SETTLS</a>&#160;&#160;&#160;0x00080000         /* create a new TLS for the child */</td></tr>
+<tr class="separator:a977f0a84f5dd94d49fbbc0fa194e26a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1373b97ed9463892bebd97c564905043"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a1373b97ed9463892bebd97c564905043">CLONE_PARENT_SETTID</a>&#160;&#160;&#160;0x00100000  /* set the TID in the parent */</td></tr>
+<tr class="separator:a1373b97ed9463892bebd97c564905043"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79914877b533fca7fbdb319640b42add"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a79914877b533fca7fbdb319640b42add">CLONE_CHILD_CLEARTID</a>&#160;&#160;&#160;0x00200000 /* clear the TID in the child */</td></tr>
+<tr class="separator:a79914877b533fca7fbdb319640b42add"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4263cd6fbfe5ed33f52e09ef24c6de58"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a4263cd6fbfe5ed33f52e09ef24c6de58">CLONE_DETACHED</a>&#160;&#160;&#160;0x00400000       /* Unused, ignored */</td></tr>
+<tr class="separator:a4263cd6fbfe5ed33f52e09ef24c6de58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29244834ccba5811ef328921a5e9a482"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a29244834ccba5811ef328921a5e9a482">CLONE_UNTRACED</a>&#160;&#160;&#160;0x00800000       /* set if the tracing process can't force <a class="el" href="pcb_8h.html#a3d840224e4d7734b628800b9906491fe">CLONE_PTRACE</a> on this <a class="el" href="pcb_8c.html#a6edad7da8809383ab626e5de7e3215a6">clone</a> */</td></tr>
+<tr class="separator:a29244834ccba5811ef328921a5e9a482"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a816767a2cd31aaac3573d5bd6e32871c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a816767a2cd31aaac3573d5bd6e32871c">CLONE_CHILD_SETTID</a>&#160;&#160;&#160;0x01000000   /* set the TID in the child */</td></tr>
+<tr class="separator:a816767a2cd31aaac3573d5bd6e32871c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d5d88148a26086567c3731e2e5e110a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a9d5d88148a26086567c3731e2e5e110a">CLONE_NEWCGROUP</a>&#160;&#160;&#160;0x02000000      /* New cgroup namespace */</td></tr>
+<tr class="separator:a9d5d88148a26086567c3731e2e5e110a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaf1addd4b1e90196d1876896c1a53c3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#afaf1addd4b1e90196d1876896c1a53c3">CLONE_NEWUTS</a>&#160;&#160;&#160;0x04000000         /* New utsname namespace */</td></tr>
+<tr class="separator:afaf1addd4b1e90196d1876896c1a53c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f702bf1b80ed7a8cef30e363a87e3e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a1f702bf1b80ed7a8cef30e363a87e3e3">CLONE_NEWIPC</a>&#160;&#160;&#160;0x08000000         /* New ipc namespace */</td></tr>
+<tr class="separator:a1f702bf1b80ed7a8cef30e363a87e3e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d697cae6f0156524a1bd7d77bcf8e87"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a5d697cae6f0156524a1bd7d77bcf8e87">CLONE_NEWUSER</a>&#160;&#160;&#160;0x10000000        /* New user namespace */</td></tr>
+<tr class="separator:a5d697cae6f0156524a1bd7d77bcf8e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa6801173606dd3492ca9061d1c4ad4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a2fa6801173606dd3492ca9061d1c4ad4">CLONE_NEWPID</a>&#160;&#160;&#160;0x20000000         /* New pid namespace */</td></tr>
+<tr class="separator:a2fa6801173606dd3492ca9061d1c4ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ba1673aa7423b46a7bcfa8f68cd2bce"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a2ba1673aa7423b46a7bcfa8f68cd2bce">CLONE_NEWNET</a>&#160;&#160;&#160;0x40000000         /* New network namespace */</td></tr>
+<tr class="separator:a2ba1673aa7423b46a7bcfa8f68cd2bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e6aada28e7b8090ed425ff96e6ac191"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a3e6aada28e7b8090ed425ff96e6ac191">CLONE_IO</a>&#160;&#160;&#160;0x80000000             /* Clone io context */</td></tr>
+<tr class="separator:a3e6aada28e7b8090ed425ff96e6ac191"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+类型定义</h2></td></tr>
+<tr class="memitem:a5410d43bb81d9e035039cdc3ce2484be"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a5410d43bb81d9e035039cdc3ce2484be">void_task</a>) ()</td></tr>
+<tr class="separator:a5410d43bb81d9e035039cdc3ce2484be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a928c9bb2819ad38b48980c1a3ec6501f"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structprior.html">prior</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a928c9bb2819ad38b48980c1a3ec6501f">prior_t</a></td></tr>
+<tr class="separator:a928c9bb2819ad38b48980c1a3ec6501f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a56d8914e799a3fccc321a984aad22f4b"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="pcb_8h.html#a095fa726e901542e80da596043d07e4b">task_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a56d8914e799a3fccc321a984aad22f4b">task_status_t</a></td></tr>
+<tr class="separator:a56d8914e799a3fccc321a984aad22f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02c2160f4d52670dcb8fdd49f0a5ffee"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="pcb_8h.html#ab8d9e3d1f9fdf95a31d7b4ce32768eab">task_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a02c2160f4d52670dcb8fdd49f0a5ffee">task_type_t</a></td></tr>
+<tr class="separator:a02c2160f4d52670dcb8fdd49f0a5ffee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01980b8e156378d98867d30058688333"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="pcb_8h.html#a63b43285903b7693f45e3699209d02ea">enqueue_way</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a01980b8e156378d98867d30058688333">enqueue_way_t</a></td></tr>
+<tr class="separator:a01980b8e156378d98867d30058688333"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b03c501b04f29e13e344d0b3514cfc5"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="pcb_8h.html#a9079e92d38879b84401289583ab9ce20">dequeue_way</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a3b03c501b04f29e13e344d0b3514cfc5">dequeue_way_t</a></td></tr>
+<tr class="separator:a3b03c501b04f29e13e344d0b3514cfc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44d797e82ea4cda687ee34355a189481"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="pcb_8h.html#a88409d37561d84ec48058b9f84bb3d5e">unblock_way</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a44d797e82ea4cda687ee34355a189481">unblock_way_t</a></td></tr>
+<tr class="separator:a44d797e82ea4cda687ee34355a189481"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0027cfcb9634c5c6b7e635485f97e249"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structrusage.html">rusage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a0027cfcb9634c5c6b7e635485f97e249">rusage_t</a></td></tr>
+<tr class="separator:a0027cfcb9634c5c6b7e635485f97e249"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c0f153d2844c3c3248a1795b159ae37"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structpcb.html">pcb</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a></td></tr>
+<tr class="separator:a3c0f153d2844c3c3248a1795b159ae37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+枚举</h2></td></tr>
+<tr class="memitem:a095fa726e901542e80da596043d07e4b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a095fa726e901542e80da596043d07e4b">task_status</a> { <a class="el" href="pcb_8h.html#a095fa726e901542e80da596043d07e4ba108284117a3f463352658a08930a3888">TASK_BLOCKED</a>
+, <a class="el" href="pcb_8h.html#a095fa726e901542e80da596043d07e4ba9bd2895158d9e7c8cf80b57659fcba50">TASK_RUNNING</a>
+, <a class="el" href="pcb_8h.html#a095fa726e901542e80da596043d07e4baebcd951a6127c3c50a4f197b2b637793">TASK_READY</a>
+, <a class="el" href="pcb_8h.html#a095fa726e901542e80da596043d07e4ba64d5f8a2cf37ebdf772858331e82a54a">TASK_EXITED</a>
+ }</td></tr>
+<tr class="separator:a095fa726e901542e80da596043d07e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8d9e3d1f9fdf95a31d7b4ce32768eab"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ab8d9e3d1f9fdf95a31d7b4ce32768eab">task_type</a> { <a class="el" href="pcb_8h.html#ab8d9e3d1f9fdf95a31d7b4ce32768eaba1c35119539940167707b99a3368764ac">KERNEL_PROCESS</a>
+, <a class="el" href="pcb_8h.html#ab8d9e3d1f9fdf95a31d7b4ce32768eabaac0a40b27514f74f1199a0951116012c">KERNEL_THREAD</a>
+, <a class="el" href="pcb_8h.html#ab8d9e3d1f9fdf95a31d7b4ce32768eaba73247b7900083fb57378cfc9ef9a3172">USER_PROCESS</a>
+, <a class="el" href="pcb_8h.html#ab8d9e3d1f9fdf95a31d7b4ce32768eabacde3f46d6fbc48d008dff6af3e00cc11">USER_THREAD</a>
+ }</td></tr>
+<tr class="separator:ab8d9e3d1f9fdf95a31d7b4ce32768eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63b43285903b7693f45e3699209d02ea"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a63b43285903b7693f45e3699209d02ea">enqueue_way</a> { <a class="el" href="pcb_8h.html#a63b43285903b7693f45e3699209d02eaa5c6945e962fca284e243730269169d5e">ENQUEUE_LIST</a>
+, <a class="el" href="pcb_8h.html#a63b43285903b7693f45e3699209d02eaa152a16c77c36dbf44d70dc9d97ede789">ENQUEUE_TIMER_LIST</a>
+ }</td></tr>
+<tr class="separator:a63b43285903b7693f45e3699209d02ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9079e92d38879b84401289583ab9ce20"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a9079e92d38879b84401289583ab9ce20">dequeue_way</a> { <a class="el" href="pcb_8h.html#a9079e92d38879b84401289583ab9ce20a3f8bf8702ce1a2d7da9a65f6cde82733">DEQUEUE_LIST</a>
+, <a class="el" href="pcb_8h.html#a9079e92d38879b84401289583ab9ce20a7e62c005c2b4584320643f010988efec">DEQUEUE_LIST_STRATEGY</a>
+ }</td></tr>
+<tr class="separator:a9079e92d38879b84401289583ab9ce20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88409d37561d84ec48058b9f84bb3d5e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a88409d37561d84ec48058b9f84bb3d5e">unblock_way</a> { <a class="el" href="pcb_8h.html#a88409d37561d84ec48058b9f84bb3d5eafe90015272c7f1d525d23cc149b123d6">UNBLOCK_TO_LIST_FRONT</a>
+, <a class="el" href="pcb_8h.html#a88409d37561d84ec48058b9f84bb3d5ea658485209c0207b8934534bd192f7e0c">UNBLOCK_TO_LIST_BACK</a>
+, <a class="el" href="pcb_8h.html#a88409d37561d84ec48058b9f84bb3d5eaad96627c69bfb0c4b0a3aff418353d48">UNBLOCK_ONLY</a>
+, <a class="el" href="pcb_8h.html#a88409d37561d84ec48058b9f84bb3d5eae79cd7b408cb9c190ad524869ef00c14">UNBLOCK_TO_LIST_STRATEGY</a>
+ }</td></tr>
+<tr class="separator:a88409d37561d84ec48058b9f84bb3d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+函数</h2></td></tr>
+<tr class="memitem:af570f8c236ff40f11e384cbe069b87b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#af570f8c236ff40f11e384cbe069b87b5">k_pcb_init</a> ()</td></tr>
+<tr class="separator:af570f8c236ff40f11e384cbe069b87b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c1b41b2da3748be99fc9cba2ffdce7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a2c1b41b2da3748be99fc9cba2ffdce7b">switch_to</a> (<a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a> *prev, <a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a> *next)</td></tr>
+<tr class="separator:a2c1b41b2da3748be99fc9cba2ffdce7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab235dcbe70f00d25d99f6d0bce4ec087"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ab235dcbe70f00d25d99f6d0bce4ec087">k_pcb_scheduler</a> (void)</td></tr>
+<tr class="separator:ab235dcbe70f00d25d99f6d0bce4ec087"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1882c01875e9da5f9fb2d3dd2b697ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ae1882c01875e9da5f9fb2d3dd2b697ec">k_pcb_block</a> (<a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> *, <a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> *queue, <a class="el" href="pcb_8h.html#a01980b8e156378d98867d30058688333">enqueue_way_t</a> way)</td></tr>
+<tr class="separator:ae1882c01875e9da5f9fb2d3dd2b697ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fe9ee993da3488530422db97ff3728a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a0fe9ee993da3488530422db97ff3728a">k_pcb_unblock</a> (<a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> *, <a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> *, <a class="el" href="pcb_8h.html#a44d797e82ea4cda687ee34355a189481">unblock_way_t</a> way)</td></tr>
+<tr class="separator:a0fe9ee993da3488530422db97ff3728a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b625fcec2c1e98ec22be164cd02315c"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a4b625fcec2c1e98ec22be164cd02315c">k_pcb_getpid</a> (void)</td></tr>
+<tr class="separator:a4b625fcec2c1e98ec22be164cd02315c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5111ec3b899498d5951050cd72bfe21b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a5111ec3b899498d5951050cd72bfe21b">k_pcb_sleep</a> (void *chan, <a class="el" href="lock_8h.html#a78e3055bd891f045188756c613a5ad92">spin_lock_t</a> *lk)</td></tr>
+<tr class="separator:a5111ec3b899498d5951050cd72bfe21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d546871750b175deb1f3c0279c64e3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a2d546871750b175deb1f3c0279c64e3f">k_pcb_wakeup</a> (void *chan)</td></tr>
+<tr class="separator:a2d546871750b175deb1f3c0279c64e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa38a6ba4849edd0e34a225dbb2975f94"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#aa38a6ba4849edd0e34a225dbb2975f94">sys_sched_yield</a> (void)</td></tr>
+<tr class="separator:aa38a6ba4849edd0e34a225dbb2975f94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85b5fc5efbbb65668438fecad67c06e4"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a85b5fc5efbbb65668438fecad67c06e4">sys_nanosleep</a> (<a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *rqtp, <a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *rmtp)</td></tr>
+<tr class="separator:a85b5fc5efbbb65668438fecad67c06e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a2119b4304437c4e3aff0e8c7484b1e"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a5a2119b4304437c4e3aff0e8c7484b1e">sys_spawn</a> (const char *file_name)</td></tr>
+<tr class="separator:a5a2119b4304437c4e3aff0e8c7484b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87598ed5f2025ad83a009b186aa28f93"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a87598ed5f2025ad83a009b186aa28f93">sys_fork</a> (void)</td></tr>
+<tr class="separator:a87598ed5f2025ad83a009b186aa28f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f26d791d6f69063f9ea40becd52e9f5"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a6f26d791d6f69063f9ea40becd52e9f5">sys_exec</a> (const char *file_name, const char *argv[], const char *envp[])</td></tr>
+<tr class="separator:a6f26d791d6f69063f9ea40becd52e9f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae34299981375e7a3b8f691b4137a8213"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ae34299981375e7a3b8f691b4137a8213">sys_execve</a> (const char *file_name, const char *argv[], const char *envp[])</td></tr>
+<tr class="separator:ae34299981375e7a3b8f691b4137a8213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe960c5f4c95cd9efa9f058741d089fa"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#afe960c5f4c95cd9efa9f058741d089fa">sys_clone</a> (unsigned long flags, void *stack, <a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a> *parent_tid, void *tls, <a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a> *child_tid)</td></tr>
+<tr class="separator:afe960c5f4c95cd9efa9f058741d089fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6bb3d2baf7ab70bf6e832bba98c5e31"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ab6bb3d2baf7ab70bf6e832bba98c5e31">sys_kill</a> (<a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a> pid)</td></tr>
+<tr class="separator:ab6bb3d2baf7ab70bf6e832bba98c5e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa97ee001038378e557b20535e2347aed"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#aa97ee001038378e557b20535e2347aed">sys_exit</a> (int error_code)</td></tr>
+<tr class="separator:aa97ee001038378e557b20535e2347aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ac8dc14c787aa11829c507e87c9b908"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a5ac8dc14c787aa11829c507e87c9b908">sys_wait4</a> (<a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a> pid, int *stat_addr, int options, <a class="el" href="pcb_8h.html#a0027cfcb9634c5c6b7e635485f97e249">rusage_t</a> *ru)</td></tr>
+<tr class="separator:a5ac8dc14c787aa11829c507e87c9b908"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70451e498144bba3b0eda268e137e3e8"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a70451e498144bba3b0eda268e137e3e8">sys_process_show</a> ()</td></tr>
+<tr class="separator:a70451e498144bba3b0eda268e137e3e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37c9544a2403eb490c70ddb6d9126030"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a37c9544a2403eb490c70ddb6d9126030">sys_setpriority</a> (int which, int who, int niceval)</td></tr>
+<tr class="separator:a37c9544a2403eb490c70ddb6d9126030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a762a6d6fd8537d9842e21faa0972abb1"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a762a6d6fd8537d9842e21faa0972abb1">sys_getpriority</a> (int which, int who)</td></tr>
+<tr class="separator:a762a6d6fd8537d9842e21faa0972abb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f6f6baa9b4585982911245d81a8aac8"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a3f6f6baa9b4585982911245d81a8aac8">sys_getpid</a> (void)</td></tr>
+<tr class="memdesc:a3f6f6baa9b4585982911245d81a8aac8"><td class="mdescLeft">&#160;</td><td class="mdescRight">[SYSCALL] getpid: get current task process id  <a href="pcb_8h.html#a3f6f6baa9b4585982911245d81a8aac8">更多...</a><br /></td></tr>
+<tr class="separator:a3f6f6baa9b4585982911245d81a8aac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab35efd726514d8af8695b21b061f9b6d"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ab35efd726514d8af8695b21b061f9b6d">sys_getppid</a> (void)</td></tr>
+<tr class="memdesc:ab35efd726514d8af8695b21b061f9b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">[SYSCALL] getppid: get parent of current task pid  <a href="pcb_8h.html#ab35efd726514d8af8695b21b061f9b6d">更多...</a><br /></td></tr>
+<tr class="separator:ab35efd726514d8af8695b21b061f9b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f073b476c8bdff4947b84817ed4582c"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a4f073b476c8bdff4947b84817ed4582c">sys_sched_setaffinity</a> (<a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a> pid, unsigned int len, const uint8_t *user_mask_ptr)</td></tr>
+<tr class="separator:a4f073b476c8bdff4947b84817ed4582c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a172a2eb43df307e23df85372199a4cda"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a172a2eb43df307e23df85372199a4cda">sys_sched_getaffinity</a> (<a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a> pid, unsigned int len, uint8_t *user_mask_ptr)</td></tr>
+<tr class="separator:a172a2eb43df307e23df85372199a4cda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+变量</h2></td></tr>
+<tr class="memitem:ad9e2ca7d2b58883e618085a8389b5b91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="sync_8h.html#a5ae9fd101e3be74a3e8fd17058edc515">pcb_mbox_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ad9e2ca7d2b58883e618085a8389b5b91">pcb_mbox</a> [<a class="el" href="pcb_8h.html#a03193ee70511b814eb5ff595a92b6dd7">NUM_MAX_PROCESS</a>]</td></tr>
+<tr class="separator:ad9e2ca7d2b58883e618085a8389b5b91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83f38b8c9da23021ed61d4031ab5aad3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a> *volatile&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a83f38b8c9da23021ed61d4031ab5aad3">current_running0</a></td></tr>
+<tr class="separator:a83f38b8c9da23021ed61d4031ab5aad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f57f427e7da8049da09de558fc72e2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a> *volatile&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a5f57f427e7da8049da09de558fc72e2d">current_running1</a></td></tr>
+<tr class="separator:a5f57f427e7da8049da09de558fc72e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a775dd48cd2188c627cbdd19b03b37212"><td class="memItemLeft" align="right" valign="top"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a> *volatile *volatile&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a775dd48cd2188c627cbdd19b03b37212">current_running</a></td></tr>
+<tr class="separator:a775dd48cd2188c627cbdd19b03b37212"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58658ee7ac1edae4ef80e87071be6b3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a58658ee7ac1edae4ef80e87071be6b3d">ready_queue</a></td></tr>
+<tr class="separator:a58658ee7ac1edae4ef80e87071be6b3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2faf8a6ddc84222929f0f6ef1a192537"><td class="memItemLeft" align="right" valign="top"><a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a2faf8a6ddc84222929f0f6ef1a192537">block_queue</a></td></tr>
+<tr class="separator:a2faf8a6ddc84222929f0f6ef1a192537"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae51cf8adc1996b94136d81150db7f4ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ae51cf8adc1996b94136d81150db7f4ea">pcb</a> [<a class="el" href="pcb_8h.html#aa2b9c743d2373fe9432fccc8fd645f78">NUM_MAX_TASK</a>]</td></tr>
+<tr class="separator:ae51cf8adc1996b94136d81150db7f4ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0430733a8767855b580810743c5fb87"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#ad0430733a8767855b580810743c5fb87">pid0_stack</a></td></tr>
+<tr class="separator:ad0430733a8767855b580810743c5fb87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2480c4e3f86ff7b2575b89ef69e97355"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a2480c4e3f86ff7b2575b89ef69e97355">pid0_stack2</a></td></tr>
+<tr class="separator:a2480c4e3f86ff7b2575b89ef69e97355"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaefceaf10125be70ceac97d46a4f2bc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#aaefceaf10125be70ceac97d46a4f2bc3">pid0_pcb</a></td></tr>
+<tr class="separator:aaefceaf10125be70ceac97d46a4f2bc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8176d551abe4fa60c56659184e032ab0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a8176d551abe4fa60c56659184e032ab0">pid0_pcb2</a></td></tr>
+<tr class="separator:a8176d551abe4fa60c56659184e032ab0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86b2aece801dbd55da125691aa8b73a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pcb_8h.html#a86b2aece801dbd55da125691aa8b73a7">freepid</a> [<a class="el" href="pcb_8h.html#aa2b9c743d2373fe9432fccc8fd645f78">NUM_MAX_TASK</a>]</td></tr>
+<tr class="separator:a86b2aece801dbd55da125691aa8b73a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a7fd14a22366abb406582723ffe7b46cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fd14a22366abb406582723ffe7b46cb">&#9670;&nbsp;</a></span>__WALL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __WALL&#160;&#160;&#160;0x40000000      /* Wait on all children, regardless of <a class="el" href="fat32_8h.html#a1d127017fb298b889f4ba24752d08b8e">type</a> */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7b7f0251afca5fe5bdbcc570d4333b97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b7f0251afca5fe5bdbcc570d4333b97">&#9670;&nbsp;</a></span>__WCLONE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __WCLONE&#160;&#160;&#160;0x80000000    /* Wait only on non-SIGCHLD children */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69a860b0c285406ef7da344394314fb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69a860b0c285406ef7da344394314fb9">&#9670;&nbsp;</a></span>__WNOTHREAD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __WNOTHREAD&#160;&#160;&#160;0x20000000 /* Don't wait on children of other threads in this group */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a79914877b533fca7fbdb319640b42add"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79914877b533fca7fbdb319640b42add">&#9670;&nbsp;</a></span>CLONE_CHILD_CLEARTID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_CHILD_CLEARTID&#160;&#160;&#160;0x00200000 /* clear the TID in the child */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a816767a2cd31aaac3573d5bd6e32871c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a816767a2cd31aaac3573d5bd6e32871c">&#9670;&nbsp;</a></span>CLONE_CHILD_SETTID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_CHILD_SETTID&#160;&#160;&#160;0x01000000   /* set the TID in the child */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4263cd6fbfe5ed33f52e09ef24c6de58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4263cd6fbfe5ed33f52e09ef24c6de58">&#9670;&nbsp;</a></span>CLONE_DETACHED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_DETACHED&#160;&#160;&#160;0x00400000       /* Unused, ignored */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab062e8c87b92d645f7f4698a36e5b57a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab062e8c87b92d645f7f4698a36e5b57a">&#9670;&nbsp;</a></span>CLONE_FILES</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_FILES&#160;&#160;&#160;0x00000400          /* set if open files shared between processes */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abf70cffabfa4515feef97f66bae6a5c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf70cffabfa4515feef97f66bae6a5c7">&#9670;&nbsp;</a></span>CLONE_FS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_FS&#160;&#160;&#160;0x00000200             /* set if fs info shared between processes */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3e6aada28e7b8090ed425ff96e6ac191"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e6aada28e7b8090ed425ff96e6ac191">&#9670;&nbsp;</a></span>CLONE_IO</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_IO&#160;&#160;&#160;0x80000000             /* Clone io context */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d5d88148a26086567c3731e2e5e110a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d5d88148a26086567c3731e2e5e110a">&#9670;&nbsp;</a></span>CLONE_NEWCGROUP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_NEWCGROUP&#160;&#160;&#160;0x02000000      /* New cgroup namespace */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1f702bf1b80ed7a8cef30e363a87e3e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f702bf1b80ed7a8cef30e363a87e3e3">&#9670;&nbsp;</a></span>CLONE_NEWIPC</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_NEWIPC&#160;&#160;&#160;0x08000000         /* New ipc namespace */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2ba1673aa7423b46a7bcfa8f68cd2bce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ba1673aa7423b46a7bcfa8f68cd2bce">&#9670;&nbsp;</a></span>CLONE_NEWNET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_NEWNET&#160;&#160;&#160;0x40000000         /* New network namespace */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aab02ccd05c3d9fa806d974e38a8debc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab02ccd05c3d9fa806d974e38a8debc4">&#9670;&nbsp;</a></span>CLONE_NEWNS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_NEWNS&#160;&#160;&#160;0x00020000          /* New mount namespace group */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2fa6801173606dd3492ca9061d1c4ad4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa6801173606dd3492ca9061d1c4ad4">&#9670;&nbsp;</a></span>CLONE_NEWPID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_NEWPID&#160;&#160;&#160;0x20000000         /* New pid namespace */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d697cae6f0156524a1bd7d77bcf8e87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d697cae6f0156524a1bd7d77bcf8e87">&#9670;&nbsp;</a></span>CLONE_NEWUSER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_NEWUSER&#160;&#160;&#160;0x10000000        /* New user namespace */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afaf1addd4b1e90196d1876896c1a53c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaf1addd4b1e90196d1876896c1a53c3">&#9670;&nbsp;</a></span>CLONE_NEWUTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_NEWUTS&#160;&#160;&#160;0x04000000         /* New utsname namespace */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a93d70879b6c53ae3475b3241d09c4741"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93d70879b6c53ae3475b3241d09c4741">&#9670;&nbsp;</a></span>CLONE_PARENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_PARENT&#160;&#160;&#160;0x00008000         /* set if we want to have the same parent as the cloner */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1373b97ed9463892bebd97c564905043"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1373b97ed9463892bebd97c564905043">&#9670;&nbsp;</a></span>CLONE_PARENT_SETTID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_PARENT_SETTID&#160;&#160;&#160;0x00100000  /* set the TID in the parent */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acc25c67d9c10a8e52067e7c53d15e5ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc25c67d9c10a8e52067e7c53d15e5ee">&#9670;&nbsp;</a></span>CLONE_PIDFD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_PIDFD&#160;&#160;&#160;0x00001000          /* set if a pidfd should be placed in parent */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3d840224e4d7734b628800b9906491fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d840224e4d7734b628800b9906491fe">&#9670;&nbsp;</a></span>CLONE_PTRACE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_PTRACE&#160;&#160;&#160;0x00002000         /* set if we want to let tracing continue on the child too */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a977f0a84f5dd94d49fbbc0fa194e26a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a977f0a84f5dd94d49fbbc0fa194e26a3">&#9670;&nbsp;</a></span>CLONE_SETTLS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_SETTLS&#160;&#160;&#160;0x00080000         /* create a new TLS for the child */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a36c57614f62361d9a91c75d2ef1bf854"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36c57614f62361d9a91c75d2ef1bf854">&#9670;&nbsp;</a></span>CLONE_SIGHAND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_SIGHAND&#160;&#160;&#160;0x00000800        /* set if signal handlers and blocked signals shared */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adf7188a799214c0cc99c30dcc2594b37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf7188a799214c0cc99c30dcc2594b37">&#9670;&nbsp;</a></span>CLONE_SYSVSEM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_SYSVSEM&#160;&#160;&#160;0x00040000        /* share system V SEM_UNDO semantics */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a349a1461dd7321b43878ea9ecd5be8ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a349a1461dd7321b43878ea9ecd5be8ee">&#9670;&nbsp;</a></span>CLONE_THREAD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_THREAD&#160;&#160;&#160;0x00010000         /* Same thread group? */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a29244834ccba5811ef328921a5e9a482"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29244834ccba5811ef328921a5e9a482">&#9670;&nbsp;</a></span>CLONE_UNTRACED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_UNTRACED&#160;&#160;&#160;0x00800000       /* set if the tracing process can't force <a class="el" href="pcb_8h.html#a3d840224e4d7734b628800b9906491fe">CLONE_PTRACE</a> on this <a class="el" href="pcb_8c.html#a6edad7da8809383ab626e5de7e3215a6">clone</a> */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab197605ca12b5976dac64103a5f6cccc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab197605ca12b5976dac64103a5f6cccc">&#9670;&nbsp;</a></span>CLONE_VFORK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_VFORK&#160;&#160;&#160;0x00004000          /* set if the parent wants the child to wake it up on mm_release */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac07965af2ad895ca67fdc8352303fbb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac07965af2ad895ca67fdc8352303fbb5">&#9670;&nbsp;</a></span>CLONE_VM</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLONE_VM&#160;&#160;&#160;0x00000100             /* set if VM shared between processes */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae0d79ebfece4e0d1905e40f689a3986a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0d79ebfece4e0d1905e40f689a3986a">&#9670;&nbsp;</a></span>CSIGNAL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CSIGNAL&#160;&#160;&#160;0x000000ff              /* signal mask to be sent at exit */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad907dc7ff26c1a93783a8d9acb32b5d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad907dc7ff26c1a93783a8d9acb32b5d4">&#9670;&nbsp;</a></span>NUM_MAX_CHILD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_MAX_CHILD&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac41e7a5c36c23f03748a8bbac96f4186"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac41e7a5c36c23f03748a8bbac96f4186">&#9670;&nbsp;</a></span>NUM_MAX_CHILD_THREADS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_MAX_CHILD_THREADS&#160;&#160;&#160;5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae832aa43270dd8ab9653406e40ffeeda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae832aa43270dd8ab9653406e40ffeeda">&#9670;&nbsp;</a></span>NUM_MAX_LOCK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_MAX_LOCK&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac3ef89870895570461986a7b39b5609a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3ef89870895570461986a7b39b5609a">&#9670;&nbsp;</a></span>NUM_MAX_MBOX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_MAX_MBOX&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9bdec823ad2bc9c3dbe8c3c96e3f9637"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bdec823ad2bc9c3dbe8c3c96e3f9637">&#9670;&nbsp;</a></span>NUM_MAX_PCB_NAME</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_MAX_PCB_NAME&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a03193ee70511b814eb5ff595a92b6dd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03193ee70511b814eb5ff595a92b6dd7">&#9670;&nbsp;</a></span>NUM_MAX_PROCESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_MAX_PROCESS&#160;&#160;&#160;16</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa2b9c743d2373fe9432fccc8fd645f78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2b9c743d2373fe9432fccc8fd645f78">&#9670;&nbsp;</a></span>NUM_MAX_TASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_MAX_TASK&#160;&#160;&#160;(1 + <a class="el" href="pcb_8h.html#ad907dc7ff26c1a93783a8d9acb32b5d4">NUM_MAX_CHILD</a> + <a class="el" href="pcb_8h.html#ac41e7a5c36c23f03748a8bbac96f4186">NUM_MAX_CHILD_THREADS</a>) * <a class="el" href="pcb_8h.html#a03193ee70511b814eb5ff595a92b6dd7">NUM_MAX_PROCESS</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a66190d2aecfafef957fa492ce8a8c7f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66190d2aecfafef957fa492ce8a8c7f0">&#9670;&nbsp;</a></span>PRIO_MAX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PRIO_MAX&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a330874f181375d361adcea23407de477"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a330874f181375d361adcea23407de477">&#9670;&nbsp;</a></span>PRIO_MIN</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PRIO_MIN&#160;&#160;&#160;(-20)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9156ecb2854d071998278d63a107a215"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9156ecb2854d071998278d63a107a215">&#9670;&nbsp;</a></span>PRIO_PGRP</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PRIO_PGRP&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5aab1c88012d4b577b034e9291e87419"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aab1c88012d4b577b034e9291e87419">&#9670;&nbsp;</a></span>PRIO_PROCESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PRIO_PROCESS&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aee947842544cb755f74360d1da4aa193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee947842544cb755f74360d1da4aa193">&#9670;&nbsp;</a></span>PRIO_USER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PRIO_USER&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afcc090a70f53d677b748f4b1a4b896e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcc090a70f53d677b748f4b1a4b896e6">&#9670;&nbsp;</a></span>WCONTINUED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WCONTINUED&#160;&#160;&#160;0x00000008</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a004990811e046790b928dbc7787ecfaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a004990811e046790b928dbc7787ecfaa">&#9670;&nbsp;</a></span>WEXITED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WEXITED&#160;&#160;&#160;0x00000004</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afa288d86b242c3005425a9c0f1682544"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa288d86b242c3005425a9c0f1682544">&#9670;&nbsp;</a></span>WNOHANG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WNOHANG&#160;&#160;&#160;0x00000001</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a68e8ee6dc7b0115ddc033d974792fa94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68e8ee6dc7b0115ddc033d974792fa94">&#9670;&nbsp;</a></span>WNOWAIT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WNOWAIT&#160;&#160;&#160;0x01000000 /* Don't reap, just poll status.  */</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a34c9a2f671a03d4523a4e7d9642f908f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34c9a2f671a03d4523a4e7d9642f908f">&#9670;&nbsp;</a></span>WSTOPPED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WSTOPPED&#160;&#160;&#160;<a class="el" href="pcb_8h.html#aecac6945e3b08baa2602557c684d6bfe">WUNTRACED</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aecac6945e3b08baa2602557c684d6bfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecac6945e3b08baa2602557c684d6bfe">&#9670;&nbsp;</a></span>WUNTRACED</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WUNTRACED&#160;&#160;&#160;0x00000002</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">类型定义说明</h2>
+<a id="a3b03c501b04f29e13e344d0b3514cfc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b03c501b04f29e13e344d0b3514cfc5">&#9670;&nbsp;</a></span>dequeue_way_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="pcb_8h.html#a9079e92d38879b84401289583ab9ce20">dequeue_way</a> <a class="el" href="pcb_8h.html#a3b03c501b04f29e13e344d0b3514cfc5">dequeue_way_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a01980b8e156378d98867d30058688333"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01980b8e156378d98867d30058688333">&#9670;&nbsp;</a></span>enqueue_way_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="pcb_8h.html#a63b43285903b7693f45e3699209d02ea">enqueue_way</a> <a class="el" href="pcb_8h.html#a01980b8e156378d98867d30058688333">enqueue_way_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3c0f153d2844c3c3248a1795b159ae37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c0f153d2844c3c3248a1795b159ae37">&#9670;&nbsp;</a></span>pcb_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structpcb.html">pcb</a> <a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a928c9bb2819ad38b48980c1a3ec6501f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a928c9bb2819ad38b48980c1a3ec6501f">&#9670;&nbsp;</a></span>prior_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structprior.html">prior</a> <a class="el" href="pcb_8h.html#a928c9bb2819ad38b48980c1a3ec6501f">prior_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0027cfcb9634c5c6b7e635485f97e249"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0027cfcb9634c5c6b7e635485f97e249">&#9670;&nbsp;</a></span>rusage_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structrusage.html">rusage</a> <a class="el" href="pcb_8h.html#a0027cfcb9634c5c6b7e635485f97e249">rusage_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a56d8914e799a3fccc321a984aad22f4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a56d8914e799a3fccc321a984aad22f4b">&#9670;&nbsp;</a></span>task_status_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="pcb_8h.html#a095fa726e901542e80da596043d07e4b">task_status</a> <a class="el" href="pcb_8h.html#a56d8914e799a3fccc321a984aad22f4b">task_status_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02c2160f4d52670dcb8fdd49f0a5ffee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02c2160f4d52670dcb8fdd49f0a5ffee">&#9670;&nbsp;</a></span>task_type_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="pcb_8h.html#ab8d9e3d1f9fdf95a31d7b4ce32768eab">task_type</a> <a class="el" href="pcb_8h.html#a02c2160f4d52670dcb8fdd49f0a5ffee">task_type_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a44d797e82ea4cda687ee34355a189481"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d797e82ea4cda687ee34355a189481">&#9670;&nbsp;</a></span>unblock_way_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef enum <a class="el" href="pcb_8h.html#a88409d37561d84ec48058b9f84bb3d5e">unblock_way</a> <a class="el" href="pcb_8h.html#a44d797e82ea4cda687ee34355a189481">unblock_way_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5410d43bb81d9e035039cdc3ce2484be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5410d43bb81d9e035039cdc3ce2484be">&#9670;&nbsp;</a></span>void_task</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef void(* void_task) ()</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">枚举类型说明</h2>
+<a id="a9079e92d38879b84401289583ab9ce20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9079e92d38879b84401289583ab9ce20">&#9670;&nbsp;</a></span>dequeue_way</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="pcb_8h.html#a9079e92d38879b84401289583ab9ce20">dequeue_way</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="a9079e92d38879b84401289583ab9ce20a3f8bf8702ce1a2d7da9a65f6cde82733"></a>DEQUEUE_LIST&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9079e92d38879b84401289583ab9ce20a7e62c005c2b4584320643f010988efec"></a>DEQUEUE_LIST_STRATEGY&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a63b43285903b7693f45e3699209d02ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63b43285903b7693f45e3699209d02ea">&#9670;&nbsp;</a></span>enqueue_way</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="pcb_8h.html#a63b43285903b7693f45e3699209d02ea">enqueue_way</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="a63b43285903b7693f45e3699209d02eaa5c6945e962fca284e243730269169d5e"></a>ENQUEUE_LIST&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a63b43285903b7693f45e3699209d02eaa152a16c77c36dbf44d70dc9d97ede789"></a>ENQUEUE_TIMER_LIST&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a095fa726e901542e80da596043d07e4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a095fa726e901542e80da596043d07e4b">&#9670;&nbsp;</a></span>task_status</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="pcb_8h.html#a095fa726e901542e80da596043d07e4b">task_status</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="a095fa726e901542e80da596043d07e4ba108284117a3f463352658a08930a3888"></a>TASK_BLOCKED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a095fa726e901542e80da596043d07e4ba9bd2895158d9e7c8cf80b57659fcba50"></a>TASK_RUNNING&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a095fa726e901542e80da596043d07e4baebcd951a6127c3c50a4f197b2b637793"></a>TASK_READY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a095fa726e901542e80da596043d07e4ba64d5f8a2cf37ebdf772858331e82a54a"></a>TASK_EXITED&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="ab8d9e3d1f9fdf95a31d7b4ce32768eab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8d9e3d1f9fdf95a31d7b4ce32768eab">&#9670;&nbsp;</a></span>task_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="pcb_8h.html#ab8d9e3d1f9fdf95a31d7b4ce32768eab">task_type</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="ab8d9e3d1f9fdf95a31d7b4ce32768eaba1c35119539940167707b99a3368764ac"></a>KERNEL_PROCESS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab8d9e3d1f9fdf95a31d7b4ce32768eabaac0a40b27514f74f1199a0951116012c"></a>KERNEL_THREAD&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab8d9e3d1f9fdf95a31d7b4ce32768eaba73247b7900083fb57378cfc9ef9a3172"></a>USER_PROCESS&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab8d9e3d1f9fdf95a31d7b4ce32768eabacde3f46d6fbc48d008dff6af3e00cc11"></a>USER_THREAD&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="a88409d37561d84ec48058b9f84bb3d5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88409d37561d84ec48058b9f84bb3d5e">&#9670;&nbsp;</a></span>unblock_way</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="pcb_8h.html#a88409d37561d84ec48058b9f84bb3d5e">unblock_way</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">枚举值</th></tr><tr><td class="fieldname"><a id="a88409d37561d84ec48058b9f84bb3d5eafe90015272c7f1d525d23cc149b123d6"></a>UNBLOCK_TO_LIST_FRONT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a88409d37561d84ec48058b9f84bb3d5ea658485209c0207b8934534bd192f7e0c"></a>UNBLOCK_TO_LIST_BACK&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a88409d37561d84ec48058b9f84bb3d5eaad96627c69bfb0c4b0a3aff418353d48"></a>UNBLOCK_ONLY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a88409d37561d84ec48058b9f84bb3d5eae79cd7b408cb9c190ad524869ef00c14"></a>UNBLOCK_TO_LIST_STRATEGY&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">函数说明</h2>
+<a id="ae1882c01875e9da5f9fb2d3dd2b697ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1882c01875e9da5f9fb2d3dd2b697ec">&#9670;&nbsp;</a></span>k_pcb_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_pcb_block </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> *&#160;</td>
+          <td class="paramname"><em>pcb_node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> *&#160;</td>
+          <td class="paramname"><em>queue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pcb_8h.html#a01980b8e156378d98867d30058688333">enqueue_way_t</a>&#160;</td>
+          <td class="paramname"><em>way</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4b625fcec2c1e98ec22be164cd02315c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b625fcec2c1e98ec22be164cd02315c">&#9670;&nbsp;</a></span>k_pcb_getpid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long k_pcb_getpid </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af570f8c236ff40f11e384cbe069b87b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af570f8c236ff40f11e384cbe069b87b5">&#9670;&nbsp;</a></span>k_pcb_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_pcb_init </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab235dcbe70f00d25d99f6d0bce4ec087"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab235dcbe70f00d25d99f6d0bce4ec087">&#9670;&nbsp;</a></span>k_pcb_scheduler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long k_pcb_scheduler </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5111ec3b899498d5951050cd72bfe21b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5111ec3b899498d5951050cd72bfe21b">&#9670;&nbsp;</a></span>k_pcb_sleep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_pcb_sleep </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>chan</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="lock_8h.html#a78e3055bd891f045188756c613a5ad92">spin_lock_t</a> *&#160;</td>
+          <td class="paramname"><em>lk</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0fe9ee993da3488530422db97ff3728a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fe9ee993da3488530422db97ff3728a">&#9670;&nbsp;</a></span>k_pcb_unblock()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_pcb_unblock </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> *&#160;</td>
+          <td class="paramname"><em>from_queue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> *&#160;</td>
+          <td class="paramname"><em>to_queue</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pcb_8h.html#a44d797e82ea4cda687ee34355a189481">unblock_way_t</a>&#160;</td>
+          <td class="paramname"><em>way</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2d546871750b175deb1f3c0279c64e3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d546871750b175deb1f3c0279c64e3f">&#9670;&nbsp;</a></span>k_pcb_wakeup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void k_pcb_wakeup </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>chan</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2c1b41b2da3748be99fc9cba2ffdce7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c1b41b2da3748be99fc9cba2ffdce7b">&#9670;&nbsp;</a></span>switch_to()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void switch_to </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a> *&#160;</td>
+          <td class="paramname"><em>prev</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a> *&#160;</td>
+          <td class="paramname"><em>next</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afe960c5f4c95cd9efa9f058741d089fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe960c5f4c95cd9efa9f058741d089fa">&#9670;&nbsp;</a></span>sys_clone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_clone </td>
+          <td>(</td>
+          <td class="paramtype">unsigned long&#160;</td>
+          <td class="paramname"><em>flags</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>stack</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a> *&#160;</td>
+          <td class="paramname"><em>parent_tid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>tls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a> *&#160;</td>
+          <td class="paramname"><em>child_tid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6f26d791d6f69063f9ea40becd52e9f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f26d791d6f69063f9ea40becd52e9f5">&#9670;&nbsp;</a></span>sys_exec()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_exec </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>argv</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>envp</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae34299981375e7a3b8f691b4137a8213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae34299981375e7a3b8f691b4137a8213">&#9670;&nbsp;</a></span>sys_execve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_execve </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>argv</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>envp</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa97ee001038378e557b20535e2347aed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa97ee001038378e557b20535e2347aed">&#9670;&nbsp;</a></span>sys_exit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_exit </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>error_code</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a87598ed5f2025ad83a009b186aa28f93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87598ed5f2025ad83a009b186aa28f93">&#9670;&nbsp;</a></span>sys_fork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_fork </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3f6f6baa9b4585982911245d81a8aac8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f6f6baa9b4585982911245d81a8aac8">&#9670;&nbsp;</a></span>sys_getpid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_getpid </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>[SYSCALL] getpid: get current task process id </p>
+<dl class="section return"><dt>返回</dt><dd>long </dd></dl>
+
+</div>
+</div>
+<a id="ab35efd726514d8af8695b21b061f9b6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab35efd726514d8af8695b21b061f9b6d">&#9670;&nbsp;</a></span>sys_getppid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_getppid </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>[SYSCALL] getppid: get parent of current task pid </p>
+<dl class="section return"><dt>返回</dt><dd>long </dd></dl>
+
+</div>
+</div>
+<a id="a762a6d6fd8537d9842e21faa0972abb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a762a6d6fd8537d9842e21faa0972abb1">&#9670;&nbsp;</a></span>sys_getpriority()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_getpriority </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>which</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>who</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab6bb3d2baf7ab70bf6e832bba98c5e31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6bb3d2baf7ab70bf6e832bba98c5e31">&#9670;&nbsp;</a></span>sys_kill()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_kill </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a>&#160;</td>
+          <td class="paramname"><em>pid</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a85b5fc5efbbb65668438fecad67c06e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85b5fc5efbbb65668438fecad67c06e4">&#9670;&nbsp;</a></span>sys_nanosleep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_nanosleep </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>rqtp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="time_8h.html#a093648f8a2bb94f4426f2dcc6af104f8">nanotime_val_t</a> *&#160;</td>
+          <td class="paramname"><em>rmtp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a70451e498144bba3b0eda268e137e3e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70451e498144bba3b0eda268e137e3e8">&#9670;&nbsp;</a></span>sys_process_show()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_process_show </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a172a2eb43df307e23df85372199a4cda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a172a2eb43df307e23df85372199a4cda">&#9670;&nbsp;</a></span>sys_sched_getaffinity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_sched_getaffinity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a>&#160;</td>
+          <td class="paramname"><em>pid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>user_mask_ptr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4f073b476c8bdff4947b84817ed4582c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f073b476c8bdff4947b84817ed4582c">&#9670;&nbsp;</a></span>sys_sched_setaffinity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_sched_setaffinity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a>&#160;</td>
+          <td class="paramname"><em>pid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>user_mask_ptr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa38a6ba4849edd0e34a225dbb2975f94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa38a6ba4849edd0e34a225dbb2975f94">&#9670;&nbsp;</a></span>sys_sched_yield()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_sched_yield </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a37c9544a2403eb490c70ddb6d9126030"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37c9544a2403eb490c70ddb6d9126030">&#9670;&nbsp;</a></span>sys_setpriority()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_setpriority </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>which</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>who</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>niceval</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5a2119b4304437c4e3aff0e8c7484b1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a2119b4304437c4e3aff0e8c7484b1e">&#9670;&nbsp;</a></span>sys_spawn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_spawn </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5ac8dc14c787aa11829c507e87c9b908"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ac8dc14c787aa11829c507e87c9b908">&#9670;&nbsp;</a></span>sys_wait4()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long sys_wait4 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a>&#160;</td>
+          <td class="paramname"><em>pid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>stat_addr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>options</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="pcb_8h.html#a0027cfcb9634c5c6b7e635485f97e249">rusage_t</a> *&#160;</td>
+          <td class="paramname"><em>ru</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">变量说明</h2>
+<a id="a2faf8a6ddc84222929f0f6ef1a192537"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2faf8a6ddc84222929f0f6ef1a192537">&#9670;&nbsp;</a></span>block_queue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> block_queue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a775dd48cd2188c627cbdd19b03b37212"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a775dd48cd2188c627cbdd19b03b37212">&#9670;&nbsp;</a></span>current_running</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a>* volatile* volatile current_running</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a83f38b8c9da23021ed61d4031ab5aad3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83f38b8c9da23021ed61d4031ab5aad3">&#9670;&nbsp;</a></span>current_running0</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a>* volatile current_running0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5f57f427e7da8049da09de558fc72e2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f57f427e7da8049da09de558fc72e2d">&#9670;&nbsp;</a></span>current_running1</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a>* volatile current_running1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a86b2aece801dbd55da125691aa8b73a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86b2aece801dbd55da125691aa8b73a7">&#9670;&nbsp;</a></span>freepid</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#a288e13e815d43b06e75819f8939524df">pid_t</a> freepid[<a class="el" href="pcb_8h.html#aa2b9c743d2373fe9432fccc8fd645f78">NUM_MAX_TASK</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae51cf8adc1996b94136d81150db7f4ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae51cf8adc1996b94136d81150db7f4ea">&#9670;&nbsp;</a></span>pcb</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a> <a class="el" href="structpcb.html">pcb</a>[<a class="el" href="pcb_8h.html#aa2b9c743d2373fe9432fccc8fd645f78">NUM_MAX_TASK</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad9e2ca7d2b58883e618085a8389b5b91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9e2ca7d2b58883e618085a8389b5b91">&#9670;&nbsp;</a></span>pcb_mbox</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="sync_8h.html#a5ae9fd101e3be74a3e8fd17058edc515">pcb_mbox_t</a> <a class="el" href="structpcb__mbox.html">pcb_mbox</a>[<a class="el" href="pcb_8h.html#a03193ee70511b814eb5ff595a92b6dd7">NUM_MAX_PROCESS</a>]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaefceaf10125be70ceac97d46a4f2bc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaefceaf10125be70ceac97d46a4f2bc3">&#9670;&nbsp;</a></span>pid0_pcb</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a> pid0_pcb</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8176d551abe4fa60c56659184e032ab0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8176d551abe4fa60c56659184e032ab0">&#9670;&nbsp;</a></span>pid0_pcb2</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="pcb_8h.html#a3c0f153d2844c3c3248a1795b159ae37">pcb_t</a> pid0_pcb2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad0430733a8767855b580810743c5fb87"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0430733a8767855b580810743c5fb87">&#9670;&nbsp;</a></span>pid0_stack</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> pid0_stack</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2480c4e3f86ff7b2575b89ef69e97355"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2480c4e3f86ff7b2575b89ef69e97355">&#9670;&nbsp;</a></span>pid0_stack2</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="types_8h.html#a3f13e4d5a59d909d6303f569fe5e6524">ptr_t</a> pid0_stack2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a58658ee7ac1edae4ef80e87071be6b3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58658ee7ac1edae4ef80e87071be6b3d">&#9670;&nbsp;</a></span>ready_queue</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="list_8h.html#aa8e63a505e811a76625c05760bb04f7f">list_head</a> ready_queue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b0856f6b0d80ccb263b2f415c91f9e17.html">include</a></li><li class="navelem"><a class="el" href="dir_adcb960af7f29dc0d179d1c8c5d4a40a.html">os</a></li><li class="navelem"><a class="el" href="pcb_8h.html">pcb.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

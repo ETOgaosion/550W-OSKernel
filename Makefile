@@ -79,4 +79,7 @@ debug: qemu
 gdb:
 	$(GDB)
 
+doc:
+	doxygen Doxyfile
+
 include Makefile.in

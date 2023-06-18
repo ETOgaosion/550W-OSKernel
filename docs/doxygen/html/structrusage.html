@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>550W Document: rusage结构体 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">550W Document
+   </div>
+   <div id="projectbrief">550W, a high-end OS</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'搜索','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','搜索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('structrusage.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public 属性</a> &#124;
+<a href="structrusage-members.html">所有成员列表</a>  </div>
+  <div class="headertitle">
+<div class="title">rusage结构体 参考</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p><code>#include &lt;<a class="el" href="pcb_8h_source.html">pcb.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public 属性</h2></td></tr>
+<tr class="memitem:a20e49fe541031dd1fb3abb08c299745c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="time_8h.html#a7dd29374115d5c9b3750fbbf9a325963">__kernel_timeval_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a20e49fe541031dd1fb3abb08c299745c">ru_utime</a></td></tr>
+<tr class="separator:a20e49fe541031dd1fb3abb08c299745c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa060da934655b8e0330fd29bc2130956"><td class="memItemLeft" align="right" valign="top"><a class="el" href="time_8h.html#a7dd29374115d5c9b3750fbbf9a325963">__kernel_timeval_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#aa060da934655b8e0330fd29bc2130956">ru_stime</a></td></tr>
+<tr class="separator:aa060da934655b8e0330fd29bc2130956"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afec02a5f725f616a6e88f13e51e8584c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#afec02a5f725f616a6e88f13e51e8584c">ru_maxrss</a></td></tr>
+<tr class="separator:afec02a5f725f616a6e88f13e51e8584c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9982dce21c3f163d2e7af8ffa62114fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a9982dce21c3f163d2e7af8ffa62114fc">ru_ixrss</a></td></tr>
+<tr class="separator:a9982dce21c3f163d2e7af8ffa62114fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32d88159fc531e248707b0cce4b2282d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a32d88159fc531e248707b0cce4b2282d">ru_idrss</a></td></tr>
+<tr class="separator:a32d88159fc531e248707b0cce4b2282d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a375a1d6db120bcad8ea45f9b66a51689"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a375a1d6db120bcad8ea45f9b66a51689">ru_isrss</a></td></tr>
+<tr class="separator:a375a1d6db120bcad8ea45f9b66a51689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a420471466dce1cbd22776b8dd424a4f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a420471466dce1cbd22776b8dd424a4f2">ru_minflt</a></td></tr>
+<tr class="separator:a420471466dce1cbd22776b8dd424a4f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95b04c721fa92bbef705d18ae9abb109"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a95b04c721fa92bbef705d18ae9abb109">ru_majflt</a></td></tr>
+<tr class="separator:a95b04c721fa92bbef705d18ae9abb109"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a336e9bd6e1ccf18f34448f26424ba2cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a336e9bd6e1ccf18f34448f26424ba2cd">ru_nswap</a></td></tr>
+<tr class="separator:a336e9bd6e1ccf18f34448f26424ba2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10fed9a9d83f45cee32c003fcfa7062b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a10fed9a9d83f45cee32c003fcfa7062b">ru_inblock</a></td></tr>
+<tr class="separator:a10fed9a9d83f45cee32c003fcfa7062b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac24f6506962e272c8c75b872e739c2ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#ac24f6506962e272c8c75b872e739c2ae">ru_oublock</a></td></tr>
+<tr class="separator:ac24f6506962e272c8c75b872e739c2ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4933639bb74365bd29e8e0842b4ef000"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a4933639bb74365bd29e8e0842b4ef000">ru_msgsnd</a></td></tr>
+<tr class="separator:a4933639bb74365bd29e8e0842b4ef000"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bba3780411a23060a65632e58baa80f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a8bba3780411a23060a65632e58baa80f">ru_msgrcv</a></td></tr>
+<tr class="separator:a8bba3780411a23060a65632e58baa80f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4134bad8d6fae3423bdf36ee5921bbe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#ad4134bad8d6fae3423bdf36ee5921bbe">ru_nsignals</a></td></tr>
+<tr class="separator:ad4134bad8d6fae3423bdf36ee5921bbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d92990593d26489b756bccc6b236797"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a0d92990593d26489b756bccc6b236797">ru_nvcsw</a></td></tr>
+<tr class="separator:a0d92990593d26489b756bccc6b236797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02334bed939cf8ef245af7bdf8bedb03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrusage.html#a02334bed939cf8ef245af7bdf8bedb03">ru_nivcsw</a></td></tr>
+<tr class="separator:a02334bed939cf8ef245af7bdf8bedb03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">类成员变量说明</h2>
+<a id="a32d88159fc531e248707b0cce4b2282d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32d88159fc531e248707b0cce4b2282d">&#9670;&nbsp;</a></span>ru_idrss</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_idrss</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a10fed9a9d83f45cee32c003fcfa7062b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10fed9a9d83f45cee32c003fcfa7062b">&#9670;&nbsp;</a></span>ru_inblock</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_inblock</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a375a1d6db120bcad8ea45f9b66a51689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a375a1d6db120bcad8ea45f9b66a51689">&#9670;&nbsp;</a></span>ru_isrss</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_isrss</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9982dce21c3f163d2e7af8ffa62114fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9982dce21c3f163d2e7af8ffa62114fc">&#9670;&nbsp;</a></span>ru_ixrss</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_ixrss</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a95b04c721fa92bbef705d18ae9abb109"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95b04c721fa92bbef705d18ae9abb109">&#9670;&nbsp;</a></span>ru_majflt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_majflt</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afec02a5f725f616a6e88f13e51e8584c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afec02a5f725f616a6e88f13e51e8584c">&#9670;&nbsp;</a></span>ru_maxrss</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_maxrss</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a420471466dce1cbd22776b8dd424a4f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a420471466dce1cbd22776b8dd424a4f2">&#9670;&nbsp;</a></span>ru_minflt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_minflt</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8bba3780411a23060a65632e58baa80f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bba3780411a23060a65632e58baa80f">&#9670;&nbsp;</a></span>ru_msgrcv</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_msgrcv</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4933639bb74365bd29e8e0842b4ef000"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4933639bb74365bd29e8e0842b4ef000">&#9670;&nbsp;</a></span>ru_msgsnd</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_msgsnd</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a02334bed939cf8ef245af7bdf8bedb03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02334bed939cf8ef245af7bdf8bedb03">&#9670;&nbsp;</a></span>ru_nivcsw</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_nivcsw</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad4134bad8d6fae3423bdf36ee5921bbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4134bad8d6fae3423bdf36ee5921bbe">&#9670;&nbsp;</a></span>ru_nsignals</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_nsignals</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a336e9bd6e1ccf18f34448f26424ba2cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a336e9bd6e1ccf18f34448f26424ba2cd">&#9670;&nbsp;</a></span>ru_nswap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_nswap</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0d92990593d26489b756bccc6b236797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d92990593d26489b756bccc6b236797">&#9670;&nbsp;</a></span>ru_nvcsw</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_nvcsw</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac24f6506962e272c8c75b872e739c2ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac24f6506962e272c8c75b872e739c2ae">&#9670;&nbsp;</a></span>ru_oublock</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="types_8h.html#acb23a31fd3f12a07b990857b671d9a09">__kernel_long_t</a> rusage::ru_oublock</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa060da934655b8e0330fd29bc2130956"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa060da934655b8e0330fd29bc2130956">&#9670;&nbsp;</a></span>ru_stime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="time_8h.html#a7dd29374115d5c9b3750fbbf9a325963">__kernel_timeval_t</a> rusage::ru_stime</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a20e49fe541031dd1fb3abb08c299745c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20e49fe541031dd1fb3abb08c299745c">&#9670;&nbsp;</a></span>ru_utime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="time_8h.html#a7dd29374115d5c9b3750fbbf9a325963">__kernel_timeval_t</a> rusage::ru_utime</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<hr/>该结构体的文档由以下文件生成:<ul>
+<li>src/include/os/<a class="el" href="pcb_8h_source.html">pcb.h</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="structrusage.html">rusage</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

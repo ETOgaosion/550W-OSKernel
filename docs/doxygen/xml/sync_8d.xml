@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="sync_8d" kind="file" language="D">
+    <compoundname>sync.d</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal">sync.o:<sp/>sync.c<sp/>../../include/lib/math.h<sp/>../../include/lib/</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">.h<sp/>\</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"><sp/>../../include/common/types.h<sp/>../../include/common/errno.h<sp/>\</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><sp/>../../include/os/<ref refid="virtio__blk_8c_1a63f4138a272db1e1892f31c0f2473301" kindref="member">lock</ref>.h<sp/>../../include/lib/list.h<sp/>../../include/os/<ref refid="structpcb" kindref="compound">pcb</ref>.h<sp/>\</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/>../../arch/riscv/include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/context.h<sp/>../../include/common/elf.h<sp/>\</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><sp/>../../arch/riscv/include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/pgtable.h<sp/>\</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/>../../arch/riscv/include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/sbi.h<sp/>../../arch/riscv/include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/sbidef.h<sp/>\</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/>../../include/os/cpu.h<sp/>../../include/os/mm.h<sp/>../../include/os/sync.h<sp/>\</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/>../../include/os/time.h</highlight></codeline>
+    </programlisting>
+    <location file="src/kernel/sync/sync.d"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['iab_5fmap_5faddr_5foffset_2590',['iab_map_addr_offset',['../fs_8h.html#acc2dc61ae73011bff1251aa4452d64e7',1,'fs.h']]],
+  ['iab_5fmap_5faddr_5fsize_2591',['iab_map_addr_size',['../fs_8h.html#a0e73a14af9616cdc44cd717fe7708371',1,'fs.h']]],
+  ['id_2592',['id',['../structvring__used__area.html#a934dbd2e49f0e5e93e0fbacadfbc37c3',1,'vring_used_area::id()'],['../structbasic__info.html#a9fc747019e8cd575d37b79c5f71f5319',1,'basic_info::id()'],['../structmbox.html#aeba60a760c7d5b4aca44fee744e0c4a9',1,'mbox::id()'],['../structvring__used__elem.html#a6c72e1ef35061bac3540fc0c53377b57',1,'vring_used_elem::id()']]],
+  ['imap_5fsec_5foffset_2593',['imap_sec_offset',['../structsuper__block.html#ad3856e5948e5c1076b3d39949573970f',1,'super_block']]],
+  ['imap_5fsec_5fsize_2594',['imap_sec_size',['../structsuper__block.html#a084682df06e62212689449b747188ffa',1,'super_block']]],
+  ['in_5fuse_2595',['in_use',['../structpcb.html#aeab75f925365bc4d7a91d2e86e16108b',1,'pcb']]],
+  ['info_2596',['info',['../structdisk.html#a928468fbe367e8e7c62511a56d010f6f',1,'disk']]],
+  ['initialized_2597',['initialized',['../structmutex__lock.html#a9836b6e4156ff998fa18cddfbb32b3a4',1,'mutex_lock::initialized()'],['../structbasic__info.html#a965c707f58ce92560224db3d996b7c50',1,'basic_info::initialized()'],['../structpcbtimer.html#a8de809b1b2e7923768e30bfc175dca83',1,'pcbtimer::initialized()']]],
+  ['inode_5faddr_5foffset_2598',['inode_addr_offset',['../fs_8h.html#a71520d0a98952499ba9dbd13ea5dcd7f',1,'fs.h']]],
+  ['inode_5fid_2599',['inode_id',['../structdir__entry.html#aad84f5f6f839aab465ef48eb1242ba18',1,'dir_entry']]],
+  ['inode_5fsec_5foffset_2600',['inode_sec_offset',['../structsuper__block.html#a747c9f070b0982e0f0978e8b1badc8be',1,'super_block']]],
+  ['inode_5fsec_5fsize_2601',['inode_sec_size',['../structsuper__block.html#a4b429cdf43ece8a599b4f2b45e1aa09b',1,'super_block']]],
+  ['inode_5fused_2602',['inode_used',['../structsuper__block.html#af9b6f6d8831fd17e6f2f709da7cfbc19',1,'super_block']]],
+  ['inodeid_2603',['inodeid',['../structfentry.html#a5eeabf78e411225c27c0932b4919634a',1,'fentry']]],
+  ['io_5fcount_2604',['io_count',['../ioremap_8c.html#a06061ac5dd5f56bf6f067893a2d6d621',1,'ioremap.c']]],
+  ['irq_5fext_5ftable_2605',['irq_ext_table',['../irq_8c.html#ad501f008ad2bbd64f9a64029a42bf7e1',1,'irq.c']]],
+  ['irq_5ftable_2606',['irq_table',['../irq_8c.html#a36a86609276b398aa7eb5d47adf012df',1,'irq.c']]],
+  ['is_5fpipe_5fread_2607',['is_pipe_read',['../structfd.html#a62e02f7c06fb7a737ddcb71a3fb68e68',1,'fd']]],
+  ['is_5fpipe_5fwrite_2608',['is_pipe_write',['../structfd.html#a6bbeed3999a7b76f6329862eba659fad',1,'fd']]]
+];

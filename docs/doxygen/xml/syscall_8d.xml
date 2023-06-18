@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="syscall_8d" kind="file" language="D">
+    <compoundname>syscall.d</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>.o:<sp/><ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>.c<sp/>../../include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/context.h<sp/>\</highlight></codeline>
+<codeline lineno="2"><highlight class="normal"><sp/>../../../../include/common/types.h<sp/>../../../../include/common/errno.h<sp/>\</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><sp/>../../include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/regs.h<sp/>../../include/</highlight><highlight class="keyword">asm</highlight><highlight class="normal">/<ref refid="arch_2riscv_2include_2asm_2syscall_8h_1add9ceab5efffbf9bb9fa2eed784b7ee5" kindref="member">syscall</ref>.h<sp/>\</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/>../../../../include/uapi/syscall_number.h</highlight></codeline>
+    </programlisting>
+    <location file="src/arch/riscv/kernel/sys/syscall.d"/>
+  </compounddef>
+</doxygen>

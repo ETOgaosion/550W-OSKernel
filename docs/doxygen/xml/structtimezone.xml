@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="zh">
+  <compounddef id="structtimezone" kind="struct" language="C++" prot="public">
+    <compoundname>timezone</compoundname>
+    <includes refid="time_8h" local="no">time.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structtimezone_1a3042f7eff6e1b980728def76b1fa0eb7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int timezone::tz_minuteswest</definition>
+        <argsstring></argsstring>
+        <name>tz_minuteswest</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/time.h" line="29" column="9" bodyfile="src/include/os/time.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structtimezone_1a85259977aeb63b17e6ce94f19afdfd99" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int timezone::tz_dsttime</definition>
+        <argsstring></argsstring>
+        <name>tz_dsttime</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/include/os/time.h" line="30" column="9" bodyfile="src/include/os/time.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/include/os/time.h" line="28" column="1" bodyfile="src/include/os/time.h" bodystart="28" bodyend="31"/>
+    <listofallmembers>
+      <member refid="structtimezone_1a85259977aeb63b17e6ce94f19afdfd99" prot="public" virt="non-virtual"><scope>timezone</scope><name>tz_dsttime</name></member>
+      <member refid="structtimezone_1a3042f7eff6e1b980728def76b1fa0eb7" prot="public" virt="non-virtual"><scope>timezone</scope><name>tz_minuteswest</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
