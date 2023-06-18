@@ -13,6 +13,7 @@
 !Makefile
 !Makefile.in
 !Dockerfile
+!LICENSE
 !compile_commands.json
 
 !*.S
