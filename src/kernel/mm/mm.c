@@ -31,13 +31,13 @@ struct shm {
     uint64_t uva;
 } shm_all[10];
 
-PTE *get_kva(PTE entry) {
+PTE *k_mm_get_kva(PTE entry) {
     uint64_t pa_temp = (entry >> _PAGE_PFN_SHIFT) % ((uint64_t)1 << SATP_ASID_SHIFT);
     pa_temp = pa_temp << 12;
     return pa2kva(pa_temp);
 }
 
-void getback_page(int pid) {
+void k_mm_getback_page(int pid) {
     if (freepg_num >= 999) {
         return;
     }
@@ -60,7 +60,7 @@ void getback_page(int pid) {
 }
 
 // start block = 250
-void k_move_to_disk(uint64_t pg_kva, uint64_t user_va) {
+void k_mm_move_to_disk(uint64_t pg_kva, uint64_t user_va) {
     // one block = 512B = 0.5KB
     if (diskpg_num >= 999) {
         assert(0);
@@ -75,7 +75,7 @@ void k_move_to_disk(uint64_t pg_kva, uint64_t user_va) {
     clear_pgdir(pg_kva);
 }
 
-void k_get_back_disk(uint64_t user_va, uint64_t new_addr) {
+void k_mm_get_back_disk(uint64_t user_va, uint64_t new_addr) {
     int flag = 0;
     for (int i = 0; i < diskpg_num; i++) {
         if (diskpg[i] == user_va) {
@@ -92,7 +92,7 @@ void k_get_back_disk(uint64_t user_va, uint64_t new_addr) {
     }
 }
 
-void en_invalid(uint64_t va, PTE *pgdir) {
+void k_mm_en_invalid(uint64_t va, PTE *pgdir) {
     va &= VA_MASK;
     uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
     uint64_t vpn1 = (vpn2 << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT + PPN_BITS));
@@ -100,22 +100,22 @@ void en_invalid(uint64_t va, PTE *pgdir) {
     if (pgdir[vpn2] == 0) {
         assert(0);
     }
-    PTE *pmd = get_kva(pgdir[vpn2]);
+    PTE *pmd = k_mm_get_kva(pgdir[vpn2]);
     if (pmd[vpn1] == 0) {
         assert(0);
     }
-    PTE *pld = get_kva(pmd[vpn1]);
+    PTE *pld = k_mm_get_kva(pmd[vpn1]);
     pld[vpn0] = (pld[vpn0] >> 1) << 1;
 }
 
-ptr_t k_alloc_mem(int numPage, uint64_t user_va) {
+ptr_t k_mm_alloc_mem(int numPage, uint64_t user_va) {
     ptr_t ret;
     int allocpid = (*current_running)->pid;
     if (allmem[allocpid][0] >= MAXPAGES) {
         // no enough page allowed
         ret = allmem[allocpid][STARTPAGE];
-        k_move_to_disk(allmem[allocpid][STARTPAGE], alluserva[allocpid][STARTPAGE]);
-        en_invalid(alluserva[allocpid][STARTPAGE], (pa2kva(pcb[allocpid].pgdir << 12)));
+        k_mm_move_to_disk(allmem[allocpid][STARTPAGE], alluserva[allocpid][STARTPAGE]);
+        k_mm_en_invalid(alluserva[allocpid][STARTPAGE], (pa2kva(pcb[allocpid].pgdir << 12)));
         for (int i = STARTPAGE; i < allmem[allocpid][0]; i++) {
             allmem[allocpid][i] = allmem[allocpid][i + 1];
         }
@@ -127,7 +127,7 @@ ptr_t k_alloc_mem(int numPage, uint64_t user_va) {
         return ret;
     }
     if (freepg_num == 0) {
-        ret = ROUND(memCurr, PAGE_SIZE);
+        ret = K_ROUND(memCurr, PAGE_SIZE);
         memCurr = ret + numPage * PAGE_SIZE;
     } else {
         ret = freepg[freepg_num];
@@ -146,10 +146,10 @@ ptr_t k_alloc_mem(int numPage, uint64_t user_va) {
     return ret;
 }
 // return kva
-ptr_t k_alloc_page(int numPage) {
+ptr_t k_mm_alloc_page(int numPage) {
     ptr_t ret;
     if (freepg_num == 0) {
-        ret = ROUND(memCurr, PAGE_SIZE);
+        ret = K_ROUND(memCurr, PAGE_SIZE);
         memCurr = ret + numPage * PAGE_SIZE;
     } else {
         ret = freepg[freepg_num];
@@ -167,15 +167,15 @@ ptr_t k_alloc_page(int numPage) {
     return ret;
 }
 
-void k_free_page(ptr_t baseAddr, int numPage) {}
+void k_mm_free_page(ptr_t baseAddr, int numPage) {}
 
-void *k_malloc(size_t size) {
-    ptr_t ret = ROUND(k_mem, 4);
+void *k_mm_malloc(size_t size) {
+    ptr_t ret = K_ROUND(k_mem, 4);
     k_mem = ret + size;
     return (void *)ret;
 }
 
-uint64_t alloc_newva() {
+uint64_t k_mm_alloc_newva() {
     int allocpid = (*current_running)->pid;
     for (uint64_t i = 0x100000; i < 0x1000000; i += 0x1000) {
         int flag = 1;
@@ -191,10 +191,10 @@ uint64_t alloc_newva() {
     return 0;
 }
 
-long shm_page_get(int key) {
+long k_mm_shm_page_get(int key) {
     for (int i = 0; i < shm_num; i++) {
         if (shm_all[i].key == key && shm_all[i].pro_num != 0) {
-            map(shm_all[i].uva, kva2pa(shm_all[i].kva), (pa2kva((*current_running)->pgdir << 12)));
+            k_mm_map(shm_all[i].uva, kva2pa(shm_all[i].kva), (pa2kva((*current_running)->pgdir << 12)));
             shm_all[i].pro_num++;
             return shm_all[i].uva;
         }
@@ -210,8 +210,8 @@ long shm_page_get(int key) {
         num = shm_num;
     }
     shm_all[num].key = key;
-    shm_all[num].uva = alloc_newva();
-    shm_all[num].kva = k_alloc_page_helper(shm_all[num].uva, (pa2kva((*current_running)->pgdir << 12)));
+    shm_all[num].uva = k_mm_alloc_newva();
+    shm_all[num].kva = k_mm_alloc_page_helper(shm_all[num].uva, (pa2kva((*current_running)->pgdir << 12)));
     shm_all[num].pro_num = 1;
     if (num == shm_num) {
         shm_num++;
@@ -219,7 +219,7 @@ long shm_page_get(int key) {
     return shm_all[num].uva;
 }
 
-long shm_page_dt(uintptr_t addr) {
+long k_mm_shm_page_dt(uintptr_t addr) {
     for (int i = 0; i < shm_num; i++) {
         if (shm_all[i].uva == addr) {
             uint64_t va = addr;
@@ -231,11 +231,11 @@ long shm_page_dt(uintptr_t addr) {
             if (pgdir[vpn2] == 0) {
                 assert(0);
             }
-            PTE *pmd = get_kva(pgdir[vpn2]);
+            PTE *pmd = k_mm_get_kva(pgdir[vpn2]);
             if (pmd[vpn1] == 0) {
                 assert(0);
             }
-            PTE *pld = get_kva(pmd[vpn1]);
+            PTE *pld = k_mm_get_kva(pmd[vpn1]);
             pld[vpn0] = 0;
             // cancel finished
             shm_all[i].pro_num--;
@@ -251,7 +251,7 @@ long shm_page_dt(uintptr_t addr) {
 }
 
 /* this is used for mapping kernel virtual address into user page table */
-void share_pgtable(PTE *dest_pgdir, PTE *src_pgdir) {
+void k_mm_share_pgtable(PTE *dest_pgdir, PTE *src_pgdir) {
     for (uint64_t vpn2 = 0; vpn2 < 512; vpn2++) {
         if (src_pgdir[vpn2] % 2 == 1) {
             dest_pgdir[vpn2] = 0;
@@ -262,17 +262,17 @@ void share_pgtable(PTE *dest_pgdir, PTE *src_pgdir) {
     }
 }
 
-void fork_pgtable(PTE *dest_pgdir, PTE *src_pgdir) {
+void k_mm_fork_pgtable(PTE *dest_pgdir, PTE *src_pgdir) {
     uint64_t sva = USER_STACK_ADDR - PAGE_SIZE;
     sva &= VA_MASK;
     uint64_t va = 0;
     // kernel not to clear write bit
     for (uint64_t vpn2 = 0; vpn2 < 256; vpn2++) {
         if (src_pgdir[vpn2] % 2 == 1) {
-            PTE *pmd = get_kva(src_pgdir[vpn2]);
+            PTE *pmd = k_mm_get_kva(src_pgdir[vpn2]);
             for (uint64_t vpn1 = 0; vpn1 < 512; vpn1++) {
                 if (pmd[vpn1] % 2 == 1) {
-                    PTE *pld = get_kva(pmd[vpn1]);
+                    PTE *pld = k_mm_get_kva(pmd[vpn1]);
                     for (uint64_t vpn0 = 0; vpn0 < 512; vpn0++) {
                         if ((pld[vpn0] % 2) == 1) {
                             va = (vpn2 << (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS)) | (vpn1 << (NORMAL_PAGE_SHIFT + PPN_BITS)) | (vpn0 << NORMAL_PAGE_SHIFT);
@@ -281,17 +281,17 @@ void fork_pgtable(PTE *dest_pgdir, PTE *src_pgdir) {
                             }
                             // no stack, clear write bit
                             if (va != sva && ((va & ((uint64_t)1 << 39)) == 0)) {
-                                uint64_t pa_kva = (uint64_t)get_kva(pld[vpn0]);
+                                uint64_t pa_kva = (uint64_t)k_mm_get_kva(pld[vpn0]);
                                 // src pgdir
                                 pld[vpn0] = ((pld[vpn0] >> 3) << 3) | 3;
-                                // printk("vpn: %d, %d, %d, va:0x%x, pa:0x%x\n",
+                                // k_print("vpn: %d, %d, %d, va:0x%x, pa:0x%x\n",
                                 // vpn2,vpn1,vpn0, va<<NORMAL_PAGE_SHIFT,
                                 // kva2pa(pa_kva));
 
-                                map(va, kva2pa(pa_kva), dest_pgdir);
+                                k_mm_map(va, kva2pa(pa_kva), dest_pgdir);
                                 // dest pgdir
-                                PTE *spmd = get_kva(dest_pgdir[vpn2]);
-                                PTE *spld = get_kva(spmd[vpn1]);
+                                PTE *spmd = k_mm_get_kva(dest_pgdir[vpn2]);
+                                PTE *spld = k_mm_get_kva(spmd[vpn1]);
                                 spld[vpn0] = ((spld[vpn0] >> 3) << 3) | 3;
                             }
                         }
@@ -305,8 +305,8 @@ void fork_pgtable(PTE *dest_pgdir, PTE *src_pgdir) {
     }
 }
 
-void fork_page_helper(uintptr_t va, PTE *destpgdir, PTE *srcpgdir) {
-    uint64_t dest_kva = k_alloc_page_helper(va, destpgdir);
+void k_mm_fork_page_helper(uintptr_t va, PTE *destpgdir, PTE *srcpgdir) {
+    uint64_t dest_kva = k_mm_alloc_page_helper(va, destpgdir);
     va &= VA_MASK;
     uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
     uint64_t vpn1 = (vpn2 << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT + PPN_BITS));
@@ -314,12 +314,12 @@ void fork_page_helper(uintptr_t va, PTE *destpgdir, PTE *srcpgdir) {
     if (srcpgdir[vpn2] == 0) {
         assert(0);
     }
-    PTE *pmd = get_kva(srcpgdir[vpn2]);
+    PTE *pmd = k_mm_get_kva(srcpgdir[vpn2]);
     if (pmd[vpn1] == 0) {
         assert(0);
     }
-    PTE *pld = get_kva(pmd[vpn1]);
-    uint64_t src_kva = (uint64_t)get_kva(pld[vpn0]);
+    PTE *pld = k_mm_get_kva(pmd[vpn1]);
+    uint64_t src_kva = (uint64_t)k_mm_get_kva(pld[vpn0]);
 
     unsigned char *src = (unsigned char *)src_kva;
     unsigned char *dest = (unsigned char *)dest_kva;
@@ -331,14 +331,14 @@ void fork_page_helper(uintptr_t va, PTE *destpgdir, PTE *srcpgdir) {
 /* allocate physical page for `va`, mapping it into `pgdir`,
    return the kernel virtual address for the page.
    */
-uintptr_t k_alloc_page_helper(uintptr_t va, PTE *pgdir) {
-    uint64_t kva = k_alloc_mem(1, va);
+uintptr_t k_mm_alloc_page_helper(uintptr_t va, PTE *pgdir) {
+    uint64_t kva = k_mm_alloc_mem(1, va);
     uint64_t pa = kva2pa(kva);
-    map(va, pa, pgdir);
+    k_mm_map(va, pa, pgdir);
     return kva;
 }
 
-uint64_t get_kva_from_va(uint64_t va, PTE *pgdir) {
+uint64_t k_mm_get_kva_from_va(uint64_t va, PTE *pgdir) {
     va &= VA_MASK;
     uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
     uint64_t vpn1 = (vpn2 << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT + PPN_BITS));
@@ -346,42 +346,42 @@ uint64_t get_kva_from_va(uint64_t va, PTE *pgdir) {
     if (pgdir[vpn2] == 0) {
         assert(0);
     }
-    PTE *pmd = get_kva(pgdir[vpn2]);
+    PTE *pmd = k_mm_get_kva(pgdir[vpn2]);
     if (pmd[vpn1] == 0) {
         assert(0);
     }
-    PTE *pld = get_kva(pmd[vpn1]);
-    return (uint64_t)get_kva(pld[vpn0]);
+    PTE *pld = k_mm_get_kva(pmd[vpn1]);
+    return (uint64_t)k_mm_get_kva(pld[vpn0]);
 }
 
-long sys_getpa(uint64_t va) {
+long k_mm_getpa(uint64_t va) {
     // screen_move_cursor(1,6);
     // prints("in mmc pre: %lx\n", (uint64_t)(va));
-    uint64_t kva = get_kva_from_va(va, pa2kva((*current_running)->pgdir << 12));
+    uint64_t kva = k_mm_get_kva_from_va(va, pa2kva((*current_running)->pgdir << 12));
     // screen_move_cursor(1,7);
     // prints("in mmc: %lx\n", (uint64_t)(kva));
     kva += va % 0x1000;
     return kva2pa(kva);
 }
 
-void map_kp(uint64_t va, uint64_t pa, PTE *pgdir) {
+void k_mm_map_kp(uint64_t va, uint64_t pa, PTE *pgdir) {
     va &= VA_MASK;
     uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
     uint64_t vpn1 = (vpn2 << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT + PPN_BITS));
     uint64_t vpn0 = ((va >> (NORMAL_PAGE_SHIFT + PPN_BITS)) << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT));
     if (pgdir[vpn2] == 0) {
         // alloc a new second-level page directory
-        set_pfn(&pgdir[vpn2], kva2pa(k_alloc_page(1)) >> NORMAL_PAGE_SHIFT);
+        set_pfn(&pgdir[vpn2], kva2pa(k_mm_alloc_page(1)) >> NORMAL_PAGE_SHIFT);
         set_attribute(&pgdir[vpn2], _PAGE_PRESENT);
-        clear_pgdir((uintptr_t)get_kva(pgdir[vpn2]));
+        clear_pgdir((uintptr_t)k_mm_get_kva(pgdir[vpn2]));
     }
-    PTE *pmd = get_kva(pgdir[vpn2]);
+    PTE *pmd = k_mm_get_kva(pgdir[vpn2]);
     if (pmd[vpn1] == 0) {
-        set_pfn(&pmd[vpn1], kva2pa(k_alloc_page(1)) >> NORMAL_PAGE_SHIFT);
+        set_pfn(&pmd[vpn1], kva2pa(k_mm_alloc_page(1)) >> NORMAL_PAGE_SHIFT);
         set_attribute(&pmd[vpn1], _PAGE_PRESENT);
-        clear_pgdir((uintptr_t)get_kva(pmd[vpn1]));
+        clear_pgdir((uintptr_t)k_mm_get_kva(pmd[vpn1]));
     }
-    PTE *pld = get_kva(pmd[vpn1]);
+    PTE *pld = k_mm_get_kva(pmd[vpn1]);
     pld[vpn0] = 0;
     set_pfn(&pld[vpn0], pa >> NORMAL_PAGE_SHIFT);
     /*set_attribute(
@@ -395,29 +395,29 @@ void map_fs_space() {
     int size = 1000;
     uint64_t offset = 0;
     for (int i = 0; i < size; i++) {
-        map_kp(FS_KERNEL_ADDR + offset, kva2pa(FS_KERNEL_ADDR), pa2kva(PGDIR_PA));
+        k_mm_map_kp(FS_KERNEL_ADDR + offset, kva2pa(FS_KERNEL_ADDR), pa2kva(PGDIR_PA));
         offset += 0x1000;
     }
 }
 
-void map(uint64_t va, uint64_t pa, PTE *pgdir) {
+void k_mm_map(uint64_t va, uint64_t pa, PTE *pgdir) {
     va &= VA_MASK;
     uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
     uint64_t vpn1 = (vpn2 << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT + PPN_BITS));
     uint64_t vpn0 = ((va >> (NORMAL_PAGE_SHIFT + PPN_BITS)) << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT));
     if (pgdir[vpn2] == 0) {
         // alloc a new second-level page directory
-        set_pfn(&pgdir[vpn2], kva2pa(k_alloc_page(1)) >> NORMAL_PAGE_SHIFT);
+        set_pfn(&pgdir[vpn2], kva2pa(k_mm_alloc_page(1)) >> NORMAL_PAGE_SHIFT);
         set_attribute(&pgdir[vpn2], _PAGE_PRESENT);
-        clear_pgdir((uintptr_t)get_kva(pgdir[vpn2]));
+        clear_pgdir((uintptr_t)k_mm_get_kva(pgdir[vpn2]));
     }
-    PTE *pmd = get_kva(pgdir[vpn2]);
+    PTE *pmd = k_mm_get_kva(pgdir[vpn2]);
     if (pmd[vpn1] == 0) {
-        set_pfn(&pmd[vpn1], kva2pa(k_alloc_page(1)) >> NORMAL_PAGE_SHIFT);
+        set_pfn(&pmd[vpn1], kva2pa(k_mm_alloc_page(1)) >> NORMAL_PAGE_SHIFT);
         set_attribute(&pmd[vpn1], _PAGE_PRESENT);
-        clear_pgdir((uintptr_t)get_kva(pmd[vpn1]));
+        clear_pgdir((uintptr_t)k_mm_get_kva(pmd[vpn1]));
     }
-    PTE *pld = get_kva(pmd[vpn1]);
+    PTE *pld = k_mm_get_kva(pmd[vpn1]);
     pld[vpn0] = 0;
     set_pfn(&pld[vpn0], pa >> NORMAL_PAGE_SHIFT);
     set_attribute(&pld[vpn0], _PAGE_PRESENT | _PAGE_READ | _PAGE_WRITE | _PAGE_USER | _PAGE_EXEC);
@@ -428,7 +428,7 @@ void map(uint64_t va, uint64_t pa, PTE *pgdir) {
     */
 }
 
-void k_cancel_pg(PTE *pgdir) {
+void k_mm_cancel_pg(PTE *pgdir) {
     for (uint64_t kva = KERNEL_START_PA; kva < 0x80400000lu; kva += 0x200000lu) {
         uint64_t va = kva & VA_MASK;
         uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
@@ -481,13 +481,13 @@ uintptr_t free_page_helper(uintptr_t va, uintptr_t pgdir) {
         return -1;
     }
     third_page = (PTE *)pa2kva((get_pfn(second_page[vpn[1]]) << NORMAL_PAGE_SHIFT));
-    k_free_page(get_kva_of(va, pgdir), 1);
+    k_mm_free_page(get_kva_of(va, pgdir), 1);
     third_page[vpn[0]] = 0;
     return 0;
 }
 
 long sys_brk(unsigned long brk) {
-    if (brk > ROUND((*current_running)->user_sp, NORMAL_PAGE_SIZE)) {
+    if (brk > K_ROUND((*current_running)->user_sp, NORMAL_PAGE_SIZE)) {
         return -EINVAL;
     }
     if (brk == 0) {
@@ -501,7 +501,7 @@ long sys_brk(unsigned long brk) {
         }
     } else {
         for (uintptr_t iterator = (*current_running)->elf.edata; iterator < brk; iterator += NORMAL_PAGE_SIZE) {
-            k_alloc_page_helper(iterator, (pa2kva((*current_running)->pgdir << 12)));
+            k_mm_alloc_page_helper(iterator, (pa2kva((*current_running)->pgdir << 12)));
             local_flush_tlb_all();
         }
     }

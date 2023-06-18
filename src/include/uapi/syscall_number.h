@@ -293,5 +293,3 @@
 #define SYS_screen_clear 404
 
 #define SYS_process_show 405
-
-#define SYS_sd_test 406

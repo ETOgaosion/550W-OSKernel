@@ -17,13 +17,13 @@ uintptr_t plic_base;
 #define PLIC_MCLAIM(hart) (plic_base + 0x200004 + (hart)*0x2000)
 #define PLIC_SCLAIM(hart) (plic_base + 0x201004 + (hart)*0x2000)
 
-void plic_init(void) {
-    plic_base = (uintptr_t)ioremap((uint64_t)PLIC, 0x4000 * NORMAL_PAGE_SIZE);
+void d_plic_init(void) {
+    plic_base = (uintptr_t)k_ioremap((uint64_t)PLIC, 0x4000 * NORMAL_PAGE_SIZE);
     writed(1, plic_base + DISK_IRQ * sizeof(uint32));
 }
 
-void plic_init_hart(void) {
-    int hart = get_current_cpu_id();
+void d_plic_init_hart(void) {
+    int hart = k_smp_get_current_cpu_id();
     // set uart's enable bit for this hart's S-mode.
     *(uint32 *)PLIC_SENABLE(hart) = (1 << UART_IRQ) | (1 << DISK_IRQ);
     // set this hart's S-mode priority threshold to 0.
@@ -31,15 +31,15 @@ void plic_init_hart(void) {
 }
 
 // ask the PLIC what interrupt we should serve.
-int plic_claim(void) {
-    int hart = get_current_cpu_id();
+int d_plic_claim(void) {
+    int hart = k_smp_get_current_cpu_id();
     int irq;
     irq = *(uint32 *)PLIC_SCLAIM(hart);
     return irq;
 }
 
 // tell the PLIC we've served this IRQ.
-void plic_complete(int irq) {
-    int hart = get_current_cpu_id();
+void d_plic_complete(int irq) {
+    int hart = k_smp_get_current_cpu_id();
     *(uint32 *)PLIC_SCLAIM(hart) = irq;
 }

@@ -11,8 +11,8 @@
 disk_t __attribute__((aligned(NORMAL_PAGE_SIZE))) disk;
 uintptr_t virtio_base;
 
-void virtio_disk_init(void) {
-    virtio_base = (uintptr_t)ioremap((uint64_t)VIRTIO0, 0x4000 * NORMAL_PAGE_SIZE);
+void d_virtio_disk_init(void) {
+    virtio_base = (uintptr_t)k_ioremap((uint64_t)VIRTIO0, 0x4000 * NORMAL_PAGE_SIZE);
     uint32 status = 0;
 
     k_spin_lock_init(&disk.vdisk_lock);
@@ -87,7 +87,7 @@ static int alloc_desc() {
 static void free_desc(int i) {
     disk.desc[i].addr = 0;
     disk.free[i] = 1;
-    k_wakeup(&disk.free[0]);
+    k_pcb_wakeup(&disk.free[0]);
 }
 
 // free a chain of descriptors.
@@ -115,7 +115,7 @@ static int alloc3_desc(int *idx) {
     return 0;
 }
 
-void virtio_disk_rw(buf_t *b, int write) {
+void d_virtio_disk_rw(buf_t *b, int write) {
     uint64 sector = b->sectorno;
 
     k_spin_lock_acquire(&disk.vdisk_lock);
@@ -130,7 +130,7 @@ void virtio_disk_rw(buf_t *b, int write) {
         if (alloc3_desc(idx) == 0) {
             break;
         }
-        k_sleep(&disk.free[0], &disk.vdisk_lock);
+        k_pcb_sleep(&disk.free[0], &disk.vdisk_lock);
     }
 
     // format the three descriptors.
@@ -177,7 +177,7 @@ void virtio_disk_rw(buf_t *b, int write) {
     disk.desc[idx[2]].flags = VRING_DESC_F_WRITE; // device writes the status
     disk.desc[idx[2]].next = 0;
 
-    // record buf_t for virtio_disk_intr().
+    // record buf_t for d_virtio_disk_intr().
     b->disk = 1;
     disk.info[idx[0]].b = b;
 
@@ -192,9 +192,9 @@ void virtio_disk_rw(buf_t *b, int write) {
     k_spin_lock_release(&disk.vdisk_lock);
     *R(VIRTIO_MMIO_QUEUE_NOTIFY) = 0; // value is queue number
 
-    // Wait for virtio_disk_intr() to say request has finished.
+    // Wait for d_virtio_disk_intr() to say request has finished.
     while (b->disk == 1) {
-        // k_sleep(b, &disk.vdisk_lock);
+        // k_pcb_sleep(b, &disk.vdisk_lock);
         __sync_synchronize();
     }
     k_spin_lock_acquire(&disk.vdisk_lock);
@@ -215,7 +215,7 @@ struct {
     buf_t head;
 } bcache;
 
-void binit(void) {
+void d_binit(void) {
     buf_t *b;
 
     k_spin_lock_init(&bcache.lock);
@@ -271,12 +271,12 @@ static buf_t *bget(uint dev, uint sectorno) {
 }
 
 // Return a locked buf with the contents of the indicated block.
-buf_t *bread(uint dev, uint sectorno) {
+buf_t *d_bread(uint dev, uint sectorno) {
     buf_t *b;
 
     b = bget(dev, sectorno);
     if (!b->valid) {
-        virtio_disk_rw(b, 0);
+        d_virtio_disk_rw(b, 0);
         b->valid = 1;
     }
 
@@ -284,18 +284,18 @@ buf_t *bread(uint dev, uint sectorno) {
 }
 
 // Write b's contents to disk.  Must be locked.
-void bwrite(buf_t *b) {
+void d_bwrite(buf_t *b) {
     // if (!k_sleep_lock_hold(&b->lock)) {
-    //     panic("bwrite");
+    //     panic("d_bwrite");
     // }
-    virtio_disk_rw(b, 1);
+    d_virtio_disk_rw(b, 1);
 }
 
 // Release a locked buffer.
 // Move to the head of the most-recently-used list.
-void brelse(buf_t *b) {
+void d_brelse(buf_t *b) {
     // if (!k_sleep_lock_hold(&b->lock)) {
-    //     panic("brelse");
+    //     panic("d_brelse");
     // }
 
     // k_sleep_lock_release(&b->lock);
@@ -327,40 +327,21 @@ void bunpin(buf_t *b) {
     k_spin_lock_release(&bcache.lock);
 }
 
-void k_sd_read(char *buffers, uint *start_block_ids, uint block_num) {
+void d_sd_read(char *buffers, uint *start_block_ids, uint block_num) {
     buf_t *buf;
     for (int i = 0; i < block_num; i++) {
-        buf = bread(DEV_VDA2, start_block_ids[i]);
+        buf = d_bread(DEV_VDA2, start_block_ids[i]);
         k_memcpy((uint8_t *)(buffers + i * BSIZE), (uint8_t *)buf->data, BSIZE);
-        brelse(buf);
+        d_brelse(buf);
     }
 }
 
-void k_sd_write(char *buffers, uint *start_block_ids, uint block_num) {
+void d_sd_write(char *buffers, uint *start_block_ids, uint block_num) {
     buf_t *buf;
     for (int i = 0; i < block_num; i++) {
-        buf = bread(DEV_VDA2, start_block_ids[i]);
+        buf = d_bread(DEV_VDA2, start_block_ids[i]);
         k_memcpy((uint8_t *)buf->data, (uint8_t *)(buffers + i * BSIZE), BSIZE);
-        bwrite(buf);
-        brelse(buf);
+        d_bwrite(buf);
+        d_brelse(buf);
     }
-}
-
-void sys_sd_test() {
-    char buff[512];
-    // k_memcpy((uint8_t *)buff, (const uint8_t *)"1", 1);
-    char buff2[512];
-    // k_memcpy((uint8_t *)buff2, (const uint8_t *)"2", 1);
-    uint block[] = {0};
-    uint block2[] = {2};
-    // k_sd_write(buff, block, 1);
-    // k_sd_write(buff2, block2, 1);
-    // printk("%s", buff);
-    // printk("%s", buff2);
-    k_sd_read(buff, block, 1);
-    k_sd_read(buff2, block2, 1);
-    buff[511] = 0;
-    buff2[511] = 0;
-    sys_screen_move_cursor(1, 1);
-    printk("%d\n", k_strcmp((const char *)buff, (const char *)buff2));
 }

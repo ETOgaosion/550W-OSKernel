@@ -19,7 +19,7 @@ uintptr_t riscv_dtb;
 
 long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause);
 
-void init_syscall(void) {
+void k_init_syscall(void) {
     for (int i = 0; i < NUM_SYSCALLS; i++) {
         syscall[i] = (long (*)()) & sys_undefined_syscall; // only print register info
     }
@@ -73,50 +73,48 @@ void init_syscall(void) {
     // Self Defined
     syscall[SYS_move_cursor] = (long (*)())sys_screen_move_cursor;
     syscall[SYS_screen_clear] = (long (*)())sys_screen_clear;
-
-    syscall[SYS_sd_test] = (long (*)())sys_sd_test;
 }
 
 void reset_irq_timer() {
     // note: use sbi_set_timer
     // remember to reschedule
-    sbi_set_timer(get_ticks() + TICKS_INTERVAL);
-    k_scheduler();
+    sbi_set_timer(k_time_get_ticks() + TICKS_INTERVAL);
+    k_pcb_scheduler();
 }
 
 void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
     // call corresponding handler by the value of `cause`
-    k_lock_kernel();
+    k_smp_lock_kernel();
     time_val_t now;
-    get_utime(&now);
+    k_time_get_utime(&now);
     time_val_t last_run;
-    minus_utime(&now, &(*current_running)->utime_last, &last_run);
-    add_utime(&last_run, &(*current_running)->resources.ru_utime, &(*current_running)->resources.ru_utime);
-    copy_utime(&now, &(*current_running)->stime_last);
+    k_time_minus_utime(&now, &(*current_running)->utime_last, &last_run);
+    k_time_add_utime(&last_run, &(*current_running)->resources.ru_utime, &(*current_running)->resources.ru_utime);
+    k_time_copy_utime(&now, &(*current_running)->stime_last);
     uint64_t check = cause;
     if (check >> 63) {
         irq_table[cause - ((uint64_t)1 << 63)](regs, stval, cause, cpuid);
     } else {
         exc_table[cause](regs, stval, cause, cpuid);
     }
-    get_utime(&now);
-    copy_utime(&now, &(*current_running)->utime_last);
-    minus_utime(&now, &(*current_running)->stime_last, &last_run);
-    add_utime(&last_run, &(*current_running)->resources.ru_stime, &(*current_running)->resources.ru_stime);
+    k_time_get_utime(&now);
+    k_time_copy_utime(&now, &(*current_running)->utime_last);
+    k_time_minus_utime(&now, &(*current_running)->stime_last, &last_run);
+    k_time_add_utime(&last_run, &(*current_running)->resources.ru_stime, &(*current_running)->resources.ru_stime);
 }
 
 spin_lock_t kernel_exception_lock = {.flag = UNLOCKED};
 
 void kernel_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
     k_spin_lock_acquire(&kernel_exception_lock);
-    current_running = k_get_current_running();
+    current_running = k_smp_get_current_running();
     uint64_t check = cause;
     if (check >> 63) {
         irq_table[cause - ((uint64_t)1 << 63)](regs, stval, cause, cpuid);
     } else {
         exc_table[cause](regs, stval, cause, cpuid);
     }
-    sbi_set_timer(get_ticks() + TICKS_INTERVAL);
+    sbi_set_timer(k_time_get_ticks() + TICKS_INTERVAL);
     k_spin_lock_release(&kernel_exception_lock);
 }
 
@@ -125,10 +123,10 @@ void handle_int_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, ui
 }
 
 void handle_ext_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
-    int irq = plic_claim();
+    int irq = d_plic_claim();
     if (irq) {
         irq_ext_table[irq](regs, interrupt, cause, cpuid);
-        plic_complete(irq);
+        d_plic_complete(irq);
     }
 }
 
@@ -149,11 +147,11 @@ void handler_virtio_intr(regs_context_t *regs, uint64_t stval, uint64_t cause, u
         int id = disk.used->elems[disk.used_idx].id;
 
         if (disk.info[id].status != 0) {
-            panic("virtio_disk_intr status");
+            panic("d_virtio_disk_intr status");
         }
 
         disk.info[id].b->disk = 0; // disk is done with buf
-        // k_wakeup(disk.info[id].b);
+        // k_pcb_wakeup(disk.info[id].b);
 
         disk.used_idx = (disk.used_idx + 1) % DESC_NUM;
     }
@@ -170,11 +168,11 @@ PTE *check_pf(uint64_t va, PTE *pgdir) {
     if (pgdir[vpn2] == 0) {
         return 0;
     }
-    PTE *pmd = get_kva(pgdir[vpn2]);
+    PTE *pmd = k_mm_get_kva(pgdir[vpn2]);
     if (pmd[vpn1] == 0) {
         return 0;
     }
-    PTE *pld = get_kva(pmd[vpn1]);
+    PTE *pld = k_mm_get_kva(pmd[vpn1]);
     if (pld[vpn0] == 0) {
         return 0;
     }
@@ -183,9 +181,9 @@ PTE *check_pf(uint64_t va, PTE *pgdir) {
 
 void handle_disk_exc(uint64_t stval, PTE *pte_addr) {
     pcb_t *cur = *current_running;
-    uint64_t newmem_addr = k_alloc_mem(1, stval);
-    map(stval, kva2pa(newmem_addr), (pa2kva(cur->pgdir << 12)));
-    k_get_back_disk(stval, newmem_addr);
+    uint64_t newmem_addr = k_mm_alloc_mem(1, stval);
+    k_mm_map(stval, kva2pa(newmem_addr), (pa2kva(cur->pgdir << 12)));
+    k_mm_get_back_disk(stval, newmem_addr);
     (*pte_addr) = (*pte_addr) | 1;
 }
 
@@ -198,14 +196,14 @@ void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_
         if (cause == EXCC_STORE_PAGE_FAULT) {
             // child process
             if (cur->father_pid != cur->pid && cur->father_pid != 0) {
-                fork_page_helper(stval, (pa2kva(cur->pgdir << 12)), (pa2kva(pcb[cur->father_pid].pgdir << 12)));
+                k_mm_fork_page_helper(stval, (pa2kva(cur->pgdir << 12)), (pa2kva(pcb[cur->father_pid].pgdir << 12)));
             } else {
                 // father process
                 for (int i = 0; i < NUM_MAX_CHILD; i++) {
                     if (cur->child_pids[i] == 0) {
                         continue;
                     }
-                    fork_page_helper(stval, (pa2kva(pcb[cur->child_pids[i]].pgdir << 12)), (pa2kva(cur->pgdir << 12)));
+                    k_mm_fork_page_helper(stval, (pa2kva(pcb[cur->child_pids[i]].pgdir << 12)), (pa2kva(cur->pgdir << 12)));
                 }
             }
             *pte_addr = (*pte_addr) | (3 << 6);
@@ -218,14 +216,14 @@ void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_
             handle_disk_exc(stval, pte_addr);
         }
     } else { // No virtual-physical map
-        k_alloc_page_helper(stval, (pa2kva(cur->pgdir << 12)));
+        k_mm_alloc_page_helper(stval, (pa2kva(cur->pgdir << 12)));
         local_flush_tlb_all();
     }
 }
 
 void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid);
 
-void init_exception() {
+void k_init_exception() {
     for (int i = 0; i < IRQC_COUNT; i++) {
         irq_table[i] = handle_other;
     }
@@ -255,7 +253,7 @@ void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t
     prints("sstatus: 0x%lx sbadaddr: 0x%lx scause: %lx\n\r", regs->sstatus, regs->sbadaddr, regs->scause);
     prints("stval: 0x%lx cause: %lx\n\r", stval, cause);
     prints("sepc: 0x%lx\n\r", regs->sepc);
-    // printk("mhartid: 0x%lx\n\r", get_current_cpu_id());
+    // k_print("mhartid: 0x%lx\n\r", k_smp_get_current_cpu_id());
 
     uintptr_t fp = regs->regs[8], sp = regs->regs[2];
     prints("[Backtrace]\n\r");
@@ -274,7 +272,7 @@ void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t
 }
 
 long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause) {
-    printk(">[ERROR] unkonwn syscall, undefined syscall number: %d\n!", regs->regs[17]);
-    handle_other(regs, interrupt, cause, get_current_cpu_id());
+    k_print(">[ERROR] unkonwn syscall, undefined syscall number: %d\n!", regs->regs[17]);
+    handle_other(regs, interrupt, cause, k_smp_get_current_cpu_id());
     return -1;
 }

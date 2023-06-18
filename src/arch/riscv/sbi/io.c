@@ -3,11 +3,11 @@
 #include <asm/sbi.h>
 #include <os/smp.h>
 
-void port_write_ch(char ch) {
+void k_port_write_ch(char ch) {
     sbi_console_putchar((int)ch);
 }
 
-void port_write(char *str) {
+void k_port_write(char *str) {
     sbi_console_putstr(str);
 }
 

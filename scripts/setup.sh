@@ -42,8 +42,8 @@ then
     pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
     pip3 install pytz Cython jwt jinja2 requests
 else
-    sudo apt-key add llvm-snapshot.gpg.key
-    sudo add-apt-repository 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal main'
+    apt-key add llvm-snapshot.gpg.key
+    add-apt-repository 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal main'
     apt install -y apt-transport-https ca-certificates && \
     update-ca-certificates
     sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list
@@ -63,19 +63,25 @@ fi
 rm llvm-snapshot.gpg.key
 
 echo "=== Clone Repository ==="
-test -d env || mkdir env
 if ! [[ -d $REPO ]]
 then
-    git clone $REMOTE env/$REPO
+    git clone $REMOTE $REPO
 fi
 
 echo "=== Install RISC-V Toolchain ==="
 
-if ! [[ -d $OSTEST_DIR ]]
+if ! [[ -d $RISCV_DIR ]]
+        sudo mkdir -p $RISCV_DIR
+        sudo mv $REPO/kendryte-toolchain $RISCV_DIR
 then
-    mkdir -p $OSTEST_DIR
-    mv -r $REPO/kendryte-toolchain $RISCV_DIR
-    chmod -R $RISCV_DIR
+    if [[ "$use_sudo_opt" = "y" ]]
+    then
+        sudo chmod -R $RISCV_DIR
+    else
+        mkdir -p $RISCV_DIR
+        mv $REPO/kendryte-toolchain $RISCV_DIR
+        chmod -R $RISCV_DIR
+    fi
 fi
 
 if ! grep -q "$RISCV_DIR" "$SHFILE"; then
@@ -91,8 +97,14 @@ echo "=== Install QEMU ==="
 
 if ! [[ -d $QEMU_DIR ]]
 then
-    mkdir -p $QEMU_DIR
-    tar -xvf $REPO/qemu-prebuilt-7.0.0.tar.gz -C $QEMU_DIR
+    if [[ "$use_sudo_opt" = "y" ]]
+    then
+        sudo mkdir -p $QEMU_DIR
+        sudo tar -xvf $REPO/qemu-prebuilt-7.0.0.tar.gz -C $QEMU_DIR
+    else
+        mkdir -p $QEMU_DIR
+        tar -xvf $REPO/qemu-prebuilt-7.0.0.tar.gz -C $QEMU_DIR
+    fi
     rm $REPO/qemu-prebuilt-7.0.0.tar.gz
 fi
 

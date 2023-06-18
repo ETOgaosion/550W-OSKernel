@@ -28,58 +28,68 @@ extern void kernel_exception_handler_entry();
 // jump from bootloader.
 // The beginning of everything >_< ~~~~~~~~~~~~~~
 int main() {
-    int id = get_current_cpu_id();
+    int id = k_smp_get_current_cpu_id();
     if (id != 0) {
-        w_stvec((uint64_t)kernel_exception_handler_entry);
-        k_lock_kernel();
-        plic_init_hart();
-        current_running = k_get_current_running();
-        // k_cancel_pg(pa2kva(PGDIR_PA));
+        asm_w_stvec((uint64_t)kernel_exception_handler_entry);
+
+        k_smp_lock_kernel();
+
+        d_plic_init_hart();
+
+        current_running = k_smp_get_current_running();
     } else {
-        k_smp_init(); // only done by master core
-        w_stvec((uint64_t)kernel_exception_handler_entry);
-        k_lock_kernel();
-        // init fs
-        // init_fs();
+        // init kernel lock
+        k_smp_init();
+
+        asm_w_stvec((uint64_t)kernel_exception_handler_entry);
+
+        k_smp_lock_kernel();
 
         // init Process Control Block (-_-!)
-        k_init_pcb();
+        k_pcb_init();
 
-        printk("> [INIT] PCB initialization succeeded.\n\r");
+        k_print("> [INIT] PCB initialization succeeded.\n\r");
 
         // read CPU frequency
         time_base = TIME_BASE_DEFAULT;
 
         // init system call table (0_0)
-        init_syscall();
-        printk("> [INIT] System call initialized successfully.\n\r");
+        k_init_syscall();
+        k_print("> [INIT] System call initialized successfully.\n\r");
 
         // init screen (QAQ)
-        init_exception();
+        k_init_exception();
 
-        plic_init();
-        plic_init_hart();
-        virtio_disk_init();
-        binit();
-        printk("> [INIT] Disk initialized successfully.\n\r");
+        // init disk
+        d_plic_init();
+        d_plic_init_hart();
+        d_virtio_disk_init();
+        d_binit();
+        k_print("> [INIT] Disk initialized successfully.\n\r");
 
-        init_screen();
-        // Setup timer interrupt and enable all interrupt
-        // init interrupt (^_^)-
-        fat32_init();
-        // fd_table_init();
+        // init screen
+        d_screen_init();
+
+        // init fs
+        fs_init();
+        fd_table_init();
+
+        // init built-in tasks
         sys_spawn("shell");
         sys_spawn("bubble");
         sys_spawn("bubble");
 
         wakeup_other_cores();
     }
+    // init sbi timer, all cores shall done
     sbi_set_timer(0);
+    // init exceptions
     setup_exception();
+    // start scheduling
     while (1) {
-        k_scheduler();
-        k_unlock_kernel();
-        k_lock_kernel();
+        k_pcb_scheduler();
+        k_smp_unlock_kernel();
+        k_smp_lock_kernel();
     };
     return 0;
 }

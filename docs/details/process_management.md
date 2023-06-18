@@ -85,7 +85,7 @@ typedef struct pcb {
         check_sleeping(); //检查是否有睡眠的进程
     }
     pcb_t *curr = (*current_running);
-    int cpuid = get_current_cpu_id();
+    int cpuid = k_get_current_cpu_id();
 
     /* 维护ready queue队列，里面都是可以执行的进程 */
     if (curr->status == TASK_RUNNING && curr->pid >= 0) {

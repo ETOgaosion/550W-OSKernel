@@ -20,7 +20,7 @@ char old_screen[SCREEN_HEIGHT][SCREEN_WIDTH] = {0};
 /* cursor position */
 void vt100_move_cursor(int x, int y) {
     // \033[y;xH
-    // printk("%c[%d;%dH", 27, y, x);
+    // k_print("%c[%d;%dH", 27, y, x);
     screen_cursor_x = x;
     screen_cursor_y = y;
 }
@@ -28,13 +28,13 @@ void vt100_move_cursor(int x, int y) {
 /* clear screen */
 void vt100_clear() {
     // \033[2J
-    // printk("%c[2J", 27);
+    // k_print("%c[2J", 27);
 }
 
 /* hidden cursor */
 void vt100_hidden_cursor() {
     // \033[?25l
-    // printk("%c[?25l", 27);
+    // k_print("%c[?25l", 27);
 }
 
 /* write a char */
@@ -44,7 +44,7 @@ void screen_write_ch(char ch) {
         screen_cursor_x = 1;
         screen_cursor_y++;
         if (screen_cursor_y >= SCREEN_HEIGHT) {
-            k_screen_reflush();
+            d_screen_reflush();
             for (int i = start_line; i < SCREEN_HEIGHT; i++) {
                 for (int j = 0; j < SCREEN_WIDTH; j++) {
                     if (i == SCREEN_HEIGHT - 1) {
@@ -65,7 +65,7 @@ void screen_write_ch(char ch) {
     }
 }
 
-void init_screen(void) {
+void d_screen_init(void) {
     vt100_hidden_cursor();
     vt100_clear();
 }
@@ -79,7 +79,7 @@ long sys_screen_clear(void) {
             new_screen[i][j] = 0;
         }
     }
-    k_screen_reflush();
+    d_screen_reflush();
     return 0;
 }
 
@@ -94,7 +94,7 @@ long sys_screen_move_cursor(int x, int y) {
 
 long sys_screen_write_len(char *buff, int len) {
     for (int i = 0; i < len; i++) {
-        port_write_ch(buff[i]);
+        k_port_write_ch(buff[i]);
     }
     return 0;
 }
@@ -110,7 +110,7 @@ long sys_screen_write(char *buff) {
  * the fact that in order to speed up printing, we only refresh
  * the characters that have been modified since this time.
  */
-long k_screen_reflush(void) {
+long d_screen_reflush(void) {
     int i, j;
 
     int prex = screen_cursor_x;
@@ -122,11 +122,11 @@ long k_screen_reflush(void) {
             if (new_screen[i][j] != old_screen[i][j]) {
                 vt100_move_cursor(j + 1, i + 1);
                 if (new_screen[i][j] == '\n') {
-                    port_write_ch('\n');
+                    k_port_write_ch('\n');
                 } else if (new_screen[i][j] < 20 || new_screen[i][j] > 126) {
-                    port_write_ch(' ');
+                    k_port_write_ch(' ');
                 } else {
-                    port_write_ch(new_screen[i][j]);
+                    k_port_write_ch(new_screen[i][j]);
                 }
                 old_screen[i][j] = new_screen[i][j];
             }
@@ -138,17 +138,17 @@ long k_screen_reflush(void) {
     return 0;
 }
 
-void load_curpcb_cursor() {
-    kernel_move_cursor(screen_cursor_x, screen_cursor_y);
+void d_screen_load_curpcb_cursor() {
+    d_screen_kernel_move_cursor(screen_cursor_x, screen_cursor_y);
 }
 
-void kernel_move_cursor(int x, int y) {
+void d_screen_kernel_move_cursor(int x, int y) {
     // \033[y;xH
     screen_cursor_x = x;
     screen_cursor_y = y;
 }
 
-void pcb_move_cursor(int x, int y) {
+void d_screen_pcb_move_cursor(int x, int y) {
     screen_cursor_x = x;
     screen_cursor_y = y;
 }

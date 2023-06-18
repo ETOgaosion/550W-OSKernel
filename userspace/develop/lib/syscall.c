@@ -200,7 +200,3 @@ void move_cursor(int x, int y) {
 long sys_process_show() {
     return syscall(SYS_process_show);
 }
-
-void sys_sd_test() {
-    syscall(SYS_sd_test);
-}

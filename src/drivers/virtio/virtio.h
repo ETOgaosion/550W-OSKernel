@@ -133,15 +133,14 @@ typedef struct disk {
 
 extern disk_t disk;
 
-void virtio_disk_init(void);
-void virtio_disk_rw(struct buf *b, int write);
-void virtio_disk_intr(void);
+void d_virtio_disk_init(void);
+void d_virtio_disk_rw(struct buf *b, int write);
+void d_virtio_disk_intr(void);
 
-void binit(void);
-struct buf *bread(uint, uint);
-void brelse(struct buf *);
-void bwrite(struct buf *);
+void d_binit(void);
+struct buf *d_bread(uint, uint);
+void d_brelse(struct buf *);
+void d_bwrite(struct buf *);
 
-void k_sd_read(char *buffers, uint *start_block_id, uint block_num);
-void k_sd_write(char *buffers, uint *start_block_ids, uint block_num);
-void sys_sd_test();
+void d_sd_read(char *buffers, uint *start_block_id, uint block_num);
+void d_sd_write(char *buffers, uint *start_block_ids, uint block_num);

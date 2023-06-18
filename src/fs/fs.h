@@ -110,26 +110,28 @@ extern uint64_t empty_block;
 // extern int freefid[20];
 // extern int freenum;
 
-extern int k_mkfs(int func);
-int k_load_file(const char *name, uint8_t **bin, int *len);
+int fs_load_file(const char *name, uint8_t **bin, int *len);
 
-extern int fat32_init();
+// [FUNCTION REQUIREMENTS]
+bool fs_check_file_existence(const char *name);
 
-extern long sys_getcwd(char *buf, size_t size);
-extern int sys_pipe2(int *fd, mode_t flags);
-extern int sys_dup(int old);
-extern int sys_dup3(int old, int new, mode_t flags);
-extern int sys_mkdirat(int dirfd, const char *path, mode_t mode);
-extern int sys_chdir(char *path);
-extern int sys_getdents64(int fd, dirent64_t *dirent, size_t len);
-extern int sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode);
-extern int sys_close(int fd);
-extern int sys_linkat(int old, const char *oldname, int newd, const char *newname, mode_t flags);
-extern int sys_unlinkat(int dirfd, const char *path, mode_t flags);
-extern int sys_mount(const char *special, const char *dir, const char *type, mode_t flags, void *data);
-extern int sys_umount2(const char *special, mode_t flags);
-extern ssize_t sys_read(int fd, char *buf, size_t count);
-extern ssize_t sys_write(int fd, const char *buf, size_t count);
-extern int sys_fstat(int fd, kstat_t *statbuf);
+int fs_init();
+
+long sys_getcwd(char *buf, size_t size);
+int sys_pipe2(int *fd, mode_t flags);
+int sys_dup(int old);
+int sys_dup3(int old, int new, mode_t flags);
+int sys_mkdirat(int dirfd, const char *path, mode_t mode);
+int sys_chdir(char *path);
+int sys_getdents64(int fd, dirent64_t *dirent, size_t len);
+int sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode);
+int sys_close(int fd);
+int sys_linkat(int old, const char *oldname, int newd, const char *newname, mode_t flags);
+int sys_unlinkat(int dirfd, const char *path, mode_t flags);
+int sys_mount(const char *special, const char *dir, const char *type, mode_t flags, void *data);
+int sys_umount2(const char *special, mode_t flags);
+ssize_t sys_read(int fd, char *buf, size_t count);
+ssize_t sys_write(int fd, const char *buf, size_t count);
+int sys_fstat(int fd, kstat_t *statbuf);
 void *sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
 int sys_munmap(void *addr, size_t length);

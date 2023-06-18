@@ -202,14 +202,14 @@ extern pcb_t pid0_pcb2;
 
 extern pid_t freepid[NUM_MAX_TASK];
 
-void k_init_pcb();
+void k_pcb_init();
 extern void switch_to(pcb_t *prev, pcb_t *next);
-long k_scheduler(void);
-void k_block(list_head *, list_head *queue, enqueue_way_t way);
-void k_unblock(list_head *, list_head *, unblock_way_t way);
-long k_getpid(void);
-void k_sleep(void *chan, spin_lock_t *lk);
-void k_wakeup(void *chan);
+long k_pcb_scheduler(void);
+void k_pcb_block(list_head *, list_head *queue, enqueue_way_t way);
+void k_pcb_unblock(list_head *, list_head *, unblock_way_t way);
+long k_pcb_getpid(void);
+void k_pcb_sleep(void *chan, spin_lock_t *lk);
+void k_pcb_wakeup(void *chan);
 
 long sys_sched_yield(void);
 long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp);

@@ -7,7 +7,7 @@
 !userspace/rootfs/*
 
 !.gitignore
-!.gdbinit
+!.gdd_binit
 !.clang-format
 !kernel-qemu
 !Makefile

@@ -8,8 +8,8 @@
 extern spin_lock_t kernel_lock;
 
 void k_smp_init();
-void k_wakeup_other_hart();
-uint64_t get_current_cpu_id();
-pcb_t *volatile *k_get_current_running();
-void k_lock_kernel();
-void k_unlock_kernel();
+void k_smp_wakeup_other_hart();
+uint64_t k_smp_get_current_cpu_id();
+pcb_t *volatile *k_smp_get_current_running();
+void k_smp_lock_kernel();
+void k_smp_unlock_kernel();

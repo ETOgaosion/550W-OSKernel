@@ -202,16 +202,16 @@ static int _vprint(const char *fmt, va_list _va, void (*output)(char *)) {
     return ret;
 }
 
-int vprintk(const char *fmt, va_list _va) {
-    return _vprint(fmt, _va, port_write);
+int vk_print(const char *fmt, va_list _va) {
+    return _vprint(fmt, _va, k_port_write);
 }
 
-int printk(const char *fmt, ...) {
+int k_print(const char *fmt, ...) {
     int ret = 0;
     va_list va;
 
     va_start(va, fmt);
-    ret = vprintk(fmt, va);
+    ret = vk_print(fmt, va);
     va_end(va);
 
     return ret;

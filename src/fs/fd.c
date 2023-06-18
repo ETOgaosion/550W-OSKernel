@@ -98,7 +98,7 @@ void ring_buffer_init(struct ring_buffer *rbuf) {
     // there is always one byte which should not be read or written
     k_memset(rbuf, 0, sizeof(struct ring_buffer)); /* head = tail = 0 */
     rbuf->size = RING_BUFFER_SIZE;
-    rbuf->buf = k_malloc(PAGE_SIZE);
+    rbuf->buf = k_mm_malloc(PAGE_SIZE);
     k_memset(rbuf->buf, 0, PAGE_SIZE);
     // TODO INIT LOCK
     k_spin_lock_init(&rbuf->lock);

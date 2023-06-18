@@ -11,27 +11,27 @@ void k_smp_init() {
     k_spin_lock_init(&kernel_lock);
 }
 
-void k_wakeup_other_hart() {
+void k_smp_wakeup_other_hart() {
     sbi_send_ipi(NULL);
     __asm__ __volatile__("csrw sip, zero\n\t");
 }
 
 extern void kernel_exception_handler_entry();
 
-void k_lock_kernel() {
-    w_stvec((uint64_t)kernel_exception_handler_entry);
+void k_smp_lock_kernel() {
+    asm_w_stvec((uint64_t)kernel_exception_handler_entry);
     disable_timer_interrupt();
     disable_software_interrupt();
     enable_external_interrupt();
     enable_interrupt();
     k_spin_lock_acquire(&kernel_lock);
-    current_running = k_get_current_running();
+    current_running = k_smp_get_current_running();
 }
 
-void k_unlock_kernel() {
+void k_smp_unlock_kernel() {
     k_spin_lock_release(&kernel_lock);
 }
 
-pcb_t *volatile *k_get_current_running() {
-    return get_current_cpu_id() ? &current_running1 : &current_running0;
+pcb_t *volatile *k_smp_get_current_running() {
+    return k_smp_get_current_cpu_id() ? &current_running1 : &current_running0;
 }

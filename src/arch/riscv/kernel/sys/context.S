@@ -185,7 +185,7 @@ ENDPROC(switch_to)
 
 ENTRY(user_ret_from_exception)
   /* TODO: */
-  call k_unlock_kernel
+  call k_smp_unlock_kernel
   la t0, user_exception_handler_entry
   csrw stvec, t0
   la t0, SR_SIE

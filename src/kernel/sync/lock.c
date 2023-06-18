@@ -26,7 +26,7 @@ void k_spin_lock_release(spin_lock_t *lock) {
 void k_schedule_with_spin_lock(spin_lock_t *lock) {
     int locked = lock->flag;
     k_spin_lock_release(lock);
-    k_scheduler();
+    k_pcb_scheduler();
     if (locked == LOCKED) {
         k_spin_lock_acquire(lock);
     }
@@ -59,7 +59,7 @@ static inline int find_lock() {
 long k_mutex_lock_init(int *key) {
     if (first_time) {
         for (int i = 0; i < LOCK_NUM; i++) {
-            locks[i] = (mutex_lock_t *)k_malloc(sizeof(mutex_lock_t));
+            locks[i] = (mutex_lock_t *)k_mm_malloc(sizeof(mutex_lock_t));
             locks[i]->initialized = 0;
         }
         first_time = 0;
@@ -96,9 +96,9 @@ long k_mutex_lock_acquire(int key) {
         (*current_running)->lock_ids[(*current_running)->locksum++] = key + 1;
         return locks[key]->lock_id;
     } else {
-        k_block(&(*current_running)->list, &locks[key]->block_queue, ENQUEUE_LIST);
+        k_pcb_block(&(*current_running)->list, &locks[key]->block_queue, ENQUEUE_LIST);
         locks[key]->lock.guard = 0;
-        k_scheduler();
+        k_pcb_scheduler();
         return -2;
     }
 }
@@ -116,7 +116,7 @@ long k_mutex_lock_release(int key) {
     if (list_is_empty(&locks[key]->block_queue)) {
         locks[key]->lock.flag = 0;
     } else {
-        k_unblock(locks[key]->block_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        k_pcb_unblock(locks[key]->block_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
     }
     locks[key]->lock.guard = 0;
     return locks[key]->lock_id;
@@ -157,7 +157,7 @@ void k_sleep_lock_init(sleep_lock_t *lk) {
 void k_sleep_lock_acquire(sleep_lock_t *lk) {
     k_spin_lock_acquire(&lk->lk);
     while (lk->locked) {
-        k_sleep(lk, &lk->lk);
+        k_pcb_sleep(lk, &lk->lk);
     }
     lk->locked = TRUE;
     lk->pid = (*current_running)->pid;
@@ -168,7 +168,7 @@ void k_sleep_lock_release(sleep_lock_t *lk) {
     k_spin_lock_acquire(&lk->lk);
     lk->locked = 0;
     lk->pid = 0;
-    k_wakeup(lk);
+    k_pcb_wakeup(lk);
     k_spin_lock_release(&lk->lk);
 }
 

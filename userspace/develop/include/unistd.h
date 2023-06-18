@@ -57,5 +57,3 @@ void screen_clear();
 void move_cursor(int x, int y);
 
 long sys_process_show();
-
-void sys_sd_test();

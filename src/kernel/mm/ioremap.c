@@ -7,13 +7,13 @@
 static uintptr_t io_base = IO_ADDR_START;
 int io_count = 0;
 
-void *ioremap(unsigned long phys_addr, unsigned long size) {
+void *k_ioremap(unsigned long phys_addr, unsigned long size) {
     // map phys_addr to a virtual address
     // then return the virtual address
     int isize = size;
     uint64_t va = io_base + 0x1000 * io_count;
     while (isize) {
-        map_kp(io_base + 0x1000 * io_count, phys_addr, pa2kva(PGDIR_PA));
+        k_mm_map_kp(io_base + 0x1000 * io_count, phys_addr, pa2kva(PGDIR_PA));
         io_count++;
         isize -= 0x1000;
         phys_addr += 0x1000;
@@ -23,7 +23,7 @@ void *ioremap(unsigned long phys_addr, unsigned long size) {
     return (void *)va;
 }
 
-void iounmap(void *io_addr) {
+void k_iounmap(void *io_addr) {
     // maybe no one would call this function?
     // *pte = 0;
 }

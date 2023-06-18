@@ -5,7 +5,7 @@
 /* clang-format off */
 static inline void _panic(const char* file_name,int lineno, const char* func_name)
 {
-    printk("Assertion failed at %s in %s:%d\n\r",
+    k_print("Assertion failed at %s in %s:%d\n\r",
            func_name,file_name,lineno);
     for(;;);
 }
@@ -20,9 +20,9 @@ static inline void _panic(const char* file_name,int lineno, const char* func_nam
 
 static inline void panic(char *s)
 {
-    printk("panic: ");
-    printk(s);
-    printk("\n");
+    k_print("panic: ");
+    k_print(s);
+    k_print("\n");
     assert(0);
 }
 

@@ -106,7 +106,7 @@ int k_commop(void *key_id, void *arg, int op) {
 int k_semaphore_init(int *key, int sem) {
     if (sem_first_time) {
         for (int i = 0; i < COMM_NUM; i++) {
-            sem_list[i] = (Semaphore_t *)k_malloc(sizeof(Semaphore_t));
+            sem_list[i] = (Semaphore_t *)k_mm_malloc(sizeof(Semaphore_t));
             sem_list[i]->sem_info.initialized = 0;
         }
         sem_first_time = 0;
@@ -135,8 +135,8 @@ int k_semaphore_p(int key) {
     }
     sem_list[key]->sem--;
     if (sem_list[key]->sem < 0) {
-        k_block(&(*current_running)->list, &sem_list[key]->wait_queue, ENQUEUE_LIST);
-        k_scheduler();
+        k_pcb_block(&(*current_running)->list, &sem_list[key]->wait_queue, ENQUEUE_LIST);
+        k_pcb_scheduler();
     }
     return 0;
 }
@@ -147,7 +147,7 @@ int k_semaphore_v(int key) {
     }
     sem_list[key]->sem++;
     if (sem_list[key]->sem <= 0 && !list_is_empty(&sem_list[key]->wait_queue)) {
-        k_unblock(sem_list[key]->wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        k_pcb_unblock(sem_list[key]->wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
     }
     return 0;
 }
@@ -164,7 +164,7 @@ int k_semaphore_destroy(int *key) {
 int k_cond_init(int *key) {
     if (cond_first_time) {
         for (int i = 0; i < COMM_NUM; i++) {
-            cond_list[i] = (cond_t *)k_malloc(sizeof(cond_t));
+            cond_list[i] = (cond_t *)k_mm_malloc(sizeof(cond_t));
             cond_list[i]->cond_info.initialized = 0;
         }
         cond_first_time = 0;
@@ -192,8 +192,8 @@ int k_cond_wait(int key) {
         return -1;
     }
     cond_list[key]->num_wait++;
-    k_block(&(*current_running)->list, &cond_list[key]->wait_queue, ENQUEUE_LIST);
-    k_scheduler();
+    k_pcb_block(&(*current_running)->list, &cond_list[key]->wait_queue, ENQUEUE_LIST);
+    k_pcb_scheduler();
     return 0;
 }
 
@@ -202,7 +202,7 @@ int k_cond_signal(int key) {
         return -1;
     }
     if (cond_list[key]->num_wait > 0) {
-        k_unblock(cond_list[key]->wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        k_pcb_unblock(cond_list[key]->wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
         cond_list[key]->num_wait--;
     }
     return 0;
@@ -213,7 +213,7 @@ int k_cond_broadcast(int key) {
         return -1;
     }
     while (cond_list[key]->num_wait > 0) {
-        k_unblock(cond_list[key]->wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        k_pcb_unblock(cond_list[key]->wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
         cond_list[key]->num_wait--;
     }
     return 0;
@@ -231,7 +231,7 @@ int k_cond_destroy(int *key) {
 int k_barrier_init(int *key, int total) {
     if (barrier_first_time) {
         for (int i = 0; i < COMM_NUM; i++) {
-            barrier_list[i] = (barrier_t *)k_malloc(sizeof(barrier_t));
+            barrier_list[i] = (barrier_t *)k_mm_malloc(sizeof(barrier_t));
             barrier_list[i]->barrier_info.initialized = 0;
         }
         barrier_first_time = 0;
@@ -282,7 +282,7 @@ int k_barrier_destroy(int *key) {
 int k_mbox_open(int id_1, int id_2) {
     if (mbox_first_time) {
         for (int i = 0; i < COMM_NUM; i++) {
-            mbox_list[i] = (mbox_t *)k_malloc(sizeof(mbox_t));
+            mbox_list[i] = (mbox_t *)k_mm_malloc(sizeof(mbox_t));
             mbox_list[i]->mailbox_info.initialized = 0;
         }
         mbox_first_time = 0;
