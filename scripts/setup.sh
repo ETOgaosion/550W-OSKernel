@@ -35,7 +35,8 @@ then
         gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu \
         libpixman-1-0 git python3 python3-pip make curl \
         sshpass openssh-client clang-10 libtinfo5 libc6-dev-i386 \
-        libncurses5 libpython2.7 libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev clang-format-17
+        libncurses5 libpython2.7 libglib2.0-dev libfdt-dev \
+        libpixman-1-dev zlib1g-dev clang-format-17 doxygen graphviz
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
     sudo apt-get install git-lfs
     git lfs install
@@ -53,7 +54,8 @@ else
         gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu \
         libpixman-1-0 git python3 python3-pip make curl \
         sshpass openssh-client clang-10 libtinfo5 libc6-dev-i386 \
-        libncurses5 libpython2.7 libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev clang-format-17
+        libncurses5 libpython2.7 libglib2.0-dev libfdt-dev \
+        libpixman-1-dev zlib1g-dev clang-format-17 doxygen graphviz
     curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
     apt-get install git-lfs
     git lfs install
