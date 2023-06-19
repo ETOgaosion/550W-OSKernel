@@ -1,3 +1,3 @@
 [submodule "userspace/testsuits-for-oskernel"]
 	path = userspace/testsuits-for-oskernel
-	url = https://github.com/ETOgaosion/testsuits-for-oskernel.git
+	url = git@github.com:ETOgaosion/testsuits-for-oskernel.git
