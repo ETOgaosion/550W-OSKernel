@@ -135,10 +135,13 @@ typedef __kernel_long_t __kernel_ptrdiff_t;
 #endif
 
 #ifndef __kernel_fsid_t
-typedef struct {
+typedef struct __kernel_fsid {
     int val[2];
 } __kernel_fsid_t;
 #endif
+
+typedef int __kernel_key_t;
+typedef int __kernel_mqd_t;
 
 /*
  * anything below here should be completely generic
@@ -149,15 +152,24 @@ typedef __kernel_long_t __kernel_time_t;
 typedef long long __kernel_time64_t;
 typedef __kernel_long_t __kernel_clock_t;
 typedef int __kernel_timer_t;
-typedef int __kernel_clock_ids_t;
+typedef int __kernel_clockid_t;
 typedef char *__kernel_caddr_t;
 typedef unsigned short __kernel_uid16_t;
 typedef unsigned short __kernel_gid16_t;
+typedef unsigned int __kernel_uid32_t;
+typedef unsigned int __kernel_gid32_t;
+typedef __kernel_long_t __kernel_old_time_t;
+typedef __kernel_long_t __kernel_time_t;
 
 typedef unsigned short umode_t;
 typedef unsigned int mode_t;
 typedef long int off_t;
 typedef int32_t hartid_t;
+
+typedef __kernel_uid32_t uid_t;
+typedef __kernel_gid32_t gid_t;
+typedef __kernel_key_t key_t;
+typedef __kernel_clockid_t clockid_t;
 
 /* Minimum of signed integral types.  */
 #define INT8_MIN (-128)
@@ -206,4 +218,12 @@ typedef int32_t hartid_t;
     {                                         \
         (*(volatile uint64 *)(addr)) = (v); \
     }
+
+#define __DECLARE_FLEX_ARRAY(TYPE, NAME)	\
+	struct { \
+		struct { } __empty_ ## NAME; \
+		TYPE NAME[]; \
+	}
 /* clang-format on */
+
+#define DECLARE_FLEX_ARRAY(TYPE, NAME) __DECLARE_FLEX_ARRAY(TYPE, NAME)

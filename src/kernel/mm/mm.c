@@ -486,6 +486,23 @@ uintptr_t free_page_helper(uintptr_t va, uintptr_t pgdir) {
     return 0;
 }
 
+// [TODO]
+long sys_shmget(key_t key, size_t size, int flag) {
+    return 0;
+}
+
+long sys_shmctl(int shmid, int cmd, shmid_ds_t *buf) {
+    return 0;
+}
+
+long sys_shmat(int shmid, char *shmaddr, int shmflg) {
+    return 0;
+}
+
+long sys_shmdt(char *shmaddr) {
+    return 0;
+}
+
 long sys_brk(unsigned long brk) {
     if (brk > K_ROUND((*current_running)->user_sp, NORMAL_PAGE_SIZE)) {
         return -EINVAL;
@@ -507,4 +524,32 @@ long sys_brk(unsigned long brk) {
     }
     (*current_running)->elf.edata = brk;
     return brk;
+}
+
+long sys_swapon(const char *specialfile, int swap_flags) {
+    return 0;
+}
+
+long sys_swapoff(const char *specialfile) {
+    return 0;
+}
+
+long sys_mprotect(unsigned long start, size_t len, unsigned long prot) {
+    return 0;
+}
+
+long sys_msync(unsigned long start, size_t len, int flags) {
+    return 0;
+}
+
+long sys_mlock(unsigned long start, size_t len) {
+    return 0;
+}
+
+long sys_munlock(unsigned long start, size_t len) {
+    return 0;
+}
+
+long sys_madvise(unsigned long start, size_t len, int behavior) {
+    return 0;
 }

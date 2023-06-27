@@ -9,7 +9,7 @@ int cond_first_time = 1;
 int barrier_first_time = 1;
 int mbox_first_time = 1;
 
-Semaphore_t *sem_list[COMM_NUM];
+semaphore_t *sem_list[COMM_NUM];
 cond_t *cond_list[COMM_NUM];
 barrier_t *barrier_list[COMM_NUM];
 mbox_t *mbox_list[COMM_NUM];
@@ -106,7 +106,7 @@ int k_commop(void *key_id, void *arg, int op) {
 int k_semaphore_init(int *key, int sem) {
     if (sem_first_time) {
         for (int i = 0; i < COMM_NUM; i++) {
-            sem_list[i] = (Semaphore_t *)k_mm_malloc(sizeof(Semaphore_t));
+            sem_list[i] = (semaphore_t *)k_mm_malloc(sizeof(semaphore_t));
             sem_list[i]->sem_info.initialized = 0;
         }
         sem_first_time = 0;
@@ -156,7 +156,7 @@ int k_semaphore_destroy(int *key) {
     if (!sem_list[*key - 1]->sem_info.initialized) {
         return -1;
     }
-    k_memset((void *)sem_list[*key - 1], 0, sizeof(Semaphore_t *));
+    k_memset((void *)sem_list[*key - 1], 0, sizeof(semaphore_t *));
     *key = 0;
     return 0;
 }
@@ -409,7 +409,7 @@ void k_pcb_mbox_init(pcb_mbox_t *target, int owner_id) {
     target->pcb_i = owner_id;
 }
 
-int sys_mailread(void *buf, int len) {
+long sys_mailread(void *buf, int len) {
     pcb_mbox_t *target = (*current_running)->mbox;
     if (len == 0) {
         if (target->used_units) {
@@ -427,7 +427,7 @@ int sys_mailread(void *buf, int len) {
     return len;
 }
 
-int sys_mailwrite(int pid, void *buf, int len) {
+long sys_mailwrite(int pid, void *buf, int len) {
     pcb_mbox_t *target = (*current_running)->mbox;
     if (len == 0) {
         if (target->used_units == PCB_MBOX_MAX_MSG_NUM) {
@@ -442,4 +442,17 @@ int sys_mailwrite(int pid, void *buf, int len) {
     target->write_head = (target->write_head + 1) % PCB_MBOX_MAX_MSG_NUM;
     target->used_units++;
     return len;
+}
+
+// [TODO]
+long sys_semget(key_t key, int nsems, int semflg) {
+    return 0;
+}
+
+long sys_semctl(int semid, int semnum, int cmd, unsigned long arg) {
+    return 0;
+}
+
+long sys_semop(int semid, sembuf_t *sops, unsigned nsops) {
+    return 0;
 }

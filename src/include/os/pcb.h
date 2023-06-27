@@ -185,6 +185,31 @@ typedef struct pcb {
     rusage_t resources;
 } pcb_t;
 
+typedef struct rlimit {
+    __kernel_ulong_t rlim_cur;
+    __kernel_ulong_t rlim_max;
+} rlimit_t;
+
+typedef struct rlimit64 {
+    __u64 rlim_cur;
+    __u64 rlim_max;
+} rlimit64_t;
+
+typedef struct __user_cap_header_struct {
+    __u32 version;
+    int pid;
+} cap_user_header_t;
+
+typedef struct __user_cap_data_struct {
+    __u32 effective;
+    __u32 permitted;
+    __u32 inheritable;
+} cap_user_data_t;
+
+typedef struct sched_param {
+    int sched_priority;
+} sched_param_t;
+
 /* current running task PCB */
 extern pcb_t *volatile current_running0;
 extern pcb_t *volatile current_running1;
@@ -211,20 +236,63 @@ long k_pcb_getpid(void);
 void k_pcb_sleep(void *chan, spin_lock_t *lk);
 void k_pcb_wakeup(void *chan);
 
-long sys_sched_yield(void);
-long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp);
 long sys_spawn(const char *file_name);
 long sys_fork(void);
 long sys_exec(const char *file_name, const char *argv[], const char *envp[]);
 long sys_execve(const char *file_name, const char *argv[], const char *envp[]);
 long sys_clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t *child_tid);
 long sys_kill(pid_t pid);
+long sys_tkill(pid_t pid, int sig);
+long sys_tgkill(pid_t tgid, pid_t pid, int sig);
 long sys_exit(int error_code);
+long sys_exit_group(int error_code);
 long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru);
+
 long sys_process_show();
+long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp);
+
 long sys_setpriority(int which, int who, int niceval);
 long sys_getpriority(int which, int who);
-long sys_getpid(void);
-long sys_getppid(void);
+
+long sys_sched_setparam(pid_t pid, sched_param_t *param);
+long sys_sched_setscheduler(pid_t pid, int policy, sched_param_t *param);
+long sys_sched_getscheduler(pid_t pid);
+long sys_sched_getparam(pid_t pid, sched_param_t *param);
 long sys_sched_setaffinity(pid_t pid, unsigned int len, const uint8_t *user_mask_ptr);
 long sys_sched_getaffinity(pid_t pid, unsigned int len, uint8_t *user_mask_ptr);
+long sys_sched_yield(void);
+long sys_sched_get_priority_max(int policy);
+long sys_sched_get_priority_min(int policy);
+
+long sys_set_tid_address(int *tidptr);
+long sys_setgid(gid_t gid);
+long sys_setuid(uid_t uid);
+long sys_setresuid(uid_t ruid, uid_t euid, uid_t suid);
+long sys_getresuid(uid_t *ruid, uid_t *euid, uid_t *suid);
+long sys_setresgid(gid_t rgid, gid_t egid, gid_t sgid);
+long sys_getresgid(gid_t *rgid, gid_t *egid, gid_t *sgid);
+long sys_setpgid(pid_t pid, pid_t pgid);
+long sys_getpgid(pid_t pid);
+long sys_getsid(pid_t pid);
+long sys_setsid(void);
+long sys_getgroups(int gidsetsize, gid_t *grouplist);
+long sys_setgroups(int gidsetsize, gid_t *grouplist);
+long sys_getpid(void);
+long sys_getppid(void);
+long sys_getuid(void);
+long sys_geteuid(void);
+long sys_getgid(void);
+long sys_getegid(void);
+long sys_gettid(void);
+
+long sys_getrlimit(unsigned int resource, rlimit_t *rlim);
+long sys_setrlimit(unsigned int resource, rlimit_t *rlim);
+long sys_getrusage(int who, rlimit_t *ru);
+long sys_prlimit64(pid_t pid, unsigned int resource, const rlimit64_t *new_rlim, rlimit64_t *old_rlim);
+
+long sys_personality(unsigned int personality);
+long sys_unshare(unsigned long unshare_flags);
+long sys_prctl(int option, unsigned long arg2, unsigned long arg3, unsigned long arg4, unsigned long arg5);
+
+long sys_capget(cap_user_header_t *header, cap_user_data_t *dataptr);
+long sys_capset(cap_user_header_t *header, const cap_user_data_t *data);

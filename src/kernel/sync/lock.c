@@ -179,3 +179,7 @@ int k_sleep_lock_hold(sleep_lock_t *lk) {
     k_spin_lock_release(&lk->lk);
     return r;
 }
+
+long sys_futex(u32 *uaddr, int op, u32 val, const __kernel_timespec_t *utime, u32 *uaddr2, u32 val3) {
+    return 0;
+}

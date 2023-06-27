@@ -135,6 +135,31 @@ long sys_time(__kernel_time_t *tloc) {
     return ret;
 }
 
+// [TODO]
+long sys_utimensat(int dfd, const char *filename, __kernel_timespec_t *utimes, int flags) {
+    return 0;
+}
+
+long sys_getitimer(int which, time_val_t *value) {
+    return 0;
+}
+
+long sys_setitimer(int which, time_val_t *value, time_val_t *ovalue) {
+    return 0;
+}
+
+long sys_clock_settime(clockid_t which_clock, const __kernel_timespec_t *tp) {
+    return 0;
+}
+
+long sys_clock_gettime(clockid_t which_clock, __kernel_timespec_t *tp) {
+    return 0;
+}
+
+long sys_clock_getres(clockid_t which_clock, __kernel_timespec_t *tp) {
+    return 0;
+}
+
 long sys_times(tms_t *tbuf) {
     tbuf->tms_stime = k_time_get_ticks_from_time(&(*current_running)->resources.ru_stime);
     tbuf->tms_utime = k_time_get_ticks_from_time(&(*current_running)->resources.ru_utime);
@@ -158,5 +183,13 @@ long sys_gettimeofday(time_val_t *tv, timezone_t *tz) {
         tz->tz_minuteswest = timezone_550W.tz_minuteswest;
         tz->tz_dsttime = timezone_550W.tz_dsttime;
     }
+    return 0;
+}
+
+long sys_adjtimex(__kernel_timex_t *txc_p) {
+    return 0;
+}
+
+long sys_clock_adjtime(clockid_t which_clock, __kernel_timex_t *tx) {
     return 0;
 }

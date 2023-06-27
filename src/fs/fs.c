@@ -753,7 +753,7 @@ int fs_init() {
     // sys_write(100, str, k_strlen(str));
 
     // // [fstats] ok
-    // int sys_fd = sys_openat(AT_FDCWD,"./text.txt",O_RDONLY,0);
+    // long sys_fd = sys_openat(AT_FDCWD,"./text.txt",O_RDONLY,0);
     // kstat_t kst;
     // sys_fstat(sys_fd, &kst);
     // k_print("fstat: dev: %d, inode: %d, mode: %d, nlink: %d, size: %d, atime: %d, mtime: %d, ctime: %d\n",
@@ -840,6 +840,65 @@ int fs_init() {
 }
 
 /**
+ * @brief  load elf file in root dir, 0 success, -1 fail
+ * @param  name  elf file should be loaded
+ * @return elf bit array
+ */
+int fs_load_file(const char *name, uint8_t **bin, int *len) {
+    dentry_t *dtable = NULL;
+    // TODO: read in dir data
+    dtable = read_whole_dir(root_dir.first_cluster, 0);
+    int offset = fat32_name2offset((char *)name, dtable);
+    if (offset < 0) {
+        // k_print("[debug] can't load, no such file!\n");
+        return -1;
+    }
+    uint32_t first = fat32_dentry2fcluster(&dtable[offset]);
+    // free buffer of dtable
+    *len = dtable[offset].sn.file_size;
+    if (*len == 0) {
+        // k_print("[debug] can't load, empty file!\n");
+        return -1;
+    }
+    *bin = (uint8_t *)read_whole_dir(first, 0);
+    return 0;
+}
+
+// [FUNCTION REQUIREMENTS]
+bool fs_check_file_existence(const char *name) {
+    return true;
+}
+
+// [TODO]
+long sys_ioctl(unsigned int fd, unsigned int cmd, unsigned long arg) {
+    return 0;
+}
+
+long sys_pselect6(int nfds, fd_set_t *readfds, fd_set_t *writefds, fd_set_t *exceptfds, __kernel_timespec_t *timeout, void *sigmask) {
+    return 0;
+}
+
+long sys_ppoll(pollfd_t *fds, unsigned int nfds, __kernel_timespec_t *tmo_p, void *sigmask) {
+    return 0;
+}
+
+long sys_setxattr(const char *path, const char *name, const void *value, size_t size, int flags) {
+    return 0;
+}
+
+long sys_lsetxattr(const char *path, const char *name, const void *value, size_t, int flags) {
+    return 0;
+}
+
+long sys_removexattr(const char *path, const char *name) {
+    return 0;
+}
+
+long sys_lremovexattr(const char *path, const char *name) {
+    return 0;
+}
+
+/**
  * @param  buf buffer for cur_dir path
  * @param  size bytes of buf
  *
@@ -850,47 +909,11 @@ long sys_getcwd(char *buf, size_t size) {
 }
 
 /**
- * @brief  allocate pipe to fd[2].
- * @param  fd: target fd array.
- * @retval  -1: failed
- *          0: succeed
- */
-int sys_pipe2(int *fd, mode_t flags) {
-    // 1. alloc one pipe? what's pipe?
-    // 2. alloc 2 fd for pipe
-    if (pipe_alloc(fd) == -1) {
-        return -1;
-    }
-    int mailbox = k_mbox_open(fd[0], fd[1]);
-    // init
-    fd_t *file = get_fd(fd[0]);
-    // k_print("[pipe] get pipe read id %u, fd %d\n", file->pip_num, fd[0]);
-    file->file = ATTR_DIRECTORY >> 1;
-    file->pos = 0;
-    file->flags = O_RDONLY;
-    file->mailbox = mailbox;
-
-    file = get_fd(fd[1]);
-    // k_print("[pipe] get pipe write id %u, fd %d\n", file->pip_num, fd[1]);
-    file->file = ATTR_DIRECTORY >> 1;
-    file->pos = 0;
-    file->flags = O_WRONLY;
-    file->mailbox = mailbox;
-
-    pipe_t *p = &pipe_table[file->pip_num];
-    p->r_valid = 1;
-    p->w_valid = 1;
-    p->mailbox = mailbox;
-
-    return 0;
-}
-
-/**
  * @brief  copy a fd and return the new one
  * @param  old old fd
  *
  */
-int sys_dup(int old) {
+long sys_dup(int old) {
     fd_t *file1 = get_fd(old);
     if (!file1) {
         return -1;
@@ -912,7 +935,7 @@ int sys_dup(int old) {
  * @param  old old fd
  * @param  new new fd
  */
-int sys_dup3(int old, int new, mode_t flags) {
+long sys_dup3(int old, int new, mode_t flags) {
     fd_t *file1 = get_fd(old);
     if (!file1) {
         return -1;
@@ -925,13 +948,25 @@ int sys_dup3(int old, int new, mode_t flags) {
     return new; // fail return -1
 }
 
+long sys_fcntl(unsigned int fd, unsigned int cmd, unsigned long arg) {
+    return 0;
+}
+
+long sys_flock(unsigned int fd, unsigned int cmd) {
+    return 0;
+}
+
+long sys_mknodat(int dfd, const char *filename, umode_t mode, unsigned dev) {
+    return 0;
+}
+
 /**
  * @brief  mk dir at patch, success 0 fail -1
  * @param  dir_fd mkdir at this dir
  * @param  flag   AT_FDCWD means mkdir at cwd
  * @param  path   path if from '/', other just means dir name
  */
-int sys_mkdirat(int dirfd, const char *path_0, mode_t mode) {
+long sys_mkdirat(int dirfd, const char *path_0, mode_t mode) {
     // get dir file belonged to
     dir_info_t new;
     char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
@@ -974,11 +1009,145 @@ int sys_mkdirat(int dirfd, const char *path_0, mode_t mode) {
 }
 
 /**
+ * @brief  rm file directed by path, 0 success -1 fail
+ * @param  dirfd     file descripter
+ * @param  path      dile path
+ * @param  count     0 or AT_REMOVEDIR
+ */
+long sys_unlinkat(int dirfd, const char *path_0, mode_t flags) {
+    // get dir file belonged to
+    dir_info_t new;
+    char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
+    int ret = 0;
+    filename2path(path, name, path_0);
+    // k_print("[debug] rm %s, at %s\n",name,path);
+    if (path[0] == '/') {
+        ret = fat32_path2dir(path, &new, root_dir);
+    } else if (dirfd == AT_FDCWD) {
+        ret = fat32_path2dir(path, &new, cur_dir);
+    } else {
+        fd_t *file = get_fd(dirfd);
+        if (!file || file->file != ATTR_DIRECTORY) {
+            return -1;
+        }
+        new.first_cluster = file->first_cluster;
+        new.size = fat32_fcluster2size(new.first_cluster);
+        // no use of name
+    }
+
+    // not found by path
+    if (!ret) {
+        return -1;
+    }
+
+    // try open file
+    int offset = 0;
+    dentry_t *dtable = NULL;
+
+    dtable = read_whole_dir(new.first_cluster, 0);
+
+    offset = fat32_name2offset(name, dtable);
+    if (offset < 0) {
+        // k_print("[debug] : testopen not found!\n");
+        // free dtable
+        return -1;
+    }
+    if (!(((dtable[offset].sn.attr & ATTR_DIRECTORY) == 0) ^ ((flags & AT_REMOVEDIR) == 0))) {
+        // k_print("[debug] destroy %s at dir %s, offset %d\n",name,path,offset);
+        // TODO: set empty entry
+        destroy_dentry(dtable, offset);
+        write_whole_dir(new.first_cluster, dtable, 1);
+        return 0;
+    }
+    return -1;
+}
+
+long sys_symlinkat(const char *oldname, int newdfd, const char *newname) {
+    return 0;
+}
+
+long sys_linkat(int old, const char *oldname, int newd, const char *newname, mode_t flags) {
+    return 0; // fat not support it! just return 0
+    // //get dir file belonged to
+    // dir_info_t new;
+    // char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
+    // int ret = 0;
+    // filename2path(path,name,oldname);
+    // k_print("open %s, at %s\n",name,path);
+    // if(path[0] == '/')
+    //     ret = fat32_path2dir(path,&new,root_dir);
+    // else if(old == AT_FDCWD)
+    //     ret = fat32_path2dir(path,&new,cur_dir);
+    // else{
+    //     fd_t *file = get_fd(old);
+    //     if(!file || file->file != ATTR_DIRECTORY)
+    //         return -1;
+    //     new.first_cluster = file->first_cluster;
+    //     new.size      = fat32_fcluster2size(new.first_cluster);
+    //     //no use of name
+    // }
+
+    // //not found by path
+    // if(!ret)
+    //     return -1;
+
+    // //try open file
+    // int offset = 0;
+    // dentry_t* dtable = NULL;
+
+    // dtable = read_whole_dir(new.first_cluster,0);
+
+    // offset = fat32_name2offset(name,dtable);
+
+    // if(offset >= 0){
+    //     if(!(dtable[offset].sn.attr & ATTR_DIRECTORY)){
+    //         return -1;
+    //     }
+    //     dtable[offset].sn.
+    // }else{
+    //     return -1;
+    // }
+
+    // fd_free(ret);
+    // return -1;
+}
+
+long sys_umount2(const char *special, mode_t flags) {
+    // todo
+    return 0;
+}
+
+long sys_mount(const char *special, const char *dir, const char *type, mode_t flags, void *data) {
+    // todo
+    return 0;
+}
+
+long sys_pivot_root(const char *new_root, const char *put_old) {
+    return 0;
+}
+
+long sys_statfs(const char *path, statfs_t *buf) {
+    return 0;
+}
+
+long sys_ftruncate(unsigned int fd, unsigned long length) {
+    return 0;
+}
+
+long sys_fallocate(int fd, int mode, loff_t offset, loff_t len) {
+    return 0;
+}
+
+long sys_faccessat(int dfd, const char *filename, int mode) {
+    return 0;
+}
+
+/**
  * @brief  change dir by patch, fail return -1
  * @param  path buffer for dir path
  *
  */
-int sys_chdir(char *path) {
+long sys_chdir(char *path) {
     dir_info_t new;
     int ret = 0;
     if (path[0] == '/') {
@@ -1003,29 +1172,28 @@ int sys_chdir(char *path) {
     return 0;
 }
 
-int sys_getdents64(int fd, dirent64_t *dirent, size_t len) {
-    fd_t *file = get_fd(fd);
-    if (file->file != ATTR_DIRECTORY) {
-        return -1;
-    }
-    dentry_t *dtable = read_whole_dir(file->first_cluster, 0);
-    char name[MAX_NAME_LEN];
-    int offset = 0;
-repeat:
-    offset = dentry2name(&dtable[file->pos], name);
-    if (!offset) {
-        return 0;
-    }
-    if ((offset == 1) && (name[0] == '\0')) {
-        goto repeat;
-    }
-    file->pos += offset;
-    dirent->d_ino = 0;
-    dirent->d_off = (long)offset;
-    dirent->d_reclen = sizeof(dirent64_t) + k_strlen(name) + 1;
-    dirent->d_type = dtable[file->pos - 1].sn.attr;
-    k_memcpy((uint8_t *)dirent->d_name, (uint8_t *)name, k_strlen(name) + 1);
-    return sizeof(dirent64_t) + k_strlen(name) + 1;
+long sys_fchdir(unsigned int fd) {
+    return 0;
+}
+
+long sys_chroot(const char *filename) {
+    return 0;
+}
+
+long sys_fchmod(unsigned int fd, umode_t mode) {
+    return 0;
+}
+
+long sys_fchmodat(int dfd, const char *filename, umode_t mode) {
+    return 0;
+}
+
+long sys_fchownat(int dfd, const char *filename, uid_t user, gid_t group, int flag) {
+    return 0;
+}
+
+long sys_fchown(unsigned int fd, uid_t user, gid_t group) {
+    return 0;
 }
 
 /**
@@ -1034,7 +1202,7 @@ repeat:
  * @param  buf    bytes buf
  * @param  count  read len
  */
-int sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
+long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
     // get dir file belonged to
     dir_info_t new;
     char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
@@ -1099,117 +1267,72 @@ int sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
     return -1;
 }
 
-int sys_close(int fd) {
+long sys_close(int fd) {
     return fd_free(fd);
 }
 
-int sys_linkat(int old, const char *oldname, int newd, const char *newname, mode_t flags) {
-    return 0; // fat not support it! just return 0
-    // //get dir file belonged to
-    // dir_info_t new;
-    // char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
-    // int ret = 0;
-    // filename2path(path,name,oldname);
-    // k_print("open %s, at %s\n",name,path);
-    // if(path[0] == '/')
-    //     ret = fat32_path2dir(path,&new,root_dir);
-    // else if(old == AT_FDCWD)
-    //     ret = fat32_path2dir(path,&new,cur_dir);
-    // else{
-    //     fd_t *file = get_fd(old);
-    //     if(!file || file->file != ATTR_DIRECTORY)
-    //         return -1;
-    //     new.first_cluster = file->first_cluster;
-    //     new.size      = fat32_fcluster2size(new.first_cluster);
-    //     //no use of name
-    // }
-
-    // //not found by path
-    // if(!ret)
-    //     return -1;
-
-    // //try open file
-    // int offset = 0;
-    // dentry_t* dtable = NULL;
-
-    // dtable = read_whole_dir(new.first_cluster,0);
-
-    // offset = fat32_name2offset(name,dtable);
-
-    // if(offset >= 0){
-    //     if(!(dtable[offset].sn.attr & ATTR_DIRECTORY)){
-    //         return -1;
-    //     }
-    //     dtable[offset].sn.
-    // }else{
-    //     return -1;
-    // }
-
-    // fd_free(ret);
-    // return -1;
-}
-
 /**
- * @brief  rm file directed by path, 0 success -1 fail
- * @param  dirfd     file descripter
- * @param  path      dile path
- * @param  count     0 or AT_REMOVEDIR
+ * @brief  allocate pipe to fd[2].
+ * @param  fd: target fd array.
+ * @retval  -1: failed
+ *          0: succeed
  */
-int sys_unlinkat(int dirfd, const char *path_0, mode_t flags) {
-    // get dir file belonged to
-    dir_info_t new;
-    char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
-    int ret = 0;
-    filename2path(path, name, path_0);
-    // k_print("[debug] rm %s, at %s\n",name,path);
-    if (path[0] == '/') {
-        ret = fat32_path2dir(path, &new, root_dir);
-    } else if (dirfd == AT_FDCWD) {
-        ret = fat32_path2dir(path, &new, cur_dir);
-    } else {
-        fd_t *file = get_fd(dirfd);
-        if (!file || file->file != ATTR_DIRECTORY) {
-            return -1;
-        }
-        new.first_cluster = file->first_cluster;
-        new.size = fat32_fcluster2size(new.first_cluster);
-        // no use of name
-    }
-
-    // not found by path
-    if (!ret) {
+long sys_pipe2(int *fd, mode_t flags) {
+    // 1. alloc one pipe? what's pipe?
+    // 2. alloc 2 fd for pipe
+    if (pipe_alloc(fd) == -1) {
         return -1;
     }
+    int mailbox = k_mbox_open(fd[0], fd[1]);
+    // init
+    fd_t *file = get_fd(fd[0]);
+    // k_print("[pipe] get pipe read id %u, fd %d\n", file->pip_num, fd[0]);
+    file->file = ATTR_DIRECTORY >> 1;
+    file->pos = 0;
+    file->flags = O_RDONLY;
+    file->mailbox = mailbox;
 
-    // try open file
-    int offset = 0;
-    dentry_t *dtable = NULL;
+    file = get_fd(fd[1]);
+    // k_print("[pipe] get pipe write id %u, fd %d\n", file->pip_num, fd[1]);
+    file->file = ATTR_DIRECTORY >> 1;
+    file->pos = 0;
+    file->flags = O_WRONLY;
+    file->mailbox = mailbox;
 
-    dtable = read_whole_dir(new.first_cluster, 0);
+    pipe_t *p = &pipe_table[file->pip_num];
+    p->r_valid = 1;
+    p->w_valid = 1;
+    p->mailbox = mailbox;
 
-    offset = fat32_name2offset(name, dtable);
-    if (offset < 0) {
-        // k_print("[debug] : testopen not found!\n");
-        // free dtable
-        return -1;
-    }
-    if (!(((dtable[offset].sn.attr & ATTR_DIRECTORY) == 0) ^ ((flags & AT_REMOVEDIR) == 0))) {
-        // k_print("[debug] destroy %s at dir %s, offset %d\n",name,path,offset);
-        // TODO: set empty entry
-        destroy_dentry(dtable, offset);
-        write_whole_dir(new.first_cluster, dtable, 1);
-        return 0;
-    }
-    return -1;
-}
-
-int sys_mount(const char *special, const char *dir, const char *type, mode_t flags, void *data) {
-    // todo
     return 0;
 }
 
-int sys_umount2(const char *special, mode_t flags) {
-    // todo
+long sys_getdents64(int fd, dirent64_t *dirent, size_t len) {
+    fd_t *file = get_fd(fd);
+    if (file->file != ATTR_DIRECTORY) {
+        return -1;
+    }
+    dentry_t *dtable = read_whole_dir(file->first_cluster, 0);
+    char name[MAX_NAME_LEN];
+    int offset = 0;
+repeat:
+    offset = dentry2name(&dtable[file->pos], name);
+    if (!offset) {
+        return 0;
+    }
+    if ((offset == 1) && (name[0] == '\0')) {
+        goto repeat;
+    }
+    file->pos += offset;
+    dirent->d_ino = 0;
+    dirent->d_off = (long)offset;
+    dirent->d_reclen = sizeof(dirent64_t) + k_strlen(name) + 1;
+    dirent->d_type = dtable[file->pos - 1].sn.attr;
+    k_memcpy((uint8_t *)dirent->d_name, (uint8_t *)name, k_strlen(name) + 1);
+    return sizeof(dirent64_t) + k_strlen(name) + 1;
+}
+
+long sys_lseek(unsigned int fd, off_t offset, unsigned int whence) {
     return 0;
 }
 
@@ -1304,7 +1427,31 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
     return count;
 }
 
-int sys_fstat(int fd, kstat_t *statbuf) {
+long sys_readv(unsigned long fd, const iovec_t *vec, unsigned long vlen) {
+    return 0;
+}
+
+long sys_writev(unsigned long fd, const iovec_t *vec, unsigned long vlen) {
+    return 0;
+}
+
+long sys_sendfile64(int out_fd, int in_fd, loff_t *offset, size_t count) {
+    return 0;
+}
+
+long sys_readlinkat(int dfd, const char *path, char *buf, int bufsiz) {
+    return 0;
+}
+
+long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
+    return 0;
+}
+
+long sys_newfstat(unsigned int fd, stat_t *statbuf) {
+    return 0;
+}
+
+long sys_fstat64(int fd, kstat64_t *statbuf) {
     fd_t *file = get_fd(fd);
     // statbuf->st_dev = file->dev;
     // statbuf->st_ino = fd - 3;
@@ -1349,38 +1496,37 @@ int sys_fstat(int fd, kstat_t *statbuf) {
     return 0;
 }
 
-/**
- * @brief  load elf file in root dir, 0 success, -1 fail
- * @param  name  elf file should be loaded
- * @return elf bit array
- */
-int fs_load_file(const char *name, uint8_t **bin, int *len) {
-    dentry_t *dtable = NULL;
-    // TODO: read in dir data
-    dtable = read_whole_dir(root_dir.first_cluster, 0);
-    int offset = fat32_name2offset((char *)name, dtable);
-    if (offset < 0) {
-        // k_print("[debug] can't load, no such file!\n");
-        return -1;
-    }
-    uint32_t first = fat32_dentry2fcluster(&dtable[offset]);
-    // free buffer of dtable
-    *len = dtable[offset].sn.file_size;
-    if (*len == 0) {
-        // k_print("[debug] can't load, empty file!\n");
-        return -1;
-    }
-    *bin = (uint8_t *)read_whole_dir(first, 0);
+long sys_fstatat64(int fd, const char *filename, kstat64_t *statbuf, int flag) {
     return 0;
 }
 
-void *sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {
+long sys_sync(void) {
+    return 0;
+}
+
+long sys_fsync(unsigned int fd) {
+    return 0;
+}
+
+long sys_umask(int mask) {
+    return 0;
+}
+
+long sys_syncfs(int fd) {
+    return 0;
+}
+
+long sys_renameat2(int olddfd, const char *oldname, int newdfd, const char *newname, unsigned int flags) {
+    return 0;
+}
+
+long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {
     if (addr != NULL) { // NOT support spec addr
-        return addr;
+        return (long)addr;
     }
     fd_t *file = get_fd(fd);
     if (!file) {
-        return (void *)-1;
+        return (long)-1;
     }
     uintptr_t ret = k_mm_alloc_newva();
     uintptr_t kva = k_mm_alloc_page_helper(ret, (pa2kva((*current_running)->pgdir << 12)));
@@ -1388,9 +1534,14 @@ void *sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t off
     uint8_t *data = read_whole_dir(file->first_cluster, file->size);
     k_memcpy((uint8_t *)kva, &data[offset], length);
 
-    return (void *)ret;
+    return (long)ret;
 }
-int sys_munmap(void *addr, size_t length) {
+
+long sys_munmap(unsigned long addr, size_t len) {
+    return 0;
+}
+
+long sys_mremap(unsigned long addr, unsigned long old_len, unsigned long new_len, unsigned long flags, unsigned long new_addr) {
     return 0;
 }
 
@@ -1418,8 +1569,3 @@ int sys_munmap(void *addr, size_t length) {
 // int nowfid = 0;
 // int freefid[20];
 // int freenum = 0;
-
-// [FUNCTION REQUIREMENTS]
-bool fs_check_file_existence(const char *name) {
-    return true;
-}

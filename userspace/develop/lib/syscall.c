@@ -76,7 +76,7 @@ int64 get_time() {
     }
 }
 
-int sys_get_time(TimeVal *ts, int tz) {
+long sys_get_time(TimeVal *ts, int tz) {
     return syscall(SYS_gettimeofday, ts, tz);
 }
 
@@ -128,11 +128,11 @@ int fstat(int fd, struct kstat *st) {
     return syscall(SYS_fstat, fd, st);
 }
 
-int sys_linkat(int olddirfd, char *oldpath, int newdirfd, char *newpath, unsigned int flags) {
+long sys_linkat(int olddirfd, char *oldpath, int newdirfd, char *newpath, unsigned int flags) {
     return syscall(SYS_linkat, olddirfd, oldpath, newdirfd, newpath, flags);
 }
 
-int sys_unlinkat(int dirfd, char *path, unsigned int flags) {
+long sys_unlinkat(int dirfd, char *path, unsigned int flags) {
     return syscall(SYS_unlinkat, dirfd, path, flags);
 }
 

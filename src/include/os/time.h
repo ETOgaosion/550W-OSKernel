@@ -18,6 +18,11 @@ typedef struct nanotime_val {
     __kernel_time64_t nsec; // 微秒数
 } nanotime_val_t;
 
+typedef struct __kernel_timespec {
+    __kernel_time64_t tv_sec; /* seconds */
+    long long tv_nsec;        /* nanoseconds */
+} __kernel_timespec_t;
+
 typedef struct tms {
     __kernel_clock_t tms_utime;
     __kernel_clock_t tms_stime;
@@ -36,6 +41,53 @@ typedef struct pcbtimer {
     nanotime_val_t end_time;
     nanotime_val_t *remain_time;
 } pcbtimer_t;
+
+struct __kernel_timex_timeval {
+    __kernel_time64_t tv_sec;
+    long long tv_usec;
+};
+
+typedef struct __kernel_timex {
+    unsigned int modes;                 /* mode selector */
+    int : 32;                           /* pad */
+    long long offset;                   /* time offset (usec) */
+    long long freq;                     /* frequency offset (scaled ppm) */
+    long long maxerror;                 /* maximum error (usec) */
+    long long esterror;                 /* estimated error (usec) */
+    int status;                         /* clock command/status */
+    int : 32;                           /* pad */
+    long long constant;                 /* pll time constant */
+    long long precision;                /* clock precision (usec) (read only) */
+    long long tolerance;                /* clock frequency tolerance (ppm)
+                                         * (read only)
+                                         */
+    struct __kernel_timex_timeval time; /* (read only, except for ADJ_SETOFFSET) */
+    long long tick;                     /* (modified) usecs between clock ticks */
+
+    long long ppsfreq; /* pps frequency (scaled ppm) (ro) */
+    long long jitter;  /* pps jitter (us) (ro) */
+    int shift;         /* interval duration (s) (shift) (ro) */
+    int : 32;          /* pad */
+    long long stabil;  /* pps stability (scaled ppm) (ro) */
+    long long jitcnt;  /* jitter limit exceeded (ro) */
+    long long calcnt;  /* calibration intervals (ro) */
+    long long errcnt;  /* calibration errors (ro) */
+    long long stbcnt;  /* stability limit exceeded (ro) */
+
+    int tai; /* TAI offset (ro) */
+
+    int : 32;
+    int : 32;
+    int : 32;
+    int : 32;
+    int : 32;
+    int : 32;
+    int : 32;
+    int : 32;
+    int : 32;
+    int : 32;
+    int : 32;
+} __kernel_timex_t;
 
 extern uint32_t time_base;
 extern uint64_t time_elapsed;
@@ -61,5 +113,21 @@ void k_time_add_utime(time_val_t *first, time_val_t *sec, time_val_t *res);
 int k_time_cmp_utime(time_val_t *first, time_val_t *sec);
 
 long sys_time(__kernel_time_t *tloc);
+
+long sys_utimensat(int dfd, const char *filename, __kernel_timespec_t *utimes, int flags);
+
+long sys_getitimer(int which, time_val_t *value);
+long sys_setitimer(int which, time_val_t *value, time_val_t *ovalue);
+
+long sys_clock_settime(clockid_t which_clock, const __kernel_timespec_t *tp);
+
+long sys_clock_gettime(clockid_t which_clock, __kernel_timespec_t *tp);
+
+long sys_clock_getres(clockid_t which_clock, __kernel_timespec_t *tp);
+
 long sys_times(tms_t *tbuf);
+
 long sys_gettimeofday(time_val_t *tv, timezone_t *tz);
+
+long sys_adjtimex(__kernel_timex_t *txc_p);
+long sys_clock_adjtime(clockid_t which_clock, __kernel_timex_t *tx);

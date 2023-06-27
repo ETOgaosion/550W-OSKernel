@@ -39,6 +39,20 @@ pid_t nextpid() {
     }
 }
 
+/* ============== kernel PCB operation ============== */
+
+/**
+ * @brief Intitialization of pcb fields except stacks
+ *
+ * @param name
+ * @param pcb_i
+ * @param type
+ * @param pid
+ * @param fpid
+ * @param tid
+ * @param father_pid
+ * @param core_mask
+ */
 void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int tid, int father_pid, uint8_t core_mask) {
     k_memset((uint8_t *)pcb[pcb_i].name, 0, sizeof(pcb[pcb_i].name));
     k_memcpy((uint8_t *)pcb[pcb_i].name, (uint8_t *)name, k_strlen(name));
@@ -132,37 +146,8 @@ void k_pcb_init() {
     init_list_head(&timers);
 }
 
-long sys_setpriority(int which, int who, int niceval) {
-    int error = -EINVAL;
-    if (which > PRIO_USER || which < PRIO_PROCESS) {
-        goto sys_setpriority_out;
-    }
-    switch (which) {
-    case PRIO_PROCESS:
-        (*current_running)->priority.priority = niceval;
-        break;
-    case PRIO_PGRP:
-        (*current_running)->priority.priority = niceval;
-        for (int i = 0; i < NUM_MAX_CHILD; i++) {
-            if ((*current_running)->child_pids[i] != 0) {
-                pcb[(*current_running)->child_pids[i]].priority.priority = niceval;
-            }
-        }
-        for (int i = 0; i < (*current_running)->threadsum; i++) {
-            pcb[(*current_running)->thread_ids[i]].priority.priority = niceval;
-        }
-        break;
-    case PRIO_USER:
-        break;
-    default:
-        break;
-    }
-sys_setpriority_out:
-    return error;
-}
-
-long sys_getpriority(int which, int who) {
-    return (*current_running)->priority.priority;
+long k_pcb_getpid(void) {
+    return (*current_running)->fpid;
 }
 
 uint64_t cal_priority(uint64_t cur_time, uint64_t idle_time, long priority) {
@@ -248,8 +233,7 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target) {
         // ret = choose_sched_task(queue);
         if (!task) {
             ret = list_entry(queue->next, pcb_t, list);
-        }
-        else {
+        } else {
             ret = task;
         }
         list_del(&(ret->list));
@@ -258,16 +242,6 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target) {
         break;
     }
     return ret;
-}
-
-long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp) {
-    (*current_running)->timer.initialized = TRUE;
-    k_time_get_nanotime(&(*current_running)->timer.start_time);
-    k_time_add_nanotime(rqtp, &(*current_running)->timer.start_time, &(*current_running)->timer.end_time);
-    (*current_running)->timer.remain_time = rmtp;
-    k_pcb_block(&((*current_running)->list), &timers, ENQUEUE_TIMER_LIST);
-    k_pcb_scheduler();
-    return 0;
 }
 
 void check_sleeping() {
@@ -313,10 +287,6 @@ long k_pcb_scheduler(void) {
     return 0;
 }
 
-long sys_sched_yield(void) {
-    return k_pcb_scheduler();
-}
-
 void k_pcb_block(list_node_t *pcb_node, list_head *queue, enqueue_way_t way) {
     enqueue(pcb_node, queue, way);
     (*current_running)->status = TASK_BLOCKED;
@@ -347,32 +317,21 @@ void k_pcb_unblock(list_head *from_queue, list_head *to_queue, unblock_way_t way
     fetch_pcb->status = TASK_READY;
 }
 
-long sys_sched_setaffinity(pid_t pid, unsigned int len, const byte_size_t *user_mask_ptr) {
-    if (pid > NUM_MAX_TASK) {
-        return -EINVAL;
-    }
-    pcb_t *target = pid ? &pcb[pid] : (*current_running);
-    if (target->status == TASK_EXITED) {
-        return -EINVAL;
-    }
-    int core_len = CPU_SET_SIZE;
-    int copy_len = k_min(core_len, len);
-    k_memcpy(target->core_mask, user_mask_ptr, copy_len);
-    return 0;
+void k_pcb_sleep(void *chan, spin_lock_t *lk) {
+    k_spin_lock_release(lk);
+    (*current_running)->chan = chan;
+    k_pcb_block(&(*current_running)->list, &block_queue, ENQUEUE_LIST);
+    k_pcb_scheduler();
+    (*current_running)->chan = 0;
+    k_spin_lock_acquire(lk);
 }
 
-long sys_sched_getaffinity(pid_t pid, unsigned int len, uint8_t *user_mask_ptr) {
-    if (pid > NUM_MAX_TASK) {
-        return -EINVAL;
+void k_pcb_wakeup(void *chan) {
+    for (int i = 0; i < NUM_MAX_PROCESS; i++) {
+        if ((pcb[i].status == TASK_BLOCKED) && (pcb[i].chan == chan)) {
+            k_pcb_unblock(&pcb[i].list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        }
     }
-    pcb_t *target = pid ? &pcb[pid] : (*current_running);
-    if (target->status == TASK_EXITED) {
-        return -EINVAL;
-    }
-    int core_len = CPU_SET_SIZE;
-    int copy_len = k_min(core_len, len);
-    k_memcpy(user_mask_ptr, target->core_mask, copy_len);
-    return 0;
 }
 
 long spawn(const char *file_name) {
@@ -401,40 +360,83 @@ long spawn(const char *file_name) {
     return i;
 }
 
-long sys_spawn(const char *file_name) {
-    // check file existence
-    if (!fs_check_file_existence(file_name)) {
-        return -EINVAL;
-    }
-    return spawn(file_name);
+long exec(int target_pid, int father_pid, const char *file_name, const char *argv[], const char *envp[]) {
+    init_pcb_i((char *)file_name, target_pid, USER_PROCESS, target_pid, target_pid, 0, father_pid, (*current_running)->core_mask[0]);
+
+    ptr_t kernel_stack = get_kernel_address(target_pid);
+    ptr_t user_stack_kva = kernel_stack - 4 * PAGE_SIZE;
+    ptr_t user_stack = USER_STACK_ADDR;
+    // k_mm_getback_page(target_pid);
+    PTE *pgdir = (PTE *)k_mm_alloc_page(1);
+    clear_pgdir((uintptr_t)pgdir);
+    k_mm_share_pgtable(pgdir, pa2kva(PGDIR_PA));
+    pcb[target_pid].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
+
+    int len = 0;
+    unsigned char *binary = NULL;
+    get_elf_file(file_name, &binary, &len);
+    void_task process = (void_task)load_elf(binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_mm_alloc_page_helper);
+    k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    // k_mm_map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
+    pcb[target_pid].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
+
+    int argc = k_strlistlen((char **)argv);
+    int envpc = k_strlistlen((char **)envp);
+    uintptr_t child_argv = init_user_stack(&user_stack_kva, &user_stack, argc, argv, envpc, envp, file_name);
+
+    init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
+
+    list_add_tail(&pcb[target_pid].list, &ready_queue);
+    return target_pid;
 }
 
-long sys_fork() {
+long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t *child_tid) {
     int i = nextpid();
     pid_t fpid = (*current_running)->pid;
 
-    char name[NUM_MAX_PCB_NAME];
+    char name[NUM_MAX_PCB_NAME] = {0};
     int name_len = k_min(k_strlen((*current_running)->name), 14);
     k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
     k_strcat(name, "_child");
     init_pcb_i(name, i, USER_PROCESS, i, i, 0, fpid, (*current_running)->core_mask[0]);
+
+    if (flags & CLONE_CHILD_SETTID) {
+        *(int *)child_tid = pcb[i].tid;
+    }
+    if (flags & CLONE_PARENT_SETTID) {
+        *(int *)parent_tid = pcb[i].tid;
+    }
+    if (flags & CLONE_CHILD_CLEARTID) {
+        pcb[i].clear_ctid = (uint32_t *)child_tid;
+    }
 
     pcb[fpid].child_pids[pcb[fpid].child_num] = i;
     pcb[fpid].child_num++;
 
     ptr_t kernel_stack_kva = get_kernel_address(i);
     ptr_t user_stack_kva = kernel_stack_kva - 4 * PAGE_SIZE;
-    PTE *pgdir = (PTE *)k_mm_alloc_page(1);
-    clear_pgdir((ptr_t)pgdir);
-    k_mm_share_pgtable(pgdir, pa2kva(PGDIR_PA));
 
-    fork_pcb_stack(kernel_stack_kva, user_stack_kva, &pcb[i]);
-    k_mm_fork_pgtable(pgdir, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
-    k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
-    // k_mm_map(USER_STACK_ADDR, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    if (flags & CLONE_VM) {
+        pcb[i].pgdir = (*current_running)->pgdir;
 
-    pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
+    } else {
+        PTE *pgdir = (PTE *)k_mm_alloc_page(1);
+        clear_pgdir((ptr_t)pgdir);
 
+        k_mm_fork_pgtable(pgdir, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
+        k_mm_share_pgtable(pgdir, pa2kva(PGDIR_PA));
+        pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
+    }
+
+    k_memcpy((uint8_t *)&pcb[i].elf, (uint8_t *)&(*current_running)->elf, sizeof(ELF_info_t));
+    k_memcpy((uint8_t *)(user_stack_kva - NORMAL_PAGE_SIZE), (const uint8_t *)(K_ROUNDDOWN((*current_running)->user_sp, NORMAL_PAGE_SIZE)), NORMAL_PAGE_SIZE);
+
+    ptr_t user_stack = (ptr_t)stack ? (ptr_t)stack : USER_STACK_ADDR;
+    // ptr_t user_stack = USER_STACK_ADDR;
+    clone_pcb_stack(kernel_stack_kva, user_stack, &pcb[i], flags, tls);
+    if (!stack) {
+        k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
+    }
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;
 }
@@ -476,6 +478,66 @@ int kill(pid_t pid, int exit_status) {
     return 0;
 }
 
+/* =============== syscalls =============== */
+/* =============== PCB Initialization =============== */
+
+long sys_spawn(const char *file_name) {
+    // check file existence
+    if (!fs_check_file_existence(file_name)) {
+        return -EINVAL;
+    }
+    return spawn(file_name);
+}
+
+long sys_fork() {
+    int i = nextpid();
+    pid_t fpid = (*current_running)->pid;
+
+    char name[NUM_MAX_PCB_NAME];
+    int name_len = k_min(k_strlen((*current_running)->name), 14);
+    k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
+    k_strcat(name, "_child");
+    init_pcb_i(name, i, USER_PROCESS, i, i, 0, fpid, (*current_running)->core_mask[0]);
+
+    pcb[fpid].child_pids[pcb[fpid].child_num] = i;
+    pcb[fpid].child_num++;
+
+    ptr_t kernel_stack_kva = get_kernel_address(i);
+    ptr_t user_stack_kva = kernel_stack_kva - 4 * PAGE_SIZE;
+    PTE *pgdir = (PTE *)k_mm_alloc_page(1);
+    clear_pgdir((ptr_t)pgdir);
+    k_mm_share_pgtable(pgdir, pa2kva(PGDIR_PA));
+
+    fork_pcb_stack(kernel_stack_kva, user_stack_kva, &pcb[i]);
+    k_mm_fork_pgtable(pgdir, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
+    k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    // k_mm_map(USER_STACK_ADDR, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+
+    pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
+
+    list_add_tail(&pcb[i].list, &ready_queue);
+    return i;
+}
+
+long sys_exec(const char *file_name, const char *argv[], const char *envp[]) {
+    return exec(nextpid(), (*current_running)->pid, file_name, argv, envp);
+}
+
+long sys_execve(const char *file_name, const char *argv[], const char *envp[]) {
+    int ret;
+    ret = exec((*current_running)->pid, (*current_running)->father_pid, file_name, argv, envp);
+    if (ret) {
+        k_pcb_scheduler();
+    }
+    return ret;
+}
+
+long sys_clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t *child_tid) {
+    return clone(flags, stack, parent_tid, tls, child_tid);
+}
+
+/* ============== PCB Elimination ============== */
+
 long sys_kill(pid_t pid) {
     if (pid <= 0 || pid >= NUM_MAX_TASK) {
         return -EINVAL;
@@ -488,9 +550,18 @@ long sys_kill(pid_t pid) {
     return 0;
 }
 
+// [TODO]
+long sys_tkill(pid_t pid, int sig) {
+    return 0;
+}
+
+long sys_tgkill(pid_t tgid, pid_t pid, int sig) {
+    return 0;
+}
+
 long sys_exit(int error_code) {
     int id = k_smp_get_current_cpu_id();
-    
+
     kill((*current_running)->pid, error_code);
 
     if (id == 0) {
@@ -502,6 +573,10 @@ long sys_exit(int error_code) {
     set_satp(SATP_MODE_SV39, 0, PGDIR_PA >> NORMAL_PAGE_SHIFT);
     local_flush_tlb_all();
     k_pcb_scheduler();
+    return 0;
+}
+
+long sys_exit_group(int error_code) {
     return 0;
 }
 
@@ -547,6 +622,7 @@ long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
     return wait_pid;
 }
 
+/* ============= PCB functions ============== */
 long sys_process_show() {
     int num = 0;
     for (int i = 0; i < NUM_MAX_TASK; i++) {
@@ -601,112 +677,165 @@ long sys_process_show() {
     return num;
 }
 
-long exec(int target_pid, int father_pid, const char *file_name, const char *argv[], const char *envp[]) {
-    init_pcb_i((char *)file_name, target_pid, USER_PROCESS, target_pid, target_pid, 0, father_pid, (*current_running)->core_mask[0]);
-
-    ptr_t kernel_stack = get_kernel_address(target_pid);
-    ptr_t user_stack_kva = kernel_stack - 4 * PAGE_SIZE;
-    ptr_t user_stack = USER_STACK_ADDR;
-    // k_mm_getback_page(target_pid);
-    PTE *pgdir = (PTE *)k_mm_alloc_page(1);
-    clear_pgdir((uintptr_t)pgdir);
-    k_mm_share_pgtable(pgdir, pa2kva(PGDIR_PA));
-    pcb[target_pid].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
-
-    int len = 0;
-    unsigned char *binary = NULL;
-    get_elf_file(file_name, &binary, &len);
-    void_task process = (void_task)load_elf(binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_mm_alloc_page_helper);
-    k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
-    // k_mm_map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
-    pcb[target_pid].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
-
-    int argc = k_strlistlen((char **)argv);
-    int envpc = k_strlistlen((char **)envp);
-    uintptr_t child_argv = init_user_stack(&user_stack_kva, &user_stack, argc, argv, envpc, envp, file_name);
-
-    init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
-
-    list_add_tail(&pcb[target_pid].list, &ready_queue);
-    return target_pid;
+long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp) {
+    (*current_running)->timer.initialized = TRUE;
+    k_time_get_nanotime(&(*current_running)->timer.start_time);
+    k_time_add_nanotime(rqtp, &(*current_running)->timer.start_time, &(*current_running)->timer.end_time);
+    (*current_running)->timer.remain_time = rmtp;
+    k_pcb_block(&((*current_running)->list), &timers, ENQUEUE_TIMER_LIST);
+    k_pcb_scheduler();
+    return 0;
 }
 
-long sys_exec(const char *file_name, const char *argv[], const char *envp[]) {
-    return exec(nextpid(), (*current_running)->pid, file_name, argv, envp);
+/* =============== PCB priority ===============*/
+
+long sys_setpriority(int which, int who, int niceval) {
+    int error = -EINVAL;
+    if (which > PRIO_USER || which < PRIO_PROCESS) {
+        goto sys_setpriority_out;
+    }
+    switch (which) {
+    case PRIO_PROCESS:
+        (*current_running)->priority.priority = niceval;
+        break;
+    case PRIO_PGRP:
+        (*current_running)->priority.priority = niceval;
+        for (int i = 0; i < NUM_MAX_CHILD; i++) {
+            if ((*current_running)->child_pids[i] != 0) {
+                pcb[(*current_running)->child_pids[i]].priority.priority = niceval;
+            }
+        }
+        for (int i = 0; i < (*current_running)->threadsum; i++) {
+            pcb[(*current_running)->thread_ids[i]].priority.priority = niceval;
+        }
+        break;
+    case PRIO_USER:
+        break;
+    default:
+        break;
+    }
+sys_setpriority_out:
+    return error;
 }
 
-long sys_execve(const char *file_name, const char *argv[], const char *envp[]) {
-    int ret;
-    ret = exec((*current_running)->pid, (*current_running)->father_pid, file_name, argv, envp);
-    if (ret) {
-        k_pcb_scheduler();
-    }
-    return ret;
+long sys_getpriority(int which, int who) {
+    return (*current_running)->priority.priority;
 }
 
-long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t *child_tid) {
-    int i = nextpid();
-    pid_t fpid = (*current_running)->pid;
-
-    char name[NUM_MAX_PCB_NAME] = {0};
-    int name_len = k_min(k_strlen((*current_running)->name), 14);
-    k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
-    k_strcat(name, "_child");
-    init_pcb_i(name, i, USER_PROCESS, i, i, 0, fpid, (*current_running)->core_mask[0]);
-
-    if (flags & CLONE_CHILD_SETTID) {
-        *(int *)child_tid = pcb[i].tid;
-    }
-    if (flags & CLONE_PARENT_SETTID) {
-        *(int *)parent_tid = pcb[i].tid;
-    }
-    if (flags & CLONE_CHILD_CLEARTID) {
-        pcb[i].clear_ctid = (uint32_t *)child_tid;
-    }
-
-    pcb[fpid].child_pids[pcb[fpid].child_num] = i;
-    pcb[fpid].child_num++;
-
-    ptr_t kernel_stack_kva = get_kernel_address(i);
-    ptr_t user_stack_kva = kernel_stack_kva - 4 * PAGE_SIZE;
-
-    if (flags & CLONE_VM) {
-        pcb[i].pgdir = (*current_running)->pgdir;
-
-    } else {
-        PTE *pgdir = (PTE *)k_mm_alloc_page(1);
-        clear_pgdir((ptr_t)pgdir);
-
-        k_mm_fork_pgtable(pgdir, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
-        k_mm_share_pgtable(pgdir, pa2kva(PGDIR_PA));
-        pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
-    }
-
-    k_memcpy((uint8_t *)&pcb[i].elf, (uint8_t *)&(*current_running)->elf, sizeof(ELF_info_t));
-    k_memcpy((uint8_t *)(user_stack_kva - NORMAL_PAGE_SIZE), (const uint8_t *)(K_ROUNDDOWN((*current_running)->user_sp, NORMAL_PAGE_SIZE)), NORMAL_PAGE_SIZE);
-
-    ptr_t user_stack = (ptr_t)stack ? (ptr_t)stack : USER_STACK_ADDR;
-    // ptr_t user_stack = USER_STACK_ADDR;
-    clone_pcb_stack(kernel_stack_kva, user_stack, &pcb[i], flags, tls);
-    if (!stack) {
-        k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
-    }
-    list_add_tail(&pcb[i].list, &ready_queue);
-    return i;
+/* =============== PCB Scheduling ================ */
+long sys_sched_setparam(pid_t pid, sched_param_t *param) {
+    return 0;
 }
 
-long sys_clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t *child_tid) {
-    return clone(flags, stack, parent_tid, tls, child_tid); 
+long sys_sched_setscheduler(pid_t pid, int policy, sched_param_t *param) {
+    return 0;
 }
 
-long k_pcb_getpid(void) {
-    return (*current_running)->fpid;
+long sys_sched_getscheduler(pid_t pid) {
+    return 0;
+}
+
+long sys_sched_getparam(pid_t pid, sched_param_t *param) {
+    return 0;
+}
+
+long sys_sched_setaffinity(pid_t pid, unsigned int len, const byte_size_t *user_mask_ptr) {
+    if (pid > NUM_MAX_TASK) {
+        return -EINVAL;
+    }
+    pcb_t *target = pid ? &pcb[pid] : (*current_running);
+    if (target->status == TASK_EXITED) {
+        return -EINVAL;
+    }
+    int core_len = CPU_SET_SIZE;
+    int copy_len = k_min(core_len, len);
+    k_memcpy(target->core_mask, user_mask_ptr, copy_len);
+    return 0;
+}
+
+long sys_sched_getaffinity(pid_t pid, unsigned int len, uint8_t *user_mask_ptr) {
+    if (pid > NUM_MAX_TASK) {
+        return -EINVAL;
+    }
+    pcb_t *target = pid ? &pcb[pid] : (*current_running);
+    if (target->status == TASK_EXITED) {
+        return -EINVAL;
+    }
+    int core_len = CPU_SET_SIZE;
+    int copy_len = k_min(core_len, len);
+    k_memcpy(user_mask_ptr, target->core_mask, copy_len);
+    return 0;
+}
+
+long sys_sched_yield(void) {
+    return k_pcb_scheduler();
+}
+
+long sys_sched_get_priority_max(int policy) {
+    return 0;
+}
+
+long sys_sched_get_priority_min(int policy) {
+    return 0;
+}
+
+/* =============== ids ===============*/
+long sys_set_tid_address(int *tidptr) {
+    return 0;
+}
+
+long sys_setgid(gid_t gid) {
+    return 0;
+}
+
+long sys_setuid(uid_t uid) {
+    return 0;
+}
+
+long sys_setresuid(uid_t ruid, uid_t euid, uid_t suid) {
+    return 0;
+}
+
+long sys_getresuid(uid_t *ruid, uid_t *euid, uid_t *suid) {
+    return 0;
+}
+
+long sys_setresgid(gid_t rgid, gid_t egid, gid_t sgid) {
+    return 0;
+}
+
+long sys_getresgid(gid_t *rgid, gid_t *egid, gid_t *sgid) {
+    return 0;
+}
+
+long sys_setpgid(pid_t pid, pid_t pgid) {
+    return 0;
+}
+
+long sys_getpgid(pid_t pid) {
+    return 0;
+}
+
+long sys_getsid(pid_t pid) {
+    return 0;
+}
+
+long sys_setsid(void) {
+    return 0;
+}
+
+long sys_getgroups(int gidsetsize, gid_t *grouplist) {
+    return 0;
+}
+
+long sys_setgroups(int gidsetsize, gid_t *grouplist) {
+    return 0;
 }
 
 /**
  * @brief [SYSCALL] getpid: get current task process id
- * 
- * @return long 
+ *
+ * @return long
  */
 long sys_getpid() {
     return k_pcb_getpid();
@@ -714,26 +843,67 @@ long sys_getpid() {
 
 /**
  * @brief [SYSCALL] getppid: get parent of current task pid
- * 
- * @return long 
+ *
+ * @return long
  */
 long sys_getppid() {
     return (*current_running)->father_pid + 1;
 }
 
-void k_pcb_sleep(void *chan, spin_lock_t *lk) {
-    k_spin_lock_release(lk);
-    (*current_running)->chan = chan;
-    k_pcb_block(&(*current_running)->list, &block_queue, ENQUEUE_LIST);
-    k_pcb_scheduler();
-    (*current_running)->chan = 0;
-    k_spin_lock_acquire(lk);
+long sys_getuid(void) {
+    return 0;
 }
 
-void k_pcb_wakeup(void *chan) {
-    for (int i = 0; i < NUM_MAX_PROCESS; i++) {
-        if ((pcb[i].status == TASK_BLOCKED) && (pcb[i].chan == chan)) {
-            k_pcb_unblock(&pcb[i].list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
-        }
-    }
+long sys_geteuid(void) {
+    return 0;
+}
+
+long sys_getgid(void) {
+    return 0;
+}
+
+long sys_getegid(void) {
+    return 0;
+}
+
+long sys_gettid(void) {
+    return 0;
+}
+
+/* =============== PCB Resources ===============*/
+long sys_getrlimit(unsigned int resource, rlimit_t *rlim) {
+    return 0;
+}
+
+long sys_setrlimit(unsigned int resource, rlimit_t *rlim) {
+    return 0;
+}
+
+long sys_getrusage(int who, rlimit_t *ru) {
+    return 0;
+}
+
+long sys_prlimit64(pid_t pid, unsigned int resource, const rlimit64_t *new_rlim, rlimit64_t *old_rlim) {
+    return 0;
+}
+
+/* ================ PCB Extra ==================*/
+long sys_personality(unsigned int personality) {
+    return 0;
+}
+
+long sys_unshare(unsigned long unshare_flags) {
+    return 0;
+}
+
+long sys_prctl(int option, unsigned long arg2, unsigned long arg3, unsigned long arg4, unsigned long arg5) {
+    return 0;
+}
+
+long sys_capget(cap_user_header_t *header, cap_user_data_t *dataptr) {
+    return 0;
+}
+
+long sys_capset(cap_user_header_t *header, const cap_user_data_t *data) {
+    return 0;
 }

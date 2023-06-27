@@ -15,11 +15,17 @@ typedef struct basic_info {
     int initialized;
 } basic_info_t;
 
-typedef struct Semaphore {
+typedef struct semaphore {
     basic_info_t sem_info;
     int sem;
     list_head wait_queue;
-} Semaphore_t;
+} semaphore_t;
+
+typedef struct sembuf {
+    unsigned short sem_num; /* semaphore index in array */
+    short sem_op;           /* semaphore operation */
+    short sem_flg;          /* operation flags */
+} sembuf_t;
 
 typedef struct cond {
     basic_info_t cond_info;
@@ -85,5 +91,10 @@ int k_mbox_try_send(int key, mbox_arg_t *arg);
 int k_mbox_try_recv(int key, mbox_arg_t *arg);
 
 void k_pcb_mbox_init(pcb_mbox_t *target, int owner_id);
-int sys_mailread(void *buf, int len);
-int sys_mailwrite(int pid, void *buf, int len);
+
+long sys_mailread(void *buf, int len);
+long sys_mailwrite(int pid, void *buf, int len);
+
+long sys_semget(key_t key, int nsems, int semflg);
+long sys_semctl(int semid, int semnum, int cmd, unsigned long arg);
+long sys_semop(int semid, sembuf_t *sops, unsigned nsops);

@@ -23,4 +23,6 @@
 #define COLOR_CYAN "\e[36m"
 #define COLOR_RESET "\e[0m"
 
+#define __BITS_PER_LONG 64
+
 /* clang-format on */

@@ -7,6 +7,10 @@
 #include <fs/fs.h>
 #include <os/lock.h>
 #include <os/mm.h>
+#include <os/msg.h>
 #include <os/pcb.h>
+#include <os/signal.h>
+#include <os/socket.h>
 #include <os/sys.h>
 #include <os/time.h>
+#include <os/users.h>

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <lib/list.h>
+#include <os/time.h>
 
 #define LOCK_NUM 32
 
@@ -56,3 +57,5 @@ void k_sleep_lock_init(sleep_lock_t *lk);
 void k_sleep_lock_acquire(sleep_lock_t *lk);
 void k_sleep_lock_release(sleep_lock_t *lk);
 int k_sleep_lock_hold(sleep_lock_t *lk);
+
+long sys_futex(u32 *uaddr, int op, u32 val, const __kernel_timespec_t *utime, u32 *uaddr2, u32 val3);
