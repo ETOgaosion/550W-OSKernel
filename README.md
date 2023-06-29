@@ -36,9 +36,11 @@ Our Framework is inspired from Linux, as below:
 │   ├── init                    # initiate process
 │   ├── kernel                  # kernel core code
 │   │   ├── irq                     # deal with interrupt and exeptions
-│   │   ├── lock                    # deal with locking
 │   │   ├── mm                      # deal with memory management
-│   │   └── sched                   # deal with scheduling
+│   │   ├── socket                  # deal with socket function
+│   │   ├── sync                    # deal with synchronize operations like semaphores
+│   │   ├── sys                     # deal with system core functions like pcb management
+│   │   └── users                   # deal with user management
 │   ├── libs                    # libraries for kernel use only, like string and print
 │   └── tests                   # kernel related tests, built into kernel
 │   └── user                    # temp compromise

@@ -28,9 +28,11 @@
 │   ├── init                    # initiate process
 │   ├── kernel                  # kernel core code
 │   │   ├── irq                     # deal with interrupt and exeptions
-│   │   ├── sync                    # deal with memory management
-│   │   ├── mm                      # deal with synchronization
-│   │   └── sys                     # deal with system core function
+│   │   ├── mm                      # deal with memory management
+│   │   ├── socket                  # deal with socket function
+│   │   ├── sync                    # deal with synchronize operations like semaphores
+│   │   ├── sys                     # deal with system core functions like pcb management
+│   │   └── users                   # deal with user management
 │   ├── libs                    # libraries for kernel use only, like string and print
 │   └── tests                   # kernel related tests, built into kernel
 │   └── user                    # user programs loader
