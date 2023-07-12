@@ -2,7 +2,7 @@
 
 #include <lib/list.h>
 
-#define COMM_NUM 32
+#define SYNC_NUM 32
 #define MBOX_NAME_LEN 64
 #define MBOX_MSG_MAX_LEN 128
 #define MBOX_MAX_USER 10
@@ -10,8 +10,40 @@
 #define PCB_MBOX_MAX_MSG_NUM 16
 #define PCB_MBOX_MSG_MAX_LEN 256
 
+/* semop flags */
+#define SEM_UNDO 0x1000 /* undo the operation on exit */
+
+/* semctl Command Definitions. */
+#define GETPID 11  /* get sempid */
+#define GETVAL 12  /* get semval */
+#define GETALL 13  /* get all semval's */
+#define GETNCNT 14 /* get semncnt */
+#define GETZCNT 15 /* get semzcnt */
+#define SETVAL 16  /* set semval */
+#define SETALL 17  /* set all semval's */
+
+/* ipcs ctl cmds */
+#define SEM_STAT 18
+#define SEM_INFO 19
+#define SEM_STAT_ANY 20
+
+#define SEMMNI 32000             /* <= IPCMNI  max # of semaphore identifiers */
+#define SEMMSL 32000             /* <= INT_MAX max num of semaphores per id */
+#define SEMMNS (SEMMNI * SEMMSL) /* <= INT_MAX max # of semaphores in system */
+#define SEMOPM 500               /* <= 1 000 max num of ops per semop call */
+#define SEMVMX 32767             /* <= 32767 semaphore maximum value */
+#define SEMAEM SEMVMX            /* adjust on exit max value */
+
+/* unused */
+#define SEMUME SEMOPM /* max num of undo entries per process */
+#define SEMMNU SEMMNS /* num of undo structures system wide */
+#define SEMMAP SEMMNS /* # of entries in semaphore map */
+#define SEMUSZ 20     /* sizeof struct sem_undo */
+
 typedef struct basic_info {
     int id;
+    key_t key;
+    bool public;
     int initialized;
 } basic_info_t;
 
@@ -26,6 +58,19 @@ typedef struct sembuf {
     short sem_op;           /* semaphore operation */
     short sem_flg;          /* operation flags */
 } sembuf_t;
+
+typedef struct seminfo {
+    int semmap;
+    int semmni;
+    int semmns;
+    int semmnu;
+    int semmsl;
+    int semopm;
+    int semume;
+    int semusz;
+    int semvmx;
+    int semaem;
+} seminfo_t;
 
 typedef struct cond {
     basic_info_t cond_info;
@@ -68,8 +113,8 @@ typedef struct pcb_mbox {
 int k_commop(void *key_id, void *arg, int op);
 
 int k_semaphore_init(int *key, int sem);
-int k_semaphore_p(int key);
-int k_semaphore_v(int key);
+int k_semaphore_p(int key, int value, int flag);
+int k_semaphore_v(int key, int value, int flag);
 int k_semaphore_destroy(int *key);
 
 int k_cond_init(int *key);

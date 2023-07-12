@@ -64,6 +64,22 @@
 #define CLONE_NEWNET 0x40000000         /* New network namespace */
 #define CLONE_IO 0x80000000             /* Clone io context */
 
+/*
+ * Scheduling policies
+ */
+#define SCHED_NORMAL 0
+#define SCHED_OTHER 0
+#define SCHED_FIFO 1
+#define SCHED_RR 2
+#define SCHED_BATCH 3
+/* SCHED_ISO: reserved but not implemented yet */
+#define SCHED_IDLE 5
+#define SCHED_DEADLINE 6
+/* I/O scheduler */
+
+/* Can be ORed in to make sure the process is reverted back to SCHED_NORMAL on fork */
+#define SCHED_RESET_ON_FORK 0x40000000
+
 typedef void (*void_task)();
 
 typedef struct prior {
@@ -87,12 +103,14 @@ typedef enum task_type {
 
 typedef enum enqueue_way {
     ENQUEUE_LIST,
+    ENQUEUE_LIST_PRIORITY,
     ENQUEUE_TIMER_LIST,
 } enqueue_way_t;
 
 typedef enum dequeue_way {
     DEQUEUE_LIST,
-    DEQUEUE_LIST_STRATEGY,
+    DEQUEUE_LIST_FIFO,
+    DEQUEUE_LIST_PRIORITY,
 } dequeue_way_t;
 
 typedef enum unblock_way {
@@ -121,70 +139,6 @@ typedef struct rusage {
     __kernel_long_t ru_nivcsw;   /* involuntary " */
 } rusage_t;
 
-extern pcb_mbox_t pcb_mbox[NUM_MAX_PROCESS];
-
-/* Process Control Block */
-typedef struct pcb {
-    /* register context */
-    // this must be this order!! The order is defined in regs.h
-    reg_t kernel_sp;
-    reg_t user_sp;
-
-    /* previous, next pointer */
-    list_node_t list;
-
-    regs_context_t *save_context;
-    switchto_context_t *switch_context;
-
-    bool in_use;
-    ELF_info_t elf;
-
-    /* process id */
-    char name[NUM_MAX_PCB_NAME];
-    pid_t pid;  // real offset of pcb[]
-    pid_t fpid; // threads' fpid is process pid
-    pid_t tid;
-    uint32_t *clear_ctid;
-    pid_t father_pid;
-    pid_t child_pids[NUM_MAX_CHILD];
-    int child_num;
-    int *child_stat_addrs[NUM_MAX_CHILD];
-    int threadsum;
-    int thread_ids[NUM_MAX_CHILD_THREADS];
-
-    /* kernel/user thread/process */
-    task_type_t type;
-
-    /* BLOCK | READY | RUNNING | ZOMBIE */
-    task_status_t status;
-    int exit_status;
-
-    /* cursor position */
-    int cursor_x;
-    int cursor_y;
-
-    prior_t priority;
-
-    uint8_t core_mask[CPU_SET_SIZE];
-
-    uint64_t pgdir;
-
-    int locksum;
-    int lock_ids[NUM_MAX_LOCK];
-    void *chan;
-
-    pcb_mbox_t *mbox;
-
-    /* time */
-    __kernel_timeval_t stime_last; // last time into kernel
-    __kernel_timeval_t utime_last; // last time out kernel
-    pcbtimer_t timer;
-    __kernel_clock_t dead_child_stime;
-    __kernel_clock_t dead_child_utime;
-
-    rusage_t resources;
-} pcb_t;
-
 typedef struct rlimit {
     __kernel_ulong_t rlim_cur;
     __kernel_ulong_t rlim_max;
@@ -209,6 +163,86 @@ typedef struct __user_cap_data_struct {
 typedef struct sched_param {
     int sched_priority;
 } sched_param_t;
+
+extern pcb_mbox_t pcb_mbox[NUM_MAX_PROCESS];
+
+typedef struct gids {
+    gid_t rgid;
+    gid_t egid;
+    gid_t sgid;
+} gids_t;
+
+typedef struct uids {
+    uid_t ruid;
+    uid_t euid;
+    uid_t suid;
+} uids_t;
+
+/* Process Control Block */
+typedef struct pcb {
+    /* register context */
+    // this must be this order!! The order is defined in regs.h
+    reg_t kernel_sp;
+    reg_t user_sp;
+
+    /* previous, next pointer */
+    list_node_t list;
+
+    regs_context_t *save_context;
+    switchto_context_t *switch_context;
+
+    bool in_use;
+    elf_info_t elf;
+
+    /* process id */
+    char name[NUM_MAX_PCB_NAME];
+    pid_t pid;  // real offset of pcb[]
+    pid_t fpid; // threads' fpid is process pid
+    pid_t tid;
+    pid_t pgid;
+    gids_t gid;
+    uids_t uid;
+    uint32_t *clear_ctid;
+    pid_t father_pid;
+    pid_t child_pids[NUM_MAX_CHILD];
+    int child_num;
+    int *child_stat_addrs[NUM_MAX_CHILD];
+    int threadsum;
+    int thread_ids[NUM_MAX_CHILD_THREADS];
+
+    /* kernel/user thread/process */
+    task_type_t type;
+
+    /* BLOCK | READY | RUNNING | ZOMBIE */
+    task_status_t status;
+    int exit_status;
+
+    /* cursor position */
+    int cursor_x;
+    int cursor_y;
+
+    int sched_policy;
+    prior_t priority;
+
+    uint8_t core_mask[CPU_SET_SIZE];
+
+    uint64_t pgdir;
+
+    int locksum;
+    int lock_ids[NUM_MAX_LOCK];
+    void *chan;
+
+    pcb_mbox_t *mbox;
+
+    /* time */
+    __kernel_timeval_t stime_last; // last time into kernel
+    __kernel_timeval_t utime_last; // last time out kernel
+    pcbtimer_t timer;
+    __kernel_clock_t dead_child_stime;
+    __kernel_clock_t dead_child_utime;
+
+    rusage_t resources;
+} pcb_t;
 
 /* current running task PCB */
 extern pcb_t *volatile current_running0;
@@ -275,8 +309,6 @@ long sys_setpgid(pid_t pid, pid_t pgid);
 long sys_getpgid(pid_t pid);
 long sys_getsid(pid_t pid);
 long sys_setsid(void);
-long sys_getgroups(int gidsetsize, gid_t *grouplist);
-long sys_setgroups(int gidsetsize, gid_t *grouplist);
 long sys_getpid(void);
 long sys_getppid(void);
 long sys_getuid(void);

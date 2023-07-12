@@ -4,6 +4,8 @@
 #include <common/types.h>
 #include <lib/string.h>
 
+/* clang-format off */
+
 /* 64-bit ELF base types. */
 typedef uint64_t Elf64_Addr;
 typedef uint16_t Elf64_Half;
@@ -54,6 +56,135 @@ typedef Elf64_Half Elf64_Versym;
 #endif
 
 #define EI_NIDENT 16
+
+#define AUX_CNT 38
+
+#define AT_NULL		0
+#define AT_IGNORE	1
+#define AT_EXECFD	2
+#define AT_PHDR		3
+#define AT_PHENT	4
+#define AT_PHNUM	5
+#define AT_PAGESZ	6
+#define AT_BASE		7
+#define AT_FLAGS	8
+#define AT_ENTRY	9
+#define AT_NOTELF	10
+#define AT_UID		11
+#define AT_EUID		12
+#define AT_GID		13
+#define AT_EGID		14
+#define AT_CLKTCK	17
+#define AT_PLATFORM	15
+#define AT_HWCAP	16
+#define AT_FPUCW	18
+#define AT_DCACHEBSIZE	19
+#define AT_ICACHEBSIZE	20
+#define AT_UCACHEBSIZE	21
+#define AT_IGNOREPPC	22
+#define	AT_SECURE	23
+#define AT_BASE_PLATFORM 24
+#define AT_RANDOM	25
+#define AT_HWCAP2	26
+#define AT_EXECFN	31
+#define AT_SYSINFO	32
+#define AT_SYSINFO_EHDR	33
+#define AT_L1I_CACHESHAPE	34
+#define AT_L1D_CACHESHAPE	35
+#define AT_L2_CACHESHAPE	36
+#define AT_L3_CACHESHAPE	37
+
+
+#define NEW_AUX_ENT(id0, val0) \
+    aux_vec[index].id = id0; \
+    aux_vec[index++].val = val0;
+
+typedef struct elf64_Shdr {
+    Elf64_Half    sh_name;    /* section name */
+    Elf64_Half    sh_type;    /* section type */
+    Elf64_Xword   sh_flags;    /* section flags */
+    Elf64_Addr    sh_addr;    /* virtual address */
+    Elf64_Off     sh_offset;    /* file offset */
+    Elf64_Xword   sh_size;    /* section size */
+    Elf64_Half    sh_link;    /* link to another */
+    Elf64_Half    sh_info;    /* misc info */
+    Elf64_Xword   sh_addralign;    /* memory alignment */
+    Elf64_Xword   sh_entsize;    /* table entry size */
+} Elf64_Shdr;
+
+/* These constants define the permissions on sections in the
+   program header, p_flags. */
+#define PF_X (1 << 0)          /* Segment is executable */
+#define PF_W (1 << 1)          /* Segment is writable */
+#define PF_R (1 << 2)          /* Segment is readable */
+#define PF_MASKOS 0x0ff00000   /* OS-specific */
+#define PF_MASKPROC 0xf0000000 /* Processor-specific */
+
+/* Legal values for p_type (segment type).  */
+
+#define PT_NULL 0          /* Program header table entry unused */
+#define PT_LOAD 1          /* Dynamic linking information */
+#define PT_INTERP 3        /* Loadable program segment */
+#define PT_DYNAMIC 2       /* Program interpreter */
+#define PT_NOTE 4          /* Auxiliary information */
+#define PT_SHLIB 5         /* Reserved */
+#define PT_PHDR 6          /* Entry for header table itself */
+#define PT_TLS 7           /* Thread-local storage segment */
+#define PT_NUM 8           /* Number of defined types */
+#define PT_LOOS 0x60000000 /* Start of OS-specific */
+#define PT_GNU_EH_FRAME                     \
+    0x6474e550 /* GCC .eh_frame_hdr segment \
+                */
+#define PT_GNU_STACK                                             \
+    0x6474e551                  /* Indicates stack executability \
+                                 */
+#define PT_GNU_RELRO 0x6474e552 /* Read-only after relocation */
+#define PT_LOSUNW 0x6ffffffa
+#define PT_SUNWBSS 0x6ffffffa   /* Sun Specific segment */
+#define PT_SUNWSTACK 0x6ffffffb /* Stack segment */
+#define PT_HISUNW 0x6fffffff
+#define PT_HIOS 0x6fffffff   /* End of OS-specific */
+#define PT_LOPROC 0x70000000 /* Start of processor-specific */
+#define PT_HIPROC 0x7fffffff /* End of processor-specific */
+
+/* sh_type */
+#define SHT_NULL 0
+#define SHT_PROGBITS 1
+#define SHT_SYMTAB 2
+#define SHT_STRTAB 3
+#define SHT_RELA 4
+#define SHT_HASH 5
+#define SHT_DYNAMIC 6
+#define SHT_NOTE 7
+#define SHT_NOBITS 8
+#define SHT_REL 9
+#define SHT_SHLIB 10
+#define SHT_DYNSYM 11
+#define SHT_LOPROC 0x70000000
+#define SHT_HIPROC 0x7fffffff
+#define SHT_LOUSER 0x80000000
+#define SHT_HIUSER 0x8fffffff
+
+/* sh_flags */
+#define SHF_WRITE 0x1
+#define SHF_ALLOC 0x2
+#define SHF_EXECINSTR 0x4
+#define SHF_MASKPROC 0xF0000000
+
+
+// ===================== for dynamic ==========================
+#define DYNAMIC_VADDR_OFFSET 0x8000000
+// ===================== for restore =========================
+#define SIZE_RESTORE 8
+extern void __restore();
+
+typedef struct elf64_auxv {
+  uint64_t a_type;
+  union {
+      uint64_t a_val;
+  } a_un;
+} elf64_auxv_t;
+
 typedef struct elf64_hdr {
     unsigned char e_ident[EI_NIDENT]; /* ELF "magic number" */
     Elf64_Half e_type;
@@ -69,41 +200,7 @@ typedef struct elf64_hdr {
     Elf64_Half e_shentsize;
     Elf64_Half e_shnum;
     Elf64_Half e_shstrndx;
-} Elf64_Ehdr;
-
-/* clang-format off */
-/* These constants define the permissions on sections in the
-   program header, p_flags. */
-#define PF_X (1 << 0)          /* Segment is executable */
-#define PF_W (1 << 1)          /* Segment is writable */
-#define PF_R (1 << 2)          /* Segment is readable */
-#define PF_MASKOS 0x0ff00000   /* OS-specific */
-#define PF_MASKPROC 0xf0000000 /* Processor-specific */
-
-/* Legal values for p_type (segment type).  */
-
-#define PT_NULL 0          /* Program header table entry unused */
-#define PT_LOAD 1          /* Loadable program segment */
-#define PT_DYNAMIC 2       /* Dynamic linking information */
-#define PT_INTERP 3        /* Program interpreter */
-#define PT_NOTE 4          /* Auxiliary information */
-#define PT_SHLIB 5         /* Reserved */
-#define PT_PHDR 6          /* Entry for header table itself */
-#define PT_TLS 7           /* Thread-local storage segment */
-#define PT_NUM 8           /* Number of defined types */
-#define PT_LOOS 0x60000000 /* Start of OS-specific */
-#define PT_GNU_EH_FRAME 0x6474e550 /* GCC .eh_frame_hdr segment */
-#define PT_GNU_STACK 0x6474e551 /* Indicates stack executability */
-#define PT_GNU_RELRO 0x6474e552 /* Read-only after relocation */
-#define PT_LOSUNW 0x6ffffffa
-#define PT_SUNWBSS 0x6ffffffa   /* Sun Specific segment */
-#define PT_SUNWSTACK 0x6ffffffb /* Stack segment */
-#define PT_HISUNW 0x6fffffff
-#define PT_HIOS 0x6fffffff   /* End of OS-specific */
-#define PT_LOPROC 0x70000000 /* Start of processor-specific */
-#define PT_HIPROC 0x7fffffff /* End of processor-specific */
-
-/* clang-format on */
+} elf64_ehdr_t;
 
 typedef struct elf64_phdr {
     Elf64_Word p_type;
@@ -114,21 +211,24 @@ typedef struct elf64_phdr {
     Elf64_Xword p_filesz; /* Segment size in file */
     Elf64_Xword p_memsz;  /* Segment size in memory */
     Elf64_Xword p_align;  /* Segment alignment, file & memory */
-} Elf64_Phdr;
+} elf64_phdr_t;
 
-typedef struct ELF_info {
+typedef struct elf_info {
     uint64_t text_begin;
     uint64_t phoff;
     uint64_t phent;
     uint64_t phnum;
     uint64_t entry;
     uint64_t edata;
-} ELF_info_t;
+} elf_info_t;
 
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
+typedef struct aux_elem {
+    uint64_t id;
+    uint64_t val;
+} aux_elem_t;
 
 static inline int is_elf_format(unsigned char *binary) {
-    Elf64_Ehdr *ehdr = (Elf64_Ehdr *)binary;
+    elf64_ehdr_t *ehdr = (elf64_ehdr_t *)binary;
 
     if (ehdr->e_ident[0] == EI_MAG0 && ehdr->e_ident[1] == EI_MAG1 && ehdr->e_ident[2] == EI_MAG2 && ehdr->e_ident[3] == EI_MAG3) {
         return 0;
@@ -139,3 +239,36 @@ static inline int is_elf_format(unsigned char *binary) {
 
 /* prepare_page_for_kva should return a kernel virtual address */
 uintptr_t load_elf(unsigned char elf_binary[], unsigned length, uintptr_t pgdir, uintptr_t (*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir));
+
+static inline uint32_t set_aux_vec(aux_elem_t *aux_vec, elf_info_t *elf, uintptr_t file_pointer, uintptr_t random_ptr)
+{
+    uint32_t index = 0;
+    NEW_AUX_ENT(0x28, 0);
+    NEW_AUX_ENT(0x29, 0);
+    NEW_AUX_ENT(0x2a, 0);
+    NEW_AUX_ENT(0x2b, 0);
+    NEW_AUX_ENT(0x2c, 0);
+    NEW_AUX_ENT(0x2d, 0);
+
+    // NEW_AUX_ENT(AT_SYSINFO_EHDR, 0x3fc2dee000);     // 0x21
+    NEW_AUX_ENT(AT_HWCAP, 0x112d);                  // 0x10
+    NEW_AUX_ENT(AT_PAGESZ, NORMAL_PAGE_SIZE);       // 0x06
+    NEW_AUX_ENT(AT_CLKTCK, 0x64);                   // 0x11
+    NEW_AUX_ENT(AT_PHDR, elf->text_begin + elf->phoff);               // 0x03
+    NEW_AUX_ENT(AT_PHENT, elf->phent);              // 0x04
+    NEW_AUX_ENT(AT_PHNUM, elf->phnum);              // 0x05
+    NEW_AUX_ENT(AT_BASE, DYNAMIC_VADDR_OFFSET);     // 0x07                       // 0x07
+    NEW_AUX_ENT(AT_FLAGS, 0);                       // 0x08
+    NEW_AUX_ENT(AT_ENTRY, elf->entry);              // 0x09
+    NEW_AUX_ENT(AT_UID, 0);                         // 0x0b
+    NEW_AUX_ENT(AT_EUID, 0);                        // 0x0c
+    NEW_AUX_ENT(AT_GID, 0);                         // 0x0d
+    NEW_AUX_ENT(AT_EGID, 0);                        // 0x0e
+    NEW_AUX_ENT(AT_SECURE, 0);                      // 0x17
+    NEW_AUX_ENT(AT_RANDOM, random_ptr);             // 0x19
+    NEW_AUX_ENT(AT_EXECFN, file_pointer);           // 0x1f
+    NEW_AUX_ENT(0, 0);
+    return index;
+}
+
+/* clang-format on */

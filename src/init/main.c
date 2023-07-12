@@ -14,7 +14,9 @@
 #include <os/mm.h>
 #include <os/pcb.h>
 #include <os/smp.h>
+#include <os/sys.h>
 #include <os/time.h>
+#include <os/users.h>
 
 void wakeup_other_cores() {
     int hartid = 1;
@@ -25,9 +27,7 @@ void wakeup_other_cores() {
 
 extern void kernel_exception_handler_entry();
 
-// jump from bootloader.
-// The beginning of everything >_< ~~~~~~~~~~~~~~
-int main() {
+int kernel_start() {
     int id = k_smp_get_current_cpu_id();
     if (id != 0) {
         asm_w_stvec((uint64_t)kernel_exception_handler_entry);
@@ -74,6 +74,9 @@ int main() {
         fs_init();
         fd_table_init();
 
+        // init users
+        init_users();
+
         // init built-in tasks
         sys_spawn("shell");
         sys_spawn("bubble");
@@ -91,5 +94,10 @@ int main() {
         k_smp_unlock_kernel();
         k_smp_lock_kernel();
     };
-    return 0;
+}
+
+// jump from bootloader.
+// The beginning of everything >_< ~~~~~~~~~~~~~~
+int main() {
+    return kernel_start();
 }

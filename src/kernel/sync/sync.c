@@ -9,42 +9,47 @@ int cond_first_time = 1;
 int barrier_first_time = 1;
 int mbox_first_time = 1;
 
-semaphore_t *sem_list[COMM_NUM];
-cond_t *cond_list[COMM_NUM];
-barrier_t *barrier_list[COMM_NUM];
-mbox_t *mbox_list[COMM_NUM];
+semaphore_t sem_list[SYNC_NUM];
+cond_t cond_list[SYNC_NUM];
+barrier_t barrier_list[SYNC_NUM];
+mbox_t mbox_list[SYNC_NUM];
 pcb_mbox_t pcb_mbox[NUM_MAX_PROCESS];
+
+#define SEM 0
+#define COND 1
+#define BARRIER 2
+#define MAILBOX 3
 
 static int find_free(int type) {
     int find = 0;
     switch (type) {
     case 0:
-        for (int i = 0; i < COMM_NUM; i++) {
-            if (!sem_list[i]->sem_info.initialized) {
+        for (int i = 0; i < SYNC_NUM; i++) {
+            if (!sem_list[i].sem_info.initialized) {
                 find = 1;
                 return i;
             }
         }
         break;
     case 1:
-        for (int i = 0; i < COMM_NUM; i++) {
-            if (!cond_list[i]->cond_info.initialized) {
+        for (int i = 0; i < SYNC_NUM; i++) {
+            if (!cond_list[i].cond_info.initialized) {
                 find = 1;
                 return i;
             }
         }
         break;
     case 2:
-        for (int i = 0; i < COMM_NUM; i++) {
-            if (!barrier_list[i]->barrier_info.initialized) {
+        for (int i = 0; i < SYNC_NUM; i++) {
+            if (!barrier_list[i].barrier_info.initialized) {
                 find = 1;
                 return i;
             }
         }
         break;
     case 3:
-        for (int i = 0; i < COMM_NUM; i++) {
-            if (!mbox_list[i]->mailbox_info.initialized) {
+        for (int i = 0; i < SYNC_NUM; i++) {
+            if (!mbox_list[i].mailbox_info.initialized) {
                 find = 1;
                 return i;
             }
@@ -67,10 +72,10 @@ int k_commop(void *key_id, void *arg, int op) {
         return k_semaphore_init(key, *(int *)arg);
         break;
     case 1:
-        return k_semaphore_p(*key - 1);
+        return k_semaphore_p(*key - 1, 1, 0);
         break;
     case 2:
-        return k_semaphore_v(*key - 1);
+        return k_semaphore_v(*key - 1, 1, 0);
         break;
     case 3:
         return k_semaphore_destroy(key);
@@ -105,9 +110,8 @@ int k_commop(void *key_id, void *arg, int op) {
 
 int k_semaphore_init(int *key, int sem) {
     if (sem_first_time) {
-        for (int i = 0; i < COMM_NUM; i++) {
-            sem_list[i] = (semaphore_t *)k_mm_malloc(sizeof(semaphore_t));
-            sem_list[i]->sem_info.initialized = 0;
+        for (int i = 0; i < SYNC_NUM; i++) {
+            sem_list[i].sem_info.initialized = 0;
         }
         sem_first_time = 0;
     }
@@ -117,55 +121,60 @@ int k_semaphore_init(int *key, int sem) {
     if (*key < 0) {
         return -3;
     }
-    int sem_i = find_free(0);
+    int sem_i = find_free(SEM);
     if (sem_i < 0) {
         return -1;
     }
-    sem_list[sem_i]->sem_info.id = sem_i + 1;
-    sem_list[sem_i]->sem_info.initialized = 1;
-    sem_list[sem_i]->sem = sem;
-    init_list_head(&sem_list[sem_i]->wait_queue);
+    sem_list[sem_i].sem_info.id = sem_i + 1;
+    sem_list[sem_i].sem_info.initialized = 1;
+    sem_list[sem_i].sem = sem;
+    init_list_head(&sem_list[sem_i].wait_queue);
     *key = sem_i + 1;
     return 0;
 }
 
-int k_semaphore_p(int key) {
-    if (!sem_list[key]->sem_info.initialized) {
+int k_semaphore_p(int key, int value, int flag) {
+    key--;
+    if (!sem_list[key].sem_info.initialized) {
         return -1;
     }
-    sem_list[key]->sem--;
-    if (sem_list[key]->sem < 0) {
-        k_pcb_block(&(*current_running)->list, &sem_list[key]->wait_queue, ENQUEUE_LIST);
-        k_pcb_scheduler();
+    sem_list[key].sem -= value;
+    if (sem_list[key].sem < 0) {
+        if (flag & IPC_NOWAIT) {
+            return -EAGAIN;
+        } else {
+            k_pcb_block(&(*current_running)->list, &sem_list[key].wait_queue, ENQUEUE_LIST);
+            k_pcb_scheduler();
+        }
     }
     return 0;
 }
 
-int k_semaphore_v(int key) {
-    if (!sem_list[key]->sem_info.initialized) {
+int k_semaphore_v(int key, int value, int flag) {
+    key--;
+    if (!sem_list[key].sem_info.initialized) {
         return -1;
     }
-    sem_list[key]->sem++;
-    if (sem_list[key]->sem <= 0 && !list_is_empty(&sem_list[key]->wait_queue)) {
-        k_pcb_unblock(sem_list[key]->wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+    sem_list[key].sem += value;
+    if (sem_list[key].sem <= 0 && !list_is_empty(&sem_list[key].wait_queue)) {
+        k_pcb_unblock(sem_list[key].wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
     }
     return 0;
 }
 
 int k_semaphore_destroy(int *key) {
-    if (!sem_list[*key - 1]->sem_info.initialized) {
+    if (!sem_list[*key - 1].sem_info.initialized) {
         return -1;
     }
-    k_memset((void *)sem_list[*key - 1], 0, sizeof(semaphore_t *));
+    k_memset((void *)&sem_list[*key - 1], 0, sizeof(semaphore_t *));
     *key = 0;
     return 0;
 }
 
 int k_cond_init(int *key) {
     if (cond_first_time) {
-        for (int i = 0; i < COMM_NUM; i++) {
-            cond_list[i] = (cond_t *)k_mm_malloc(sizeof(cond_t));
-            cond_list[i]->cond_info.initialized = 0;
+        for (int i = 0; i < SYNC_NUM; i++) {
+            cond_list[i].cond_info.initialized = 0;
         }
         cond_first_time = 0;
     }
@@ -175,64 +184,66 @@ int k_cond_init(int *key) {
     if (*key < 0) {
         return -3;
     }
-    int cond_i = find_free(1);
+    int cond_i = find_free(COND);
     if (cond_i < 0) {
         return -1;
     }
-    cond_list[cond_i]->cond_info.id = cond_i + 1;
-    cond_list[cond_i]->cond_info.initialized = 1;
-    cond_list[cond_i]->num_wait = 0;
-    init_list_head(&cond_list[cond_i]->wait_queue);
+    cond_list[cond_i].cond_info.id = cond_i + 1;
+    cond_list[cond_i].cond_info.initialized = 1;
+    cond_list[cond_i].num_wait = 0;
+    init_list_head(&cond_list[cond_i].wait_queue);
     *key = cond_i + 1;
     return 0;
 }
 
 int k_cond_wait(int key) {
-    if (!cond_list[key]->cond_info.initialized) {
+    key--;
+    if (!cond_list[key].cond_info.initialized) {
         return -1;
     }
-    cond_list[key]->num_wait++;
-    k_pcb_block(&(*current_running)->list, &cond_list[key]->wait_queue, ENQUEUE_LIST);
+    cond_list[key].num_wait++;
+    k_pcb_block(&(*current_running)->list, &cond_list[key].wait_queue, ENQUEUE_LIST);
     k_pcb_scheduler();
     return 0;
 }
 
 int k_cond_signal(int key) {
-    if (!cond_list[key]->cond_info.initialized) {
+    key--;
+    if (!cond_list[key].cond_info.initialized) {
         return -1;
     }
-    if (cond_list[key]->num_wait > 0) {
-        k_pcb_unblock(cond_list[key]->wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
-        cond_list[key]->num_wait--;
+    if (cond_list[key].num_wait > 0) {
+        k_pcb_unblock(cond_list[key].wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        cond_list[key].num_wait--;
     }
     return 0;
 }
 
 int k_cond_broadcast(int key) {
-    if (!cond_list[key]->cond_info.initialized) {
+    key--;
+    if (!cond_list[key].cond_info.initialized) {
         return -1;
     }
-    while (cond_list[key]->num_wait > 0) {
-        k_pcb_unblock(cond_list[key]->wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
-        cond_list[key]->num_wait--;
+    while (cond_list[key].num_wait > 0) {
+        k_pcb_unblock(cond_list[key].wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        cond_list[key].num_wait--;
     }
     return 0;
 }
 
 int k_cond_destroy(int *key) {
-    if (!cond_list[*key - 1]->cond_info.initialized) {
+    if (!cond_list[*key - 1].cond_info.initialized) {
         return -1;
     }
-    k_memset((void *)cond_list[*key - 1], 0, sizeof(cond_t *));
+    k_memset((void *)&cond_list[*key - 1], 0, sizeof(cond_t *));
     *key = 0;
     return 0;
 }
 
 int k_barrier_init(int *key, int total) {
     if (barrier_first_time) {
-        for (int i = 0; i < COMM_NUM; i++) {
-            barrier_list[i] = (barrier_t *)k_mm_malloc(sizeof(barrier_t));
-            barrier_list[i]->barrier_info.initialized = 0;
+        for (int i = 0; i < SYNC_NUM; i++) {
+            barrier_list[i].barrier_info.initialized = 0;
         }
         barrier_first_time = 0;
     }
@@ -242,79 +253,81 @@ int k_barrier_init(int *key, int total) {
     if (*key < 0) {
         return -3;
     }
-    int barrier_i = find_free(2);
+    int barrier_i = find_free(BARRIER);
     if (barrier_i < 0) {
         return -1;
     }
-    barrier_list[barrier_i]->barrier_info.id = barrier_i + 1;
-    barrier_list[barrier_i]->barrier_info.initialized = 1;
-    barrier_list[barrier_i]->count = 0;
-    barrier_list[barrier_i]->total = total;
-    barrier_list[barrier_i]->cond_id = 0;
-    k_cond_init(&barrier_list[barrier_i]->cond_id);
+    barrier_list[barrier_i].barrier_info.id = barrier_i + 1;
+    barrier_list[barrier_i].barrier_info.initialized = 1;
+    barrier_list[barrier_i].count = 0;
+    barrier_list[barrier_i].total = total;
+    barrier_list[barrier_i].cond_id = 0;
+    k_cond_init(&barrier_list[barrier_i].cond_id);
     *key = barrier_i + 1;
     return 0;
 }
 
 int k_barrier_wait(int key) {
-    if (!barrier_list[key]->barrier_info.initialized) {
+    key--;
+    if (!barrier_list[key].barrier_info.initialized) {
         return -1;
     }
-    if ((++barrier_list[key]->count) == barrier_list[key]->total) {
-        barrier_list[key]->count = 0;
-        k_cond_broadcast(barrier_list[key]->cond_id - 1);
+    if ((++barrier_list[key].count) == barrier_list[key].total) {
+        barrier_list[key].count = 0;
+        k_cond_broadcast(barrier_list[key].cond_id - 1);
     } else {
-        k_cond_wait(barrier_list[key]->cond_id - 1);
+        k_cond_wait(barrier_list[key].cond_id - 1);
     }
     return 0;
 }
 
 int k_barrier_destroy(int *key) {
-    if (!barrier_list[*key - 1]->barrier_info.initialized) {
+    key--;
+    if (!barrier_list[*key - 1].barrier_info.initialized) {
         return -1;
     }
-    k_cond_destroy(&barrier_list[*key - 1]->cond_id);
-    k_memset((void *)barrier_list[*key - 1], 0, sizeof(barrier_t *));
+    k_cond_destroy(&barrier_list[*key - 1].cond_id);
+    k_memset((void *)&barrier_list[*key - 1], 0, sizeof(barrier_t *));
     *key = 0;
     return 0;
 }
 
 int k_mbox_open(int id_1, int id_2) {
     if (mbox_first_time) {
-        for (int i = 0; i < COMM_NUM; i++) {
-            mbox_list[i] = (mbox_t *)k_mm_malloc(sizeof(mbox_t));
-            mbox_list[i]->mailbox_info.initialized = 0;
+        for (int i = 0; i < SYNC_NUM; i++) {
+            mbox_list[i].mailbox_info.initialized = 0;
         }
         mbox_first_time = 0;
     }
-    for (int i = 0; i < COMM_NUM; i++) {
-        if (mbox_list[i]->mailbox_info.initialized && (mbox_list[i]->id[0] == id_1 || mbox_list[i]->id[2] == id_2)) {
+    for (int i = 0; i < SYNC_NUM; i++) {
+        if (mbox_list[i].mailbox_info.initialized && (mbox_list[i].id[0] == id_1 || mbox_list[i].id[1] == id_2)) {
             return i + 1;
         }
     }
-    int mbox_i = find_free(3);
+    int mbox_i = find_free(MAILBOX);
     if (mbox_i < 0) {
         return -1;
     }
-    mbox_list[mbox_i]->mailbox_info.id = mbox_i + 1;
-    mbox_list[mbox_i]->mailbox_info.initialized = 1;
-    mbox_list[mbox_i]->id[0] = id_1;
-    mbox_list[mbox_i]->id[1] = id_2;
-    k_memset(mbox_list[mbox_i]->buff, 0, sizeof(mbox_list[mbox_i]->buff));
-    mbox_list[mbox_i]->read_head = 0;
-    mbox_list[mbox_i]->write_tail = 0;
-    mbox_list[mbox_i]->used_units = 0;
-    mbox_list[mbox_i]->full_cond_id = 0;
-    mbox_list[mbox_i]->empty_cond_id = 0;
-    k_cond_init(&mbox_list[mbox_i]->full_cond_id);
-    k_cond_init(&mbox_list[mbox_i]->empty_cond_id);
-    // k_memset(mbox_list[mbox_i]->cited_pid, 0, sizeof(mbox_list[mbox_i]->cited_pid));
-    // mbox_list[mbox_i]->cited_num = 0;
-    return mbox_i;
+    mbox_list[mbox_i].mailbox_info.id = mbox_i + 1;
+    mbox_list[mbox_i].mailbox_info.initialized = 1;
+    mbox_list[mbox_i].id[0] = id_1;
+    mbox_list[mbox_i].id[1] = id_2;
+    k_memset(mbox_list[mbox_i].buff, 0, sizeof(mbox_list[mbox_i].buff));
+    mbox_list[mbox_i].read_head = 0;
+    mbox_list[mbox_i].write_tail = 0;
+    mbox_list[mbox_i].used_units = 0;
+    mbox_list[mbox_i].full_cond_id = 0;
+    mbox_list[mbox_i].empty_cond_id = 0;
+    k_cond_init(&mbox_list[mbox_i].full_cond_id);
+    k_cond_init(&mbox_list[mbox_i].empty_cond_id);
+    // k_memset(mbox_list[mbox_i].cited_pid, 0, sizeof(mbox_list[mbox_i].cited_pid));
+    // mbox_list[mbox_i].cited_num = 0;
+    return mbox_i + 1;
 }
 
 int k_mbox_close(int mbox_id) {
-    mbox_t *target = mbox_list[mbox_id];
+    mbox_id--;
+    mbox_t *target = &mbox_list[mbox_id];
     target->id[0] = 0;
     target->id[1] = 0;
     k_cond_destroy(&target->full_cond_id);
@@ -323,8 +336,9 @@ int k_mbox_close(int mbox_id) {
 }
 
 int k_mbox_send(int key, mbox_t *target, mbox_arg_t *arg) {
+    key--;
     if (!target) {
-        target = mbox_list[key];
+        target = &mbox_list[key];
     }
     if (!target->mailbox_info.initialized) {
         return -1;
@@ -352,8 +366,9 @@ int k_mbox_send(int key, mbox_t *target, mbox_arg_t *arg) {
 }
 
 int k_mbox_recv(int key, mbox_t *target, mbox_arg_t *arg) {
+    key--;
     if (!target) {
-        target = mbox_list[key];
+        target = &mbox_list[key];
     }
     if (!target->mailbox_info.initialized) {
         return -1;
@@ -385,20 +400,22 @@ int k_mbox_recv(int key, mbox_t *target, mbox_arg_t *arg) {
 }
 
 int k_mbox_try_send(int key, mbox_arg_t *arg) {
-    if (!mbox_list[key]->mailbox_info.initialized) {
+    key--;
+    if (!mbox_list[key].mailbox_info.initialized) {
         return -1;
     }
-    if (arg->msg_length > MBOX_MSG_MAX_LEN - mbox_list[key]->used_units) {
+    if (arg->msg_length > MBOX_MSG_MAX_LEN - mbox_list[key].used_units) {
         return -2;
     }
     return 0;
 }
 
 int k_mbox_try_recv(int key, mbox_arg_t *arg) {
-    if (!mbox_list[key]->mailbox_info.initialized) {
+    key--;
+    if (!mbox_list[key].mailbox_info.initialized) {
         return -1;
     }
-    if (arg->msg_length > mbox_list[key]->used_units) {
+    if (arg->msg_length > mbox_list[key].used_units) {
         return -2;
     }
     return 0;
@@ -446,13 +463,49 @@ long sys_mailwrite(int pid, void *buf, int len) {
 
 // [TODO]
 long sys_semget(key_t key, int nsems, int semflg) {
+    if (semflg == 0 && key != IPC_PRIVATE) {
+        for (int i = 0; i < SYNC_NUM; i++) {
+            if (sem_list[i].sem_info.key == key) {
+                return i + 1;
+            }
+        }
+        return -EINVAL;
+    } else {
+        if (semflg & (IPC_CREAT | IPC_EXCL)) {
+            for (int i = 0; i < SYNC_NUM; i++) {
+                if (sem_list->sem_info.key == key) {
+                    return -EEXIST;
+                }
+            }
+            int ret = 0;
+            k_semaphore_init(&ret, nsems);
+            return ret;
+        }
+    }
     return 0;
 }
 
 long sys_semctl(int semid, int semnum, int cmd, unsigned long arg) {
+    semid--;
+    if (semid < 0) {
+        return -EINVAL;
+    }
     return 0;
 }
 
 long sys_semop(int semid, sembuf_t *sops, unsigned nsops) {
+    if (semid <= 0) {
+        return -EINVAL;
+    }
+    struct sembuf *sop;
+    for (sop = sops; sop < sops + nsops; sop++) {
+        if (sop->sem_op > 0) {
+            k_semaphore_v(semid, sop->sem_op, sop->sem_flg);
+        } else if (sop->sem_op == 0) {
+            k_semaphore_p(semid, sop->sem_op, sop->sem_flg);
+        } else {
+            k_semaphore_p(semid, sop->sem_op, sop->sem_flg);
+        }
+    }
     return 0;
 }

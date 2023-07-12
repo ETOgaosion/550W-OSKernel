@@ -80,9 +80,6 @@ void k_init_syscall(void) {
     syscall[SYS_syncfs] = (long (*)())sys_syncfs;
     syscall[SYS_renameat2] = (long (*)())sys_renameat2;
 
-    // syscall[SYS_mremap] = (long (*)())sys_mremap;
-    syscall[SYS_mmap] = (long (*)())sys_mmap;
-
     // System
     syscall[SYS_uname] = (long (*)())sys_uname;
     syscall[SYS_sethostname] = (long (*)())sys_sethostname;

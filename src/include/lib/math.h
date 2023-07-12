@@ -6,4 +6,6 @@
 
 #define k_wrap(x, len) ((x) & ~(len))
 
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+
 int k_min(int a, int b);

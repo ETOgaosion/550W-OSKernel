@@ -1,8 +1,9 @@
 #include <common/elf.h>
+#include <lib/math.h>
 
 uintptr_t load_elf(unsigned char elf_binary[], unsigned length, uintptr_t pgdir, uintptr_t (*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir)) {
-    Elf64_Ehdr *ehdr = (Elf64_Ehdr *)elf_binary;
-    Elf64_Phdr *phdr = NULL;
+    elf64_ehdr_t *ehdr = (elf64_ehdr_t *)elf_binary;
+    elf64_phdr_t *phdr = NULL;
     /* As a loader, we just care about segment,
      * so we just parse program headers.
      */
@@ -21,7 +22,7 @@ uintptr_t load_elf(unsigned char elf_binary[], unsigned length, uintptr_t pgdir,
     ph_entry_size = ehdr->e_phentsize;
 
     while (ph_entry_count--) {
-        phdr = (Elf64_Phdr *)ptr_ph_table;
+        phdr = (elf64_phdr_t *)ptr_ph_table;
 
         if (phdr->p_type == PT_LOAD) {
             /* TODO: */

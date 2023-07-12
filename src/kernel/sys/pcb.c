@@ -10,6 +10,7 @@
 #include <os/irq.h>
 #include <os/pcb.h>
 #include <os/smp.h>
+#include <os/users.h>
 #include <user/user_programs.h>
 
 pcb_t *volatile current_running0;
@@ -53,13 +54,20 @@ pid_t nextpid() {
  * @param father_pid
  * @param core_mask
  */
-void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int tid, int father_pid, uint8_t core_mask) {
+void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int tid, int uid, int father_pid, uint8_t core_mask) {
     k_memset((uint8_t *)pcb[pcb_i].name, 0, sizeof(pcb[pcb_i].name));
     k_memcpy((uint8_t *)pcb[pcb_i].name, (uint8_t *)name, k_strlen(name));
     pcb[pcb_i].in_use = TRUE;
     pcb[pcb_i].pid = pid;
     pcb[pcb_i].fpid = fpid;
     pcb[pcb_i].tid = tid;
+    pcb[pcb_i].pgid = fpid;
+    pcb[pcb_i].gid.rgid = fpid;
+    pcb[pcb_i].gid.egid = fpid;
+    pcb[pcb_i].gid.sgid = fpid;
+    pcb[pcb_i].uid.ruid = uid;
+    pcb[pcb_i].uid.euid = uid;
+    pcb[pcb_i].uid.suid = uid;
     pcb[pcb_i].father_pid = father_pid;
     pcb[pcb_i].child_num = 0;
     k_memset((void *)pcb[pcb_i].child_pids, 0, sizeof(pcb[pcb_i].child_pids));
@@ -70,6 +78,7 @@ void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int 
     pcb[pcb_i].status = TASK_READY;
     pcb[pcb_i].cursor_x = 1;
     pcb[pcb_i].cursor_y = 1;
+    pcb[pcb_i].sched_policy = SCHED_OTHER;
     pcb[pcb_i].priority.priority = 1;
     pcb[pcb_i].priority.last_sched_time = 0;
     pcb[pcb_i].core_mask[0] = core_mask;
@@ -84,8 +93,8 @@ void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int 
     k_memset((void *)&(pcb[pcb_i].resources), 0, sizeof(rusage_t));
 }
 
-uintptr_t init_user_stack(ptr_t *user_stack_kva, ptr_t *user_stack, int argc, const char *argv[], int envpc, const char *envp[], const char *file_name) {
-    int total_length = (argc + envpc + 3) * sizeof(uintptr_t *);
+uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_stack, int argc, const char *argv[], int envpc, const char *envp[], const char *file_name) {
+    int total_length = (argc + envpc + 3) * sizeof(uintptr_t *) + sizeof(aux_elem_t) * (AUX_CNT + 1) + SIZE_RESTORE;
     int pointers_length = total_length;
     for (int i = 0; i < argc; i++) {
         total_length += (k_strlen(argv[i]) + 1);
@@ -125,8 +134,17 @@ uintptr_t init_user_stack(ptr_t *user_stack_kva, ptr_t *user_stack, int argc, co
 
     /* 4. save file_name */
     k_strcpy((char *)kargv, file_name);
+    uintptr_t file_pointer = new_argv;
     new_argv = new_argv + k_strlen(file_name) + 1;
     kargv += k_strlen(file_name) + 1;
+
+    /* 5. set aux */
+    aux_elem_t aux_vec[AUX_CNT];
+    set_aux_vec((aux_elem_t *)kargv_pointer, &new_pcb->elf, file_pointer, new_argv);
+
+    /* 6. copy aux on the user_stack */
+    k_memcpy((uint8_t *)kargv_pointer, (const uint8_t *)aux_vec, sizeof(aux_elem_t) * (AUX_CNT + 1));
+    *((uintptr_t *)kargv_pointer + AUX_CNT + 1) = 0;
 
     /* now user_sp is user_stack - total_length */
     *user_stack_kva -= total_length;
@@ -173,7 +191,7 @@ pcb_t *check_first_ready_task() {
     return NULL;
 }
 
-pcb_t *choose_sched_task(list_head *queue) {
+pcb_t *choose_sched_task(list_head *queue, int policy) {
     uint64_t cur_time = k_time_get_ticks();
     uint64_t max_priority = 0;
     uint64_t cur_priority = 0;
@@ -181,19 +199,36 @@ pcb_t *choose_sched_task(list_head *queue) {
     pcb_t *max_one = NULL;
     pcb_t *pcb_iterator = NULL;
     int cpu_id = k_smp_get_current_cpu_id();
-    while (list_iterator->next != queue) {
-        pcb_iterator = list_entry(list_iterator, pcb_t, list);
-        if (!(pcb_iterator->core_mask[cpu_id / 8] & (0x1 << (cpu_id % 8)))) {
-            continue;
+    if (policy == SCHED_RR || policy == SCHED_IDLE) {
+        while (list_iterator->next != queue) {
+            pcb_iterator = list_entry(list_iterator, pcb_t, list);
+            if (!(pcb_iterator->core_mask[cpu_id / 8] & (0x1 << (cpu_id % 8)))) {
+                continue;
+            }
+            cur_priority = cal_priority(cur_time, pcb_iterator->priority.last_sched_time, pcb_iterator->priority.priority);
+            if (max_priority < cur_priority) {
+                max_priority = cur_priority;
+                max_one = pcb_iterator;
+            }
+            list_iterator = list_iterator->next;
         }
-        cur_priority = cal_priority(cur_time, pcb_iterator->priority.last_sched_time, pcb_iterator->priority.priority);
-        if (max_priority < cur_priority) {
-            max_priority = cur_priority;
-            max_one = pcb_iterator;
+        max_one->priority.last_sched_time = cur_time;
+    } else if (policy == SCHED_FIFO) {
+        while (list_iterator->next != queue) {
+            pcb_iterator = list_entry(list_iterator, pcb_t, list);
+            if (!(pcb_iterator->core_mask[cpu_id / 8] & (0x1 << (cpu_id % 8)))) {
+                continue;
+            }
+            if (pcb_iterator->priority.priority > (*current_running)->priority.priority) {
+                max_one = pcb_iterator;
+                break;
+            }
+            if (pcb_iterator->priority.priority <= (*current_running)->priority.priority) {
+                max_one = *current_running;
+                break;
+            }
         }
-        list_iterator = list_iterator->next;
     }
-    max_one->priority.last_sched_time = cur_time;
     return max_one;
 }
 
@@ -202,6 +237,19 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
     case ENQUEUE_LIST:
         list_add_tail(new, head);
         break;
+    case ENQUEUE_LIST_PRIORITY: {
+        pcb_t *new_inserter = list_entry(new, pcb_t, list);
+        list_head *iterator_list = ready_queue.next;
+        pcb_t *iterator_pcb = NULL;
+        while (iterator_list != &ready_queue) {
+            iterator_pcb = list_entry(iterator_list, pcb_t, list);
+            if (iterator_pcb->priority.priority < new_inserter->priority.priority) {
+                break;
+            }
+        }
+        list_add(new, iterator_list);
+        break;
+    }
     case ENQUEUE_TIMER_LIST: {
         pcb_t *new_inserter = list_entry(new, pcb_t, list);
         list_head *iterator_list = timers.next;
@@ -220,7 +268,7 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
     }
 }
 
-pcb_t *dequeue(list_head *queue, dequeue_way_t target) {
+pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
     // plain and simple way
     pcb_t *ret = NULL;
     pcb_t *task = check_first_ready_task();
@@ -229,13 +277,16 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target) {
         ret = list_entry(queue->next, pcb_t, list);
         list_del(&(ret->list));
         break;
-    case DEQUEUE_LIST_STRATEGY:
-        // ret = choose_sched_task(queue);
+    case DEQUEUE_LIST_FIFO:
         if (!task) {
             ret = list_entry(queue->next, pcb_t, list);
         } else {
             ret = task;
         }
+        list_del(&(ret->list));
+        break;
+    case DEQUEUE_LIST_PRIORITY:
+        ret = choose_sched_task(queue, policy);
         list_del(&(ret->list));
         break;
     default:
@@ -266,11 +317,17 @@ long k_pcb_scheduler(void) {
         check_sleeping();
     }
     pcb_t *curr = (*current_running);
+    if (curr->sched_policy == SCHED_BATCH && curr->status == TASK_RUNNING) {
+        return 0;
+    }
     int cpuid = k_smp_get_current_cpu_id();
     if (curr->status == TASK_RUNNING && curr->pid >= 0) {
         enqueue(&curr->list, &ready_queue, ENQUEUE_LIST);
     }
-    pcb_t *next_pcb = dequeue(&ready_queue, DEQUEUE_LIST_STRATEGY);
+    pcb_t *next_pcb = dequeue(&ready_queue, DEQUEUE_LIST_FIFO, curr->sched_policy);
+    if (next_pcb == curr) {
+        return 0;
+    }
     // d_screen_pcb_move_cursor(screen_cursor_x, screen_cursor_y);
     // d_screen_load_curpcb_cursor();
     next_pcb->status = TASK_RUNNING;
@@ -293,22 +350,21 @@ void k_pcb_block(list_node_t *pcb_node, list_head *queue, enqueue_way_t way) {
 }
 
 void k_pcb_unblock(list_head *from_queue, list_head *to_queue, unblock_way_t way) {
-    // TODO: unblock the `pcb` from the block queue
     pcb_t *fetch_pcb = NULL;
     switch (way) {
     case UNBLOCK_TO_LIST_FRONT:
-        fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST);
+        fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST, -1);
         list_add(&fetch_pcb->list, to_queue);
         break;
     case UNBLOCK_TO_LIST_BACK:
-        fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST);
+        fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST, -1);
         list_add_tail(&fetch_pcb->list, to_queue);
         break;
     case UNBLOCK_ONLY:
-        fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST);
+        fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST, -1);
         break;
     case UNBLOCK_TO_LIST_STRATEGY:
-        fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST_STRATEGY);
+        fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST_FIFO, -1);
         list_add_tail(&fetch_pcb->list, to_queue);
         break;
     default:
@@ -337,7 +393,7 @@ void k_pcb_wakeup(void *chan) {
 long spawn(const char *file_name) {
     int i = nextpid();
 
-    init_pcb_i((char *)file_name, i, USER_PROCESS, i, i, 0, (*current_running)->father_pid, (*current_running)->core_mask[0]);
+    init_pcb_i((char *)file_name, i, USER_PROCESS, i, i, 0, 0, (*current_running)->father_pid, (*current_running)->core_mask[0]);
 
     ptr_t kernel_stack = get_kernel_address(i);
     ptr_t user_stack_kva = kernel_stack - 4 * PAGE_SIZE;
@@ -361,7 +417,7 @@ long spawn(const char *file_name) {
 }
 
 long exec(int target_pid, int father_pid, const char *file_name, const char *argv[], const char *envp[]) {
-    init_pcb_i((char *)file_name, target_pid, USER_PROCESS, target_pid, target_pid, 0, father_pid, (*current_running)->core_mask[0]);
+    init_pcb_i((char *)file_name, target_pid, USER_PROCESS, target_pid, target_pid, 0, 0, father_pid, (*current_running)->core_mask[0]);
 
     ptr_t kernel_stack = get_kernel_address(target_pid);
     ptr_t user_stack_kva = kernel_stack - 4 * PAGE_SIZE;
@@ -382,7 +438,7 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
 
     int argc = k_strlistlen((char **)argv);
     int envpc = k_strlistlen((char **)envp);
-    uintptr_t child_argv = init_user_stack(&user_stack_kva, &user_stack, argc, argv, envpc, envp, file_name);
+    uintptr_t child_argv = init_user_stack(&pcb[target_pid], &user_stack_kva, &user_stack, argc, argv, envpc, envp, file_name);
 
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
 
@@ -398,7 +454,7 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     int name_len = k_min(k_strlen((*current_running)->name), 14);
     k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
     k_strcat(name, "_child");
-    init_pcb_i(name, i, USER_PROCESS, i, i, 0, fpid, (*current_running)->core_mask[0]);
+    init_pcb_i(name, i, USER_PROCESS, i, i, 0, 0, fpid, (*current_running)->core_mask[0]);
 
     if (flags & CLONE_CHILD_SETTID) {
         *(int *)child_tid = pcb[i].tid;
@@ -428,7 +484,7 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
         pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
     }
 
-    k_memcpy((uint8_t *)&pcb[i].elf, (uint8_t *)&(*current_running)->elf, sizeof(ELF_info_t));
+    k_memcpy((uint8_t *)&pcb[i].elf, (uint8_t *)&(*current_running)->elf, sizeof(elf_info_t));
     k_memcpy((uint8_t *)(user_stack_kva - NORMAL_PAGE_SIZE), (const uint8_t *)(K_ROUNDDOWN((*current_running)->user_sp, NORMAL_PAGE_SIZE)), NORMAL_PAGE_SIZE);
 
     ptr_t user_stack = (ptr_t)stack ? (ptr_t)stack : USER_STACK_ADDR;
@@ -497,7 +553,7 @@ long sys_fork() {
     int name_len = k_min(k_strlen((*current_running)->name), 14);
     k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
     k_strcat(name, "_child");
-    init_pcb_i(name, i, USER_PROCESS, i, i, 0, fpid, (*current_running)->core_mask[0]);
+    init_pcb_i(name, i, USER_PROCESS, i, i, 0, 0, fpid, (*current_running)->core_mask[0]);
 
     pcb[fpid].child_pids[pcb[fpid].child_num] = i;
     pcb[fpid].child_num++;
@@ -551,10 +607,12 @@ long sys_kill(pid_t pid) {
 }
 
 // [TODO]
+// signal
 long sys_tkill(pid_t pid, int sig) {
     return 0;
 }
 
+// signal
 long sys_tgkill(pid_t tgid, pid_t pid, int sig) {
     return 0;
 }
@@ -577,6 +635,10 @@ long sys_exit(int error_code) {
 }
 
 long sys_exit_group(int error_code) {
+    for (int i = 0; i < (*current_running)->threadsum; i++) {
+        sys_kill((*current_running)->thread_ids[i]);
+    }
+    sys_exit((*current_running)->pid);
     return 0;
 }
 
@@ -724,18 +786,36 @@ long sys_getpriority(int which, int who) {
 
 /* =============== PCB Scheduling ================ */
 long sys_sched_setparam(pid_t pid, sched_param_t *param) {
+    pcb[pid].priority.priority = param->sched_priority;
     return 0;
 }
 
 long sys_sched_setscheduler(pid_t pid, int policy, sched_param_t *param) {
+    if (policy == SCHED_OTHER || policy == SCHED_BATCH || policy == SCHED_IDLE) {
+        if (param->sched_priority != 0) {
+            return -EINVAL;
+        }
+    }
+    if (policy == SCHED_IDLE) {
+        param->sched_priority = 0;
+    }
+    pcb[pid].sched_policy = policy;
+    pcb[pid].priority.priority = param->sched_priority;
     return 0;
 }
 
 long sys_sched_getscheduler(pid_t pid) {
-    return 0;
+    if (pid == 0) {
+        return (*current_running)->sched_policy;
+    }
+    if (pid >= NUM_MAX_TASK) {
+        return -EINVAL;
+    }
+    return pcb[pid].sched_policy;
 }
 
 long sys_sched_getparam(pid_t pid, sched_param_t *param) {
+    param->sched_priority = pcb[pid].priority.priority;
     return 0;
 }
 
@@ -772,64 +852,100 @@ long sys_sched_yield(void) {
 }
 
 long sys_sched_get_priority_max(int policy) {
-    return 0;
+    int max_priority = 0;
+    for (int i = 0; i < NUM_MAX_TASK; i++) {
+        if (pcb[i].in_use && pcb[i].sched_policy == policy) {
+            if (pcb[i].priority.priority > max_priority) {
+                max_priority = pcb[i].priority.priority;
+                break;
+            }
+        }
+    }
+    return max_priority;
 }
 
 long sys_sched_get_priority_min(int policy) {
-    return 0;
+    int min_priority = 0;
+    for (int i = NUM_MAX_TASK - 1; i >= 0; i--) {
+        if (pcb[i].in_use && pcb[i].sched_policy == policy) {
+            min_priority = pcb[i].priority.priority;
+            break;
+        }
+    }
+    return min_priority;
 }
 
 /* =============== ids ===============*/
 long sys_set_tid_address(int *tidptr) {
-    return 0;
+    (*current_running)->clear_ctid = (uint32_t *)tidptr;
+    return (*current_running)->tid;
 }
 
 long sys_setgid(gid_t gid) {
+    (*current_running)->gid.egid = gid;
     return 0;
 }
 
 long sys_setuid(uid_t uid) {
+    (*current_running)->uid.euid = uid;
     return 0;
 }
 
 long sys_setresuid(uid_t ruid, uid_t euid, uid_t suid) {
+    (*current_running)->uid.ruid = ruid;
+    (*current_running)->uid.euid = euid;
+    (*current_running)->uid.suid = suid;
     return 0;
 }
 
 long sys_getresuid(uid_t *ruid, uid_t *euid, uid_t *suid) {
+    *ruid = (*current_running)->uid.ruid;
+    *euid = (*current_running)->uid.euid;
+    *suid = (*current_running)->uid.suid;
     return 0;
 }
 
 long sys_setresgid(gid_t rgid, gid_t egid, gid_t sgid) {
+    (*current_running)->gid.rgid = rgid;
+    (*current_running)->gid.egid = egid;
+    (*current_running)->gid.sgid = sgid;
     return 0;
 }
 
 long sys_getresgid(gid_t *rgid, gid_t *egid, gid_t *sgid) {
+    *rgid = (*current_running)->gid.rgid;
+    *egid = (*current_running)->gid.egid;
+    *sgid = (*current_running)->gid.sgid;
     return 0;
 }
 
 long sys_setpgid(pid_t pid, pid_t pgid) {
+    pcb_t *target = &pcb[pid];
+    if (pid == 0) {
+        target = *current_running;
+    }
+    pid_t new_pgid = pgid;
+    if (pgid == 0) {
+        new_pgid = (*current_running)->pgid;
+    }
+    target->pgid = new_pgid;
     return 0;
 }
 
 long sys_getpgid(pid_t pid) {
-    return 0;
+    if (pid == 0) {
+        return (*current_running)->pgid;
+    }
+    return pcb[pid].pgid;
 }
 
 long sys_getsid(pid_t pid) {
-    return 0;
+    return pcb[pid].pgid;
 }
 
 long sys_setsid(void) {
-    return 0;
-}
-
-long sys_getgroups(int gidsetsize, gid_t *grouplist) {
-    return 0;
-}
-
-long sys_setgroups(int gidsetsize, gid_t *grouplist) {
-    return 0;
+    (*current_running)->pgid = (*current_running)->pid;
+    return (*current_running)->pgid;
 }
 
 /**
@@ -851,23 +967,23 @@ long sys_getppid() {
 }
 
 long sys_getuid(void) {
-    return 0;
+    return (*current_running)->uid.ruid;
 }
 
 long sys_geteuid(void) {
-    return 0;
+    return (*current_running)->uid.euid;
 }
 
 long sys_getgid(void) {
-    return 0;
+    return (*current_running)->gid.rgid;
 }
 
 long sys_getegid(void) {
-    return 0;
+    return (*current_running)->gid.egid;
 }
 
 long sys_gettid(void) {
-    return 0;
+    return (*current_running)->tid;
 }
 
 /* =============== PCB Resources ===============*/
