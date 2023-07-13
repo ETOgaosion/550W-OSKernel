@@ -27,7 +27,7 @@ int fd_alloc() {
     int i;
     for (i = STDMAX; i < MAX_FD; i++) {
         if (!fd_table[i].used) {
-            k_memset(&fd_table[i], 0, sizeof(fd_t));
+            k_bzero(&fd_table[i], sizeof(fd_t));
             fd_table[i].used = 1;
             return i;
         }
@@ -96,10 +96,10 @@ fd_t *get_fd(int fd) {
 
 void ring_buffer_init(struct ring_buffer *rbuf) {
     // there is always one byte which should not be read or written
-    k_memset(rbuf, 0, sizeof(struct ring_buffer)); /* head = tail = 0 */
+    k_bzero(rbuf, sizeof(struct ring_buffer)); /* head = tail = 0 */
     rbuf->size = RING_BUFFER_SIZE;
     rbuf->buf = k_mm_malloc(PAGE_SIZE);
-    k_memset(rbuf->buf, 0, PAGE_SIZE);
+    k_bzero(rbuf->buf, PAGE_SIZE);
     // TODO INIT LOCK
     k_spin_lock_init(&rbuf->lock);
     return;

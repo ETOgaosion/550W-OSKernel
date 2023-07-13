@@ -51,14 +51,14 @@ int kernel_start() {
         k_print("> [INIT] PCB initialization succeeded.\n\r");
 
         // read CPU frequency
-        time_base = TIME_BASE_DEFAULT;
+        k_time_init();
 
         // init system call table (0_0)
-        k_init_syscall();
+        k_syscall_init();
         k_print("> [INIT] System call initialized successfully.\n\r");
 
         // init screen (QAQ)
-        k_init_exception();
+        k_exception_init();
 
         // init disk
         d_plic_init();

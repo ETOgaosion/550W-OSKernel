@@ -3,8 +3,8 @@
 #include <common/types.h>
 #include <fs/fs.h>
 
-typedef unsigned short __kernel_sa_family_t;
-typedef __kernel_sa_family_t sa_family_t;
+typedef unsigned short kernel_sa_family_t;
+typedef kernel_sa_family_t sa_family_t;
 
 typedef struct sockaddr_t {
     sa_family_t sa_family; /* address family, AF_xxx	*/
@@ -12,13 +12,13 @@ typedef struct sockaddr_t {
 } sockaddr_t;
 
 typedef struct user_msghdr {
-    void *msg_name;                 /* ptr to socket address structure */
-    int msg_namelen;                /* size of socket address structure */
-    iovec_t *msg_iov;               /* scatter/gather array */
-    __kernel_size_t msg_iovlen;     /* # elements in msg_iov */
-    void *msg_control;              /* ancillary data */
-    __kernel_size_t msg_controllen; /* ancillary data buffer length */
-    unsigned int msg_flags;         /* flags on received message */
+    void *msg_name;               /* ptr to socket address structure */
+    int msg_namelen;              /* size of socket address structure */
+    iovec_t *msg_iov;             /* scatter/gather array */
+    kernel_size_t msg_iovlen;     /* # elements in msg_iov */
+    void *msg_control;            /* ancillary data */
+    kernel_size_t msg_controllen; /* ancillary data buffer length */
+    unsigned int msg_flags;       /* flags on received message */
 } user_msghdr_t;
 
 long sys_socket(int domain, int type, int protocol);

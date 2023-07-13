@@ -98,7 +98,7 @@ _save_context:
   ld sp, PCB_KERNEL_SP(tp)
   addi sp, sp, SWITCH_TO_SIZE
 
-  /* TODO: save all general purpose registers here! */
+  /* save all general purpose registers here! */
   //SAVE(sp, SP)
   SAVE_REGS
   ld a0, PCB_USER_SP(tp)
@@ -112,7 +112,7 @@ _save_context:
    */
   li t0, SR_SUM | SR_FS
   //addi sp, sp, -(SWITCH_TO_SIZE)
-  /* TODO: save sstatus, sepc, stval, scause and sscratch on user stack */
+  /* save sstatus, sepc, stval, scause and sscratch on user stack */
 .endm
 
 .macro USER_RESTORE_CONTEXT
@@ -127,7 +127,7 @@ _restore_context:
   ld sepc, 264(sp)
   ld sbadaddr, 272(sp)
   ld scause, 280(sp)*/
-  /* TODO: Restore all registers and sepc, sstatus */
+  /* Restore all registers and sepc, sstatus */
 .endm
 
 // the address of previous pcb in a0
@@ -135,7 +135,7 @@ _restore_context:
 ENTRY(switch_to)
   // save all callee save registers on kernel stack
   //addi sp, sp, -(SWITCH_TO_SIZE)
-  /* TODO: store all callee save registers,
+  /* store all callee save registers,
    * see the definition of `struct switchto_context` in pcb.h*/
   beq a0, a1, switch_to_same_pcb
 
@@ -155,7 +155,7 @@ ENTRY(switch_to)
   SS(s10, S10)
   SS(s11, S11)
   // restore next
-  /* TODO: restore all callee save registers,
+  /* restore all callee save registers,
    * see the definition of `struct switchto_context` in pcb.h*/
   addi tp, a1, 0
   ld t0, PCB_KERNEL_SP(a1)
@@ -184,7 +184,6 @@ switch_to_same_pcb:
 ENDPROC(switch_to)
 
 ENTRY(user_ret_from_exception)
-  /* TODO: */
   call k_smp_unlock_kernel
   la t0, user_exception_handler_entry
   csrw stvec, t0
@@ -236,3 +235,43 @@ ENTRY(kernel_exception_handler_entry)
   call kernel_interrupt_helper
   call kernel_ret_from_exception
 ENDPROC(kernel_exception_handler_entry)
+
+ENTRY(enter_signal_trampoline)
+  .local copy_signal_switch_regs
+  .local copy_signal_context_regs
+  /* sd tp */
+  csrrw tp, CSR_SSCRATCH, tp
+  ld  a3, PCB_KERNEL_SP(tp)
+
+  mv a4, a3 
+  li a5, SWITCH_TO_SIZE
+
+  /* copy switch_regs */
+copy_signal_switch_regs:
+  ld a6, (a1)
+  sd a6, (a3)
+  addi a3, a3, 8
+  addi a1, a1, 8
+  addi a5, a5, -8
+  bnez a5, copy_signal_switch_regs
+
+  li a5, OFFSET_ALL_REG_SIZE
+
+copy_signal_context_regs:
+  ld a6, (a0)
+  sd a6, (a3)
+  addi a3, a3, 8
+  addi a0, a0, 8
+  addi a5, a5, -8
+  bnez a5, copy_signal_context_regs    
+
+  /* change the sp */
+  ld  sp, PCB_KERNEL_SP(tp)
+
+  call exit_signal_trampoline
+
+END(enter_signal_trampoline)
+
+ENTRY(exit_signal_trampoline)
+  call user_ret_from_exception
+END(exit_signal_trampoline)

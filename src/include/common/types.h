@@ -42,6 +42,8 @@ typedef unsigned int uint;
 typedef int pid_t;
 typedef uint64_t reg_t;
 typedef uint64_t ptr_t;
+typedef uint64_t clock_t;
+typedef uint64_t sigval_t;
 #if __riscv_xlen == 64
 typedef int64 intptr_t;
 typedef uint64 uintptr_t;
@@ -75,101 +77,101 @@ typedef uint64_t u64;
 
 typedef uint8_t byte_size_t;
 
-#ifndef __kernel_long_t
-typedef long __kernel_long_t;
-typedef unsigned long __kernel_ulong_t;
+#ifndef kernel_long_t
+typedef long kernel_long_t;
+typedef unsigned long kernel_ulong_t;
 #endif
 
-#ifndef __kernel_ino_t
-typedef __kernel_ulong_t __kernel_ino_t;
+#ifndef kernel_ino_t
+typedef kernel_ulong_t kernel_ino_t;
 #endif
 
-#ifndef __kernel_mode_t
-typedef unsigned int __kernel_mode_t;
+#ifndef kernel_mode_t
+typedef unsigned int kernel_mode_t;
 #endif
 
-#ifndef __kernel_pid_t
-typedef int __kernel_pid_t;
+#ifndef kernel_pid_t
+typedef int kernel_pid_t;
 #endif
 
-#ifndef __kernel_ipc_pid_t
-typedef int __kernel_ipc_pid_t;
+#ifndef kernel_ipc_pid_t
+typedef int kernel_ipc_pid_t;
 #endif
 
-#ifndef __kernel_uid_t
-typedef unsigned int __kernel_uid_t;
-typedef unsigned int __kernel_gid_t;
+#ifndef kernel_uid_t
+typedef unsigned int kernel_uid_t;
+typedef unsigned int kernel_gid_t;
 #endif
 
-#ifndef __kernel_suseconds_t
-typedef __kernel_long_t __kernel_suseconds_t;
+#ifndef kernel_suseconds_t
+typedef kernel_long_t kernel_suseconds_t;
 #endif
 
-#ifndef __kernel_daddr_t
-typedef int __kernel_daddr_t;
+#ifndef kernel_daddr_t
+typedef int kernel_daddr_t;
 #endif
 
-#ifndef __kernel_uid32_t
-typedef unsigned int __kernel_uid32_t;
-typedef unsigned int __kernel_gid32_t;
+#ifndef kernel_uid32_t
+typedef unsigned int kernel_uid32_t;
+typedef unsigned int kernel_gid32_t;
 #endif
 
-#ifndef __kernel_dev_t
-typedef unsigned int __kernel_dev_t;
+#ifndef kernel_dev_t
+typedef unsigned int kernel_dev_t;
 #endif
 
 /*
  * Most 32 bit architectures use "unsigned int" size_t,
  * and all 64 bit architectures use "unsigned long" size_t.
  */
-#ifndef __kernel_size_t
+#ifndef kernel_size_t
 #if __BITS_PER_LONG != 64
-typedef unsigned int __kernel_size_t;
-typedef int __kernel_ssize_t;
-typedef int __kernel_ptrdiff_t;
+typedef unsigned int kernel_size_t;
+typedef int kernel_ssize_t;
+typedef int kernel_ptrdiff_t;
 #else
-typedef __kernel_ulong_t __kernel_size_t;
-typedef __kernel_long_t __kernel_ssize_t;
-typedef __kernel_long_t __kernel_ptrdiff_t;
+typedef kernel_ulong_t kernel_size_t;
+typedef kernel_long_t kernel_ssize_t;
+typedef kernel_long_t kernel_ptrdiff_t;
 #endif
 #endif
 
-#ifndef __kernel_fsid_t
-typedef struct __kernel_fsid {
+#ifndef kernel_fsid_t
+typedef struct kernel_fsid {
     int val[2];
-} __kernel_fsid_t;
+} kernel_fsid_t;
 #endif
 
-typedef int __kernel_key_t;
-typedef int __kernel_mqd_t;
+typedef int kernel_key_t;
+typedef int kernel_mqd_t;
 
 /*
  * anything below here should be completely generic
  */
-typedef __kernel_long_t __kernel_off_t;
-typedef long long __kernel_loff_t;
-typedef __kernel_long_t __kernel_time_t;
-typedef long long __kernel_time64_t;
-typedef __kernel_long_t __kernel_clock_t;
-typedef int __kernel_timer_t;
-typedef int __kernel_clockid_t;
-typedef char *__kernel_caddr_t;
-typedef unsigned short __kernel_uid16_t;
-typedef unsigned short __kernel_gid16_t;
-typedef unsigned int __kernel_uid32_t;
-typedef unsigned int __kernel_gid32_t;
-typedef __kernel_long_t __kernel_old_time_t;
-typedef __kernel_long_t __kernel_time_t;
+typedef kernel_long_t kernel_off_t;
+typedef long long kernel_loff_t;
+typedef kernel_long_t kernel_time_t;
+typedef long long kernel_time64_t;
+typedef kernel_long_t kernel_clock_t;
+typedef int kernel_timer_t;
+typedef int kernel_clockid_t;
+typedef char *kernel_caddr_t;
+typedef unsigned short kernel_uid16_t;
+typedef unsigned short kernel_gid16_t;
+typedef unsigned int kernel_uid32_t;
+typedef unsigned int kernel_gid32_t;
+typedef kernel_long_t kernel_old_time_t;
+typedef kernel_long_t kernel_time_t;
 
 typedef unsigned short umode_t;
 typedef unsigned int mode_t;
 typedef long int off_t;
 typedef int32_t hartid_t;
 
-typedef __kernel_uid32_t uid_t;
-typedef __kernel_gid32_t gid_t;
-typedef __kernel_key_t key_t;
-typedef __kernel_clockid_t clockid_t;
+typedef kernel_uid32_t uid_t;
+typedef kernel_gid32_t gid_t;
+typedef kernel_key_t key_t;
+typedef kernel_clockid_t clockid_t;
 
 /* Minimum of signed integral types.  */
 #define INT8_MIN (-128)

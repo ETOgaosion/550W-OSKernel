@@ -4,7 +4,7 @@
 
 /* clang-format off */
 
-#define IPC_PRIVATE ((__kernel_key_t) 0)
+#define IPC_PRIVATE ((kernel_key_t) 0)
 
 /* resource get request flags */
 #define IPC_CREAT  00001000   /* create if key is nonexistent */
@@ -36,12 +36,12 @@
 			   message sizes, etc. */
 
 typedef struct ipc_perm {
-    __kernel_key_t key;
-    __kernel_uid_t uid;
-    __kernel_gid_t gid;
-    __kernel_uid_t cuid;
-    __kernel_gid_t cgid;
-    __kernel_mode_t mode;
+    kernel_key_t key;
+    kernel_uid_t uid;
+    kernel_gid_t gid;
+    kernel_uid_t cuid;
+    kernel_gid_t cgid;
+    kernel_mode_t mode;
     unsigned short seq;
 } ipc_perm_t;
 

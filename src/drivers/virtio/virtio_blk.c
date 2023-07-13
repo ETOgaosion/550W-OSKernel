@@ -58,7 +58,7 @@ void d_virtio_disk_init(void) {
         panic("virtio disk max queue too short");
     }
     *R(VIRTIO_MMIO_QUEUE_NUM) = DESC_NUM;
-    k_memset(disk.pages, 0, sizeof(disk.pages));
+    k_bzero(disk.pages, sizeof(disk.pages));
     *R(VIRTIO_MMIO_QUEUE_PFN) = ((uint64)disk.pages) >> NORMAL_PAGE_SHIFT;
 
     disk.desc = (vring_desc_t *)disk.pages;

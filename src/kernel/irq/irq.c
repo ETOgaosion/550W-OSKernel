@@ -20,7 +20,7 @@ uintptr_t riscv_dtb;
 
 long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause);
 
-void k_init_syscall(void) {
+void k_syscall_init(void) {
     for (int i = 0; i < NUM_SYSCALLS; i++) {
         syscall[i] = (long (*)()) & sys_undefined_syscall; // only print register info
     }
@@ -134,6 +134,7 @@ void k_init_syscall(void) {
     syscall[SYS_sched_get_priority_min] = (long (*)())sys_sched_get_priority_min;
     syscall[SYS_rt_sigaction] = (long (*)())sys_rt_sigaction;
     syscall[SYS_rt_sigprocmask] = (long (*)())sys_rt_sigprocmask;
+    syscall[SYS_rt_sigreturn] = (long (*)())sys_rt_sigreturn;
     syscall[SYS_setgid] = (long (*)())sys_setgid;
     syscall[SYS_setuid] = (long (*)())sys_setuid;
     syscall[SYS_getresuid] = (long (*)())sys_getresuid;
@@ -201,22 +202,36 @@ void reset_irq_timer() {
 void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
     // call corresponding handler by the value of `cause`
     k_smp_lock_kernel();
+    /* time update */
     time_val_t now;
     k_time_get_utime(&now);
     time_val_t last_run;
     k_time_minus_utime(&now, &(*current_running)->utime_last, &last_run);
-    k_time_add_utime(&last_run, &(*current_running)->resources.ru_utime, &(*current_running)->resources.ru_utime);
+    k_time_add_utime(&(*current_running)->resources.ru_utime, &last_run, NULL);
     k_time_copy_utime(&now, &(*current_running)->stime_last);
+    if (k_time_cmp_utime_0((time_val_t *)&(*current_running)->virt_itime)) {
+        k_time_minus_utime((time_val_t *)&(*current_running)->virt_itime, &last_run, NULL);
+    }
+    if (k_time_cmp_utime_0((time_val_t *)&(*current_running)->prof_itime)) {
+        k_time_minus_utime((time_val_t *)&(*current_running)->prof_itime, &last_run, NULL);
+    }
+
+    /* interrupt handler */
     uint64_t check = cause;
     if (check >> 63) {
         irq_table[cause - ((uint64_t)1 << 63)](regs, stval, cause, cpuid);
     } else {
         exc_table[cause](regs, stval, cause, cpuid);
     }
+
+    /* time update */
     k_time_get_utime(&now);
     k_time_copy_utime(&now, &(*current_running)->utime_last);
     k_time_minus_utime(&now, &(*current_running)->stime_last, &last_run);
-    k_time_add_utime(&last_run, &(*current_running)->resources.ru_stime, &(*current_running)->resources.ru_stime);
+    k_time_add_utime(&(*current_running)->resources.ru_stime, &last_run, NULL);
+    if (k_time_cmp_utime_0((time_val_t *)&(*current_running)->prof_itime)) {
+        k_time_minus_utime((time_val_t *)&(*current_running)->prof_itime, &last_run, NULL);
+    }
 }
 
 spin_lock_t kernel_exception_lock = {.flag = UNLOCKED};
@@ -339,7 +354,7 @@ void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_
 
 void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid);
 
-void k_init_exception() {
+void k_exception_init() {
     for (int i = 0; i < IRQC_COUNT; i++) {
         irq_table[i] = handle_other;
     }

@@ -9,6 +9,7 @@
 #include <lib/string.h>
 #include <os/irq.h>
 #include <os/pcb.h>
+#include <os/signal.h>
 #include <os/smp.h>
 #include <os/users.h>
 #include <user/user_programs.h>
@@ -54,26 +55,32 @@ pid_t nextpid() {
  * @param father_pid
  * @param core_mask
  */
-void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int tid, int uid, int father_pid, uint8_t core_mask) {
-    k_memset((uint8_t *)pcb[pcb_i].name, 0, sizeof(pcb[pcb_i].name));
+void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int tid, int uid, int father_pid, uint8_t core_mask) {
+    k_bzero((uint8_t *)pcb[pcb_i].name, sizeof(pcb[pcb_i].name));
     k_memcpy((uint8_t *)pcb[pcb_i].name, (uint8_t *)name, k_strlen(name));
     pcb[pcb_i].in_use = TRUE;
     pcb[pcb_i].pid = pid;
-    pcb[pcb_i].fpid = fpid;
     pcb[pcb_i].tid = tid;
-    pcb[pcb_i].pgid = fpid;
-    pcb[pcb_i].gid.rgid = fpid;
-    pcb[pcb_i].gid.egid = fpid;
-    pcb[pcb_i].gid.sgid = fpid;
+    if (type == USER_THREAD) {
+        pcb[pcb_i].pgid = father_pid;
+        pcb[pcb_i].gid.rgid = father_pid;
+        pcb[pcb_i].gid.egid = father_pid;
+        pcb[pcb_i].gid.sgid = father_pid;
+    } else {
+        pcb[pcb_i].pgid = pid;
+        pcb[pcb_i].gid.rgid = pid;
+        pcb[pcb_i].gid.egid = pid;
+        pcb[pcb_i].gid.sgid = pid;
+    }
     pcb[pcb_i].uid.ruid = uid;
     pcb[pcb_i].uid.euid = uid;
     pcb[pcb_i].uid.suid = uid;
     pcb[pcb_i].father_pid = father_pid;
     pcb[pcb_i].child_num = 0;
-    k_memset((void *)pcb[pcb_i].child_pids, 0, sizeof(pcb[pcb_i].child_pids));
-    k_memset((void *)pcb[pcb_i].child_stat_addrs, 0, sizeof(pcb[pcb_i].child_stat_addrs));
+    k_bzero((void *)pcb[pcb_i].child_pids, sizeof(pcb[pcb_i].child_pids));
+    k_bzero((void *)pcb[pcb_i].child_stat_addrs, sizeof(pcb[pcb_i].child_stat_addrs));
     pcb[pcb_i].threadsum = 0;
-    k_memset((void *)pcb[pcb_i].thread_ids, 0, sizeof(pcb[pcb_i].child_pids));
+    k_bzero((void *)pcb[pcb_i].thread_ids, sizeof(pcb[pcb_i].child_pids));
     pcb[pcb_i].type = type;
     pcb[pcb_i].status = TASK_READY;
     pcb[pcb_i].cursor_x = 1;
@@ -85,12 +92,18 @@ void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int fpid, int 
     pcb[pcb_i].locksum = 0;
     pcb[pcb_i].mbox = &pcb_mbox[pcb_i];
     k_pcb_mbox_init(pcb[pcb_i].mbox, pcb_i);
-    k_memset((void *)&(pcb[pcb_i].stime_last), 0, sizeof(__kernel_time_t));
-    k_memset((void *)&(pcb[pcb_i].utime_last), 0, sizeof(__kernel_time_t));
-    k_memset((void *)&(pcb[pcb_i].timer), 0, sizeof(pcbtimer_t));
+    k_bzero((void *)&(pcb[pcb_i].stime_last), sizeof(kernel_time_t));
+    k_bzero((void *)&(pcb[pcb_i].utime_last), sizeof(kernel_time_t));
+    k_time_get_utime(&pcb[pcb_i].real_time_last);
+    k_bzero((void *)&(pcb[pcb_i].timer), sizeof(pcbtimer_t));
+    k_bzero((void *)&(pcb[pcb_i].real_itime), sizeof(kernel_itimerval_t));
+    k_bzero((void *)&(pcb[pcb_i].virt_itime), sizeof(kernel_itimerval_t));
+    k_bzero((void *)&(pcb[pcb_i].prof_itime), sizeof(kernel_itimerval_t));
+    k_time_get_nanotime(&pcb[pcb_i].real_time_last_nano);
+    k_bzero((void *)&(pcb[pcb_i].cputime_id_clock), sizeof(clock_t));
     pcb[pcb_i].dead_child_stime = 0;
     pcb[pcb_i].dead_child_utime = 0;
-    k_memset((void *)&(pcb[pcb_i].resources), 0, sizeof(rusage_t));
+    k_bzero((void *)&(pcb[pcb_i].resources), sizeof(rusage_t));
 }
 
 uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_stack, int argc, const char *argv[], int envpc, const char *envp[], const char *file_name) {
@@ -153,7 +166,7 @@ uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_sta
 }
 
 void k_pcb_init() {
-    k_memset(&pcb, 0, sizeof(pcb));
+    k_bzero(&pcb, sizeof(pcb));
     for (int i = 0; i < NUM_MAX_TASK; i++) {
         pcb[i].pid = -1;
         pcb[i].status = TASK_EXITED;
@@ -165,7 +178,7 @@ void k_pcb_init() {
 }
 
 long k_pcb_getpid(void) {
-    return (*current_running)->fpid;
+    return (*current_running)->pid;
 }
 
 uint64_t cal_priority(uint64_t cur_time, uint64_t idle_time, long priority) {
@@ -312,10 +325,61 @@ void check_sleeping() {
     }
 }
 
+void check_itimers() {
+    if ((*current_running)->status == TASK_EXITED) {
+        return;
+    }
+    /* update real_time */
+    kernel_timeval_t now;
+    k_time_get_utime(&now);
+    kernel_timeval_t last_run;
+    k_time_minus_utime(&now, &(*current_running)->real_time_last, &last_run);
+    k_time_minus_utime(&(*current_running)->real_itime.it_value, &last_run, NULL);
+    /* update cputime_clock */
+    nanotime_val_t now_nano;
+    k_time_get_nanotime(&now_nano);
+    nanotime_val_t last_run_nano;
+    k_time_minus_nanotime(&now_nano, &(*current_running)->real_time_last_nano, &last_run_nano);
+    k_time_add_nanotime((nanotime_val_t *)&(*current_running)->cputime_id_clock.nano_clock, &last_run_nano, NULL);
+    /* update global clocks */
+    k_time_add_nanotime((nanotime_val_t *)&global_clocks.real_time_clock, &last_run_nano, NULL);
+    k_time_add_nanotime((nanotime_val_t *)&global_clocks.tai_clock, &last_run_nano, NULL);
+    k_time_add_nanotime((nanotime_val_t *)&global_clocks.monotonic_clock, &last_run_nano, NULL);
+    k_time_add_nanotime((nanotime_val_t *)&global_clocks.boot_time_clock, &last_run_nano, NULL);
+
+    /* check timing */
+    bool time_up = false;
+    if (k_time_cmp_utime_0(&(*current_running)->real_itime.it_value) < 0) {
+        k_send_signal(SIGALRM, *current_running);
+        time_up = true;
+    }
+    if (k_time_cmp_utime_0(&(*current_running)->virt_itime.it_value) < 0) {
+        k_send_signal(SIGVTALRM, *current_running);
+        time_up = true;
+    }
+    if (k_time_cmp_utime_0(&(*current_running)->prof_itime.it_value) < 0) {
+        k_send_signal(SIGPROF, *current_running);
+        time_up = true;
+    }
+    if (time_up) {
+        if (k_time_cmp_utime_0(&(*current_running)->real_itime.it_interval) > 0) {
+            k_time_copy_utime(&(*current_running)->real_itime.it_interval, &(*current_running)->real_itime.it_value);
+        }
+        if (k_time_cmp_utime_0(&(*current_running)->virt_itime.it_interval) > 0) {
+            k_time_copy_utime(&(*current_running)->virt_itime.it_interval, &(*current_running)->virt_itime.it_value);
+        }
+        if (k_time_cmp_utime_0(&(*current_running)->prof_itime.it_interval) > 0) {
+            k_time_copy_utime(&(*current_running)->prof_itime.it_interval, &(*current_running)->prof_itime.it_value);
+        }
+    }
+}
+
 long k_pcb_scheduler(void) {
     if (!list_is_empty(&timers)) {
         check_sleeping();
     }
+    check_itimers();
+    k_signal_handler();
     pcb_t *curr = (*current_running);
     if (curr->sched_policy == SCHED_BATCH && curr->status == TASK_RUNNING) {
         return 0;
@@ -365,7 +429,7 @@ void k_pcb_unblock(list_head *from_queue, list_head *to_queue, unblock_way_t way
         break;
     case UNBLOCK_TO_LIST_STRATEGY:
         fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST_FIFO, -1);
-        list_add_tail(&fetch_pcb->list, to_queue);
+        enqueue(&fetch_pcb->list, to_queue, ENQUEUE_LIST_PRIORITY);
         break;
     default:
         break;
@@ -393,7 +457,7 @@ void k_pcb_wakeup(void *chan) {
 long spawn(const char *file_name) {
     int i = nextpid();
 
-    init_pcb_i((char *)file_name, i, USER_PROCESS, i, i, 0, 0, (*current_running)->father_pid, (*current_running)->core_mask[0]);
+    init_pcb_i((char *)file_name, i, USER_PROCESS, i, 0, 0, (*current_running)->father_pid, (*current_running)->core_mask[0]);
 
     ptr_t kernel_stack = get_kernel_address(i);
     ptr_t user_stack_kva = kernel_stack - 4 * PAGE_SIZE;
@@ -417,7 +481,7 @@ long spawn(const char *file_name) {
 }
 
 long exec(int target_pid, int father_pid, const char *file_name, const char *argv[], const char *envp[]) {
-    init_pcb_i((char *)file_name, target_pid, USER_PROCESS, target_pid, target_pid, 0, 0, father_pid, (*current_running)->core_mask[0]);
+    init_pcb_i((char *)file_name, target_pid, USER_PROCESS, target_pid, 0, 0, father_pid, (*current_running)->core_mask[0]);
 
     ptr_t kernel_stack = get_kernel_address(target_pid);
     ptr_t user_stack_kva = kernel_stack - 4 * PAGE_SIZE;
@@ -454,7 +518,7 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     int name_len = k_min(k_strlen((*current_running)->name), 14);
     k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
     k_strcat(name, "_child");
-    init_pcb_i(name, i, USER_PROCESS, i, i, 0, 0, fpid, (*current_running)->core_mask[0]);
+    init_pcb_i(name, i, USER_PROCESS, i, 0, 0, fpid, (*current_running)->core_mask[0]);
 
     if (flags & CLONE_CHILD_SETTID) {
         *(int *)child_tid = pcb[i].tid;
@@ -553,7 +617,7 @@ long sys_fork() {
     int name_len = k_min(k_strlen((*current_running)->name), 14);
     k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
     k_strcat(name, "_child");
-    init_pcb_i(name, i, USER_PROCESS, i, i, 0, 0, fpid, (*current_running)->core_mask[0]);
+    init_pcb_i(name, i, USER_PROCESS, i, 0, 0, fpid, (*current_running)->core_mask[0]);
 
     pcb[fpid].child_pids[pcb[fpid].child_num] = i;
     pcb[fpid].child_num++;
@@ -598,7 +662,7 @@ long sys_kill(pid_t pid) {
     if (pid <= 0 || pid >= NUM_MAX_TASK) {
         return -EINVAL;
     }
-    kill(pid, -1);
+    kill(pid, 0);
     pcb[pid].in_use = FALSE;
     if (pid == (*current_running)->pid) {
         k_pcb_scheduler();
@@ -607,13 +671,25 @@ long sys_kill(pid_t pid) {
 }
 
 // [TODO]
-// signal
 long sys_tkill(pid_t pid, int sig) {
+    if (pid <= 0 || pid > NUM_MAX_TASK || sig < 0 || sig > NUM_MAX_SIGNAL) {
+        return -EINVAL;
+    }
+    if (pcb[pid].father_pid) {
+        k_send_signal(SIGCHLD, &pcb[pcb[pid].father_pid]);
+    }
+    k_send_signal(sig, &pcb[pid]);
     return 0;
 }
 
-// signal
 long sys_tgkill(pid_t tgid, pid_t pid, int sig) {
+    if (pid <= 0 || pid > NUM_MAX_TASK || sig < 0 || sig > NUM_MAX_SIGNAL) {
+        return -EINVAL;
+    }
+    if (pcb[pid].father_pid) {
+        k_send_signal(SIGCHLD, &pcb[pcb[pid].father_pid]);
+    }
+    k_send_signal(sig, &pcb[pid]);
     return 0;
 }
 
@@ -692,7 +768,7 @@ long sys_process_show() {
             if (num == 0) {
                 prints("\n[PROCESS TABLE]\n");
             }
-            prints("[%d] PID : %d, TID : %d", num, pcb[i].fpid,
+            prints("[%d] PID : %d, TID : %d", num, pcb[i].pid,
                    pcb[i].tid); // pcb[i].tid
             switch (pcb[i].status) {
             case TASK_RUNNING:

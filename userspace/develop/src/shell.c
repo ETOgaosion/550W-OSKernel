@@ -403,7 +403,6 @@ int main() {
         int pid = spawn(task_names[i]);
         waitpid(pid, NULL, 0);
     }
-    // TODO:
     BEGIN;
     char input_buffer[SHELL_INPUT_MAX_WORDS] = {0};
     char cmd[SHELL_CMD_MAX_LENGTH] = {0};
@@ -424,9 +423,7 @@ int main() {
         // #endif
         // printf("%s",dirname);
         // printf(" > ");
-        // TODO: call syscall to read UART port
         // 3-^C 4-^D, 8-^H(backspace), 9-^I(\t) 10-^J(new line), 13-^M(\r), 24-^X(cancel), 127-Del, 32~126 readable char
-        // TODO: parse input
         // note: backspace maybe 8('\b') or 127(delete)
         while (input_length < SHELL_INPUT_MAX_WORDS) {
             while ((ch = getchar()) == -1) {}
@@ -462,7 +459,6 @@ int main() {
         while ((parse = strtok(arg[arg_idx++], parse, ' ', SHELL_ARG_MAX_LENGTH)) != NULL && arg_idx < SHELL_ARG_MAX_NUM)
             ;
 
-        // TODO: ps, exec, kill, clear
         // check whether the command is valid
         for (int i = 0; i < SUPPORTED_CMD_NUM; i++) {
             if (strcmp(cmd, cmd_table[i].cmd_full_name) == 0 || strcmp(cmd, cmd_table[i].cmd_alias) == 0) {

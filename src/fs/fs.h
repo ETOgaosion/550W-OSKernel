@@ -107,7 +107,7 @@ typedef struct pollfd {
 
 #ifndef __statfs_word
 #if __BITS_PER_LONG == 64
-#define __statfs_word __kernel_long_t
+#define __statfs_word kernel_long_t
 #else
 #define __statfs_word __u32
 #endif
@@ -121,19 +121,19 @@ typedef struct statfs {
     __statfs_word f_bavail;
     __statfs_word f_files;
     __statfs_word f_ffree;
-    __kernel_fsid_t f_fsid;
+    kernel_fsid_t f_fsid;
     __statfs_word f_namelen;
     __statfs_word f_frsize;
     __statfs_word f_flags;
     __statfs_word f_spare[4];
 } statfs_t;
 
-typedef long long __kernel_loff_t;
-typedef __kernel_loff_t loff_t;
+typedef long long kernel_loff_t;
+typedef kernel_loff_t loff_t;
 
 typedef struct iovec {
-    void *iov_base;          /* BSD uses caddr_t (1003.1g requires void *) */
-    __kernel_size_t iov_len; /* Must be size_t (1003.1g) */
+    void *iov_base;        /* BSD uses caddr_t (1003.1g requires void *) */
+    kernel_size_t iov_len; /* Must be size_t (1003.1g) */
 } iovec_t;
 
 typedef struct stat {
@@ -191,8 +191,8 @@ bool fs_check_file_existence(const char *name);
 // TODO: final syscall
 long sys_ioctl(unsigned int fd, unsigned int cmd, unsigned long arg);
 
-long sys_pselect6(int nfds, fd_set_t *readfds, fd_set_t *writefds, fd_set_t *exceptfds, __kernel_timespec_t *timeout, void *sigmask);
-long sys_ppoll(pollfd_t *fds, unsigned int nfds, __kernel_timespec_t *tmo_p, void *sigmask);
+long sys_pselect6(int nfds, fd_set_t *readfds, fd_set_t *writefds, fd_set_t *exceptfds, kernel_timespec_t *timeout, void *sigmask);
+long sys_ppoll(pollfd_t *fds, unsigned int nfds, kernel_timespec_t *tmo_p, void *sigmask);
 
 long sys_setxattr(const char *path, const char *name, const void *value, size_t size, int flags);
 long sys_lsetxattr(const char *path, const char *name, const void *value, size_t, int flags);
@@ -260,3 +260,5 @@ long sys_renameat2(int olddfd, const char *oldname, int newdfd, const char *newn
 long sys_munmap(unsigned long addr, size_t len);
 long sys_mremap(unsigned long addr, unsigned long old_len, unsigned long new_len, unsigned long flags, unsigned long new_addr);
 long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
+
+long sys_utimensat(int dfd, const char *filename, kernel_timespec_t *utimes, int flags);

@@ -524,7 +524,7 @@ int fat32_new_dentry(dentry_t *entry, uint32_t flags, int len, char *name) {
 
     // TODO : set ./.. in dir entry, not finish
     dentry_t *dtable = read_whole_dir(fat32_dentry2fcluster(&entry[len_0]), 0);
-    k_memset(dtable, 0, fat.bytes_per_cluster);
+    k_bzero(dtable, fat.bytes_per_cluster);
     // dtable[0].sn.name1[0] = '.';
     // dtable[0].sn.name1[1] = ' ';
     // dtable[0].sn.name2[0] = ' ';
@@ -601,10 +601,10 @@ int destroy_dentry(dentry_t *dtable, int offset) {
     int i = offset - 1;
     while (dtable[i].ln.attr == ATTR_LONG_FILE_NAME) {
         dtable[i].ln.order = 0xE5;
-        k_memset(dtable[i].ln.name1, 0, sizeof(dentry_t) - 1);
+        k_bzero(dtable[i].ln.name1, sizeof(dentry_t) - 1);
         i--;
     }
-    k_memset(dtable[offset].sn.name1, 0, sizeof(dentry_t));
+    k_bzero(dtable[offset].sn.name1, sizeof(dentry_t));
     dtable[offset].sn.name1[0] = 0xE5;
     return 0;
 }
@@ -874,11 +874,11 @@ long sys_ioctl(unsigned int fd, unsigned int cmd, unsigned long arg) {
     return 0;
 }
 
-long sys_pselect6(int nfds, fd_set_t *readfds, fd_set_t *writefds, fd_set_t *exceptfds, __kernel_timespec_t *timeout, void *sigmask) {
+long sys_pselect6(int nfds, fd_set_t *readfds, fd_set_t *writefds, fd_set_t *exceptfds, kernel_timespec_t *timeout, void *sigmask) {
     return 0;
 }
 
-long sys_ppoll(pollfd_t *fds, unsigned int nfds, __kernel_timespec_t *tmo_p, void *sigmask) {
+long sys_ppoll(pollfd_t *fds, unsigned int nfds, kernel_timespec_t *tmo_p, void *sigmask) {
     return 0;
 }
 
@@ -1542,6 +1542,10 @@ long sys_munmap(unsigned long addr, size_t len) {
 }
 
 long sys_mremap(unsigned long addr, unsigned long old_len, unsigned long new_len, unsigned long flags, unsigned long new_addr) {
+    return 0;
+}
+
+long sys_utimensat(int dfd, const char *filename, kernel_timespec_t *utimes, int flags) {
     return 0;
 }
 

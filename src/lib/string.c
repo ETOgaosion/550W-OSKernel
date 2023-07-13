@@ -145,7 +145,7 @@ char *k_strncpy(char *restrict d, const char *s, size_t n) {
     for (; n && (*d = *s); n--, s++, d++)
         ;
 tail:
-    k_memset(d, 0, n);
+    k_bzero(d, n);
     return d;
 }
 

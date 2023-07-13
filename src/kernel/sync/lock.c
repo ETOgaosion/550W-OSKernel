@@ -129,7 +129,7 @@ long k_mutex_lock_destroy(int *key) {
     while ((*current_running)->locksum) {
         (*current_running)->lock_ids[--(*current_running)->locksum] = 0;
     }
-    k_memset((void *)locks[*key - 1], 0, sizeof(mutex_lock_t *));
+    k_bzero((void *)locks[*key - 1], sizeof(mutex_lock_t *));
     *key = 0;
     return 0;
 }
@@ -180,6 +180,6 @@ int k_sleep_lock_hold(sleep_lock_t *lk) {
     return r;
 }
 
-long sys_futex(u32 *uaddr, int op, u32 val, const __kernel_timespec_t *utime, u32 *uaddr2, u32 val3) {
+long sys_futex(u32 *uaddr, int op, u32 val, const kernel_timespec_t *utime, u32 *uaddr2, u32 val3) {
     return 0;
 }

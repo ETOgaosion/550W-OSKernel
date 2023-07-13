@@ -42,9 +42,9 @@ enum IrqExtCode {
 
 typedef void (*handler_t)(regs_context_t *, uint64_t, uint64_t, uint64_t);
 
-void k_init_syscall(void);
+void k_syscall_init(void);
 
-void k_init_exception();
+void k_exception_init();
 void setup_exception();
 void enable_interrupt();
 void disable_interrupt();

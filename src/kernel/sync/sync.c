@@ -166,7 +166,7 @@ int k_semaphore_destroy(int *key) {
     if (!sem_list[*key - 1].sem_info.initialized) {
         return -1;
     }
-    k_memset((void *)&sem_list[*key - 1], 0, sizeof(semaphore_t *));
+    k_bzero((void *)&sem_list[*key - 1], sizeof(semaphore_t *));
     *key = 0;
     return 0;
 }
@@ -235,7 +235,7 @@ int k_cond_destroy(int *key) {
     if (!cond_list[*key - 1].cond_info.initialized) {
         return -1;
     }
-    k_memset((void *)&cond_list[*key - 1], 0, sizeof(cond_t *));
+    k_bzero((void *)&cond_list[*key - 1], sizeof(cond_t *));
     *key = 0;
     return 0;
 }
@@ -287,7 +287,7 @@ int k_barrier_destroy(int *key) {
         return -1;
     }
     k_cond_destroy(&barrier_list[*key - 1].cond_id);
-    k_memset((void *)&barrier_list[*key - 1], 0, sizeof(barrier_t *));
+    k_bzero((void *)&barrier_list[*key - 1], sizeof(barrier_t *));
     *key = 0;
     return 0;
 }
@@ -312,7 +312,7 @@ int k_mbox_open(int id_1, int id_2) {
     mbox_list[mbox_i].mailbox_info.initialized = 1;
     mbox_list[mbox_i].id[0] = id_1;
     mbox_list[mbox_i].id[1] = id_2;
-    k_memset(mbox_list[mbox_i].buff, 0, sizeof(mbox_list[mbox_i].buff));
+    k_bzero(mbox_list[mbox_i].buff, sizeof(mbox_list[mbox_i].buff));
     mbox_list[mbox_i].read_head = 0;
     mbox_list[mbox_i].write_tail = 0;
     mbox_list[mbox_i].used_units = 0;
@@ -320,7 +320,7 @@ int k_mbox_open(int id_1, int id_2) {
     mbox_list[mbox_i].empty_cond_id = 0;
     k_cond_init(&mbox_list[mbox_i].full_cond_id);
     k_cond_init(&mbox_list[mbox_i].empty_cond_id);
-    // k_memset(mbox_list[mbox_i].cited_pid, 0, sizeof(mbox_list[mbox_i].cited_pid));
+    // k_bzero(mbox_list[mbox_i].cited_pid, sizeof(mbox_list[mbox_i].cited_pid));
     // mbox_list[mbox_i].cited_num = 0;
     return mbox_i + 1;
 }
@@ -422,7 +422,7 @@ int k_mbox_try_recv(int key, mbox_arg_t *arg) {
 }
 
 void k_pcb_mbox_init(pcb_mbox_t *target, int owner_id) {
-    k_memset((void *)target, 0, sizeof(pcb_mbox_t));
+    k_bzero((void *)target, sizeof(pcb_mbox_t));
     target->pcb_i = owner_id;
 }
 

@@ -6,6 +6,7 @@
 #include <os/cpu.h>
 #include <os/lock.h>
 #include <os/mm.h>
+#include <os/signal.h>
 #include <os/sync.h>
 #include <os/time.h>
 
@@ -121,27 +122,27 @@ typedef enum unblock_way {
 } unblock_way_t;
 
 typedef struct rusage {
-    __kernel_timeval_t ru_utime; /* user time used */
-    __kernel_timeval_t ru_stime; /* system time used */
-    __kernel_long_t ru_maxrss;   /* maximum resident set size */
-    __kernel_long_t ru_ixrss;    /* integral shared memory size */
-    __kernel_long_t ru_idrss;    /* integral unshared data size */
-    __kernel_long_t ru_isrss;    /* integral unshared stack size */
-    __kernel_long_t ru_minflt;   /* page reclaims */
-    __kernel_long_t ru_majflt;   /* page faults */
-    __kernel_long_t ru_nswap;    /* swaps */
-    __kernel_long_t ru_inblock;  /* block input operations */
-    __kernel_long_t ru_oublock;  /* block output operations */
-    __kernel_long_t ru_msgsnd;   /* messages sent */
-    __kernel_long_t ru_msgrcv;   /* messages received */
-    __kernel_long_t ru_nsignals; /* signals received */
-    __kernel_long_t ru_nvcsw;    /* voluntary context switches */
-    __kernel_long_t ru_nivcsw;   /* involuntary " */
+    kernel_timeval_t ru_utime; /* user time used */
+    kernel_timeval_t ru_stime; /* system time used */
+    kernel_long_t ru_maxrss;   /* maximum resident set size */
+    kernel_long_t ru_ixrss;    /* integral shared memory size */
+    kernel_long_t ru_idrss;    /* integral unshared data size */
+    kernel_long_t ru_isrss;    /* integral unshared stack size */
+    kernel_long_t ru_minflt;   /* page reclaims */
+    kernel_long_t ru_majflt;   /* page faults */
+    kernel_long_t ru_nswap;    /* swaps */
+    kernel_long_t ru_inblock;  /* block input operations */
+    kernel_long_t ru_oublock;  /* block output operations */
+    kernel_long_t ru_msgsnd;   /* messages sent */
+    kernel_long_t ru_msgrcv;   /* messages received */
+    kernel_long_t ru_nsignals; /* signals received */
+    kernel_long_t ru_nvcsw;    /* voluntary context switches */
+    kernel_long_t ru_nivcsw;   /* involuntary " */
 } rusage_t;
 
 typedef struct rlimit {
-    __kernel_ulong_t rlim_cur;
-    __kernel_ulong_t rlim_max;
+    kernel_ulong_t rlim_cur;
+    kernel_ulong_t rlim_max;
 } rlimit_t;
 
 typedef struct rlimit64 {
@@ -196,8 +197,7 @@ typedef struct pcb {
 
     /* process id */
     char name[NUM_MAX_PCB_NAME];
-    pid_t pid;  // real offset of pcb[]
-    pid_t fpid; // threads' fpid is process pid
+    pid_t pid; // real offset of pcb[]
     pid_t tid;
     pid_t pgid;
     gids_t gid;
@@ -228,6 +228,14 @@ typedef struct pcb {
 
     uint64_t pgdir;
 
+    /* signal handler */
+    bool handling_signal;
+    sigaction_t *sigactions;
+    uint64_t sig_recv;
+    uint64_t sig_pend;
+    uint64_t sig_mask;
+    uint64_t prev_mask;
+
     int locksum;
     int lock_ids[NUM_MAX_LOCK];
     void *chan;
@@ -235,11 +243,18 @@ typedef struct pcb {
     pcb_mbox_t *mbox;
 
     /* time */
-    __kernel_timeval_t stime_last; // last time into kernel
-    __kernel_timeval_t utime_last; // last time out kernel
+    kernel_timeval_t stime_last; // last time into kernel
+    kernel_timeval_t utime_last; // last time out kernel
+    kernel_timeval_t real_time_last;
     pcbtimer_t timer;
-    __kernel_clock_t dead_child_stime;
-    __kernel_clock_t dead_child_utime;
+    kernel_clock_t dead_child_stime;
+    kernel_clock_t dead_child_utime;
+    kernel_itimerval_t real_itime;
+    kernel_itimerval_t virt_itime;
+    kernel_itimerval_t prof_itime;
+
+    nanotime_val_t real_time_last_nano;
+    kernel_full_clock_t cputime_id_clock;
 
     rusage_t resources;
 } pcb_t;
@@ -270,14 +285,14 @@ long k_pcb_getpid(void);
 void k_pcb_sleep(void *chan, spin_lock_t *lk);
 void k_pcb_wakeup(void *chan);
 
+extern void k_send_signal(int signum, pcb_t *pcb);
+
 long sys_spawn(const char *file_name);
 long sys_fork(void);
 long sys_exec(const char *file_name, const char *argv[], const char *envp[]);
 long sys_execve(const char *file_name, const char *argv[], const char *envp[]);
 long sys_clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t *child_tid);
 long sys_kill(pid_t pid);
-long sys_tkill(pid_t pid, int sig);
-long sys_tgkill(pid_t tgid, pid_t pid, int sig);
 long sys_exit(int error_code);
 long sys_exit_group(int error_code);
 long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru);

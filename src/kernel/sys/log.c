@@ -37,7 +37,7 @@ long sys_syslog(int type, char *buf, int len) {
         k_memcpy((uint8_t *)buf, (const uint8_t *)moss_log, len);
         break;
     case SYSLOG_ACTION_CLEAR:
-        k_memset((uint8_t *)moss_log, 0, sizeof(moss_log));
+        k_bzero((uint8_t *)moss_log, sizeof(moss_log));
         break;
     /* Disable logging to console */
     case SYSLOG_ACTION_CONSOLE_OFF:
