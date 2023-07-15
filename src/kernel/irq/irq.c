@@ -107,6 +107,7 @@ void k_syscall_init(void) {
     syscall[SYS_shmdt] = (long (*)())sys_shmdt;
 
     // PCB
+    syscall[SYS_spawn] = (long (*)())sys_spawn;
     syscall[SYS_acct] = (long (*)())sys_acct;
     syscall[SYS_personality] = (long (*)())sys_personality;
     syscall[SYS_exit] = (long (*)())sys_exit;
@@ -403,7 +404,7 @@ void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t
 }
 
 long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause) {
-    k_print(">[ERROR] unkonwn syscall, undefined syscall number: %d\n!", regs->regs[17]);
+    k_print("> [ERROR] unknown syscall, undefined syscall number: %d\n!", regs->regs[17]);
     handle_other(regs, interrupt, cause, k_smp_get_current_cpu_id());
     return -1;
 }

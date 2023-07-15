@@ -78,14 +78,17 @@ int kernel_start() {
         // init fs
         fs_init();
         fd_table_init();
+        k_print("> [INIT] fs initialized successfully.\n\r");
 
         // init users
         init_users();
+        k_print("> [INIT] users initialized successfully.\n\r");
 
         // init built-in tasks
         sys_spawn("shell");
         sys_spawn("bubble");
         sys_spawn("bubble");
+        k_print("> [INIT] daemons initialized successfully.\n\r");
 
         wakeup_other_cores();
     }

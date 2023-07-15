@@ -25,8 +25,8 @@ pcb_t pcb[NUM_MAX_TASK];
 
 const ptr_t pid0_stack = INIT_KERNEL_STACK + PAGE_SIZE * 3 - 112 - 288;
 const ptr_t pid0_stack2 = INIT_KERNEL_STACK + PAGE_SIZE * 5 - 112 - 288;
-pcb_t pid0_pcb = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 2), .core_mask[0] = 0x3, .status = TASK_EXITED};
-pcb_t pid0_pcb2 = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack2, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 4), .core_mask[0] = 0x3, .status = TASK_EXITED};
+pcb_t pid0_pcb = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 2), .core_mask[0] = 0x3, .status = TASK_EXITED, .sched_policy = DEQUEUE_LIST_FIFO};
+pcb_t pid0_pcb2 = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack2, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 4), .core_mask[0] = 0x3, .status = TASK_EXITED, .sched_policy = DEQUEUE_LIST_FIFO};
 
 pid_t freepid[NUM_MAX_TASK];
 
@@ -90,6 +90,13 @@ void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int tid, int u
     target->priority.priority = 1;
     target->priority.last_sched_time = 0;
     target->core_mask[0] = core_mask;
+    target->personality = 0;
+    target->handling_signal = false;
+    target->sigactions = NULL;
+    target->sig_recv = 0;
+    target->sig_pend = 0;
+    target->sig_mask = 0;
+    target->prev_mask = 0;
     target->locksum = 0;
     target->mbox = &pcb_mbox[pcb_i];
     k_pcb_mbox_init(target->mbox, pcb_i);
@@ -261,6 +268,7 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
         pcb_t *iterator_pcb = NULL;
         while (iterator_list != &ready_queue) {
             iterator_pcb = list_entry(iterator_list, pcb_t, list);
+            iterator_list = iterator_list->next;
             if (iterator_pcb->priority.priority < new_inserter->priority.priority) {
                 break;
             }
@@ -290,6 +298,9 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
     // plain and simple way
     pcb_t *ret = NULL;
     pcb_t *task = check_first_ready_task();
+    if (list_is_empty(queue)) {
+        return NULL;
+    }
     switch (target) {
     case DEQUEUE_LIST:
         ret = list_entry(queue->next, pcb_t, list);
@@ -335,11 +346,13 @@ void check_itimers() {
         return;
     }
     /* update real_time */
-    kernel_timeval_t now;
-    k_time_get_utime(&now);
-    kernel_timeval_t last_run;
-    k_time_minus_utime(&now, &(*current_running)->real_time_last, &last_run);
-    k_time_minus_utime(&(*current_running)->real_itime.it_value, &last_run, NULL);
+    if (k_time_cmp_utime_0(&(*current_running)->real_itime.it_value)) {
+        kernel_timeval_t now;
+        k_time_get_utime(&now);
+        kernel_timeval_t last_run;
+        k_time_minus_utime(&now, &(*current_running)->real_time_last, &last_run);
+        k_time_minus_utime(&(*current_running)->real_itime.it_value, &last_run, NULL);
+    }
     /* update cputime_clock */
     nanotime_val_t now_nano;
     k_time_get_nanotime(&now_nano);
@@ -394,7 +407,7 @@ long k_pcb_scheduler(bool voluntary) {
         enqueue(&curr->list, &ready_queue, ENQUEUE_LIST);
     }
     pcb_t *next_pcb = dequeue(&ready_queue, DEQUEUE_LIST_FIFO, curr->sched_policy);
-    if (next_pcb == curr) {
+    if (!next_pcb || next_pcb == curr) {
         return 0;
     }
     if (!voluntary) {
@@ -706,15 +719,8 @@ long sys_tgkill(pid_t tgid, pid_t pid, int sig) {
 }
 
 long sys_exit(int error_code) {
-    int id = k_smp_get_current_cpu_id();
-
     kill((*current_running)->pid, error_code);
 
-    if (id == 0) {
-        current_running0 = &pid0_pcb;
-    } else if (id == 1) {
-        current_running1 = &pid0_pcb2;
-    }
     current_running = k_smp_get_current_running();
     set_satp(SATP_MODE_SV39, 0, PGDIR_PA >> NORMAL_PAGE_SHIFT);
     local_flush_tlb_all();
