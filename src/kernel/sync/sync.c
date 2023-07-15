@@ -144,7 +144,7 @@ int k_semaphore_p(int key, int value, int flag) {
             return -EAGAIN;
         } else {
             k_pcb_block(&(*current_running)->list, &sem_list[key].wait_queue, ENQUEUE_LIST);
-            k_pcb_scheduler();
+            k_pcb_scheduler(false);
         }
     }
     return 0;
@@ -203,7 +203,7 @@ int k_cond_wait(int key) {
     }
     cond_list[key].num_wait++;
     k_pcb_block(&(*current_running)->list, &cond_list[key].wait_queue, ENQUEUE_LIST);
-    k_pcb_scheduler();
+    k_pcb_scheduler(false);
     return 0;
 }
 

@@ -13,6 +13,7 @@
 #include <os/lock.h>
 #include <os/mm.h>
 #include <os/pcb.h>
+#include <os/resources.h>
 #include <os/smp.h>
 #include <os/sys.h>
 #include <os/time.h>
@@ -44,6 +45,10 @@ int kernel_start() {
         asm_w_stvec((uint64_t)kernel_exception_handler_entry);
 
         k_smp_lock_kernel();
+
+        k_sysinfo_init();
+
+        k_resources_init();
 
         // init Process Control Block (-_-!)
         k_pcb_init();
@@ -90,7 +95,7 @@ int kernel_start() {
     setup_exception();
     // start scheduling
     while (1) {
-        k_pcb_scheduler();
+        k_pcb_scheduler(false);
         k_smp_unlock_kernel();
         k_smp_lock_kernel();
     };

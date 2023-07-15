@@ -63,9 +63,8 @@
 #define SYSLOG_SIZE 4096
 
 /* integer equivalents of KERN_<LEVEL> */
-#define LOGLEVEL_SCHED                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                \
-    -2                      /* Deferred messages from sched code                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      \
-                             * are set to this special level */
+
+#define LOGLEVEL_SCHED -2   /* Deferred messages from sched code are set to this special level */
 #define LOGLEVEL_DEFAULT -1 /* default (or last) loglevel */
 #define LOGLEVEL_EMERG 0    /* system is unusable */
 #define LOGLEVEL_ALERT 1    /* action must be taken immediately */
@@ -104,6 +103,8 @@ typedef struct sysinfo {
     char _f[20 - 2 * sizeof(kernel_ulong_t) - sizeof(__u32)]; /* Padding: libc5 uses this.. */
 } sysinfo_t;
 
+extern sysinfo_t moss_info;
+
 long sys_uname(uname_t *);
 long sys_gethostname(char *name, int len);
 long sys_sethostname(char *name, int len);
@@ -112,6 +113,7 @@ long sys_syslog(int type, char *buf, int len);
 
 long sys_reboot(int magic1, int magic2, unsigned int cmd, void *arg);
 
+void k_sysinfo_init();
 long sys_sysinfo(sysinfo_t *info);
 
 // int kernel_start();

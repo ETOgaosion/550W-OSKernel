@@ -3,7 +3,6 @@
 
 /* clang-format off */
 // double-linked list
-//   TODO: use your own list design!!
 typedef struct list_node {
     struct list_node *next, *prev;
 } list_node_t;

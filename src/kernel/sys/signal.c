@@ -59,6 +59,7 @@ void k_signal_handler() {
         return;
     }
     (*current_running)->handling_signal = true;
+    (*current_running)->resources.ru_nsignals++;
     for (uint8_t i = 0; i < NUM_SIG; i++) {
         if (ISSET_SIG(i + 1, *current_running)) {
             // 1. clear this signal

@@ -2,6 +2,8 @@
 
 #include <common/types.h>
 
+#define MAX_FILE_SIZE 0x4000000000
+
 #define max(x, y) (((x) > (y)) ? (x) : (y))
 #define min(x, y) (((x) > (y)) ? (y) : (x))
 

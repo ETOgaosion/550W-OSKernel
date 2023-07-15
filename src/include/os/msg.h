@@ -3,6 +3,8 @@
 #include <common/types.h>
 #include <os/ipc.h>
 
+#define NUM_MAX_MQ 64
+
 typedef struct msqid_ds {
     ipc_perm_t msg_perm;
     kernel_old_time_t msg_stime; /* last msgsnd time */

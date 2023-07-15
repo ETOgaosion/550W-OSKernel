@@ -3,9 +3,10 @@
 #include <asm/context.h>
 #include <common/elf.h>
 #include <lib/list.h>
-#include <os/cpu.h>
 #include <os/lock.h>
 #include <os/mm.h>
+#include <os/prctl.h>
+#include <os/resources.h>
 #include <os/signal.h>
 #include <os/sync.h>
 #include <os/time.h>
@@ -17,6 +18,10 @@
 #define NUM_MAX_TASK (1 + NUM_MAX_CHILD + NUM_MAX_CHILD_THREADS) * NUM_MAX_PROCESS
 #define NUM_MAX_LOCK 16
 #define NUM_MAX_MBOX 16
+
+#define MAX_PRIORITY 5
+
+#define STACK_SIZE 4 * PAGE_SIZE
 
 #define WNOHANG 0x00000001
 #define WUNTRACED 0x00000002
@@ -81,6 +86,27 @@
 /* Can be ORed in to make sure the process is reverted back to SCHED_NORMAL on fork */
 #define SCHED_RESET_ON_FORK 0x40000000
 
+/*
+ * Flags for bug emulation.
+ *
+ * These occupy the top three bytes.
+ */
+enum {
+    UNAME26 = 0x0020000,
+    ADDR_NO_RANDOMIZE = 0x0040000, /* disable randomization of VA space */
+    FDPIC_FUNCPTRS = 0x0080000,    /* userspace function ptrs point to descriptors
+                                    * (signal handling)
+                                    */
+    MMAP_PAGE_ZERO = 0x0100000,
+    ADDR_COMPAT_LAYOUT = 0x0200000,
+    READ_IMPLIES_EXEC = 0x0400000,
+    ADDR_LIMIT_32BIT = 0x0800000,
+    SHORT_INODE = 0x1000000,
+    WHOLE_SECONDS = 0x2000000,
+    STICKY_TIMEOUTS = 0x4000000,
+    ADDR_LIMIT_3GB = 0x8000000,
+};
+
 typedef void (*void_task)();
 
 typedef struct prior {
@@ -120,35 +146,6 @@ typedef enum unblock_way {
     UNBLOCK_ONLY,
     UNBLOCK_TO_LIST_STRATEGY,
 } unblock_way_t;
-
-typedef struct rusage {
-    kernel_timeval_t ru_utime; /* user time used */
-    kernel_timeval_t ru_stime; /* system time used */
-    kernel_long_t ru_maxrss;   /* maximum resident set size */
-    kernel_long_t ru_ixrss;    /* integral shared memory size */
-    kernel_long_t ru_idrss;    /* integral unshared data size */
-    kernel_long_t ru_isrss;    /* integral unshared stack size */
-    kernel_long_t ru_minflt;   /* page reclaims */
-    kernel_long_t ru_majflt;   /* page faults */
-    kernel_long_t ru_nswap;    /* swaps */
-    kernel_long_t ru_inblock;  /* block input operations */
-    kernel_long_t ru_oublock;  /* block output operations */
-    kernel_long_t ru_msgsnd;   /* messages sent */
-    kernel_long_t ru_msgrcv;   /* messages received */
-    kernel_long_t ru_nsignals; /* signals received */
-    kernel_long_t ru_nvcsw;    /* voluntary context switches */
-    kernel_long_t ru_nivcsw;   /* involuntary " */
-} rusage_t;
-
-typedef struct rlimit {
-    kernel_ulong_t rlim_cur;
-    kernel_ulong_t rlim_max;
-} rlimit_t;
-
-typedef struct rlimit64 {
-    __u64 rlim_cur;
-    __u64 rlim_max;
-} rlimit64_t;
 
 typedef struct __user_cap_header_struct {
     __u32 version;
@@ -226,6 +223,8 @@ typedef struct pcb {
 
     uint8_t core_mask[CPU_SET_SIZE];
 
+    unsigned int personality;
+
     uint64_t pgdir;
 
     /* signal handler */
@@ -257,6 +256,8 @@ typedef struct pcb {
     kernel_full_clock_t cputime_id_clock;
 
     rusage_t resources;
+
+    cap_user_data_t cap[2];
 } pcb_t;
 
 /* current running task PCB */
@@ -278,12 +279,13 @@ extern pid_t freepid[NUM_MAX_TASK];
 
 void k_pcb_init();
 extern void switch_to(pcb_t *prev, pcb_t *next);
-long k_pcb_scheduler(void);
+long k_pcb_scheduler(bool voluntary);
 void k_pcb_block(list_head *, list_head *queue, enqueue_way_t way);
 void k_pcb_unblock(list_head *, list_head *, unblock_way_t way);
 long k_pcb_getpid(void);
 void k_pcb_sleep(void *chan, spin_lock_t *lk);
 void k_pcb_wakeup(void *chan);
+int k_pcb_count();
 
 extern void k_send_signal(int signum, pcb_t *pcb);
 
@@ -332,9 +334,7 @@ long sys_getgid(void);
 long sys_getegid(void);
 long sys_gettid(void);
 
-long sys_getrlimit(unsigned int resource, rlimit_t *rlim);
-long sys_setrlimit(unsigned int resource, rlimit_t *rlim);
-long sys_getrusage(int who, rlimit_t *ru);
+long sys_getrusage(int who, rusage_t *ru);
 long sys_prlimit64(pid_t pid, unsigned int resource, const rlimit64_t *new_rlim, rlimit64_t *old_rlim);
 
 long sys_personality(unsigned int personality);

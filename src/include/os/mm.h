@@ -13,6 +13,10 @@
 #define FREEMEMK 0xffffffc083000000lu
 #define USER_STACK_ADDR 0xf00010000lu
 
+/* [FEATURE REQUEST]:
+ * totalswap micro, freeswap global var
+ * high mem micro, free high mem var
+ */
 #define PROT_NONE 0
 #define PROT_READ 1
 #define PROT_WRITE 2

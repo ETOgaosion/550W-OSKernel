@@ -198,6 +198,10 @@ typedef kernel_clockid_t clockid_t;
 #define UCHAR_MAX (0xffU)
 #define CHAR_MAX (0x7f)
 
+#define KB 0x1000
+#define MB 0x1000000
+#define GB 0x1000000000
+
 #define readb(addr) (*(volatile uint8 *)(addr))
 #define readw(addr) (*(volatile uint16 *)(addr))
 #define readd(addr) (*(volatile uint32 *)(addr))

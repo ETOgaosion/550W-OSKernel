@@ -8,6 +8,8 @@
 #define _NSIG_BPW __BITS_PER_LONG
 #define _NSIG_WORDS (_NSIG / _NSIG_BPW)
 
+#define NUM_MAX_SIGPENDING 16
+
 #define NUM_SIG 34
 
 #define SIGHUP 1

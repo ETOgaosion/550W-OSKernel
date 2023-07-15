@@ -196,7 +196,7 @@ void reset_irq_timer() {
     // note: use sbi_set_timer
     // remember to reschedule
     sbi_set_timer(k_time_get_ticks() + TICKS_INTERVAL);
-    k_pcb_scheduler();
+    k_pcb_scheduler(false);
 }
 
 void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {

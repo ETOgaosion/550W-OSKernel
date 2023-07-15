@@ -54,7 +54,7 @@ int kernel_restart() {
     setup_exception();
     // start scheduling
     while (1) {
-        k_pcb_scheduler();
+        k_pcb_scheduler(false);
         k_smp_unlock_kernel();
         k_smp_lock_kernel();
     };
