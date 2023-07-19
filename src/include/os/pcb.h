@@ -191,6 +191,7 @@ typedef struct pcb {
 
     bool in_use;
     elf_info_t elf;
+    bool dynamic;
 
     /* process id */
     char name[NUM_MAX_PCB_NAME];

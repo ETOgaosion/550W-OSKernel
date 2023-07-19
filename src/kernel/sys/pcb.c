@@ -118,10 +118,17 @@ void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int tid, int u
     k_bzero((void *)&(target->cap), 2 * sizeof(cap_user_data_t));
 }
 
-uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_stack, int argc, const char *argv[], int envpc, const char *envp[], const char *file_name) {
+uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_stack, int argc, const char *argv[], int envpc, const char *envp[], const char *file_name, bool dynamic) {
+    int raw_argc = argc;
+    if (dynamic) {
+        argc++;
+    }
     int total_length = (argc + envpc + 3) * sizeof(uintptr_t *) + sizeof(aux_elem_t) * (AUX_CNT + 1) + SIZE_RESTORE;
     int pointers_length = total_length;
-    for (int i = 0; i < argc; i++) {
+    if (dynamic) {
+        total_length += (k_strlen(file_name) + 1);
+    }
+    for (int i = 0; i < raw_argc; i++) {
         total_length += (k_strlen(argv[i]) + 1);
     }
     for (int i = 0; i < envpc; i++) {
@@ -139,8 +146,18 @@ uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_sta
     /* 2. save argv pointer in 2nd lowest and argv in lowest strings */
     uintptr_t new_argv = (uintptr_t)*user_stack - total_length + pointers_length;
     uintptr_t ret = new_argv;
-    for (int i = 0; i < argc; i++) {
-        *((uintptr_t *)kargv_pointer + i) = new_argv;
+    if (dynamic) {
+        *((uintptr_t *)kargv_pointer) = new_argv;
+        k_strcpy((char *)kargv, file_name);
+        new_argv += k_strlen(file_name) + 1;
+        kargv += k_strlen(file_name) + 1;
+    }
+    for (int i = 0; i < raw_argc; i++) {
+        if (dynamic) {
+            *((uintptr_t *)kargv_pointer + i + 1) = new_argv;
+        } else {
+            *((uintptr_t *)kargv_pointer + i) = new_argv;
+        }
         k_strcpy((char *)kargv, argv[i]);
         new_argv += (k_strlen(argv[i]) + 1);
         kargv += (k_strlen(argv[i]) + 1);
@@ -156,6 +173,7 @@ uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_sta
         kargv += k_strlen(envp[i]) + 1;
     }
     *((uintptr_t *)kargv_pointer + envpc) = 0;
+    kargv_pointer += (envpc + 1) * sizeof(uintptr_t);
 
     /* 4. save file_name */
     k_strcpy((char *)kargv, file_name);
@@ -492,15 +510,25 @@ long spawn(const char *file_name) {
     k_mm_share_pgtable(pgdir, pa2kva(PGDIR_PA));
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
-    int len = 0;
+    int len = 0, argc = 0;
     unsigned char *binary = NULL;
+    uintptr_t child_argv = 0;
     get_elf_file(file_name, &binary, &len);
-    void_task process = (void_task)load_elf(binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_mm_alloc_page_helper);
+    void_task process = (void_task)load_elf(&pcb[i].elf, &pcb[i].dynamic, binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_mm_alloc_page_helper);
+    if (!process) {
+        if (pcb[i].dynamic) {
+            // dynamic link
+            get_elf_file("libc.so", &binary, &len);
+            process = (void_task)load_elf(&pcb[i].elf, &pcb[i].dynamic, binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_mm_alloc_page_helper);
+            argc = 1;
+        }
+    }
+    child_argv = init_user_stack(&pcb[i], &user_stack_kva, &user_stack, argc, NULL, 0, NULL, file_name, pcb[i].dynamic);
     k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
     // k_mm_map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
-    init_context_stack(kernel_stack, user_stack, 0, NULL, (uintptr_t)(process), &pcb[i]);
+    init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (uintptr_t)(process), &pcb[i]);
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;
 }
@@ -520,18 +548,24 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
     int len = 0;
     unsigned char *binary = NULL;
     get_elf_file(file_name, &binary, &len);
-    void_task process = (void_task)load_elf(binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_mm_alloc_page_helper);
+    void_task process = (void_task)load_elf(&pcb[target_pid].elf, &pcb[target_pid].dynamic, binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_mm_alloc_page_helper);
+    if (!process) {
+        if (pcb[target_pid].dynamic) {
+            get_elf_file("libc.so", &binary, &len);
+            process = (void_task)load_elf(&pcb[target_pid].elf, &pcb[target_pid].dynamic, binary, len, (ptr_t)pgdir, (uintptr_t(*)(uintptr_t, uintptr_t))k_mm_alloc_page_helper);
+        }
+    }
     k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
     // k_mm_map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
     pcb[target_pid].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
     int argc = k_strlistlen((char **)argv);
     int envpc = k_strlistlen((char **)envp);
-    uintptr_t child_argv = init_user_stack(&pcb[target_pid], &user_stack_kva, &user_stack, argc, argv, envpc, envp, file_name);
+    uintptr_t child_argv = init_user_stack(&pcb[target_pid], &user_stack_kva, &user_stack, argc, argv, envpc, envp, file_name, pcb[target_pid].dynamic);
 
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
 
-    list_add_tail(&pcb[target_pid].list, &ready_queue);
+    enqueue(&pcb[target_pid].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
     return target_pid;
 }
 

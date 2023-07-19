@@ -2,6 +2,8 @@
 
 #include <asm/pgtable.h>
 #include <common/types.h>
+#include <fs/file.h>
+#include <fs/fs.h>
 #include <lib/string.h>
 
 /* clang-format off */
@@ -174,6 +176,15 @@ typedef struct elf64_Shdr {
 
 // ===================== for dynamic ==========================
 #define DYNAMIC_VADDR_OFFSET 0x8000000
+
+/* These constants define the different elf file types */
+#define ET_NONE   0
+#define ET_REL    1
+#define ET_EXEC   2
+#define ET_DYN    3
+#define ET_CORE   4
+#define ET_LOPROC 0xff00
+#define ET_HIPROC 0xffff
 // ===================== for restore =========================
 #define SIZE_RESTORE 8
 extern void __restore();
@@ -227,6 +238,8 @@ typedef struct aux_elem {
     uint64_t val;
 } aux_elem_t;
 
+
+
 static inline int is_elf_format(unsigned char *binary) {
     elf64_ehdr_t *ehdr = (elf64_ehdr_t *)binary;
 
@@ -238,7 +251,7 @@ static inline int is_elf_format(unsigned char *binary) {
 }
 
 /* prepare_page_for_kva should return a kernel virtual address */
-uintptr_t load_elf(unsigned char elf_binary[], unsigned length, uintptr_t pgdir, uintptr_t (*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir));
+uintptr_t load_elf(elf_info_t *target, bool *is_dynamic, unsigned char elf_binary[], unsigned length, uintptr_t pgdir, uintptr_t (*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir));
 
 static inline uint32_t set_aux_vec(aux_elem_t *aux_vec, elf_info_t *elf, uintptr_t file_pointer, uintptr_t random_ptr)
 {

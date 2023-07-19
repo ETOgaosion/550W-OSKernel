@@ -14,6 +14,8 @@
 #define LARGE_PAGE_SHIFT 21lu
 #define LARGE_PAGE_SIZE (1lu << LARGE_PAGE_SHIFT)
 
+#define PAGE_OFFSET(x, y) ((x) & ((y)-1))
+
 typedef uint64_t pte_t;
 typedef uint64_t *pagetable_t; // 512 PTEs
 
@@ -113,19 +115,13 @@ static inline uint64_t get_pfn(PTE entry) {
     return pa_temp;
 }
 
-static inline void set_pfn(PTE *entry, uint64_t pfn) {
-    uint64_t temp10 = (*entry) % ((uint64_t)1 << 10);
-    *entry = (pfn << 10) | temp10;
-}
+void set_pfn(PTE *entry, uint64_t pfn);
 
 /* Get/Set attribute(s) of the `entry` */
 static inline long get_attribute(PTE entry, uint64_t mask) {
     return entry & mask;
 }
 
-static inline void set_attribute(PTE *entry, uint64_t bits) {
-    uint64_t pfn_temp = (*entry) >> 10;
-    *entry = (pfn_temp << 10) | bits;
-}
+void set_attribute(PTE *entry, uint64_t bits);
 
 void clear_pgdir(uintptr_t pgdir_addr);

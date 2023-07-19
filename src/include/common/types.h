@@ -38,6 +38,9 @@ typedef unsigned int uint32;
 typedef long long int64;
 typedef unsigned long long uint64;
 typedef unsigned int uint;
+typedef unsigned short ushort;
+typedef unsigned char uchar;
+typedef unsigned short wchar;
 
 typedef int pid_t;
 typedef uint64_t reg_t;

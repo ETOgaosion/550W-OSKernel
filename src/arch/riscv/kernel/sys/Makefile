@@ -1,4 +1,4 @@
-INCLUDES := -I../../../../include -I../../include
+INCLUDES := -I../../../../include -I../../include -I../../../../
 
 target = $(shell ls *.c *.S | awk '{gsub(/\.c|\.S/, ".o"); print $0}')
 

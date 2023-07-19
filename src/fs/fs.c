@@ -1520,6 +1520,7 @@ long sys_renameat2(int olddfd, const char *oldname, int newdfd, const char *newn
     return 0;
 }
 
+// [NOTE]: first argument file_t struct defined in file.h
 long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {
     if (addr != NULL) { // NOT support spec addr
         return (long)addr;

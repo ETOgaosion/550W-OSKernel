@@ -20,6 +20,10 @@ uintptr_t riscv_dtb;
 
 long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause);
 
+long sys_breakpoint(regs_context_t *regs, uint64_t interrupt, uint64_t cause) {
+    return 0;
+}
+
 void k_syscall_init(void) {
     for (int i = 0; i < NUM_SYSCALLS; i++) {
         syscall[i] = (long (*)()) & sys_undefined_syscall; // only print register info
@@ -191,6 +195,7 @@ void k_syscall_init(void) {
     // Self Defined
     syscall[SYS_move_cursor] = (long (*)())sys_screen_move_cursor;
     syscall[SYS_screen_clear] = (long (*)())sys_screen_clear;
+    syscall[SYS_breakpoint] = (long (*)())sys_breakpoint;
 }
 
 void reset_irq_timer() {

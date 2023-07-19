@@ -5,6 +5,7 @@
 #include <lib/string.h>
 #include <os/lock.h>
 #include <os/mm.h>
+#include <fs/fs.h>
 // #include <os/errno.h>
 
 // flags
@@ -29,6 +30,25 @@ typedef uint32_t nlink_t;
 typedef uint32_t uid_t;
 typedef uint32_t gid_t;
 typedef int64_t off_t;
+
+typedef struct file {
+    enum {
+        FD_NONE,
+        FD_PIPE,
+        FD_ENTRY,
+        FD_DEVICE,
+        FD_SOCKET
+    } type;
+    int ref; // reference count
+    char readable;
+    char writable;
+    struct pipe *pipe; // FD_PIPE
+    dirent64_t *ep;
+    // socket_t *socket;
+    uint off;             // FD_ENTRY
+    short major;          // FD_DEVICE
+    dirent64_t *curChild; // current child for getDirent
+} file_t;
 
 typedef struct fd {
     // file or dir?
@@ -135,7 +155,9 @@ typedef struct pipe {
     uint8 r_valid;
     uint8 w_valid;
 } pipe_t;
+
 #define PIPE_NUM 200
+
 extern pipe_t pipe_table[PIPE_NUM];
 extern int pipe_alloc(int *fd);
 

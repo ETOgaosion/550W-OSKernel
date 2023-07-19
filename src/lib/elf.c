@@ -1,7 +1,8 @@
 #include <common/elf.h>
 #include <lib/math.h>
 
-uintptr_t load_elf(unsigned char elf_binary[], unsigned length, uintptr_t pgdir, uintptr_t (*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir)) {
+uintptr_t load_elf(elf_info_t *target, bool *is_dynamic, unsigned char elf_binary[], unsigned length, uintptr_t pgdir, uintptr_t (*prepare_page_for_va)(uintptr_t va, uintptr_t pgdir)) {
+    target->edata = 0;
     elf64_ehdr_t *ehdr = (elf64_ehdr_t *)elf_binary;
     elf64_phdr_t *phdr = NULL;
     /* As a loader, we just care about segment,
@@ -21,8 +22,20 @@ uintptr_t load_elf(unsigned char elf_binary[], unsigned length, uintptr_t pgdir,
     ph_entry_count = ehdr->e_phnum;
     ph_entry_size = ehdr->e_phentsize;
 
+    // save all useful message
+    target->phoff = ehdr->e_phoff;
+    target->phent = ehdr->e_phentsize;
+    target->phnum = ehdr->e_phnum;
+    target->entry = ehdr->e_entry;
+
+    bool is_first = true;
+
     while (ph_entry_count--) {
         phdr = (elf64_phdr_t *)ptr_ph_table;
+        if (phdr->p_type == PT_INTERP) {
+            *is_dynamic = true;
+            return 0;
+        }
 
         if (phdr->p_type == PT_LOAD) {
             for (i = 0; i < phdr->p_memsz; i += NORMAL_PAGE_SIZE) {
@@ -39,6 +52,11 @@ uintptr_t load_elf(unsigned char elf_binary[], unsigned length, uintptr_t pgdir,
                     for (int j = 0; j < NORMAL_PAGE_SIZE / sizeof(long); ++j) {
                         bytes_of_page[j] = 0;
                     }
+                }
+                target->edata = phdr->p_vaddr + phdr->p_memsz;
+                if (is_first) {
+                    target->text_begin = phdr->p_vaddr;
+                    is_first = 0;
                 }
             }
         }

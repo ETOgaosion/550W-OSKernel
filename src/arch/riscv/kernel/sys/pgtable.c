@@ -6,3 +6,13 @@ void clear_pgdir(uintptr_t pgdir_addr) {
         pgaddr[i] = 0;
     }
 }
+
+void set_pfn(PTE *entry, uint64_t pfn) {
+    uint64_t temp10 = (*entry) % ((uint64_t)1 << 10);
+    *entry = (pfn << 10) | temp10;
+}
+
+void set_attribute(PTE *entry, uint64_t bits) {
+    uint64_t pfn_temp = (*entry) >> 10;
+    *entry = (pfn_temp << 10) | bits;
+}

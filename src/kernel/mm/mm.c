@@ -504,7 +504,7 @@ long sys_shmdt(char *shmaddr) {
 }
 
 long sys_brk(unsigned long brk) {
-    if (brk > K_ROUND((*current_running)->user_sp, NORMAL_PAGE_SIZE)) {
+    if (brk > K_ROUNDDOWN((*current_running)->user_sp, NORMAL_PAGE_SIZE) - STACK_SIZE) {
         return -EINVAL;
     }
     if (brk == 0) {
@@ -518,7 +518,7 @@ long sys_brk(unsigned long brk) {
         }
     } else {
         for (uintptr_t iterator = (*current_running)->elf.edata; iterator < brk; iterator += NORMAL_PAGE_SIZE) {
-            k_mm_alloc_page_helper(iterator, (pa2kva((*current_running)->pgdir << 12)));
+            k_mm_alloc_page_helper(iterator, (pa2kva((*current_running)->pgdir)));
             local_flush_tlb_all();
         }
     }
