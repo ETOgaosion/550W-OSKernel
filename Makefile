@@ -33,14 +33,23 @@ build: $(modules)
 sifive:
 	$(OBJCOPY) -O binary $(target) /srv/tftp/vm.bin
 	
-fat:
+fatp:
 	if [ ! -f "$(fs_img)" ]; then \
 		echo "making fs image..."; \
 		dd if=/dev/zero of=$(fs_img) bs=512k count=1024; fi
 	mkfs.vfat -F 32 $(fs_img); 
 	sudo mount $(fs_img) $(dst)
-	mkdir -p userspace/rootfs/mnt
-	sudo cp -r userspace/rootfs/* $(dst)/
+	mkdir -p userspace/rootfs/preliminary/mnt
+	sudo cp -r userspace/rootfs/preliminary/* $(dst)/
+	sudo umount $(dst)
+
+fatf:
+	if [ ! -f "$(fs_img)" ]; then \
+		echo "making fs image..."; \
+		dd if=/dev/zero of=$(fs_img) bs=512k count=1024; fi
+	mkfs.vfat -F 32 $(fs_img); 
+	sudo mount $(fs_img) $(dst)
+	sudo cp -r userspace/rootfs/final/* $(dst)/
 	sudo umount $(dst)
 
 umount:

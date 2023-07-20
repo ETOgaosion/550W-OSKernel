@@ -41,7 +41,7 @@ prepare: build $(lib_target) srcs $(shell_target) $(bubble_target) asm
 	mv shell.c ../../src/user/
 	mv bubble.h ../../src/user/
 	mv bubble.c ../../src/user/
-	cp build/* ../rootfs/
+	cp build/* ../rootfs/preliminary
 
 asm:
 	for prog in $(src_names); do $(OBJDUMP) -d build/$$prog > ../../target/$$prog.txt; done
