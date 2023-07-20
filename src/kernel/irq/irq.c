@@ -193,6 +193,7 @@ void k_syscall_init(void) {
     syscall[SYS_madvise] = (long (*)())sys_madvise;
 
     // Self Defined
+    syscall[SYS_exec] = (long (*)())sys_exec;
     syscall[SYS_move_cursor] = (long (*)())sys_screen_move_cursor;
     syscall[SYS_screen_clear] = (long (*)())sys_screen_clear;
     syscall[SYS_breakpoint] = (long (*)())sys_breakpoint;

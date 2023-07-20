@@ -2,17 +2,16 @@
 #include <string.h>
 #include <unistd.h>
 
+#define FINAL
+
 #define SHELL_BEGIN 148
 #define SHELL_ARG_MAX_NUM 5
 #define SHELL_ARG_MAX_LENGTH 20
 #define SHELL_INPUT_MAX_WORDS 100
 #define SHELL_CMD_MAX_LENGTH 2 * 8
-#define MAX_CMD_IN_LINES 16
 
 /* clang-format off */
-#define BEGIN cmd_in_length = 0;\
-    move_cursor(1, SHELL_BEGIN);\
-    printf("========================== MOSS ==========================")
+#define BEGIN printf("\n========================== MOSS ==========================")
 /* clang-format on */
 
 #define HELP 0
@@ -36,6 +35,7 @@
 
 typedef int (*function)(int argc, char *argv[]);
 
+#ifndef FINAL
 #define CURRENT_TASK_NUM 32
 // #define CURRENT_TASK_NUM 1
 
@@ -50,8 +50,7 @@ char *task_names[CURRENT_TASK_NUM] = {
 /* clang-format on */
 
 // char *task_names[CURRENT_TASK_NUM] = {"execve"};
-
-int cmd_in_length = 0;
+#endif
 
 void panic(char *error);
 static int shell_help(int argc, char *argv[]);
@@ -119,7 +118,6 @@ static int shell_help(int argc, char *argv[]) {
             for (int i = 0; i < SUPPORTED_CMD_NUM; i++) {
                 if (strcmp(cmd, cmd_table[i].cmd_full_name) == 0 || strcmp(cmd, cmd_table[i].cmd_alias) == 0) {
                     printf("\ncommand: %s, alias: %s, discription: %s, format: %s, max arg number: %d;", cmd_table[i].cmd_full_name, cmd_table[i].cmd_alias, cmd_table[i].description, cmd_table[i].format, cmd_table[i].max_arg_num);
-                    cmd_in_length++;
                     return 0;
                 }
             }
@@ -129,57 +127,29 @@ static int shell_help(int argc, char *argv[]) {
 
     } else {
         printf("\nall commands are listed below:");
-        cmd_in_length++;
         for (int i = 0; i < SUPPORTED_CMD_NUM; i++) {
             printf("\ncommand: %s, alias: %s, discription: %s, format: %s, max arg number: %d;", cmd_table[i].cmd_full_name, cmd_table[i].cmd_alias, cmd_table[i].description, cmd_table[i].format, cmd_table[i].max_arg_num);
-            cmd_in_length++;
         }
     }
+    return 0;
+}
+
+// static int shell_echo(int argc, char *argv[]) {
+//     printf("\n");
+//     for (int i = 0; i < argc; i++) {
+//         printf("%s", argv[i]);
+//     }
+//     return 0;
+// }
+
+static int shell_echo_once(const char *argv) {
+    printf("\n%s", argv);
     return 0;
 }
 
 static int shell_exec(int argc, char *argv[]) {
-    int task_found = 0;
-    char *first_arg = (char *)argv;
-    for (int i = 0; i < CURRENT_TASK_NUM; i++) {
-        if (strcmp(first_arg, task_names[i]) == 0) {
-            task_found = 1;
-            break;
-        }
-    }
-    if (!task_found) {
-        panic(arg_num_error);
-        return -1;
-    }
+    char *first_arg = argv[0];
     printf("\ntask[%s] will be started soon!", first_arg);
-    cmd_in_length++;
-    if (argc == 1) {
-        int pid = spawn(first_arg);
-        int result = 0;
-        waitpid(pid, &result, 0);
-        return result;
-    }
-    if (argc == 2 && strcmp((const char *)argv[1], "&") == 0) {
-        return spawn(first_arg);
-    }
-    return 0;
-}
-
-static int shell_execve(int argc, char *argv[]) {
-    int task_found = 0;
-    char *first_arg = (char *)argv;
-    for (int i = 0; i < CURRENT_TASK_NUM; i++) {
-        if (strcmp(first_arg, task_names[i]) == 0) {
-            task_found = 1;
-            break;
-        }
-    }
-    if (!task_found) {
-        panic(arg_num_error);
-        return -1;
-    }
-    printf("\ntask[%s] will be started soon!", first_arg);
-    cmd_in_length++;
     if (argc == 1) {
         int pid = spawn(first_arg);
         int result = 0;
@@ -208,8 +178,56 @@ static int shell_execve(int argc, char *argv[]) {
     for (i = envp; i < argp - 1 && i < argc; i++) {
         memcpy((uint8_t *)arg[i - envp], (uint8_t *)argv[i], strlen((const char *)argv[i]));
     }
-    execve(first_arg, (char *const *)arg, (char *const *)env);
+    int pid = exec(first_arg, (char *const *)arg, (char *const *)env);
+    if (strcmp((const char *)argv[argc - 1], "&") != 0) {
+        int result = 0;
+        waitpid(pid, &result, 0);
+        return result;
+    }
     return 0;
+}
+
+static int shell_execve(int argc, char *argv[]) {
+    char *first_arg = (char *)argv;
+    printf("\ntask[%s] will be started soon!", first_arg);
+    if (argc == 1) {
+        int pid = spawn(first_arg);
+        int result = 0;
+        waitpid(pid, &result, 0);
+        return result;
+    }
+    pid_t pid = fork();
+    if (pid) {
+        int result = 0;
+        waitpid(pid, &result, 0);
+        return result;
+    }
+    else {
+        int argp = 0, envp = 0;
+        for (int i = 1; i < argc; i++) {
+            if (argp && envp) {
+                break;
+            }
+            if (!argp && strcmp(argv[i], "-a") == 0) {
+                argp = i + 1;
+            }
+            if (!envp && strcmp(argv[i], "-e") == 0) {
+                envp = i + 1;
+            }
+        }
+        char arg[SHELL_ARG_MAX_NUM][SHELL_ARG_MAX_LENGTH] = {0};
+        char env[SHELL_ARG_MAX_NUM][SHELL_ARG_MAX_LENGTH] = {0};
+        int i = argp;
+        for (i = argp; i < envp - 1 && i < argc; i++) {
+            memcpy((uint8_t *)arg[i - argp], (uint8_t *)argv[i], strlen((const char *)argv[i]));
+        }
+        i = envp;
+        for (i = envp; i < argp - 1 && i < argc; i++) {
+            memcpy((uint8_t *)arg[i - envp], (uint8_t *)argv[i], strlen((const char *)argv[i]));
+        }
+        execve(first_arg, (char *const *)arg, (char *const *)env);
+        return 0;
+    }
 }
 
 static int shell_kill(int argc, char *argv[]) {
@@ -220,13 +238,12 @@ static int shell_kill(int argc, char *argv[]) {
     char *first_arg = (char *)argv;
     int pid = strtol(first_arg, NULL, 10);
     printf("\ntask[%d] will be killed soon!", pid);
-    cmd_in_length++;
     sys_kill(pid);
     return 0;
 }
 
 static int shell_ps(int argc, char *argv[]) {
-    cmd_in_length += sys_process_show();
+    sys_process_show();
     return 0;
 }
 
@@ -398,11 +415,24 @@ static int shell_clear(int argc, char *argv[]) {
 
 // #define DEBUG_WITHOUT_INIT_FS
 
+#ifdef FINAL
+static void test() {
+    shell_echo_once("busybox echo test");
+    char *busybox_echo_arg[] = {"./test_all.sh"};
+    int pid = exec("busybox", (char *const *)busybox_echo_arg, NULL);
+    waitpid(pid, NULL, 0);
+}
+#endif
+
 int main() {
+    #ifdef FINAL
+    test();
+    #else
     for (int i = 0; i < CURRENT_TASK_NUM; i++) {
         int pid = spawn(task_names[i]);
         waitpid(pid, NULL, 0);
     }
+    #endif
     BEGIN;
     char input_buffer[SHELL_INPUT_MAX_WORDS] = {0};
     char cmd[SHELL_CMD_MAX_LENGTH] = {0};
@@ -435,7 +465,6 @@ int main() {
                 putchar(32);
                 input_buffer[input_length++] = 32;
             } else if (ch == 10 || ch == 13) {
-                cmd_in_length++;
                 if (input_length == 0) {
                     goto clear_and_next;
                 }
@@ -450,8 +479,6 @@ int main() {
                 }
             }
         }
-        cmd_in_length++;
-
         // process with input
         // symbol for calculator and pipe will be done through extra work
         char *parse = input_buffer;
@@ -477,10 +504,6 @@ int main() {
 
         // clear and prepare for next input
     clear_and_next:
-        if (cmd_in_length > MAX_CMD_IN_LINES) {
-            cmd_in_length = MAX_CMD_IN_LINES;
-            // BEGIN;
-        }
         memset(input_buffer, 0, sizeof(input_buffer));
         memset(cmd, 0, sizeof(cmd));
         memset(arg, 0, SHELL_ARG_MAX_NUM * SHELL_ARG_MAX_LENGTH);

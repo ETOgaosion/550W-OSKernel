@@ -289,9 +289,10 @@
 #define SYS_mailread 401
 #define SYS_mailwrite 402
 
-#define SYS_move_cursor 403
-#define SYS_screen_clear 404
+#define SYS_exec 403
 
-#define SYS_process_show 405
+#define SYS_move_cursor 404
+#define SYS_screen_clear 405
+#define SYS_process_show 406
 
 #define SYS_breakpoint 511

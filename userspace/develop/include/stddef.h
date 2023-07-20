@@ -40,13 +40,8 @@ typedef uint64 uint64_t;
  * We use pointer types to represent addresses,
  * uintptr_t to represent the numerical values of addresses.
  * */
-#if __riscv_xlen == 64
 typedef int64 intptr_t;
 typedef uint64 uintptr_t;
-#elif __riscv_xlen == 32
-typedef int32_t intptr_t;
-typedef uint32_t uintptr_t;
-#endif
 
 /* size_t is used for memory object sizes */
 typedef uintptr_t size_t;

@@ -54,8 +54,8 @@ int waitpid(int pid, int *code, int options) {
     return syscall(SYS_wait4, pid, code, options, 0);
 }
 
-int exec(char *name) {
-    return syscall(SYS_execve, name);
+int exec(char *name, char *const argv[], char *const envp[]) {
+    return syscall(SYS_exec, name, argv, envp);
 }
 
 int execve(const char *name, char *const argv[], char *const argp[]) {

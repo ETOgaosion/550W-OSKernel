@@ -3,6 +3,8 @@
 .idea
 
 !env/
+!dump/
+!dump/**
 !userspace/testsuits-for-oskernel
 !userspace/rootfs/**
 !docs/*
