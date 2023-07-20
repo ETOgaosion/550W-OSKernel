@@ -44,9 +44,9 @@ prepare: build $(lib_target) srcs $(shell_target) $(bubble_target) asm
 	cp build/* ../rootfs/preliminary
 
 asm:
-	for prog in $(src_names); do $(OBJDUMP) -d build/$$prog > ../../target/$$prog.txt; done
-	$(OBJDUMP) -d build/shell > ../../target/shell.txt
-	$(OBJDUMP) -d build/bubble > ../../target/bubble.txt
+	for prog in $(src_names); do $(OBJDUMP) -d build/$$prog > ../../dump/$$prog.txt; done
+	$(OBJDUMP) -d build/shell > ../../dump/shell.txt
+	$(OBJDUMP) -d build/bubble > ../../dump/bubble.txt
 
 $(lib_target):
 	$(AR) rcs $@ $(lib_objs)

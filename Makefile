@@ -3,11 +3,12 @@ linker_dir		:= linker
 tools_dir		:= tools
 user_dir		:= userspace
 target_dir		:= target
+dump_dir		:= dump
 
 linkscript		:= $(linker_dir)/riscv.lds
 target			:= kernel-qemu
 vm550w_bin		:= $(target_dir)/vm550w.bin
-vm550w_asm		:= $(target_dir)/vm550w_asm.txt
+vm550w_asm		:= $(dump_dir)/vm550w_asm.txt
 dst				:= /mnt
 fs_img			:= sdcard.img
 
