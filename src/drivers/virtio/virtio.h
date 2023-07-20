@@ -142,5 +142,5 @@ struct buf *d_bread(uint, uint);
 void d_brelse(struct buf *);
 void d_bwrite(struct buf *);
 
-void d_sd_read(char *buffers, uint *start_block_id, uint block_num);
+void d_sd_read(char *buffers, uint *start_block_ids, uint block_num);
 void d_sd_write(char *buffers, uint *start_block_ids, uint block_num);
