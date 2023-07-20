@@ -65,7 +65,6 @@ dump/iperf3.txt filter=lfs diff=lfs merge=lfs -text
 dump/read.txt filter=lfs diff=lfs merge=lfs -text
 dump/getdents.txt filter=lfs diff=lfs merge=lfs -text
 dump/hanoi.txt filter=lfs diff=lfs merge=lfs -text
-dump/vm550w.bin filter=lfs diff=lfs merge=lfs -text
 dump/vm550w_asm.txt filter=lfs diff=lfs merge=lfs -text
 dump/lua.txt filter=lfs diff=lfs merge=lfs -text
 dump/runtest.exe.txt filter=lfs diff=lfs merge=lfs -text
