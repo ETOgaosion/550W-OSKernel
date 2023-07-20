@@ -24,6 +24,11 @@ typedef struct double_spin_lock {
     volatile guard_status_t guard;
 } double_spin_lock_t;
 
+typedef struct spin_lock_with_owner {
+    spin_lock_t lock;
+    int owner;
+} spin_lock_with_owner_t;
+
 typedef struct mutex_lock {
     int lock_id;
     int initialized;
@@ -45,6 +50,10 @@ int k_spin_lock_try_acquire(spin_lock_t *lock);
 void k_spin_lock_acquire(spin_lock_t *lock);
 void k_spin_lock_release(spin_lock_t *lock);
 void k_schedule_with_spin_lock(spin_lock_t *lock);
+
+void k_spin_lock_with_owner_init(spin_lock_with_owner_t *lock);
+void k_spin_lock_with_owner_acquire(spin_lock_with_owner_t *lock);
+void k_spin_lock_with_owner_release(spin_lock_with_owner_t *lock);
 
 long k_mutex_lock_op(int *key, int op);
 long k_mutex_lock_init(int *key);

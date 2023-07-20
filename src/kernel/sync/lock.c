@@ -2,6 +2,7 @@
 #include <lib/string.h>
 #include <os/lock.h>
 #include <os/pcb.h>
+#include <os/smp.h>
 
 int first_time = 1;
 mutex_lock_t *locks[LOCK_NUM];
@@ -21,6 +22,31 @@ void k_spin_lock_acquire(spin_lock_t *lock) {
 
 void k_spin_lock_release(spin_lock_t *lock) {
     lock->flag = UNLOCKED;
+}
+
+void k_spin_lock_with_owner_init(spin_lock_with_owner_t *lock) {
+    lock->owner = -1;
+    k_spin_lock_init(&lock->lock);
+}
+
+void k_spin_lock_with_owner_acquire(spin_lock_with_owner_t *lock) {
+    if (lock->owner == k_smp_get_current_cpu_id()) {
+        return;
+    }
+    else {
+        while(lock->owner != -1) {
+            if (lock->owner != -1) {
+                break;
+            }
+        }
+        k_spin_lock_acquire(&lock->lock);
+        lock->owner = k_smp_get_current_cpu_id();
+    }
+}
+
+void k_spin_lock_with_owner_release(spin_lock_with_owner_t *lock) {
+    lock->owner = -1;
+    k_spin_lock_release(&lock->lock);
 }
 
 void k_schedule_with_spin_lock(spin_lock_t *lock) {
