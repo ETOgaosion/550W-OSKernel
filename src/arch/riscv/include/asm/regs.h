@@ -51,7 +51,7 @@
 /* privileged register */
 #define reg_sstatus 31
 #define reg_sepc 32
-#define reg_sbadaddr 33
+#define reg_stval 33
 #define reg_scause 34
 
 /* offsets */
@@ -106,11 +106,12 @@
 /* privileged register */
 #define OFFSET_REG_SSTATUS 248
 #define OFFSET_REG_SEPC 256
-#define OFFSET_REG_SBADADDR 264
+#define OFFSET_REG_STVAL 264
 #define OFFSET_REG_SCAUSE 272
+#define OFFSET_REG_SSCRATCH 280
 
 /* Size of stack frame, word/double word alignment */
-#define OFFSET_ALL_REG_SIZE 280
+#define OFFSET_ALL_REG_SIZE 288
 
 #define PCB_KERNEL_SP 0
 #define PCB_USER_SP 8

@@ -11,5 +11,8 @@ void k_smp_init();
 void k_smp_wakeup_other_hart();
 uint64_t k_smp_get_current_cpu_id();
 pcb_t *volatile *k_smp_get_current_running();
+pcb_t *k_smp_get_current_pcb();
+void k_smp_set_current_pcb(pcb_t *pcb);
+void k_smp_sync_current_pcb();
 void k_smp_lock_kernel();
 void k_smp_unlock_kernel();

@@ -27,7 +27,7 @@ int kernel_restart() {
             k_smp_unlock_kernel();
             k_smp_lock_kernel();
         }
-        current_running = k_smp_get_current_running();
+        k_smp_sync_current_pcb();
     } else {
         // init kernel lock
         // init Process Control Block (-_-!)
@@ -57,6 +57,7 @@ int kernel_restart() {
         k_pcb_scheduler(false);
         k_smp_unlock_kernel();
         k_smp_lock_kernel();
+        k_smp_sync_current_pcb();
     };
 }
 

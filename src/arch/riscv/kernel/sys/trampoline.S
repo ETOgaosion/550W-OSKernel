@@ -3,6 +3,7 @@
 #include <asm/regs.h>
 
 .macro SAVE_REGS
+  /* Freely save all registers */
   SAVE(ra, RA)
   SAVE(gp, GP)
   SAVE(tp, TP)
@@ -33,19 +34,25 @@
   SAVE(t4, T4)
   SAVE(t5, T5)
   SAVE(t6, T6)
-  csrr a0, sstatus
-  SAVE(a0, SSTATUS)
-  csrr a0, sepc
-  SAVE(a0, SEPC)
-  csrr a0, scause
-  SAVE(a0, SCAUSE)
+  /* as well as CSR registers */
+  csrr t0, sstatus
+  SAVE(t0, SSTATUS)
+  csrr t0, sepc
+  SAVE(t0, SEPC)
+  csrr t0, stval
+  SAVE(t0, STVAL)
+  csrr t0, scause
+  SAVE(t0, SCAUSE)
+  csrr t0, sscratch
+  SAVE(t0, SSCRATCH)
 .endm
 
 .macro LOAD_REGS
   LOAD(ra, RA)
   LOAD(gp, GP)
   LOAD(tp, TP)
-  LOAD(t0, T0)
+  /* t0 as tmp register, load at end */
+  // LOAD(t0, T0)
   LOAD(t1, T1)
   LOAD(t2, T2)
   LOAD(s0, S0)
@@ -72,37 +79,48 @@
   LOAD(t4, T4)
   LOAD(t5, T5)
   LOAD(t6, T6)
-  LOAD(s0, SSTATUS)
-  csrw sstatus, s0
-  LOAD(s0, SEPC)
-  csrw sepc, s0
-  LOAD(s0, S0)
+  /* only sstatus and sepc need to restore at first time sret */
+  LOAD(t0, SSTATUS)
+  csrw sstatus, t0
+  LOAD(t0, SEPC)
+  csrw sepc, t0
+  LOAD(t0, SSCRATCH)
+  csrw sscratch, t0
+  LOAD(t0, T0)
 .endm
 
 .macro USER_SAVE_CONTEXT
-//  .local _restore_kernel_tpsp
+  /* user mode not need this */
+  // .local _restore_kernel_tpsp
   .local _save_context
   /*
    * If coming from userspace, preserve the user thread pointer and load
    * the kernel thread pointer.  If we came from the kernel, sscratch
    * will contain 0, and we should continue on the current TP.
    */
-//  csrrw tp, CSR_SSCRATCH, tp
-//  bnez tp, _save_context
+  /* tp can be changed in user mode, but sscratch always holds correct pcb location, swap these fields to find corrent pcb location by tp */
+  csrrw tp, CSR_SSCRATCH, tp
+  /* user mode not need this, although this mechanism is correct */
+  // bnez tp, _save_context
 
-//_restore_kernel_tpsp:
-//  csrr tp, CSR_SSCRATCH
-//  sd sp, PCB_KERNEL_SP(tp)
+// _restore_kernel_tpsp:
+  // csrr tp, CSR_SSCRATCH
 _save_context:
+  /* use correct tp to swap user and kernel sp */
   sd sp, PCB_USER_SP(tp)
   ld sp, PCB_KERNEL_SP(tp)
   addi sp, sp, SWITCH_TO_SIZE
 
+  /* we need to store user mode tp, and sp has been correctly set, pcb location not needed temporarily, so swap them back */
+  csrrw tp, CSR_SSCRATCH, tp
+
   /* save all general purpose registers here! */
-  //SAVE(sp, SP)
   SAVE_REGS
-  ld a0, PCB_USER_SP(tp)
-  SAVE(a0, SP)
+
+  /* we still need to store user mode sp, and load kernel sp later, so swap again */
+  csrrw tp, CSR_SSCRATCH, tp
+  ld t0, PCB_USER_SP(tp)
+  SAVE(t0, SP)
   /*
    * Disable user-mode memory access as it should only be set in the
    * actual user copy routines.
@@ -123,11 +141,6 @@ _restore_context:
   LOAD_REGS
   LOAD(sp, SP)
   fence
-  /*ld sstatus, 256(sp)
-  ld sepc, 264(sp)
-  ld sbadaddr, 272(sp)
-  ld scause, 280(sp)*/
-  /* Restore all registers and sepc, sstatus */
 .endm
 
 // the address of previous pcb in a0
@@ -157,7 +170,8 @@ ENTRY(switch_to)
   // restore next
   /* restore all callee save registers,
    * see the definition of `struct switchto_context` in pcb.h*/
-  addi tp, a1, 0
+  mv tp, a1
+  csrw CSR_SSCRATCH, a1 
   ld t0, PCB_KERNEL_SP(a1)
   //must sd and ld ra, or return from handlerint,
   //as change sp and many things, can t return 
@@ -179,21 +193,7 @@ ENTRY(switch_to)
 
 switch_to_same_pcb:
   ret
-  //csrw CSR_SEPC, ra
-  //sret
 ENDPROC(switch_to)
-
-ENTRY(user_ret_from_exception)
-  call k_smp_unlock_kernel
-  la t0, user_exception_handler_entry
-  csrw stvec, t0
-  la t0, SR_SIE
-  csrc sstatus, t0
-  la t0, SIE_SEIE | SIE_SSIE | SIE_STIE
-  csrw sie, t0
-  USER_RESTORE_CONTEXT
-  sret
-ENDPROC(user_ret_from_exception)
 
 ENTRY(user_exception_handler_entry)
   USER_SAVE_CONTEXT
@@ -207,17 +207,23 @@ ENTRY(user_exception_handler_entry)
   mv a0, sp
   csrr a1, stval
   csrr a2, scause
-  csrr a3, sscratch
+  csrr a3, sepc
   ld sp, PCB_KERNEL_SP(tp)
   call user_interrupt_helper
   call user_ret_from_exception
 ENDPROC(user_exception_handler_entry)
 
-ENTRY(kernel_ret_from_exception)
-  LOAD_REGS
-  addi sp, sp, OFFSET_ALL_REG_SIZE
+ENTRY(user_ret_from_exception)
+  call k_smp_unlock_kernel
+  la t0, user_exception_handler_entry
+  csrw stvec, t0
+  la t0, SR_SIE
+  csrc sstatus, t0
+  la t0, SIE_SEIE | SIE_SSIE | SIE_STIE
+  csrw sie, t0
+  USER_RESTORE_CONTEXT
   sret
-ENDPROC(kernel_ret_from_exception)
+ENDPROC(user_ret_from_exception)
 
 ENTRY(kernel_exception_handler_entry)
   add sp, sp, -OFFSET_ALL_REG_SIZE
@@ -231,16 +237,21 @@ ENTRY(kernel_exception_handler_entry)
   mv a0, sp
   csrr a1, stval
   csrr a2, scause
-  csrr a3, sscratch
+  csrr a3, sepc
   call kernel_interrupt_helper
   call kernel_ret_from_exception
 ENDPROC(kernel_exception_handler_entry)
+
+ENTRY(kernel_ret_from_exception)
+  LOAD_REGS
+  addi sp, sp, OFFSET_ALL_REG_SIZE
+  sret
+ENDPROC(kernel_ret_from_exception)
 
 ENTRY(enter_signal_trampoline)
   .local copy_signal_switch_regs
   .local copy_signal_context_regs
   /* sd tp */
-  csrrw tp, CSR_SSCRATCH, tp
   ld  a3, PCB_KERNEL_SP(tp)
 
   mv a4, a3 

@@ -25,8 +25,8 @@ pcb_t pcb[NUM_MAX_TASK];
 
 const ptr_t pid0_stack = INIT_KERNEL_STACK + PAGE_SIZE * 3 - 112 - 288;
 const ptr_t pid0_stack2 = INIT_KERNEL_STACK + PAGE_SIZE * 5 - 112 - 288;
-pcb_t pid0_pcb = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 2), .core_mask[0] = 0x3, .status = TASK_EXITED, .sched_policy = DEQUEUE_LIST_FIFO};
-pcb_t pid0_pcb2 = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack2, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 4), .core_mask[0] = 0x3, .status = TASK_EXITED, .sched_policy = DEQUEUE_LIST_FIFO};
+pcb_t pid0_pcb = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 2), .core_id = 0, .core_mask[0] = 0x3, .status = TASK_EXITED, .sched_policy = DEQUEUE_LIST_FIFO};
+pcb_t pid0_pcb2 = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack2, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 4), .core_id = 1, .core_mask[0] = 0x3, .status = TASK_EXITED, .sched_policy = DEQUEUE_LIST_FIFO};
 
 pid_t freepid[NUM_MAX_TASK];
 
@@ -203,7 +203,7 @@ void k_pcb_init() {
     }
     current_running0 = &pid0_pcb;
     current_running1 = &pid0_pcb2;
-    current_running = k_smp_get_current_running();
+    current_running = &current_running0;
     init_list_head(&timers);
 }
 
@@ -422,7 +422,7 @@ long k_pcb_scheduler(bool voluntary) {
     }
     int cpuid = k_smp_get_current_cpu_id();
     if (curr->status == TASK_RUNNING && curr->pid >= 0) {
-        enqueue(&curr->list, &ready_queue, ENQUEUE_LIST);
+        enqueue(&curr->list, &ready_queue, ENQUEUE_LIST_PRIORITY);
     }
     pcb_t *next_pcb = dequeue(&ready_queue, DEQUEUE_LIST_FIFO, curr->sched_policy);
     if (!next_pcb || next_pcb == curr) {
@@ -434,6 +434,7 @@ long k_pcb_scheduler(bool voluntary) {
     // d_screen_pcb_move_cursor(screen_cursor_x, screen_cursor_y);
     // d_screen_load_curpcb_cursor();
     next_pcb->status = TASK_RUNNING;
+    next_pcb->core_id = curr->core_id;
     if (cpuid == 0) {
         current_running0 = next_pcb;
         current_running = &current_running0;

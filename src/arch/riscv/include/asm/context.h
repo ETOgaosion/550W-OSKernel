@@ -12,8 +12,9 @@ typedef struct regs_context {
     /* Saved special registers. */
     reg_t sstatus;
     reg_t sepc;
-    reg_t sbadaddr;
+    reg_t stval;
     reg_t scause;
+    reg_t sscratch;
 } regs_context_t;
 
 /* used to save register infomation in switch_to */

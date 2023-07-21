@@ -18,9 +18,9 @@ handler_t exc_table[EXCC_COUNT];
 handler_t irq_ext_table[PLIC_NR_IRQS];
 uintptr_t riscv_dtb;
 
-long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause);
+long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t sepc);
 
-long sys_breakpoint(regs_context_t *regs, uint64_t interrupt, uint64_t cause) {
+long sys_breakpoint(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t sepc) {
     return 0;
 }
 
@@ -206,9 +206,10 @@ void reset_irq_timer() {
     k_pcb_scheduler(false);
 }
 
-void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
+void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t sepc) {
     // call corresponding handler by the value of `cause`
     k_smp_lock_kernel();
+    k_smp_sync_current_pcb();
     /* time update */
     time_val_t now;
     k_time_get_utime(&now);
@@ -226,9 +227,9 @@ void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause,
     /* interrupt handler */
     uint64_t check = cause;
     if (check >> 63) {
-        irq_table[cause - ((uint64_t)1 << 63)](regs, stval, cause, cpuid);
+        irq_table[cause - ((uint64_t)1 << 63)](regs, stval, cause, sepc);
     } else {
-        exc_table[cause](regs, stval, cause, cpuid);
+        exc_table[cause](regs, stval, cause, sepc);
     }
 
     /* time update */
@@ -241,21 +242,21 @@ void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause,
     }
 }
 
-spin_lock_with_owner_t kernel_exception_lock;
+spin_lock_t kernel_exception_lock;
 
-void handle_int_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
+void handle_int_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t sepc) {
     reset_irq_timer();
 }
 
-void handle_ext_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t cpuid) {
+void handle_ext_irq(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t sepc) {
     int irq = d_plic_claim();
     if (irq) {
-        irq_ext_table[irq](regs, interrupt, cause, cpuid);
+        irq_ext_table[irq](regs, interrupt, cause, sepc);
         d_plic_complete(irq);
     }
 }
 
-void handler_virtio_intr(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
+void handler_virtio_intr(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t sepc) {
     k_spin_lock_acquire(&disk.vdisk_lock);
 
     // the device won't raise another interrupt until we tell it
@@ -312,7 +313,7 @@ void handle_disk_exc(uint64_t stval, PTE *pte_addr) {
     (*pte_addr) = (*pte_addr) | 1;
 }
 
-void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
+void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t sepc) {
     pcb_t *cur = *current_running;
     uint64_t pgdir = cur->pgdir << NORMAL_PAGE_SHIFT;
 
@@ -347,7 +348,7 @@ void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_
     }
 }
 
-void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid);
+void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t sepc);
 
 void k_exception_init() {
     for (int i = 0; i < IRQC_COUNT; i++) {
@@ -364,11 +365,11 @@ void k_exception_init() {
     exc_table[EXCC_STORE_PAGE_FAULT] = handle_pf_exc;
     exc_table[EXCC_INST_PAGE_FAULT] = handle_pf_exc;
     irq_ext_table[IRQC_EXT_VIRTIO_BLK_IEQ] = handler_virtio_intr;
-    k_spin_lock_with_owner_init(&kernel_exception_lock);
+    k_spin_lock_init(&kernel_exception_lock);
 }
 
-void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
-    k_print("cpuid: %d\n", cpuid);
+void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t sepc) {
+    k_print("cpuid: %d\n", (*current_running)->core_id);
 
     char *reg_name[] = {" ra  ", " sp  ", " gp  ", " tp  ", " t0  ", " t1  ", " t2  ", "s0/fp", " s1  ", " a0  ", " a1  ", " a2  ", " a3  ", " a4  ", " a5  ", " a6  ", " a7  ", " s2  ", " s3  ", " s4  ", " s5  ", " s6  ", " s7  ", " s8  ", " s9  ", " s10 ", " s11 ", " t3  ", " t4  ", " t5  ", " t6  "};
     for (int i = 0; i < NORMAL_REGS_NUM; i += 3) {
@@ -377,8 +378,8 @@ void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t
         }
         k_print("\n\r");
     }
-    k_print("sstatus: 0x%lx sbadaddr: 0x%lx scause: %lx\n\r", regs->sstatus, regs->sbadaddr, regs->scause);
-    k_print("stval: 0x%lx cause: %lx\n\r", stval, cause);
+    k_print("sstatus: 0x%lx stval: 0x%lx scause: %lx\n\r", regs->sstatus, regs->stval, regs->scause);
+    k_print("stval: 0x%lx cause: %lx sepc: %lx\n\r", stval, cause, sepc);
     k_print("sepc: 0x%lx\n\r", regs->sepc);
     k_print("mhartid: 0x%lx\n\r", k_smp_get_current_cpu_id());
 
@@ -398,25 +399,25 @@ void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t
     assert(0);
 }
 
-void kernel_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
+void kernel_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t sepc) {
     if (cause <= 63) {
         k_print("[ERROR] > kernel exception!\n");
-        handle_other(regs, stval, cause, cpuid);
+        k_print("stval: 0x%x, scause: %d, sepc: 0x%x\n", stval, cause, sepc);
+        assert(0);
     }
-    k_spin_lock_with_owner_acquire(&kernel_exception_lock);
-    current_running = k_smp_get_current_running();
+    k_spin_lock_acquire(&kernel_exception_lock);
+    k_smp_sync_current_pcb();
     uint64_t check = cause;
     if (check >> 63) {
-        irq_table[cause - ((uint64_t)1 << 63)](regs, stval, cause, cpuid);
+        irq_table[cause - ((uint64_t)1 << 63)](regs, stval, cause, sepc);
     } else {
-        exc_table[cause](regs, stval, cause, cpuid);
+        exc_table[cause](regs, stval, cause, sepc);
     }
-    sbi_set_timer(k_time_get_ticks() + TICKS_INTERVAL);
-    k_spin_lock_with_owner_release(&kernel_exception_lock);
+    k_spin_lock_release(&kernel_exception_lock);
 }
 
-long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause) {
+long sys_undefined_syscall(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t sepc) {
     k_print("> [ERROR] unknown syscall, undefined syscall number: %d\n!", regs->regs[17]);
-    handle_other(regs, interrupt, cause, k_smp_get_current_cpu_id());
+    handle_other(regs, interrupt, cause, sepc);
     return -1;
 }

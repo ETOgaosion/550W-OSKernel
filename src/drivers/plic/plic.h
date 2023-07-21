@@ -6,7 +6,7 @@
 void d_plic_init(void);
 
 // enable PLIC for each hart
-void d_plic_init_hart(void);
+void d_plic_init_hart(int hart);
 
 // ask PLIC what interrupt we should serve
 int d_plic_claim(void);

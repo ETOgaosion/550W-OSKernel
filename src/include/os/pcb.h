@@ -189,6 +189,8 @@ typedef struct pcb {
     regs_context_t *save_context;
     switchto_context_t *switch_context;
 
+    uint64_t core_id;
+
     bool in_use;
     elf_info_t elf;
     bool dynamic;

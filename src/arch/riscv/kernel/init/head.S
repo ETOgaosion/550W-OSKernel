@@ -4,9 +4,6 @@
 
 .section ".entry_function","ax"
 ENTRY(_start)
-
-  /* Use sscratch to get hart id */
-  csrw sscratch, a0
   bnez a0, core2
 
   /* Mask all interrupts */
@@ -38,7 +35,6 @@ clear_bss_done:
 
   /* Set up stack and prepare vm */
   li sp, 0x80501000
-  call prepare_vm
   call main
 
 core2:
@@ -59,7 +55,6 @@ core2:
   .option pop
   
   li sp, 0x80502000
-  call prepare_vm
   call main
   
   ret

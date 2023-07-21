@@ -3,6 +3,7 @@
 #include <asm/privileged.h>
 #include <asm/sbi.h>
 #include <asm/stack.h>
+#include <asm/vm.h>
 #include <drivers/plic/plic.h>
 #include <drivers/screen/screen.h>
 #include <drivers/virtio/virtio.h>
@@ -28,16 +29,18 @@ void wakeup_other_cores() {
 
 extern void kernel_exception_handler_entry();
 
-int kernel_start() {
-    int id = k_smp_get_current_cpu_id();
+int kernel_start(int mhartid) {
+    int id = mhartid;
     if (id != 0) {
         asm_w_stvec((uint64_t)kernel_exception_handler_entry);
 
         k_smp_lock_kernel();
 
-        d_plic_init_hart();
+        current_running = &current_running1;
 
-        current_running = k_smp_get_current_running();
+        k_smp_set_current_pcb(current_running1);
+
+        d_plic_init_hart(id);
     } else {
         // init kernel lock
         k_smp_init();
@@ -46,14 +49,16 @@ int kernel_start() {
 
         k_smp_lock_kernel();
 
-        k_sysinfo_init();
-
-        k_resources_init();
-
         // init Process Control Block (-_-!)
         k_pcb_init();
 
+        k_smp_set_current_pcb(current_running0);
+
         k_print("> [INIT] PCB initialization succeeded.\n\r");
+
+        k_sysinfo_init();
+
+        k_resources_init();
 
         // read CPU frequency
         k_time_init();
@@ -67,7 +72,7 @@ int kernel_start() {
 
         // init disk
         d_plic_init();
-        d_plic_init_hart();
+        d_plic_init_hart(id);
         d_virtio_disk_init();
         d_binit();
         k_print("> [INIT] Disk initialized successfully.\n\r");
@@ -101,11 +106,13 @@ int kernel_start() {
         k_pcb_scheduler(false);
         k_smp_unlock_kernel();
         k_smp_lock_kernel();
+        k_smp_sync_current_pcb();
     };
 }
 
 // jump from bootloader.
 // The beginning of everything >_< ~~~~~~~~~~~~~~
-int main() {
-    return kernel_start();
+int main(unsigned long mhartid) {
+    prepare_vm(mhartid);
+    return kernel_start(mhartid);
 }

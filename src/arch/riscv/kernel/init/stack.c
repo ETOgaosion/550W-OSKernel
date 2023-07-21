@@ -36,9 +36,10 @@ void init_context_stack(ptr_t kernel_stack, ptr_t user_stack, int argc, char *ar
     pt_regs->regs[reg_tp] = (reg_t)pcb;
     pt_regs->regs[reg_a0] = (reg_t)argc;
     pt_regs->regs[reg_a1] = (reg_t)argv;
+    pt_regs->sscratch = (reg_t)pcb;
     pt_regs->sepc = entry_point;
     pt_regs->sstatus = SR_SUM | SR_SPIE;
-    pt_regs->sbadaddr = 0;
+    pt_regs->stval = 0;
     pt_regs->scause = 0;
 
     switchto_context_t *sw_regs = (switchto_context_t *)(kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t));
@@ -67,8 +68,9 @@ void fork_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb) {
     // pt_regs->regs[8] = user_stack;
     pt_regs->sepc = cur_regs->sepc;
     pt_regs->sstatus = cur_regs->sstatus;
-    pt_regs->sbadaddr = cur_regs->sbadaddr;
+    pt_regs->stval = cur_regs->stval;
     pt_regs->scause = cur_regs->scause;
+    pt_regs->sscratch = (reg_t)pcb;
 
     switchto_context_t *sw_regs = (switchto_context_t *)(kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t));
     sw_regs->regs[switch_reg_ra] = (reg_t)user_ret_from_exception;
@@ -105,8 +107,9 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
     pt_regs->sepc = cur_regs->sepc;
 
     pt_regs->sstatus = cur_regs->sstatus;
-    pt_regs->sbadaddr = cur_regs->sbadaddr;
+    pt_regs->stval = cur_regs->stval;
     pt_regs->scause = cur_regs->scause;
+    pt_regs->sscratch = (reg_t)pcb;
 
     switchto_context_t *sw_regs = (switchto_context_t *)(kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t));
     sw_regs->regs[switch_reg_ra] = (reg_t)&user_ret_from_exception;

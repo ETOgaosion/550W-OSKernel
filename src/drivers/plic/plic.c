@@ -22,8 +22,7 @@ void d_plic_init(void) {
     writed(1, plic_base + DISK_IRQ * sizeof(uint32));
 }
 
-void d_plic_init_hart(void) {
-    int hart = k_smp_get_current_cpu_id();
+void d_plic_init_hart(int hart) {
     // set uart's enable bit for this hart's S-mode.
     *(uint32 *)PLIC_SENABLE(hart) = (1 << UART_IRQ) | (1 << DISK_IRQ);
     // set this hart's S-mode priority threshold to 0.
