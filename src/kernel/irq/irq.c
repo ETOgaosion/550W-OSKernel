@@ -307,28 +307,29 @@ PTE *check_pf(uint64_t va, PTE *pgdir) {
 void handle_disk_exc(uint64_t stval, PTE *pte_addr) {
     pcb_t *cur = *current_running;
     uint64_t newmem_addr = k_mm_alloc_mem(1, stval);
-    k_mm_map(stval, kva2pa(newmem_addr), (pa2kva(cur->pgdir << 12)));
+    k_mm_map(stval, kva2pa(newmem_addr), (pa2kva(cur->pgdir << NORMAL_PAGE_SHIFT)));
     k_mm_get_back_disk(stval, newmem_addr);
     (*pte_addr) = (*pte_addr) | 1;
 }
 
 void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
     pcb_t *cur = *current_running;
+    uint64_t pgdir = cur->pgdir << NORMAL_PAGE_SHIFT;
 
-    PTE *pte_addr = check_pf(stval, (pa2kva(cur->pgdir << 12)));
+    PTE *pte_addr = check_pf(stval, (pa2kva(pgdir)));
     if (pte_addr != 0) {
         PTE va_pte = *pte_addr;
         if (cause == EXCC_STORE_PAGE_FAULT) {
             // child process
             if (cur->father_pid != cur->pid && cur->father_pid != 0) {
-                k_mm_fork_page_helper(stval, (pa2kva(cur->pgdir << 12)), (pa2kva(pcb[cur->father_pid].pgdir << 12)));
+                k_mm_fork_page_helper(stval, (pa2kva(pgdir)), (pa2kva(pcb[cur->father_pid].pgdir << NORMAL_PAGE_SHIFT)));
             } else {
                 // father process
                 for (int i = 0; i < NUM_MAX_CHILD; i++) {
                     if (cur->child_pids[i] == 0) {
                         continue;
                     }
-                    k_mm_fork_page_helper(stval, (pa2kva(pcb[cur->child_pids[i]].pgdir << 12)), (pa2kva(cur->pgdir << 12)));
+                    k_mm_fork_page_helper(stval, (pa2kva(pcb[cur->child_pids[i]].pgdir << NORMAL_PAGE_SHIFT)), (pa2kva(pgdir)));
                 }
             }
             *pte_addr = (*pte_addr) | (3 << 6);
@@ -341,7 +342,7 @@ void handle_pf_exc(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_
             handle_disk_exc(stval, pte_addr);
         }
     } else { // No virtual-physical map
-        k_mm_alloc_page_helper(stval, (pa2kva(cur->pgdir << 12)));
+        k_mm_alloc_page_helper(stval, (pa2kva(pgdir)));
         local_flush_tlb_all();
     }
 }
@@ -367,18 +368,18 @@ void k_exception_init() {
 }
 
 void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
-    prints("cpuid: %d\n", cpuid);
+    k_print("cpuid: %d\n", cpuid);
 
     char *reg_name[] = {" ra  ", " sp  ", " gp  ", " tp  ", " t0  ", " t1  ", " t2  ", "s0/fp", " s1  ", " a0  ", " a1  ", " a2  ", " a3  ", " a4  ", " a5  ", " a6  ", " a7  ", " s2  ", " s3  ", " s4  ", " s5  ", " s6  ", " s7  ", " s8  ", " s9  ", " s10 ", " s11 ", " t3  ", " t4  ", " t5  ", " t6  "};
     for (int i = 0; i < NORMAL_REGS_NUM; i += 3) {
         for (int j = 0; j < 3 && i + j < 31; ++j) {
-            prints("%s : %016lx ", reg_name[i + j], regs->regs[i + j]);
+            k_print("%s : %016lx ", reg_name[i + j], regs->regs[i + j]);
         }
-        prints("\n\r");
+        k_print("\n\r");
     }
-    prints("sstatus: 0x%lx sbadaddr: 0x%lx scause: %lx\n\r", regs->sstatus, regs->sbadaddr, regs->scause);
-    prints("stval: 0x%lx cause: %lx\n\r", stval, cause);
-    prints("sepc: 0x%lx\n\r", regs->sepc);
+    k_print("sstatus: 0x%lx sbadaddr: 0x%lx scause: %lx\n\r", regs->sstatus, regs->sbadaddr, regs->scause);
+    k_print("stval: 0x%lx cause: %lx\n\r", stval, cause);
+    k_print("sepc: 0x%lx\n\r", regs->sepc);
     k_print("mhartid: 0x%lx\n\r", k_smp_get_current_cpu_id());
 
     // uintptr_t fp = regs->regs[8], sp = regs->regs[2];
@@ -399,6 +400,7 @@ void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t
 
 void kernel_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t cpuid) {
     if (cause <= 63) {
+        k_print("[ERROR] > kernel exception!\n");
         handle_other(regs, stval, cause, cpuid);
     }
     k_spin_lock_with_owner_acquire(&kernel_exception_lock);

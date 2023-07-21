@@ -115,7 +115,7 @@ ptr_t k_mm_alloc_mem(int numPage, uint64_t user_va) {
         // no enough page allowed
         ret = allmem[allocpid][STARTPAGE];
         k_mm_move_to_disk(allmem[allocpid][STARTPAGE], alluserva[allocpid][STARTPAGE]);
-        k_mm_en_invalid(alluserva[allocpid][STARTPAGE], (pa2kva(pcb[allocpid].pgdir << 12)));
+        k_mm_en_invalid(alluserva[allocpid][STARTPAGE], (pa2kva(pcb[allocpid].pgdir << NORMAL_PAGE_SHIFT)));
         for (int i = STARTPAGE; i < allmem[allocpid][0]; i++) {
             allmem[allocpid][i] = allmem[allocpid][i + 1];
         }
@@ -194,7 +194,7 @@ uint64_t k_mm_alloc_newva() {
 long k_mm_shm_page_get(int key) {
     for (int i = 0; i < shm_num; i++) {
         if (shm_all[i].key == key && shm_all[i].pro_num != 0) {
-            k_mm_map(shm_all[i].uva, kva2pa(shm_all[i].kva), (pa2kva((*current_running)->pgdir << 12)));
+            k_mm_map(shm_all[i].uva, kva2pa(shm_all[i].kva), (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
             shm_all[i].pro_num++;
             return shm_all[i].uva;
         }
@@ -211,7 +211,7 @@ long k_mm_shm_page_get(int key) {
     }
     shm_all[num].key = key;
     shm_all[num].uva = k_mm_alloc_newva();
-    shm_all[num].kva = k_mm_alloc_page_helper(shm_all[num].uva, (pa2kva((*current_running)->pgdir << 12)));
+    shm_all[num].kva = k_mm_alloc_page_helper(shm_all[num].uva, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
     shm_all[num].pro_num = 1;
     if (num == shm_num) {
         shm_num++;
@@ -223,7 +223,7 @@ long k_mm_shm_page_dt(uintptr_t addr) {
     for (int i = 0; i < shm_num; i++) {
         if (shm_all[i].uva == addr) {
             uint64_t va = addr;
-            PTE *pgdir = pa2kva((*current_running)->pgdir << 12);
+            PTE *pgdir = pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT);
             va &= VA_MASK;
             uint64_t vpn2 = va >> (NORMAL_PAGE_SHIFT + PPN_BITS + PPN_BITS);
             uint64_t vpn1 = (vpn2 << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT + PPN_BITS));
@@ -512,13 +512,13 @@ long sys_brk(unsigned long brk) {
     }
     if (brk < (*current_running)->elf.edata) {
         for (uintptr_t iterator = brk; iterator < (*current_running)->elf.edata; iterator += NORMAL_PAGE_SIZE) {
-            if (get_kva_of(iterator, (*current_running)->pgdir)) {
-                free_page_helper(iterator, (*current_running)->pgdir);
+            if (get_kva_of(iterator, (*current_running)->pgdir << NORMAL_PAGE_SHIFT)) {
+                free_page_helper(iterator, (*current_running)->pgdir << NORMAL_PAGE_SHIFT);
             }
         }
     } else {
         for (uintptr_t iterator = (*current_running)->elf.edata; iterator < brk; iterator += NORMAL_PAGE_SIZE) {
-            k_mm_alloc_page_helper(iterator, (pa2kva((*current_running)->pgdir)));
+            k_mm_alloc_page_helper(iterator, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
             local_flush_tlb_all();
         }
     }

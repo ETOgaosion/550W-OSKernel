@@ -142,10 +142,10 @@ static int shell_help(int argc, char *argv[]) {
 //     return 0;
 // }
 
-static int shell_echo_once(const char *argv) {
-    printf("\n%s", argv);
-    return 0;
-}
+// static int shell_echo_once(const char *argv) {
+//     printf("\n%s", argv);
+//     return 0;
+// }
 
 static int shell_exec(int argc, char *argv[]) {
     char *first_arg = argv[0];
@@ -417,8 +417,8 @@ static int shell_clear(int argc, char *argv[]) {
 
 #ifdef FINAL
 static void test() {
-    char *busybox_echo_arg[] = {"./test_all.sh"};
-    int pid = exec("busybox", (char *const *)busybox_echo_arg, NULL);
+    // char *busybox_echo_arg[] = {"./test_all.sh"};
+    int pid = exec("time-test", NULL, NULL);
     waitpid(pid, NULL, 0);
 }
 #endif
