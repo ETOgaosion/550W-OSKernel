@@ -30,7 +30,7 @@ BOARD_OPTS	+= -bios default
 BOARD_OPTS	+= -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
 
 QEMU_OPTS	= -machine virt 
-QEMU_OPTS	+= -m 128M
+QEMU_OPTS	+= -m 2560M
 QEMU_OPTS	+= -nographic
 QEMU_OPTS	+= -smp ${CPUS}
 QEMU_OPTS	+= -bios $(BIOS)

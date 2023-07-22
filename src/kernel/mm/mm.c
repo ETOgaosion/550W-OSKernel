@@ -8,8 +8,9 @@
 #include <os/pcb.h>
 #include <os/smp.h>
 
-#define MAXPAGES 1000
+#define MAXPAGES 2000
 #define STARTPAGE 30
+#define MAXPROCS 20
 
 ptr_t memCurr = FREEMEM;
 ptr_t k_mem = FREEMEMK;
@@ -19,10 +20,10 @@ int freepg_num = 0;
 
 uint64_t diskpg[1000];
 uint64_t freepg[1000];
-uint64_t allpg[20][MAXPAGES];
-uint64_t allmem[20][MAXPAGES];
+uint64_t allpg[MAXPROCS][MAXPAGES];
+uint64_t allmem[MAXPROCS][MAXPAGES];
 uint64_t diskpg[1000];
-uint64_t alluserva[20][MAXPAGES];
+uint64_t alluserva[MAXPROCS][MAXPAGES];
 int shm_num = 0;
 struct shm {
     int pro_num;
@@ -112,6 +113,7 @@ ptr_t k_mm_alloc_mem(int numPage, uint64_t user_va) {
     ptr_t ret;
     int allocpid = (*current_running)->pid;
     if (allmem[allocpid][0] >= MAXPAGES) {
+        goto noswap;
         // no enough page allowed
         ret = allmem[allocpid][STARTPAGE];
         k_mm_move_to_disk(allmem[allocpid][STARTPAGE], alluserva[allocpid][STARTPAGE]);
@@ -126,6 +128,7 @@ ptr_t k_mm_alloc_mem(int numPage, uint64_t user_va) {
         alluserva[allocpid][alluserva[allocpid][0]] = user_va;
         return ret;
     }
+noswap:
     if (freepg_num == 0) {
         ret = K_ROUND(memCurr, PAGE_SIZE);
         memCurr = ret + numPage * PAGE_SIZE;
@@ -393,14 +396,14 @@ void k_mm_map_kp(uint64_t va, uint64_t pa, PTE *pgdir) {
     set_attribute(&pld[vpn0], _PAGE_PRESENT | _PAGE_READ | _PAGE_WRITE | _PAGE_EXEC | _PAGE_ACCESSED | _PAGE_DIRTY);
 }
 
-void map_fs_space() {
-    int size = 1000;
-    uint64_t offset = 0;
-    for (int i = 0; i < size; i++) {
-        k_mm_map_kp(FS_KERNEL_ADDR + offset, kva2pa(FS_KERNEL_ADDR), pa2kva(PGDIR_PA));
-        offset += 0x1000;
-    }
-}
+// void map_fs_space() {
+//     int size = 1000;
+//     uint64_t offset = 0;
+//     for (int i = 0; i < size; i++) {
+//         k_mm_map_kp(FS_KERNEL_ADDR + offset, kva2pa(FS_KERNEL_ADDR), pa2kva(PGDIR_PA));
+//         offset += 0x1000;
+//     }
+// }
 
 void k_mm_map(uint64_t va, uint64_t pa, PTE *pgdir) {
     va &= VA_MASK;

@@ -3,14 +3,14 @@
 #include <common/types.h>
 #include <os/ipc.h>
 
-#define FS_KERNEL_ADDR 0xffffffc084000000lu
+// #define FS_KERNEL_ADDR 0xffffffc084000000lu
 
 #define START_BLOCK 2000
 #define MEM_SIZE 32
 #define PAGE_SIZE 4096 // 4K
 #define INIT_KERNEL_STACK 0xffffffc081000000lu
-#define FREEMEM (INIT_KERNEL_STACK + PAGE_SIZE * 10)
-#define FREEMEMK 0xffffffc083000000lu
+#define FREEMEMK (INIT_KERNEL_STACK + PAGE_SIZE * 10)
+#define FREEMEM 0xffffffc083000000lu
 #define USER_STACK_ADDR 0xf00010000lu
 
 /* [FEATURE REQUEST]:

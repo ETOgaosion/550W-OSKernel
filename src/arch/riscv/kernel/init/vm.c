@@ -40,7 +40,7 @@ void setup_vm() {
     // address(kpa) kva = kpa + 0xffff_ffc0_0000_0000 use 2MB page,
     // map all physical memory
     PTE *early_pgdir = (PTE *)PGDIR_PA;
-    for (uint64_t kva = 0xffffffc080200000lu; kva < 0xffffffc090000000lu; kva += 0x200000lu) {
+    for (uint64_t kva = 0xffffffc080200000lu; kva < 0xffffffc200000000lu; kva += 0x200000lu) {
         map_page(kva, kva2pa(kva), early_pgdir);
     }
     // map boot address
