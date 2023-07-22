@@ -22,7 +22,7 @@ uint64_t freepg[1000];
 uint64_t allpg[20][MAXPAGES];
 uint64_t allmem[20][MAXPAGES];
 uint64_t diskpg[1000];
-uint64_t alluserva[20][100];
+uint64_t alluserva[20][MAXPAGES];
 int shm_num = 0;
 struct shm {
     int pro_num;
@@ -139,8 +139,10 @@ ptr_t k_mm_alloc_mem(int numPage, uint64_t user_va) {
         }
         allmem[allocpid][0]++;
         allmem[allocpid][allmem[allocpid][0]] = ret;
-        alluserva[allocpid][0]++;
-        alluserva[allocpid][alluserva[allocpid][0]] = user_va;
+        if(alluserva[allocpid][0]+1 < MAXPAGES) {
+            alluserva[allocpid][0]++;
+            alluserva[allocpid][alluserva[allocpid][0]] = user_va;
+        }
     }
     clear_pgdir(ret);
     return ret;
@@ -344,11 +346,11 @@ uint64_t k_mm_get_kva_from_va(uint64_t va, PTE *pgdir) {
     uint64_t vpn1 = (vpn2 << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT + PPN_BITS));
     uint64_t vpn0 = ((va >> (NORMAL_PAGE_SHIFT + PPN_BITS)) << PPN_BITS) ^ (va >> (NORMAL_PAGE_SHIFT));
     if (pgdir[vpn2] == 0) {
-        assert(0);
+        return 0;
     }
     PTE *pmd = k_mm_get_kva(pgdir[vpn2]);
     if (pmd[vpn1] == 0) {
-        assert(0);
+       return 0;
     }
     PTE *pld = k_mm_get_kva(pmd[vpn1]);
     return (uint64_t)k_mm_get_kva(pld[vpn0]);
@@ -517,7 +519,11 @@ long sys_brk(unsigned long brk) {
             }
         }
     } else {
-        for (uintptr_t iterator = (*current_running)->elf.edata; iterator < brk; iterator += NORMAL_PAGE_SIZE) {
+        uintptr_t iterator = ((*current_running)->elf.edata >> NORMAL_PAGE_SHIFT) << NORMAL_PAGE_SHIFT;
+        if(((*current_running)->elf.edata & ((1 << NORMAL_PAGE_SHIFT) -1)) != 0) {
+            iterator = iterator + NORMAL_PAGE_SIZE;
+        }
+        for (; iterator < brk; iterator += NORMAL_PAGE_SIZE) {
             k_mm_alloc_page_helper(iterator, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
             local_flush_tlb_all();
         }

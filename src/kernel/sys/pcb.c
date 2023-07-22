@@ -425,7 +425,7 @@ long k_pcb_scheduler(bool voluntary) {
         enqueue(&curr->list, &ready_queue, ENQUEUE_LIST_PRIORITY);
     }
     pcb_t *next_pcb = dequeue(&ready_queue, DEQUEUE_LIST_FIFO, curr->sched_policy);
-    if (!next_pcb || next_pcb == curr) {
+    if (!next_pcb) {
         return 0;
     }
     if (!voluntary) {

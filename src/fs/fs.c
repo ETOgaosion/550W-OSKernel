@@ -886,7 +886,7 @@ long sys_setxattr(const char *path, const char *name, const void *value, size_t 
     return 0;
 }
 
-long sys_lsetxattr(const char *path, const char *name, const void *value, size_t, int flags) {
+long sys_lsetxattr(const char *path, const char *name, const void *value, size_t size, int flags) {
     return 0;
 }
 
@@ -1530,7 +1530,7 @@ long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offs
         return (long)-1;
     }
     uintptr_t ret = k_mm_alloc_newva();
-    uintptr_t kva = k_mm_alloc_page_helper(ret, (pa2kva((*current_running)->pgdir)));
+    uintptr_t kva = k_mm_alloc_page_helper(ret, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
 
     uint8_t *data = read_whole_dir(file->first_cluster, file->size);
     k_memcpy((uint8_t *)kva, &data[offset], length);
