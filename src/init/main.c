@@ -91,8 +91,10 @@ int kernel_start(int mhartid) {
 
         // init built-in tasks
         sys_spawn("shell");
-        sys_spawn("bubble");
-        sys_spawn("bubble");
+        int bb0 = sys_spawn("bubble");
+        int bb1 = sys_spawn("bubble");
+        pcb[bb0].priority.priority = 0;
+        pcb[bb1].priority.priority = 0;
         k_print("> [INIT] daemons initialized successfully.\n\r");
 
         wakeup_other_cores();
