@@ -340,7 +340,7 @@ uintptr_t k_mm_alloc_page_helper(uintptr_t va, PTE *pgdir) {
     uint64_t kva = k_mm_alloc_mem(1, va);
     uint64_t pa = kva2pa(kva);
     k_mm_map(va, pa, pgdir);
-    return kva;
+    return kva | (va & 0xfff);
 }
 
 uint64_t k_mm_get_kva_from_va(uint64_t va, PTE *pgdir) {

@@ -2,7 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 
-// #define FINAL
+#define FINAL
 
 #define SHELL_BEGIN 148
 #define SHELL_ARG_MAX_NUM 5
@@ -417,8 +417,8 @@ static int shell_clear(int argc, char *argv[]) {
 
 #ifdef FINAL
 static void test() {
-    char *busybox_echo_arg[] = {"./test_all.sh"};
-    int pid = exec("busybox", (char *const *)busybox_echo_arg, NULL);
+    // char *busybox_echo_arg[] = {"./test_all.sh"};
+    int pid = execve("time-test", NULL, NULL);
     waitpid(pid, NULL, 0);
 }
 #endif

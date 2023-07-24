@@ -39,7 +39,7 @@ uintptr_t load_elf(elf_info_t *target, bool *is_dynamic, unsigned char elf_binar
 
         if (phdr->p_type == PT_LOAD) {
             for (i = 0; i < phdr->p_memsz; i += NORMAL_PAGE_SIZE) {
-                if (i < phdr->p_filesz) {
+                // if (i < phdr->p_filesz) {
                     unsigned char *bytes_of_page = (unsigned char *)prepare_page_for_va((uintptr_t)(phdr->p_vaddr + i), pgdir);
                     k_memcpy(bytes_of_page, elf_binary + phdr->p_offset + i, MIN(phdr->p_filesz - i, NORMAL_PAGE_SIZE));
                     if (phdr->p_filesz - i < NORMAL_PAGE_SIZE) {
@@ -47,12 +47,12 @@ uintptr_t load_elf(elf_info_t *target, bool *is_dynamic, unsigned char elf_binar
                             bytes_of_page[j] = 0;
                         }
                     }
-                } else {
-                    long *bytes_of_page = (long *)prepare_page_for_va((uintptr_t)(phdr->p_vaddr + i), pgdir);
-                    for (int j = 0; j < NORMAL_PAGE_SIZE / sizeof(long); ++j) {
-                        bytes_of_page[j] = 0;
-                    }
-                }
+                // } else {
+                //     long *bytes_of_page = (long *)prepare_page_for_va((uintptr_t)(phdr->p_vaddr + i), pgdir);
+                //     for (int j = 0; j < NORMAL_PAGE_SIZE / sizeof(long); ++j) {
+                //         bytes_of_page[j] = 0;
+                //     }
+                // }
                 target->edata = phdr->p_vaddr + phdr->p_memsz;
                 if (is_first) {
                     target->text_begin = phdr->p_vaddr;
