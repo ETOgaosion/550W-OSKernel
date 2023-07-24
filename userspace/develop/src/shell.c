@@ -418,7 +418,7 @@ static int shell_clear(int argc, char *argv[]) {
 #ifdef FINAL
 static void test() {
     // char *busybox_echo_arg[] = {"./test_all.sh"};
-    int pid = execve("time-test", NULL, NULL);
+    int pid = exec("time-test", NULL, NULL);
     waitpid(pid, NULL, 0);
 }
 #endif
