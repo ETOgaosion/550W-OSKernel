@@ -182,11 +182,11 @@ uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_sta
     kargv += k_strlen(file_name) + 1;
 
     /* 5. set aux */
-    aux_elem_t aux_vec[AUX_CNT];
+    // aux_elem_t aux_vec[AUX_CNT];
     set_aux_vec((aux_elem_t *)kargv_pointer, &new_pcb->elf, file_pointer, new_argv);
 
     /* 6. copy aux on the user_stack */
-    k_memcpy((uint8_t *)kargv_pointer, (const uint8_t *)aux_vec, sizeof(aux_elem_t) * (AUX_CNT + 1));
+    // k_memcpy((uint8_t *)kargv_pointer, (const uint8_t *)aux_vec, sizeof(aux_elem_t) * (AUX_CNT + 1));
     *((uintptr_t *)kargv_pointer + AUX_CNT + 1) = 0;
 
     /* now user_sp is user_stack - total_length */
