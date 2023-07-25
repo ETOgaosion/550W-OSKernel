@@ -223,6 +223,13 @@ void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause,
     if (k_time_cmp_utime_0((time_val_t *)&(*current_running)->prof_itime)) {
         k_time_minus_utime((time_val_t *)&(*current_running)->prof_itime, &last_run, NULL);
     }
+    nanotime_val_t now_nano, gap;
+    k_time_get_nanotime(&now_nano);
+    k_time_minus_nanotime(&now_nano, (nanotime_val_t *)&global_clocks.real_time_clock.nano_clock, &gap);
+    k_time_add_nanotime((nanotime_val_t *)&global_clocks.real_time_clock.nano_clock, &gap, NULL);
+    k_time_add_nanotime((nanotime_val_t *)&global_clocks.tai_clock.nano_clock, &gap, NULL);
+    k_time_add_nanotime((nanotime_val_t *)&global_clocks.monotonic_clock.nano_clock, &gap, NULL);
+    k_time_add_nanotime((nanotime_val_t *)&global_clocks.boot_time_clock.nano_clock, &gap, NULL);
 
     /* interrupt handler */
     uint64_t check = cause;
