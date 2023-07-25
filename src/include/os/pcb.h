@@ -232,6 +232,7 @@ typedef struct pcb {
 
     /* signal handler */
     bool handling_signal;
+    unsigned long flags;
     
     sigaction_t *sigactions;
     uint64_t sig_recv;

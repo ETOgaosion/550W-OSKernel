@@ -598,6 +598,9 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     if (flags & CLONE_CHILD_CLEARTID) {
         pcb[i].clear_ctid = (uint32_t *)child_tid;
     }
+    if (flags & SIGCHLD) {
+        pcb[i].flags |= SIGCHLD;
+    }
 
     pcb[fpid].child_pids[pcb[fpid].child_num] = i;
     pcb[fpid].child_num++;
@@ -639,7 +642,12 @@ int kill(pid_t pid, int exit_status) {
     if (target->father_pid >= 0) {
         pcb_t *parent = &pcb[target->father_pid];
         if (!parent->timer.initialized && parent->status == TASK_BLOCKED) {
-            k_pcb_unblock(&parent->list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+            if (target->flags & SIGCHLD) {
+                k_signal_send_signal(SIGCHLD, parent);
+            }
+            else {
+                k_pcb_unblock(&parent->list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+            }
         }
         parent->dead_child_stime += k_time_get_ticks_from_time(&target->resources.ru_stime);
         parent->dead_child_utime += k_time_get_ticks_from_time(&target->resources.ru_utime);
