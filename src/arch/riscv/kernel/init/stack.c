@@ -38,7 +38,7 @@ void init_context_stack(ptr_t kernel_stack, ptr_t user_stack, int argc, char *ar
     pt_regs->regs[reg_a1] = (reg_t)argv;
     pt_regs->sscratch = (reg_t)pcb;
     pt_regs->sepc = entry_point;
-    pt_regs->sstatus = SR_SUM | SR_SPIE;
+    pt_regs->sstatus = SR_SUM | SR_SPIE | SR_FS;
     pt_regs->stval = 0;
     pt_regs->scause = 0;
 

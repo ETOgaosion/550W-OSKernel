@@ -4,7 +4,7 @@
 #include <os/sys.h>
 #include <os/time.h>
 
-uname_t uname_550w = {.sysname = "MOSS", .nodename = "oscomp", .release = "1.0.0", .version = "#1", .machine = "550W", .domainname = "bluespace.moss.com"};
+uname_t uname_550w = {.sysname = "MOSS", .nodename = "oscomp", .release = "6.0.0", .version = "#1", .machine = "550W", .domainname = "bluespace.moss.com"};
 
 char hostname[100] = "bluespace";
 
