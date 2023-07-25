@@ -12,7 +12,7 @@ sigaction_table_t sig_table[NUM_MAX_SIGNAL];
  * @param signum the sig id
  * @param pcb the target pcb
  */
-void k_send_signal(int signum, pcb_t *pcb) {
+void k_signal_send_signal(int signum, pcb_t *pcb) {
     if (signum == 0) {
         return;
     }
@@ -60,7 +60,7 @@ void k_signal_handler() {
     }
     (*current_running)->handling_signal = true;
     (*current_running)->resources.ru_nsignals++;
-    for (uint8_t i = 0; i < NUM_SIG; i++) {
+    for (uint8_t i = 0; i < NUM_MAX_SIGNAL; i++) {
         if (ISSET_SIG(i + 1, *current_running)) {
             // 1. clear this signal
             CLEAR_SIG(i + 1, *current_running);
@@ -106,7 +106,7 @@ void k_signal_handler() {
 }
 
 long sys_rt_sigaction(int signum, const sigaction_t *act, sigaction_t *oldact, size_t sigsetsize) {
-    if (signum > NUM_SIG) {
+    if (signum > NUM_MAX_SIGNAL) {
         return -EINVAL;
     }
     sigaction_t *sig = &(*current_running)->sigactions[signum - 1];
@@ -150,4 +150,35 @@ long sys_rt_sigreturn() {
     (*current_running)->switch_context = (switchto_context_t *)(((uint64_t)(*current_running)->switch_context) + offset);
     exit_signal_trampoline();
     return 0;
+}
+
+
+void k_signal_init_sig_table() {
+    for (int i = 0; i < NUM_MAX_SIGNAL; i++)
+    {
+        sig_table[i].num = 0;
+        sig_table[i].used = 0;
+        k_memset(sig_table[i].sigactions, 0, NUM_MAX_SIGNAL * sizeof(sigaction_t));
+    }
+}
+
+sigaction_t *k_signal_alloc_sig_table() {
+    for (int i = 0; i < NUM_MAX_SIGNAL; i++)
+    {
+        if(sig_table[i].used == 0){
+            sig_table[i].used = 1;
+            sig_table[i].num = 1;
+            return sig_table[i].sigactions;
+        }
+    }
+    return NULL;
+}
+
+void k_signal_free_sig_table(sigaction_t* sig_in) {
+    sigaction_table_t* st =  list_entry((const sigaction_t (*)[64])sig_in, sigaction_table_t, sigactions);  
+    st->num --;
+    if(st->num == 0){
+        st->used = 0;
+        k_memset(sig_in, 0, NUM_MAX_SIGNAL * sizeof(sigaction_t));
+    }
 }

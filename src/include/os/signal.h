@@ -10,8 +10,6 @@
 
 #define NUM_MAX_SIGPENDING 16
 
-#define NUM_SIG 34
-
 #define SIGHUP 1
 #define SIGINT 2
 #define SIGQUIT 3
@@ -157,13 +155,16 @@ typedef struct ucontext {
 typedef struct sigaction_table {
     int used;
     int num; // the number of process;
-    sigaction_t sigactions[NUM_SIG];
+    sigaction_t sigactions[NUM_MAX_SIGNAL];
 } sigaction_table_t;
 
 extern void enter_signal_trampoline();
 extern void exit_signal_trampoline();
 
 void k_signal_handler();
+void k_signal_init_sig_table();
+sigaction_t *k_signal_alloc_sig_table();
+void k_signal_free_sig_table(sigaction_t* sig_in);
 
 long sys_tkill(pid_t pid, int sig);
 long sys_tgkill(pid_t tgid, pid_t pid, int sig);

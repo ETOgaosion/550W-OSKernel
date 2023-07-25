@@ -67,8 +67,8 @@ int kernel_start(int mhartid) {
         k_syscall_init();
         k_print("> [INIT] System call initialized successfully.\n\r");
 
-        // init screen (QAQ)
         k_exception_init();
+        k_signal_init_sig_table();
 
         // init disk
         d_plic_init();

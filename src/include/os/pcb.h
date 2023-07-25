@@ -232,6 +232,7 @@ typedef struct pcb {
 
     /* signal handler */
     bool handling_signal;
+    
     sigaction_t *sigactions;
     uint64_t sig_recv;
     uint64_t sig_pend;
@@ -290,7 +291,7 @@ void k_pcb_sleep(void *chan, spin_lock_t *lk);
 void k_pcb_wakeup(void *chan);
 int k_pcb_count();
 
-extern void k_send_signal(int signum, pcb_t *pcb);
+extern void k_signal_send_signal(int signum, pcb_t *pcb);
 
 long sys_spawn(const char *file_name);
 long sys_fork(void);

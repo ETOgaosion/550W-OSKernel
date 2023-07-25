@@ -55,7 +55,7 @@ pid_t nextpid() {
  * @param father_pid
  * @param core_mask
  */
-void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int tid, int uid, int father_pid, uint8_t core_mask) {
+void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int tid, int uid, int father_pid, uint8_t core_mask, sigaction_t *sig) {
     pcb_t *target = &pcb[pcb_i];
     k_bzero((uint8_t *)target->name, sizeof(target->name));
     k_memcpy((uint8_t *)target->name, (uint8_t *)name, k_strlen(name));
@@ -92,7 +92,7 @@ void init_pcb_i(char *name, int pcb_i, task_type_t type, int pid, int tid, int u
     target->core_mask[0] = core_mask;
     target->personality = 0;
     target->handling_signal = false;
-    target->sigactions = NULL;
+    target->sigactions = sig;
     target->sig_recv = 0;
     target->sig_pend = 0;
     target->sig_mask = 0;
@@ -386,15 +386,15 @@ void check_itimers() {
     /* check timing */
     bool time_up = false;
     if (k_time_cmp_utime_0(&(*current_running)->real_itime.it_value) < 0) {
-        k_send_signal(SIGALRM, *current_running);
+        k_signal_send_signal(SIGALRM, *current_running);
         time_up = true;
     }
     if (k_time_cmp_utime_0(&(*current_running)->virt_itime.it_value) < 0) {
-        k_send_signal(SIGVTALRM, *current_running);
+        k_signal_send_signal(SIGVTALRM, *current_running);
         time_up = true;
     }
     if (k_time_cmp_utime_0(&(*current_running)->prof_itime.it_value) < 0) {
-        k_send_signal(SIGPROF, *current_running);
+        k_signal_send_signal(SIGPROF, *current_running);
         time_up = true;
     }
     if (time_up) {
@@ -501,7 +501,7 @@ int k_pcb_count() {
 long spawn(const char *file_name) {
     int i = nextpid();
 
-    init_pcb_i((char *)file_name, i, USER_PROCESS, i, 0, 0, (*current_running)->father_pid, (*current_running)->core_mask[0]);
+    init_pcb_i((char *)file_name, i, USER_PROCESS, i, 0, 0, (*current_running)->father_pid, (*current_running)->core_mask[0], k_signal_alloc_sig_table());
 
     ptr_t kernel_stack = get_kernel_address(i);
     ptr_t user_stack_kva = kernel_stack - STACK_SIZE;
@@ -535,7 +535,7 @@ long spawn(const char *file_name) {
 }
 
 long exec(int target_pid, int father_pid, const char *file_name, const char *argv[], const char *envp[]) {
-    init_pcb_i((char *)file_name, target_pid, USER_PROCESS, target_pid, 0, 0, father_pid, (*current_running)->core_mask[0]);
+    init_pcb_i((char *)file_name, target_pid, USER_PROCESS, target_pid, 0, 0, father_pid, (*current_running)->core_mask[0], k_signal_alloc_sig_table());
 
     ptr_t kernel_stack = get_kernel_address(target_pid);
     ptr_t user_stack_kva = kernel_stack - STACK_SIZE;
@@ -578,7 +578,16 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     int name_len = k_min(k_strlen((*current_running)->name), 14);
     k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
     k_strcat(name, "_child");
-    init_pcb_i(name, i, USER_PROCESS, i, 0, 0, fpid, (*current_running)->core_mask[0]);
+    sigaction_t *sig = (*current_running)->sigactions;
+    if (!(flags & CLONE_SIGHAND)) {
+        sig = k_signal_alloc_sig_table();
+        k_memcpy((uint8_t *)sig, (uint8_t *)(*current_running)->sigactions, NUM_MAX_SIGNAL * sizeof(sigaction_t));
+    }
+    else {
+        sigaction_table_t *st = list_entry((const sigaction_t (*)[64])sig, sigaction_table_t, sigactions);
+        st->num++;
+    }
+    init_pcb_i(name, i, USER_PROCESS, i, 0, 0, fpid, (*current_running)->core_mask[0], (*current_running)->sigactions);
 
     if (flags & CLONE_CHILD_SETTID) {
         *(int *)child_tid = pcb[i].tid;
@@ -650,6 +659,7 @@ int kill(pid_t pid, int exit_status) {
             pcb[i].father_pid = target->father_pid;
         }
     }
+    k_signal_free_sig_table(target->sigactions);
     if (target->list.next) {
         list_del(&target->list);
     }
@@ -677,7 +687,7 @@ long sys_fork() {
     int name_len = k_min(k_strlen((*current_running)->name), 14);
     k_memcpy((uint8_t *)name, (uint8_t *)(*current_running)->name, name_len);
     k_strcat(name, "_child");
-    init_pcb_i(name, i, USER_PROCESS, i, 0, 0, fpid, (*current_running)->core_mask[0]);
+    init_pcb_i(name, i, USER_PROCESS, i, 0, 0, fpid, (*current_running)->core_mask[0], k_signal_alloc_sig_table());
 
     pcb[fpid].child_pids[pcb[fpid].child_num] = i;
     pcb[fpid].child_num++;
@@ -736,9 +746,9 @@ long sys_tkill(pid_t pid, int sig) {
         return -EINVAL;
     }
     if (pcb[pid].father_pid) {
-        k_send_signal(SIGCHLD, &pcb[pcb[pid].father_pid]);
+        k_signal_send_signal(SIGCHLD, &pcb[pcb[pid].father_pid]);
     }
-    k_send_signal(sig, &pcb[pid]);
+    k_signal_send_signal(sig, &pcb[pid]);
     return 0;
 }
 
@@ -747,9 +757,9 @@ long sys_tgkill(pid_t tgid, pid_t pid, int sig) {
         return -EINVAL;
     }
     if (pcb[pid].father_pid) {
-        k_send_signal(SIGCHLD, &pcb[pcb[pid].father_pid]);
+        k_signal_send_signal(SIGCHLD, &pcb[pcb[pid].father_pid]);
     }
-    k_send_signal(sig, &pcb[pid]);
+    k_signal_send_signal(sig, &pcb[pid]);
     return 0;
 }
 
