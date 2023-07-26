@@ -2,6 +2,7 @@
 
 #include <common/types.h>
 #include <os/time.h>
+// #include <fs/fat32.h>
 
 // #define O_RDONLY 0x000
 // #define O_WRONLY 0x001
@@ -34,6 +35,11 @@
 #define FD_SETIDXMASK (8 * sizeof(unsigned long))
 #define FD_SETBITMASK (8 * sizeof(unsigned long) - 1)
 
+#define F_OK 0
+#define R_OK 4
+#define W_OK 2
+#define X_OK 1
+
 typedef struct super_block {
     int magic;
     int fs_start_sec;
@@ -50,6 +56,27 @@ typedef struct super_block {
     int inode_used;
     int root_inode_offset;
 } super_block_t;
+
+#define INODE_DIR  1
+#define INODE_FILE 0
+#pragma pack(2)
+typedef struct inode {
+	ptr_t	        i_mapping;	    //page cache addr
+	uint16_t        i_ino;  		//inode num
+	uint16_t     	i_upper;		//dir inode num
+    uint8_t	        i_type;			//file type 0file 1dir
+    uint8_t         i_link;			//file link num
+    uint32_t        i_fclus;        //first file cluster 
+    int             i_offset;		//dentry offset in upper dir
+    // ptr_t	        padding1;
+    // ptr_t	        padding2;
+    // ptr_t	        padding3;
+    // ptr_t	        padding4;
+    ptr_t	        padding5;
+    // uint32_t	    padding6;
+    uint16_t        padding7;
+}inode_t;
+#pragma pack()
 
 typedef struct dir_entry {
     char name[20];

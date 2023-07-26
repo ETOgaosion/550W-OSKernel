@@ -241,6 +241,7 @@ typedef struct pcb {
 
     pcb_mbox_t *mbox;
 
+    list_head fd_head;
     /* time */
     kernel_timeval_t stime_last; // last time into kernel
     kernel_timeval_t utime_last; // last time out kernel

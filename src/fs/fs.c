@@ -1,6 +1,6 @@
 #include <asm/pgtable.h>
 #include <asm/sbi.h>
-// #include <fs/fs.h>
+
 #include <arch/riscv/include/asm/io.h>
 #include <drivers/screen/screen.h>
 #include <drivers/virtio/virtio.h>
@@ -9,15 +9,26 @@
 #include <fs/fs.h>
 #include <lib/stdio.h>
 #include <lib/string.h>
+#include <lib/list.h>
 #include <os/mm.h>
 #include <os/pcb.h>
 #include <os/sync.h>
 #include <os/time.h>
 #include <user/user_programs.h>
 
+typedef struct dir_info {
+    uint32_t first_cluster;
+    uint32_t size;
+    inode_t *node;
+    char name[MAX_PATH_LEN]; // real path
+} dir_info_t;
+
 // fat32 infomation
 fat32_t fat;
 dir_info_t root_dir = {.name = "/\0"}, cur_dir = {.name = "/\0"};
+inode_t *inode_table =  NULL;
+#define MAX_INODE 1<<16
+uint32_t inode_num = 1;
 
 typedef struct fd_mbox {
     int fd;
@@ -76,7 +87,7 @@ uint32_t fat32_fcluster2size(uint32_t first) {
     return size * fat.bytes_per_cluster;
 }
 
-// TODO : func of free buffers by &data, use write_whole_dir
+// TODO : using when alloc inode, no need to write now
 /**
  * @brief  read whle file by first cluster
  * @param  first  id of first cluster
@@ -126,6 +137,23 @@ void *read_whole_dir(uint32_t first, uint32_t size) {
     return (void *)data;
 }
 
+uint16_t alloc_inode(dentry_t *entry,char * name, uint16_t upper, int offset){
+    if(inode_num >= MAX_INODE){
+        k_print("[debug] no rest inode!\n");
+        return 0;
+    }
+    // k_print("[debug] alloc inode, fcluster %d, name %s, upper %d\n",fat32_dentry2fcluster(entry),name,upper);
+    inode_table[inode_num].i_ino = inode_num;
+    inode_table[inode_num].i_fclus = fat32_dentry2fcluster(entry);
+    inode_table[inode_num].i_link = 1;
+    inode_table[inode_num].i_mapping = (ptr_t)read_whole_dir(inode_table[inode_num].i_fclus,0);
+    inode_table[inode_num].i_type = entry->sn.attr & ATTR_DIRECTORY ? 1 : 0;
+    inode_table[inode_num].i_upper = upper;
+    inode_table[inode_num].i_offset = offset;
+    entry->sn.fst_clus_lo = inode_num;
+    entry->sn.nt_res = 1;
+    return inode_num++;
+}
 /**
  * @brief  write whole file by first cluster
  * @param  first  id of first cluster
@@ -162,6 +190,15 @@ int write_whole_dir(uint32_t first, void *data, uint32_t write) {
 
     // free data
     // kfree(data);
+    return 0;
+}
+
+int update_dentry_size(uint16_t upper,int offset,uint32_t size){
+    dentry_t *dtable = (dentry_t *)inode_table[upper].i_mapping;
+    if(dtable[offset].sn.attr & ATTR_DIRECTORY)
+        dtable[offset].sn.file_size = fat32_fcluster2size(inode_table[upper].i_fclus);
+    else
+        dtable[offset].sn.file_size = size;
     return 0;
 }
 
@@ -215,7 +252,7 @@ uint32_t alloc_cluster(uint32_t first) {
                 // TODO : write
                 // fseek(fp,(base+i)*fat.bpb.bytes_per_sec,0);
                 // k_print("write in %ld bytes\n",fwrite(ftable2,1,fat.bpb.bytes_per_sec,fp));
-                d_sd_write((char *)ftable2, &base, 1);
+                // d_sd_write((char *)ftable2, &base, 1);
                 // k_print("[debug] alloc cluster %u in sec %u\n", ret, base);
                 goto alloced;
             }
@@ -235,7 +272,7 @@ alloced:
         // TODO : wtite
         // fseek(fp,cur_fat_sec*fat.bpb.bytes_per_sec,0);
         // fwrite(ftable1,fat.bpb.bytes_per_sec,1,fp);
-        d_sd_write((char *)ftable1, &cur_fat_sec, 1);
+        // d_sd_write((char *)ftable1, &cur_fat_sec, 1);
         // k_print("[debug] fix tail %u\n", cur_fat_sec);
     }
     return ret;
@@ -452,7 +489,8 @@ int fat32_name2dir(char *name, dir_info_t *now) {
     int offset = 0;
     dentry_t *dtable = NULL;
 
-    dtable = (dentry_t *)read_whole_dir(now->first_cluster, 0);
+    // dtable = (dentry_t *)read_whole_dir(now->first_cluster, 0);
+    dtable = (dentry_t *)now->node->i_mapping;
 
     offset = fat32_name2offset(name, dtable);
 
@@ -461,11 +499,18 @@ int fat32_name2dir(char *name, dir_info_t *now) {
         return 0;
     }
 
+    uint16_t new_node = 0;
+    if(!dtable[offset].sn.nt_res){
+        new_node = alloc_inode(&dtable[offset],name,now->node->i_ino,offset);
+    }else{
+        new_node = dtable[offset].sn.fst_clus_lo;
+    }
     now->first_cluster = fat32_dentry2fcluster(&dtable[offset]);
     now->size = dtable[offset].sn.file_size;
+    k_memcpy((uint8_t *)now->name,(const uint8_t *)name,k_strlen(name)+1);
+    now->node = &inode_table[new_node];
     // get path after return
 
-    // TODO:free dtable
     return 1;
 }
 
@@ -476,7 +521,7 @@ int fat32_name2dir(char *name, dir_info_t *now) {
  * @param  len length of LFN
  *
  */
-int fat32_new_dentry(dentry_t *entry, uint32_t flags, int len, char *name) {
+int fat32_new_dentry(dentry_t *entry, uint32_t flags, int len, char *name, int offset) {
     // k_print("[debug] openat add dentry! len = %d, name %s\n",len,name);
     entry[len].sn.attr = (flags & O_DIRECTORY) ? ATTR_DIRECTORY : ATTR_READ_WRITE;
     entry[len].sn.name1[0] = name[0];
@@ -522,21 +567,25 @@ int fat32_new_dentry(dentry_t *entry, uint32_t flags, int len, char *name) {
         return 0;
     }
 
-    // TODO : set ./.. in dir entry, not finish
-    dentry_t *dtable = read_whole_dir(fat32_dentry2fcluster(&entry[len_0]), 0);
+    // TODO : alloc inode and set ./.. in dir entry
+    uint16_t new_inode = alloc_inode(&entry[len_0],name,0,offset);
+
+    // dentry_t *dtable = read_whole_dir(fat32_dentry2fcluster(&entry[len_0]), 0);
+    dentry_t *dtable = (dentry_t *)inode_table[new_inode].i_mapping;
     k_bzero(dtable, fat.bytes_per_cluster);
-    // dtable[0].sn.name1[0] = '.';
-    // dtable[0].sn.name1[1] = ' ';
-    // dtable[0].sn.name2[0] = ' ';
-    // dtable[0].sn.attr = ATTR_DIRECTORY;
+    dtable[0].sn.name1[0] = '.';
+    dtable[0].sn.name1[1] = ' ';
+    dtable[0].sn.name2[0] = ' ';
+    dtable[0].sn.attr = ATTR_DIRECTORY;
 
-    // dtable[1].sn.name1[0] = '.';
-    // dtable[1].sn.name1[1] = '.';
-    // dtable[1].sn.name1[2] = ' ';
-    // dtable[1].sn.name2[0] = ' ';
-    // dtable[1].sn.attr = ATTR_DIRECTORY;
+    dtable[1].sn.name1[0] = '.';
+    dtable[1].sn.name1[1] = '.';
+    dtable[1].sn.name1[2] = ' ';
+    dtable[1].sn.name2[0] = ' ';
+    dtable[1].sn.attr = ATTR_DIRECTORY;
 
-    return write_whole_dir(fat32_dentry2fcluster(&entry[len_0]), dtable, 1);
+    // return write_whole_dir(inode_table[new_inode].i_ino, dtable, 1);
+    return 0;
 }
 
 /**
@@ -565,13 +614,13 @@ int alloc_dentry(dentry_t **dtable, char *name, mode_t flags, mode_t mode, dir_i
                 break;
             }
 
-            fat32_new_dentry(&table[i - len], flags, len, name);
+            fat32_new_dentry(&table[i - len], flags, len, name, i);
             break;
         } else {
             cnt = 0;
         }
         if (cnt > len) {
-            fat32_new_dentry(&table[i - len], flags, len, name);
+            fat32_new_dentry(&table[i - len], flags, len, name, i);
             break;
         }
         i++;
@@ -579,16 +628,18 @@ int alloc_dentry(dentry_t **dtable, char *name, mode_t flags, mode_t mode, dir_i
     if (i >= size) {
         // k_print("[debug] openat alloc new cluster!\n");
         alloc_cluster(now->first_cluster);
-        now->size += fat.bytes_per_cluster;
+        update_dentry_size(now->node->i_upper,now->node->i_offset,0);
         // reload dir table and go to the head of this function?
-        *dtable = read_whole_dir(now->first_cluster, 0);
+        // *dtable = read_whole_dir(now->first_cluster, 0);
+        now->node->i_mapping = (ptr_t)read_whole_dir(now->first_cluster, 0);
+        *dtable = (dentry_t *)now->node->i_mapping;
         // free outside
         table = *dtable;
         // add dentry
-        fat32_new_dentry(&table[size], flags, len, name);
+        fat32_new_dentry(&table[size], flags, len, name, size+len);
         i = len + size;
     }
-    write_whole_dir(now->first_cluster, *dtable, 1);
+    // write_whole_dir(now->first_cluster, *dtable, 1);
     return i;
 }
 
@@ -639,8 +690,8 @@ int fat32_path2dir(char *path, dir_info_t *new, dir_info_t now) {
     } else {
         new->first_cluster = now.first_cluster;
         new->size = now.size;
-        // generate name later as we can't get path from root or cur
-        // k_memcpy(new->name,path_0,kk_strlen(path)+1);
+        k_strcpy(new->name,now.name);
+        new->node = now.node;
         return 1;
     }
 }
@@ -656,7 +707,6 @@ int fat32_dentry2fd(dentry_t *entry, fd_t *file, mode_t flags, mode_t mode, char
     file->flags = flags & ~(O_DIRECTORY);
     file->mode = mode;
     file->first_cluster = fat32_dentry2fcluster(entry);
-    file->cur_clus_num = file->first_cluster;
     file->pos = 0;
     file->size = entry->sn.file_size;
     return 0;
@@ -672,7 +722,6 @@ int fs_init() {
     uint32_t boot_sec = 0;
 
     d_sd_read((char *)boot, &boot_sec, 1);
-    d_sd_write((char *)boot, &boot_sec, 1);
     // TODO:check fat32? should not be check device name?
 
     // little endian not need do add?
@@ -708,30 +757,44 @@ int fs_init() {
     k_print("> [FAT32 init] fat_data_cluster_cnt: %d\n", fat.data_cluster_cnt);
     k_print("> [FAT32 init] fat.next_free_cluster: %d\n", fat.next_free_cluster);
 
+    //TODO: change into inode way
+    // k_print("[debug] size of inode %d\n",sizeof(inode_t));
+    inode_table = (inode_t *)k_mm_alloc_page(2048); // total 2^16 inodes
+    inode_table[0].i_fclus = fat.bpb.root_cluster;
+    inode_table[0].i_ino   = 0;
+    inode_table[0].i_link  = 1;
+    inode_table[0].i_mapping = (ptr_t)read_whole_dir(inode_table[0].i_fclus, 0);
+    inode_table[0].i_type = INODE_DIR;
+    inode_table[0].i_upper = 0; // root is from root
+
     // set root dir and cwd
     root_dir.first_cluster = fat.bpb.root_cluster;
     root_dir.size = fat32_fcluster2size(root_dir.first_cluster);
+    root_dir.node = &inode_table[0];
     root_dir.name[0] = '/';
     root_dir.name[1] = '\0';
-    k_print("root dir begin at cluster %d, size = %d\n", root_dir.first_cluster);
+    k_print("> [FAT32 INIT] root dir begin at cluster %d, size = %d\n", root_dir.first_cluster,fat.bytes_per_cluster);
     cur_dir.first_cluster = root_dir.first_cluster;
     cur_dir.size = root_dir.size;
+    cur_dir.node = &inode_table[0];
     cur_dir.name[0] = '/';
     cur_dir.name[1] = '\0';
     // kfree(boot);
 
-    dentry_t *dtable = read_whole_dir(root_dir.first_cluster, 0);
-    char name[MAX_NAME_LEN];
-    int offset = 0;
-    offset += dentry2name(&dtable[offset], name);
+    // dentry_t *dtable = (dentry_t *)inode_table[0].i_mapping;
+    // char name[MAX_NAME_LEN];
+    // int offset = 0;
+    // offset += dentry2name(&dtable[offset], name);
+    // k_print("[debug] name1 = %s!, is DIR : %d, has inode : %d\n",name,dtable[offset-1].sn.attr & ATTR_DIRECTORY,dtable[offset-1].sn.nt_res);
 
-    offset = dentry2name(&dtable[offset], name);
+    // offset = dentry2name(&dtable[offset], name);
+    // k_print("[debug] name2 = %s!\n",name);
 
     // //[read] ok
     // int read_fd = sys_openat(AT_FDCWD,"./text.txt",O_RDONLY,0);
     // fd_t *file_txt = get_fd(read_fd);
     // if(file_txt)
-    //     k_print("[test] 1. read openat success! name %s\n",file_txt->name);
+    //     k_print("[test] 1. read openat success! fd %d, name %s\n",read_fd, file_txt->name);
     // int read_len = sys_read(read_fd,name,256);
     // // k_print("[test] 2. read %d bytes : %s\n",read_len,name);
     // sys_write(STDOUT,name,read_len);
@@ -741,11 +804,12 @@ int fs_init() {
     // sys_mkdirat(AT_FDCWD,"test_chdir", 0);
     // sys_chdir("test_chdir");
     // sys_getcwd(name,MAX_NAME_LEN);
-    // k_print("[test] getcwd %s",name);
+    // k_print("[test] getcwd %s\n",name);
 
     // // [dup] ok
     // int dup_fd = sys_dup(STDOUT);
     // k_print("[test] dup fd %d\n",dup_fd);
+    // sys_write(dup_fd,"[test] dup!\n",12);
 
     // // [dup] ok
     // sys_dup3(STDOUT,100,0);
@@ -754,8 +818,8 @@ int fs_init() {
 
     // // [fstats] ok
     // long sys_fd = sys_openat(AT_FDCWD,"./text.txt",O_RDONLY,0);
-    // kstat_t kst;
-    // sys_fstat(sys_fd, &kst);
+    // kstat64_t kst;
+    // sys_fstat64(sys_fd, &kst);
     // k_print("fstat: dev: %d, inode: %d, mode: %d, nlink: %d, size: %d, atime: %d, mtime: %d, ctime: %d\n",
     //       kst.st_dev, kst.st_ino, kst.st_mode, kst.st_nlink, kst.st_size, kst.st_atime_sec, kst.st_mtime_sec, kst.st_ctime_sec);
 
@@ -844,33 +908,100 @@ int fs_init() {
  * @param  name  elf file should be loaded
  * @return elf bit array
  */
+//TODO if inode alloced dentry has been changed?
 int fs_load_file(const char *name, uint8_t **bin, int *len) {
     dentry_t *dtable = NULL;
     // TODO: read in dir data
-    dtable = read_whole_dir(root_dir.first_cluster, 0);
+    dtable = (dentry_t *)inode_table[0].i_mapping;
     int offset = fat32_name2offset((char *)name, dtable);
     if (offset < 0) {
-        // k_print("[debug] can't load, no such file!\n");
+        // k_print("[debug] can't load %s, no such file!\n",name);
         return -1;
     }
     uint32_t first = fat32_dentry2fcluster(&dtable[offset]);
     // free buffer of dtable
     *len = dtable[offset].sn.file_size;
     if (*len == 0) {
-        // k_print("[debug] can't load, empty file!\n");
+        k_print("[debug] can't load, empty file!\n");
         return -1;
     }
+    //TODO alloc inode for file and cache it?
     *bin = (uint8_t *)read_whole_dir(first, 0);
     return 0;
 }
 
 // [FUNCTION REQUIREMENTS]
-bool fs_check_file_existence(const char *name) {
-    return true;
+bool fs_check_file_existence(const char *filename) {
+    // get dir file belonged to
+    dir_info_t new;
+    char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
+    int ret = 0;
+    filename2path(path, name, filename);
+    ret = fat32_path2dir(path, &new, root_dir);
+    // not found by path
+    if (!ret) {
+        return false;
+    }
+    if (!k_strcmp(".", name)) {
+        return true;
+    }
+    int offset = 0;
+    dentry_t *dtable = NULL;
+    dtable = (dentry_t *)new.node->i_mapping;
+    offset = fat32_name2offset(name, dtable);
+    if (offset >= 0)
+        return true;
+    else
+        return false;
 }
 
-// [TODO]
+#define _IOC_NRBITS	    8
+#define _IOC_TYPEBITS	8
+#define _IOC_SIZEBITS	13
+#define _IOC_DIRBITS	3
+
+#define _IOC_NRMASK	    ((1 << _IOC_NRBITS)-1)
+#define _IOC_TYPEMASK	((1 << _IOC_TYPEBITS)-1)
+#define _IOC_SIZEMASK	((1 << _IOC_SIZEBITS)-1)
+#define _IOC_DIRMASK	((1 << _IOC_DIRBITS)-1)
+
+#define _IOC_NRSHIFT	0
+#define _IOC_TYPESHIFT	(_IOC_NRSHIFT+_IOC_NRBITS)
+#define _IOC_SIZESHIFT	(_IOC_TYPESHIFT+_IOC_TYPEBITS)
+#define _IOC_DIRSHIFT	(_IOC_SIZESHIFT+_IOC_SIZEBITS)
+
+/*
+ * Direction bits _IOC_NONE could be 0, but OSF/1 gives it a bit.
+ * And this turns out useful to catch old ioctl numbers in header
+ * files for us.
+ */
+#define _IOC_NONE	1U
+#define _IOC_READ	2U
+#define _IOC_WRITE	4U
+/**
+ * @brief  ioctl load/write cmd to fd
+ * @param  name  elf file should be loaded
+ * @return elf bit array
+ */
 long sys_ioctl(unsigned int fd, unsigned int cmd, unsigned long arg) {
+    if(fd>=MAX_FD){
+        return -1;
+    }
+    uint32_t dir = cmd >> (_IOC_NRBITS+_IOC_TYPEBITS+_IOC_SIZEBITS);
+    uint32_t size = (cmd & _IOC_SIZEMASK) >> (_IOC_NRBITS+_IOC_TYPEBITS);
+    //no use of type(name of dev)/nr(num of ioctl)
+    if(dir == _IOC_NONE){
+        return 0;
+    }else if(dir == _IOC_READ && fd == stdin){
+        //need read?
+        return 0;
+    }else if(dir == _IOC_WRITE && fd == stdout){
+        sys_write(fd,(const char*)arg,size);
+        return 0;
+    }else if(dir == _IOC_WRITE && fd == stdout){
+        //stderr?
+        return 0;
+    }
     return 0;
 }
 
@@ -915,10 +1046,10 @@ long sys_getcwd(char *buf, size_t size) {
  */
 long sys_dup(int old) {
     fd_t *file1 = get_fd(old);
-    if (!file1) {
+    if (!file1 && old!=STDIN && old!=STDOUT && old!=STDERR) {
         return -1;
     }
-    int new = fd_alloc();
+    int new = fd_alloc(-1);
     if (new < 0) {
         return -1;
     }
@@ -926,7 +1057,10 @@ long sys_dup(int old) {
     if (!file2) {
         return -1;
     }
-    k_memcpy((uint8_t *)file2, (uint8_t *)file1, sizeof(fd_t));
+    if(old>=STDIN && old<=STDERR)
+        file2->file = old;
+    else
+        k_memcpy((uint8_t *)file2, (uint8_t *)file1, sizeof(fd_t));
     return new; // fail return -1
 }
 
@@ -937,18 +1071,43 @@ long sys_dup(int old) {
  */
 long sys_dup3(int old, int new, mode_t flags) {
     fd_t *file1 = get_fd(old);
-    if (!file1) {
+    if (!file1 && old!=STDIN && old!=STDOUT && old!=STDERR) {
         return -1;
     }
-    fd_t *file2 = fd_alloc_spec(new);
-    if (!file2) {
+    
+    if (new != fd_alloc(new)) {
+        k_print("[debug] fd %d alloc fail!\n",new);
         return -1;
     }
-    k_memcpy((uint8_t *)file2, (uint8_t *)file1, sizeof(fd_t));
+    fd_t *file2 = get_fd(new);
+    if(old>=STDIN && old<=STDERR)
+        file2->file = old;
+    else
+        k_memcpy((uint8_t *)file2, (uint8_t *)file1, sizeof(fd_t));
     return new; // fail return -1
 }
 
+#define F_DUPFD		0	/* dup */
+#define F_GETFD		1	/* get close_on_exec */
+#define F_SETFD		2	/* set/clear close_on_exec */
+#define F_GETFL		3	/* get file->f_flags */
+#define F_SETFL		4	/* set file->f_flags */
 long sys_fcntl(unsigned int fd, unsigned int cmd, unsigned long arg) {
+    fd_t *file = get_fd(fd);
+    if(!file)
+        return -1;
+    if(cmd == F_GETFD){
+        return file->mode;
+    }else if(cmd == F_SETFD){
+        file->mode = (uint32_t)arg;
+        return 0;
+    }else if(cmd == F_GETFL){
+        return file->flags;
+    }else if(cmd == F_SETFL){
+        file->flags = (uint32_t)arg;
+        return 0;
+    }
+    //no more cmd!
     return 0;
 }
 
@@ -971,6 +1130,7 @@ long sys_mkdirat(int dirfd, const char *path_0, mode_t mode) {
     dir_info_t new;
     char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
     int ret = 0;
+    int use_fd = 0;
     filename2path(path, name, path_0);
     // k_print("[debug] mkdir %s, at %s\n", name, path);
     if (path[0] == '/') {
@@ -982,9 +1142,11 @@ long sys_mkdirat(int dirfd, const char *path_0, mode_t mode) {
         if (!file || file->file != ATTR_DIRECTORY) {
             return -1;
         }
+        use_fd = 1;
         new.first_cluster = file->first_cluster;
-        new.size = fat32_fcluster2size(new.first_cluster);
-        // no use of name
+        new.node = (inode_t *)file->inode;
+        new.size = file->size;
+        ret = 1;
     }
 
     // not found by path
@@ -992,11 +1154,14 @@ long sys_mkdirat(int dirfd, const char *path_0, mode_t mode) {
         return -1;
     }
 
+    if(!k_strcmp(".", name)){
+        return -1;
+    }
     int offset = 0;
     dentry_t *dtable = NULL;
-
-    dtable = read_whole_dir(new.first_cluster, 0);
-
+    //TODO
+    // dtable = read_whole_dir(new.first_cluster, 0);
+    dtable = (dentry_t *)new.node->i_mapping;
     offset = fat32_name2offset(name, dtable);
 
     if (offset >= 0) {
@@ -1004,7 +1169,12 @@ long sys_mkdirat(int dirfd, const char *path_0, mode_t mode) {
     }
 
     // k_print("[fat32] openat create file with name %s!\n",name);
-    offset = alloc_dentry(&dtable, name, O_DIRECTORY | O_RDWR, mode, &new);
+    offset = alloc_dentry(&dtable, name, O_DIRECTORY, mode, &new);
+    alloc_inode(&dtable[offset],name,new.node->i_ino,offset);
+    if(use_fd){
+        fd_t *file = get_fd(dirfd);
+        file->size = fat32_fcluster2size(file->first_cluster);
+    }
     return 0;
 }
 
@@ -1031,8 +1201,9 @@ long sys_unlinkat(int dirfd, const char *path_0, mode_t flags) {
             return -1;
         }
         new.first_cluster = file->first_cluster;
-        new.size = fat32_fcluster2size(new.first_cluster);
-        // no use of name
+        new.node = (inode_t *)file->inode;
+        new.size = file->size;
+        ret = 1;
     }
 
     // not found by path
@@ -1043,8 +1214,9 @@ long sys_unlinkat(int dirfd, const char *path_0, mode_t flags) {
     // try open file
     int offset = 0;
     dentry_t *dtable = NULL;
-
-    dtable = read_whole_dir(new.first_cluster, 0);
+    //TODO
+    // dtable = read_whole_dir(new.first_cluster, 0);
+    dtable = (dentry_t *)new.node->i_mapping;
 
     offset = fat32_name2offset(name, dtable);
     if (offset < 0) {
@@ -1054,9 +1226,9 @@ long sys_unlinkat(int dirfd, const char *path_0, mode_t flags) {
     }
     if (!(((dtable[offset].sn.attr & ATTR_DIRECTORY) == 0) ^ ((flags & AT_REMOVEDIR) == 0))) {
         // k_print("[debug] destroy %s at dir %s, offset %d\n",name,path,offset);
-        // TODO: set empty entry
+        // TODO: use inode ?
         destroy_dentry(dtable, offset);
-        write_whole_dir(new.first_cluster, dtable, 1);
+        // write_whole_dir(new.first_cluster, dtable, 1);
         return 0;
     }
     return -1;
@@ -1139,7 +1311,49 @@ long sys_fallocate(int fd, int mode, loff_t offset, loff_t len) {
 }
 
 long sys_faccessat(int dfd, const char *filename, int mode) {
-    return 0;
+    // get dir file belonged to
+    dir_info_t new;
+    char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
+    int ret = 0;
+    filename2path(path, name, filename);
+    // k_print("[debug] open %s, at %s\n",name,path);
+    if (path[0] == '/') {
+        ret = fat32_path2dir(path, &new, root_dir);
+    } else if (dfd == AT_FDCWD) {
+        ret = fat32_path2dir(path, &new, cur_dir);
+    } else {
+        fd_t *file = get_fd(dfd);
+        if (!file || file->file != ATTR_DIRECTORY) {
+            return -1;
+        }
+        new.first_cluster = file->first_cluster;
+        new.node = (inode_t *)file->inode;
+        new.size = file->size;
+        ret = 1;
+    }
+    // not found by path
+    if (!ret) {
+        return -1;
+    }
+
+    // k_print("[debug] fd %d, name = %s\n",ret,name);
+    if (!k_strcmp(".", name)) {
+        new.node = &inode_table[new.node->i_upper];
+        new.first_cluster = new.node->i_fclus;
+        k_strcpy(new.name,name);
+        new.size = fat32_fcluster2size(new.first_cluster);
+    }
+    int offset = 0;
+    dentry_t *dtable = NULL;
+    // dtable = read_whole_dir(new.first_cluster, 0);
+    dtable = (dentry_t *)new.node->i_mapping;
+    offset = fat32_name2offset(name, dtable);
+    // k_print("[debug] hit dir inode %d, offset %d, cond %d\n",new.node->i_ino,offset,((dtable[offset].sn.attr & ATTR_DIRECTORY) == 0) == ((flags & O_DIRECTORY) == 0));
+    if (offset >= 0) {
+        //TODO check authority of file
+    }
+
+    return -1;
 }
 
 /**
@@ -1207,8 +1421,9 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
     dir_info_t new;
     char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
     int ret = 0;
+    int use_fd = 0;
     filename2path(path, name, filename);
-    // k_print("[debug] open %s, at %s\n",name,path);
+    k_print("[debug] open %s, at %s\n",name,path);
     if (path[0] == '/') {
         ret = fat32_path2dir(path, &new, root_dir);
     } else if (dirfd == AT_FDCWD) {
@@ -1218,20 +1433,20 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
         if (!file || file->file != ATTR_DIRECTORY) {
             return -1;
         }
+        use_fd = 1;
         new.first_cluster = file->first_cluster;
-        new.size = fat32_fcluster2size(file->first_cluster);
+        new.node = (inode_t *)file->inode;
+        new.size = file->size;
         ret = 1;
-        // no use of name
     }
     // not found by path
     if (!ret) {
         return -1;
     }
-
     // try open file
-    ret = fd_alloc();
+    ret = fd_alloc(-1);
     fd_t *file = get_fd(ret);
-    // k_print("[debug] name = %s\n",name);
+    k_print("[debug] fd %d, name = %s\n",ret,name);
     if (!k_strcmp(".", name)) {
         file->file = ATTR_DIRECTORY;
         // k_memcpy((uint8_t *)file->name,(uint8_t *)cur_dir.name,k_strlen(cur_dir.name)+1);
@@ -1239,27 +1454,43 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
         file->flags = flags & ~(O_DIRECTORY | O_CREATE);
         file->mode = mode;
         file->first_cluster = new.first_cluster;
-        file->cur_clus_num = new.first_cluster;
+        file->inode = (ptr_t)new.node;
         file->pos = 0;
         file->size = fat32_fcluster2size(cur_dir.size);
         return ret;
     }
     int offset = 0;
     dentry_t *dtable = NULL;
-    dtable = read_whole_dir(new.first_cluster, 0);
-
+    dtable = (dentry_t *)new.node->i_mapping;
     offset = fat32_name2offset(name, dtable);
-
+    // k_print("[debug] hit dir inode %d, offset %d, cond %d\n",new.node->i_ino,offset,((dtable[offset].sn.attr & ATTR_DIRECTORY) == 0) == ((flags & O_DIRECTORY) == 0));
     if (offset >= 0) {
-        if (!(((dtable[offset].sn.attr & ATTR_DIRECTORY) == 0) ^ ((flags & O_DIRECTORY) == 0))) {
+        if (((dtable[offset].sn.attr & ATTR_DIRECTORY) == 0) == ((flags & O_DIRECTORY) == 0)) {
             // k_print("[debug] openat file type right!\n");
+            //TODO if inode has create
             fat32_dentry2fd(&dtable[offset], file, flags & ~O_CREATE, mode, name);
+            uint16_t new_inode = 0;
+            if(dtable[offset].sn.nt_res==0)
+                new_inode = alloc_inode(&dtable[offset],name,new.node->i_ino,offset);
+            else
+                new_inode = dtable[offset].sn.fst_clus_lo;
+            file->inode = (ptr_t)&inode_table[new_inode];
+            if(use_fd){
+                fd_t *file = get_fd(dirfd);
+                file->size = fat32_fcluster2size(file->first_cluster);
+            }
             return ret;
         }
     } else if (offset < 0 && (flags & O_CREATE)) {
         // k_print("[debug] openat create file with name %s!\n",name);
         offset = alloc_dentry(&dtable, name, flags & ~O_CREATE, mode, &new);
         fat32_dentry2fd(&dtable[offset], file, flags & ~O_CREATE, mode, name);
+        uint16_t new_inode = alloc_inode(&dtable[offset],name,new.node->i_ino,offset);
+        file->inode = (ptr_t)&inode_table[new_inode];
+        if(use_fd){
+            fd_t *file = get_fd(dirfd);
+            file->size = fat32_fcluster2size(file->first_cluster);
+        }
         return ret;
     }
 
@@ -1312,7 +1543,9 @@ long sys_getdents64(int fd, dirent64_t *dirent, size_t len) {
     if (file->file != ATTR_DIRECTORY) {
         return -1;
     }
-    dentry_t *dtable = read_whole_dir(file->first_cluster, 0);
+    //TODO change file descriptor
+    // dentry_t *dtable = read_whole_dir(file->first_cluster, 0);
+    dentry_t *dtable = (dentry_t *)((inode_t *)file->inode)->i_mapping;
     char name[MAX_NAME_LEN];
     int offset = 0;
 repeat:
@@ -1332,8 +1565,34 @@ repeat:
     return sizeof(dirent64_t) + k_strlen(name) + 1;
 }
 
+
+#define SEEK_SET	0	/* seek relative to beginning of file */
+#define SEEK_CUR	1	/* seek relative to current file position */
+#define SEEK_END	2   /* seek relative to end of file */
 long sys_lseek(unsigned int fd, off_t offset, unsigned int whence) {
-    return 0;
+    fd_t *file = get_fd(fd);
+    if(!file)
+        return 0;
+    if(whence == SEEK_SET){
+        if(file->size > offset){
+            file->pos = offset;
+            return file->pos;
+        }
+        file->pos = file->size;
+    }else if(whence == SEEK_CUR){
+        if(file->size > offset + file->pos){
+            file->pos += offset;
+            return file->pos;
+        }
+        file->pos = file->size;
+    }else if(whence == SEEK_END){
+        if(offset < file->size){
+            file->pos = file->size - offset;
+            return file->pos;
+        }
+        file->pos = 0;
+    }
+    return file->pos;
 }
 
 /**
@@ -1343,16 +1602,22 @@ long sys_lseek(unsigned int fd, off_t offset, unsigned int whence) {
  * @param  count  read len
  */
 ssize_t sys_read(int fd, char *buf, size_t count) {
+    if (fd == stdin) {
+        *buf = k_port_read();
+        return 1;
+    }
+
     fd_t *file = get_fd(fd);
     if (!file) {
         return -1;
     }
+
     if (file->file == stdin) {
         *buf = k_port_read();
         return 1;
     }
 
-    if (!(file->flags == O_RDONLY) && !(file->flags == O_RDWR)) {
+    if (file->flags && !(file->flags & O_RDWR)) {
         return -1;
     }
     if (file->flags & O_DIRECTORY) {
@@ -1367,8 +1632,10 @@ ssize_t sys_read(int fd, char *buf, size_t count) {
         ret = k_mbox_recv(p->mailbox, NULL, &arg);
         return ret;
     }
-
-    uint8_t *data = read_whole_dir(file->first_cluster, file->size);
+    //TODO change file descriptor
+    // uint8_t *data = read_whole_dir(file->first_cluster, file->size);
+    k_print("[debug] read print file %s\n",(char *)((inode_t *)file->inode)->i_mapping);
+    uint8_t *data = (uint8_t *)((inode_t *)file->inode)->i_mapping;
     if (file->size - file->pos >= count) {
         k_memcpy((uint8_t *)buf, &data[file->pos], count);
         file->pos += count;
@@ -1384,45 +1651,67 @@ ssize_t sys_read(int fd, char *buf, size_t count) {
 }
 
 ssize_t sys_write(int fd, const char *buf, size_t count) {
-    fd_t *file = get_fd(fd);
-    if (!file) {
-        return -1;
-    }
-    if (file->file == stdout) {
-        // TODO : create stdin/out/err
+    // k_print("[debug] sys_write fd %d\n",fd);
+    if (fd == STDOUT) {
         sys_screen_write_len((char *)buf, count);
         return count;
     }
 
-    if (!(file->flags == O_WRONLY) && !(file->flags == O_RDWR)) {
+    fd_t *file = get_fd(fd);
+    if (!file) {
+        // k_print("[debug] sys_write fail with fd %d\n",fd);
         return -1;
     }
-    if (file->file == ATTR_DIRECTORY) {
+    // k_print("[debug] sys_write with fd %d\n",fd);
+    if (file->file == stdout) {
+        sys_screen_write_len((char *)buf, count);
+        return count;
+    }
+
+    if (!(file->flags & O_WRONLY) && !(file->flags & O_RDWR)) {
+        // k_print("[debug] sys_write flags error with fd %d\n",fd);
+        return -1;
+    }
+    if (file->file & ATTR_DIRECTORY) {
+        // k_print("[debug] sys_write flags DIR with fd %d\n",fd);
         return -1;
     }
     // for pipe
     if (file->is_pipe_write) {
         pipe_t *p = &pipe_table[file->pip_num];
         mbox_arg_t arg = {.msg = (void *)buf, .msg_length = count, .sleep_operation = 0};
+        // k_print("[debug] pipe %d mailbox %d write %s!\n",file->pip_num,file->mailbox,buf);
         int ret = k_mbox_send(p->mailbox, NULL, &arg);
         p->w_valid = 0;
         return ret;
     }
 
+    // k_print("[debug] sys_write not pipe write with fd %d\n",fd);
     int new = (file->pos + count + fat.bytes_per_cluster - 1) / fat.bytes_per_cluster - (file->size + fat.bytes_per_cluster - 1) / fat.bytes_per_cluster; // need more cluster?
+    int reload = 0;
+    if(new)
+        reload = 1;
+    // k_print("[debug] alloc %d clusters!\n",new);
     while (new > 0) {
         file->first_cluster = alloc_cluster(file->first_cluster);
         new --;
     }
-    uint8_t *data = read_whole_dir(file->first_cluster, 0); // enough room
+    if(reload){
+        ((inode_t *)file->inode)->i_mapping = (ptr_t)read_whole_dir(file->first_cluster,0);
+    }
+    // if out of size
+    if (file->pos + count > file->size) {
+        file->size = file->pos + count;
+        // k_print("[debug] file size %d\n",file->size);
+    }
+    update_dentry_size(((inode_t *)file->inode)->i_upper,((inode_t *)file->inode)->i_offset,file->size);
+    uint8_t *data = (uint8_t *)((inode_t *)file->inode)->i_mapping;
     if (!data) {
         return -1;
     }
-    if (file->pos + count > file->size) {
-        file->size = file->pos + count;
-    }
     k_memcpy(&data[file->pos], (uint8_t *)buf, count); // has enough room
-    write_whole_dir(file->first_cluster, data, 1);
+    // k_print("[debug] write %s\n",buf);
+    // write_whole_dir(file->first_cluster, data, 1);
     file->pos += count;
     return count;
 }
@@ -1442,12 +1731,129 @@ long sys_sendfile64(int out_fd, int in_fd, loff_t *offset, size_t count) {
 long sys_readlinkat(int dfd, const char *path, char *buf, int bufsiz) {
     return 0;
 }
-
+// TODO
 long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
+    fd_t *file = get_fd(dfd);
+    if(!file){
+        return -1;
+    }
+    // get dir file belonged to
+    dir_info_t new;
+    new.first_cluster = file->first_cluster;
+    new.node = (inode_t *)file->inode;
+    new.size = file->size;
+    char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
+    int ret = 0;
+    filename2path(path, name, filename);
+    ret = fat32_path2dir(path, &new, new);
+    // not found by path
+    if (!ret) {
+        return -1;
+    }
+    if (!k_strcmp(".", name)) {
+        statbuf->st_dev = file->dev;
+        statbuf->st_ino = ((inode_t *)file->inode)->i_ino;
+        statbuf->st_mode = file->mode;
+        statbuf->st_nlink = 1;
+        statbuf->st_uid = file->uid;
+        statbuf->st_gid = file->gid;
+        statbuf->st_rdev = file->rdev;
+        // statbuf->__pad = 0;
+        statbuf->st_size = file->size;
+        statbuf->st_blksize = fat.bpb.bytes_per_sec;
+        statbuf->__pad2 = 0;
+        statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
+        nanotime_val_t time;
+        k_time_get_nanotime(&time);
+        // statbuf->st_atime_sec = time.sec;
+        // statbuf->st_atime_nsec = time.nsec;
+        // statbuf->st_mtime_sec = time.sec;
+        // statbuf->st_mtime_nsec = time.nsec;
+        // statbuf->st_ctime_sec = time.sec;
+        // statbuf->st_ctime_nsec = time.nsec;
+        // statbuf->__unused[0] = 0;
+        // statbuf->__unused[1] = 0;
+    }
+    int offset = 0;
+    dentry_t *dtable = NULL;
+    dtable = (dentry_t *)new.node->i_mapping;
+    offset = fat32_name2offset(name, dtable);
+    if(offset == -1){
+        return -1;
+    }
+    // TODO correct right information 
+    uint16_t new_inode = alloc_inode(&dtable[offset],name,new.node->i_ino,offset);
+    statbuf->st_dev = file->dev;
+    statbuf->st_ino = new_inode;
+    statbuf->st_mode = dtable[offset].sn.attr;
+    statbuf->st_nlink = 1;
+    statbuf->st_uid = file->uid;
+    statbuf->st_gid = file->gid;
+    statbuf->st_rdev = file->rdev;
+    // statbuf->__pad = 0;
+    statbuf->st_size = dtable[offset].sn.file_size;
+    statbuf->st_blksize = fat.bpb.bytes_per_sec;
+    statbuf->__pad2 = 0;
+    statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
+    nanotime_val_t time;
+    k_time_get_nanotime(&time);
+    // statbuf->st_atime_sec = time.sec;
+    // statbuf->st_atime_nsec = time.nsec;
+    // statbuf->st_mtime_sec = time.sec;
+    // statbuf->st_mtime_nsec = time.nsec;
+    // statbuf->st_ctime_sec = time.sec;
+    // statbuf->st_ctime_nsec = time.nsec;
+    // statbuf->__unused[0] = 0;
+    // statbuf->__unused[1] = 0;
     return 0;
 }
 
+// TODO
 long sys_newfstat(unsigned int fd, stat_t *statbuf) {
+    fd_t *file = get_fd(fd);
+    // statbuf->st_dev = file->dev;
+    // statbuf->st_ino = fd - 3;
+    // statbuf->st_mode = file->mode;
+    // statbuf->st_nlink = file->nlink;
+    // statbuf->st_uid = file->uid;
+    // statbuf->st_gid = file->gid;
+    // statbuf->st_rdev = file->rdev;
+    // statbuf->__pad = 0;
+    // statbuf->st_size = file->size;
+    // statbuf->st_blksize = fat.bpb.bytes_per_sec;
+    // statbuf->__pad2 = 0;
+    // statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
+    // statbuf->st_atime_sec = file->atime_sec;
+    // statbuf->st_atime_nsec = file->atime_nsec;
+    // statbuf->st_mtime_sec = file->mtime_sec;
+    // statbuf->st_mtime_nsec = file->mtime_nsec;
+    // statbuf->st_ctime_sec = file->ctime_sec;
+    // statbuf->st_ctime_nsec = file->ctime_nsec;
+    if(!file)
+        return -1;
+    statbuf->st_dev = file->dev;
+    statbuf->st_ino = ((inode_t *)file->inode)->i_ino;
+    statbuf->st_mode = file->mode;
+    statbuf->st_nlink = 1;
+    statbuf->st_uid = file->uid;
+    statbuf->st_gid = file->gid;
+    statbuf->st_rdev = file->rdev;
+    // statbuf->__pad = 0;
+    statbuf->st_size = file->size;
+    statbuf->st_blksize = fat.bpb.bytes_per_sec;
+    statbuf->__pad2 = 0;
+    statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
+    nanotime_val_t time;
+    k_time_get_nanotime(&time);
+    // statbuf->st_atime_sec = time.sec;
+    // statbuf->st_atime_nsec = time.nsec;
+    // statbuf->st_mtime_sec = time.sec;
+    // statbuf->st_mtime_nsec = time.nsec;
+    // statbuf->st_ctime_sec = time.sec;
+    // statbuf->st_ctime_nsec = time.nsec;
+    // statbuf->__unused[0] = 0;
+    // statbuf->__unused[1] = 0;
+    k_print("[debug] fd size %d, file ino %d\n",file->size,statbuf->st_ino);
     return 0;
 }
 
@@ -1472,7 +1878,7 @@ long sys_fstat64(int fd, kstat64_t *statbuf) {
     // statbuf->st_ctime_sec = file->ctime_sec;
     // statbuf->st_ctime_nsec = file->ctime_nsec;
     statbuf->st_dev = file->dev;
-    statbuf->st_ino = fd - 3;
+    statbuf->st_ino = ((inode_t *)file->inode)->i_ino;
     statbuf->st_mode = file->mode;
     statbuf->st_nlink = 1;
     statbuf->st_uid = file->uid;
@@ -1528,16 +1934,20 @@ long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offs
     if (!file) {
         return (long)-1;
     }
+    // TODO bigger than 1 page?
     uintptr_t ret = k_mm_alloc_newva();
     uintptr_t kva = k_mm_alloc_page_helper(ret, (pa2kva((*current_running)->pgdir << 12)));
-
-    uint8_t *data = read_whole_dir(file->first_cluster, file->size);
+    //TODO change file descriptor
+    // uint8_t *data = read_whole_dir(file->first_cluster, file->size);
+    uint8_t *data = (uint8_t *)((inode_t *)file->inode)->i_mapping;
+    k_print("[debug] mmap %s\n",&data[offset]);
     k_memcpy((uint8_t *)kva, &data[offset], length);
 
     return (long)ret;
 }
 
 long sys_munmap(unsigned long addr, size_t len) {
+    //TODO clear page table!
     return 0;
 }
 

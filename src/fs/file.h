@@ -31,6 +31,7 @@ typedef uint32_t gid_t;
 typedef int64_t off_t;
 
 typedef struct fd {
+    list_head list;
     // file or dir?
     uint8_t file;
     /* file or dir name */
@@ -39,20 +40,20 @@ typedef struct fd {
     uint8_t dev;
     /* first clus number */
     uint32_t first_cluster;
+    /*inode num*/
+    ptr_t inode;
+    /* page cache addr*/
+    ptr_t mapping;
     /* file mode */
     uint32_t mode;
     /* open flags */
     uint32_t flags;
     /* position */
     uint64_t pos;
-    uint32_t cur_clus_num;
     /* length */
     uint32_t size;
-    /* dir_pos */
-    // dir_pos_t dir_pos;
 
     /* fd number */
-    /* default: its index in fd-array*/
     fd_num_t fd_num;
 
     /* used */
@@ -98,20 +99,16 @@ typedef struct fd {
 
     int mailbox;
 
-    // share fd
-    //  struct fd* share_fd;
-    //  int   share_num;
-    //  long version;
 } fd_t;
 
 // fd func
-#define MAX_FD 200
+#define MAX_FD 256
 extern fd_t fd_table[MAX_FD];
 
 extern int fd_table_init();
-extern int fd_alloc();
-fd_t *fd_alloc_spec(int fd);
+extern int fd_alloc(int fd);
 extern int fd_free(int fd);
+extern int pipe_alloc(int *fd);
 extern fd_t *get_fd(int fd);
 
 #define RING_BUFFER_SIZE 4095
