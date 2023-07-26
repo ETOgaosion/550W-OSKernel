@@ -5,4 +5,5 @@
 ## busybox所需虚拟文件系统
 
 - `readlinkat(AT_FDCWD, "/proc/self/exe", "[cmd absolute path]", 4096)`
-- `openat(AT_FDCWD, "/etc/localtime", O_RDONLY|O_CLOEXEC) = 3`，应转化为
+- `openat(AT_FDCWD, "/proc/[pid]/cmdline", O_RDONLY)`
+- `openat(AT_FDCWD, "/proc/[pid]/stat", O_RDONLY)`

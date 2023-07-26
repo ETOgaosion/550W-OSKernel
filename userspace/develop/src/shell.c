@@ -416,8 +416,8 @@ static int shell_clear(int argc, char *argv[]) {
 
 #ifdef FINAL
 static void test() {
-    char *lua_args[] = {"true"};
-    int pid = exec("lua", lua_args, NULL);
+    char *args[] = {"max_min.lua"};
+    int pid = exec("lua", args, NULL);
     int res = 0;
     waitpid(pid, &res, 0);
     printf("\ntest result: %d", res >> 8);
