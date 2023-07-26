@@ -416,7 +416,7 @@ static int shell_clear(int argc, char *argv[]) {
 
 #ifdef FINAL
 static void test() {
-    char *busybox_args[] = {"true"};
+    char *busybox_args[] = {"ash", "-c", "exit"};
     int pid = exec("busybox", busybox_args, NULL);
     int res = 0;
     waitpid(pid, &res, 0);

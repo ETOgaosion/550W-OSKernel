@@ -517,8 +517,8 @@ long sys_brk(unsigned long brk) {
     }
     if (brk < (*current_running)->elf.edata) {
         for (uintptr_t iterator = brk; iterator < (*current_running)->elf.edata; iterator += NORMAL_PAGE_SIZE) {
-            if (get_kva_of(iterator, (*current_running)->pgdir << NORMAL_PAGE_SHIFT)) {
-                free_page_helper(iterator, (*current_running)->pgdir << NORMAL_PAGE_SHIFT);
+            if (get_kva_of(iterator, (uintptr_t)(pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)))) {
+                free_page_helper(iterator, (uintptr_t)(pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
             }
         }
     } else {
