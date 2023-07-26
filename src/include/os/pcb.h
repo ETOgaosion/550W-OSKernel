@@ -12,6 +12,7 @@
 #include <os/time.h>
 
 #define NUM_MAX_PCB_NAME 20
+#define NUM_MAX_PCB_CMD 50
 #define NUM_MAX_PROCESS 16
 #define NUM_MAX_CHILD 5
 #define NUM_MAX_CHILD_THREADS 5
@@ -197,6 +198,7 @@ typedef struct pcb {
 
     /* process id */
     char name[NUM_MAX_PCB_NAME];
+    char cmd[NUM_MAX_PCB_CMD];
     pid_t pid; // real offset of pcb[]
     pid_t tid;
     pid_t pgid;
