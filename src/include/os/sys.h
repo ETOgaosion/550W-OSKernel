@@ -103,6 +103,7 @@ typedef struct sysinfo {
     char _f[20 - 2 * sizeof(kernel_ulong_t) - sizeof(__u32)]; /* Padding: libc5 uses this.. */
 } sysinfo_t;
 
+extern uname_t uname_550w;
 extern sysinfo_t moss_info;
 
 void k_sys_write_to_log(const char *log_msg);

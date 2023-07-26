@@ -11,6 +11,7 @@
 #include <os/pcb.h>
 #include <os/signal.h>
 #include <os/smp.h>
+#include <os/sys.h>
 #include <os/users.h>
 #include <user/user_programs.h>
 #include<fs/file.h>
@@ -118,6 +119,11 @@ void init_pcb_i(char *name, char *cmd, int pcb_i, task_type_t type, int pid, int
     target->resources.ru_idrss = PAGE_SIZE;
     target->resources.ru_isrss = STACK_SIZE;
     k_bzero((void *)&(target->cap), 2 * sizeof(cap_user_data_t));
+    target->start_tick = k_time_get_ticks() - boot_ticks;
+    target->arg_start = 0;
+    target->arg_end = 0;
+    target->env_start = 0;
+    target->env_end = 0;
 }
 
 uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_stack, int argc, const char *argv[], int envpc, const char *envp[], const char *file_name, bool dynamic) {
@@ -148,6 +154,7 @@ uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_sta
     /* 2. save argv pointer in 2nd lowest and argv in lowest strings */
     uintptr_t new_argv = (uintptr_t)*user_stack - total_length + pointers_length;
     uintptr_t ret = new_argv;
+    new_pcb->arg_start = new_argv;
     if (dynamic) {
         *((uintptr_t *)kargv_pointer) = new_argv;
         k_strcpy((char *)kargv, file_name);
@@ -166,14 +173,17 @@ uintptr_t init_user_stack(pcb_t *new_pcb, ptr_t *user_stack_kva, ptr_t *user_sta
     }
     *((uintptr_t *)kargv_pointer + argc) = 0;
     kargv_pointer += (argc + 1) * sizeof(uintptr_t);
+    new_pcb->arg_end = new_argv;
 
     /* 3. save envp pointer in 3rd lowest and envp in 2nd lowest strings */
+    new_pcb->env_start = new_argv;
     for (int i = 0; i < envpc; i++) {
         *((uintptr_t *)kargv_pointer + i) = new_argv;
         k_strcpy((char *)kargv, envp[i]);
         new_argv += k_strlen(envp[i]) + 1;
         kargv += k_strlen(envp[i]) + 1;
     }
+    new_pcb->env_end = new_argv;
     *((uintptr_t *)kargv_pointer + envpc) = 0;
     kargv_pointer += (envpc + 1) * sizeof(uintptr_t);
 
@@ -695,6 +705,186 @@ int kill(pid_t pid, int exit_status) {
     target->exit_status = exit_status;
     target->pid = -1;
     return 0;
+}
+
+void k_pcb_stat(int pid, char *buf) {
+    char str[NUMBER_OF_DIGITS];
+    // pid
+    k_ltoa(pid, str, 10);
+    k_memcpy((uint8_t *)buf, (const uint8_t *)str, k_strlen(str));
+    k_strcat(buf, " ");
+    // comm
+    k_strcat(buf, (const char *)pcb[pid].name);
+    k_strcat(buf, " ");
+    // stat
+    switch (pcb[pid].status)
+    {
+    case TASK_BLOCKED:
+        k_strcat(buf, "D ");
+        break;
+    case TASK_EXITED:
+        k_strcat(buf, "X ");
+        break;
+    case TASK_READY:
+    case TASK_RUNNING:
+        k_strcat(buf, "R ");
+    
+    default:
+        break;
+    }
+    // ppid
+    k_ltoa(pcb[pid].father_pid, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // pgrp
+    k_ltoa(pcb[pid].pgid, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // session
+    k_ltoa(pcb[pid].pgid, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // tty_nr
+    k_strcat(buf, "0 ");
+    // tpgid
+    k_ltoa(pcb[pid].pgid, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // flags
+    k_strcat(buf, "0 ");
+    // minflt
+    k_strcat(buf, "0 ");
+    // cminflt
+    k_strcat(buf, "0 ");
+    // majflt
+    k_strcat(buf, "0 ");
+    // cmajflt
+    k_strcat(buf, "0 ");
+    // uname
+    k_strcat(buf, (const char *)uname_550w.sysname);
+    // stime
+    k_ltoa(pcb[pid].resources.ru_stime.sec * time_base, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // cutime
+    k_ltoa(pcb[pid].dead_child_utime * time_base, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // cstime
+    k_ltoa(pcb[pid].dead_child_stime * time_base, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // priority
+    k_ltoa(pcb[pid].priority.priority, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // nice
+    k_ltoa(pcb[pid].priority.priority, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // num_threads
+    k_ltoa(pcb[pid].threadsum, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // itrealvalue
+    k_strcat(buf, "0 ");
+    // starttime
+    k_ltoa(pcb[pid].start_tick, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // vsize
+    k_ltoa(MEM_SIZE * PAGE_SIZE, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // rss
+    k_ltoa(pcb[pid].resources.ru_isrss, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // rsslim
+    k_ltoa(pcb[pid].resources.ru_maxrss, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // startcode
+    k_strcat(buf, "0x10000 ");
+    // endcode
+    k_strcat(buf, "0x50000 ");
+    // kstkesp
+    k_ltoa(pcb[pid].user_sp, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // kstkeip
+    k_ltoa(pcb[pid].save_context->sepc, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // signal
+    k_ltoa(pcb[pid].sig_pend, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // blocked
+    k_ltoa(pcb[pid].sig_mask, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // sigignore
+    k_strcat(buf, "0 ");
+    // sigcatch
+    k_strcat(buf, "0 ");
+    // wchan
+    k_strcat(buf, "0 ");
+    // nswap
+    k_strcat(buf, "0 ");
+    // cnswap
+    k_strcat(buf, "0 ");
+    // exit_signal
+    if (pcb[pid].flags & SIGCHLD) {
+        k_ltoa(SIGALRM, str, 10);
+        k_strcat(buf, (const char *)str);
+        k_strcat(buf, " ");
+    }
+    else {
+        k_strcat(buf, "0 ");
+    }
+    // processor
+    k_ltoa(pcb[pid].core_id, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // rt_priority
+    k_ltoa(pcb[pid].priority.priority, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // policy
+    k_ltoa(pcb[pid].sched_policy, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // delayacct_blkio_ticks
+    k_strcat(buf, "0 ");
+    // guest_time
+    k_strcat(buf, "0 ");
+    // cguest_time
+    k_strcat(buf, "0 ");
+    // start_data
+    k_strcat(buf, "1000000 ");
+    // end_data
+    k_strcat(buf, "10000000 ");
+    // start_brk
+    k_strcat(buf, "1000000 ");
+    // arg_start
+    k_ltoa(pcb[pid].arg_start, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // arg_end
+    k_ltoa(pcb[pid].arg_end, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // env_start
+    k_ltoa(pcb[pid].env_start, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // env_end
+    k_ltoa(pcb[pid].env_end, str, 10);
+    k_strcat(buf, (const char *)str);
+    k_strcat(buf, " ");
+    // exit_code
+    k_strcat(buf, "0 ");
 }
 
 /* =============== syscalls =============== */
