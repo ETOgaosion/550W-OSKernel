@@ -262,9 +262,16 @@ typedef struct pcb {
     nanotime_val_t real_time_last_nano;
     kernel_full_clock_t cputime_id_clock;
 
+    uint64_t start_tick;
+
     rusage_t resources;
 
     cap_user_data_t cap[2];
+
+    uintptr_t arg_start;
+    uintptr_t arg_end;
+    uintptr_t env_start;
+    uintptr_t env_end;
 } pcb_t;
 
 /* current running task PCB */
@@ -293,6 +300,7 @@ long k_pcb_getpid(void);
 void k_pcb_sleep(void *chan, spin_lock_t *lk);
 void k_pcb_wakeup(void *chan);
 int k_pcb_count();
+void k_pcb_stat(int pid, char *buf);
 
 extern void k_signal_send_signal(int signum, pcb_t *pcb);
 

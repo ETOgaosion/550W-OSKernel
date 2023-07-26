@@ -11,6 +11,7 @@ list_head timers;
 kernel_timespec_t boot_time;
 clock_set_t global_clocks;
 kernel_timex_t timex;
+uint64_t boot_ticks;
 
 timezone_t timezone_550W = {.tz_minuteswest = -480, .tz_dsttime = 0};
 
@@ -23,6 +24,7 @@ void k_time_init() {
     k_bzero((void *)&global_clocks.monotonic_clock, sizeof(clock_t));
     k_bzero((void *)&global_clocks.boot_time_clock, sizeof(clock_t));
     k_bzero((void *)&timex, sizeof(kernel_timex_t));
+    boot_ticks = k_time_get_ticks();
 }
 
 long k_time_get_ticks() {
