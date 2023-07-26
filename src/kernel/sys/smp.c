@@ -40,8 +40,7 @@ void k_smp_sync_current_pcb() {
     if (current_running_pcb->core_id == 0) {
         current_running0 = current_running_pcb;
         current_running = &current_running0;
-    }
-    else {
+    } else {
         current_running1 = current_running_pcb;
         current_running = &current_running1;
     }

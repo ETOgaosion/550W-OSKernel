@@ -152,10 +152,8 @@ long sys_rt_sigreturn() {
     return 0;
 }
 
-
 void k_signal_init_sig_table() {
-    for (int i = 0; i < NUM_MAX_SIGNAL; i++)
-    {
+    for (int i = 0; i < NUM_MAX_SIGNAL; i++) {
         sig_table[i].num = 0;
         sig_table[i].used = 0;
         k_memset(sig_table[i].sigactions, 0, NUM_MAX_SIGNAL * sizeof(sigaction_t));
@@ -163,9 +161,8 @@ void k_signal_init_sig_table() {
 }
 
 sigaction_t *k_signal_alloc_sig_table() {
-    for (int i = 0; i < NUM_MAX_SIGNAL; i++)
-    {
-        if(sig_table[i].used == 0){
+    for (int i = 0; i < NUM_MAX_SIGNAL; i++) {
+        if (sig_table[i].used == 0) {
             sig_table[i].used = 1;
             sig_table[i].num = 1;
             return sig_table[i].sigactions;
@@ -174,10 +171,10 @@ sigaction_t *k_signal_alloc_sig_table() {
     return NULL;
 }
 
-void k_signal_free_sig_table(sigaction_t* sig_in) {
-    sigaction_table_t* st =  list_entry((const sigaction_t (*)[64])sig_in, sigaction_table_t, sigactions);  
-    st->num --;
-    if(st->num == 0){
+void k_signal_free_sig_table(sigaction_t *sig_in) {
+    sigaction_table_t *st = list_entry((const sigaction_t(*)[64])sig_in, sigaction_table_t, sigactions);
+    st->num--;
+    if (st->num == 0) {
         st->used = 0;
         k_memset(sig_in, 0, NUM_MAX_SIGNAL * sizeof(sigaction_t));
     }

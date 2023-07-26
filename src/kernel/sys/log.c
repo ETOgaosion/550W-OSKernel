@@ -1,8 +1,9 @@
+#include <lib/math.h>
 #include <lib/stdio.h>
 #include <lib/string.h>
 #include <os/sys.h>
 
-char moss_log[SYSLOG_SIZE];
+char moss_log[SYSLOG_SIZE] = {0};
 int saved_console_loglevel;
 int console_loglevel;
 int minimum_console_loglevel;
@@ -19,6 +20,10 @@ int console_printk[4] = {
 #define minimum_console_loglevel (console_printk[2])
 #define default_console_loglevel (console_printk[3])
 
+void k_sys_write_to_log(const char *log_msg) {
+    k_strcat(moss_log, log_msg);
+}
+
 // [TODO]
 long sys_syslog(int type, char *buf, int len) {
     switch (type) {
@@ -34,7 +39,9 @@ long sys_syslog(int type, char *buf, int len) {
         if (!len) {
             return 0;
         }
-        k_memcpy((uint8_t *)buf, (const uint8_t *)moss_log, len);
+        int actual_len = MIN(k_strlen((const char *)moss_log), len);
+        k_memcpy((uint8_t *)buf, (const uint8_t *)moss_log, actual_len);
+        return actual_len;
         break;
     case SYSLOG_ACTION_CLEAR:
         k_bzero((uint8_t *)moss_log, sizeof(moss_log));

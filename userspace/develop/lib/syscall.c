@@ -202,5 +202,5 @@ long sys_process_show() {
 }
 
 void sys_breakpoint() {
-    syscall(SYS_breakpoint);    
+    syscall(SYS_breakpoint);
 }

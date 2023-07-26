@@ -105,6 +105,8 @@ typedef struct sysinfo {
 
 extern sysinfo_t moss_info;
 
+void k_sys_write_to_log(const char *log_msg);
+
 long sys_uname(uname_t *);
 long sys_gethostname(char *name, int len);
 long sys_sethostname(char *name, int len);

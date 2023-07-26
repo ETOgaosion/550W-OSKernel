@@ -582,9 +582,8 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     if (!(flags & CLONE_SIGHAND)) {
         sig = k_signal_alloc_sig_table();
         k_memcpy((uint8_t *)sig, (uint8_t *)(*current_running)->sigactions, NUM_MAX_SIGNAL * sizeof(sigaction_t));
-    }
-    else {
-        sigaction_table_t *st = list_entry((const sigaction_t (*)[64])sig, sigaction_table_t, sigactions);
+    } else {
+        sigaction_table_t *st = list_entry((const sigaction_t(*)[64])sig, sigaction_table_t, sigactions);
         st->num++;
     }
     init_pcb_i(name, i, USER_PROCESS, i, 0, 0, fpid, (*current_running)->core_mask[0], (*current_running)->sigactions);
@@ -644,8 +643,7 @@ int kill(pid_t pid, int exit_status) {
         if (!parent->timer.initialized && parent->status == TASK_BLOCKED) {
             if (target->flags & SIGCHLD) {
                 k_signal_send_signal(SIGCHLD, parent);
-            }
-            else {
+            } else {
                 k_pcb_unblock(&parent->list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
             }
         }
@@ -740,6 +738,9 @@ long sys_kill(pid_t pid) {
     if (pid <= 0 || pid >= NUM_MAX_TASK) {
         return -EINVAL;
     }
+    if (pcb[pid].in_use == 0) {
+        return 0;
+    }
     kill(pid, 0);
     pcb[pid].in_use = FALSE;
     if (pid == (*current_running)->pid) {
@@ -785,7 +786,7 @@ long sys_exit_group(int error_code) {
     for (int i = 0; i < (*current_running)->threadsum; i++) {
         sys_kill((*current_running)->thread_ids[i]);
     }
-    sys_exit((*current_running)->pid);
+    sys_exit(error_code);
     return 0;
 }
 

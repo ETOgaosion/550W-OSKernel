@@ -32,9 +32,8 @@ void k_spin_lock_with_owner_init(spin_lock_with_owner_t *lock) {
 void k_spin_lock_with_owner_acquire(spin_lock_with_owner_t *lock) {
     if (lock->owner == k_smp_get_current_cpu_id()) {
         return;
-    }
-    else {
-        while(lock->owner != -1) {
+    } else {
+        while (lock->owner != -1) {
             if (lock->owner != -1) {
                 break;
             }

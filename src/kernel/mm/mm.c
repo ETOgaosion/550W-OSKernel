@@ -142,7 +142,7 @@ noswap:
         }
         allmem[allocpid][0]++;
         allmem[allocpid][allmem[allocpid][0]] = ret;
-        if(alluserva[allocpid][0]+1 < MAXPAGES) {
+        if (alluserva[allocpid][0] + 1 < MAXPAGES) {
             alluserva[allocpid][0]++;
             alluserva[allocpid][alluserva[allocpid][0]] = user_va;
         }
@@ -353,7 +353,7 @@ uint64_t k_mm_get_kva_from_va(uint64_t va, PTE *pgdir) {
     }
     PTE *pmd = k_mm_get_kva(pgdir[vpn2]);
     if (pmd[vpn1] == 0) {
-       return 0;
+        return 0;
     }
     PTE *pld = k_mm_get_kva(pmd[vpn1]);
     return (uint64_t)k_mm_get_kva(pld[vpn0]);
@@ -523,7 +523,7 @@ long sys_brk(unsigned long brk) {
         }
     } else {
         uintptr_t iterator = ((*current_running)->elf.edata >> NORMAL_PAGE_SHIFT) << NORMAL_PAGE_SHIFT;
-        if(((*current_running)->elf.edata & ((1 << NORMAL_PAGE_SHIFT) -1)) != 0) {
+        if (((*current_running)->elf.edata & ((1 << NORMAL_PAGE_SHIFT) - 1)) != 0) {
             iterator = iterator + NORMAL_PAGE_SIZE;
         }
         for (; iterator < brk; iterator += NORMAL_PAGE_SIZE) {

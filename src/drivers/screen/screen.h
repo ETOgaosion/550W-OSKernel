@@ -1,9 +1,11 @@
 #pragma once
 
+#include <common/types.h>
+
 extern int screen_cursor_x;
 extern int screen_cursor_y;
 
-void vt100_move_cursor(int, int);
+void vt100_move_cursor(bool, int, int);
 
 /* configuring screen properties */
 void d_screen_init(void);

@@ -164,7 +164,7 @@ extern void exit_signal_trampoline();
 void k_signal_handler();
 void k_signal_init_sig_table();
 sigaction_t *k_signal_alloc_sig_table();
-void k_signal_free_sig_table(sigaction_t* sig_in);
+void k_signal_free_sig_table(sigaction_t *sig_in);
 
 long sys_tkill(pid_t pid, int sig);
 long sys_tgkill(pid_t tgid, pid_t pid, int sig);

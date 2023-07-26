@@ -226,3 +226,4 @@ long sys_gettimeofday(time_val_t *tv, timezone_t *tz);
 
 long sys_adjtimex(kernel_timex_t *txc_p);
 long sys_clock_adjtime(clockid_t which_clock, kernel_timex_t *tx);
+long sys_clock_nanosleep(clockid_t which_clock, int flags, const kernel_timespec_t *rqtp, kernel_timespec_t *rmtp);

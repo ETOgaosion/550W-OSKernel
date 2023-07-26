@@ -18,7 +18,6 @@
  * high mem micro, free high mem var
  */
 
-
 #define MAP_KERNEL 1
 #define MAP_USER 2
 

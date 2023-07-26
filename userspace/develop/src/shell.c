@@ -121,7 +121,7 @@ static int shell_help(int argc, char *argv[]) {
                     return 0;
                 }
             }
-            panic(cmd_not_found);
+            printf("\n%s", cmd_not_found);
             return -1;
         }
 
@@ -201,8 +201,7 @@ static int shell_execve(int argc, char *argv[]) {
         int result = 0;
         waitpid(pid, &result, 0);
         return result;
-    }
-    else {
+    } else {
         int argp = 0, envp = 0;
         for (int i = 1; i < argc; i++) {
             if (argp && envp) {
@@ -417,21 +416,21 @@ static int shell_clear(int argc, char *argv[]) {
 
 #ifdef FINAL
 static void test() {
-    char *busybox_echo_arg[] = {"echo", "helloworld"};
-    int pid = exec("busybox", busybox_echo_arg, NULL);
+    char *busybox_args[] = {"sleep", "10"};
+    int pid = exec("busybox", busybox_args, NULL);
     waitpid(pid, NULL, 0);
 }
 #endif
 
 int main() {
-    #ifdef FINAL
+#ifdef FINAL
     test();
-    #else
+#else
     for (int i = 0; i < CURRENT_TASK_NUM; i++) {
         int pid = spawn(task_names[i]);
         waitpid(pid, NULL, 0);
     }
-    #endif
+#endif
     BEGIN;
     char input_buffer[SHELL_INPUT_MAX_WORDS] = {0};
     char cmd[SHELL_CMD_MAX_LENGTH] = {0};

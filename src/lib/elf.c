@@ -42,8 +42,8 @@ uintptr_t load_elf(elf_info_t *target, bool *is_dynamic, unsigned char elf_binar
             for (i = 0; i < phdr->p_memsz; i += NORMAL_PAGE_SIZE) {
                 // the whole page, means addr & 0xfff = 0
                 unsigned char *bytes_of_page = NULL;
-                if (phdr->p_vaddr & ((1<<NORMAL_PAGE_SHIFT) - 1)) {
-                    if(i == 0) {
+                if (phdr->p_vaddr & ((1 << NORMAL_PAGE_SHIFT) - 1)) {
+                    if (i == 0) {
                         bytes_of_page = (unsigned char *)prepare_page_for_va((uintptr_t)(phdr->p_vaddr + i), pgdir);
                         last_page = (unsigned char *)prepare_page_for_va((uintptr_t)(phdr->p_vaddr + i + NORMAL_PAGE_SIZE), pgdir);
                     } else {
@@ -61,7 +61,7 @@ uintptr_t load_elf(elf_info_t *target, bool *is_dynamic, unsigned char elf_binar
                         }
                     }
                 } else {
-                    long *longs_of_page = (long*)bytes_of_page;
+                    long *longs_of_page = (long *)bytes_of_page;
                     for (int j = 0; j < NORMAL_PAGE_SIZE / sizeof(long); ++j) {
                         longs_of_page[j] = 0;
                     }

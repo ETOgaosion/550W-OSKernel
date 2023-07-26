@@ -89,6 +89,7 @@ void k_syscall_init(void) {
     syscall[SYS_sethostname] = (long (*)())sys_sethostname;
     syscall[SYS_utimensat] = (long (*)())sys_utimensat;
     syscall[SYS_nanosleep] = (long (*)())sys_nanosleep;
+    syscall[SYS_clock_nanosleep] = (long (*)())sys_clock_nanosleep;
     syscall[SYS_setitimer] = (long (*)())sys_setitimer;
     syscall[SYS_clock_settime] = (long (*)())sys_clock_settime;
     syscall[SYS_clock_gettime] = (long (*)())sys_clock_gettime;
@@ -225,7 +226,7 @@ void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause,
     }
     nanotime_val_t now_nano, gap;
     k_time_get_nanotime(&now_nano);
-    k_time_minus_nanotime(&now_nano, (nanotime_val_t *)&global_clocks.real_time_clock.nano_clock, &gap);
+    k_time_minus_nanotime(&now_nano, (nanotime_val_t *)&global_clocks.boot_time_clock.nano_clock, &gap);
     k_time_add_nanotime((nanotime_val_t *)&global_clocks.real_time_clock.nano_clock, &gap, NULL);
     k_time_add_nanotime((nanotime_val_t *)&global_clocks.tai_clock.nano_clock, &gap, NULL);
     k_time_add_nanotime((nanotime_val_t *)&global_clocks.monotonic_clock.nano_clock, &gap, NULL);

@@ -54,7 +54,10 @@ int kernel_start(int mhartid) {
 
         k_smp_set_current_pcb(current_running0);
 
-        k_print("> [INIT] PCB initialization succeeded.\n\r");
+        k_sys_write_to_log("=============== dmesg ===============\n\r");
+
+        k_print("[INIT] > PCB initialization succeeded.\n\r");
+        k_sys_write_to_log("[INIT] > PCB initialization succeeded.\n\r");
 
         k_sysinfo_init();
 
@@ -65,7 +68,8 @@ int kernel_start(int mhartid) {
 
         // init system call table (0_0)
         k_syscall_init();
-        k_print("> [INIT] System call initialized successfully.\n\r");
+        k_print("[INIT] > System call initialized successfully.\n\r");
+        k_sys_write_to_log("[INIT] > System call initialized successfully.\n\r");
 
         k_exception_init();
         k_signal_init_sig_table();
@@ -75,7 +79,8 @@ int kernel_start(int mhartid) {
         d_plic_init_hart(id);
         d_virtio_disk_init();
         d_binit();
-        k_print("> [INIT] Disk initialized successfully.\n\r");
+        k_print("[INIT] > Disk initialized successfully.\n\r");
+        k_sys_write_to_log("[INIT] > Disk initialized successfully.\n\r");
 
         // init screen
         d_screen_init();
@@ -83,11 +88,13 @@ int kernel_start(int mhartid) {
         // init fs
         fs_init();
         fd_table_init();
-        k_print("> [INIT] fs initialized successfully.\n\r");
+        k_print("[INIT] > fs initialized successfully.\n\r");
+        k_sys_write_to_log("[INIT] > fs initialized successfully.\n\r");
 
         // init users
         init_users();
-        k_print("> [INIT] users initialized successfully.\n\r");
+        k_print("[INIT] > users initialized successfully.\n\r");
+        k_sys_write_to_log("[INIT] > users initialized successfully.\n\r");
 
         // init built-in tasks
         sys_spawn("shell");
@@ -95,7 +102,8 @@ int kernel_start(int mhartid) {
         int bb1 = sys_spawn("bubble");
         pcb[bb0].priority.priority = 0;
         pcb[bb1].priority.priority = 0;
-        k_print("> [INIT] daemons initialized successfully.\n\r");
+        k_print("[INIT] > daemons initialized successfully.\n\r");
+        k_sys_write_to_log("[INIT] > daemons initialized successfully.\n\r");
 
         wakeup_other_cores();
     }

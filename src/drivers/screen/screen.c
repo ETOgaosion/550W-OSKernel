@@ -18,9 +18,11 @@ char new_screen[SCREEN_HEIGHT][SCREEN_WIDTH] = {0};
 char old_screen[SCREEN_HEIGHT][SCREEN_WIDTH] = {0};
 
 /* cursor position */
-void vt100_move_cursor(int x, int y) {
+void vt100_move_cursor(bool force, int x, int y) {
     // \033[y;xH
-    // k_print("%c[%d;%dH", 27, y, x);
+    if (force) {
+        k_print("%c[%d;%dH", 27, y, x);
+    }
     screen_cursor_x = x;
     screen_cursor_y = y;
 }
@@ -58,7 +60,7 @@ void screen_write_ch(char ch) {
         }
     } else if (ch == 8 || ch == 127) {
         new_screen[screen_cursor_y][(screen_cursor_x - 2)] = 0;
-        screen_cursor_x--;
+        vt100_move_cursor(true, screen_cursor_x - 1, screen_cursor_y);
     } else {
         new_screen[screen_cursor_y][(screen_cursor_x - 1)] = ch;
         screen_cursor_x++;
@@ -120,7 +122,7 @@ long d_screen_reflush(void) {
         for (j = 0; j < SCREEN_WIDTH; j++) {
             /* We only print the data of the modified location. */
             if (new_screen[i][j] != old_screen[i][j]) {
-                vt100_move_cursor(j + 1, i + 1);
+                vt100_move_cursor(false, j + 1, i + 1);
                 if (new_screen[i][j] == '\n') {
                     k_port_write_ch('\n');
                 } else if (new_screen[i][j] < 20 || new_screen[i][j] > 126) {
@@ -134,7 +136,7 @@ long d_screen_reflush(void) {
     }
 
     /* recover cursor position */
-    vt100_move_cursor(prex, prey);
+    vt100_move_cursor(false, prex, prey);
     return 0;
 }
 

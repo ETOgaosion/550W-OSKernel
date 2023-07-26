@@ -1,5 +1,6 @@
 #include <common/types.h>
 #include <lib/list.h>
+#include <lib/stdio.h>
 #include <os/pcb.h>
 #include <os/smp.h>
 #include <os/time.h>
@@ -16,8 +17,8 @@ timezone_t timezone_550W = {.tz_minuteswest = -480, .tz_dsttime = 0};
 void k_time_init() {
     time_base = TIME_BASE_DEFAULT;
     k_time_get_nanotime((nanotime_val_t *)&boot_time);
-    k_time_get_nanotime((nanotime_val_t *)&global_clocks.real_time_clock);
     k_memcpy((uint8_t *)&global_clocks.real_time_clock, (const uint8_t *)&boot_time, sizeof(clock_t));
+    global_clocks.real_time_clock.nano_clock.tv_sec += 1690339653;
     k_memcpy((uint8_t *)&global_clocks.tai_clock, (const uint8_t *)&boot_time, sizeof(clock_t));
     k_bzero((void *)&global_clocks.monotonic_clock, sizeof(clock_t));
     k_bzero((void *)&global_clocks.boot_time_clock, sizeof(clock_t));
@@ -376,4 +377,8 @@ long sys_clock_adjtime(clockid_t which_clock, kernel_timex_t *tx) {
         break;
     }
     return 0;
+}
+
+long sys_clock_nanosleep(clockid_t which_clock, int flags, const kernel_timespec_t *rqtp, kernel_timespec_t *rmtp) {
+    return sys_nanosleep((nanotime_val_t *)rqtp, (nanotime_val_t *)rmtp);
 }
