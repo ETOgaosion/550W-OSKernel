@@ -330,18 +330,22 @@ void bunpin(buf_t *b) {
 void d_sd_read(char *buffers, uint *start_block_ids, uint block_num) {
     buf_t *buf;
     for (int i = 0; i < block_num; i++) {
+#ifdef _SD_H_
+        sdRead((uint8_t *)(buffers + i * BSIZE), start_block_ids[i], 1);
+#else
         buf = d_bread(DEV_VDA2, start_block_ids[i]);
         k_memcpy((uint8_t *)(buffers + i * BSIZE), (uint8_t *)buf->data, BSIZE);
         d_brelse(buf);
+#endif
     }
 }
 
 void d_sd_write(char *buffers, uint *start_block_ids, uint block_num) {
-    buf_t *buf;
-    for (int i = 0; i < block_num; i++) {
-        buf = d_bread(DEV_VDA2, start_block_ids[i]);
-        k_memcpy((uint8_t *)buf->data, (uint8_t *)(buffers + i * BSIZE), BSIZE);
-        d_bwrite(buf);
-        d_brelse(buf);
-    }
+    // buf_t *buf;
+    // for (int i = 0; i < block_num; i++) {
+    //     buf = d_bread(DEV_VDA2, start_block_ids[i]);
+    //     k_memcpy((uint8_t *)buf->data, (uint8_t *)(buffers + i * BSIZE), BSIZE);
+    //     d_bwrite(buf);
+    //     d_brelse(buf);
+    // }
 }

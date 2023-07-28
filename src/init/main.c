@@ -19,6 +19,7 @@
 #include <os/sys.h>
 #include <os/time.h>
 #include <os/users.h>
+#include <sd.h>
 
 void wakeup_other_cores() {
     int hartid = 1;
@@ -44,6 +45,9 @@ int kernel_start(int mhartid) {
     } else {
         // init kernel lock
         k_smp_init();
+#ifdef _SD_H_
+        k_sd_init();
+#endif
 
         asm_w_stvec((uint64_t)kernel_exception_handler_entry);
 
