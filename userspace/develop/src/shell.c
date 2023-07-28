@@ -2,7 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define FINAL
+// #define FINAL
 
 #define SHELL_BEGIN 148
 #define SHELL_ARG_MAX_NUM 5
