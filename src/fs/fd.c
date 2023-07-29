@@ -1,7 +1,7 @@
 #include <fs/file.h>
 #include <fs/fs.h>
-// #include <os/time.h>
 #include <os/pcb.h>
+// #include <os/time.h>
 // #include <fs/pipe.h>
 
 #include <lib/stdio.h>
@@ -48,6 +48,7 @@ fd_t *fd_exist(int fd){
     }
     fd_t *file;
     list_for_each_entry(file,&pcb->fd_head,list){
+        // k_print("[debug] check fd %d with fd %d\n",file->fd_num,fd);
         if(file->fd_num == fd){
             return file;
         }
@@ -71,7 +72,7 @@ int fd_alloc(int fd) {
     // return -1;
     //访问PCB
     pcb_t *pcb = *current_running;
-    k_print("[debug] pcb id is %d\n",pcb->pid);
+    // k_print("[debug] pcb id is %d\n",pcb->pid);
     //get fd num
     if(fd == -1)
         fd = get_fd_from_list();
@@ -80,7 +81,7 @@ int fd_alloc(int fd) {
             return -1;
         }
     }
-    k_print("[debug] get fd %d\n",fd);
+    // k_print("[debug] get fd %d\n",fd);
     //alloc fd
     fd_t *file = (fd_t *)k_mm_malloc(sizeof(fd_t));
     k_memset(file,0,sizeof(fd_t));
@@ -147,7 +148,7 @@ int pipe_alloc(int *fd) {
     file2->pip_num = pipe_cnt++;
     file2->is_pipe_read = FALSE;
     file2->is_pipe_write = TRUE;
-    k_print("[debug] alloc pipe %d %d\n",fd[0],fd[1]);
+    // k_print("[debug] alloc pipe %d %d\n",fd[0],fd[1]);
 
     return 0;
 }
@@ -167,10 +168,24 @@ int fd_free(int fd) {
 }
 
 fd_t *get_fd(int fd) {
-    if (fd < STDMAX || fd >= MAX_FD) {
+    if (fd < STDIN || fd >= MAX_FD) {
         return NULL;
     }
     return fd_exist(fd);
+}
+
+void init_fd_pcb(pcb_t *pcb){
+    int i;
+    for(i = stdin;i<STDMAX;i++){
+        //alloc fd
+        fd_t *file = (fd_t *)k_mm_malloc(sizeof(fd_t));
+        k_memset(file,0,sizeof(fd_t));
+        file->file = i;
+        file->used = 1;
+        file->fd_num = i;
+        //add to fd list in pcb
+        __list_add(&file->list,pcb->fd_head.prev,&pcb->fd_head);
+    }
 }
 
 void ring_buffer_init(struct ring_buffer *rbuf) {

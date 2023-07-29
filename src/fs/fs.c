@@ -1065,6 +1065,7 @@ long sys_dup(int old) {
         k_memcpy((uint8_t *)file2, (uint8_t *)file1, sizeof(fd_t));
         k_memcpy((uint8_t *)&file2->list,(uint8_t *)&list,sizeof(list_head));
     }
+    file2->fd_num = new;
     return new; // fail return -1
 }
 
@@ -1078,16 +1079,33 @@ long sys_dup3(int old, int new, mode_t flags) {
     if (!file1 && old!=STDIN && old!=STDOUT && old!=STDERR) {
         return -1;
     }
-    
-    if (new != fd_alloc(new)) {
-        k_print("[debug] fd %d alloc fail!\n",new);
-        return -1;
+    if(!fd_exist(new)){
+        if (new != fd_alloc(new)) {
+            // k_print("[debug] fd %d alloc fail!\n",new);
+            return -1;
+        }
     }
     fd_t *file2 = get_fd(new);
     if(old>=STDIN && old<=STDERR)
         file2->file = old;
-    else
+    else{
+        list_head list;
+        k_memcpy((uint8_t *)&list,(uint8_t *)&file2->list,sizeof(list_head));
         k_memcpy((uint8_t *)file2, (uint8_t *)file1, sizeof(fd_t));
+        k_memcpy((uint8_t *)&file2->list,(uint8_t *)&list,sizeof(list_head));
+        // file2->file = file1->file;
+        // file2->first_cluster = file1->first_cluster;
+        // file2->dev = file1->dev;
+        // file2->flags = file1->flags;
+        // file2->inode = file1->inode;
+        // file2->pos = file1->pos;
+        // file2->used = file1->used;
+        // file2->mode = file1->mode;
+        // file2->nlink = file1->nlink;
+        // file2->size = file1->size;
+        // k_strcpy(file2->name,file1->name);
+    }
+    file2->fd_num = new;
     return new; // fail return -1
 }
 
@@ -1609,10 +1627,10 @@ long sys_lseek(unsigned int fd, off_t offset, unsigned int whence) {
  * @param  count  read len
  */
 ssize_t sys_read(int fd, char *buf, size_t count) {
-    if (fd == stdin) {
-        *buf = k_port_read();
-        return 1;
-    }
+    // if (fd == stdin) {
+    //     *buf = k_port_read();
+    //     return 1;
+    // }
 
     fd_t *file = get_fd(fd);
     if (!file) {
@@ -1659,14 +1677,12 @@ ssize_t sys_read(int fd, char *buf, size_t count) {
 
 ssize_t sys_write(int fd, const char *buf, size_t count) {
     // k_print("[debug] sys_write fd %d\n",fd);
-    if (fd == STDOUT) {
-        sys_screen_write_len((char *)buf, count);
-        return count;
-    }
-
+    // if (fd == STDOUT) {
+    //     sys_screen_write_len((char *)buf, count);
+    //     return count;
+    // }
     fd_t *file = get_fd(fd);
     if (!file) {
-        // k_print("[debug] sys_write fail with fd %d\n",fd);
         return -1;
     }
     // k_print("[debug] sys_write with fd %d\n",fd);
@@ -1856,7 +1872,8 @@ long sys_newfstat(unsigned int fd, stat_t *statbuf) {
     if(!file)
         return -1;
     statbuf->st_dev = file->dev;
-    statbuf->st_ino = ((inode_t *)file->inode)->i_ino;
+    if(file->file>STDMAX)
+        statbuf->st_ino = ((inode_t *)file->inode)->i_ino;
     statbuf->st_mode = file->mode;
     statbuf->st_nlink = 1;
     statbuf->st_uid = file->uid;

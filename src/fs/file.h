@@ -6,7 +6,7 @@
 #include <os/lock.h>
 #include <os/mm.h>
 // #include <os/errno.h>
-
+// #include <os/pcb.h>
 // flags
 #define O_RDONLY 0x00
 #define O_WRONLY 0x01
@@ -110,6 +110,7 @@ extern int fd_alloc(int fd);
 extern int fd_free(int fd);
 extern int pipe_alloc(int *fd);
 extern fd_t *get_fd(int fd);
+extern fd_t *fd_exist(int fd);
 
 #define RING_BUFFER_SIZE 4095
 #pragma pack(8)

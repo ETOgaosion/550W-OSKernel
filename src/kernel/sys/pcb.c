@@ -532,6 +532,7 @@ long spawn(const char *file_name) {
 
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (uintptr_t)(process), &pcb[i]);
     init_list_head(&pcb[i].fd_head);
+    init_fd_pcb(&pcb[i]);
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;
 }
@@ -568,6 +569,7 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
 
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
     init_list_head(&pcb[target_pid].fd_head);
+    init_fd_pcb(&pcb[target_pid]);
     enqueue(&pcb[target_pid].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
     return target_pid;
 }

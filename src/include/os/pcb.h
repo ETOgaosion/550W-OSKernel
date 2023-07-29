@@ -293,6 +293,8 @@ void k_pcb_sleep(void *chan, spin_lock_t *lk);
 void k_pcb_wakeup(void *chan);
 int k_pcb_count();
 
+extern void init_fd_pcb(pcb_t *pcb);
+
 extern void k_signal_send_signal(int signum, pcb_t *pcb);
 
 long spawn(const char *file_name);
