@@ -1642,7 +1642,7 @@ ssize_t sys_read(int fd, char *buf, size_t count) {
         return 1;
     }
 
-    if (file->flags && !(file->flags & O_RDWR)) {
+    if (file->flags << 31 != 0) {
         return -1;
     }
     if (file->flags & O_DIRECTORY) {
@@ -1691,7 +1691,7 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
         return count;
     }
 
-    if (!(file->flags & O_WRONLY) && !(file->flags & O_RDWR)) {
+    if ((file->flags << 30) == 0) {
         // k_print("[debug] sys_write flags error with fd %d\n",fd);
         return -1;
     }

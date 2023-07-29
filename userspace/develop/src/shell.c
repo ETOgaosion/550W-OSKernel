@@ -416,7 +416,7 @@ static int shell_clear(int argc, char *argv[]) {
 
 #ifdef FINAL
 static void test() {
-    char *busybox_args[] = {"hexdump","-C","test.txt"};
+    char *busybox_args[] = {"sort","test.txt"};
     int pid = exec("busybox", busybox_args, NULL);
     int res = 0;
     waitpid(pid, &res, 0);
