@@ -2,6 +2,7 @@
 
 #include <common/types.h>
 #include <os/time.h>
+// #include <fs/fat32.h>
 
 // #define O_RDONLY 0x000
 // #define O_WRONLY 0x001
@@ -34,34 +35,10 @@
 #define FD_SETIDXMASK (8 * sizeof(unsigned long))
 #define FD_SETBITMASK (8 * sizeof(unsigned long) - 1)
 
-// mmap
-#define MAP_SHARED 0x01          /* Share changes */
-#define MAP_PRIVATE 0x02         /* Changes are private */
-#define MAP_SHARED_VALIDATE 0x03 /* share + validate extension flags */
-#define MAP_FILE 0
-#define MAP_FAILED ((void *)-1)
-
-/* 0x01 - 0x03 are defined in linux/mman.h */
-#define MAP_TYPE 0x0f      /* Mask for type of mapping */
-#define MAP_FIXED 0x10     /* Interpret addr exactly */
-#define MAP_ANONYMOUS 0x20 /* don't use a file */
-
-/* 0x0100 - 0x4000 flags are defined in asm-generic/mman.h */
-#define MAP_POPULATE 0x008000        /* populate (prefault) pagetables */
-#define MAP_NONBLOCK 0x010000        /* do not block on IO */
-#define MAP_STACK 0x020000           /* give out an address that is best suited for process/thread stacks */
-#define MAP_HUGETLB 0x040000         /* create a huge page mapping */
-#define MAP_SYNC 0x080000            /* perform synchronous page faults for the mapping */
-#define MAP_FIXED_NOREPLACE 0x100000 /* MAP_FIXED which doesn't unmap underlying mapping */
-
-#define MAP_UNINITIALIZED 0x4000000 /* For anonymous mmap, memory could be uninitialized */
-
-#define PROT_NONE 0
-#define PROT_EXEC 0x01  /* Pages can be executed.  */
-#define PROT_WRITE 0x02 /* Pages can be written.  */
-#define PROT_READ 0x04  /* Pages can be read.  */
-#define PROT_GROWSDOWN 0X01000000
-#define PROT_GROWSUP 0X02000000
+#define F_OK 0
+#define R_OK 4
+#define W_OK 2
+#define X_OK 1
 
 typedef struct super_block {
     int magic;
@@ -79,6 +56,27 @@ typedef struct super_block {
     int inode_used;
     int root_inode_offset;
 } super_block_t;
+
+#define INODE_DIR  1
+#define INODE_FILE 0
+#pragma pack(2)
+typedef struct inode {
+	ptr_t	        i_mapping;	    //page cache addr
+	uint16_t        i_ino;  		//inode num
+	uint16_t     	i_upper;		//dir inode num
+    uint8_t	        i_type;			//file type 0file 1dir
+    uint8_t         i_link;			//file link num
+    uint32_t        i_fclus;        //first file cluster 
+    int             i_offset;		//dentry offset in upper dir
+    // ptr_t	        padding1;
+    // ptr_t	        padding2;
+    // ptr_t	        padding3;
+    // ptr_t	        padding4;
+    ptr_t	        padding5;
+    // uint32_t	    padding6;
+    uint16_t        padding7;
+}inode_t;
+#pragma pack()
 
 typedef struct dir_entry {
     char name[20];
@@ -291,3 +289,4 @@ long sys_mremap(unsigned long addr, unsigned long old_len, unsigned long new_len
 long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
 
 long sys_utimensat(int dfd, const char *filename, kernel_timespec_t *utimes, int flags);
+long sys_symlink(int dfd, const char *filename);

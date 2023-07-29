@@ -13,6 +13,7 @@
 #include <os/smp.h>
 #include <os/users.h>
 #include <user/user_programs.h>
+#include<fs/file.h>
 
 pcb_t *volatile current_running0;
 pcb_t *volatile current_running1;
@@ -530,6 +531,7 @@ long spawn(const char *file_name) {
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (uintptr_t)(process), &pcb[i]);
+    init_list_head(&pcb[i].fd_head);
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;
 }
@@ -565,7 +567,7 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
     uintptr_t child_argv = init_user_stack(&pcb[target_pid], &user_stack_kva, &user_stack, argc, argv, envpc, envp, file_name, pcb[target_pid].dynamic);
 
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
-
+    init_list_head(&pcb[target_pid].fd_head);
     enqueue(&pcb[target_pid].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
     return target_pid;
 }
@@ -627,6 +629,14 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     clone_pcb_stack(kernel_stack_kva, user_stack, &pcb[i], flags, tls);
     if (!stack) {
         k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
+    }
+    //cpy fd
+    init_list_head(&pcb[i].fd_head);
+    fd_t *pos;
+    list_for_each_entry(pos,&pcb[fpid].fd_head,list){
+        fd_t *file = k_mm_malloc(sizeof(fd_t));
+        k_memcpy((uint8_t *)file,(const uint8_t *)pos,sizeof(fd_t));
+        __list_add(&file->list,pcb[i].fd_head.prev,&pcb[i].fd_head);
     }
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;

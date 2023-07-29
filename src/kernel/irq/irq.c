@@ -87,7 +87,7 @@ void k_syscall_init(void) {
     // System
     syscall[SYS_uname] = (long (*)())sys_uname;
     syscall[SYS_sethostname] = (long (*)())sys_sethostname;
-    syscall[SYS_utimensat] = (long (*)())sys_utimensat;
+    syscall[SYS_symlink] = (long (*)())sys_symlink;
     syscall[SYS_nanosleep] = (long (*)())sys_nanosleep;
     syscall[SYS_clock_nanosleep] = (long (*)())sys_clock_nanosleep;
     syscall[SYS_setitimer] = (long (*)())sys_setitimer;

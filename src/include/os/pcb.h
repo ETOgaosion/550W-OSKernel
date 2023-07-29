@@ -246,6 +246,7 @@ typedef struct pcb {
 
     pcb_mbox_t *mbox;
 
+    list_head fd_head;
     /* time */
     kernel_timeval_t stime_last; // last time into kernel
     kernel_timeval_t utime_last; // last time out kernel
@@ -294,6 +295,7 @@ int k_pcb_count();
 
 extern void k_signal_send_signal(int signum, pcb_t *pcb);
 
+long spawn(const char *file_name);
 long sys_spawn(const char *file_name);
 long sys_fork(void);
 long sys_exec(const char *file_name, const char *argv[], const char *envp[]);

@@ -97,9 +97,9 @@ int kernel_start(int mhartid) {
         k_sys_write_to_log("[INIT] > users initialized successfully.\n\r");
 
         // init built-in tasks
-        sys_spawn("shell");
-        int bb0 = sys_spawn("bubble");
-        int bb1 = sys_spawn("bubble");
+        spawn("shell");
+        int bb0 = spawn("bubble");
+        int bb1 = spawn("bubble");
         pcb[bb0].priority.priority = 0;
         pcb[bb1].priority.priority = 0;
         k_print("[INIT] > daemons initialized successfully.\n\r");
