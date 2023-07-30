@@ -51,7 +51,7 @@ void k_spin_lock_with_owner_release(spin_lock_with_owner_t *lock) {
 void k_schedule_with_spin_lock(spin_lock_t *lock) {
     int locked = lock->flag;
     k_spin_lock_release(lock);
-    k_pcb_scheduler(false);
+    k_pcb_scheduler(false, false);
     if (locked == LOCKED) {
         k_spin_lock_acquire(lock);
     }
@@ -123,7 +123,7 @@ long k_mutex_lock_acquire(int key) {
     } else {
         k_pcb_block(&(*current_running)->list, &locks[key]->block_queue, ENQUEUE_LIST);
         locks[key]->lock.guard = 0;
-        k_pcb_scheduler(false);
+        k_pcb_scheduler(false, false);
         return -2;
     }
 }

@@ -113,7 +113,7 @@ int kernel_start(int mhartid) {
     setup_exception();
     // start scheduling
     while (1) {
-        k_pcb_scheduler(false);
+        k_pcb_scheduler(false, false);
         k_smp_unlock_kernel();
         k_smp_lock_kernel();
         k_smp_sync_current_pcb();

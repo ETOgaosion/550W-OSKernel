@@ -98,7 +98,7 @@ void *read_whole_dir(uint32_t first, uint32_t size) {
         if (size != 0) {
             return k_mm_malloc(((size + fat.bytes_per_cluster - 1) / fat.bytes_per_cluster) * fat.bytes_per_cluster);
         }
-        k_print("[ERROR] read empty file!\n");
+        // k_print("[ERROR] read empty file!\n");
         return NULL;
     }
     uint32_t ftable[fat.bpb.bytes_per_sec / sizeof(uint32_t)];

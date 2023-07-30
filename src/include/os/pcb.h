@@ -293,8 +293,8 @@ extern pcb_t pid0_pcb2;
 extern pid_t freepid[NUM_MAX_TASK];
 
 void k_pcb_init();
-extern void switch_to(pcb_t *prev, pcb_t *next);
-long k_pcb_scheduler(bool voluntary);
+extern void switch_to(pcb_t *prev, pcb_t *next, bool skip_prev);
+long k_pcb_scheduler(bool voluntary, bool skip_first);
 void k_pcb_block(list_head *, list_head *queue, enqueue_way_t way);
 void k_pcb_unblock(list_head *, list_head *, unblock_way_t way);
 long k_pcb_getpid(void);

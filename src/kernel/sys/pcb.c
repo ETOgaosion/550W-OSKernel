@@ -422,7 +422,7 @@ void check_itimers() {
     }
 }
 
-long k_pcb_scheduler(bool voluntary) {
+long k_pcb_scheduler(bool voluntary, bool skip_first) {
     if (!list_is_empty(&timers)) {
         check_sleeping();
     }
@@ -456,7 +456,8 @@ long k_pcb_scheduler(bool voluntary) {
     }
     set_satp(SATP_MODE_SV39, (*current_running)->pid + 1, (*current_running)->pgdir);
     local_flush_tlb_all();
-    switch_to(curr, next_pcb);
+    bool skip_first_cal = (curr == next_pcb) || curr->status == TASK_EXITED;
+    switch_to(curr, next_pcb, skip_first_cal | skip_first);
     return 0;
 }
 
@@ -493,7 +494,7 @@ void k_pcb_sleep(void *chan, spin_lock_t *lk) {
     k_spin_lock_release(lk);
     (*current_running)->chan = chan;
     k_pcb_block(&(*current_running)->list, &block_queue, ENQUEUE_LIST);
-    k_pcb_scheduler(false);
+    k_pcb_scheduler(false, false);
     (*current_running)->chan = 0;
     k_spin_lock_acquire(lk);
 }
@@ -613,10 +614,10 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     }
     init_pcb_i(name, cmd, i, USER_PROCESS, i, 0, 0, fpid, (*current_running)->core_mask[0], (*current_running)->sigactions);
 
-    if (flags & CLONE_CHILD_SETTID) {
+    if (flags & CLONE_CHILD_SETTID && child_tid) {
         *(int *)child_tid = pcb[i].tid;
     }
-    if (flags & CLONE_PARENT_SETTID) {
+    if (flags & CLONE_PARENT_SETTID && parent_tid) {
         *(int *)parent_tid = pcb[i].tid;
     }
     if (flags & CLONE_CHILD_CLEARTID) {
@@ -938,7 +939,7 @@ long sys_execve(const char *file_name, const char *argv[], const char *envp[]) {
     int ret;
     ret = exec((*current_running)->pid, (*current_running)->father_pid, file_name, argv, envp);
     if (ret) {
-        k_pcb_scheduler(false);
+        k_pcb_scheduler(false, true);
     }
     return ret;
 }
@@ -959,7 +960,7 @@ long sys_kill(pid_t pid) {
     kill(pid, 0);
     pcb[pid].in_use = FALSE;
     if (pid == (*current_running)->pid) {
-        k_pcb_scheduler(false);
+        k_pcb_scheduler(false, true);
     }
     return 0;
 }
@@ -993,7 +994,7 @@ long sys_exit(int error_code) {
     current_running = k_smp_get_current_running();
     set_satp(SATP_MODE_SV39, 0, PGDIR_PA >> NORMAL_PAGE_SHIFT);
     local_flush_tlb_all();
-    k_pcb_scheduler(false);
+    k_pcb_scheduler(false, true);
     return 0;
 }
 
@@ -1030,7 +1031,7 @@ long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
     }
     while (target->status != TASK_EXITED) {
         k_pcb_block(&(*current_running)->list, &block_queue, ENQUEUE_LIST);
-        k_pcb_scheduler(false);
+        k_pcb_scheduler(false, true);
     }
     target = &pcb[wait_pid];
     if (target->in_use) {
@@ -1108,7 +1109,7 @@ long sys_nanosleep(nanotime_val_t *rqtp, nanotime_val_t *rmtp) {
     k_time_add_nanotime(rqtp, &(*current_running)->timer.start_time, &(*current_running)->timer.end_time);
     (*current_running)->timer.remain_time = rmtp;
     k_pcb_block(&((*current_running)->list), &timers, ENQUEUE_TIMER_LIST);
-    k_pcb_scheduler(false);
+    k_pcb_scheduler(false, false);
     return 0;
 }
 
@@ -1212,7 +1213,7 @@ long sys_sched_getaffinity(pid_t pid, unsigned int len, uint8_t *user_mask_ptr) 
 
 long sys_sched_yield(void) {
     (*current_running)->resources.ru_nvcsw++;
-    return k_pcb_scheduler(true);
+    return k_pcb_scheduler(true, false);
 }
 
 long sys_sched_get_priority_max(int policy) {

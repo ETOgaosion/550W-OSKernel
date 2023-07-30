@@ -198,13 +198,14 @@ void k_syscall_init(void) {
     syscall[SYS_move_cursor] = (long (*)())sys_screen_move_cursor;
     syscall[SYS_screen_clear] = (long (*)())sys_screen_clear;
     syscall[SYS_breakpoint] = (long (*)())sys_breakpoint;
+    syscall[SYS_process_show] = (long (*)())sys_process_show;
 }
 
 void reset_irq_timer() {
     // note: use sbi_set_timer
     // remember to reschedule
     sbi_set_timer(k_time_get_ticks() + TICKS_INTERVAL);
-    k_pcb_scheduler(false);
+    k_pcb_scheduler(false, false);
 }
 
 void user_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t sepc) {

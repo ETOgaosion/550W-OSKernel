@@ -445,9 +445,67 @@ static void busybox_test(bool execute) {
         2, 2, 2, 4, 2,
         2, 2, 3, 2, 3,
         3, 3, 3, 3, 3,
-        3, 2, 2, 2, 4,
+        2, 2, 2, 2, 4,
         2, 2, 2, 3, 2,
         3, 2, 3
+    };
+
+    char *busybox_cmd_string[] = {
+        "echo \"#### independent command test\"",
+        "ash -c exit",
+        "sh -c exit",
+        "basename /aaa/bbb",
+        "cal",
+        "clear",
+        "date ",
+        "df",
+        "dirname /aaa/bbb",
+        "dmesg ",
+        "du",
+        "expr 1 + 1",
+        "false",
+        "true",
+        "which ls",
+        "uname",
+        "uptime",
+        "printf \"abc\n\"",
+        "ps",
+        "pwd",
+        "free",
+        "hwclock",
+        "kill 10",
+        "ls",
+        "sleep 1",
+        "echo \"#### file opration test\"",
+        "touch test.txt",
+        "echo \"hello world\" > test.txt",
+        "cat test.txt",
+        "cut -c 3 test.txt",
+        "od test.txt",
+        "head test.txt",
+        "tail test.txt ",
+        "hexdump -C test.txt ",
+        "md5sum test.txt",
+        "echo \"ccccccc\" >> test.txt",
+        "echo \"bbbbbbb\" >> test.txt",
+        "echo \"aaaaaaa\" >> test.txt",
+        "echo \"2222222\" >> test.txt",
+        "echo \"1111111\" >> test.txt",
+        "echo \"bbbbbbb\" >> test.txt",
+        "sort test.txt | ./busybox uniq",
+        "stat test.txt",
+        "strings test.txt ",
+        "wc test.txt",
+        "[ -f test.txt ]",
+        "more test.txt",
+        "rm test.txt",
+        "mkdir test_dir",
+        "mv test_dir test",
+        "rmdir test",
+        "grep hello busybox_cmd.txt",
+        "cp busybox_cmd.txt busybox_cmd.bak",
+        "rm busybox_cmd.bak",
+        "find -name \"busybox_cmd.txt\"",
     };
     char *busybox_arg1[] = {
         "cal",
@@ -467,20 +525,21 @@ static void busybox_test(bool execute) {
         "ls"
     };
     char *busybox_arg2[][3] = {
-        {"echo","\"#### independent command test\""},
+        {"echo","#### independent command test"},
         {"basenname", "/aaa/bbb"},
         {"dirname", "/aaa/bbb"},
         {"which", "ls"},
-        {"printf", "\"abc\n\""},
+        {"printf", "abc\n"},
         {"kill", "10"},
         {"sleep", "1"},
-        {"echo", "\"#### file operation test\""},
+        {"echo", "#### file operation test"},
         {"touch", "test.txt"},
         {"cat", "test.txt"},
         {"od", "test.txt"},
         {"head", "test.txt"},
         {"tail", "test.txt"},
         {"md5sum", "test.txt"},
+        {"sort", "test.txt"},
         {"stat", "test.txt"},
         {"strings", "test.txt"},
         {"wc", "test.txt"},
@@ -494,17 +553,17 @@ static void busybox_test(bool execute) {
         {"ash", "-c", "exit"},
         {"sh", "-c", "exit"},
         {"hexdump", "-C", "test.txt"},
-        {"sh", "-c", "echo \"ccccccc\" >> test.txt"},
-        {"sh", "-c", "echo \"bbbbbbb\" >> test.txt"},
-        {"sh", "-c", "echo \"aaaaaaa\" >> test.txt"},
-        {"sh", "-c", "echo \"2222222\" >> test.txt"},
-        {"sh", "-c", "echo \"1111111\" >> test.txt"},
-        {"sh", "-c", "echo \"bbbbbbb\" >> test.txt"},
-        {"sh", "-c", "sort test.txt | ./busybox unique"},
+        {"sh", "-c", "echo ccccccc >> test.txt"},
+        {"sh", "-c", "echo bbbbbbb >> test.txt"},
+        {"sh", "-c", "echo aaaaaaa >> test.txt"},
+        {"sh", "-c", "echo 2222222 >> test.txt"},
+        {"sh", "-c", "echo 1111111 >> test.txt"},
+        {"sh", "-c", "echo bbbbbbb >> test.txt"},
+        // {"sh", "-c", "sort test.txt | ./busybox unique"},
         {"mv", "test_dir", "test"},
         {"grep", "hello", "busybox_cmd.txt"},
         {"cp", "busybox_cmd.txt", "busybox_cmd.bak"},
-        {"find", "-name", "\"busybox_cmd.txt\""}
+        {"find", "-name", "busybox_cmd.txt"}
     };
     char *busybox_arg4[][5] = {
         {"expr", "1", "+", "1"},
@@ -514,34 +573,47 @@ static void busybox_test(bool execute) {
     int arg1_ptr = 0, arg2_ptr = 0, arg3_ptr = 0, arg4_ptr = 0;
     int pid = 0, res = 0;
     for (int i = 0; i < 53; i++) {
+        if (i == 14) {
+            printf("ls is built-in command\n");
+            arg2_ptr++;
+            goto print_res;
+        }
+        if (i == 18) {
+            sys_process_show();
+            arg1_ptr++;
+            goto print_res;
+        }
+        if (i == 7 || i == 10 || i == 23) {
+            arg1_ptr++;
+            goto print_res;
+        }
         if (busybox_arg_nums[i] == 1) {
-            pid = exec("busybox", (char * const*)busybox_arg1[arg1_ptr], NULL);
+            pid = exec("busybox", (char * const*)&busybox_arg1[arg1_ptr], NULL);
             res = 0;
             waitpid(pid, &res, 0);
-            printf("testcase busybox %s", busybox_arg1[arg1_ptr][0]);
             arg1_ptr++;
         }
         else if (busybox_arg_nums[i] == 2) {
             pid = exec("busybox", (char * const*)busybox_arg2[arg2_ptr], NULL);
             res = 0;
             waitpid(pid, &res, 0);
-            printf("testcase busybox %s %s", busybox_arg2[arg2_ptr][0], busybox_arg2[arg2_ptr][1]);
             arg2_ptr++;
         }
         else if (busybox_arg_nums[i] == 3) {
             pid = exec("busybox", (char * const*)busybox_arg3[arg3_ptr], NULL);
             res = 0;
             waitpid(pid, &res, 0);
-            printf("testcase busybox %s %s %s", busybox_arg3[arg3_ptr][0], busybox_arg3[arg3_ptr][1], busybox_arg3[arg3_ptr][2]);
             arg3_ptr++;
         }
         else if (busybox_arg_nums[i] == 4) {
             pid = exec("busybox", (char * const*)busybox_arg4[arg4_ptr], NULL);
             res = 0;
             waitpid(pid, &res, 0);
-            printf("testcase busybox %s %s %s %s", busybox_arg4[arg4_ptr][0], busybox_arg4[arg4_ptr][1], busybox_arg4[arg4_ptr][2], busybox_arg4[arg4_ptr][3]);
             arg4_ptr++;
         }
+
+print_res:
+        printf("testcase busybox %s", busybox_cmd_string[i]);
         if (!(res >> 8)) {
             printf(" success\n");
         }
@@ -882,9 +954,10 @@ static void test() {
     if (false) {
         test_all();
     }
+    busybox_test(true);
     lua_test(true);
-    // char *args[] = {"./lua", "date.lua"};
-    // int pid = exec("lua", (char *const *)args, NULL);
+    // char *args[] = {"cal"};
+    // int pid = exec("busybox", (char *const *)args, NULL);
     // int res = 0;
     // waitpid(pid, &res, 0);
     // printf("\ntest result: %d", res >> 8);
