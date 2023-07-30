@@ -915,24 +915,19 @@ int fs_load_file(const char *name, uint8_t **bin, int *len) {
     // TODO: read in dir data
     dtable = (dentry_t *)inode_table[0].i_mapping;
     int offset = fat32_name2offset((char *)name, dtable);
-    // if (offset < 0) {
-    //     k_print("[debug] can't load %s, no such file!\n",name);
-    //     return -1;
-    // }
-    *len = dtable[offset].sn.file_size;
-    // if (*len == 0) {
-    //     k_print("[debug] can't load, empty file!\n");
-    //     return -1;
-    // }
-    uint16_t new_inode;
-    if(dtable[offset].sn.nt_res == 0){
-        new_inode = alloc_inode(&dtable[offset],(char *)name,0,offset);
-    }else{
-        new_inode = dtable[offset].sn.fst_clus_lo;
+    if (offset < 0) {
+        // k_print("[debug] can't load %s, no such file!\n",name);
+        return -1;
     }
-    *bin = (uint8_t *)inode_table[new_inode].i_mapping;
-    // k_print("\n[debug] load file %s, offset %d, addr %lx\n",name,offset,*bin);
+    uint32_t first = fat32_dentry2fcluster(&dtable[offset]);
+    // free buffer of dtable
+    *len = dtable[offset].sn.file_size;
+    if (*len == 0) {
+        // k_print("[debug] can't load, empty file!\n");
+        return -1;
+    }
     //TODO alloc inode for file and cache it?
+    *bin = (uint8_t *)read_whole_dir(first, 0);
     return 0;
 }
 
