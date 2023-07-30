@@ -187,6 +187,7 @@ extern list_head timers;
 extern kernel_timespec_t boot_time;
 extern clock_set_t global_clocks;
 extern kernel_timex_t timex;
+extern uint64_t boot_ticks;
 
 void k_time_init();
 uint64_t k_time_get_times_base();

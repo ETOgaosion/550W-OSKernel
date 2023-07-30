@@ -2,6 +2,8 @@
 
 #include <common/types.h>
 
+#define NUMBER_OF_DIGITS 64
+
 int k_isspace(int c);
 int k_isdigit(int c);
 int k_isalpha(int x);
@@ -24,3 +26,5 @@ size_t k_strnlen(const char *s, size_t n);
 int k_strlistlen(char *src[]);
 char *k_strtok(char *substr, char *str, const char delim, int length);
 long k_strtol(const char *nptr, char **endptr, register int base);
+void k_ultoa(unsigned long value, char *string, int radix);
+void k_ltoa(long value, char *string, int radix);

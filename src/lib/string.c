@@ -287,3 +287,33 @@ long k_strtol(const char *nptr, char **endptr, register int base) {
     }
     return (acc);
 }
+
+void k_ultoa(unsigned long value, char *string, int radix) {
+    unsigned char index;
+    char buffer[NUMBER_OF_DIGITS + 1];
+
+    index = NUMBER_OF_DIGITS;
+
+    do {
+        buffer[--index] = '0' + (value % radix);
+        if (buffer[index] > '9') {
+            buffer[index] += 'A' - ':';
+        }
+        value /= radix;
+    } while (value != 0);
+
+    do {
+        *string++ = buffer[index++];
+    } while (index < NUMBER_OF_DIGITS);
+
+    *string = 0;
+}
+
+void k_ltoa(long value, char *string, int radix) {
+    if (value < 0 && radix == 10) {
+        *string++ = '-';
+        k_ultoa(-value, string, radix);
+    } else {
+        k_ultoa(value, string, radix);
+    }
+}
