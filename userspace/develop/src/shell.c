@@ -954,6 +954,7 @@ static void test() {
     if (false) {
         test_all();
     }
+    time_test(true);
     busybox_test(true);
     lua_test(true);
     // char *args[] = {"cal"};
