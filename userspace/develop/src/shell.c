@@ -416,8 +416,8 @@ static int shell_clear(int argc, char *argv[]) {
 
 #ifdef FINAL
 static void test() {
-    char *busybox_args[] = {"cp","busybox_cmd.txt","busybox_cmd.bak"};
-    int pid = exec("busybox", busybox_args, NULL);
+    char *args[] = {"max_min.lua"};
+    int pid = exec("lua", args, NULL);
     int res = 0;
     waitpid(pid, &res, 0);
     printf("\ntest result: %d", res >> 8);
