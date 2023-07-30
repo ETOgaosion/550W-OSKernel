@@ -111,6 +111,12 @@ char cmd_not_found[] = "command not found";
 char arg_num_error[] = "arg number or format doesn't match, or we cannot find what you ask";
 char cmd_error[] = "there are errors during the execution of cmd, please check and re-enter";
 
+int arg_split(char *args, char *arg_out[]) {
+    int arg_idx = 0;
+    while ((args = strtok(arg_out[arg_idx++], args, ' ', 100)) != NULL && arg_idx < 10);
+    return arg_idx;
+}
+
 static int shell_help(int argc, char *argv[]) {
     if (argc > 0) {
         for (int i = 0; i < argc; i++) {
@@ -415,9 +421,469 @@ static int shell_clear(int argc, char *argv[]) {
 // #define DEBUG_WITHOUT_INIT_FS
 
 #ifdef FINAL
+static void time_test(bool execute) {
+    if (!execute) {
+        return;
+    }
+    printf("\nrun time-test\n");
+    int pid = exec("time-test", NULL, NULL);
+    int res = 0;
+    waitpid(pid, &res, 0);
+}
+
+static void busybox_test(bool execute) {
+    if (!execute) {
+        return;
+    }
+    printf("run busybox_testcode.sh\n");
+    int busybox_arg_nums[] = {
+        2, 3, 3, 2, 1,
+        1, 1, 1, 2, 1,
+        1, 4, 1, 1, 2,
+        1, 1, 2, 1, 1,
+        1, 1, 2, 1, 2, 
+        2, 2, 2, 4, 2,
+        2, 2, 3, 2, 3,
+        3, 3, 3, 3, 3,
+        3, 2, 2, 2, 4,
+        2, 2, 2, 3, 2,
+        3, 2, 3
+    };
+    char *busybox_arg1[] = {
+        "cal",
+        "clear",
+        "date",
+        "df",
+        "dmesg",
+        "du",
+        "false",
+        "true",
+        "uname",
+        "uptime",
+        "ps",
+        "pwd",
+        "free",
+        "hwclock",
+        "ls"
+    };
+    char busybox_arg2[][2][50] = {
+        {"echo","\"#### independent command test\""},
+        {"basenname", "/aaa/bbb"},
+        {"dirname", "/aaa/bbb"},
+        {"which", "ls"},
+        {"printf", "\"abc\n\""},
+        {"kill", "10"},
+        {"sleep", "1"},
+        {"echo", "\"#### file operation test\""},
+        {"touch", "test.txt"},
+        {"cat", "test.txt"},
+        {"od", "test.txt"},
+        {"head", "test.txt"},
+        {"tail", "test.txt"},
+        {"md5sum", "test.txt"},
+        {"stat", "test.txt"},
+        {"strings", "test.txt"},
+        {"wc", "test.txt"},
+        {"more", "test.txt"},
+        {"rm", "test.txt"},
+        {"mkdir", "test_dir"},
+        {"rmdir", "test"},
+        {"rm", "busybox_cmd.bak"},
+    };
+    char busybox_arg3[][3][50] = {
+        {"ash", "-c", "exit"},
+        {"sh", "-c", "exit"},
+        {"hexdump", "-C", "test.txt"},
+        {"sh", "-c", "echo \"ccccccc\" >> test.txt"},
+        {"sh", "-c", "echo \"bbbbbbb\" >> test.txt"},
+        {"sh", "-c", "echo \"aaaaaaa\" >> test.txt"},
+        {"sh", "-c", "echo \"2222222\" >> test.txt"},
+        {"sh", "-c", "echo \"1111111\" >> test.txt"},
+        {"sh", "-c", "echo \"bbbbbbb\" >> test.txt"},
+        {"sh", "-c", "sort test.txt | ./busybox unique"},
+        {"mv", "test_dir", "test"},
+        {"grep", "hello", "busybox_cmd.txt"},
+        {"cp", "busybox_cmd.txt", "busybox_cmd.bak"},
+        {"find", "-name", "\"busybox_cmd.txt\""}
+    };
+    char busybox_arg4[][4][30] = {
+        {"expr", "1", "+", "1"},
+        {"cut", "-c", "3", "test.txt"},
+        {"[", "-f", "test.txt", "]"},
+    };
+    int arg1_ptr = 0, arg2_ptr = 0, arg3_ptr = 0, arg4_ptr = 0;
+    int pid = 0, res = 0;
+    for (int i = 0; i < 53; i++) {
+        if (busybox_arg_nums[i] == 1) {
+            pid = exec("busybox", (char * const*)busybox_arg1[arg1_ptr], NULL);
+            res = 0;
+            waitpid(pid, &res, 0);
+            printf("testcase busybox %s", busybox_arg1[arg1_ptr][0]);
+            arg1_ptr++;
+        }
+        else if (busybox_arg_nums[i] == 2) {
+            pid = exec("busybox", (char * const*)busybox_arg2[arg2_ptr], NULL);
+            res = 0;
+            waitpid(pid, &res, 0);
+            printf("testcase busybox %s %s", busybox_arg2[arg2_ptr][0], busybox_arg2[arg2_ptr][1]);
+            arg2_ptr++;
+        }
+        else if (busybox_arg_nums[i] == 3) {
+            pid = exec("busybox", (char * const*)busybox_arg3[arg3_ptr], NULL);
+            res = 0;
+            waitpid(pid, &res, 0);
+            printf("testcase busybox %s %s %s", busybox_arg3[arg3_ptr][0], busybox_arg3[arg3_ptr][1], busybox_arg3[arg3_ptr][2]);
+            arg3_ptr++;
+        }
+        else if (busybox_arg_nums[i] == 4) {
+            pid = exec("busybox", (char * const*)busybox_arg4[arg4_ptr], NULL);
+            res = 0;
+            waitpid(pid, &res, 0);
+            printf("testcase busybox %s %s %s %s", busybox_arg4[arg4_ptr][0], busybox_arg4[arg4_ptr][1], busybox_arg4[arg4_ptr][2], busybox_arg4[arg4_ptr][3]);
+            arg4_ptr++;
+        }
+        if (!(res >> 8)) {
+            printf(" success\n");
+        }
+        else {
+            printf(" fail\n");
+        }
+    }
+}
+
+static void lua_test(bool execute) {
+    if (!execute) {
+        return;
+    }
+    printf("run lua_testcode.sh\n");
+    char lua_args[][2][30] = {
+        {"./lua", "date.lua"},
+        {"./lua", "file_io.lua"}, 
+        {"./lua", "max_min.lua"},
+        {"./lua", "random.lua"},
+        {"./lua", "remove.lua"},
+        {"./lua", "round_num.lua"},
+        {"./lua", "sin30.lua"},
+        {"./lua", "sort.lua"},
+        {"./lua", "strings.lua"}
+    };
+    int pid = 0, res = 0;
+    for (int i = 0; i < 9; i++) {
+        pid = exec("lua", (char * const*)lua_args[i], NULL);
+        res = 0;
+        waitpid(pid, &res, 0);
+        printf("testcase lua %s", lua_args[i]);
+        if (!(res >> 8)) {
+            printf(" success\n");
+        }
+        else {
+            printf(" fail\n");
+        }
+    }
+}
+
+static void iozone_test(bool execute) {
+    if (!execute) {
+        return;
+    }
+    printf("run iozone_testcode.sh");
+    printf("iozone automatic measurements\n");
+    char *iozone_arg1[] = {
+        "-a", "-r", "1k", "-s", "4m"
+    };
+    int pid = exec("iozone", iozone_arg1, NULL);
+    int res = 0;
+    waitpid(pid, &res, 0);
+    char iozone_args[][10][3] = {
+        {"-t", "4", "-i", "0", "-i", "1", "-r", "1k", "-s", "1m"},
+        {"-t", "4", "-i", "0", "-i", "2", "-r", "1k", "-s", "1m"},
+        {"-t", "4", "-i", "0", "-i", "3", "-r", "1k", "-s", "1m"},
+        {"-t", "4", "-i", "0", "-i", "5", "-r", "1k", "-s", "1m"},
+        {"-t", "4", "-i", "0", "-i", "7", "-r", "1k", "-s", "1m"},
+        {"-t", "4", "-i", "0", "-i", "10", "-r", "1k", "-s", "1m"},
+        {"-t", "4", "-i", "0", "-i", "12", "-r", "1k", "-s", "1m"},
+    };
+    char *measures[] = {
+        "write/read",
+        "random-read",
+        "read-backwards",
+        "stride-read",
+        "fwrite/fread",
+        "pwrite/pread",
+        "pwritev/preadv",
+    };
+    for (int i = 0; i < 7; i++) {
+        printf("iozone throughput %s measurements\n", measures[i]);
+        pid = exec("iozone", (char * const*)iozone_args[i], NULL);
+        res = 0;
+        waitpid(pid, &res, 0);
+    }
+}
+
+static void libc_test(bool execute) {
+    if (!execute) {
+        return;
+    }
+    printf("run libctest_testcode.sh\n");
+    int pid = 0, res = 0;
+    char run_static_args[][3][30] = {
+        {"-w", "entry-static.exe", "argv"},
+        {"-w", "entry-static.exe", "basename"},
+        {"-w", "entry-static.exe", "clocale_mbfuncs"},
+        {"-w", "entry-static.exe", "clock_gettime"},
+        {"-w", "entry-static.exe", "crypt"},
+        {"-w", "entry-static.exe", "dirname"},
+        {"-w", "entry-static.exe", "env"},
+        {"-w", "entry-static.exe", "fdopen"},
+        {"-w", "entry-static.exe", "fnmatch"},
+        {"-w", "entry-static.exe", "fscanf"},
+        {"-w", "entry-static.exe", "fwscanf"},
+        {"-w", "entry-static.exe", "iconv_open"},
+        {"-w", "entry-static.exe", "inet_pton"},
+        {"-w", "entry-static.exe", "mbc"},
+        {"-w", "entry-static.exe", "memstream"},
+        {"-w", "entry-static.exe", "pthread_cancel_points"},
+        {"-w", "entry-static.exe", "pthread_cancel"},
+        {"-w", "entry-static.exe", "pthread_cond"},
+        {"-w", "entry-static.exe", "pthread_tsd"},
+        {"-w", "entry-static.exe", "qsort"},
+        {"-w", "entry-static.exe", "random"},
+        {"-w", "entry-static.exe", "search_hsearch"},
+        {"-w", "entry-static.exe", "search_insque"},
+        {"-w", "entry-static.exe", "search_lsearch"},
+        {"-w", "entry-static.exe", "search_tsearch"},
+        {"-w", "entry-static.exe", "setjmp"},
+        {"-w", "entry-static.exe", "snprintf"},
+        {"-w", "entry-static.exe", "socket"},
+        {"-w", "entry-static.exe", "sscanf"},
+        {"-w", "entry-static.exe", "sscanf_long"},
+        {"-w", "entry-static.exe", "stat"},
+        {"-w", "entry-static.exe", "strftime"},
+        {"-w", "entry-static.exe", "string"},
+        {"-w", "entry-static.exe", "string_memcpy"},
+        {"-w", "entry-static.exe", "string_memmem"},
+        {"-w", "entry-static.exe", "string_memset"},
+        {"-w", "entry-static.exe", "string_strchr"},
+        {"-w", "entry-static.exe", "string_strcspn"},
+        {"-w", "entry-static.exe", "string_strstr"},
+        {"-w", "entry-static.exe", "strptime"},
+        {"-w", "entry-static.exe", "strtod"},
+        {"-w", "entry-static.exe", "strtod_simple"},
+        {"-w", "entry-static.exe", "strtof"},
+        {"-w", "entry-static.exe", "strtol"},
+        {"-w", "entry-static.exe", "strtold"},
+        {"-w", "entry-static.exe", "swprintf"},
+        {"-w", "entry-static.exe", "tgmath"},
+        {"-w", "entry-static.exe", "time"},
+        {"-w", "entry-static.exe", "tls_align"},
+        {"-w", "entry-static.exe", "udiv"},
+        {"-w", "entry-static.exe", "ungetc"},
+        {"-w", "entry-static.exe", "utime"},
+        {"-w", "entry-static.exe", "wcsstr"},
+        {"-w", "entry-static.exe", "wcstol"},
+        {"-w", "entry-static.exe", "pleval"},
+        {"-w", "entry-static.exe", "daemon_failure"},
+        {"-w", "entry-static.exe", "dn_expand_empty"},
+        {"-w", "entry-static.exe", "dn_expand_ptr_0"},
+        {"-w", "entry-static.exe", "fflush_exit"},
+        {"-w", "entry-static.exe", "fgets_eof"},
+        {"-w", "entry-static.exe", "fgetwc_buffering"},
+        {"-w", "entry-static.exe", "fpclassify_invalid_ld80"},
+        {"-w", "entry-static.exe", "ftello_unflushed_append"},
+        {"-w", "entry-static.exe", "getpwnam_r_crash"},
+        {"-w", "entry-static.exe", "getpwnam_r_errno"},
+        {"-w", "entry-static.exe", "iconv_roundtrips"},
+        {"-w", "entry-static.exe", "inet_ntop_v4mapped"},
+        {"-w", "entry-static.exe", "inet_pton_empty_last_field"},
+        {"-w", "entry-static.exe", "iswspace_null"},
+        {"-w", "entry-static.exe", "lrand48_signextend"},
+        {"-w", "entry-static.exe", "lseek_large"},
+        {"-w", "entry-static.exe", "malloc_0"},
+        {"-w", "entry-static.exe", "mbsrtowcs_overflow"},
+        {"-w", "entry-static.exe", "memmem_oob_read"},
+        {"-w", "entry-static.exe", "memmem_oob"},
+        {"-w", "entry-static.exe", "mkdtemp_failure"},
+        {"-w", "entry-static.exe", "mkstemp_failure"},
+        {"-w", "entry-static.exe", "printf_1e9_oob"},
+        {"-w", "entry-static.exe", "printf_fmt_g_round"},
+        {"-w", "entry-static.exe", "printf_fmt_g_zeros"},
+        {"-w", "entry-static.exe", "printf_fmt_n"},
+        {"-w", "entry-static.exe", "pthread_robust_detach"},
+        {"-w", "entry-static.exe", "pthread_cancel_sem_wait"},
+        {"-w", "entry-static.exe", "pthread_cond_smasher"},
+        {"-w", "entry-static.exe", "pthread_condattr_setclock"},
+        {"-w", "entry-static.exe", "pthread_exit_cancel"},
+        {"-w", "entry-static.exe", "pthread_once_deadlock"},
+        {"-w", "entry-static.exe", "pthread_rwlock_ebusy"},
+        {"-w", "entry-static.exe", "putenv_doublefree"},
+        {"-w", "entry-static.exe", "regex_backref_0"},
+        {"-w", "entry-static.exe", "regex_bracket_icase"},
+        {"-w", "entry-static.exe", "regex_ere_backref"},
+        {"-w", "entry-static.exe", "regex_escaped_high_byte"},
+        {"-w", "entry-static.exe", "regex_negated_range"},
+        {"-w", "entry-static.exe", "regexec_nosub"},
+        {"-w", "entry-static.exe", "rewind_clear_error"},
+        {"-w", "entry-static.exe", "rlimit_open_files"},
+        {"-w", "entry-static.exe", "scanf_bytes_consumed"},
+        {"-w", "entry-static.exe", "scanf_match_literal_eof"},
+        {"-w", "entry-static.exe", "scanf_nullbyte_char"},
+        {"-w", "entry-static.exe", "setvbuf_unget"},
+        {"-w", "entry-static.exe", "sigprocmask_internal"},
+        {"-w", "entry-static.exe", "sscanf_eof"},
+        {"-w", "entry-static.exe", "statvfs"},
+        {"-w", "entry-static.exe", "strverscmp"},
+        {"-w", "entry-static.exe", "syscall_sign_extend"},
+        {"-w", "entry-static.exe", "uselocale_0"},
+        {"-w", "entry-static.exe", "wcsncpy_read_overflow"},
+        {"-w", "entry-static.exe", "wcsstr_false_negative"},
+    };
+    for (int i = 0; i < 109; i++) {
+        pid = exec("runtest.exe", (char * const*)run_static_args[i], NULL);
+        res = 0;
+        waitpid(pid, &res, 0);
+    }
+    char run_dynamic_args[][3][30] = {
+        {"-w", "entry-dynamic.exe", "argv"},
+        {"-w", "entry-dynamic.exe", "basename"},
+        {"-w", "entry-dynamic.exe", "clocale_mbfuncs"},
+        {"-w", "entry-dynamic.exe", "clock_gettime"},
+        {"-w", "entry-dynamic.exe", "crypt"},
+        {"-w", "entry-dynamic.exe", "dirname"},
+        {"-w", "entry-dynamic.exe", "dlopen"},
+        {"-w", "entry-dynamic.exe", "env"},
+        {"-w", "entry-dynamic.exe", "fdopen"},
+        {"-w", "entry-dynamic.exe", "fnmatch"},
+        {"-w", "entry-dynamic.exe", "fscanf"},
+        {"-w", "entry-dynamic.exe", "fwscanf"},
+        {"-w", "entry-dynamic.exe", "iconv_open"},
+        {"-w", "entry-dynamic.exe", "inet_pton"},
+        {"-w", "entry-dynamic.exe", "mbc"},
+        {"-w", "entry-dynamic.exe", "memstream"},
+        {"-w", "entry-dynamic.exe", "pthread_cancel_points"},
+        {"-w", "entry-dynamic.exe", "pthread_cancel"},
+        {"-w", "entry-dynamic.exe", "pthread_cond"},
+        {"-w", "entry-dynamic.exe", "pthread_tsd"},
+        {"-w", "entry-dynamic.exe", "qsort"},
+        {"-w", "entry-dynamic.exe", "random"},
+        {"-w", "entry-dynamic.exe", "search_hsearch"},
+        {"-w", "entry-dynamic.exe", "search_insque"},
+        {"-w", "entry-dynamic.exe", "search_lsearch"},
+        {"-w", "entry-dynamic.exe", "search_tsearch"},
+        {"-w", "entry-dynamic.exe", "sem_init"},
+        {"-w", "entry-dynamic.exe", "setjmp"},
+        {"-w", "entry-dynamic.exe", "snprintf"},
+        {"-w", "entry-dynamic.exe", "socket"},
+        {"-w", "entry-dynamic.exe", "sscanf"},
+        {"-w", "entry-dynamic.exe", "sscanf_long"},
+        {"-w", "entry-dynamic.exe", "stat"},
+        {"-w", "entry-dynamic.exe", "strftime"},
+        {"-w", "entry-dynamic.exe", "string"},
+        {"-w", "entry-dynamic.exe", "string_memcpy"},
+        {"-w", "entry-dynamic.exe", "string_memmem"},
+        {"-w", "entry-dynamic.exe", "string_memset"},
+        {"-w", "entry-dynamic.exe", "string_strchr"},
+        {"-w", "entry-dynamic.exe", "string_strcspn"},
+        {"-w", "entry-dynamic.exe", "string_strstr"},
+        {"-w", "entry-dynamic.exe", "strptime"},
+        {"-w", "entry-dynamic.exe", "strtod"},
+        {"-w", "entry-dynamic.exe", "strtod_simple"},
+        {"-w", "entry-dynamic.exe", "strtof"},
+        {"-w", "entry-dynamic.exe", "strtol"},
+        {"-w", "entry-dynamic.exe", "strtold"},
+        {"-w", "entry-dynamic.exe", "swprintf"},
+        {"-w", "entry-dynamic.exe", "tgmath"},
+        {"-w", "entry-dynamic.exe", "time"},
+        {"-w", "entry-dynamic.exe", "tls_init"},
+        {"-w", "entry-dynamic.exe", "tls_local_exec"},
+        {"-w", "entry-dynamic.exe", "udiv"},
+        {"-w", "entry-dynamic.exe", "ungetc"},
+        {"-w", "entry-dynamic.exe", "utime"},
+        {"-w", "entry-dynamic.exe", "wcsstr"},
+        {"-w", "entry-dynamic.exe", "wcstol"},
+        {"-w", "entry-dynamic.exe", "daemon_failure"},
+        {"-w", "entry-dynamic.exe", "dn_expand_empty"},
+        {"-w", "entry-dynamic.exe", "dn_expand_ptr_0"},
+        {"-w", "entry-dynamic.exe", "fflush_exit"},
+        {"-w", "entry-dynamic.exe", "fgets_eof"},
+        {"-w", "entry-dynamic.exe", "fgetwc_buffering"},
+        {"-w", "entry-dynamic.exe", "fpclassify_invalid_ld80"},
+        {"-w", "entry-dynamic.exe", "ftello_unflushed_append"},
+        {"-w", "entry-dynamic.exe", "getpwnam_r_crash"},
+        {"-w", "entry-dynamic.exe", "getpwnam_r_errno"},
+        {"-w", "entry-dynamic.exe", "iconv_roundtrips"},
+        {"-w", "entry-dynamic.exe", "inet_ntop_v4mapped"},
+        {"-w", "entry-dynamic.exe", "inet_pton_empty_last_field"},
+        {"-w", "entry-dynamic.exe", "iswspace_null"},
+        {"-w", "entry-dynamic.exe", "lrand48_signextend"},
+        {"-w", "entry-dynamic.exe", "lseek_large"},
+        {"-w", "entry-dynamic.exe", "malloc_0"},
+        {"-w", "entry-dynamic.exe", "mbsrtowcs_overflow"},
+        {"-w", "entry-dynamic.exe", "memmem_oob_read"},
+        {"-w", "entry-dynamic.exe", "memmem_oob"},
+        {"-w", "entry-dynamic.exe", "mkdtemp_failure"},
+        {"-w", "entry-dynamic.exe", "mkstemp_failure"},
+        {"-w", "entry-dynamic.exe", "printf_1e9_oob"},
+        {"-w", "entry-dynamic.exe", "printf_fmt_g_round"},
+        {"-w", "entry-dynamic.exe", "printf_fmt_g_zeros"},
+        {"-w", "entry-dynamic.exe", "printf_fmt_n"},
+        {"-w", "entry-dynamic.exe", "pthread_robust_detach"},
+        {"-w", "entry-dynamic.exe", "pthread_cond_smasher"},
+        {"-w", "entry-dynamic.exe", "pthread_condattr_setclock"},
+        {"-w", "entry-dynamic.exe", "pthread_exit_cancel"},
+        {"-w", "entry-dynamic.exe", "pthread_once_deadlock"},
+        {"-w", "entry-dynamic.exe", "pthread_rwlock_ebusy"},
+        {"-w", "entry-dynamic.exe", "putenv_doublefree"},
+        {"-w", "entry-dynamic.exe", "regex_backref_0"},
+        {"-w", "entry-dynamic.exe", "regex_bracket_icase"},
+        {"-w", "entry-dynamic.exe", "regex_ere_backref"},
+        {"-w", "entry-dynamic.exe", "regex_escaped_high_byte"},
+        {"-w", "entry-dynamic.exe", "regex_negated_range"},
+        {"-w", "entry-dynamic.exe", "regexec_nosub"},
+        {"-w", "entry-dynamic.exe", "rewind_clear_error"},
+        {"-w", "entry-dynamic.exe", "rlimit_open_files"},
+        {"-w", "entry-dynamic.exe", "scanf_bytes_consumed"},
+        {"-w", "entry-dynamic.exe", "scanf_match_literal_eof"},
+        {"-w", "entry-dynamic.exe", "scanf_nullbyte_char"},
+        {"-w", "entry-dynamic.exe", "setvbuf_unget"},
+        {"-w", "entry-dynamic.exe", "sigprocmask_internal"},
+        {"-w", "entry-dynamic.exe", "sscanf_eof"},
+        {"-w", "entry-dynamic.exe", "statvfs"},
+        {"-w", "entry-dynamic.exe", "strverscmp"},
+        {"-w", "entry-dynamic.exe", "syscall_sign_extend"},
+        {"-w", "entry-dynamic.exe", "tls_get_new_dtv"},
+        {"-w", "entry-dynamic.exe", "uselocale_0"},
+        {"-w", "entry-dynamic.exe", "wcsncpy_read_overflow"},
+        {"-w", "entry-dynamic.exe", "wcsstr_false_negative"},
+    };
+    for (int i = 0; i < 111; i++) {
+        pid = exec("runtest.exe", (char * const*)run_dynamic_args[i], NULL);
+        res = 0;
+        waitpid(pid, &res, 0);
+    }
+}
+
+static void lmbench_test(bool execute) {
+    if (!execute) {
+        return;
+    }
+    printf("run lmbench_testcode.sh\n");
+}
+
+static void test_all() {
+    time_test(false);
+    busybox_test(false);
+    lua_test(false);
+    iozone_test(false);
+    libc_test(false);
+    lmbench_test(false);
+}
+
 static void test() {
-    char *busybox_args[] = {"sort","test.txt"};
-    int pid = exec("busybox", busybox_args, NULL);
+    if (false) {
+        test_all();
+    }
+    char *args[] = {"./lua", "date.lua"};
+    int pid = exec("lua", (char *const *)args, NULL);
     int res = 0;
     waitpid(pid, &res, 0);
     printf("\ntest result: %d", res >> 8);

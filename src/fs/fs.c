@@ -139,7 +139,7 @@ void *read_whole_dir(uint32_t first, uint32_t size) {
 
 uint16_t alloc_inode(dentry_t *entry,char * name, uint16_t upper, int offset){
     if(inode_num >= MAX_INODE){
-        k_print("[debug] no rest inode!\n");
+        // k_print("[debug] no rest inode!\n");
         return 0;
     }
     // k_print("[debug] alloc inode, fcluster %d, name %s, upper %d\n",fat32_dentry2fcluster(entry),name,upper);
@@ -922,7 +922,7 @@ int fs_load_file(const char *name, uint8_t **bin, int *len) {
     // free buffer of dtable
     *len = dtable[offset].sn.file_size;
     if (*len == 0) {
-        k_print("[debug] can't load, empty file!\n");
+        // k_print("[debug] can't load, empty file!\n");
         return -1;
     }
     //TODO alloc inode for file and cache it?
@@ -1449,7 +1449,7 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
     int ret = 0;
     int use_fd = 0;
     filename2path(path, name, filename);
-    k_print("[debug] open %s, at %s\n",name,path);
+    // k_print("[debug] open %s, at %s\n",name,path);
     if (path[0] == '/') {
         ret = fat32_path2dir(path, &new, root_dir);
     } else if (dirfd == AT_FDCWD) {
@@ -1472,7 +1472,7 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
     // try open file
     ret = fd_alloc(-1);
     fd_t *file = get_fd(ret);
-    k_print("[debug] fd %d, name = %s\n",ret,name);
+    // k_print("[debug] fd %d, name = %s\n",ret,name);
     if (!k_strcmp(".", name)) {
         file->file = ATTR_DIRECTORY;
         // k_memcpy((uint8_t *)file->name,(uint8_t *)cur_dir.name,k_strlen(cur_dir.name)+1);
@@ -1663,7 +1663,7 @@ ssize_t sys_read(int fd, char *buf, size_t count) {
     }
     //TODO change file descriptor
     // uint8_t *data = read_whole_dir(file->first_cluster, file->size);
-    k_print("[debug] read print file %s\n",(char *)((inode_t *)file->inode)->i_mapping);
+    // k_print("[debug] read print file %s\n",(char *)((inode_t *)file->inode)->i_mapping);
     uint8_t *data = (uint8_t *)((inode_t *)file->inode)->i_mapping;
     if (file->size - file->pos >= count) {
         k_memcpy((uint8_t *)buf, &data[file->pos], count);
@@ -1898,7 +1898,7 @@ long sys_newfstat(unsigned int fd, stat_t *statbuf) {
     // statbuf->st_ctime_nsec = time.nsec;
     // statbuf->__unused[0] = 0;
     // statbuf->__unused[1] = 0;
-    k_print("[debug] fd size %d, file ino %d\n",file->size,statbuf->st_ino);
+    // k_print("[debug] fd size %d, file ino %d\n",file->size,statbuf->st_ino);
     return 0;
 }
 
@@ -1985,7 +1985,7 @@ long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offs
     //TODO change file descriptor
     // uint8_t *data = read_whole_dir(file->first_cluster, file->size);
     uint8_t *data = (uint8_t *)((inode_t *)file->inode)->i_mapping;
-    k_print("[debug] mmap %s\n",&data[offset]);
+    // k_print("[debug] mmap %s\n",&data[offset]);
     k_memcpy((uint8_t *)kva, &data[offset], length);
 
     return (long)ret;
