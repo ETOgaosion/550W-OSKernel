@@ -39,6 +39,7 @@ PTE *k_mm_get_kva(PTE entry) {
 }
 
 void k_mm_getback_page(int pid) {
+    return;
     if (freepg_num >= 999) {
         return;
     }

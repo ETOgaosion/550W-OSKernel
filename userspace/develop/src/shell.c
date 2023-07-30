@@ -466,7 +466,7 @@ static void busybox_test(bool execute) {
         "hwclock",
         "ls"
     };
-    char busybox_arg2[][2][50] = {
+    char *busybox_arg2[][3] = {
         {"echo","\"#### independent command test\""},
         {"basenname", "/aaa/bbb"},
         {"dirname", "/aaa/bbb"},
@@ -490,7 +490,7 @@ static void busybox_test(bool execute) {
         {"rmdir", "test"},
         {"rm", "busybox_cmd.bak"},
     };
-    char busybox_arg3[][3][50] = {
+    char *busybox_arg3[][4] = {
         {"ash", "-c", "exit"},
         {"sh", "-c", "exit"},
         {"hexdump", "-C", "test.txt"},
@@ -506,7 +506,7 @@ static void busybox_test(bool execute) {
         {"cp", "busybox_cmd.txt", "busybox_cmd.bak"},
         {"find", "-name", "\"busybox_cmd.txt\""}
     };
-    char busybox_arg4[][4][30] = {
+    char *busybox_arg4[][5] = {
         {"expr", "1", "+", "1"},
         {"cut", "-c", "3", "test.txt"},
         {"[", "-f", "test.txt", "]"},
@@ -556,7 +556,7 @@ static void lua_test(bool execute) {
         return;
     }
     printf("run lua_testcode.sh\n");
-    char lua_args[][2][30] = {
+    char *lua_args[][3] = {
         {"./lua", "date.lua"},
         {"./lua", "file_io.lua"}, 
         {"./lua", "max_min.lua"},
@@ -572,7 +572,7 @@ static void lua_test(bool execute) {
         pid = exec("lua", (char * const*)lua_args[i], NULL);
         res = 0;
         waitpid(pid, &res, 0);
-        printf("testcase lua %s", lua_args[i]);
+        printf("testcase lua %s", lua_args[i][1]);
         if (!(res >> 8)) {
             printf(" success\n");
         }
@@ -594,7 +594,7 @@ static void iozone_test(bool execute) {
     int pid = exec("iozone", iozone_arg1, NULL);
     int res = 0;
     waitpid(pid, &res, 0);
-    char iozone_args[][10][3] = {
+    char *iozone_args[][11] = {
         {"-t", "4", "-i", "0", "-i", "1", "-r", "1k", "-s", "1m"},
         {"-t", "4", "-i", "0", "-i", "2", "-r", "1k", "-s", "1m"},
         {"-t", "4", "-i", "0", "-i", "3", "-r", "1k", "-s", "1m"},
@@ -626,7 +626,7 @@ static void libc_test(bool execute) {
     }
     printf("run libctest_testcode.sh\n");
     int pid = 0, res = 0;
-    char run_static_args[][3][30] = {
+    char *run_static_args[][4] = {
         {"-w", "entry-static.exe", "argv"},
         {"-w", "entry-static.exe", "basename"},
         {"-w", "entry-static.exe", "clocale_mbfuncs"},
@@ -742,7 +742,7 @@ static void libc_test(bool execute) {
         res = 0;
         waitpid(pid, &res, 0);
     }
-    char run_dynamic_args[][3][30] = {
+    char *run_dynamic_args[][4] = {
         {"-w", "entry-dynamic.exe", "argv"},
         {"-w", "entry-dynamic.exe", "basename"},
         {"-w", "entry-dynamic.exe", "clocale_mbfuncs"},
@@ -882,11 +882,12 @@ static void test() {
     if (false) {
         test_all();
     }
-    char *args[] = {"./lua", "date.lua"};
-    int pid = exec("lua", (char *const *)args, NULL);
-    int res = 0;
-    waitpid(pid, &res, 0);
-    printf("\ntest result: %d", res >> 8);
+    lua_test(true);
+    // char *args[] = {"./lua", "date.lua"};
+    // int pid = exec("lua", (char *const *)args, NULL);
+    // int res = 0;
+    // waitpid(pid, &res, 0);
+    // printf("\ntest result: %d", res >> 8);
 }
 #endif
 

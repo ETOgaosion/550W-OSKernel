@@ -29,7 +29,7 @@ int get_fd_from_list(){
     if(list_is_empty(&pcb->fd_head)){
         return STDMAX;
     }
-    int fd = STDMAX;
+    int fd = STDIN;
     fd_t *file;
     list_for_each_entry(file,&pcb->fd_head,list){
         if(file->fd_num == fd)
