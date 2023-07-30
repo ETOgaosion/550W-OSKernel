@@ -1756,11 +1756,21 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
 }
 
 long sys_readv(unsigned long fd, const iovec_t *vec, unsigned long vlen) {
-    return 0;
+    int retval = 0;
+    for (int i = 0; i < vlen; i++)
+    {
+        retval += sys_read(fd, (char *)vec[i].iov_base, vec[i].iov_len);
+    }
+    return retval;
 }
 
 long sys_writev(unsigned long fd, const iovec_t *vec, unsigned long vlen) {
-    return 0;
+    int retval = 0;
+    for (int i = 0; i < vlen; i++)
+    {
+        retval += sys_write(fd, (const char *)vec[i].iov_base, vec[i].iov_len);
+    }
+    return retval;
 }
 
 long sys_sendfile64(int out_fd, int in_fd, loff_t *offset, size_t count) {

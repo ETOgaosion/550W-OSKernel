@@ -85,7 +85,7 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
     // copy user stack
     ptr_t cur_user_stack = get_user_address((*current_running)->pid);
     ptr_t clone_user_stack = get_user_address(pcb->pid);
-    ptr_t off = 0x1000 - 1;
+    ptr_t off = 4 * 0x1000 - 1;
     char *p = (char *)(clone_user_stack - 1);
     char *q = (char *)(cur_user_stack - 1);
     for (ptr_t i = off + 1; i > 0; i--) {

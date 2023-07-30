@@ -539,6 +539,9 @@ long spawn(const char *file_name) {
     }
     child_argv = init_user_stack(&pcb[i], &user_stack_kva, &user_stack, argc, NULL, 0, NULL, file_name, pcb[i].dynamic);
     k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    k_mm_map(USER_STACK_ADDR - 2 * PAGE_SIZE, kva2pa(user_stack_kva - 2 * PAGE_SIZE), pgdir);
+    k_mm_map(USER_STACK_ADDR - 3 * PAGE_SIZE, kva2pa(user_stack_kva - 3 * PAGE_SIZE), pgdir);
+    k_mm_map(USER_STACK_ADDR - 4 * PAGE_SIZE, kva2pa(user_stack_kva - 4 * PAGE_SIZE), pgdir);
     // k_mm_map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
@@ -580,6 +583,9 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
         }
     }
     k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    k_mm_map(USER_STACK_ADDR - 2 * PAGE_SIZE, kva2pa(user_stack_kva - 2 * PAGE_SIZE), pgdir);
+    k_mm_map(USER_STACK_ADDR - 3 * PAGE_SIZE, kva2pa(user_stack_kva - 3 * PAGE_SIZE), pgdir);
+    k_mm_map(USER_STACK_ADDR - 4 * PAGE_SIZE, kva2pa(user_stack_kva - 4 * PAGE_SIZE), pgdir);
     // k_mm_map(USER_STACK_ADDR, kva2pa(user_stack_kva), pgdir);
     pcb[target_pid].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
@@ -653,6 +659,9 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     clone_pcb_stack(kernel_stack_kva, user_stack, &pcb[i], flags, tls);
     if (!stack) {
         k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
+        k_mm_map(USER_STACK_ADDR - 2 * PAGE_SIZE, kva2pa(user_stack_kva - 2 * PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
+        k_mm_map(USER_STACK_ADDR - 3 * PAGE_SIZE, kva2pa(user_stack_kva - 3 * PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
+        k_mm_map(USER_STACK_ADDR - 4 * PAGE_SIZE, kva2pa(user_stack_kva - 4 * PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
     }
     // cpy fd
     init_list_head(&pcb[i].fd_head);
@@ -921,6 +930,9 @@ long sys_fork() {
     fork_pcb_stack(kernel_stack_kva, user_stack_kva, &pcb[i]);
     k_mm_fork_pgtable(pgdir, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
     k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
+    k_mm_map(USER_STACK_ADDR - 2 * PAGE_SIZE, kva2pa(user_stack_kva - 2 * PAGE_SIZE), pgdir);
+    k_mm_map(USER_STACK_ADDR - 3 * PAGE_SIZE, kva2pa(user_stack_kva - 3 * PAGE_SIZE), pgdir);
+    k_mm_map(USER_STACK_ADDR - 4 * PAGE_SIZE, kva2pa(user_stack_kva - 4 * PAGE_SIZE), pgdir);
     // k_mm_map(USER_STACK_ADDR, kva2pa(user_stack_kva - PAGE_SIZE), pgdir);
 
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
