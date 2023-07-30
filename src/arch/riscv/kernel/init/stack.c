@@ -100,7 +100,7 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
         pt_regs->regs[i] = cur_regs->regs[i];
     }
     // tp
-    pt_regs->regs[reg_tp] = (reg_t)pcb;
+    // pt_regs->regs[reg_tp] = (reg_t)pcb;
     pt_regs->regs[reg_sp] = pcb->user_sp;
     // a0
     pt_regs->regs[reg_a0] = 0;
