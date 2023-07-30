@@ -1728,20 +1728,24 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
         reload = 1;
     // k_print("[debug] alloc %d clusters!\n",new);
     while (new > 0) {
-        file->first_cluster = alloc_cluster(file->first_cluster);
-        if(!((inode_t *)file->inode)->i_fclus)
+        uint32_t new_cluster = alloc_cluster(file->first_cluster);
+        if(file->first_cluster == 0){
+            file->first_cluster = new_cluster;
             ((inode_t *)file->inode)->i_fclus = file->first_cluster;
+        }
         new --;
     }
     if(reload){
-        ((inode_t *)file->inode)->i_mapping = (ptr_t)read_whole_dir(file->first_cluster,0);
+        uint8_t *data = read_whole_dir(file->first_cluster,0);
+        k_memcpy(data,(const uint8_t *)((inode_t *)file->inode)->i_mapping,file->size);
+        ((inode_t *)file->inode)->i_mapping = (ptr_t)data;
     }
     // if out of size
     if (file->pos + count > file->size) {
         file->size = file->pos + count;
         // k_print("[debug] file size %d\n",file->size);
+        update_dentry_size(((inode_t *)file->inode)->i_upper,((inode_t *)file->inode)->i_offset,file->size);
     }
-    update_dentry_size(((inode_t *)file->inode)->i_upper,((inode_t *)file->inode)->i_offset,file->size);
     uint8_t *data = (uint8_t *)((inode_t *)file->inode)->i_mapping;
     if (!data) {
         return -1;
