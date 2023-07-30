@@ -1845,7 +1845,7 @@ long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
     // statbuf->st_ctime_nsec = time.nsec;
     // statbuf->__unused[0] = 0;
     // statbuf->__unused[1] = 0;
-    return 0;
+    return -1;
 }
 
 // TODO
