@@ -113,7 +113,8 @@ char cmd_error[] = "there are errors during the execution of cmd, please check a
 
 int arg_split(char *args, char *arg_out[]) {
     int arg_idx = 0;
-    while ((args = strtok(arg_out[arg_idx++], args, ' ', 100)) != NULL && arg_idx < 10);
+    while ((args = strtok(arg_out[arg_idx++], args, ' ', 100)) != NULL && arg_idx < 10)
+        ;
     return arg_idx;
 }
 
@@ -436,135 +437,30 @@ static void busybox_test(bool execute) {
         return;
     }
     printf("run busybox_testcode.sh\n");
-    int busybox_arg_nums[] = {
-        2, 3, 3, 2, 1,
-        1, 1, 1, 2, 1,
-        1, 4, 1, 1, 2,
-        1, 1, 2, 1, 1,
-        1, 1, 2, 1, 2, 
-        2, 2, 2, 4, 2,
-        2, 2, 3, 2, 3,
-        3, 3, 3, 3, 3,
-        2, 2, 2, 2, 4,
-        2, 2, 2, 3, 2,
-        3, 2, 3
-    };
+    int busybox_arg_nums[] = {2, 3, 3, 2, 1, 1, 1, 1, 2, 1, 1, 4, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 4, 2, 2, 2, 3, 2, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 4, 2, 2, 2, 3, 2, 3, 2, 3};
 
     char *busybox_cmd_string[] = {
-        "echo \"#### independent command test\"",
-        "ash -c exit",
-        "sh -c exit",
-        "basename /aaa/bbb",
-        "cal",
-        "clear",
-        "date ",
-        "df",
-        "dirname /aaa/bbb",
-        "dmesg ",
-        "du",
-        "expr 1 + 1",
-        "false",
-        "true",
-        "which ls",
-        "uname",
-        "uptime",
-        "printf \"abc\n\"",
-        "ps",
-        "pwd",
-        "free",
-        "hwclock",
-        "kill 10",
-        "ls",
-        "sleep 1",
-        "echo \"#### file opration test\"",
-        "touch test.txt",
-        "echo \"hello world\" > test.txt",
-        "cat test.txt",
-        "cut -c 3 test.txt",
-        "od test.txt",
-        "head test.txt",
-        "tail test.txt ",
-        "hexdump -C test.txt ",
-        "md5sum test.txt",
-        "echo \"ccccccc\" >> test.txt",
-        "echo \"bbbbbbb\" >> test.txt",
-        "echo \"aaaaaaa\" >> test.txt",
-        "echo \"2222222\" >> test.txt",
-        "echo \"1111111\" >> test.txt",
-        "echo \"bbbbbbb\" >> test.txt",
-        "sort test.txt | ./busybox uniq",
-        "stat test.txt",
-        "strings test.txt ",
-        "wc test.txt",
-        "[ -f test.txt ]",
-        "more test.txt",
-        "rm test.txt",
-        "mkdir test_dir",
-        "mv test_dir test",
-        "rmdir test",
-        "grep hello busybox_cmd.txt",
-        "cp busybox_cmd.txt busybox_cmd.bak",
-        "rm busybox_cmd.bak",
+        "echo \"#### independent command test\"", "ash -c exit", "sh -c exit", "basename /aaa/bbb", "cal", "clear", "date ", "df", "dirname /aaa/bbb", "dmesg ", "du", "expr 1 + 1", "false", "true", "which ls", "uname", "uptime", "printf \"abc\n\"", "ps", "pwd", "free", "hwclock", "kill 10", "ls", "sleep 1", "echo \"#### file opration test\"", "touch test.txt", "echo \"hello world\" > test.txt", "cat test.txt", "cut -c 3 test.txt", "od test.txt", "head test.txt", "tail test.txt ", "hexdump -C test.txt ", "md5sum test.txt", "echo \"ccccccc\" >> test.txt", "echo \"bbbbbbb\" >> test.txt", "echo \"aaaaaaa\" >> test.txt", "echo \"2222222\" >> test.txt", "echo \"1111111\" >> test.txt", "echo \"bbbbbbb\" >> test.txt", "sort test.txt | ./busybox uniq", "stat test.txt", "strings test.txt ", "wc test.txt", "[ -f test.txt ]", "more test.txt", "rm test.txt", "mkdir test_dir", "mv test_dir test", "rmdir test", "grep hello busybox_cmd.txt", "cp busybox_cmd.txt busybox_cmd.bak", "rm busybox_cmd.bak",
         "find -name \"busybox_cmd.txt\"",
     };
-    char *busybox_arg1[] = {
-        "cal",
-        "clear",
-        "date",
-        "df",
-        "dmesg",
-        "du",
-        "false",
-        "true",
-        "uname",
-        "uptime",
-        "ps",
-        "pwd",
-        "free",
-        "hwclock",
-        "ls"
-    };
+    char *busybox_arg1[][2] = {{"cal"}, {"clear"}, {"date"}, {"df"}, {"dmesg"}, {"du"}, {"false"}, {"true"}, {"uname"}, {"uptime"}, {"ps"}, {"pwd"}, {"free"}, {"hwclock"}, {"ls"}};
     char *busybox_arg2[][3] = {
-        {"echo","#### independent command test"},
-        {"basenname", "/aaa/bbb"},
-        {"dirname", "/aaa/bbb"},
-        {"which", "ls"},
-        {"printf", "abc\n"},
-        {"kill", "10"},
-        {"sleep", "1"},
-        {"echo", "#### file operation test"},
-        {"touch", "test.txt"},
-        {"cat", "test.txt"},
-        {"od", "test.txt"},
-        {"head", "test.txt"},
-        {"tail", "test.txt"},
-        {"md5sum", "test.txt"},
-        {"sort", "test.txt"},
-        {"stat", "test.txt"},
-        {"strings", "test.txt"},
-        {"wc", "test.txt"},
-        {"more", "test.txt"},
-        {"rm", "test.txt"},
-        {"mkdir", "test_dir"},
-        {"rmdir", "test"},
-        {"rm", "busybox_cmd.bak"},
+        {"echo", "#### independent command test"}, {"basenname", "/aaa/bbb"}, {"dirname", "/aaa/bbb"}, {"which", "ls"}, {"printf", "abc\n"}, {"kill", "10"}, {"sleep", "1"}, {"echo", "#### file operation test"}, {"touch", "test.txt"}, {"cat", "test.txt"}, {"od", "test.txt"}, {"head", "test.txt"}, {"tail", "test.txt"}, {"md5sum", "test.txt"}, {"sort", "test.txt"}, {"stat", "test.txt"}, {"strings", "test.txt"}, {"wc", "test.txt"}, {"more", "test.txt"}, {"rm", "test.txt"}, {"mkdir", "test_dir"}, {"rmdir", "test"}, {"rm", "busybox_cmd.bak"},
     };
-    char *busybox_arg3[][4] = {
-        {"ash", "-c", "exit"},
-        {"sh", "-c", "exit"},
-        {"hexdump", "-C", "test.txt"},
-        {"sh", "-c", "echo ccccccc >> test.txt"},
-        {"sh", "-c", "echo bbbbbbb >> test.txt"},
-        {"sh", "-c", "echo aaaaaaa >> test.txt"},
-        {"sh", "-c", "echo 2222222 >> test.txt"},
-        {"sh", "-c", "echo 1111111 >> test.txt"},
-        {"sh", "-c", "echo bbbbbbb >> test.txt"},
-        // {"sh", "-c", "sort test.txt | ./busybox unique"},
-        {"mv", "test_dir", "test"},
-        {"grep", "hello", "busybox_cmd.txt"},
-        {"cp", "busybox_cmd.txt", "busybox_cmd.bak"},
-        {"find", "-name", "busybox_cmd.txt"}
-    };
+    char *busybox_arg3[][4] = {{"ash", "-c", "exit"},
+                               {"sh", "-c", "exit"},
+                               {"hexdump", "-C", "test.txt"},
+                               {"sh", "-c", "echo ccccccc >> test.txt"},
+                               {"sh", "-c", "echo bbbbbbb >> test.txt"},
+                               {"sh", "-c", "echo aaaaaaa >> test.txt"},
+                               {"sh", "-c", "echo 2222222 >> test.txt"},
+                               {"sh", "-c", "echo 1111111 >> test.txt"},
+                               {"sh", "-c", "echo bbbbbbb >> test.txt"},
+                               // {"sh", "-c", "sort test.txt | ./busybox unique"},
+                               {"mv", "test_dir", "test"},
+                               {"grep", "hello", "busybox_cmd.txt"},
+                               {"cp", "busybox_cmd.txt", "busybox_cmd.bak"},
+                               {"find", "-name", "busybox_cmd.txt"}};
     char *busybox_arg4[][5] = {
         {"expr", "1", "+", "1"},
         {"cut", "-c", "3", "test.txt"},
@@ -588,36 +484,32 @@ static void busybox_test(bool execute) {
             goto print_res;
         }
         if (busybox_arg_nums[i] == 1) {
-            pid = exec("busybox", (char * const*)&busybox_arg1[arg1_ptr], NULL);
+            pid = exec("busybox", (char *const *)busybox_arg1[arg1_ptr], NULL);
             res = 0;
             waitpid(pid, &res, 0);
             arg1_ptr++;
-        }
-        else if (busybox_arg_nums[i] == 2) {
-            pid = exec("busybox", (char * const*)busybox_arg2[arg2_ptr], NULL);
+        } else if (busybox_arg_nums[i] == 2) {
+            pid = exec("busybox", (char *const *)busybox_arg2[arg2_ptr], NULL);
             res = 0;
             waitpid(pid, &res, 0);
             arg2_ptr++;
-        }
-        else if (busybox_arg_nums[i] == 3) {
-            pid = exec("busybox", (char * const*)busybox_arg3[arg3_ptr], NULL);
+        } else if (busybox_arg_nums[i] == 3) {
+            pid = exec("busybox", (char *const *)busybox_arg3[arg3_ptr], NULL);
             res = 0;
             waitpid(pid, &res, 0);
             arg3_ptr++;
-        }
-        else if (busybox_arg_nums[i] == 4) {
-            pid = exec("busybox", (char * const*)busybox_arg4[arg4_ptr], NULL);
+        } else if (busybox_arg_nums[i] == 4) {
+            pid = exec("busybox", (char *const *)busybox_arg4[arg4_ptr], NULL);
             res = 0;
             waitpid(pid, &res, 0);
             arg4_ptr++;
         }
 
-print_res:
+    print_res:
         printf("testcase busybox %s", busybox_cmd_string[i]);
         if (!(res >> 8)) {
             printf(" success\n");
-        }
-        else {
+        } else {
             printf(" fail\n");
         }
     }
@@ -628,27 +520,16 @@ static void lua_test(bool execute) {
         return;
     }
     printf("run lua_testcode.sh\n");
-    char *lua_args[][3] = {
-        {"./lua", "date.lua"},
-        {"./lua", "file_io.lua"}, 
-        {"./lua", "max_min.lua"},
-        {"./lua", "random.lua"},
-        {"./lua", "remove.lua"},
-        {"./lua", "round_num.lua"},
-        {"./lua", "sin30.lua"},
-        {"./lua", "sort.lua"},
-        {"./lua", "strings.lua"}
-    };
+    char *lua_args[][3] = {{"./lua", "date.lua"}, {"./lua", "file_io.lua"}, {"./lua", "max_min.lua"}, {"./lua", "random.lua"}, {"./lua", "remove.lua"}, {"./lua", "round_num.lua"}, {"./lua", "sin30.lua"}, {"./lua", "sort.lua"}, {"./lua", "strings.lua"}};
     int pid = 0, res = 0;
     for (int i = 0; i < 9; i++) {
-        pid = exec("lua", (char * const*)lua_args[i], NULL);
+        pid = exec("lua", (char *const *)lua_args[i], NULL);
         res = 0;
         waitpid(pid, &res, 0);
         printf("testcase lua %s", lua_args[i][1]);
         if (!(res >> 8)) {
             printf(" success\n");
-        }
-        else {
+        } else {
             printf(" fail\n");
         }
     }
@@ -660,33 +541,19 @@ static void iozone_test(bool execute) {
     }
     printf("run iozone_testcode.sh");
     printf("iozone automatic measurements\n");
-    char *iozone_arg1[] = {
-        "-a", "-r", "1k", "-s", "4m"
-    };
+    char *iozone_arg1[] = {"-a", "-r", "1k", "-s", "4m"};
     int pid = exec("iozone", iozone_arg1, NULL);
     int res = 0;
     waitpid(pid, &res, 0);
     char *iozone_args[][11] = {
-        {"-t", "4", "-i", "0", "-i", "1", "-r", "1k", "-s", "1m"},
-        {"-t", "4", "-i", "0", "-i", "2", "-r", "1k", "-s", "1m"},
-        {"-t", "4", "-i", "0", "-i", "3", "-r", "1k", "-s", "1m"},
-        {"-t", "4", "-i", "0", "-i", "5", "-r", "1k", "-s", "1m"},
-        {"-t", "4", "-i", "0", "-i", "7", "-r", "1k", "-s", "1m"},
-        {"-t", "4", "-i", "0", "-i", "10", "-r", "1k", "-s", "1m"},
-        {"-t", "4", "-i", "0", "-i", "12", "-r", "1k", "-s", "1m"},
+        {"-t", "4", "-i", "0", "-i", "1", "-r", "1k", "-s", "1m"}, {"-t", "4", "-i", "0", "-i", "2", "-r", "1k", "-s", "1m"}, {"-t", "4", "-i", "0", "-i", "3", "-r", "1k", "-s", "1m"}, {"-t", "4", "-i", "0", "-i", "5", "-r", "1k", "-s", "1m"}, {"-t", "4", "-i", "0", "-i", "7", "-r", "1k", "-s", "1m"}, {"-t", "4", "-i", "0", "-i", "10", "-r", "1k", "-s", "1m"}, {"-t", "4", "-i", "0", "-i", "12", "-r", "1k", "-s", "1m"},
     };
     char *measures[] = {
-        "write/read",
-        "random-read",
-        "read-backwards",
-        "stride-read",
-        "fwrite/fread",
-        "pwrite/pread",
-        "pwritev/preadv",
+        "write/read", "random-read", "read-backwards", "stride-read", "fwrite/fread", "pwrite/pread", "pwritev/preadv",
     };
     for (int i = 0; i < 7; i++) {
         printf("iozone throughput %s measurements\n", measures[i]);
-        pid = exec("iozone", (char * const*)iozone_args[i], NULL);
+        pid = exec("iozone", (char *const *)iozone_args[i], NULL);
         res = 0;
         waitpid(pid, &res, 0);
     }
@@ -810,7 +677,7 @@ static void libc_test(bool execute) {
         {"-w", "entry-static.exe", "wcsstr_false_negative"},
     };
     for (int i = 0; i < 109; i++) {
-        pid = exec("runtest.exe", (char * const*)run_static_args[i], NULL);
+        pid = exec("runtest.exe", (char *const *)run_static_args[i], NULL);
         res = 0;
         waitpid(pid, &res, 0);
     }
@@ -928,7 +795,7 @@ static void libc_test(bool execute) {
         {"-w", "entry-dynamic.exe", "wcsstr_false_negative"},
     };
     for (int i = 0; i < 111; i++) {
-        pid = exec("runtest.exe", (char * const*)run_dynamic_args[i], NULL);
+        pid = exec("runtest.exe", (char *const *)run_dynamic_args[i], NULL);
         res = 0;
         waitpid(pid, &res, 0);
     }
@@ -968,6 +835,7 @@ static void test() {
 int main() {
 #ifdef FINAL
     test();
+    sys_shutdown();
     return 0;
 #else
     for (int i = 0; i < CURRENT_TASK_NUM; i++) {

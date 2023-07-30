@@ -57,25 +57,25 @@ typedef struct super_block {
     int root_inode_offset;
 } super_block_t;
 
-#define INODE_DIR  1
+#define INODE_DIR 1
 #define INODE_FILE 0
 #pragma pack(2)
 typedef struct inode {
-	ptr_t	        i_mapping;	    //page cache addr
-	uint16_t        i_ino;  		//inode num
-	uint16_t     	i_upper;		//dir inode num
-    uint8_t	        i_type;			//file type 0file 1dir
-    uint8_t         i_link;			//file link num
-    uint32_t        i_fclus;        //first file cluster 
-    int             i_offset;		//dentry offset in upper dir
+    ptr_t i_mapping;  // page cache addr
+    uint16_t i_ino;   // inode num
+    uint16_t i_upper; // dir inode num
+    uint8_t i_type;   // file type 0file 1dir
+    uint8_t i_link;   // file link num
+    uint32_t i_fclus; // first file cluster
+    int i_offset;     // dentry offset in upper dir
     // ptr_t	        padding1;
     // ptr_t	        padding2;
     // ptr_t	        padding3;
     // ptr_t	        padding4;
-    ptr_t	        padding5;
+    ptr_t padding5;
     // uint32_t	    padding6;
-    uint16_t        padding7;
-}inode_t;
+    uint16_t padding7;
+} inode_t;
 #pragma pack()
 
 typedef struct dir_entry {

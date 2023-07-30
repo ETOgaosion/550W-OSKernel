@@ -3,6 +3,7 @@
 #include <asm/stack.h>
 #include <common/elf.h>
 #include <drivers/screen/screen.h>
+#include <fs/file.h>
 #include <fs/fs.h>
 #include <lib/math.h>
 #include <lib/stdio.h>
@@ -14,7 +15,6 @@
 #include <os/sys.h>
 #include <os/users.h>
 #include <user/user_programs.h>
-#include<fs/file.h>
 
 pcb_t *volatile current_running0;
 pcb_t *volatile current_running1;
@@ -654,13 +654,13 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     if (!stack) {
         k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
     }
-    //cpy fd
+    // cpy fd
     init_list_head(&pcb[i].fd_head);
     fd_t *pos;
-    list_for_each_entry(pos,&pcb[fpid].fd_head,list){
+    list_for_each_entry(pos, &pcb[fpid].fd_head, list) {
         fd_t *file = k_mm_malloc(sizeof(fd_t));
-        k_memcpy((uint8_t *)file,(const uint8_t *)pos,sizeof(fd_t));
-        __list_add(&file->list,pcb[i].fd_head.prev,&pcb[i].fd_head);
+        k_memcpy((uint8_t *)file, (const uint8_t *)pos, sizeof(fd_t));
+        __list_add(&file->list, pcb[i].fd_head.prev, &pcb[i].fd_head);
     }
     list_add_tail(&pcb[i].list, &ready_queue);
     return i;
@@ -718,8 +718,7 @@ void k_pcb_stat(int pid, char *buf) {
     k_strcat(buf, (const char *)pcb[pid].name);
     k_strcat(buf, " ");
     // stat
-    switch (pcb[pid].status)
-    {
+    switch (pcb[pid].status) {
     case TASK_BLOCKED:
         k_strcat(buf, "D ");
         break;
@@ -729,7 +728,7 @@ void k_pcb_stat(int pid, char *buf) {
     case TASK_READY:
     case TASK_RUNNING:
         k_strcat(buf, "R ");
-    
+
     default:
         break;
     }
@@ -840,8 +839,7 @@ void k_pcb_stat(int pid, char *buf) {
         k_ltoa(SIGALRM, str, 10);
         k_strcat(buf, (const char *)str);
         k_strcat(buf, " ");
-    }
-    else {
+    } else {
         k_strcat(buf, "0 ");
     }
     // processor

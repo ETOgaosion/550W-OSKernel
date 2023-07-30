@@ -1,3 +1,4 @@
+#include <asm/sbi.h>
 #include <os/socket.h>
 
 // [TODO]
@@ -50,6 +51,7 @@ long sys_getsockopt(int fd, int level, int optname, char *optval, int *optlen) {
 }
 
 long sys_shutdown(int sockfd, int how) {
+    sbi_shutdown();
     return 0;
 }
 

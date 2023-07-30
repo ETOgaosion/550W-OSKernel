@@ -36,6 +36,8 @@ int mailread(void *buf, int len);
 int mailwrite(int pid, void *buf, int len);
 void sys_kill(int pid);
 
+void sys_shutdown();
+
 int fstat(int fd, struct kstat *st);
 long sys_linkat(int olddirfd, char *oldpath, int newdirfd, char *newpath, unsigned int flags);
 long sys_unlinkat(int dirfd, char *path, unsigned int flags);

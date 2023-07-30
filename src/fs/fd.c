@@ -24,42 +24,44 @@ int fd_table_init() {
     return 0;
 }
 
-int get_fd_from_list(){
+int get_fd_from_list() {
     pcb_t *pcb = *current_running;
-    if(list_is_empty(&pcb->fd_head)){
+    if (list_is_empty(&pcb->fd_head)) {
         return STDMAX;
     }
     int fd = STDIN;
     fd_t *file;
-    list_for_each_entry(file,&pcb->fd_head,list){
-        if(file->fd_num == fd)
+    list_for_each_entry(file, &pcb->fd_head, list) {
+        if (file->fd_num == fd) {
             fd++;
-        else
+        } else {
             return fd;
+        }
     }
     return fd;
 }
 
-//test if fd exist
-fd_t *fd_exist(int fd){
+// test if fd exist
+fd_t *fd_exist(int fd) {
     pcb_t *pcb = *current_running;
-    if(list_is_empty(&pcb->fd_head)){
+    if (list_is_empty(&pcb->fd_head)) {
         return 0;
     }
     fd_t *file;
-    list_for_each_entry(file,&pcb->fd_head,list){
+    list_for_each_entry(file, &pcb->fd_head, list) {
         // k_print("[debug] check fd %d with fd %d\n",file->fd_num,fd);
-        if(file->fd_num == fd){
+        if (file->fd_num == fd) {
             return file;
         }
-        if(file->fd_num > fd)
+        if (file->fd_num > fd) {
             return NULL;
+        }
     }
     return NULL;
 }
 
-//fd = -1, get fd, or spec fd
-// -1 fail, or return fd
+// fd = -1, get fd, or spec fd
+//  -1 fail, or return fd
 int fd_alloc(int fd) {
     // int i;
     // for (i = STDMAX; i < MAX_FD; i++) {
@@ -70,32 +72,32 @@ int fd_alloc(int fd) {
     //     }
     // }
     // return -1;
-    //访问PCB
+    // 访问PCB
     pcb_t *pcb = *current_running;
     // k_print("[debug] pcb id is %d\n",pcb->pid);
-    //get fd num
-    if(fd == -1)
+    // get fd num
+    if (fd == -1) {
         fd = get_fd_from_list();
-    else{
-        if(fd_exist(fd)){
+    } else {
+        if (fd_exist(fd)) {
             return -1;
         }
     }
     // k_print("[debug] get fd %d\n",fd);
-    //alloc fd
+    // alloc fd
     fd_t *file = (fd_t *)k_mm_malloc(sizeof(fd_t));
-    k_memset(file,0,sizeof(fd_t));
+    k_memset(file, 0, sizeof(fd_t));
     file->used = 1;
     file->fd_num = fd;
-    //add to fd list in pcb
+    // add to fd list in pcb
     fd_t *pos;
-    list_for_each_entry(pos,&pcb->fd_head,list){
-        if(pos->fd_num > fd){
-            __list_add(&file->list,pos->list.prev,&pos->list);
+    list_for_each_entry(pos, &pcb->fd_head, list) {
+        if (pos->fd_num > fd) {
+            __list_add(&file->list, pos->list.prev, &pos->list);
             return fd;
         }
     }
-    __list_add(&file->list,pcb->fd_head.prev,&pcb->fd_head);
+    __list_add(&file->list, pcb->fd_head.prev, &pcb->fd_head);
     return fd;
 }
 
@@ -129,20 +131,21 @@ int pipe_alloc(int *fd) {
     //     fd_free(fd[0]);
     // }
     fd[0] = fd_alloc(-1);
-    if(fd[0] == -1)
+    if (fd[0] == -1) {
         return -1;
+    }
     fd[1] = fd_alloc(-1);
-    if(fd[1] == -1){
+    if (fd[1] == -1) {
         fd_free(fd[0]);
         return -1;
     }
-    fd_t *file1,*file2;
+    fd_t *file1, *file2;
     file1 = fd_exist(fd[0]);
     file1->used = 1;
     file1->pip_num = pipe_cnt;
     file1->is_pipe_read = TRUE;
     file1->is_pipe_write = FALSE;
-    
+
     file2 = fd_exist(fd[1]);
     file2->used = 1;
     file2->pip_num = pipe_cnt++;
@@ -159,11 +162,12 @@ int fd_free(int fd) {
         return -1;
     }
     fd_t *file = fd_exist(fd);
-    if(!file)
+    if (!file) {
         return -1;
-    __list_del(file->list.prev,file->list.next);
-    //TODO free
-    //k_free(file);
+    }
+    __list_del(file->list.prev, file->list.next);
+    // TODO free
+    // k_free(file);
     return ret;
 }
 
@@ -174,17 +178,17 @@ fd_t *get_fd(int fd) {
     return fd_exist(fd);
 }
 
-void init_fd_pcb(pcb_t *pcb){
+void init_fd_pcb(pcb_t *pcb) {
     int i;
-    for(i = stdin;i<STDMAX;i++){
-        //alloc fd
+    for (i = stdin; i < STDMAX; i++) {
+        // alloc fd
         fd_t *file = (fd_t *)k_mm_malloc(sizeof(fd_t));
-        k_memset(file,0,sizeof(fd_t));
+        k_memset(file, 0, sizeof(fd_t));
         file->file = i;
         file->used = 1;
         file->fd_num = i;
-        //add to fd list in pcb
-        __list_add(&file->list,pcb->fd_head.prev,&pcb->fd_head);
+        // add to fd list in pcb
+        __list_add(&file->list, pcb->fd_head.prev, &pcb->fd_head);
     }
 }
 

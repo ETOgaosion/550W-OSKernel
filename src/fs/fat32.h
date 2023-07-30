@@ -70,9 +70,9 @@ typedef struct short_name_entry {
     uint16_t crt_date;      // 15-0 of access
     uint16_t lst_acce_date; // 47-32 of modify
     uint16_t fst_clus_hi;
-    uint16_t lst_wrt_time;  // 31-16 of modify
-    uint16_t lst_wrt_date;  // 15-0 of modify
-    uint16_t fst_clus_lo;   // inode num if cached
+    uint16_t lst_wrt_time; // 31-16 of modify
+    uint16_t lst_wrt_date; // 15-0 of modify
+    uint16_t fst_clus_lo;  // inode num if cached
     uint32_t file_size;
 } __attribute__((packed, aligned(4))) short_name_entry_t;
 
