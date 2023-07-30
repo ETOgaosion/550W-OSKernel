@@ -1017,7 +1017,7 @@ long sys_setxattr(const char *path, const char *name, const void *value, size_t 
     return 0;
 }
 
-long sys_lsetxattr(const char *path, const char *name, const void *value, size_t, int flags) {
+long sys_lsetxattr(const char *path, const char *name, const void *value, size_t size, int flags) {
     return 0;
 }
 
@@ -1114,11 +1114,15 @@ long sys_dup3(int old, int new, mode_t flags) {
 #define F_SETFD		2	/* set/clear close_on_exec */
 #define F_GETFL		3	/* get file->f_flags */
 #define F_SETFL		4	/* set file->f_flags */
+#define F_DUPFD_CLOEXEC 1030
 long sys_fcntl(unsigned int fd, unsigned int cmd, unsigned long arg) {
     fd_t *file = get_fd(fd);
     if(!file)
         return -1;
-    if(cmd == F_GETFD){
+    if(cmd == F_DUPFD_CLOEXEC) {
+        sys_dup3(fd, arg, 0);
+        return arg;
+    } else if(cmd == F_GETFD){
         return file->mode;
     }else if(cmd == F_SETFD){
         file->mode = (uint32_t)arg;
