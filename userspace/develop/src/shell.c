@@ -416,11 +416,19 @@ static int shell_clear(int argc, char *argv[]) {
 
 #ifdef FINAL
 static void test() {
-    char *args[] = {"max_min.lua"};
-    int pid = exec("lua", args, NULL);
     int res = 0;
-    waitpid(pid, &res, 0);
-    printf("\ntest result: %d", res >> 8);
+    char *args1[] = {"cp","busybox_cmd.txt","busybox_cmd.bat"};
+    int pid1 = exec("busybox", args1, NULL);
+    waitpid(pid1, &res, 0);
+    printf("\ntest result1: %d", res >> 8);
+    char *args2[] = {"cat","busybox_cmd.bat"};
+    int pid2 = exec("busybox", args2, NULL);
+    waitpid(pid2, &res, 0);
+    printf("\ntest result1: %d", res >> 8);
+    // char *args3[] = {"cat","round_num.lua"};
+    // int pid3 = exec("busybox", args3, NULL);
+    // waitpid(pid3, &res, 0);
+    // printf("\ntest result1: %d", res >> 8);
 }
 #endif
 
