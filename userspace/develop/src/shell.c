@@ -968,6 +968,7 @@ static void test() {
 int main() {
 #ifdef FINAL
     test();
+    return 0;
 #else
     for (int i = 0; i < CURRENT_TASK_NUM; i++) {
         int pid = spawn(task_names[i]);
