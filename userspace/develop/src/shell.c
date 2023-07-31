@@ -468,7 +468,7 @@ static void busybox_test(bool execute) {
     };
     int arg1_ptr = 0, arg2_ptr = 0, arg3_ptr = 0, arg4_ptr = 0;
     int pid = 0, res = 0;
-    for (int i = 0; i < 53; i++) {
+    for (int i = 0; i < 55; i++) {
         if (i == 14) {
             printf("ls is built-in command\n");
             arg2_ptr++;
