@@ -4,32 +4,35 @@
 
 ## PCB数据结构
 
+决赛中glibc所需要系统调用的需求已经使pcb结构体到达足够丰富的体量，需要记录和维护足够多的信息以提供可用的支持。
+
 ```C
 typedef struct pcb {
-    /* kernel stack, used to save context */
-    reg_t kernel_sp;    
+    /* register context */
+    // this must be this order!! The order is defined in regs.h
+    reg_t kernel_sp;
+    reg_t user_sp;
 
-    /* user stack */
-    reg_t user_sp;     
+    /* previous, next pointer */
+    list_node_t list;
 
-    /* list used to form ready queue or block queue */
-    list_node_t list;   
+    regs_context_t *save_context;
+    switchto_context_t *switch_context;
 
-    /* saved context */
-    regs_context_t *save_context;  
-    switchto_context_t *switch_context; 
+    uint64_t core_id;
 
-    /* if this PCB is in use */
     bool in_use;
+    elf_info_t elf;
+    bool dynamic;
 
-    /* info of elf */
-    ELF_info_t elf;
-
-    /* informatino about process*/
-    char name[NUM_MAX_PCB_NAME]; // name of process
-    pid_t pid;  // real offset of pcb[]
-    pid_t fpid; // process id
-    pid_t tid; // thread id
+    /* process id */
+    char name[NUM_MAX_PCB_NAME];
+    char cmd[NUM_MAX_PCB_CMD];
+    pid_t pid; // real offset of pcb[]
+    pid_t tid;
+    pid_t pgid;
+    gids_t gid;
+    uids_t uid;
     uint32_t *clear_ctid;
     pid_t father_pid;
     pid_t child_pids[NUM_MAX_CHILD];
@@ -49,30 +52,56 @@ typedef struct pcb {
     int cursor_x;
     int cursor_y;
 
+    int sched_policy;
     prior_t priority;
 
-    /* if allowed running on certain core */
     uint8_t core_mask[CPU_SET_SIZE];
 
-    /* page table directory address */
+    unsigned int personality;
+
     uint64_t pgdir;
 
-    /* info about lock */
+    /* signal handler */
+    bool handling_signal;
+    unsigned long flags;
+
+    sigaction_t *sigactions;
+    uint64_t sig_recv;
+    uint64_t sig_pend;
+    uint64_t sig_mask;
+    uint64_t prev_mask;
+
     int locksum;
     int lock_ids[NUM_MAX_LOCK];
     void *chan;
 
-    /* mailbox */
     pcb_mbox_t *mbox;
 
+    list_head fd_head;
     /* time */
-    __kernel_timeval_t stime_last; // last time into kernel
-    __kernel_timeval_t utime_last; // last time out kernel
+    kernel_timeval_t stime_last; // last time into kernel
+    kernel_timeval_t utime_last; // last time out kernel
+    kernel_timeval_t real_time_last;
     pcbtimer_t timer;
-    __kernel_clock_t dead_child_stime;
-    __kernel_clock_t dead_child_utime;
+    kernel_clock_t dead_child_stime;
+    kernel_clock_t dead_child_utime;
+    kernel_itimerval_t real_itime;
+    kernel_itimerval_t virt_itime;
+    kernel_itimerval_t prof_itime;
+
+    nanotime_val_t real_time_last_nano;
+    kernel_full_clock_t cputime_id_clock;
+
+    uint64_t start_tick;
 
     rusage_t resources;
+
+    cap_user_data_t cap[2];
+
+    uintptr_t arg_start;
+    uintptr_t arg_end;
+    uintptr_t env_start;
+    uintptr_t env_end;
 } pcb_t;
 ```
 
