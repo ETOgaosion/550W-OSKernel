@@ -16,13 +16,97 @@
 
 ## 2.文件描述符
 
-当前文件描述符在所有进程间共用，支持STDIN/STDOUT/STDERR，pipe等必要功能。目前文件描述符的主体是一个大数组，所有进程在这个数组中申请/释放文件描述符，后续需要完成文件描述符在进程之间的隔离。
+当前文件描述符在进程之间独立，支持STDIN/STDOUT/STDERR，pipe等必要功能。对于fd(file descriptor)的设计，我们在pcb中加入了一个指向fd的list head，进程初始化时自动创建STDIN、STDOUT、STDERR三个特殊文件描述符，并提供借口进行文件描述符的创建，释放等操作。有一点需要注意的是，clone时文件描述符需要复制一份。
 
 对于STDIN/OUT/ERR类的文件描述符，需要维护输入/输出的缓冲区。
 
 对于pipe，需要维护一个一个ring buffer，实现pipe两端的成功读写。
 
 对于file/dir，需要维护文件的基本信息，文件描述符的访问模式、当前访问位置等数据。
+
+下面展示了一些fd相关接口：
+
+```c
+int get_fd_from_list(){
+    pcb_t *pcb = *current_running;
+    if(list_is_empty(&pcb->fd_head)){
+        return STDMAX;
+    }
+    int fd = STDIN;
+    fd_t *file;
+    list_for_each_entry(file,&pcb->fd_head,list){
+        if(file->fd_num == fd)
+            fd++;
+        else
+            return fd;
+    }
+    return fd;
+}
+
+fd_t *fd_exist(int fd){
+    pcb_t *pcb = *current_running;
+    if(list_is_empty(&pcb->fd_head)){
+        return 0;
+    }
+    fd_t *file;
+    list_for_each_entry(file,&pcb->fd_head,list){
+        if(file->fd_num == fd){
+            return file;
+        }
+        if(file->fd_num > fd)
+            return NULL;
+    }
+    return NULL;
+}
+
+int fd_alloc(int fd) {
+    pcb_t *pcb = *current_running;
+    if(fd == -1)
+        fd = get_fd_from_list();
+    else{
+        if(fd_exist(fd)){
+            return -1;
+        }
+    }
+    //alloc fd
+    fd_t *file = (fd_t *)k_mm_malloc(sizeof(fd_t));
+    k_memset(file,0,sizeof(fd_t));
+    file->used = 1;
+    file->fd_num = fd;
+    //add to fd list in pcb
+    fd_t *pos;
+    list_for_each_entry(pos,&pcb->fd_head,list){
+        if(pos->fd_num > fd){
+            __list_add(&file->list,pos->list.prev,&pos->list);
+            return fd;
+        }
+    }
+    __list_add(&file->list,pcb->fd_head.prev,&pcb->fd_head);
+    return fd;
+}
+
+int fd_free(int fd) {
+    int ret = 0;
+    if (fd < STDMAX || fd >= MAX_FD) {
+        return -1;
+    }
+    fd_t *file = fd_exist(fd);
+    if(!file)
+        return -1;
+    __list_del(file->list.prev,file->list.next);
+    k_free(file);
+    return ret;
+}
+
+fd_t *get_fd(int fd) {
+    if (fd < STDIN || fd >= MAX_FD) {
+        return NULL;
+    }
+    return fd_exist(fd);
+}
+```
+
+
 
 ## 3.系统调用
 
@@ -88,6 +172,59 @@
 
   打印文件描述符指向文件的信息
 
-## 4.TODO
+另外，面向决赛第一阶段的测试，我们还实现了一些额外的系统调用以保证正确性，这里不再一一列举。
 
-完善文件系统的虚拟化，提高文件系统的抽象层次，简化文件描述符、系统调用等与磁盘文件的交互。
+## 4.VFS(Virtual File System)实现
+
+我们在文件系统中实现了一个简单的VFS，将系统调用、文件描述符对文件的访问放在VFS之上，提高了文件系统的抽象层次。
+
+VFS的核心数据结构是inode_t，我们在内存中申请了一块连续的空间作为inode table，以数组的形式索引文件的inode。
+
+```c
+typedef struct inode {
+	  ptr_t	        i_mapping;	//page cache addr
+	  uint16_t      i_ino;  		//inode num
+	  uint16_t     	i_upper;		//dir inode num
+    uint8_t	      i_type;			//file type 0file 1dir
+    uint8_t       i_link;			//file link num
+    uint32_t      i_fclus;    //first file cluster 
+    int           i_offset;		//dentry offset in upper dir
+    ptr_t	        padding1;
+    uint16_t      padding2;
+}inode_t;
+```
+
+inode_t中成员变量的设计考虑了文件系统的需求，包括文件在内存中缓存的地址空间，文件的常用基本信息，索引文件对应目录项的条件等等。
+
+文件在第一次被访问时会被映射进内存并在目录条目中标记，之后所有进程对此文件的访问都会定位到映射地址，便于保证文件的一致性和正确性，也简化了文件写回这一过程。例如，fat32文件系统加载时就会将根目录缓存进内存并将根目录信息存储至root_dir，后续对根目录的访问也是从root_dir寻找根目录在内存中的映射。
+
+这里封装了多个函数用作VFS处理的inode时的接口，包括将磁盘文件加入inode table时申请inode的操作，写文件时对文件大小、状态的更新等。
+
+```c
+uint16_t alloc_inode(dentry_t *entry,char * name, uint16_t upper, int offset){
+  	uint16_t inode_num = get_inodenum();
+    if(inode_num >= MAX_INODE){
+        return 0;
+    }
+    inode_table[inode_num].i_ino = inode_num;
+    inode_table[inode_num].i_fclus = fat32_dentry2fcluster(entry);
+    inode_table[inode_num].i_link = 1;
+    inode_table[inode_num].i_mapping = (ptr_t)read_whole_dir(inode_table[inode_num].i_fclus,0);
+    inode_table[inode_num].i_type = entry->sn.attr & ATTR_DIRECTORY ? 1 : 0;
+    inode_table[inode_num].i_upper = upper;
+    inode_table[inode_num].i_offset = offset;
+    entry->sn.fst_clus_lo = inode_num;
+    entry->sn.nt_res = 1;
+    return inode_num++;
+}
+
+int update_dentry_size(uint16_t upper,int offset,uint32_t size){
+    dentry_t *dtable = (dentry_t *)inode_table[upper].i_mapping;
+    if(dtable[offset].sn.attr & ATTR_DIRECTORY)
+        dtable[offset].sn.file_size = fat32_fcluster2size(inode_table[upper].i_fclus);
+    else
+        dtable[offset].sn.file_size = size;
+    return 0;
+}
+```
+
