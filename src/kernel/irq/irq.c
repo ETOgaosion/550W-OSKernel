@@ -141,6 +141,7 @@ void k_syscall_init(void) {
     syscall[SYS_rt_sigaction] = (long (*)())sys_rt_sigaction;
     syscall[SYS_rt_sigprocmask] = (long (*)())sys_rt_sigprocmask;
     syscall[SYS_rt_sigreturn] = (long (*)())sys_rt_sigreturn;
+    syscall[SYS_rt_sigtimedwait] = (long (*)())sys_rt_sigtimedwait;
     syscall[SYS_setgid] = (long (*)())sys_setgid;
     syscall[SYS_setuid] = (long (*)())sys_setuid;
     syscall[SYS_getresuid] = (long (*)())sys_getresuid;

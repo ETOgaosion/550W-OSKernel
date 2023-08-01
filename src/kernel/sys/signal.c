@@ -179,3 +179,10 @@ void k_signal_free_sig_table(sigaction_t *sig_in) {
         k_memset(sig_in, 0, NUM_MAX_SIGNAL * sizeof(sigaction_t));
     }
 }
+
+int sys_rt_sigtimedwait(const sigset_t *restrict set,
+                       siginfo_t *restrict info,
+                       const struct timespec *restrict timeout)
+{
+    return 1;
+}
