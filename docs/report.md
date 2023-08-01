@@ -48,33 +48,33 @@
 └── userspace               # userspace programs
 ```
 
-在[这一章节中](./details/architecture.md)我们详细地讨论了架构与框架的设计理念。
+在[这一章节中](./details/preliminary/architecture.md)我们详细地讨论了架构与框架的设计理念。
 
 ## 实现重点
 
 本节各个小标题均链接有位于details文件夹下的详细介绍说明。
 
-### [启动与初始化](./details/boot.md)
+### [启动与初始化](./details/preliminary/boot.md)
 
 由于OpenSBI让CPU从地址0x80200000开始运行，为了方便启动内核，我们直接使用call进行内核启动。
 
 内核启动前进行虚页的初始化。内核启动后，进行PCB管理结构、中断、磁盘和文件系统等的初始化。
 
-### [中断](./details/interrupt.md)
+### [中断](./details/preliminary/interrupt.md)
 
 我们在内核启动时进行中断的初始化，中断处理流程为标准的保存上下文->执行中断处理->恢复上下文。
 
-### [I/O](./details/io.md)
+### [I/O](./details/preliminary/io.md)
 
 我们通过SBI调用实现Console的IO操作，通过实现virtio来对磁盘进行IO操作。
 
-### [进程管理](./details/process_management.md)
+### [进程管理](./details/final_1/process_management.md)
 
 我们使用PCB数据结构统一管理进程和线程。
 
 我们实现了基于时钟中断的抢占式调度。
 
-### [内存管理](./details/memory_management.md)
+### [内存管理](./details/final_1/memory_management.md)
 
 为了便于实现，当前我们采用的是简单的顺序分配和内存回收机制。
 
@@ -82,36 +82,21 @@
 
 预计未来将实现伙伴分配算法等更复杂高效的内存管理系统。
 
-### [执行文件解析](./details/file_analysis.md)
+### [执行文件解析](./details/preliminary/file_analysis.md)
 
 结合fat32文件系统格式，进行文件解析，详见文档。
 
-### [文件系统功能](./details/file_system.md)
+### [文件系统功能](./details/final_1/file_system.md)
 
 实现了基本磁盘解析，文件描述符和系统调用，详见文档。
 
-## 主要问题与解决方法
+### [测试相关](./details/final_1/tests.md)
 
-### 由于fork得到的父子进程执行顺序不同而产生不同行为
+实现了测试的支持，该章节也介绍了我们遇到的一些BUG和解决方法
 
-```C
-// test_clone.c
-// fork();
-if (child_pid == 0) {
-    exit(0);
-} else {
-    if (wait(&wstatus) == child_pid) {
-        printf("clone process successfully.\npid:%d\n", child_pid);
-    } else {
-        printf("clone process error.\n");
-    }
-}
-```
+### [虚拟文件系统](./details/final_1/vfs.md)
 
-考虑到fork之后得到的父子进程的执行顺序不同，父进程调用wait也没有给定pid，而如果子进程先于父进程wait时退出，那么理论上父进程的wait会采集不到需要等待的子进程的信息。
-
-解决办法是让子进程退出时保留一定的状态信息，等待父进程调用wait再完全退出，类似于进入一种ZOMBIE状态。
-
+本项目并未完全引入VFS来对各种FS进行抽象，这里所谓`虚拟`，指的是并不存在于物理文件系统内的`虚拟文件和目录`，当用户对其发起读写等操作时将转化为调用内核函数。
 
 ## 队伍信息
 
