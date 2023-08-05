@@ -38,7 +38,7 @@ long sys_getrlimit(unsigned int resource, rlimit_t *rlim) {
     if (resource < 0 || resource >= RLIM_NLIMITS) {
         return -EINVAL;
     }
-    k_memcpy((uint8_t *)rlim, (const uint8_t *)&moss_resources[resource], sizeof(rlimit_t));
+    k_memcpy(rlim, &moss_resources[resource], sizeof(rlimit_t));
     return 0;
 }
 
@@ -46,6 +46,6 @@ long sys_setrlimit(unsigned int resource, rlimit_t *rlim) {
     if (resource < 0 || resource >= RLIM_NLIMITS) {
         return -EINVAL;
     }
-    k_memcpy((uint8_t *)&moss_resources[resource], (const uint8_t *)rlim, sizeof(rlimit_t));
+    k_memcpy(&moss_resources[resource], rlim, sizeof(rlimit_t));
     return 0;
 }

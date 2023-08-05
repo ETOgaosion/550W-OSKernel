@@ -85,8 +85,8 @@ void k_signal_handler() {
                 }
                 change_signal_mask(*current_running, (*current_running)->prev_mask);
             } else if ((*current_running)->sigactions[i].sa_handler != SIG_IGN) {
-                k_memcpy((uint8_t *)&signal_context_buf, (const uint8_t *)(*current_running)->save_context, sizeof(regs_context_t));
-                k_memcpy((uint8_t *)&signal_switch_buf, (const uint8_t *)(*current_running)->switch_context, sizeof(switchto_context_t));
+                k_memcpy(&signal_context_buf, (*current_running)->save_context, sizeof(regs_context_t));
+                k_memcpy(&signal_switch_buf, (*current_running)->switch_context, sizeof(switchto_context_t));
                 // context
                 signal_context_buf.regs[reg_ra] = (reg_t)(USER_STACK_ADDR - SIZE_RESTORE);
                 signal_context_buf.regs[reg_a0] = (reg_t)(i + 1);
@@ -111,17 +111,17 @@ long sys_rt_sigaction(int signum, const sigaction_t *act, sigaction_t *oldact, s
     }
     sigaction_t *sig = &(*current_running)->sigactions[signum - 1];
     if (oldact) {
-        k_memcpy((uint8_t *)oldact, (const uint8_t *)sig, sizeof(sigaction_t));
+        k_memcpy(oldact, sig, sizeof(sigaction_t));
     }
     if (act) {
-        k_memcpy((uint8_t *)sig, (const uint8_t *)act, sizeof(sigaction_t));
+        k_memcpy(sig, act, sizeof(sigaction_t));
     }
     return 0;
 }
 
 long sys_rt_sigprocmask(int how, sigset_t *set, sigset_t *oset, size_t sigsetsize) {
     if (oset) {
-        k_memcpy((uint8_t *)&oset->sig[0], (const uint8_t *)&(*current_running)->sig_mask, sizeof(sigset_t));
+        k_memcpy(&oset->sig[0], &(*current_running)->sig_mask, sizeof(sigset_t));
     }
     if (!set) {
         return oset->sig[0];
@@ -180,9 +180,6 @@ void k_signal_free_sig_table(sigaction_t *sig_in) {
     }
 }
 
-int sys_rt_sigtimedwait(const sigset_t *restrict set,
-                       siginfo_t *restrict info,
-                       const struct timespec *restrict timeout)
-{
+int sys_rt_sigtimedwait(const sigset_t *restrict set, siginfo_t *restrict info, const struct timespec *restrict timeout) {
     return 1;
 }

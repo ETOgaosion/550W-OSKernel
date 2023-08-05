@@ -50,3 +50,8 @@ pcb_t *volatile *k_smp_get_current_running() {
     k_smp_sync_current_pcb();
     return current_running;
 }
+
+long sys_poweroff() {
+    sbi_shutdown();
+    return 0;
+}

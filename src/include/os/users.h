@@ -14,7 +14,7 @@ typedef struct user {
 
 extern user_t users[USERS_NUM_MAX];
 
-void init_users();
+void k_users_init();
 long sys_acct(const char *name);
 long sys_getgroups(int gidsetsize, gid_t *grouplist);
 long sys_setgroups(int gidsetsize, gid_t *grouplist);

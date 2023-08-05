@@ -159,9 +159,9 @@ typedef struct sigaction_table {
 } sigaction_table_t;
 
 typedef struct timespec {
-    uint64_t tv_sec; // seconds
+    uint64_t tv_sec;  // seconds
     uint64_t tv_nsec; // and nanoseconds
-}timespec_t;
+} timespec_t;
 
 extern void enter_signal_trampoline();
 extern void exit_signal_trampoline();

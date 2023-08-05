@@ -175,6 +175,10 @@ typedef kernel_uid32_t uid_t;
 typedef kernel_gid32_t gid_t;
 typedef kernel_key_t key_t;
 typedef kernel_clockid_t clockid_t;
+typedef uint64_t time_t;
+typedef uint32_t socklen_t;
+typedef uint16_t in_port_t;
+typedef uint32_t in_addr_t;
 
 /* Minimum of signed integral types.  */
 #define INT8_MIN (-128)

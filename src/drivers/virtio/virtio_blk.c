@@ -331,7 +331,7 @@ void d_sd_read(char *buffers, uint *start_block_ids, uint block_num) {
     buf_t *buf;
     for (int i = 0; i < block_num; i++) {
         buf = d_bread(DEV_VDA2, start_block_ids[i]);
-        k_memcpy((uint8_t *)(buffers + i * BSIZE), (uint8_t *)buf->data, BSIZE);
+        k_memcpy(buffers + i * BSIZE, buf->data, BSIZE);
         d_brelse(buf);
     }
 }
@@ -340,7 +340,7 @@ void d_sd_write(char *buffers, uint *start_block_ids, uint block_num) {
     buf_t *buf;
     for (int i = 0; i < block_num; i++) {
         buf = d_bread(DEV_VDA2, start_block_ids[i]);
-        k_memcpy((uint8_t *)buf->data, (uint8_t *)(buffers + i * BSIZE), BSIZE);
+        k_memcpy(buf->data, (buffers + i * BSIZE), BSIZE);
         d_bwrite(buf);
         d_brelse(buf);
     }

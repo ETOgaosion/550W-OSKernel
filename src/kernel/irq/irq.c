@@ -200,6 +200,7 @@ void k_syscall_init(void) {
     syscall[SYS_screen_clear] = (long (*)())sys_screen_clear;
     syscall[SYS_breakpoint] = (long (*)())sys_breakpoint;
     syscall[SYS_process_show] = (long (*)())sys_process_show;
+    syscall[SYS_poweroff] = (long (*)())sys_poweroff;
 }
 
 void reset_irq_timer() {

@@ -2,6 +2,7 @@
 #include <lib/stdio.h>
 #include <lib/string.h>
 #include <os/sys.h>
+#include <os/time.h>
 
 char moss_log[SYSLOG_SIZE] = {0};
 int saved_console_loglevel;
@@ -21,6 +22,11 @@ int console_printk[4] = {
 #define default_console_loglevel (console_printk[3])
 
 void k_sys_write_to_log(const char *log_msg) {
+    char time[10];
+    k_ultoa(k_time_get_ticks(), time, 10);
+    k_strcat(moss_log, "[");
+    k_strcat(moss_log, time);
+    k_strcat(moss_log, "] ");
     k_strcat(moss_log, log_msg);
 }
 
@@ -39,8 +45,8 @@ long sys_syslog(int type, char *buf, int len) {
         if (!len) {
             return 0;
         }
-        int actual_len = MIN(k_strlen((const char *)moss_log), len);
-        k_memcpy((uint8_t *)buf, (const uint8_t *)moss_log, actual_len);
+        int actual_len = MIN(k_strlen(moss_log), len);
+        k_memcpy(buf, moss_log, actual_len);
         return actual_len;
         break;
     case SYSLOG_ACTION_CLEAR:

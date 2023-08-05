@@ -824,7 +824,7 @@ static void test() {
     // time_test(true);
     // busybox_test(true);
     // lua_test(true);
-    char *args[] = {"basename", "/aaa/bbb"};
+    char *args[3] = {"echo", "1"};
     int pid = exec("busybox", (char *const *)args, NULL);
     int res = 0;
     waitpid(pid, &res, 0);
@@ -835,7 +835,7 @@ static void test() {
 int main() {
 #ifdef FINAL
     test();
-    sys_shutdown();
+    sys_poweroff();
     return 0;
 #else
     for (int i = 0; i < CURRENT_TASK_NUM; i++) {

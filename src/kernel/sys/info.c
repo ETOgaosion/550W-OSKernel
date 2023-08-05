@@ -11,17 +11,17 @@ char hostname[100] = "bluespace";
 sysinfo_t moss_info = {0};
 
 long sys_uname(uname_t *dest) {
-    k_memcpy((uint8_t *)dest, (uint8_t *)&uname_550w, sizeof(uname_t));
+    k_memcpy(dest, &uname_550w, sizeof(uname_t));
     return 0;
 }
 
 long sys_gethostname(char *name, int len) {
-    k_memcpy((uint8_t *)name, (uint8_t *)hostname, len);
+    k_memcpy(name, hostname, len);
     return 0;
 }
 
 long sys_sethostname(char *name, int len) {
-    k_memcpy((uint8_t *)hostname, (uint8_t *)name, len);
+    k_memcpy(hostname, name, len);
     return 0;
 }
 
@@ -39,6 +39,6 @@ long sys_sysinfo(sysinfo_t *info) {
     k_time_minus_nanotime(&now, (nanotime_val_t *)&boot_time, NULL);
     moss_info.uptime = now.sec;
     moss_info.procs = k_pcb_count();
-    k_memcpy((uint8_t *)info, (uint8_t *)&moss_info, sizeof(sysinfo_t));
+    k_memcpy(info, &moss_info, sizeof(sysinfo_t));
     return 0;
 }

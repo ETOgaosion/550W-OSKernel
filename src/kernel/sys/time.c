@@ -18,9 +18,9 @@ timezone_t timezone_550W = {.tz_minuteswest = -480, .tz_dsttime = 0};
 void k_time_init() {
     time_base = TIME_BASE_DEFAULT;
     k_time_get_nanotime((nanotime_val_t *)&boot_time);
-    k_memcpy((uint8_t *)&global_clocks.real_time_clock, (const uint8_t *)&boot_time, sizeof(clock_t));
+    k_memcpy(&global_clocks.real_time_clock, &boot_time, sizeof(clock_t));
     global_clocks.real_time_clock.nano_clock.tv_sec += 1690339653;
-    k_memcpy((uint8_t *)&global_clocks.tai_clock, (const uint8_t *)&boot_time, sizeof(clock_t));
+    k_memcpy(&global_clocks.tai_clock, &boot_time, sizeof(clock_t));
     k_bzero((void *)&global_clocks.monotonic_clock, sizeof(clock_t));
     k_bzero((void *)&global_clocks.boot_time_clock, sizeof(clock_t));
     k_bzero((void *)&timex, sizeof(kernel_timex_t));
@@ -191,13 +191,13 @@ long sys_time(kernel_time_t *tloc) {
 long sys_getitimer(int which, kernel_itimerval_t *value) {
     switch (which) {
     case ITIMER_REAL:
-        k_memcpy((uint8_t *)value, (const uint8_t *)&(*current_running)->real_itime, sizeof(kernel_itimerval_t));
+        k_memcpy(value, &(*current_running)->real_itime, sizeof(kernel_itimerval_t));
         break;
     case ITIMER_VIRTUAL:
-        k_memcpy((uint8_t *)value, (const uint8_t *)&(*current_running)->virt_itime, sizeof(kernel_itimerval_t));
+        k_memcpy(value, &(*current_running)->virt_itime, sizeof(kernel_itimerval_t));
         break;
     case ITIMER_PROF:
-        k_memcpy((uint8_t *)value, (const uint8_t *)&(*current_running)->prof_itime, sizeof(kernel_itimerval_t));
+        k_memcpy(value, &(*current_running)->prof_itime, sizeof(kernel_itimerval_t));
         break;
 
     default:
@@ -209,21 +209,21 @@ long sys_getitimer(int which, kernel_itimerval_t *value) {
 long sys_setitimer(int which, kernel_itimerval_t *value, kernel_itimerval_t *ovalue) {
     switch (which) {
     case ITIMER_REAL:
-        k_memcpy((uint8_t *)&(*current_running)->real_itime, (uint8_t *)value, sizeof(kernel_itimerval_t));
+        k_memcpy(&(*current_running)->real_itime, value, sizeof(kernel_itimerval_t));
         if (ovalue) {
-            k_memcpy((uint8_t *)ovalue, (const uint8_t *)&(*current_running)->real_itime, sizeof(kernel_itimerval_t));
+            k_memcpy(ovalue, &(*current_running)->real_itime, sizeof(kernel_itimerval_t));
         }
         break;
     case ITIMER_VIRTUAL:
-        k_memcpy((uint8_t *)&(*current_running)->virt_itime, (uint8_t *)value, sizeof(kernel_itimerval_t));
+        k_memcpy(&(*current_running)->virt_itime, value, sizeof(kernel_itimerval_t));
         if (ovalue) {
-            k_memcpy((uint8_t *)ovalue, (const uint8_t *)&(*current_running)->virt_itime, sizeof(kernel_itimerval_t));
+            k_memcpy(ovalue, &(*current_running)->virt_itime, sizeof(kernel_itimerval_t));
         }
         break;
     case ITIMER_PROF:
-        k_memcpy((uint8_t *)&(*current_running)->prof_itime, (uint8_t *)value, sizeof(kernel_itimerval_t));
+        k_memcpy(&(*current_running)->prof_itime, value, sizeof(kernel_itimerval_t));
         if (ovalue) {
-            k_memcpy((uint8_t *)ovalue, (const uint8_t *)&(*current_running)->prof_itime, sizeof(kernel_itimerval_t));
+            k_memcpy(ovalue, &(*current_running)->prof_itime, sizeof(kernel_itimerval_t));
         }
         break;
 
@@ -343,7 +343,7 @@ void adjtimex(kernel_timex_t *target, kernel_timex_t *txc_p) {
     } else if (txc_p->modes | ADJ_TICK) {
         target->tick = txc_p->tick;
     }
-    k_memcpy((uint8_t *)txc_p, (const uint8_t *)&timex, sizeof(kernel_timex_t));
+    k_memcpy(txc_p, &timex, sizeof(kernel_timex_t));
 }
 
 long sys_adjtimex(kernel_timex_t *txc_p) {

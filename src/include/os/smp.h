@@ -16,3 +16,5 @@ void k_smp_set_current_pcb(pcb_t *pcb);
 void k_smp_sync_current_pcb();
 void k_smp_lock_kernel();
 void k_smp_unlock_kernel();
+
+long sys_poweroff();

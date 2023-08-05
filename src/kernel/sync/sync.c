@@ -383,11 +383,11 @@ int k_mbox_recv(int key, mbox_t *target, mbox_arg_t *arg) {
     }
     int left_space = MBOX_MSG_MAX_LEN - (target->read_head + arg->msg_length);
     if (left_space < 0) {
-        k_memcpy((uint8_t *)arg->msg, (const uint8_t *)target->buff + target->read_head, MBOX_MSG_MAX_LEN - target->read_head);
-        k_memcpy((uint8_t *)arg->msg + MBOX_MSG_MAX_LEN - target->read_head, (const uint8_t *)target->buff, -left_space);
+        k_memcpy(arg->msg, target->buff + target->read_head, MBOX_MSG_MAX_LEN - target->read_head);
+        k_memcpy(arg->msg + MBOX_MSG_MAX_LEN - target->read_head, target->buff, -left_space);
         target->read_head = -left_space;
     } else {
-        k_memcpy((uint8_t *)arg->msg, (const uint8_t *)target->buff + target->read_head, arg->msg_length);
+        k_memcpy(arg->msg, target->buff + target->read_head, arg->msg_length);
         target->read_head += arg->msg_length;
     }
     target->used_units -= arg->msg_length;
@@ -437,8 +437,8 @@ long sys_mailread(void *buf, int len) {
     } else if (len > PCB_MBOX_MSG_MAX_LEN) {
         len = PCB_MBOX_MSG_MAX_LEN;
     }
-    int str_len = k_strlen((const char *)target->buff[target->read_head]);
-    k_memcpy((uint8_t *)buf, (uint8_t *)target->buff[target->read_head], k_min(len, str_len));
+    int str_len = k_strlen(target->buff[target->read_head]);
+    k_memcpy(buf, target->buff[target->read_head], k_min(len, str_len));
     target->read_head = (target->read_head + 1) % PCB_MBOX_MAX_MSG_NUM;
     target->used_units--;
     return len;
@@ -455,7 +455,7 @@ long sys_mailwrite(int pid, void *buf, int len) {
     } else if (len > PCB_MBOX_MSG_MAX_LEN) {
         len = PCB_MBOX_MSG_MAX_LEN;
     }
-    k_memcpy((uint8_t *)target->buff[target->write_head], (uint8_t *)buf, len);
+    k_memcpy(target->buff[target->write_head], buf, len);
     target->write_head = (target->write_head + 1) % PCB_MBOX_MAX_MSG_NUM;
     target->used_units++;
     return len;

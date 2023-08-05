@@ -293,5 +293,6 @@
 #define SYS_move_cursor 404
 #define SYS_screen_clear 405
 #define SYS_process_show 406
+#define SYS_poweroff 407
 
 #define SYS_breakpoint 511

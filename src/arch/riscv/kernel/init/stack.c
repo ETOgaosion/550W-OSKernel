@@ -53,7 +53,7 @@ void fork_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb) {
     regs_context_t *pt_regs = (regs_context_t *)(kernel_stack - sizeof(regs_context_t));
     regs_context_t *cur_regs = (regs_context_t *)((*current_running)->kernel_sp + sizeof(switchto_context_t));
     ptr_t cur_address = get_user_address((*current_running)->pid);
-    k_memcpy((uint8_t *)(user_stack - PAGE_SIZE), (uint8_t *)(cur_address - PAGE_SIZE), PAGE_SIZE - 1);
+    k_memcpy(user_stack - PAGE_SIZE, cur_address - PAGE_SIZE, PAGE_SIZE - 1);
     pcb->kernel_sp = kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t);
     pcb->user_sp = (*current_running)->user_sp;
 

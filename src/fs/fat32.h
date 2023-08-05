@@ -4,9 +4,6 @@
 
 #define MAX_FILE_SIZE 0x4000000000
 
-#define max(x, y) (((x) > (y)) ? (x) : (y))
-#define min(x, y) (((x) > (y)) ? (y) : (x))
-
 #define FAT32_BOOT_SEC 0
 
 #define BPB_BYTES_PER_SEC 0x0B

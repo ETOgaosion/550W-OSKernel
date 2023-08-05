@@ -2,6 +2,8 @@
 
 #include <common/types.h>
 #include <lib/list.h>
+#include <lib/math.h>
+#include <lib/ring_buffer.h>
 #include <lib/string.h>
 #include <os/lock.h>
 #include <os/mm.h>
@@ -112,18 +114,6 @@ extern int pipe_alloc(int *fd);
 extern fd_t *get_fd(int fd);
 extern fd_t *fd_exist(int fd);
 
-#define RING_BUFFER_SIZE 4095
-#pragma pack(8)
-struct ring_buffer {
-    spin_lock_t lock; /* FOR NOW no use */
-    size_t size;      // for future use
-    int32_t head;     // read from head
-    int32_t tail;     // write from tail
-    // char buf[RING_BUFFER_SIZE + 1]; // left 1 byte
-    uint8_t *buf;
-};
-#pragma pack()
-
 typedef struct pipe {
     // mutex_lock_t lock;
     int mailbox;
@@ -136,79 +126,3 @@ typedef struct pipe {
 #define PIPE_NUM 200
 extern pipe_t pipe_table[PIPE_NUM];
 extern int pipe_alloc(int *fd);
-
-void ring_buffer_init(struct ring_buffer *rbuf);
-// static inline void ring_buffer_init(struct ring_buffer *rbuf) {
-//     // there is always one byte which should not be read or written
-//     k_bzero(rbuf, sizeof(struct ring_buffer)); /* head = tail = 0 */
-//     rbuf->size = RING_BUFFER_SIZE;
-//     rbuf->buf = k_mm_malloc(PAGE_SIZE);
-//     k_bzero(rbuf->buf, PAGE_SIZE);
-//     // TODO INIT LOCK
-//     k_spin_lock_init(&rbuf->lock);
-//     return;
-// }
-
-static inline int ring_buffer_used(struct ring_buffer *rbuf) {
-    return (rbuf->tail - rbuf->head + rbuf->size) % (rbuf->size);
-}
-
-static inline int ring_buffer_free(struct ring_buffer *rbuf) {
-    // let 1 byte to distinguish empty buffer and full buffer
-    return rbuf->size - ring_buffer_used(rbuf) - 1;
-}
-
-static inline int ring_buffer_empty(struct ring_buffer *rbuf) {
-    return ring_buffer_used(rbuf) == 0;
-}
-
-static inline int ring_buffer_full(struct ring_buffer *rbuf) {
-    return ring_buffer_free(rbuf) == 0;
-}
-
-#ifndef min
-#define min(x, y) ((x) < (y) ? (x) : (y))
-#endif
-
-size_t read_ring_buffer(struct ring_buffer *rbuf, uint8_t *buf, size_t size);
-// static inline size_t read_ring_buffer(struct ring_buffer *rbuf, uint8_t *buf, size_t size) {
-//     // TODO pcb and lock
-//     k_spin_lock_acquire(&rbuf->lock);
-//     int32_t len = min(ring_buffer_used(rbuf), size);
-//     if (len > 0) {
-//         if (rbuf->head + len > rbuf->size) {
-//             int32_t right = rbuf->size - rbuf->head, left = len - right;
-//             k_memcpy(buf, rbuf->buf + rbuf->head, right);
-//             k_memcpy(buf + right, rbuf->buf, left);
-//         } else {
-//             k_memcpy(buf, rbuf->buf + rbuf->head, len);
-//         }
-
-//         rbuf->head = (rbuf->head + len) % (rbuf->size);
-//     }
-//     k_spin_lock_release(&rbuf->lock);
-//     return len;
-// }
-
-// rbuf should have enough space for buf
-size_t write_ring_buffer(struct ring_buffer *rbuf, uint8_t *buf, size_t size);
-// static inline size_t write_ring_buffer(struct ring_buffer *rbuf, uint8_t *buf, size_t size) {
-//     // TODO SYNC BY LOCK
-//     k_spin_lock_acquire(&rbuf->lock);
-//     int32_t len = min(ring_buffer_free(rbuf), size);
-//     if (len > 0) {
-//         if (rbuf->tail + len > rbuf->size) {
-//             int32_t right = rbuf->size - rbuf->tail, left = len - right;
-//             k_memcpy(rbuf->buf + rbuf->tail, buf, right);
-//             if (left > 0) {
-//                 k_memcpy(rbuf->buf, buf + right, left);
-//             }
-//         } else {
-//             k_memcpy(rbuf->buf + rbuf->tail, buf, len);
-//         }
-
-//         rbuf->tail = (rbuf->tail + len) % (rbuf->size);
-//     }
-//     k_spin_lock_release(&rbuf->lock);
-//     return len;
-// }

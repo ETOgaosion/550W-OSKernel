@@ -16,6 +16,7 @@
 #include <os/pcb.h>
 #include <os/resources.h>
 #include <os/smp.h>
+#include <os/socket.h>
 #include <os/sys.h>
 #include <os/time.h>
 #include <os/users.h>
@@ -91,8 +92,13 @@ int kernel_start(int mhartid) {
         k_print("[INIT] > fs initialized successfully.\n\r");
         k_sys_write_to_log("[INIT] > fs initialized successfully.\n\r");
 
+        // init socket
+        k_socket_init();
+        k_print("[INIT] > socket initialized successfully.\n\r");
+        k_sys_write_to_log("[INIT] > socket initialized successfully.\n\r");
+
         // init users
-        init_users();
+        k_users_init();
         k_print("[INIT] > users initialized successfully.\n\r");
         k_sys_write_to_log("[INIT] > users initialized successfully.\n\r");
 

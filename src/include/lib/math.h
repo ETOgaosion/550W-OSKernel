@@ -12,3 +12,6 @@
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 int k_min(int a, int b);
+
+#define max(x, y) (((x) > (y)) ? (x) : (y))
+#define min(x, y) (((x) > (y)) ? (y) : (x))

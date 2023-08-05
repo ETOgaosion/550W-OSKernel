@@ -1,5 +1,6 @@
 #include <fs/file.h>
 #include <fs/fs.h>
+#include <lib/math.h>
 #include <os/pcb.h>
 // #include <os/time.h>
 // #include <fs/pipe.h>
@@ -190,54 +191,4 @@ void init_fd_pcb(pcb_t *pcb) {
         // add to fd list in pcb
         __list_add(&file->list, pcb->fd_head.prev, &pcb->fd_head);
     }
-}
-
-void ring_buffer_init(struct ring_buffer *rbuf) {
-    // there is always one byte which should not be read or written
-    k_bzero(rbuf, sizeof(struct ring_buffer)); /* head = tail = 0 */
-    rbuf->size = RING_BUFFER_SIZE;
-    rbuf->buf = k_mm_malloc(PAGE_SIZE);
-    k_bzero(rbuf->buf, PAGE_SIZE);
-    // TODO INIT LOCK
-    k_spin_lock_init(&rbuf->lock);
-    return;
-}
-
-size_t read_ring_buffer(struct ring_buffer *rbuf, uint8_t *buf, size_t size) {
-    // TODO pcb and lock
-    k_spin_lock_acquire(&rbuf->lock);
-    int32_t len = min(ring_buffer_used(rbuf), size);
-    if (len > 0) {
-        if (rbuf->head + len > rbuf->size) {
-            int32_t right = rbuf->size - rbuf->head, left = len - right;
-            k_memcpy(buf, rbuf->buf + rbuf->head, right);
-            k_memcpy(buf + right, rbuf->buf, left);
-        } else {
-            k_memcpy(buf, rbuf->buf + rbuf->head, len);
-        }
-
-        rbuf->head = (rbuf->head + len) % (rbuf->size);
-    }
-    k_spin_lock_release(&rbuf->lock);
-    return len;
-}
-size_t write_ring_buffer(struct ring_buffer *rbuf, uint8_t *buf, size_t size) {
-    // TODO SYNC BY LOCK
-    k_spin_lock_acquire(&rbuf->lock);
-    int32_t len = min(ring_buffer_free(rbuf), size);
-    if (len > 0) {
-        if (rbuf->tail + len > rbuf->size) {
-            int32_t right = rbuf->size - rbuf->tail, left = len - right;
-            k_memcpy(rbuf->buf + rbuf->tail, buf, right);
-            if (left > 0) {
-                k_memcpy(rbuf->buf, buf + right, left);
-            }
-        } else {
-            k_memcpy(rbuf->buf + rbuf->tail, buf, len);
-        }
-
-        rbuf->tail = (rbuf->tail + len) % (rbuf->size);
-    }
-    k_spin_lock_release(&rbuf->lock);
-    return len;
 }

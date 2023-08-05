@@ -3,7 +3,7 @@
 
 user_t users[USERS_NUM_MAX];
 
-void init_users() {
+void k_users_init() {
     users[0].uid = 0;
     k_strcpy(users[0].name, "root");
     k_strcpy(users[0].user_name, "root");

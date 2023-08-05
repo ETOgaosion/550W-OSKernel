@@ -8,6 +8,7 @@
 #include <fs/file.h>
 #include <fs/fs.h>
 #include <lib/list.h>
+#include <lib/math.h>
 #include <lib/stdio.h>
 #include <lib/string.h>
 #include <os/mm.h>
@@ -294,7 +295,7 @@ void filename2path(char *path, char *name, const char *filename) {
         }
         i++;
     }
-    k_memcpy((uint8_t *)path, (uint8_t *)filename, tag);
+    k_memcpy(path, filename, tag);
     path[tag] = '\0';
     i = 0;
     while (filename[tag] != '\0') {
@@ -509,7 +510,7 @@ int fat32_name2dir(char *name, dir_info_t *now) {
     }
     now->first_cluster = fat32_dentry2fcluster(&dtable[offset]);
     now->size = dtable[offset].sn.file_size;
-    k_memcpy((uint8_t *)now->name, (const uint8_t *)name, k_strlen(name) + 1);
+    k_memcpy(now->name, name, k_strlen(name) + 1);
     now->node = &inode_table[new_node];
     // get path after return
 
@@ -704,7 +705,7 @@ int fat32_dentry2fd(dentry_t *entry, fd_t *file, mode_t flags, mode_t mode, char
     } else {
         file->file = ATTR_DIRECTORY >> 1;
     }
-    k_memcpy((uint8_t *)file->name, (uint8_t *)name, k_strlen(name) + 1);
+    k_memcpy(file->name, name, k_strlen(name) + 1);
     file->dev = 0; // TODO
     file->flags = flags & ~(O_DIRECTORY);
     file->mode = mode;
@@ -1038,7 +1039,7 @@ long sys_lremovexattr(const char *path, const char *name) {
  *
  */
 long sys_getcwd(char *buf, size_t size) {
-    k_memcpy((uint8_t *)buf, (uint8_t *)cur_dir.name, min(k_strlen(cur_dir.name) + 1, size));
+    k_memcpy(buf, cur_dir.name, min(k_strlen(cur_dir.name) + 1, size));
     return (long)buf;
 }
 
@@ -1064,9 +1065,9 @@ long sys_dup(int old) {
         file2->file = old;
     } else {
         list_head list;
-        k_memcpy((uint8_t *)&list, (uint8_t *)&file2->list, sizeof(list_head));
-        k_memcpy((uint8_t *)file2, (uint8_t *)file1, sizeof(fd_t));
-        k_memcpy((uint8_t *)&file2->list, (uint8_t *)&list, sizeof(list_head));
+        k_memcpy(&list, &file2->list, sizeof(list_head));
+        k_memcpy(file2, file1, sizeof(fd_t));
+        k_memcpy(&file2->list, &list, sizeof(list_head));
     }
     file2->fd_num = new;
     return new; // fail return -1
@@ -1093,9 +1094,9 @@ long sys_dup3(int old, int new, mode_t flags) {
         file2->file = file1->file;
     } else {
         list_head list;
-        k_memcpy((uint8_t *)&list, (uint8_t *)&file2->list, sizeof(list_head));
-        k_memcpy((uint8_t *)file2, (uint8_t *)file1, sizeof(fd_t));
-        k_memcpy((uint8_t *)&file2->list, (uint8_t *)&list, sizeof(list_head));
+        k_memcpy(&list, &file2->list, sizeof(list_head));
+        k_memcpy(file2, file1, sizeof(fd_t));
+        k_memcpy(&file2->list, &list, sizeof(list_head));
         // file2->file = file1->file;
         // file2->first_cluster = file1->first_cluster;
         // file2->dev = file1->dev;
@@ -1408,10 +1409,10 @@ long sys_chdir(char *path) {
     cur_dir.size = new.size;
     // path from cur dir or root dir?
     if (path[0] == '/') {
-        k_memcpy((uint8_t *)cur_dir.name, (uint8_t *)path, k_strlen(path) + 1);
+        k_memcpy(cur_dir.name, path, k_strlen(path) + 1);
     } else {
         // TODO : fix '/' error
-        k_memcpy((uint8_t *)(&cur_dir.name[k_strlen(cur_dir.name)]), (uint8_t *)path, k_strlen(path) + 1);
+        k_memcpy((&cur_dir.name[k_strlen(cur_dir.name)]), path, k_strlen(path) + 1);
     }
     return 0;
 }
@@ -1482,7 +1483,7 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
             return -1;
         }
         file->file = ATTR_DIRECTORY;
-        // k_memcpy((uint8_t *)file->name,(uint8_t *)cur_dir.name,k_strlen(cur_dir.name)+1);
+        // k_memcpy(file->name,cur_dir.name,k_strlen(cur_dir.name)+1);
         file->dev = 0; // TODO
         file->flags = flags & ~(O_DIRECTORY | O_CREATE);
         file->mode = mode;
@@ -1598,7 +1599,7 @@ repeat:
     dirent->d_off = (long)offset;
     dirent->d_reclen = sizeof(dirent64_t) + k_strlen(name) + 1;
     dirent->d_type = dtable[file->pos - 1].sn.attr;
-    k_memcpy((uint8_t *)dirent->d_name, (uint8_t *)name, k_strlen(name) + 1);
+    k_memcpy(dirent->d_name, name, k_strlen(name) + 1);
     return sizeof(dirent64_t) + k_strlen(name) + 1;
 }
 
@@ -1757,8 +1758,7 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
 
 long sys_readv(unsigned long fd, const iovec_t *vec, unsigned long vlen) {
     int retval = 0;
-    for (int i = 0; i < vlen; i++)
-    {
+    for (int i = 0; i < vlen; i++) {
         retval += sys_read(fd, (char *)vec[i].iov_base, vec[i].iov_len);
     }
     return retval;
@@ -1766,8 +1766,7 @@ long sys_readv(unsigned long fd, const iovec_t *vec, unsigned long vlen) {
 
 long sys_writev(unsigned long fd, const iovec_t *vec, unsigned long vlen) {
     int retval = 0;
-    for (int i = 0; i < vlen; i++)
-    {
+    for (int i = 0; i < vlen; i++) {
         retval += sys_write(fd, (const char *)vec[i].iov_base, vec[i].iov_len);
     }
     return retval;
@@ -2006,10 +2005,10 @@ long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offs
     if (length <= 0 || (uintptr_t)addr % NORMAL_PAGE_SIZE != 0) {
         return -EINVAL;
     }
-    if(offset % NORMAL_PAGE_SIZE != 0){
+    if (offset % NORMAL_PAGE_SIZE != 0) {
         offset = offset - offset % NORMAL_PAGE_SIZE + NORMAL_PAGE_SIZE;
     }
-    if((uint64_t)addr % NORMAL_PAGE_SIZE != 0){
+    if ((uint64_t)addr % NORMAL_PAGE_SIZE != 0) {
         addr = addr - (uint64_t)addr % NORMAL_PAGE_SIZE + NORMAL_PAGE_SIZE;
     }
     fd_t *file = get_fd(fd);

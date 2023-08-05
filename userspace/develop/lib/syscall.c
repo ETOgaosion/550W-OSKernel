@@ -205,6 +205,6 @@ void sys_breakpoint() {
     syscall(SYS_breakpoint);
 }
 
-void sys_shutdown() {
-    syscall(SYS_shutdown);
+void sys_poweroff() {
+    syscall(SYS_poweroff);
 }
