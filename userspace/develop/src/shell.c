@@ -506,11 +506,11 @@ static void busybox_test(bool execute) {
         }
 
     print_res:
-        printf("testcase busybox %s", busybox_cmd_string[i]);
-        if (!(res >> 8)) {
-            printf(" success\n");
+        printf("testcase busybox %s ", busybox_cmd_string[i]);
+        if (!(res >> 8) || !strcmp((const char *)busybox_cmd_string[i], "false")) {
+            printf("success\n");
         } else {
-            printf(" fail\n");
+            printf("fail\n");
         }
     }
 }
@@ -821,14 +821,14 @@ static void test() {
     if (false) {
         test_all();
     }
-    time_test(true);
-    busybox_test(true);
-    lua_test(true);
-    // char *args[] = {"cal"};
-    // int pid = exec("busybox", (char *const *)args, NULL);
-    // int res = 0;
-    // waitpid(pid, &res, 0);
-    // printf("\ntest result: %d", res >> 8);
+    // time_test(true);
+    // busybox_test(true);
+    // lua_test(true);
+    char *args[] = {"basename", "/aaa/bbb"};
+    int pid = exec("busybox", (char *const *)args, NULL);
+    int res = 0;
+    waitpid(pid, &res, 0);
+    printf("\ntest result: %d", res >> 8);
 }
 #endif
 

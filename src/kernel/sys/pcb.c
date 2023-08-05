@@ -456,7 +456,10 @@ long k_pcb_scheduler(bool voluntary, bool skip_first) {
     }
     set_satp(SATP_MODE_SV39, (*current_running)->pid + 1, (*current_running)->pgdir);
     local_flush_tlb_all();
-    bool skip_first_cal = (curr == next_pcb) || curr->status == TASK_EXITED;
+    if (curr == next_pcb) {
+        return 0;
+    }
+    bool skip_first_cal = curr->status == TASK_EXITED;
     switch_to(curr, next_pcb, skip_first_cal | skip_first);
     return 0;
 }
@@ -1036,14 +1039,12 @@ long sys_wait4(pid_t pid, int *stat_addr, int options, rusage_t *ru) {
         return wait_pid;
     }
     // no child process, but wait
-    if (wait_pid == -1) {
-        return 0;
+    if (wait_pid != -1) {
+        while (target->status != TASK_EXITED) {
+            k_pcb_block(&(*current_running)->list, &block_queue, ENQUEUE_LIST);
+            k_pcb_scheduler(false, false);
+        }
     }
-    while (target->status != TASK_EXITED) {
-        k_pcb_block(&(*current_running)->list, &block_queue, ENQUEUE_LIST);
-        k_pcb_scheduler(false, true);
-    }
-    target = &pcb[wait_pid];
     if (target->in_use) {
         target->status = TASK_EXITED;
         target->in_use = FALSE;

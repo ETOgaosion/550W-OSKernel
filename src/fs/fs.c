@@ -2003,21 +2003,33 @@ long sys_renameat2(int olddfd, const char *oldname, int newdfd, const char *newn
 }
 
 long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {
-    if (addr != NULL) { // NOT support spec addr
-        return (long)addr;
+    if (length <= 0 || (uintptr_t)addr % NORMAL_PAGE_SIZE != 0) {
+        return -EINVAL;
+    }
+    if(offset % NORMAL_PAGE_SIZE != 0){
+        offset = offset - offset % NORMAL_PAGE_SIZE + NORMAL_PAGE_SIZE;
+    }
+    if((uint64_t)addr % NORMAL_PAGE_SIZE != 0){
+        addr = addr - (uint64_t)addr % NORMAL_PAGE_SIZE + NORMAL_PAGE_SIZE;
     }
     fd_t *file = get_fd(fd);
-    if (!file) {
-        return (long)-1;
-    }
     // TODO bigger than 1 page?
-    uintptr_t ret = k_mm_alloc_newva();
-    uintptr_t kva = k_mm_alloc_page_helper(ret, (pa2kva((*current_running)->pgdir << 12)));
-    // TODO change file descriptor
-    //  uint8_t *data = read_whole_dir(file->first_cluster, file->size);
-    uint8_t *data = (uint8_t *)((inode_t *)file->inode)->i_mapping;
-    // k_print("[debug] mmap %s\n",&data[offset]);
-    k_memcpy((uint8_t *)kva, &data[offset], length);
+    uintptr_t ret;
+    bool first = true;
+    while (length) {
+        length -= PAGE_SIZE;
+        uintptr_t tmp = k_mm_alloc_newva();
+        if (first) {
+            ret = tmp;
+            first = false;
+        }
+        uintptr_t kva = k_mm_alloc_page_helper(tmp, (pa2kva((*current_running)->pgdir << 12)));
+        // TODO change file descriptor
+        //  uint8_t *data = read_whole_dir(file->first_cluster, file->size);
+        uint8_t *data = (uint8_t *)((inode_t *)file->inode)->i_mapping;
+        // k_print("[debug] mmap %s\n",&data[offset]);
+        k_memcpy((uint8_t *)kva, &data[offset], length);
+    }
 
     return (long)ret;
 }
