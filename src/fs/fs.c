@@ -16,6 +16,7 @@
 #include <os/sync.h>
 #include <os/time.h>
 #include <user/user_programs.h>
+#include <lib/math.h>
 
 typedef struct dir_info {
     uint32_t first_cluster;
@@ -2011,25 +2012,39 @@ long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offs
     if ((uint64_t)addr % NORMAL_PAGE_SIZE != 0) {
         addr = addr - (uint64_t)addr % NORMAL_PAGE_SIZE + NORMAL_PAGE_SIZE;
     }
-    fd_t *file = get_fd(fd);
-    // TODO bigger than 1 page?
-    uintptr_t ret;
+    // uintptr_t ret = (uintptr_t)addr;
+    if(!addr) {
+        // ret = sys_brk(0);
+        // ret = sys_brk(K_ROUND(ret, NORMAL_PAGE_SIZE));
+        // sys_brk(ret + K_ROUND(length, NORMAL_PAGE_SIZE));
+        addr = (void*)k_mm_alloc_newva((length / NORMAL_PAGE_SIZE) + 1);
+    }
+    uintptr_t ret = (uintptr_t)addr;
+    uintptr_t tmp = (uintptr_t)addr;
+    uintptr_t start_kva = 0;
     bool first = true;
     while (length) {
-        length -= PAGE_SIZE;
-        uintptr_t tmp = k_mm_alloc_newva();
-        if (first) {
-            ret = tmp;
+        if(first) {
+            start_kva = k_mm_alloc_page_helper(tmp, (pa2kva((*current_running)->pgdir << 12)));
             first = false;
+        } else {
+            k_mm_alloc_page_helper(tmp, (pa2kva((*current_running)->pgdir << 12)));
         }
-        uintptr_t kva = k_mm_alloc_page_helper(tmp, (pa2kva((*current_running)->pgdir << 12)));
-        // TODO change file descriptor
-        //  uint8_t *data = read_whole_dir(file->first_cluster, file->size);
-        uint8_t *data = (uint8_t *)((inode_t *)file->inode)->i_mapping;
-        // k_print("[debug] mmap %s\n",&data[offset]);
-        k_memcpy((uint8_t *)kva, &data[offset], length);
+        length -= NORMAL_PAGE_SIZE;
+        tmp += NORMAL_PAGE_SIZE;
     }
-
+    if(flags & MAP_ANONYMOUS){
+        if(fd != -1){
+            return -EBADF;
+        }
+    } else {
+        fd_t *file = get_fd(fd);
+        uint8_t *data = (uint8_t *)((inode_t *)file->inode)->i_mapping;
+        // TODO change file descriptor
+        // uint8_t *data = read_whole_dir(file->first_cluster, file->size);
+        // k_print("[debug] mmap %s\n",&data[offset]);
+        k_memcpy((uint8_t *)start_kva, &data[offset], length);
+    }    
     return (long)ret;
 }
 

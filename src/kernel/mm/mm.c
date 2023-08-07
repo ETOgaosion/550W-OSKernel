@@ -24,6 +24,7 @@ uint64_t allpg[MAXPROCS][MAXPAGES];
 uint64_t allmem[MAXPROCS][MAXPAGES];
 uint64_t diskpg[1000];
 uint64_t alluserva[MAXPROCS][MAXPAGES];
+uint64_t curr_userva = 0x1000000;
 int shm_num = 0;
 struct shm {
     int pro_num;
@@ -181,20 +182,10 @@ void *k_mm_malloc(size_t size) {
     return (void *)ret;
 }
 
-uint64_t k_mm_alloc_newva() {
-    int allocpid = (*current_running)->pid;
-    for (uint64_t i = 0x100000; i < 0x1000000; i += 0x1000) {
-        int flag = 1;
-        for (int j = 1; j <= alluserva[allocpid][0]; j++) {
-            if (i == alluserva[allocpid][j]) {
-                flag = 0;
-            }
-        }
-        if (flag) {
-            return i;
-        }
-    }
-    return 0;
+uint64_t k_mm_alloc_newva(int num) {
+    uint64_t ret = curr_userva;
+    curr_userva += 0x1000 * num;
+    return ret;
 }
 
 long k_mm_shm_page_get(int key) {
@@ -216,7 +207,7 @@ long k_mm_shm_page_get(int key) {
         num = shm_num;
     }
     shm_all[num].key = key;
-    shm_all[num].uva = k_mm_alloc_newva();
+    shm_all[num].uva = k_mm_alloc_newva(1);
     shm_all[num].kva = k_mm_alloc_page_helper(shm_all[num].uva, (pa2kva((*current_running)->pgdir << NORMAL_PAGE_SHIFT)));
     shm_all[num].pro_num = 1;
     if (num == shm_num) {

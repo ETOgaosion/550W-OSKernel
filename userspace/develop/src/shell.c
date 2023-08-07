@@ -449,7 +449,7 @@ static void busybox_test(bool execute) {
     };
     char *busybox_arg3[][4] = {{"ash", "-c", "exit"},
                                {"sh", "-c", "exit"},
-                               {"hexdump", "-C", "test.txt"},
+                              {"hexdump", "-C", "test.txt"},
                                {"sh", "-c", "echo ccccccc >> test.txt"},
                                {"sh", "-c", "echo bbbbbbb >> test.txt"},
                                {"sh", "-c", "echo aaaaaaa >> test.txt"},
@@ -824,11 +824,11 @@ static void test() {
     // time_test(true);
     // busybox_test(true);
     // lua_test(true);
-    char *args[3] = {"echo", "1"};
+    char *args[3] = {"dirname", "/aaa/bbb"};
     int pid = exec("busybox", (char *const *)args, NULL);
     int res = 0;
     waitpid(pid, &res, 0);
-    printf("\ntest result: %d", res >> 8);
+    printf("\ntest result: %d\n", res >> 8);
 }
 #endif
 

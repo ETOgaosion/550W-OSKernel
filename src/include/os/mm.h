@@ -88,7 +88,7 @@ void k_mm_map(uint64_t va, uint64_t pa, PTE *pgdir);
 void k_mm_getback_page(int pid);
 PTE *k_mm_get_kva(PTE entry);
 void k_mm_cancel_pg(PTE *pgdir);
-uint64_t k_mm_alloc_newva();
+uint64_t k_mm_alloc_newva(int num);
 
 long sys_shmget(key_t key, size_t size, int flag);
 long sys_shmctl(int shmid, int cmd, shmid_ds_t *buf);
