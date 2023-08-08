@@ -150,7 +150,8 @@ ENTRY(switch_to)
   //addi sp, sp, -(SWITCH_TO_SIZE)
   /* store all callee save registers,
    * see the definition of `struct switchto_context` in pcb.h*/
-  bnez a2, switch_to_same_pcb
+  bnez a2, skip_first_pcb
+  beq a0, a1, switch_to_same_pcb
 
   ld t0, PCB_KERNEL_SP(a0)
   SS(ra, RA)
@@ -170,7 +171,7 @@ ENTRY(switch_to)
   // restore next
   /* restore all callee save registers,
    * see the definition of `struct switchto_context` in pcb.h*/
-switch_to_same_pcb:
+skip_first_pcb:
   mv tp, a1
   csrw CSR_SSCRATCH, a1 
   ld t0, PCB_KERNEL_SP(a1)
@@ -192,6 +193,7 @@ switch_to_same_pcb:
   LS(s10, S10)
   LS(s11, S11)
 
+switch_to_same_pcb:
   ret
 ENDPROC(switch_to)
 

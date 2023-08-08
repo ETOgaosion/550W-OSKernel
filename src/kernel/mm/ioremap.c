@@ -1,6 +1,6 @@
 #include <asm/pgtable.h>
 #include <common/types.h>
-#include <os/ioremap.h>
+#include <os/io.h>
 #include <os/mm.h>
 
 // maybe you can map it to IO_ADDR_START ?

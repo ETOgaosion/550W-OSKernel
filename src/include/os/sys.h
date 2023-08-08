@@ -107,6 +107,7 @@ extern uname_t uname_550w;
 extern sysinfo_t moss_info;
 
 void k_sys_write_to_log(const char *log_msg);
+void k_meminfo(char *info);
 
 long sys_uname(uname_t *);
 long sys_gethostname(char *name, int len);

@@ -14,6 +14,7 @@
 #include <os/mm.h>
 #include <os/pcb.h>
 #include <os/sync.h>
+#include <os/sys.h>
 #include <os/time.h>
 #include <user/user_programs.h>
 #include <lib/math.h>
@@ -1449,7 +1450,7 @@ long sys_fchown(unsigned int fd, uid_t user, gid_t group) {
  * @param  count  read len
  */
 long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
-    // get dir file belonged to
+    // get dir file belonged to'
     dir_info_t new;
     char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
     int ret = 0;
@@ -1701,6 +1702,11 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
     }
     // k_print("[debug] sys_write with fd %d\n",fd);
     if (file->file == stdout) {
+        sys_screen_write_len((char *)buf, count);
+        return count;
+    }
+    else if (file->file == stderr) {
+        sys_screen_write("[ERROR] ");
         sys_screen_write_len((char *)buf, count);
         return count;
     }

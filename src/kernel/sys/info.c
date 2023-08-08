@@ -42,3 +42,31 @@ long sys_sysinfo(sysinfo_t *info) {
     k_memcpy(info, &moss_info, sizeof(sysinfo_t));
     return 0;
 }
+
+void k_meminfo(char *info) {
+    char str[50];
+    ltoa(moss_info.totalram, str, 10);
+    strcat(info, "totalram: ");
+    strcat(info, str);
+    ltoa(moss_info.freeram, str, 10);
+    strcat(info, "freeram: ");
+    strcat(info, str);
+    ltoa(moss_info.sharedram, str, 10);
+    strcat(info, "sharedram: ");
+    strcat(info, str);
+    ltoa(moss_info.bufferram, str, 10);
+    strcat(info, "bufferram: ");
+    strcat(info, str);
+    ltoa(moss_info.totalswap, str, 10);
+    strcat(info, "totalswap: ");
+    strcat(info, str);
+    ltoa(moss_info.freeswap, str, 10);
+    strcat(info, "freeswap: ");
+    strcat(info, str);
+    ltoa(moss_info.totalhigh, str, 10);
+    strcat(info, "totalhigh: ");
+    strcat(info, str);
+    ltoa(moss_info.freehigh, str, 10);
+    strcat(info, "freehigh: ");
+    strcat(info, str);
+}

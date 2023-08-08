@@ -9,6 +9,7 @@
 #include <lib/assert.h>
 #include <lib/list.h>
 #include <lib/stdio.h>
+#include <os/io.h>
 #include <os/irq.h>
 #include <os/smp.h>
 #include <os/syscall.h>
@@ -380,7 +381,7 @@ void k_exception_init() {
 }
 
 void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t sepc) {
-    k_print("cpuid: %d\n", (*current_running)->core_id);
+    k_print("cpuid: %d, pid: %d\n", (*current_running)->core_id, (*current_running)->pid);
 
     char *reg_name[] = {" ra  ", " sp  ", " gp  ", " tp  ", " t0  ", " t1  ", " t2  ", "s0/fp", " s1  ", " a0  ", " a1  ", " a2  ", " a3  ", " a4  ", " a5  ", " a6  ", " a7  ", " s2  ", " s3  ", " s4  ", " s5  ", " s6  ", " s7  ", " s8  ", " s9  ", " s10 ", " s11 ", " t3  ", " t4  ", " t5  ", " t6  "};
     for (int i = 0; i < NORMAL_REGS_NUM; i += 3) {

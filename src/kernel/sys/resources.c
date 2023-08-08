@@ -9,6 +9,9 @@
 all_resources_t moss_resources;
 
 void k_set_rlimit(rlimit_t *target, kernel_ulong_t cur, kernel_ulong_t max) {
+    if (target) {
+        return;
+    }
     target->rlim_cur = cur;
     if (max > 0) {
         target->rlim_max = max;
@@ -35,6 +38,9 @@ void k_resources_init() {
 }
 
 long sys_getrlimit(unsigned int resource, rlimit_t *rlim) {
+    if (!rlim) {
+        return -EINVAL;
+    }
     if (resource < 0 || resource >= RLIM_NLIMITS) {
         return -EINVAL;
     }
@@ -43,6 +49,9 @@ long sys_getrlimit(unsigned int resource, rlimit_t *rlim) {
 }
 
 long sys_setrlimit(unsigned int resource, rlimit_t *rlim) {
+    if (!rlim) {
+        return -EINVAL;
+    }
     if (resource < 0 || resource >= RLIM_NLIMITS) {
         return -EINVAL;
     }

@@ -437,19 +437,33 @@ static void busybox_test(bool execute) {
         return;
     }
     printf("run busybox_testcode.sh\n");
-    int busybox_arg_nums[] = {2, 3, 3, 2, 1, 1, 1, 1, 2, 1, 1, 4, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 2, 2, 2, 2, 4, 2, 2, 2, 3, 2, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 4, 2, 2, 2, 3, 2, 3, 2, 3};
+    /* clang-format off */
+    int busybox_arg_nums[] = {
+        2, 3, 3, 2, 1,
+        1, 1, 1, 2, 1,
+        1, 4, 1, 1, 2,
+        1, 1, 2, 1, 1,
+        1, 1, 2, 1, 2,
+        2, 2, 3, 2, 4,
+        2, 2, 2, 3, 2,
+        3, 3, 3, 3, 3,
+        3, 2, 2, 2, 2,
+        4, 2, 2, 2, 3,
+        2, 3, 3, 2, 3
+    };
 
     char *busybox_cmd_string[] = {
-        "echo \"#### independent command test\"", "ash -c exit", "sh -c exit", "basename /aaa/bbb", "cal", "clear", "date ", "df", "dirname /aaa/bbb", "dmesg ", "du", "expr 1 + 1", "false", "true", "which ls", "uname", "uptime", "printf \"abc\n\"", "ps", "pwd", "free", "hwclock", "kill 10", "ls", "sleep 1", "echo \"#### file opration test\"", "touch test.txt", "echo \"hello world\" > test.txt", "cat test.txt", "cut -c 3 test.txt", "od test.txt", "head test.txt", "tail test.txt ", "hexdump -C test.txt ", "md5sum test.txt", "echo \"ccccccc\" >> test.txt", "echo \"bbbbbbb\" >> test.txt", "echo \"aaaaaaa\" >> test.txt", "echo \"2222222\" >> test.txt", "echo \"1111111\" >> test.txt", "echo \"bbbbbbb\" >> test.txt", "sort test.txt | ./busybox uniq", "stat test.txt", "strings test.txt ", "wc test.txt", "[ -f test.txt ]", "more test.txt", "rm test.txt", "mkdir test_dir", "mv test_dir test", "rmdir test", "grep hello busybox_cmd.txt", "cp busybox_cmd.txt busybox_cmd.bak", "rm busybox_cmd.bak",
+        "echo \"#### independent command test\"", "ash -c exit", "sh -c exit", "basename /aaa/bbb", "cal", "clear", "date ", "df", "dirname /aaa/bbb", "dmesg ", "du", "expr 1 + 1", "false", "true", "which ls", "uname", "uptime", "printf \"abc\\n\"", "ps", "pwd", "free", "hwclock", "kill 10", "ls", "sleep 1", "echo \"#### file opration test\"", "touch test.txt", "echo \"hello world\" > test.txt", "cat test.txt", "cut -c 3 test.txt", "od test.txt", "head test.txt", "tail test.txt ", "hexdump -C test.txt ", "md5sum test.txt", "echo \"ccccccc\" >> test.txt", "echo \"bbbbbbb\" >> test.txt", "echo \"aaaaaaa\" >> test.txt", "echo \"2222222\" >> test.txt", "echo \"1111111\" >> test.txt", "echo \"bbbbbbb\" >> test.txt", "sort test.txt | ./busybox uniq", "stat test.txt", "strings test.txt ", "wc test.txt", "[ -f test.txt ]", "more test.txt", "rm test.txt", "mkdir test_dir", "mv test_dir test", "rmdir test", "grep hello busybox_cmd.txt", "cp busybox_cmd.txt busybox_cmd.bak", "rm busybox_cmd.bak",
         "find -name \"busybox_cmd.txt\"",
     };
     char *busybox_arg1[][2] = {{"cal"}, {"clear"}, {"date"}, {"df"}, {"dmesg"}, {"du"}, {"false"}, {"true"}, {"uname"}, {"uptime"}, {"ps"}, {"pwd"}, {"free"}, {"hwclock"}, {"ls"}};
     char *busybox_arg2[][3] = {
-        {"echo", "#### independent command test"}, {"basenname", "/aaa/bbb"}, {"dirname", "/aaa/bbb"}, {"which", "ls"}, {"printf", "abc\n"}, {"kill", "10"}, {"sleep", "1"}, {"echo", "#### file operation test"}, {"touch", "test.txt"}, {"cat", "test.txt"}, {"od", "test.txt"}, {"head", "test.txt"}, {"tail", "test.txt"}, {"md5sum", "test.txt"}, {"sort", "test.txt"}, {"stat", "test.txt"}, {"strings", "test.txt"}, {"wc", "test.txt"}, {"more", "test.txt"}, {"rm", "test.txt"}, {"mkdir", "test_dir"}, {"rmdir", "test"}, {"rm", "busybox_cmd.bak"},
+        {"echo", "#### independent command test"}, {"basename", "/aaa/bbb"}, {"dirname", "/aaa/bbb"}, {"which", "ls"}, {"printf", "abc\n"}, {"kill", "10"}, {"sleep", "1"}, {"echo", "#### file operation test"}, {"touch", "test.txt"}, {"cat", "test.txt"}, {"od", "test.txt"}, {"head", "test.txt"}, {"tail", "test.txt"}, {"md5sum", "test.txt"}, {"sort", "test.txt"}, {"stat", "test.txt"}, {"strings", "test.txt"}, {"wc", "test.txt"}, {"more", "test.txt"}, {"rm", "test.txt"}, {"mkdir", "test_dir"}, {"rmdir", "test"}, {"rm", "busybox_cmd.bak"},
     };
     char *busybox_arg3[][4] = {{"ash", "-c", "exit"},
                                {"sh", "-c", "exit"},
-                              {"hexdump", "-C", "test.txt"},
+                               {"sh", "-c", "echo \"hello world\" > test.txt"},
+                               {"hexdump", "-C", "test.txt"},
                                {"sh", "-c", "echo ccccccc >> test.txt"},
                                {"sh", "-c", "echo bbbbbbb >> test.txt"},
                                {"sh", "-c", "echo aaaaaaa >> test.txt"},
@@ -466,6 +480,7 @@ static void busybox_test(bool execute) {
         {"cut", "-c", "3", "test.txt"},
         {"[", "-f", "test.txt", "]"},
     };
+    /* clang-format on */
     int arg1_ptr = 0, arg2_ptr = 0, arg3_ptr = 0, arg4_ptr = 0;
     int pid = 0, res = 0;
     for (int i = 0; i < 55; i++) {
@@ -824,7 +839,7 @@ static void test() {
     // time_test(true);
     // busybox_test(true);
     // lua_test(true);
-    char *args[3] = {"dirname", "/aaa/bbb"};
+    char *args[5] = {"find", "-name", "busybox_cmd.txt"};
     int pid = exec("busybox", (char *const *)args, NULL);
     int res = 0;
     waitpid(pid, &res, 0);

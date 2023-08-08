@@ -298,12 +298,12 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
         pcb_t *iterator_pcb = NULL;
         while (iterator_list != &ready_queue) {
             iterator_pcb = list_entry(iterator_list, pcb_t, list);
-            iterator_list = iterator_list->next;
             if (iterator_pcb->priority.priority < new_inserter->priority.priority) {
                 break;
             }
+            iterator_list = iterator_list->next;
         }
-        list_add(new, iterator_list);
+        list_add_tail(new, iterator_list);
         break;
     }
     case ENQUEUE_TIMER_LIST: {
@@ -558,16 +558,18 @@ long spawn(const char *file_name) {
 long exec(int target_pid, int father_pid, const char *file_name, const char *argv[], const char *envp[]) {
     char cmd[NUM_MAX_PCB_CMD] = {0};
     k_memcpy(cmd, file_name, MIN(k_strlen(file_name), NUM_MAX_PCB_CMD));
+    k_strcat(cmd, " ");
     for (int i = 0; i < k_strlistlen((char **)argv); i++) {
         if (k_strlen(cmd) + k_strlen(argv[i]) > NUM_MAX_PCB_CMD) {
             break;
         }
         k_strcat(cmd, argv[i]);
+        k_strcat(cmd, " ");
     }
     init_pcb_i((char *)file_name, cmd, target_pid, USER_PROCESS, target_pid, 0, 0, father_pid, (*current_running)->core_mask[0], k_signal_alloc_sig_table());
 
     ptr_t kernel_stack = get_kernel_address(target_pid);
-    ptr_t user_stack_kva = kernel_stack - STACK_SIZE;
+    ptr_t user_stack_kva = get_user_address(target_pid);
     ptr_t user_stack = USER_STACK_ADDR;
     // k_mm_getback_page(target_pid);
     PTE *pgdir = (PTE *)k_mm_alloc_page(1);

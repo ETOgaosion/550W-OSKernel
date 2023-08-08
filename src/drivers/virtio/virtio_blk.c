@@ -2,7 +2,7 @@
 #include <drivers/virtio/virtio.h>
 #include <lib/assert.h>
 #include <lib/string.h>
-#include <os/ioremap.h>
+#include <os/io.h>
 #include <os/irq.h>
 #include <os/mm.h>
 #include <os/pcb.h>

@@ -4,6 +4,7 @@
 #include <os/pcb.h>
 
 ptr_t get_kernel_address(pid_t pid);
+ptr_t get_user_address(pid_t pid);
 
 void init_context_stack(ptr_t kernel_stack, ptr_t user_stack, int argc, char *argv[], ptr_t entry_point, pcb_t *pcb);
 

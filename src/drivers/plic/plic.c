@@ -1,7 +1,7 @@
 #include <common/types.h>
 #include <drivers/plic/plic.h>
 #include <drivers/virtio/virtio.h>
-#include <os/ioremap.h>
+#include <os/io.h>
 #include <os/smp.h>
 
 #define PLIC 0x0c000000L
