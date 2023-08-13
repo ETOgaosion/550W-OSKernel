@@ -25,8 +25,7 @@ Our Framework is inspired from Linux, as below:
 │   │       │   ├── asm                     # asm headers including definations or macros
 │   │       │   └── uapi                    # uapi for outsiders' usage, like syscall number
 │   │       ├── kernel                  # kernel related arch-specified code
-│   │       ├── sbi                     # sbi code
-│   │       └── syscall                 # arch-specified syscall implementation
+│   │       └── sbi                     # sbi codeimplementation
 │   ├── drivers                 # drivers
 │   ├── fs                      # file system, as independent module from kernel
 │   ├── include                 # arch-independent headers
