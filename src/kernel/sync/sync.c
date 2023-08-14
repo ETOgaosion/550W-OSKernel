@@ -157,7 +157,11 @@ int k_semaphore_v(int key, int value, int flag) {
     }
     sem_list[key].sem += value;
     if (sem_list[key].sem <= 0 && !list_is_empty(&sem_list[key].wait_queue)) {
+        #ifdef RBTREE
+        k_pcb_unblock(sem_list[key].wait_queue.next, NULL, UNBLOCK_TO_RBTREE);
+        #else
         k_pcb_unblock(sem_list[key].wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        #endif
     }
     return 0;
 }
@@ -213,7 +217,11 @@ int k_cond_signal(int key) {
         return -1;
     }
     if (cond_list[key].num_wait > 0) {
+        #ifdef RBTREE
+        k_pcb_unblock(cond_list[key].wait_queue.next, NULL, UNBLOCK_TO_RBTREE);
+        #else
         k_pcb_unblock(cond_list[key].wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        #endif
         cond_list[key].num_wait--;
     }
     return 0;
@@ -225,7 +233,11 @@ int k_cond_broadcast(int key) {
         return -1;
     }
     while (cond_list[key].num_wait > 0) {
+        #ifdef RBTREE
+        k_pcb_unblock(cond_list[key].wait_queue.next, NULL, UNBLOCK_TO_RBTREE);
+        #else
         k_pcb_unblock(cond_list[key].wait_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        #endif
         cond_list[key].num_wait--;
     }
     return 0;

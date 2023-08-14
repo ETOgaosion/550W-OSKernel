@@ -3,6 +3,7 @@
 #include <asm/context.h>
 #include <common/elf.h>
 #include <lib/list.h>
+#include <lib/rbtree.h>
 #include <os/lock.h>
 #include <os/mm.h>
 #include <os/prctl.h>
@@ -10,6 +11,8 @@
 #include <os/signal.h>
 #include <os/sync.h>
 #include <os/time.h>
+
+#define RBTREE
 
 #define NUM_MAX_PCB_NAME 20
 #define NUM_MAX_PCB_CMD 50
@@ -139,6 +142,7 @@ typedef enum dequeue_way {
     DEQUEUE_LIST,
     DEQUEUE_LIST_FIFO,
     DEQUEUE_LIST_PRIORITY,
+    DEQUEUE_TREE_PRIORITY,
 } dequeue_way_t;
 
 typedef enum unblock_way {
@@ -146,6 +150,7 @@ typedef enum unblock_way {
     UNBLOCK_TO_LIST_BACK,
     UNBLOCK_ONLY,
     UNBLOCK_TO_LIST_STRATEGY,
+    UNBLOCK_TO_RBTREE,
 } unblock_way_t;
 
 typedef struct __user_cap_header_struct {
@@ -186,6 +191,9 @@ typedef struct pcb {
 
     /* previous, next pointer */
     list_node_t list;
+    #ifdef RBTREE
+    RBNode node;
+    #endif
 
     regs_context_t *save_context;
     switchto_context_t *switch_context;
@@ -280,7 +288,11 @@ extern pcb_t *volatile current_running0;
 extern pcb_t *volatile current_running1;
 extern pcb_t *volatile *volatile current_running;
 /* ready queue to run */
+#ifdef RBTREE
+extern RBRoot ready_tree;
+#else
 extern list_head ready_queue;
+#endif
 extern list_head block_queue;
 
 extern pcb_t pcb[NUM_MAX_TASK];

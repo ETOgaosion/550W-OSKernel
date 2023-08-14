@@ -141,7 +141,11 @@ long k_mutex_lock_release(int key) {
     if (list_is_empty(&locks[key]->block_queue)) {
         locks[key]->lock.flag = 0;
     } else {
+        #ifdef RBTREE
+        k_pcb_unblock(locks[key]->block_queue.next, NULL, UNBLOCK_TO_LIST_STRATEGY);
+        #else
         k_pcb_unblock(locks[key]->block_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        #endif
     }
     locks[key]->lock.guard = 0;
     return locks[key]->lock_id;

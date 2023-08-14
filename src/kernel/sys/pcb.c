@@ -20,7 +20,11 @@ pcb_t *volatile current_running0;
 pcb_t *volatile current_running1;
 pcb_t *volatile *volatile current_running;
 
+#ifdef RBTREE
+RBRoot ready_tree = {.node = NULL};
+#else
 LIST_HEAD(ready_queue);
+#endif
 LIST_HEAD(block_queue);
 
 pcb_t pcb[NUM_MAX_TASK];
@@ -57,7 +61,7 @@ pid_t nextpid() {
  * @param father_pid
  * @param core_mask
  */
-void init_pcb_i(char *name, char *cmd, int pcb_i, task_type_t type, int pid, int tid, int uid, int father_pid, uint8_t core_mask, sigaction_t *sig) {
+void init_pcb_i(char *name, char *cmd, int pcb_i, task_type_t type, int pid, int tid, int uid, int father_pid, int priority, uint8_t core_mask, sigaction_t *sig) {
     pcb_t *target = &pcb[pcb_i];
     k_bzero((uint8_t *)target->name, sizeof(target->name));
     k_memcpy(target->name, name, k_strlen(name));
@@ -79,6 +83,7 @@ void init_pcb_i(char *name, char *cmd, int pcb_i, task_type_t type, int pid, int
     target->uid.ruid = uid;
     target->uid.euid = uid;
     target->uid.suid = uid;
+    k_rbnode_init(&target->node, priority, (void *)target);
     target->father_pid = father_pid;
     target->child_num = 0;
     k_bzero((void *)target->child_pids, sizeof(target->child_pids));
@@ -90,7 +95,7 @@ void init_pcb_i(char *name, char *cmd, int pcb_i, task_type_t type, int pid, int
     target->cursor_x = 1;
     target->cursor_y = 1;
     target->sched_policy = SCHED_OTHER;
-    target->priority.priority = 1;
+    target->priority.priority = priority;
     target->priority.last_sched_time = 0;
     target->core_mask[0] = core_mask;
     target->personality = 0;
@@ -234,8 +239,14 @@ uint64_t cal_priority(uint64_t cur_time, uint64_t idle_time, long priority) {
 }
 
 pcb_t *check_first_ready_task() {
-    list_head *iterator = ready_queue.next;
     pcb_t *pcb_it = NULL;
+#ifdef RBTREE
+    RBNode *potential_next = k_rbtree_maximum(&ready_tree);
+    if (potential_next && potential_next->key > 0) {
+        pcb_it = (pcb_t *)potential_next->value;
+    }
+#else
+    list_head *iterator = ready_queue.next;
     while (iterator != &ready_queue) {
         pcb_it = list_entry(iterator, pcb_t, list);
         if (k_strcmp(pcb_it->name, "bubble")) {
@@ -243,7 +254,8 @@ pcb_t *check_first_ready_task() {
         }
         iterator = iterator->next;
     }
-    return NULL;
+#endif
+    return pcb_it;
 }
 
 pcb_t *choose_sched_task(list_head *queue, int policy) {
@@ -294,6 +306,9 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
         break;
     case ENQUEUE_LIST_PRIORITY: {
         pcb_t *new_inserter = list_entry(new, pcb_t, list);
+        #ifdef RBTREE
+        k_rbtree_insert(&ready_tree, &new_inserter->node, new_inserter->priority.priority);
+        #else
         list_head *iterator_list = ready_queue.next;
         pcb_t *iterator_pcb = NULL;
         while (iterator_list != &ready_queue) {
@@ -304,6 +319,7 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
             iterator_list = iterator_list->next;
         }
         list_add_tail(new, iterator_list);
+        #endif
         break;
     }
     case ENQUEUE_TIMER_LIST: {
@@ -328,7 +344,7 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
     // plain and simple way
     pcb_t *ret = NULL;
     pcb_t *task = check_first_ready_task();
-    if (list_is_empty(queue)) {
+    if (queue && list_is_empty(queue)) {
         return NULL;
     }
     switch (target) {
@@ -348,6 +364,15 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
         ret = choose_sched_task(queue, policy);
         list_del(&(ret->list));
         break;
+    case DEQUEUE_TREE_PRIORITY:
+        if (!task) {
+            ret = (pcb_t *)k_rbtree_maximum(&ready_tree)->value;
+        }
+        else {
+            ret = task;
+        }
+        k_rbtree_delete(&ready_tree, &ret->node);
+        break;
     default:
         break;
     }
@@ -363,7 +388,11 @@ void check_sleeping() {
         pcb_t *p_pcb = list_entry(p, pcb_t, list);
         if (k_time_cmp_nanotime(&now_time, &p_pcb->timer.end_time) >= 0) {
             q = p->next;
+            #ifdef RBTREE
+            k_pcb_unblock(p, NULL, UNBLOCK_TO_RBTREE);
+            #else
             k_pcb_unblock(p, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+            #endif
             p = q;
         } else {
             break;
@@ -433,10 +462,25 @@ long k_pcb_scheduler(bool voluntary, bool skip_first) {
         return 0;
     }
     int cpuid = k_smp_get_current_cpu_id();
-    if (curr->status == TASK_RUNNING && curr->pid >= 0) {
-        enqueue(&curr->list, &ready_queue, ENQUEUE_LIST_PRIORITY);
+    #ifdef RBTREE
+    RBNode *potential_next = k_rbtree_maximum(&ready_tree);
+    if (potential_next && potential_next->key < 1 && curr->priority.priority > 0 && curr->status == TASK_RUNNING) {
+        switch_to(curr, curr, skip_first);
+        return 0;
     }
+    #endif
+    if (curr->status == TASK_RUNNING && curr->pid >= 0) {
+        #ifdef RBTREE
+        enqueue(&curr->list, NULL, ENQUEUE_LIST_PRIORITY);
+        #else
+        enqueue(&curr->list, &ready_queue, ENQUEUE_LIST_PRIORITY);
+        #endif
+    }
+    #ifdef RBTREE
+    pcb_t *next_pcb = dequeue(NULL, DEQUEUE_TREE_PRIORITY, curr->sched_policy);
+    #else
     pcb_t *next_pcb = dequeue(&ready_queue, DEQUEUE_LIST_FIFO, curr->sched_policy);
+    #endif
     if (!next_pcb) {
         return 0;
     }
@@ -484,6 +528,7 @@ void k_pcb_unblock(list_head *from_queue, list_head *to_queue, unblock_way_t way
         fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST, -1);
         break;
     case UNBLOCK_TO_LIST_STRATEGY:
+    case UNBLOCK_TO_RBTREE:
         fetch_pcb = dequeue(from_queue->prev, DEQUEUE_LIST_FIFO, -1);
         enqueue(&fetch_pcb->list, to_queue, ENQUEUE_LIST_PRIORITY);
         break;
@@ -505,7 +550,11 @@ void k_pcb_sleep(void *chan, spin_lock_t *lk) {
 void k_pcb_wakeup(void *chan) {
     for (int i = 0; i < NUM_MAX_PROCESS; i++) {
         if ((pcb[i].status == TASK_BLOCKED) && (pcb[i].chan == chan)) {
+            #ifdef RBTREE
+            k_pcb_unblock(&pcb[i].list, NULL, UNBLOCK_TO_RBTREE);
+            #else
             k_pcb_unblock(&pcb[i].list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+            #endif
         }
     }
 }
@@ -516,8 +565,13 @@ int k_pcb_count() {
 
 long spawn(const char *file_name) {
     int i = nextpid();
+    bool is_daemon = false;
+    if (k_strcmp(file_name, "bubble") == 0) {
+        is_daemon = true;
+    }
+    int priority = is_daemon ? 0 : 2;
 
-    init_pcb_i((char *)file_name, (char *)file_name, i, USER_PROCESS, i, 0, 0, (*current_running)->father_pid, (*current_running)->core_mask[0], k_signal_alloc_sig_table());
+    init_pcb_i((char *)file_name, (char *)file_name, i, USER_PROCESS, i, 0, 0, (*current_running)->father_pid, priority, (*current_running)->core_mask[0], k_signal_alloc_sig_table());
 
     ptr_t kernel_stack = get_kernel_address(i);
     ptr_t user_stack_kva = kernel_stack - STACK_SIZE;
@@ -551,7 +605,12 @@ long spawn(const char *file_name) {
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (uintptr_t)(process), &pcb[i]);
     init_list_head(&pcb[i].fd_head);
     init_fd_pcb(&pcb[i]);
-    list_add_tail(&pcb[i].list, &ready_queue);
+    
+    #ifdef RBTREE
+    enqueue(&pcb[i].list, NULL, ENQUEUE_LIST_PRIORITY);
+    #else
+    enqueue(&pcb[i].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
+    #endif
     return i;
 }
 
@@ -566,7 +625,7 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
         k_strcat(cmd, argv[i]);
         k_strcat(cmd, " ");
     }
-    init_pcb_i((char *)file_name, cmd, target_pid, USER_PROCESS, target_pid, 0, 0, father_pid, (*current_running)->core_mask[0], k_signal_alloc_sig_table());
+    init_pcb_i((char *)file_name, cmd, target_pid, USER_PROCESS, target_pid, 0, 0, father_pid, 2, (*current_running)->core_mask[0], k_signal_alloc_sig_table());
 
     ptr_t kernel_stack = get_kernel_address(target_pid);
     ptr_t user_stack_kva = get_user_address(target_pid);
@@ -601,7 +660,11 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
     init_list_head(&pcb[target_pid].fd_head);
     init_fd_pcb(&pcb[target_pid]);
+    #ifdef RBTREE
+    enqueue(&pcb[target_pid].list, NULL, ENQUEUE_LIST_PRIORITY);
+    #else
     enqueue(&pcb[target_pid].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
+    #endif
     return target_pid;
 }
 
@@ -623,7 +686,7 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
         sigaction_table_t *st = list_entry((const sigaction_t(*)[64])sig, sigaction_table_t, sigactions);
         st->num++;
     }
-    init_pcb_i(name, cmd, i, USER_PROCESS, i, 0, 0, fpid, (*current_running)->core_mask[0], (*current_running)->sigactions);
+    init_pcb_i(name, cmd, i, USER_PROCESS, i, 0, 0, fpid, 2,(*current_running)->core_mask[0], (*current_running)->sigactions);
 
     if (flags & CLONE_CHILD_SETTID && child_tid) {
         *(int *)child_tid = pcb[i].tid;
@@ -676,7 +739,11 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
         k_memcpy(file, pos, sizeof(fd_t));
         __list_add(&file->list, pcb[i].fd_head.prev, &pcb[i].fd_head);
     }
-    list_add_tail(&pcb[i].list, &ready_queue);
+    #ifdef RBTREE
+    enqueue(&pcb[i].list, NULL, ENQUEUE_LIST_PRIORITY);
+    #else
+    enqueue(&pcb[i].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
+    #endif
     return i;
 }
 
@@ -692,7 +759,11 @@ int kill(pid_t pid, int exit_status) {
             if (target->flags & SIGCHLD) {
                 k_signal_send_signal(SIGCHLD, parent);
             } else {
+                #ifdef RBTREE
+                k_pcb_unblock(&parent->list, NULL, UNBLOCK_TO_RBTREE);
+                #else
                 k_pcb_unblock(&parent->list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+                #endif
             }
         }
         parent->dead_child_stime += k_time_get_ticks_from_time(&target->resources.ru_stime);
@@ -701,7 +772,6 @@ int kill(pid_t pid, int exit_status) {
             parent->cursor_y = target->cursor_y;
         }
     }
-    // k_pcb_unblock(&(target->wait_list), &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
     target->pid = 0;
     target->status = TASK_EXITED;
     if (pcb[pid].type != USER_THREAD) {
@@ -921,7 +991,7 @@ long sys_fork() {
     k_strcat(name, "_child");
     char cmd[NUM_MAX_PCB_CMD] = {0};
     k_memcpy(cmd, (*current_running)->cmd, MIN(k_strlen((*current_running)->cmd), NUM_MAX_PCB_CMD));
-    init_pcb_i(name, cmd, i, USER_PROCESS, i, 0, 0, fpid, (*current_running)->core_mask[0], k_signal_alloc_sig_table());
+    init_pcb_i(name, cmd, i, USER_PROCESS, i, 0, 0, fpid, 2,(*current_running)->core_mask[0], k_signal_alloc_sig_table());
 
     pcb[fpid].child_pids[pcb[fpid].child_num] = i;
     pcb[fpid].child_num++;
@@ -942,7 +1012,11 @@ long sys_fork() {
 
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
-    list_add_tail(&pcb[i].list, &ready_queue);
+    #ifdef RBTREE
+    enqueue(&pcb[i].list, NULL, ENQUEUE_LIST_PRIORITY);
+    #else
+    enqueue(&pcb[i].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
+    #endif
     return i;
 }
 

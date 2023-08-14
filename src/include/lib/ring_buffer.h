@@ -6,10 +6,10 @@
 
 #pragma pack(8)
 typedef struct ring_buffer {
-    int lock; /* FOR NOW no use */
-    size_t size;       // for future use
-    int32_t head;      // read from head
-    int32_t tail;      // write from tail
+    int lock;     /* FOR NOW no use */
+    size_t size;  // for future use
+    int32_t head; // read from head
+    int32_t tail; // write from tail
     // char buf[RING_BUFFER_SIZE + 1]; // left 1 byte
     char *buf;
 } ring_buffer_t;

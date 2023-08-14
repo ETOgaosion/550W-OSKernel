@@ -104,10 +104,8 @@ int kernel_start(int mhartid) {
 
         // init built-in tasks
         spawn("shell");
-        int bb0 = spawn("bubble");
-        int bb1 = spawn("bubble");
-        pcb[bb0].priority.priority = 0;
-        pcb[bb1].priority.priority = 0;
+        spawn("bubble");
+        spawn("bubble");
         k_print("[INIT] > daemons initialized successfully.\n\r");
         k_sys_write_to_log("[INIT] > daemons initialized successfully.\n\r");
 
@@ -119,7 +117,7 @@ int kernel_start(int mhartid) {
     setup_exception();
     // start scheduling
     while (1) {
-        k_pcb_scheduler(false, false);
+        k_pcb_scheduler(false, true);
         k_smp_unlock_kernel();
         k_smp_lock_kernel();
         k_smp_sync_current_pcb();
