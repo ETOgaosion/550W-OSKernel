@@ -930,7 +930,7 @@ int fs_load_file(const char *name, uint8_t **bin, int *len) {
         return -1;
     }
     // TODO alloc inode for file and cache it?
-    *bin = (uint8_t *)read_whole_dir(first, 0);
+    *bin = (uint8_t *)read_whole_dir(first, *len);
     return 0;
 }
 

@@ -96,7 +96,7 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
     pcb->user_sp = user_stack;
     pcb->kernel_sp = kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t);
     // copy save context
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < 31; i++) {
         pt_regs->regs[i] = cur_regs->regs[i];
     }
     // tp

@@ -421,9 +421,9 @@ void kernel_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t caus
     k_smp_sync_current_pcb();
     uint64_t check = cause;
     if (check >> 63) {
-        irq_table[cause - ((uint64_t)1 << 63)](regs, stval, cause, sepc);
+        irq_table[(cause - ((uint64_t)1 << 63)) % IRQC_COUNT](regs, stval, cause, sepc);
     } else {
-        exc_table[cause](regs, stval, cause, sepc);
+        exc_table[cause % EXCC_COUNT](regs, stval, cause, sepc);
     }
     k_spin_lock_release(&kernel_exception_lock);
 }

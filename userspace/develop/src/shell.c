@@ -839,8 +839,8 @@ static void test() {
     time_test(true);
     busybox_test(true);
     lua_test(true);
-    // char *args[5] = {"find", "-name", "busybox_cmd.txt"};
-    // int pid = exec("busybox", (char *const *)args, NULL);
+    // char *args[3] = {"./lua", "file_io.lua"};
+    // int pid = exec("lua", (char *const *)args, NULL);
     // int res = 0;
     // waitpid(pid, &res, 0);
     // printf("\ntest result: %d\n", res >> 8);

@@ -2,6 +2,7 @@
 #include <user/bubble.h>
 #include <user/shell.h>
 #include <lib/string.h>
+#include <lib/stdio.h>
 #include <fs/fs.h>
 #include <os/mm.h>
 
