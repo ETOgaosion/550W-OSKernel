@@ -14,6 +14,7 @@
 
 ptr_t memCurr = FREEMEM;
 ptr_t k_mem = FREEMEMK;
+mem_block_t free_mem_block[FREE_MEM_SIZE];
 
 int diskpg_num = 0;
 int freepg_num = 0;
@@ -32,6 +33,12 @@ struct shm {
     uint64_t kva;
     uint64_t uva;
 } shm_all[10];
+
+void k_mm_init_mm() {
+    for(int i = 0 ;i < FREE_MEM_SIZE; i++) {
+        init_list_head(&free_mem_block[i].mem_block_list);
+    }
+}
 
 PTE *k_mm_get_kva(PTE entry) {
     uint64_t pa_temp = (entry >> _PAGE_PFN_SHIFT) % ((uint64_t)1 << SATP_ASID_SHIFT);

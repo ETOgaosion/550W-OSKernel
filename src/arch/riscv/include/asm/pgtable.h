@@ -53,7 +53,7 @@ static inline void set_satp(unsigned mode, unsigned asid, unsigned long ppn) {
 }
 
 #define KERNEL_START_PA 0x80200000lu
-#define KERNEL_END_PA 0x80600000lu
+#define KERNEL_END_PA 0x81000000lu
 #define PGDIR_PA 0x81010000lu // use bootblock's page as PGDIR
 
 /*

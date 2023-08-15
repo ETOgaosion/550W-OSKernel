@@ -2,13 +2,15 @@
 
 #include <common/types.h>
 #include <os/ipc.h>
+#include <lib/list.h>
 
 // #define FS_KERNEL_ADDR 0xffffffc084000000lu
 
 #define START_BLOCK 2000
 #define MEM_SIZE 32
 #define PAGE_SIZE 4096 // 4K
-#define INIT_KERNEL_STACK 0xffffffc081000000lu
+#define INIT_KERNEL_STACK 0xffffffc081100000lu
+#define STACK_ADDR_BASE 0xffffffc080900000lu
 #define FREEMEMK (INIT_KERNEL_STACK + PAGE_SIZE * 100)
 #define FREEMEM 0xffffffc083000000lu
 #define USER_STACK_ADDR 0xf00010000lu
@@ -35,8 +37,18 @@
 #define MAP_FIXED_NOREPLACE 0x100000 /* MAP_FIXED which doesn't unmap underlying mapping */
 
 #define MAP_UNINITIALIZED 0x4000000 /* For anonymous mmap, memory could be * uninitialized */
+#define FREE_MEM_SIZE 100000
 
 typedef uint64_t PTE;
+
+typedef struct mem_block {
+    uint64_t addr;
+    uint64_t size;
+    list_head mem_block_list;
+} mem_block_t;
+
+extern mem_block_t free_mem_block[FREE_MEM_SIZE];
+void k_mm_init_mm();
 
 typedef struct shmid_ds {
     ipc_perm_t shm_perm;         /* operation perms */

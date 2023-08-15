@@ -46,6 +46,8 @@ int kernel_start(int mhartid) {
         // init kernel lock
         k_smp_init();
 
+        k_mm_init_mm();
+
         asm_w_stvec((uint64_t)kernel_exception_handler_entry);
 
         k_smp_lock_kernel();
