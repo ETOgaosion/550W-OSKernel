@@ -34,7 +34,7 @@ clear_bss:
 clear_bss_done:
 
   /* Set up stack and prepare vm */
-  li sp, 0x80501000
+  li sp, 0x80901000
   call main
 
 core2:
@@ -54,7 +54,7 @@ core2:
   la gp, __global_pointer$
   .option pop
   
-  li sp, 0x80502000
+  li sp, 0x80902000
   call main
   
   ret
