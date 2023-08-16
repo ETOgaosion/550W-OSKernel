@@ -836,15 +836,15 @@ static void test() {
     if (false) {
         test_all();
     }
-    // time_test(true);
-    // busybox_test(true);
-    // lua_test(true);
+    time_test(true);
+    busybox_test(true);
+    lua_test(true);
     // libc_test(true);
-    char *args[3] = {"./lua", "file_io.lua"};
-    int pid = exec("lua", (char *const *)args, NULL);
-    int res = 0;
-    waitpid(pid, &res, 0);
-    printf("\ntest result: %d\n", res >> 8);
+    // char *args[3] = {"./lua", "file_io.lua"};
+    // int pid = exec("lua", (char *const *)args, NULL);
+    // int res = 0;
+    // waitpid(pid, &res, 0);
+    // printf("\ntest result: %d\n", res >> 8);
 }
 #endif
 

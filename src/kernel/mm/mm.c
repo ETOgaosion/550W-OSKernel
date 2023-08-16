@@ -35,7 +35,9 @@ struct shm {
 } shm_all[10];
 
 void k_mm_init_mm() {
-    for(int i = 0 ;i < FREE_MEM_SIZE; i++) {
+    for(int i = 0 ; i < FREE_MEM_SIZE; i++) {
+        free_mem_block[i].addr = 0;
+        free_mem_block[i].size = 0;
         init_list_head(&free_mem_block[i].mem_block_list);
     }
 }
