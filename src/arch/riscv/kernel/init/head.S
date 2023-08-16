@@ -34,11 +34,7 @@ clear_bss:
 clear_bss_done:
 
   /* Set up stack and prepare vm */
-<<<<<<< HEAD
-  li sp, 0x80900000
-=======
   li sp, 0x80901000
->>>>>>> fs-merge
   call main
 
 core2:
