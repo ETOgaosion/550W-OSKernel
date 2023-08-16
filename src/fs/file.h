@@ -22,6 +22,15 @@
 
 #define MAX_NAME_LEN 256
 
+#define DEV_STDIN 0
+#define DEV_STDOUT 1
+#define DEV_STDERR 2
+#define DEV_DEFAULT 3
+#define DEV_NULL 4
+#define DEV_ZERO 5
+#define DEV_PIPE 6
+#define DEV_SOCK 7
+
 typedef uint32_t fd_num_t;
 typedef uint32_t pipe_num_t;
 typedef uint64_t dev_t;

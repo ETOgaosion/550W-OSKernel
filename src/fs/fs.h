@@ -290,3 +290,5 @@ long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offs
 
 long sys_utimensat(int dfd, const char *filename, kernel_timespec_t *utimes, int flags);
 long sys_symlink(int dfd, const char *filename);
+
+long k_openat(int dirfd, const char *filename, mode_t flags, mode_t mode);
