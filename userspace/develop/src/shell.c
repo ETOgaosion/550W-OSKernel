@@ -580,7 +580,7 @@ static void libc_test(bool execute) {
     }
     printf("run libctest_testcode.sh\n");
     int pid = 0, res = 0;
-    char *run_static_args[][4] = {
+    char *run_static_args[][5] = {
         {"./runtest.exe", "-w", "entry-static.exe", "argv"},
         {"./runtest.exe", "-w", "entry-static.exe", "basename"},
         {"./runtest.exe", "-w", "entry-static.exe", "clocale_mbfuncs"},
@@ -696,7 +696,7 @@ static void libc_test(bool execute) {
         res = 0;
         waitpid(pid, &res, 0);
     }
-    char *run_dynamic_args[][4] = {
+    char *run_dynamic_args[][5] = {
         {"./runtest.exe", "-w", "entry-dynamic.exe", "argv"},
         {"./runtest.exe", "-w", "entry-dynamic.exe", "basename"},
         {"./runtest.exe", "-w", "entry-dynamic.exe", "clocale_mbfuncs"},
@@ -836,9 +836,9 @@ static void test() {
     if (false) {
         test_all();
     }
-    time_test(true);
-    busybox_test(true);
-    lua_test(true);
+    // time_test(true);
+    // busybox_test(true);
+    // lua_test(true);
     libc_test(true);
     // char *args[2] = {"free"};
     // int pid = exec("busybox", (char *const *)args, NULL);

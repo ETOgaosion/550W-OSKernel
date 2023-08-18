@@ -83,7 +83,9 @@ void init_pcb_i(char *name, char *cmd, int pcb_i, task_type_t type, int pid, int
     target->uid.ruid = uid;
     target->uid.euid = uid;
     target->uid.suid = uid;
+    #ifdef RBTREE
     k_rbnode_init(&target->node, priority, (void *)target);
+    #endif
     target->father_pid = father_pid;
     target->child_num = 0;
     k_bzero((void *)target->child_pids, sizeof(target->child_pids));
@@ -252,6 +254,9 @@ pcb_t *check_first_ready_task() {
         if (k_strcmp(pcb_it->name, "bubble")) {
             return pcb_it;
         }
+        else {
+            pcb_it = NULL;
+        }
         iterator = iterator->next;
     }
 #endif
@@ -365,12 +370,14 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
         list_del(&(ret->list));
         break;
     case DEQUEUE_TREE_PRIORITY:
+        #ifdef RBTREE
         if (!task) {
             ret = (pcb_t *)k_rbtree_maximum(&ready_tree)->value;
         } else {
             ret = task;
         }
         k_rbtree_delete(&ready_tree, &ret->node);
+        #endif
         break;
     default:
         break;
