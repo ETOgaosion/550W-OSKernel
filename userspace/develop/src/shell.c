@@ -836,10 +836,10 @@ static void test() {
     if (false) {
         test_all();
     }
-    // time_test(true);
-    // busybox_test(true);
-    // lua_test(true);
-    libc_test(true);
+    time_test(true);
+    busybox_test(true);
+    lua_test(true);
+    // libc_test(true);
     // char *args[3] = {"df"};
     // int pid = exec("busybox", (char *const *)args, NULL);
     // int res = 0;

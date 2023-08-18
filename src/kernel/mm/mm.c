@@ -18,12 +18,12 @@ mem_block_t free_mem_block[FREE_MEM_SIZE];
 
 int diskpg_num = 0;
 int freepg_num = 0;
+int free_mem_num = 0;
 
 uint64_t diskpg[1000];
-uint64_t freepg[1000];
+uint64_t freepg[MAXPAGES];
 uint64_t allpg[MAXPROCS][MAXPAGES];
 uint64_t allmem[MAXPROCS][MAXPAGES];
-uint64_t diskpg[1000];
 uint64_t alluserva[MAXPROCS][MAXPAGES];
 uint64_t curr_userva = 0x1000000;
 int shm_num = 0;
@@ -38,7 +38,6 @@ void k_mm_init_mm() {
     for(int i = 0 ; i < FREE_MEM_SIZE; i++) {
         free_mem_block[i].addr = 0;
         free_mem_block[i].size = 0;
-        init_list_head(&free_mem_block[i].mem_block_list);
     }
 }
 
@@ -50,7 +49,7 @@ PTE *k_mm_get_kva(PTE entry) {
 
 void k_mm_getback_page(int pid) {
     return;
-    if (freepg_num >= 999) {
+    if (freepg_num >= MAXPAGES) {
         return;
     }
     for (int i = 1; i <= allpg[pid][0]; i++) {
@@ -183,7 +182,40 @@ ptr_t k_mm_alloc_page(int numPage) {
     return ret;
 }
 
-void k_mm_free_page(ptr_t baseAddr, int numPage) {}
+bool check_memblock_sum(int i, int j) {
+    return free_mem_block[i].addr + free_mem_block[i].size == free_mem_block[j].addr;
+}
+
+void k_mm_free(ptr_t baseAddr, size_t size) {
+    mem_block_t* free_block = NULL;
+    if(free_mem_num >= FREE_MEM_SIZE) {
+        // slow path
+        for(int i = 0; i < FREE_MEM_SIZE; i++) {
+            if(free_mem_block[i].size == 0) {
+                free_block = &free_mem_block[i];
+                break;
+            }
+            for(int j = 0; j < FREE_MEM_SIZE; j++) {
+                if((i != j) && (check_memblock_sum(i, j))) {
+                    free_mem_block[i].size = free_mem_block[i].size + free_mem_block[j].size;
+                    free_mem_block[j].size = 0;
+                    free_block = &free_mem_block[j];
+                    break;
+                }
+            }
+            if(free_block) {
+                break;
+            }
+        }
+    } else {
+        // fast path
+        free_block = &(free_mem_block[free_mem_num++]);
+    }
+    if(free_block) {
+        free_block->addr = baseAddr;
+        free_block->size = size;
+    }
+}
 
 void *k_mm_malloc(size_t size) {
     ptr_t ret = K_ROUND(k_mem, 4);
@@ -487,7 +519,7 @@ uintptr_t free_page_helper(uintptr_t va, uintptr_t pgdir) {
         return -1;
     }
     third_page = (PTE *)pa2kva((get_pfn(second_page[vpn[1]]) << NORMAL_PAGE_SHIFT));
-    k_mm_free_page(get_kva_of(va, pgdir), 1);
+    k_mm_free(get_kva_of(va, pgdir), NORMAL_PAGE_SIZE);
     third_page[vpn[0]] = 0;
     return 0;
 }

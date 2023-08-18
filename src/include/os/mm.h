@@ -42,12 +42,12 @@
 typedef uint64_t PTE;
 
 typedef struct mem_block {
-    uint64_t addr;
-    uint64_t size;
-    list_head mem_block_list;
+    ptr_t addr;
+    size_t size;
 } mem_block_t;
 
 extern mem_block_t free_mem_block[FREE_MEM_SIZE];
+extern int free_mem_num;
 void k_mm_init_mm();
 
 typedef struct shmid_ds {
@@ -88,7 +88,7 @@ uint64_t k_mm_get_kva_from_va(uint64_t va, PTE *pgdir);
 long k_mm_getpa(uint64_t va);
 void k_mm_map_kp(uint64_t va, uint64_t pa, PTE *pgdir);
 
-void k_mm_free_page(ptr_t baseAddr, int numPage);
+void k_mm_free(ptr_t baseAddr, size_t size);
 void *k_mm_malloc(size_t size);
 void k_mm_share_pgtable(PTE *dest_pgdir, PTE *src_pgdir);
 uintptr_t k_mm_alloc_page_helper(uintptr_t va, PTE *pgdir);
