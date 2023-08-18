@@ -240,29 +240,6 @@ uint64_t cal_priority(uint64_t cur_time, uint64_t idle_time, long priority) {
     return cal_res;
 }
 
-pcb_t *check_first_ready_task() {
-    pcb_t *pcb_it = NULL;
-#ifdef RBTREE
-    RBNode *potential_next = k_rbtree_maximum(&ready_tree);
-    if (potential_next && potential_next->key > 0) {
-        pcb_it = (pcb_t *)potential_next->value;
-    }
-#else
-    list_head *iterator = ready_queue.next;
-    while (iterator != &ready_queue) {
-        pcb_it = list_entry(iterator, pcb_t, list);
-        if (k_strcmp(pcb_it->name, "bubble")) {
-            return pcb_it;
-        }
-        else {
-            pcb_it = NULL;
-        }
-        iterator = iterator->next;
-    }
-#endif
-    return pcb_it;
-}
-
 pcb_t *choose_sched_task(list_head *queue, int policy) {
     uint64_t cur_time = k_time_get_ticks();
     uint64_t max_priority = 0;
@@ -323,7 +300,7 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
             }
             iterator_list = iterator_list->next;
         }
-        list_add_tail(new, iterator_list);
+        list_add_tail(new, &ready_queue);
 #endif
         break;
     }
@@ -348,7 +325,6 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
 pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
     // plain and simple way
     pcb_t *ret = NULL;
-    pcb_t *task = check_first_ready_task();
     if (queue && list_is_empty(queue)) {
         return NULL;
     }
@@ -358,11 +334,7 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
         list_del(&(ret->list));
         break;
     case DEQUEUE_LIST_FIFO:
-        if (!task) {
-            ret = list_entry(queue->next, pcb_t, list);
-        } else {
-            ret = task;
-        }
+        ret = list_entry(queue->next, pcb_t, list);
         list_del(&(ret->list));
         break;
     case DEQUEUE_LIST_PRIORITY:
@@ -371,11 +343,7 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
         break;
     case DEQUEUE_TREE_PRIORITY:
         #ifdef RBTREE
-        if (!task) {
-            ret = (pcb_t *)k_rbtree_maximum(&ready_tree)->value;
-        } else {
-            ret = task;
-        }
+        ret = (pcb_t *)k_rbtree_maximum(&ready_tree)->value;
         k_rbtree_delete(&ready_tree, &ret->node);
         #endif
         break;
@@ -464,18 +432,8 @@ long k_pcb_scheduler(bool voluntary, bool skip_first) {
     check_itimers();
     k_signal_handler();
     pcb_t *curr = (*current_running);
-    if (curr->sched_policy == SCHED_BATCH && curr->status == TASK_RUNNING) {
-        return 0;
-    }
     int cpuid = k_smp_get_current_cpu_id();
-#ifdef RBTREE
-    RBNode *potential_next = k_rbtree_maximum(&ready_tree);
-    if (potential_next && potential_next->key < 1 && curr->status == TASK_RUNNING) {
-        switch_to(curr, curr, skip_first);
-        return 0;
-    }
-#endif
-    if (curr->status == TASK_RUNNING && curr->pid >= 0) {
+    if (curr->status == TASK_RUNNING && curr->pid >= 0 && !skip_first) {
 #ifdef RBTREE
         enqueue(&curr->list, NULL, ENQUEUE_LIST_PRIORITY);
 #else
@@ -506,9 +464,6 @@ long k_pcb_scheduler(bool voluntary, bool skip_first) {
     }
     set_satp(SATP_MODE_SV39, (*current_running)->pid + 1, (*current_running)->pgdir);
     local_flush_tlb_all();
-    if (curr == next_pcb) {
-        return 0;
-    }
     bool skip_first_cal = curr->status == TASK_EXITED;
     switch_to(curr, next_pcb, skip_first_cal | skip_first);
     return 0;
