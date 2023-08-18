@@ -470,7 +470,7 @@ long k_pcb_scheduler(bool voluntary, bool skip_first) {
     int cpuid = k_smp_get_current_cpu_id();
 #ifdef RBTREE
     RBNode *potential_next = k_rbtree_maximum(&ready_tree);
-    if (potential_next && potential_next->key < 1 && curr->priority.priority > 0 && curr->status == TASK_RUNNING) {
+    if (potential_next && potential_next->key < 1 && curr->status == TASK_RUNNING) {
         switch_to(curr, curr, skip_first);
         return 0;
     }

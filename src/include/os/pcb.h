@@ -12,7 +12,7 @@
 #include <os/sync.h>
 #include <os/time.h>
 
-// #define RBTREE
+#define RBTREE
 
 #define NUM_MAX_PCB_NAME 20
 #define NUM_MAX_PCB_CMD 50
