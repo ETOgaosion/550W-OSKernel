@@ -35,7 +35,7 @@ struct shm {
 } shm_all[10];
 
 void k_mm_init_mm() {
-    for(int i = 0 ; i < FREE_MEM_SIZE; i++) {
+    for (int i = 0; i < FREE_MEM_SIZE; i++) {
         free_mem_block[i].addr = 0;
         free_mem_block[i].size = 0;
     }
@@ -187,23 +187,23 @@ bool check_memblock_sum(int i, int j) {
 }
 
 void k_mm_free(ptr_t baseAddr, size_t size) {
-    mem_block_t* free_block = NULL;
-    if(free_mem_num >= FREE_MEM_SIZE) {
+    mem_block_t *free_block = NULL;
+    if (free_mem_num >= FREE_MEM_SIZE) {
         // slow path
-        for(int i = 0; i < FREE_MEM_SIZE; i++) {
-            if(free_mem_block[i].size == 0) {
+        for (int i = 0; i < FREE_MEM_SIZE; i++) {
+            if (free_mem_block[i].size == 0) {
                 free_block = &free_mem_block[i];
                 break;
             }
-            for(int j = 0; j < FREE_MEM_SIZE; j++) {
-                if((i != j) && (check_memblock_sum(i, j))) {
+            for (int j = 0; j < FREE_MEM_SIZE; j++) {
+                if ((i != j) && (check_memblock_sum(i, j))) {
                     free_mem_block[i].size = free_mem_block[i].size + free_mem_block[j].size;
                     free_mem_block[j].size = 0;
                     free_block = &free_mem_block[j];
                     break;
                 }
             }
-            if(free_block) {
+            if (free_block) {
                 break;
             }
         }
@@ -211,7 +211,7 @@ void k_mm_free(ptr_t baseAddr, size_t size) {
         // fast path
         free_block = &(free_mem_block[free_mem_num++]);
     }
-    if(free_block) {
+    if (free_block) {
         free_block->addr = baseAddr;
         free_block->size = size;
     }

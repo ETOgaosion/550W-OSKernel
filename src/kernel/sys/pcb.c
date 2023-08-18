@@ -306,9 +306,9 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
         break;
     case ENQUEUE_LIST_PRIORITY: {
         pcb_t *new_inserter = list_entry(new, pcb_t, list);
-        #ifdef RBTREE
+#ifdef RBTREE
         k_rbtree_insert(&ready_tree, &new_inserter->node, new_inserter->priority.priority);
-        #else
+#else
         list_head *iterator_list = ready_queue.next;
         pcb_t *iterator_pcb = NULL;
         while (iterator_list != &ready_queue) {
@@ -319,7 +319,7 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
             iterator_list = iterator_list->next;
         }
         list_add_tail(new, iterator_list);
-        #endif
+#endif
         break;
     }
     case ENQUEUE_TIMER_LIST: {
@@ -367,8 +367,7 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
     case DEQUEUE_TREE_PRIORITY:
         if (!task) {
             ret = (pcb_t *)k_rbtree_maximum(&ready_tree)->value;
-        }
-        else {
+        } else {
             ret = task;
         }
         k_rbtree_delete(&ready_tree, &ret->node);
@@ -388,11 +387,11 @@ void check_sleeping() {
         pcb_t *p_pcb = list_entry(p, pcb_t, list);
         if (k_time_cmp_nanotime(&now_time, &p_pcb->timer.end_time) >= 0) {
             q = p->next;
-            #ifdef RBTREE
+#ifdef RBTREE
             k_pcb_unblock(p, NULL, UNBLOCK_TO_RBTREE);
-            #else
+#else
             k_pcb_unblock(p, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
-            #endif
+#endif
             p = q;
         } else {
             break;
@@ -462,25 +461,25 @@ long k_pcb_scheduler(bool voluntary, bool skip_first) {
         return 0;
     }
     int cpuid = k_smp_get_current_cpu_id();
-    #ifdef RBTREE
+#ifdef RBTREE
     RBNode *potential_next = k_rbtree_maximum(&ready_tree);
     if (potential_next && potential_next->key < 1 && curr->priority.priority > 0 && curr->status == TASK_RUNNING) {
         switch_to(curr, curr, skip_first);
         return 0;
     }
-    #endif
+#endif
     if (curr->status == TASK_RUNNING && curr->pid >= 0) {
-        #ifdef RBTREE
+#ifdef RBTREE
         enqueue(&curr->list, NULL, ENQUEUE_LIST_PRIORITY);
-        #else
+#else
         enqueue(&curr->list, &ready_queue, ENQUEUE_LIST_PRIORITY);
-        #endif
+#endif
     }
-    #ifdef RBTREE
+#ifdef RBTREE
     pcb_t *next_pcb = dequeue(NULL, DEQUEUE_TREE_PRIORITY, curr->sched_policy);
-    #else
+#else
     pcb_t *next_pcb = dequeue(&ready_queue, DEQUEUE_LIST_FIFO, curr->sched_policy);
-    #endif
+#endif
     if (!next_pcb) {
         return 0;
     }
@@ -550,11 +549,11 @@ void k_pcb_sleep(void *chan, spin_lock_t *lk) {
 void k_pcb_wakeup(void *chan) {
     for (int i = 0; i < NUM_MAX_PROCESS; i++) {
         if ((pcb[i].status == TASK_BLOCKED) && (pcb[i].chan == chan)) {
-            #ifdef RBTREE
+#ifdef RBTREE
             k_pcb_unblock(&pcb[i].list, NULL, UNBLOCK_TO_RBTREE);
-            #else
+#else
             k_pcb_unblock(&pcb[i].list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
-            #endif
+#endif
         }
     }
 }
@@ -605,12 +604,12 @@ long spawn(const char *file_name) {
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (uintptr_t)(process), &pcb[i]);
     init_list_head(&pcb[i].fd_head);
     init_fd_pcb(&pcb[i]);
-    
-    #ifdef RBTREE
+
+#ifdef RBTREE
     enqueue(&pcb[i].list, NULL, ENQUEUE_LIST_PRIORITY);
-    #else
+#else
     enqueue(&pcb[i].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
-    #endif
+#endif
     return i;
 }
 
@@ -660,11 +659,11 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
     init_list_head(&pcb[target_pid].fd_head);
     init_fd_pcb(&pcb[target_pid]);
-    #ifdef RBTREE
+#ifdef RBTREE
     enqueue(&pcb[target_pid].list, NULL, ENQUEUE_LIST_PRIORITY);
-    #else
+#else
     enqueue(&pcb[target_pid].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
-    #endif
+#endif
     return target_pid;
 }
 
@@ -686,7 +685,7 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
         sigaction_table_t *st = list_entry((const sigaction_t(*)[64])sig, sigaction_table_t, sigactions);
         st->num++;
     }
-    init_pcb_i(name, cmd, i, USER_PROCESS, i, 0, 0, fpid, 2,(*current_running)->core_mask[0], (*current_running)->sigactions);
+    init_pcb_i(name, cmd, i, USER_PROCESS, i, 0, 0, fpid, 2, (*current_running)->core_mask[0], (*current_running)->sigactions);
 
     if (flags & CLONE_CHILD_SETTID && child_tid) {
         *(int *)child_tid = pcb[i].tid;
@@ -739,11 +738,11 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
         k_memcpy(file, pos, sizeof(fd_t));
         __list_add(&file->list, pcb[i].fd_head.prev, &pcb[i].fd_head);
     }
-    #ifdef RBTREE
+#ifdef RBTREE
     enqueue(&pcb[i].list, NULL, ENQUEUE_LIST_PRIORITY);
-    #else
+#else
     enqueue(&pcb[i].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
-    #endif
+#endif
     return i;
 }
 
@@ -759,11 +758,11 @@ int kill(pid_t pid, int exit_status) {
             if (target->flags & SIGCHLD) {
                 k_signal_send_signal(SIGCHLD, parent);
             } else {
-                #ifdef RBTREE
+#ifdef RBTREE
                 k_pcb_unblock(&parent->list, NULL, UNBLOCK_TO_RBTREE);
-                #else
+#else
                 k_pcb_unblock(&parent->list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
-                #endif
+#endif
             }
         }
         parent->dead_child_stime += k_time_get_ticks_from_time(&target->resources.ru_stime);
@@ -991,7 +990,7 @@ long sys_fork() {
     k_strcat(name, "_child");
     char cmd[NUM_MAX_PCB_CMD] = {0};
     k_memcpy(cmd, (*current_running)->cmd, MIN(k_strlen((*current_running)->cmd), NUM_MAX_PCB_CMD));
-    init_pcb_i(name, cmd, i, USER_PROCESS, i, 0, 0, fpid, 2,(*current_running)->core_mask[0], k_signal_alloc_sig_table());
+    init_pcb_i(name, cmd, i, USER_PROCESS, i, 0, 0, fpid, 2, (*current_running)->core_mask[0], k_signal_alloc_sig_table());
 
     pcb[fpid].child_pids[pcb[fpid].child_num] = i;
     pcb[fpid].child_num++;
@@ -1012,11 +1011,11 @@ long sys_fork() {
 
     pcb[i].pgdir = kva2pa((uintptr_t)pgdir) >> NORMAL_PAGE_SHIFT;
 
-    #ifdef RBTREE
+#ifdef RBTREE
     enqueue(&pcb[i].list, NULL, ENQUEUE_LIST_PRIORITY);
-    #else
+#else
     enqueue(&pcb[i].list, &ready_queue, ENQUEUE_LIST_PRIORITY);
-    #endif
+#endif
     return i;
 }
 

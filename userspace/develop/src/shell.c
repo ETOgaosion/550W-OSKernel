@@ -839,8 +839,8 @@ static void test() {
     time_test(true);
     busybox_test(true);
     lua_test(true);
-    // libc_test(true);
-    // char *args[3] = {"df"};
+    libc_test(true);
+    // char *args[2] = {"free"};
     // int pid = exec("busybox", (char *const *)args, NULL);
     // int res = 0;
     // waitpid(pid, &res, 0);

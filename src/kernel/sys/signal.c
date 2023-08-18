@@ -23,13 +23,13 @@ void k_signal_send_signal(int signum, pcb_t *pcb) {
         pcb->sig_recv |= sig_value;
     }
     if (pcb->status == TASK_BLOCKED) {
-        // log(0, "receiver is unblocked", pcb->status);
-        // printk("%s was unblocked\n", pcb->name);
-        #ifdef RBTREE
+// log(0, "receiver is unblocked", pcb->status);
+// printk("%s was unblocked\n", pcb->name);
+#ifdef RBTREE
         k_pcb_unblock(&pcb->list, NULL, UNBLOCK_TO_RBTREE);
-        #else
+#else
         k_pcb_unblock(&pcb->list, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
-        #endif
+#endif
     }
 }
 

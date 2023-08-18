@@ -191,9 +191,9 @@ typedef struct pcb {
 
     /* previous, next pointer */
     list_node_t list;
-    #ifdef RBTREE
+#ifdef RBTREE
     RBNode node;
-    #endif
+#endif
 
     regs_context_t *save_context;
     switchto_context_t *switch_context;

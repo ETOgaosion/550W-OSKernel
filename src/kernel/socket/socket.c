@@ -1,11 +1,11 @@
 #include <asm/sbi.h>
+#include <fs/file.h>
+#include <fs/fs.h>
 #include <lib/assert.h>
 #include <lib/string.h>
 #include <os/lock.h>
 #include <os/pcb.h>
 #include <os/socket.h>
-#include <fs/fs.h>
-#include <fs/file.h>
 
 socket_t sock[MAX_SOCK_NUM + 1];
 int sock_lock;
@@ -38,12 +38,18 @@ long sys_socket(int domain, int type, int protocol) {
     sock[socket_i].type = type;
     sock[socket_i].protocol = protocol;
     int new_fd_num = fd_alloc(-1);
-    if (new_fd_num == -1) return -ENFILE;
+    if (new_fd_num == -1) {
+        return -ENFILE;
+    }
     fd_t *file = get_fd(new_fd_num);
     file->dev = DEV_SOCK;
     file->sock_num = socket_i;
-    if (type & SOCK_CLOEXEC) file->mode |= FD_CLOEXEC;
-    if (type & SOCK_NONBLOCK) file->flags |= O_NONBLOCK;
+    if (type & SOCK_CLOEXEC) {
+        file->mode |= FD_CLOEXEC;
+    }
+    if (type & SOCK_NONBLOCK) {
+        file->flags |= O_NONBLOCK;
+    }
     k_mutex_lock_release(sock_lock);
     // return new_fd_num;
     return 0;
@@ -79,21 +85,33 @@ long sys_socketpair(int domain, int type, int protocol, void *sv) {
     sock[socket_j].protocol = protocol;
 
     int new_fd_num = fd_alloc(-1);
-    if (new_fd_num == -1) return -ENFILE;
+    if (new_fd_num == -1) {
+        return -ENFILE;
+    }
     fd_t *file = get_fd(new_fd_num);
     file->dev = DEV_SOCK;
     file->sock_num = socket_i;
-    if (type & SOCK_CLOEXEC) file->mode |= FD_CLOEXEC;
-    if (type & SOCK_NONBLOCK) file->flags |= O_NONBLOCK;
+    if (type & SOCK_CLOEXEC) {
+        file->mode |= FD_CLOEXEC;
+    }
+    if (type & SOCK_NONBLOCK) {
+        file->flags |= O_NONBLOCK;
+    }
     ((int *)sv)[0] = new_fd_num;
 
     new_fd_num = fd_alloc(-1);
-    if (new_fd_num == -1) return -ENFILE;
+    if (new_fd_num == -1) {
+        return -ENFILE;
+    }
     file = get_fd(new_fd_num);
     file->dev = DEV_SOCK;
     file->sock_num = socket_j;
-    if (type & SOCK_CLOEXEC) file->mode |= FD_CLOEXEC;
-    if (type & SOCK_NONBLOCK) file->flags |= O_NONBLOCK;
+    if (type & SOCK_CLOEXEC) {
+        file->mode |= FD_CLOEXEC;
+    }
+    if (type & SOCK_NONBLOCK) {
+        file->flags |= O_NONBLOCK;
+    }
     ((int *)sv)[1] = new_fd_num;
     k_mutex_lock_release(sock_lock);
     return 0;
@@ -102,8 +120,9 @@ long sys_socketpair(int domain, int type, int protocol, void *sv) {
 long sys_bind(int sockfd, sockaddr_t *addr, int addrlen) {
     int sock_num = 0;
     fd_t *file = get_fd(sockfd);
-    if(!file)
+    if (!file) {
         return -ENFILE;
+    }
     sock_num = file->sock_num;
     k_mutex_lock_acquire(sock_lock);
     k_memcpy(&sock[sock_num].addr, addr, sizeof(sockaddr_t));
@@ -114,8 +133,9 @@ long sys_bind(int sockfd, sockaddr_t *addr, int addrlen) {
 long sys_listen(int sockfd, int backlog) {
     int sock_num = 0;
     fd_t *file = get_fd(sockfd);
-    if(!file)
+    if (!file) {
         return -ENFILE;
+    }
     sock_num = file->sock_num;
     k_mutex_lock_acquire(sock_lock);
     sock[sock_num].status = SOCK_LISTEN;
@@ -128,8 +148,9 @@ long sys_accept(int sockfd, sockaddr_t *addr, int *addrlen) {
     assert(*addrlen == sizeof(sockaddr_t));
     int sock_num = 0;
     fd_t *file = get_fd(sockfd);
-    if(!file)
+    if (!file) {
         return -ENFILE;
+    }
     sock_num = file->sock_num;
     int i;
     k_mutex_lock_acquire(sock_lock);
@@ -160,8 +181,9 @@ long sys_connect(int sockfd, sockaddr_t *addr, int addrlen) {
     }
     int sock_num = 0;
     fd_t *file = get_fd(sockfd);
-    if(!file)
+    if (!file) {
         return -ENFILE;
+    }
     sock_num = file->sock_num;
     int i, j;
     k_mutex_lock_acquire(sock_lock);
@@ -201,8 +223,9 @@ long sys_connect(int sockfd, sockaddr_t *addr, int addrlen) {
 long sys_getsockname(int sockfd, sockaddr_t *addr, int *addrlen) {
     int sock_num = 0;
     fd_t *file = get_fd(sockfd);
-    if(!file)
+    if (!file) {
         return -ENFILE;
+    }
     sock_num = file->sock_num;
     k_mutex_lock_acquire(sock_lock);
     k_memcpy(addr, &sock[sock_num].addr, sizeof(sockaddr_t));
@@ -213,8 +236,9 @@ long sys_getsockname(int sockfd, sockaddr_t *addr, int *addrlen) {
 long sys_getpeername(int sockfd, sockaddr_t *addr, int *addrlen) {
     int sock_num = 0;
     fd_t *file = get_fd(sockfd);
-    if(!file)
+    if (!file) {
         return -ENFILE;
+    }
     sock_num = file->sock_num;
     k_mutex_lock_acquire(sock_lock);
     k_memcpy(addr, &sock[sock_num].remote_addr, sizeof(sockaddr_t));
@@ -247,8 +271,9 @@ long sys_sendto(int sockfd, void *message, size_t length, unsigned flags, sockad
 long sys_recvfrom(int sockfd, void *buffer, size_t length, unsigned flags, sockaddr_t *address, int *address_len) {
     int sock_num = 0;
     fd_t *file = get_fd(sockfd);
-    if(!file)
+    if (!file) {
         return -ENFILE;
+    }
     sock_num = file->sock_num;
     k_mutex_lock_acquire(sock_lock);
     int read_len = (length < k_ring_buffer_used(&sock[sock_num].data)) ? length : k_ring_buffer_used(&sock[sock_num].data);
@@ -268,8 +293,9 @@ long sys_getsockopt(int fd, int level, int optname, char *optval, int *optlen) {
 long sys_shutdown(int sockfd, int how) {
     int sock_num = 0;
     fd_t *file = get_fd(sockfd);
-    if(!file)
+    if (!file) {
         return -ENFILE;
+    }
     sock_num = file->sock_num;
     k_mutex_lock_acquire(sock_lock);
     k_memset(&sock[sock_num], 0, sizeof(struct socket));

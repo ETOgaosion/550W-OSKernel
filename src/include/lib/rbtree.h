@@ -4,7 +4,7 @@
 #define RED 1
 
 typedef int KeyType;
-typedef void * ValueType;
+typedef void *ValueType;
 
 typedef struct RBTreeNode {
     unsigned char color;

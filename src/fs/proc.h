@@ -57,7 +57,6 @@ DirectMap4k:      483844 kB  \n\
 DirectMap2M:     6500352 kB  \n\
 DirectMap1G:    263192576 kB";
 
-char *mounts = \
-"sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0\n\
+char *mounts = "sysfs /sys sysfs rw,nosuid,nodev,noexec,relatime 0 0\n\
 proc /proc proc rw,nosuid,nodev,noexec,relatime 0 0\n\
 udev /dev devtmpfs rw,nosuid,noexec,relatime,size=131878952k,nr_inodes=32969738,mode=755 0 0";
