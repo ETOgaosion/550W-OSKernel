@@ -839,12 +839,12 @@ static void test() {
     // time_test(true);
     // busybox_test(true);
     // lua_test(true);
-    // libc_test(true);
-    char *args[5] = {"./runtest.exe", "-w", "entry-static.exe", "fscanf"};
-    int pid = exec("runtest.exe", (char *const *)args, NULL);
-    int res = 0;
-    waitpid(pid, &res, 0);
-    printf("\ntest result: %d\n", res >> 8);
+    libc_test(true);
+    // char *args[5] = {"./runtest.exe", "-w", "entry-static.exe", "fscanf"};
+    // int pid = exec("runtest.exe", (char *const *)args, NULL);
+    // int res = 0;
+    // waitpid(pid, &res, 0);
+    // printf("\ntest result: %d\n", res >> 8);
 }
 #endif
 

@@ -29,10 +29,10 @@ LIST_HEAD(block_queue);
 
 pcb_t pcb[NUM_MAX_TASK];
 
-const ptr_t pid0_stack = INIT_KERNEL_STACK + PAGE_SIZE * 3 - 112 - 288;
-const ptr_t pid0_stack2 = INIT_KERNEL_STACK + PAGE_SIZE * 5 - 112 - 288;
-pcb_t pid0_pcb = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 2), .core_id = 0, .core_mask[0] = 0x3, .status = TASK_EXITED, .sched_policy = DEQUEUE_LIST_FIFO};
-pcb_t pid0_pcb2 = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack2, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 4), .core_id = 1, .core_mask[0] = 0x3, .status = TASK_EXITED, .sched_policy = DEQUEUE_LIST_FIFO};
+const ptr_t pid0_stack = INIT_KERNEL_STACK + PAGE_SIZE * 8 - 112 - 288;
+const ptr_t pid0_stack2 = INIT_KERNEL_STACK + PAGE_SIZE * 16 - 112 - 288;
+pcb_t pid0_pcb = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 4), .core_id = 0, .core_mask[0] = 0x3, .status = TASK_EXITED, .sched_policy = DEQUEUE_LIST_FIFO};
+pcb_t pid0_pcb2 = {.pid = -1, .kernel_sp = (ptr_t)pid0_stack2, .user_sp = (ptr_t)(INIT_KERNEL_STACK + PAGE_SIZE * 12), .core_id = 1, .core_mask[0] = 0x3, .status = TASK_EXITED, .sched_policy = DEQUEUE_LIST_FIFO};
 
 pid_t freepid[NUM_MAX_TASK];
 
@@ -83,9 +83,9 @@ void init_pcb_i(char *name, char *cmd, int pcb_i, task_type_t type, int pid, int
     target->uid.ruid = uid;
     target->uid.euid = uid;
     target->uid.suid = uid;
-#ifdef RBTREE
+    #ifdef RBTREE
     k_rbnode_init(&target->node, priority, (void *)target);
-#endif
+    #endif
     target->father_pid = father_pid;
     target->child_num = 0;
     k_bzero((void *)target->child_pids, sizeof(target->child_pids));
@@ -342,10 +342,10 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
         list_del(&(ret->list));
         break;
     case DEQUEUE_TREE_PRIORITY:
-#ifdef RBTREE
+        #ifdef RBTREE
         ret = (pcb_t *)k_rbtree_maximum(&ready_tree)->value;
         k_rbtree_delete(&ready_tree, &ret->node);
-#endif
+        #endif
         break;
     default:
         break;
@@ -619,10 +619,10 @@ long exec(bool execve, int target_pid, int father_pid, const char *file_name, co
     uintptr_t child_argv = init_user_stack(&pcb[target_pid], &user_stack_kva, &user_stack, argc, argv, envpc, envp, file_name, pcb[target_pid].dynamic);
 
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
-    if (!execve) {
-        init_list_head(&pcb[target_pid].fd_head);
-        init_fd_pcb(&pcb[target_pid]);
-    }
+if (!execve) {
+    init_list_head(&pcb[target_pid].fd_head);
+    init_fd_pcb(&pcb[target_pid]);
+}
 #ifdef RBTREE
     enqueue(&pcb[target_pid].list, NULL, ENQUEUE_LIST_PRIORITY);
 #else
@@ -683,11 +683,11 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     }
 
     k_memcpy(&pcb[i].elf, &(*current_running)->elf, sizeof(elf_info_t));
-    k_memcpy((user_stack_kva - NORMAL_PAGE_SIZE), (K_ROUNDDOWN((*current_running)->user_sp, NORMAL_PAGE_SIZE)), NORMAL_PAGE_SIZE);
+    // k_memcpy((user_stack_kva - NORMAL_PAGE_SIZE), (K_ROUNDDOWN((*current_running)->user_sp, NORMAL_PAGE_SIZE)), NORMAL_PAGE_SIZE);
 
-    ptr_t user_stack = (ptr_t)stack ? (ptr_t)stack : USER_STACK_ADDR;
+    // ptr_t user_stack = (ptr_t)stack ? (ptr_t)stack : USER_STACK_ADDR;
     // ptr_t user_stack = USER_STACK_ADDR;
-    clone_pcb_stack(kernel_stack_kva, user_stack, &pcb[i], flags, tls);
+    clone_pcb_stack(kernel_stack_kva, (ptr_t)stack, &pcb[i], flags, tls);
     if (!stack) {
         k_mm_map(USER_STACK_ADDR - PAGE_SIZE, kva2pa(user_stack_kva - PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));
         k_mm_map(USER_STACK_ADDR - 2 * PAGE_SIZE, kva2pa(user_stack_kva - 2 * PAGE_SIZE), pa2kva(pcb[i].pgdir << NORMAL_PAGE_SHIFT));

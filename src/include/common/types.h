@@ -26,6 +26,7 @@ typedef int __attribute__((__mode__(SI))) int32_t;
 typedef unsigned __attribute__((__mode__(SI))) uint32_t;
 typedef int __attribute__((__mode__(DI))) int64_t;
 typedef unsigned __attribute__((__mode__(DI))) uint64_t;
+typedef int __attribute__((__mode__(SI))) i32;
 
 typedef int bool;
 

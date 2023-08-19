@@ -20,6 +20,7 @@
 #include <os/sys.h>
 #include <os/time.h>
 #include <os/users.h>
+#include <sd/sd.h>
 
 void wakeup_other_cores() {
     int hartid = 1;
@@ -77,11 +78,15 @@ int kernel_start(int mhartid) {
         k_exception_init();
         k_signal_init_sig_table();
 
-        // init disk
+#ifdef _SD_H_
+        k_sd_init();
+#else
         d_plic_init();
         d_plic_init_hart(id);
         d_virtio_disk_init();
         d_binit();
+#endif
+        // init disk
         k_print("[INIT] > Disk initialized successfully.\n\r");
         k_sys_write_to_log("[INIT] > Disk initialized successfully.\n\r");
 

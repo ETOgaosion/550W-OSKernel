@@ -91,7 +91,7 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
         p--;
         q--;
     }
-    pcb->user_sp = (*current_running)->user_sp;
+    pcb->user_sp = user_stack ? user_stack : cur_regs->regs[reg_sp];
     pcb->kernel_sp = kernel_stack - sizeof(regs_context_t) - sizeof(switchto_context_t);
     // copy save context
     for (int i = 0; i < 31; i++) {
@@ -99,7 +99,7 @@ void clone_pcb_stack(ptr_t kernel_stack, ptr_t user_stack, pcb_t *pcb, unsigned 
     }
     // tp
     // pt_regs->regs[reg_tp] = (reg_t)pcb;
-    // pt_regs->regs[reg_sp] = pcb->user_sp;
+    pt_regs->regs[reg_sp] = pcb->user_sp;
     // a0
     pt_regs->regs[reg_a0] = 0;
     pt_regs->sepc = cur_regs->sepc;

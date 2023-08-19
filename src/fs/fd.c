@@ -1,7 +1,6 @@
 #include <fs/file.h>
 #include <fs/fs.h>
 #include <lib/math.h>
-#include <lib/stdio.h>
 #include <os/pcb.h>
 // #include <os/time.h>
 // #include <fs/pipe.h>
@@ -51,6 +50,7 @@ fd_t *fd_exist(int fd) {
     }
     fd_t *file;
     list_for_each_entry(file, &pcb->fd_head, list) {
+        // k_print("[debug] check fd %d with fd %d\n",file->fd_num,fd);
         if (file->fd_num == fd) {
             return file;
         }

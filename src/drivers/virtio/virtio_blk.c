@@ -7,6 +7,7 @@
 #include <os/mm.h>
 #include <os/pcb.h>
 #include <os/smp.h>
+#include <sd/sd.h>
 
 disk_t __attribute__((aligned(NORMAL_PAGE_SIZE))) disk;
 uintptr_t virtio_base;
@@ -328,15 +329,26 @@ void bunpin(buf_t *b) {
 }
 
 void d_sd_read(char *buffers, uint *start_block_ids, uint block_num) {
+#ifdef _SD_H_
+    for (int i = 0; i < block_num; i++) {
+        sdRead((u8*)(buffers + i * BSIZE), start_block_ids[i], 1);
+    }
+#else
     buf_t *buf;
     for (int i = 0; i < block_num; i++) {
         buf = d_bread(DEV_VDA2, start_block_ids[i]);
         k_memcpy(buffers + i * BSIZE, buf->data, BSIZE);
         d_brelse(buf);
     }
+#endif
 }
 
 void d_sd_write(char *buffers, uint *start_block_ids, uint block_num) {
+#ifdef _SD_H_
+    for (int i = 0; i < block_num; i++) {
+        sdWrite((u8*)(buffers + i * BSIZE), start_block_ids[i], 1);
+    }
+#else
     buf_t *buf;
     for (int i = 0; i < block_num; i++) {
         buf = d_bread(DEV_VDA2, start_block_ids[i]);
@@ -344,4 +356,5 @@ void d_sd_write(char *buffers, uint *start_block_ids, uint block_num) {
         d_bwrite(buf);
         d_brelse(buf);
     }
+#endif
 }
