@@ -388,27 +388,19 @@ int k_mbox_recv(int key, mbox_t *target, mbox_arg_t *arg) {
     if (arg->sleep_operation == 1 && k_mbox_try_recv(key, arg) < 0) {
         return -2;
     }
-    int blocked_time = 0;
-    while (arg->msg_length > target->used_units) {
-        blocked_time++;
-        k_cond_wait(target->empty_cond_id - 1);
-    }
-    int left_space = MBOX_MSG_MAX_LEN - (target->read_head + arg->msg_length);
+    int actual_copy_length = min(arg->msg_length, target->used_units);
+    int left_space = MBOX_MSG_MAX_LEN - (target->read_head + actual_copy_length);
     if (left_space < 0) {
         k_memcpy(arg->msg, target->buff + target->read_head, MBOX_MSG_MAX_LEN - target->read_head);
         k_memcpy(arg->msg + MBOX_MSG_MAX_LEN - target->read_head, target->buff, -left_space);
         target->read_head = -left_space;
     } else {
-        k_memcpy(arg->msg, target->buff + target->read_head, arg->msg_length);
-        target->read_head += arg->msg_length;
+        k_memcpy(arg->msg, target->buff + target->read_head, actual_copy_length);
+        target->read_head += actual_copy_length;
     }
-    target->used_units -= arg->msg_length;
+    target->used_units -= actual_copy_length;
     k_cond_broadcast(target->full_cond_id - 1);
-    if (target->read_head == target->write_tail) {
-        return 0;
-    } else {
-        return arg->msg_length;
-    }
+    return actual_copy_length;
 }
 
 int k_mbox_try_send(int key, mbox_arg_t *arg) {
