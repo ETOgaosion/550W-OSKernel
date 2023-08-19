@@ -50,6 +50,16 @@ extern fat32_t fat;
 #define ATTR_LINK 0x40
 #define ATTR_CHARACTER_DEVICE 0x80
 
+#define DT_UNKNOWN 0
+#define DT_FIFO 1
+#define DT_CHR 2
+#define DT_DIR 4
+#define DT_BLK 6
+#define DT_REG 8
+#define DT_LNK 10
+#define DT_SOCK 12
+#define DT_WHT 14
+
 #define SHORT_FIR_NAME 8
 #define SHORT_EXT_NAME 3
 #define MAX_SHORT_NAME 11
