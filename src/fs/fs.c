@@ -16,6 +16,7 @@
 #include <os/mm.h>
 #include <os/pcb.h>
 #include <os/rtc.h>
+#include <os/smp.h>
 #include <os/sync.h>
 #include <os/sys.h>
 #include <os/time.h>
@@ -1418,6 +1419,7 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
         return -1;
     }
     // try open file
+    k_smp_sync_current_pcb();
     ret = fd_alloc(-1);
     fd_t *file = get_fd(ret);
     // k_print("[debug] fd %d, name = %s\n",ret,name);
@@ -1718,8 +1720,19 @@ long sys_readv(unsigned long fd, const iovec_t *vec, unsigned long vlen) {
 
 long sys_writev(unsigned long fd, const iovec_t *vec, unsigned long vlen) {
     int retval = 0;
+    int vec_i = 0;
+
     for (int i = 0; i < vlen; i++) {
-        retval += sys_write(fd, (const char *)vec[i].iov_base, vec[i].iov_len);
+        if (!vec[i].iov_base) {
+            continue;
+        }
+        char *ptr = (char *)(vec[i].iov_base);
+        vec_i = vec[i].iov_len;
+        while (*(ptr + vec_i) != 0) {
+            *(ptr + vec_i) = 0;
+            vec_i++;
+        }
+        retval += sys_write(fd, (const char *)ptr, vec[i].iov_len);
     }
     return retval;
 }

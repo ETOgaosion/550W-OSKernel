@@ -83,9 +83,9 @@ void init_pcb_i(char *name, char *cmd, int pcb_i, task_type_t type, int pid, int
     target->uid.ruid = uid;
     target->uid.euid = uid;
     target->uid.suid = uid;
-    #ifdef RBTREE
+#ifdef RBTREE
     k_rbnode_init(&target->node, priority, (void *)target);
-    #endif
+#endif
     target->father_pid = father_pid;
     target->child_num = 0;
     k_bzero((void *)target->child_pids, sizeof(target->child_pids));
@@ -342,10 +342,10 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
         list_del(&(ret->list));
         break;
     case DEQUEUE_TREE_PRIORITY:
-        #ifdef RBTREE
+#ifdef RBTREE
         ret = (pcb_t *)k_rbtree_maximum(&ready_tree)->value;
         k_rbtree_delete(&ready_tree, &ret->node);
-        #endif
+#endif
         break;
     default:
         break;
@@ -575,7 +575,7 @@ long spawn(const char *file_name) {
     return i;
 }
 
-long exec(int target_pid, int father_pid, const char *file_name, const char *argv[], const char *envp[]) {
+long exec(bool execve, int target_pid, int father_pid, const char *file_name, const char *argv[], const char *envp[]) {
     char cmd[NUM_MAX_PCB_CMD] = {0};
     k_memcpy(cmd, file_name, MIN(k_strlen(file_name), NUM_MAX_PCB_CMD));
     k_strcat(cmd, " ");
@@ -619,8 +619,10 @@ long exec(int target_pid, int father_pid, const char *file_name, const char *arg
     uintptr_t child_argv = init_user_stack(&pcb[target_pid], &user_stack_kva, &user_stack, argc, argv, envpc, envp, file_name, pcb[target_pid].dynamic);
 
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
-    init_list_head(&pcb[target_pid].fd_head);
-    init_fd_pcb(&pcb[target_pid]);
+    if (!execve) {
+        init_list_head(&pcb[target_pid].fd_head);
+        init_fd_pcb(&pcb[target_pid]);
+    }
 #ifdef RBTREE
     enqueue(&pcb[target_pid].list, NULL, ENQUEUE_LIST_PRIORITY);
 #else
@@ -982,12 +984,12 @@ long sys_fork() {
 }
 
 long sys_exec(const char *file_name, const char *argv[], const char *envp[]) {
-    return exec(nextpid(), (*current_running)->pid, file_name, argv, envp);
+    return exec(false, nextpid(), (*current_running)->pid, file_name, argv, envp);
 }
 
 long sys_execve(const char *file_name, const char *argv[], const char *envp[]) {
     int ret;
-    ret = exec((*current_running)->pid, (*current_running)->father_pid, file_name, argv, envp);
+    ret = exec(true, (*current_running)->pid, (*current_running)->father_pid, file_name, argv, envp);
     if (ret) {
         k_pcb_scheduler(false, true);
     }
