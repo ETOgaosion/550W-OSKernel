@@ -31,6 +31,15 @@
 #define DEV_PIPE 6
 #define DEV_SOCK 7
 
+#define FD_STDIN  0
+#define FD_STDOUT 1
+#define FD_STDERR 1 << 1
+#define FD_PIPE   1 << 2
+#define FD_FILE   1 << 3
+#define FD_DIR    1 << 4
+#define FD_VIRT   1 << 5
+#define FD_MAX    1 << 7
+
 #define S_IFMT  00170000
 #define S_IFSOCK 0140000
 #define S_IFLNK	 0120000

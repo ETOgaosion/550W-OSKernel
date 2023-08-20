@@ -14,6 +14,7 @@
 #include <os/smp.h>
 #include <os/syscall.h>
 
+int plic_cnt[PLIC_NR_IRQS];
 handler_t irq_table[IRQC_COUNT];
 handler_t exc_table[EXCC_COUNT];
 handler_t irq_ext_table[PLIC_NR_IRQS];
@@ -202,12 +203,15 @@ void k_syscall_init(void) {
     syscall[SYS_breakpoint] = (long (*)())sys_breakpoint;
     syscall[SYS_process_show] = (long (*)())sys_process_show;
     syscall[SYS_poweroff] = (long (*)())sys_poweroff;
+
+    syscall[SYS_copy_file_range] = (long (*)())sys_copy_file_range;
 }
 
 void reset_irq_timer() {
     // note: use sbi_set_timer
     // remember to reschedule
     sbi_set_timer(k_time_get_ticks() + TICKS_INTERVAL);
+    plic_cnt[IRQC_S_TIMER]++;
     k_pcb_scheduler(false, false);
 }
 
@@ -432,6 +436,7 @@ void kernel_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t caus
     uint64_t check = cause;
     if (check >> 63) {
         irq_table[(cause - ((uint64_t)1 << 63)) % IRQC_COUNT](regs, stval, cause, sepc);
+        plic_cnt[(cause - ((uint64_t)1 << 63)) % IRQC_COUNT]++;
     } else {
         exc_table[cause % EXCC_COUNT](regs, stval, cause, sepc);
     }

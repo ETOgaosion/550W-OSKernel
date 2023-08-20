@@ -40,6 +40,10 @@
 #define W_OK 2
 #define X_OK 1
 
+#define INODE_FILE 0
+#define INODE_DIR  1
+#define INODE_VIRT 2
+
 typedef struct super_block {
     int magic;
     int fs_start_sec;
@@ -290,5 +294,9 @@ long sys_mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offs
 
 long sys_utimensat(int dfd, const char *filename, kernel_timespec_t *utimes, int flags);
 long sys_symlink(int dfd, const char *filename);
+
+long sys_copy_file_range(int fd_in, off_t *off_in,
+                        int fd_out, off_t *off_out,
+                        size_t len, unsigned int flags);
 
 long k_openat(int dirfd, const char *filename, mode_t flags, mode_t mode);

@@ -42,6 +42,8 @@ enum IrqExtCode {
 
 typedef void (*handler_t)(regs_context_t *, uint64_t, uint64_t, uint64_t);
 
+extern int plic_cnt[PLIC_NR_IRQS];
+
 void k_syscall_init(void);
 
 void k_exception_init();

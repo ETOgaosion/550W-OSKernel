@@ -185,7 +185,7 @@ void init_fd_pcb(pcb_t *pcb) {
         // alloc fd
         fd_t *file = (fd_t *)k_mm_malloc(sizeof(fd_t));
         k_memset(file, 0, sizeof(fd_t));
-        file->file = i;
+        file->file = i+FD_STDIN;
         file->used = 1;
         file->fd_num = i;
         // add to fd list in pcb
