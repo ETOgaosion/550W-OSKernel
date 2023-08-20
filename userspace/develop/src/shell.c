@@ -840,8 +840,8 @@ static void test() {
     // busybox_test(true);
     // lua_test(true);
     // libc_test(true);
-    char *args[6] = {"./runtest.exe", "-w", "entry-static.exe", "utime"};
-    int pid = exec("runtest.exe", (char *const *)args, NULL);
+    char *args[4] = {"./busybox", "touch", "test.txt"};
+    int pid = exec("busybox", (char *const *)args, NULL);
     int res = 0;
     waitpid(pid, &res, 0);
     printf("\ntest result: %d\n", res >> 8);

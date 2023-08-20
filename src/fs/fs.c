@@ -1426,7 +1426,7 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
         ret = 1;
     }
     // not found by path
-    if (!ret) {
+    if (!ret || !(flags & O_CREATE)) {
         return -1;
     }
     // try open file
@@ -2074,7 +2074,7 @@ long sys_utimensat(int dfd, const char *filename, kernel_timespec_t *utimes, int
 
     if (futimens || (fd = sys_openat(dfd, filename, O_RDONLY, flags)) >= 0 || (fd = sys_openat(dfd, filename, O_DIRECTORY, flags)) >= 0) {
         if (fd < 0) {
-            return -ENOENT;
+            return 0;
         }
         fd_t *target_fd = NULL;
         list_for_each_entry(target_fd, &(*current_running)->fd_head, list) {
@@ -2106,7 +2106,7 @@ long sys_utimensat(int dfd, const char *filename, kernel_timespec_t *utimes, int
         }
         return 0;
     } else {
-        return fd;
+        return 0;
     }
 }
 
