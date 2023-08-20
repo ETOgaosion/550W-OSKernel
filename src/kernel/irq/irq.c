@@ -412,7 +412,7 @@ void handle_other(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t
     //     fp = prev_fp;
     // }
 
-    sys_poweroff();
+    sys_exit(0);
 }
 
 void kernel_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t cause, uint64_t sepc) {
@@ -429,7 +429,7 @@ void kernel_interrupt_helper(regs_context_t *regs, uint64_t stval, uint64_t caus
                 k_print("\n\r");
             }
         }
-        sys_poweroff();
+        sys_exit(0);
     }
     k_spin_lock_acquire(&kernel_exception_lock);
     k_smp_sync_current_pcb();
