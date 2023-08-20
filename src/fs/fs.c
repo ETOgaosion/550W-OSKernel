@@ -1426,7 +1426,7 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
         ret = 1;
     }
     // not found by path
-    if (!ret || !(flags & O_CREATE)) {
+    if (!ret) {
         return -1;
     }
     // try open file
@@ -1439,7 +1439,7 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
         // k_memcpy(file->name,cur_dir.name,k_strlen(cur_dir.name)+1);
         file->dev = 0; // TODO
         file->flags = flags & ~(O_DIRECTORY | O_CREATE);
-        file->mode = mode;
+        file->mode = mode & S_IFDIR;
         file->first_cluster = new.first_cluster;
         file->inode = (ptr_t) new.node;
         file->pos = 0;
@@ -1826,6 +1826,12 @@ long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
         return -2;
     }
     pcb_t *pcb = *current_running;
+    fd_t *target_fd = NULL;
+    list_for_each_entry(target_fd, &(*current_running)->fd_head, list) {
+        if (target_fd->fd_num == ret) {
+            break;
+        }
+    }
     if (!k_strcmp(".", name)) {
         statbuf->st_dev = DEV_DEFAULT;
         statbuf->st_ino = new.node->i_ino;
@@ -1839,16 +1845,12 @@ long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
         statbuf->st_blksize = fat.bpb.bytes_per_sec;
         statbuf->__pad2 = 0;
         statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(new.first_cluster) / fat.bpb.bytes_per_sec);
-        nanotime_val_t time;
-        k_time_get_nanotime(&time);
-        // statbuf->st_atime_sec = time.sec;
-        // statbuf->st_atime_nsec = time.nsec;
-        // statbuf->st_mtime_sec = time.sec;
-        // statbuf->st_mtime_nsec = time.nsec;
-        // statbuf->st_ctime_sec = time.sec;
-        // statbuf->st_ctime_nsec = time.nsec;
-        // statbuf->__unused[0] = 0;
-        // statbuf->__unused[1] = 0;
+        statbuf->st_atime = target_fd->atime_sec;
+        statbuf->st_atime_nsec = target_fd->atime_nsec;
+        statbuf->st_mtime = target_fd->mtime_sec;
+        statbuf->st_mtime_nsec = target_fd->mtime_nsec;
+        statbuf->st_ctime = target_fd->ctime_sec;
+        statbuf->st_ctime_nsec = target_fd->ctime_nsec;
         return 0;
     }
     int offset = 0;
@@ -1868,7 +1870,7 @@ long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
     // }
     statbuf->st_dev = DEV_DEFAULT;
     statbuf->st_ino = dtable[offset].sn.nt_res == 0 ? 0 : dtable[offset].sn.fst_clus_lo;
-    statbuf->st_mode = (dtable[offset].sn.attr == ATTR_DIRECTORY) ? S_IFDIR : S_IFREG;
+    statbuf->st_mode = (dtable[offset].sn.attr==ATTR_DIRECTORY)? S_IFDIR:S_IFREG;
     statbuf->st_nlink = 1;
     statbuf->st_uid = pcb->uid.euid;
     statbuf->st_gid = pcb->gid.rgid;
@@ -1880,68 +1882,61 @@ long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
     statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(new.first_cluster) / fat.bpb.bytes_per_sec);
     nanotime_val_t time;
     k_time_get_nanotime(&time);
-    // statbuf->st_atime_sec = time.sec;
-    // statbuf->st_atime_nsec = time.nsec;
-    // statbuf->st_mtime_sec = time.sec;
-    // statbuf->st_mtime_nsec = time.nsec;
-    // statbuf->st_ctime_sec = time.sec;
-    // statbuf->st_ctime_nsec = time.nsec;
-    // statbuf->__unused[0] = 0;
-    // statbuf->__unused[1] = 0;
     return 0;
 }
 
 // TODO
 long sys_newfstat(unsigned int fd, stat_t *statbuf) {
-    return sys_fstatat64(fd, NULL, (kstat64_t *)statbuf, 0);
+    fd_t *file = get_fd(fd);
+    if (!file) {
+        return -ENFILE;
+    }
+    statbuf->st_dev = file->file>=STDMAX? DEV_DEFAULT:file->file;
+    if (file->file > STDMAX && file->file <= ATTR_DIRECTORY) {
+        statbuf->st_ino = ((inode_t *)file->inode)->i_ino;
+    } else {
+        return -ENFILE;
+    }
+    statbuf->st_mode = (file->file==ATTR_DIRECTORY)? S_IFDIR:(file->file==STDIN)? S_IFCHR:S_IFREG;
+    statbuf->st_nlink = 1;
+    statbuf->st_uid = file->uid;
+    statbuf->st_gid = file->gid;
+    statbuf->st_rdev = file->rdev;
+    // statbuf->__pad = 0;
+    statbuf->st_size = file->size;
+    statbuf->st_blksize = fat.bpb.bytes_per_sec;
+    statbuf->__pad2 = 0;
+    statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
+    statbuf->st_atime = file->atime_sec;
+    statbuf->st_atime_nsec = file->atime_nsec;
+    statbuf->st_mtime = file->mtime_sec;
+    statbuf->st_mtime_nsec = file->mtime_nsec;
+    statbuf->st_ctime = file->ctime_sec;
+    statbuf->st_ctime_nsec = file->ctime_nsec;
+    return 0;
 }
 
 long sys_fstat64(int fd, kstat64_t *statbuf) {
-    return sys_fstatat64(fd, NULL, statbuf, 0);
-}
-
-long sys_fstatat64(int dfd, const char *filename, kstat64_t *statbuf, int flag) {
-    if ((!filename && dfd < 3 && dfd != AT_FDCWD) || (filename && k_strcmp(filename, "/dev/null/invalid") == 0)) {
-        return 0;
-    }
-    int fd;
-    int futimens = 0;
-    if (filename == NULL) {
-        futimens = 1;
-        fd = dfd;
-    }
-
-    if (futimens || (fd = sys_openat(dfd, filename, O_RDONLY, flag)) >= 0 || (fd = sys_openat(dfd, filename, O_DIRECTORY, flag)) >= 0) {
-        if (fd < 0) {
-            return -ENOENT;
-        }
-        fd_t *target_fd = NULL;
-        list_for_each_entry(target_fd, &(*current_running)->fd_head, list) {
-            if (target_fd->fd_num == fd) {
-                break;
-            }
-        }
-        statbuf->st_dev = target_fd->dev;
-        statbuf->st_ino = target_fd->inode;
-        statbuf->st_mode = target_fd->mode;
-        statbuf->st_nlink = target_fd->nlink;
-        statbuf->st_uid = target_fd->uid;
-        statbuf->st_gid = target_fd->gid;
-        statbuf->st_rdev = target_fd->rdev;
-        statbuf->st_size = target_fd->size;
-        statbuf->st_atime_sec = target_fd->atime_sec;
-        statbuf->st_atime_nsec = target_fd->atime_nsec;
-        statbuf->st_mtime_sec = target_fd->mtime_sec;
-        statbuf->st_mtime_nsec = target_fd->mtime_nsec;
-        statbuf->st_ctime_sec = target_fd->ctime_sec;
-        statbuf->st_ctime_nsec = target_fd->ctime_nsec;
-        if (!futimens) {
-            sys_close(fd);
-        }
-        return 0;
-    } else {
-        return fd;
-    }
+    fd_t *file = get_fd(fd);
+    statbuf->st_dev = file->dev;
+    statbuf->st_ino = ((inode_t *)file->inode)->i_ino;
+    statbuf->st_mode = file->mode;
+    statbuf->st_nlink = 1;
+    statbuf->st_uid = file->uid;
+    statbuf->st_gid = file->gid;
+    statbuf->st_rdev = file->rdev;
+    statbuf->__pad = 0;
+    statbuf->st_size = file->size;
+    statbuf->st_blksize = fat.bpb.bytes_per_sec;
+    statbuf->__pad2 = 0;
+    statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
+    statbuf->st_atime_sec = file->atime_sec;
+    statbuf->st_atime_nsec = file->atime_nsec;
+    statbuf->st_mtime_sec = file->mtime_sec;
+    statbuf->st_mtime_nsec = file->mtime_nsec;
+    statbuf->st_ctime_sec = file->ctime_sec;
+    statbuf->st_ctime_nsec = file->ctime_nsec;
+    return 0;
 }
 
 long sys_sync(void) {

@@ -270,6 +270,7 @@ int k_futex_wait(u32 *val_addr, u32 val, const kernel_timespec_t *timeout) {
     }
     k_pcb_block(&(*current_running)->list, &node->block_queue, ENQUEUE_LIST);
     k_pcb_scheduler(false, false);
+    sys_exit(0);
     return 0;
 }
 
@@ -375,16 +376,18 @@ long sys_set_robust_list(struct robust_list_head *head, size_t len) {
 }
 
 long sys_futex(u32 *uaddr, int op, u32 val, const kernel_timespec_t *utime, u32 *uaddr2, u32 val3) {
-    if ((op & FUTEX_WAKE) == FUTEX_WAKE) {
+	int cmd = op & FUTEX_CMD_MASK;
+    if (cmd == FUTEX_WAKE) {
         return (long)k_futex_wakeup(uaddr, val);
-    } else if ((op & FUTEX_WAIT) == FUTEX_WAIT) {
+    } else if (cmd == FUTEX_WAIT) {
         if (*uaddr == val) {
             k_futex_wait(uaddr, val, utime);
+            return 0;
         } else {
             return -EAGAIN;
         }
     }
-    if ((op & FUTEX_REQUEUE) == FUTEX_REQUEUE) {
+    else if (cmd == FUTEX_REQUEUE) {
         return k_futex_requeue(uaddr, uaddr2, utime->tv_sec);
     }
     return 0;

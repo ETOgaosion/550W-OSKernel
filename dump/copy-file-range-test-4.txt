@@ -1,5 +1,5 @@
 
-./copy-file-range-test-2:     file format elf64-littleriscv
+./copy-file-range-test-4:     file format elf64-littleriscv
 
 
 Disassembly of section .text:
@@ -1099,10 +1099,10 @@ Disassembly of section .text:
    10ec4:	1141                	addi	sp,sp,-16
    10ec6:	e406                	sd	ra,8(sp)
    10ec8:	4609                	li	a2,2
-   10eca:	4585                	li	a1,1
-   10ecc:	4505                	li	a0,1
+   10eca:	4589                	li	a1,2
+   10ecc:	4509                	li	a0,2
    10ece:	e45ff0ef          	jal	ra,0x10d12
-   10ed2:	4609                	li	a2,2
+   10ed2:	4611                	li	a2,4
    10ed4:	0003e597          	auipc	a1,0x3e
    10ed8:	e0458593          	addi	a1,a1,-508 # 0x4ecd8
    10edc:	4505                	li	a0,1

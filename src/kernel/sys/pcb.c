@@ -287,19 +287,9 @@ void enqueue(list_head *new, list_head *head, enqueue_way_t way) {
         list_add_tail(new, head);
         break;
     case ENQUEUE_LIST_PRIORITY: {
-        pcb_t *new_inserter = list_entry(new, pcb_t, list);
 #ifdef RBTREE
         k_rbtree_insert(&ready_tree, &new_inserter->node, new_inserter->priority.priority);
 #else
-        list_head *iterator_list = ready_queue.next;
-        pcb_t *iterator_pcb = NULL;
-        while (iterator_list != &ready_queue) {
-            iterator_pcb = list_entry(iterator_list, pcb_t, list);
-            if (iterator_pcb->priority.priority < new_inserter->priority.priority) {
-                break;
-            }
-            iterator_list = iterator_list->next;
-        }
         list_add_tail(new, &ready_queue);
 #endif
         break;
@@ -645,10 +635,14 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     sigaction_t *sig = (*current_running)->sigactions;
     if (!(flags & CLONE_SIGHAND)) {
         sig = k_signal_alloc_sig_table();
-        k_memcpy(sig, (*current_running)->sigactions, NUM_MAX_SIGNAL * sizeof(sigaction_t));
+        if (sig) {
+            k_memcpy(sig, (*current_running)->sigactions, NUM_MAX_SIGNAL * sizeof(sigaction_t));
+        }
     } else {
         sigaction_table_t *st = list_entry((const sigaction_t(*)[64])sig, sigaction_table_t, sigactions);
-        st->num++;
+        if (st && st < (sigaction_table_t *)0xfffffffc) {
+            st->num++;
+        }
     }
     init_pcb_i(name, cmd, i, USER_PROCESS, i, 0, 0, fpid, 2, (*current_running)->core_mask[0], (*current_running)->sigactions);
 

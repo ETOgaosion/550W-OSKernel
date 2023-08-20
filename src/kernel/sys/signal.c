@@ -114,6 +114,9 @@ long sys_rt_sigaction(int signum, const sigaction_t *act, sigaction_t *oldact, s
         return -EINVAL;
     }
     sigaction_t *sig = &(*current_running)->sigactions[signum - 1];
+    if (sig < (sigaction_t *)0x10000) {
+        return 0;
+    }
     if (oldact) {
         k_memcpy(oldact, sig, sizeof(sigaction_t));
     }
@@ -177,6 +180,9 @@ sigaction_t *k_signal_alloc_sig_table() {
 
 void k_signal_free_sig_table(sigaction_t *sig_in) {
     sigaction_table_t *st = list_entry((const sigaction_t(*)[64])sig_in, sigaction_table_t, sigactions);
+    if (st) {
+        return;
+    }
     st->num--;
     if (st->num == 0) {
         st->used = 0;
