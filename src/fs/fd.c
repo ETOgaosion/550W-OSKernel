@@ -6,6 +6,7 @@
 // #include <fs/pipe.h>
 
 #include <lib/stdio.h>
+#define MAX_FD_NUM 64
 fd_t fd_table[MAX_FD];
 pipe_t pipe_table[PIPE_NUM];
 int pipe_cnt = 0;
@@ -79,6 +80,9 @@ int fd_alloc(int fd) {
     // get fd num
     if (fd == -1) {
         fd = get_fd_from_list();
+        if(fd >= MAX_FD_NUM) {
+            return -1;
+        }
     } else {
         if (fd_exist(fd)) {
             return -1;

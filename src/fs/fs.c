@@ -1392,6 +1392,9 @@ long sys_openat(int dirfd, const char *filename, mode_t flags, mode_t mode) {
     if (k_strcmp(filename, "/dev/rtc") == 0) {
         return fd_alloc(-1);
     }
+    if (k_strcmp(filename, "/dev/null") == 0) {
+        return fd_alloc(-1);
+    }
     // get dir file belonged to'
     dir_info_t new;
     char path[MAX_PATH_LEN], name[MAX_NAME_LEN];
@@ -2089,6 +2092,41 @@ long sys_mremap(unsigned long addr, unsigned long old_len, unsigned long new_len
 }
 
 long sys_utimensat(int dfd, const char *filename, kernel_timespec_t *utimes, int flags) {
+    // int fd;
+    // int futimens = 0;
+    // struct timespec tmp_time = {0,0};
+    // current_running = get_current_running();
+    // //mode IGNORED
+    // if (pathname == NULL){
+    //     futimens = 1;
+    //     fd = dirfd;
+    //     // printk("[utimensat] set time for fd %d\n",dirfd);
+    // }
+
+    // // else printk("[utimensat] set time for %s\n",pathname);
+    // if (futimens || (fd = fat32_openat(dirfd, pathname, O_RDONLY, flags)) >= 0 || (fd = fat32_openat(dirfd, pathname, O_DIRECTORY, flags)) >= 0) {
+    //     if (fd < 0)
+    //         return -ENOENT;
+    //     int32_t fd_index = get_fd_index(fd, current_running);
+    //     // printk("[utimensat] find fd %d, fd_index = %d\n",fd,fd_index);
+    //     if (fd_index == -1) return -EBADF;
+    //     if (times == NULL || times[0].tv_nsec == UTIME_NOW) {
+    //         do_gettimeofday(&tmp_time);
+    //         kmemcpy((char *)&current_running->pfd[fd_index].atime_sec,(char *)&tmp_time,sizeof(struct timespec));
+    //     }
+    //     else if (times[0].tv_nsec != UTIME_OMIT) 
+    //         kmemcpy((char *)&current_running->pfd[fd_index].atime_sec,(char *)&times[0],sizeof(struct timespec));
+    //     if (times == NULL || times[1].tv_nsec == UTIME_NOW) {
+    //         do_gettimeofday(&tmp_time);
+    //         kmemcpy((char *)&current_running->pfd[fd_index].mtime_sec,(char *)&tmp_time,sizeof(struct timespec));
+    //     }
+    //     else if (times[1].tv_nsec != UTIME_OMIT) 
+    //         kmemcpy((char *)&current_running->pfd[fd_index].mtime_sec,(char *)&times[1],sizeof(struct timespec));
+    //     if (!futimens) fat32_close(fd);
+    //     // printk("[utimensat] success\n");
+    //     return 0;
+    // }
+    // else return fd; // the dir or file is not found, cause is saved in fd
     return 0;
 }
 

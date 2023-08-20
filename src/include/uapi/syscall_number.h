@@ -40,7 +40,7 @@
 #define SYS_mknodat 33
 #define SYS_mkdirat 34
 #define SYS_unlinkat 35
-#define SYS_symlinkat 36
+#define SYS_symlink 36
 #define SYS_linkat 37
 #define SYS_umount2 39
 #define SYS_mount 40
@@ -91,8 +91,8 @@
 #define SYS_timerfd_create 85
 #define SYS_timerfd_settime 86
 #define SYS_timerfd_gettime 87
-#define SYS_symlink 88
-// #define sys_utimensat
+// #define SYS_symlink 88
+#define SYS_utimensat 88
 #define SYS_acct 89
 #define SYS_capget 90
 #define SYS_capset 91

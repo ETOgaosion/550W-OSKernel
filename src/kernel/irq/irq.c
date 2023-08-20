@@ -45,7 +45,7 @@ void k_syscall_init(void) {
     syscall[SYS_mknodat] = (long (*)())sys_mknodat;
     syscall[SYS_mkdirat] = (long (*)())sys_mkdirat;
     syscall[SYS_unlinkat] = (long (*)())sys_unlinkat;
-    syscall[SYS_symlinkat] = (long (*)())sys_symlinkat;
+    // syscall[SYS_symlinkat] = (long (*)())sys_symlinkat;
     syscall[SYS_linkat] = (long (*)())sys_linkat;
     syscall[SYS_umount2] = (long (*)())sys_umount2;
     syscall[SYS_mount] = (long (*)())sys_mount;
@@ -89,6 +89,7 @@ void k_syscall_init(void) {
     syscall[SYS_uname] = (long (*)())sys_uname;
     syscall[SYS_sethostname] = (long (*)())sys_sethostname;
     syscall[SYS_symlink] = (long (*)())sys_symlink;
+    syscall[SYS_utimensat] = (long (*)())sys_utimensat;
     syscall[SYS_nanosleep] = (long (*)())sys_nanosleep;
     syscall[SYS_clock_nanosleep] = (long (*)())sys_clock_nanosleep;
     syscall[SYS_setitimer] = (long (*)())sys_setitimer;
@@ -170,6 +171,7 @@ void k_syscall_init(void) {
     syscall[SYS_socketpair] = (long (*)())sys_socketpair;
     syscall[SYS_bind] = (long (*)())sys_bind;
     syscall[SYS_listen] = (long (*)())sys_listen;
+    syscall[SYS_accept] = (long (*)())sys_accept;
     syscall[SYS_connect] = (long (*)())sys_connect;
     syscall[SYS_getsockname] = (long (*)())sys_getsockname;
     syscall[SYS_getpeername] = (long (*)())sys_getpeername;

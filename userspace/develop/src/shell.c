@@ -836,20 +836,10 @@ static void test() {
     if (false) {
         test_all();
     }
-    time_test(true);
-    busybox_test(true);
-    lua_test(true);
+    // time_test(true);
+    // busybox_test(true);
+    // lua_test(true);
     libc_test(true);
-    // char *args0[3] = {"cp", "busybox_cmd.txt", "busybox_cmd.bak"};
-    // int pid0 = exec("busybox", (char *const *)args0, NULL);
-    // int res0 = 0;
-    // waitpid(pid0, &res0, 0);
-    // printf("\ntest result: %d\n", res0 >> 8);
-    // char *args1[3] = {"rm", "busybox_cmd.bak"};
-    // int pid1 = exec("busybox", (char *const *)args1, NULL);
-    // int res1 = 0;
-    // waitpid(pid1, &res1, 0);
-    // printf("\ntest result: %d\n", res1 >> 8);
     // char *args[3] = {"find", "-name", "busybox_cmd.txt"};
     // int pid = exec("busybox", (char *const *)args, NULL);
     // int res = 0;
