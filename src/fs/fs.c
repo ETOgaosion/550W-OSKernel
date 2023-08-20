@@ -777,7 +777,7 @@ int fs_init() {
 
     // TODO: change into inode way
     // k_print("[debug] size of inode %d\n",sizeof(inode_t));
-    inode_table = (inode_t *)k_mm_alloc_page(2048); // total 2^16 inodes
+    inode_table = (inode_t *)k_mm_malloc(2048 * NORMAL_PAGE_SIZE); // total 2^16 inodes
     inode_table[0].i_fclus = fat.bpb.root_cluster;
     inode_table[0].i_ino = 0;
     inode_table[0].i_link = 1;
@@ -1519,7 +1519,7 @@ long sys_pipe2(int *fd, mode_t flags) {
     return 0;
 }
 
-long sys_getdents64(int fd, dirent64_t *dirent, size_t len) {
+long sys_getdents64(int fd, dirent64_t *dirent_0, size_t buf_len) {
     fd_t *file = get_fd(fd);
     if (file->file != ATTR_DIRECTORY) {
         return -1;
@@ -1529,21 +1529,39 @@ long sys_getdents64(int fd, dirent64_t *dirent, size_t len) {
     dentry_t *dtable = (dentry_t *)((inode_t *)file->inode)->i_mapping;
     char name[MAX_NAME_LEN];
     int offset = 0;
+    int ino = 0;
+    int last_len = 0;
+    int len = 0;
+    dirent64_t *dirent;
 repeat:
+    k_memset(name,0,MAX_NAME_LEN);
     offset = dentry2name(&dtable[file->pos], name);
     if (!offset) {
-        return 0;
+        return len;
     }
     if ((offset == 1) && (name[0] == '\0')) {
+        file->pos += offset;
         goto repeat;
     }
-    file->pos += offset;
-    dirent->d_ino = 0;
-    dirent->d_off = (long)offset;
+    if(dtable[file->pos+offset-1].sn.attr == ATTR_DIRECTORY){
+        file->pos += offset;
+        goto repeat;
+    }
+    dirent = (dirent64_t *)((char*)dirent_0 + len);
+    dirent->d_ino = ino++;
     dirent->d_reclen = sizeof(dirent64_t) + k_strlen(name) + 1;
-    dirent->d_type = dtable[file->pos - 1].sn.attr;
-    k_memcpy(dirent->d_name, name, k_strlen(name) + 1);
-    return sizeof(dirent64_t) + k_strlen(name) + 1;
+    last_len = len;
+    len += dirent->d_reclen;
+    if(len % 8 != 0)
+        len += (8-len%8); 
+    if(len > buf_len)
+        return last_len;
+    dirent->d_off = len-last_len;
+    dirent->d_reclen = dirent->d_off;
+    file->pos += offset;
+    dirent->d_type = DT_REG;
+    k_memcpy(dirent->d_name, name, dirent->d_reclen-sizeof(dirent64_t));
+    goto repeat;
 }
 
 #define SEEK_SET 0 /* seek relative to beginning of file */
@@ -1785,12 +1803,12 @@ long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
         // k_memset(statbuf,0,sizeof(statbuf));
         return -2;
     }
+    pcb_t *pcb = *current_running;
     if (!k_strcmp(".", name)) {
-        pcb_t *pcb = *current_running;
-        statbuf->st_dev = 0;
+        statbuf->st_dev = DEV_DEFAULT;
         statbuf->st_ino = new.node->i_ino;
-        statbuf->st_mode = ATTR_READ_WRITE;
-        statbuf->st_nlink = 0;
+        statbuf->st_mode = S_IFDIR;
+        statbuf->st_nlink = 1;
         statbuf->st_uid = pcb->uid.euid;
         statbuf->st_gid = pcb->gid.rgid;
         statbuf->st_rdev = 0;
@@ -1820,19 +1838,19 @@ long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
         return -2;
     }
     // TODO correct right information
-    uint16_t new_inode;
-    if (dtable[offset].sn.nt_res == 0) {
-        new_inode = alloc_inode(&dtable[offset], name, new.node->i_ino, offset);
-    } else {
-        new_inode = dtable[offset].sn.fst_clus_lo;
-    }
-    // statbuf->st_dev = file->dev;
-    statbuf->st_ino = new_inode;
-    statbuf->st_mode = dtable[offset].sn.attr;
+    // uint16_t new_inode;
+    // if (dtable[offset].sn.nt_res == 0) {
+    //     new_inode = alloc_inode(&dtable[offset], name, new.node->i_ino, offset);
+    // } else {
+    //     new_inode = dtable[offset].sn.fst_clus_lo;
+    // }
+    statbuf->st_dev = DEV_DEFAULT;
+    statbuf->st_ino = dtable[offset].sn.nt_res == 0 ? 0 : dtable[offset].sn.fst_clus_lo;
+    statbuf->st_mode = (dtable[offset].sn.attr==ATTR_DIRECTORY)? S_IFDIR:S_IFREG;
     statbuf->st_nlink = 1;
-    // statbuf->st_uid = file->uid;
-    // statbuf->st_gid = file->gid;
-    // statbuf->st_rdev = file->rdev;
+    statbuf->st_uid = pcb->uid.euid;
+    statbuf->st_gid = pcb->gid.rgid;
+    statbuf->st_rdev = 0;
     // statbuf->__pad = 0;
     statbuf->st_size = dtable[offset].sn.file_size;
     statbuf->st_blksize = fat.bpb.bytes_per_sec;
@@ -1875,13 +1893,13 @@ long sys_newfstat(unsigned int fd, stat_t *statbuf) {
     if (!file) {
         return -ENFILE;
     }
-    statbuf->st_dev = file->dev;
+    statbuf->st_dev = file->file>=STDMAX? DEV_DEFAULT:file->file;
     if (file->file > STDMAX && file->file <= ATTR_DIRECTORY) {
         statbuf->st_ino = ((inode_t *)file->inode)->i_ino;
     } else {
         return -ENFILE;
     }
-    statbuf->st_mode = file->mode;
+    statbuf->st_mode = (file->file==ATTR_DIRECTORY)? S_IFDIR:(file->file==STDIN)? S_IFCHR:S_IFREG;
     statbuf->st_nlink = 1;
     statbuf->st_uid = file->uid;
     statbuf->st_gid = file->gid;
