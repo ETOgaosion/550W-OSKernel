@@ -184,6 +184,6 @@ void k_signal_free_sig_table(sigaction_t *sig_in) {
     }
 }
 
-int sys_rt_sigtimedwait(const sigset_t *restrict set, siginfo_t *restrict info, const struct timespec *restrict timeout) {
+int sys_rt_sigtimedwait(const sigset_t *restrict set, siginfo_t *restrict info, const kernel_timespec_t *restrict timeout) {
     return SIGCHLD;
 }

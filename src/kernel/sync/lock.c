@@ -209,6 +209,183 @@ int k_sleep_lock_hold(sleep_lock_t *lk) {
     return r;
 }
 
+futex_bucket_t futex_buckets[FUTEX_BUCKETS]; // HASH LIST
+futex_node_t futex_node[MAX_FUTEX_NUM];
+int futex_node_used[MAX_FUTEX_NUM] = {0};
+struct robust_list_head *robust_list[NUM_MAX_TASK] = {0};
+
+void k_futex_init() {
+    for (int i = 0; i < FUTEX_BUCKETS; ++i) {
+        init_list_head(&futex_buckets[i]);
+    }
+}
+
+static int futex_hash(uint64_t x) {
+    x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ul;
+    x = (x ^ (x >> 27)) * 0x94d049bb133111ebul;
+    x = x ^ (x >> 31);
+    return x % FUTEX_BUCKETS;
+}
+
+static futex_node_t *get_node(u32 *val_addr, int create) {
+    int key = futex_hash((uint64_t)val_addr);
+    list_node_t *head = &futex_buckets[key];
+    for (list_node_t *p = head->next; p != head; p = p->next) {
+        futex_node_t *node = list_entry(p, futex_node_t, list);
+        if (node->futex_key == (uint64_t)val_addr) {
+            return node;
+        }
+    }
+    if (create) {
+        int i = 0;
+        for (i = 0; i < MAX_FUTEX_NUM; i++) {
+            if (futex_node_used[i] == 0) {
+                break;
+            }
+        }
+        futex_node_used[i] = (*current_running)->pid;
+        futex_node_t *node = &futex_node[i];
+        node->futex_key = (uint64_t)val_addr;
+        init_list_head(&node->block_queue);
+        list_add_tail(&node->list, &futex_buckets[key]);
+        node->set_ts.tv_nsec = 0;
+        node->set_ts.tv_sec = 0;
+        node->add_ts.tv_nsec = 0;
+        node->add_ts.tv_sec = 0;
+        return node;
+    }
+
+    return NULL;
+}
+
+int k_futex_wait(u32 *val_addr, u32 val, const kernel_timespec_t *timeout) {
+    futex_node_t *node = get_node(val_addr, 1);
+    if (timeout && (timeout->tv_nsec != 0 || timeout->tv_sec != 0)) {
+        node->set_ts.tv_sec = timeout->tv_sec;
+        node->set_ts.tv_nsec = timeout->tv_nsec;
+        k_time_get_nanotime((nanotime_val_t *)&node->add_ts);
+    } else if (timeout == 0) {
+        node->set_ts.tv_sec = 0;
+        node->set_ts.tv_nsec = 0;
+    }
+    k_pcb_block(&(*current_running)->list, &node->block_queue, ENQUEUE_LIST);
+    k_pcb_scheduler(false, false);
+    return 0;
+}
+
+int k_futex_wakeup(u32 *val_addr, u32 num_wakeup) {
+    futex_node_t *node = get_node(val_addr, 0);
+    int ret = 0;
+    if (node != NULL) {
+        for (int i = 0; i < num_wakeup; ++i) {
+            if (list_is_empty(&node->block_queue)) {
+                break;
+            }
+            k_pcb_unblock(node->block_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+        }
+        ret++;
+    }
+    return ret;
+}
+int k_futex_requeue(u32 *uaddr, u32 *uaddr2, u32 num) {
+    int ret = 0;
+    futex_node_t *node1 = get_node(uaddr, 0);
+    futex_node_t *node2 = get_node(uaddr2, 0);
+    if (node1 == NULL) {
+        node1 = get_node(uaddr, 1);
+    }
+    if (node2 == NULL) {
+        node2 = get_node(uaddr2, 1);
+    }
+    for (int i = 0; i < num; ++i) {
+        if (list_is_empty(&node1->block_queue)) {
+            break;
+        }
+        list_head *pcb_node = node1->block_queue.next;
+        list_del(pcb_node);
+        list_add(pcb_node, &node2->block_queue);
+        ret++;
+    }
+    return ret;
+}
+
+void check_futex_timeout() {
+    kernel_timespec_t cur_time;
+    k_time_get_nanotime((nanotime_val_t *)&cur_time);
+    for (int i = 0; i < MAX_FUTEX_NUM; i++) {
+        if (futex_node_used[i]) {
+            if (futex_node[i].set_ts.tv_nsec == 0 && futex_node[i].set_ts.tv_sec == 0) {
+                continue;
+            }
+            if ((cur_time.tv_sec - futex_node[i].add_ts.tv_sec) > futex_node[i].set_ts.tv_sec) {
+                futex_node[i].set_ts.tv_sec = 0;
+                futex_node[i].set_ts.tv_nsec = 0;
+                futex_node[i].add_ts.tv_sec = 0;
+                futex_node[i].add_ts.tv_nsec = 0;
+                while (1) {
+                    if (list_is_empty(&futex_node[i].block_queue)) {
+                        break;
+                    }
+                    k_pcb_unblock(futex_node[i].block_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+                }
+            } else if ((cur_time.tv_sec - futex_node[i].add_ts.tv_sec) == futex_node[i].set_ts.tv_sec) {
+                if (futex_node[i].set_ts.tv_nsec && (cur_time.tv_nsec - futex_node[i].add_ts.tv_nsec) >= futex_node[i].set_ts.tv_nsec) {
+                    futex_node[i].set_ts.tv_sec = 0;
+                    futex_node[i].set_ts.tv_nsec = 0;
+                    futex_node[i].add_ts.tv_sec = 0;
+                    futex_node[i].add_ts.tv_nsec = 0;
+                    while (1) {
+                        if (list_is_empty(&futex_node[i].block_queue)) {
+                            break;
+                        }
+                        k_pcb_unblock(futex_node[i].block_queue.next, &ready_queue, UNBLOCK_TO_LIST_STRATEGY);
+                    }
+                }
+            }
+        }
+    }
+}
+
+int find_index(int pid) {
+    for (int i = 1; i < NUM_MAX_TASK; i++) {
+        if (pid == pcb[i].pid) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+long sys_get_robust_list(int pid, struct robust_list_head **head_ptr, size_t *len_ptr) {
+
+    if (pid == 0) {
+        int current_index = find_index((*current_running)->pid);
+        *head_ptr = robust_list[current_index];
+        return 0;
+    } else {
+        int index = find_index(pid);
+        *head_ptr = robust_list[index];
+        return 0;
+    }
+}
+
+long sys_set_robust_list(struct robust_list_head *head, size_t len) {
+    int current_index = find_index((*current_running)->pid);
+    robust_list[current_index] = head;
+    return 0;
+}
+
 long sys_futex(u32 *uaddr, int op, u32 val, const kernel_timespec_t *utime, u32 *uaddr2, u32 val3) {
+    if ((op & FUTEX_WAKE) == FUTEX_WAKE) {
+        return (long)k_futex_wakeup(uaddr, val);
+    } else if ((op & FUTEX_WAIT) == FUTEX_WAIT) {
+        if (*uaddr == val) {
+            k_futex_wait(uaddr, val, utime);
+        } else {
+            return -EAGAIN;
+        }
+    }
+    if ((op & FUTEX_REQUEUE) == FUTEX_REQUEUE) {
+        return k_futex_requeue(uaddr, uaddr2, utime->tv_sec);
+    }
     return 0;
 }

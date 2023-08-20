@@ -170,7 +170,7 @@ int fd_free(int fd) {
     if (!file) {
         return -1;
     }
-    __list_del(file->list.prev, file->list.next);
+    list_del(&file->list);
     // TODO free
     // k_free(file);
     return ret;
@@ -193,6 +193,6 @@ void init_fd_pcb(pcb_t *pcb) {
         file->used = 1;
         file->fd_num = i;
         // add to fd list in pcb
-        __list_add(&file->list, pcb->fd_head.prev, &pcb->fd_head);
+        list_add_tail(&file->list, &pcb->fd_head);
     }
 }

@@ -331,7 +331,7 @@ void bunpin(buf_t *b) {
 void d_sd_read(char *buffers, uint *start_block_ids, uint block_num) {
 #ifdef _SD_H_
     for (int i = 0; i < block_num; i++) {
-        sdRead((u8*)(buffers + i * BSIZE), start_block_ids[i], 1);
+        sdRead((u8 *)(buffers + i * BSIZE), start_block_ids[i], 1);
     }
 #else
     buf_t *buf;
@@ -346,7 +346,7 @@ void d_sd_read(char *buffers, uint *start_block_ids, uint block_num) {
 void d_sd_write(char *buffers, uint *start_block_ids, uint block_num) {
 #ifdef _SD_H_
     for (int i = 0; i < block_num; i++) {
-        sdWrite((u8*)(buffers + i * BSIZE), start_block_ids[i], 1);
+        sdWrite((u8 *)(buffers + i * BSIZE), start_block_ids[i], 1);
     }
 #else
     buf_t *buf;

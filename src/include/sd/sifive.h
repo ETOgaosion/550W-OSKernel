@@ -5,8 +5,8 @@
 
 #include <common/types.h>
 
-#define MCAUSE_INT         0x8000000000000000UL
-#define MCAUSE_CAUSE       0x7FFFFFFFFFFFFFFFUL
+#define MCAUSE_INT 0x8000000000000000UL
+#define MCAUSE_CAUSE 0x7FFFFFFFFFFFFFFFUL
 
 /****************************************************************************
  * Platform definitions
@@ -17,37 +17,36 @@
 #define GLOBAL_INT_SIZE 15
 #define GLOBAL_INT_MAX_PRIORITY 7
 
-#define _AC(X,Y)        (X##Y)
-#define _AT(T,X)        ((T)(X))
+#define _AC(X, Y) (X##Y)
+#define _AT(T, X) ((T)(X))
 // Memory map
-#define AXI_PCIE_HOST_1_00_A_CTRL_ADDR _AC(0x50000000,UL)
-#define AXI_PCIE_HOST_1_00_A_CTRL_SIZE _AC(0x4000000,UL)
-#define CLINT_CTRL_ADDR _AC(0x2000000,UL)
-#define CLINT_CTRL_SIZE _AC(0x10000,UL)
-#define DEBUG_CTRL_ADDR _AC(0x0,UL)
-#define DEBUG_CTRL_SIZE _AC(0x1000,UL)
-#define ERROR_MEM_ADDR _AC(0x3000,UL)
-#define ERROR_MEM_SIZE _AC(0x1000,UL)
-#define GPIO_CTRL_ADDR _AC(0x64002000,UL)
-#define GPIO_CTRL_SIZE _AC(0x1000,UL)
-#define MASKROM_MEM_ADDR _AC(0x10000,UL)
-#define MASKROM_MEM_SIZE _AC(0x2000,UL)
-#define MEMORY_MEM_ADDR _AC(0x80000000,UL)
-#define MEMORY_MEM_SIZE _AC(0x40000000,UL)
-#define PLIC_CTRL_ADDR _AC(0xc000000,UL)
-#define PLIC_CTRL_SIZE _AC(0x4000000,UL)
-//#define SPI_CTRL_ADDR _AC(0x64001000,UL)
-#define SPI_CTRL_ADDR _AC(0x10050000,UL)
-#define SPI_CTRL_SIZE _AC(0x1000,UL)
-#define TEST_CTRL_ADDR _AC(0x4000,UL)
-#define TEST_CTRL_SIZE _AC(0x1000,UL)
-//#define UART_CTRL_ADDR _AC(0x64000000,UL)
-#define UART_CTRL_ADDR _AC(0x10010000,UL)
-#define UART_CTRL_SIZE _AC(0x1000,UL)
+#define AXI_PCIE_HOST_1_00_A_CTRL_ADDR _AC(0x50000000, UL)
+#define AXI_PCIE_HOST_1_00_A_CTRL_SIZE _AC(0x4000000, UL)
+#define CLINT_CTRL_ADDR _AC(0x2000000, UL)
+#define CLINT_CTRL_SIZE _AC(0x10000, UL)
+#define DEBUG_CTRL_ADDR _AC(0x0, UL)
+#define DEBUG_CTRL_SIZE _AC(0x1000, UL)
+#define ERROR_MEM_ADDR _AC(0x3000, UL)
+#define ERROR_MEM_SIZE _AC(0x1000, UL)
+#define GPIO_CTRL_ADDR _AC(0x64002000, UL)
+#define GPIO_CTRL_SIZE _AC(0x1000, UL)
+#define MASKROM_MEM_ADDR _AC(0x10000, UL)
+#define MASKROM_MEM_SIZE _AC(0x2000, UL)
+#define MEMORY_MEM_ADDR _AC(0x80000000, UL)
+#define MEMORY_MEM_SIZE _AC(0x40000000, UL)
+#define PLIC_CTRL_ADDR _AC(0xc000000, UL)
+#define PLIC_CTRL_SIZE _AC(0x4000000, UL)
+// #define SPI_CTRL_ADDR _AC(0x64001000,UL)
+#define SPI_CTRL_ADDR _AC(0x10050000, UL)
+#define SPI_CTRL_SIZE _AC(0x1000, UL)
+#define TEST_CTRL_ADDR _AC(0x4000, UL)
+#define TEST_CTRL_SIZE _AC(0x1000, UL)
+// #define UART_CTRL_ADDR _AC(0x64000000,UL)
+#define UART_CTRL_ADDR _AC(0x10010000, UL)
+#define UART_CTRL_SIZE _AC(0x1000, UL)
 
-static volatile u32 * const uart = (void *)(UART_CTRL_ADDR);
+static volatile u32 *const uart = (void *)(UART_CTRL_ADDR);
 // IOF masks
-
 
 // Interrupt numbers
 #define UART_INT_BASE 1
@@ -62,7 +61,12 @@ static volatile u32 * const uart = (void *)(UART_CTRL_ADDR);
 // Bulk set bits in `reg` to either 0 or 1.
 // E.g. SET_BITS(MY_REG, 0x00000007, 0) would generate MY_REG &= ~0x7
 // E.g. SET_BITS(MY_REG, 0x00000007, 1) would generate MY_REG |= 0x7
-#define SET_BITS(reg, mask, value) if ((value) == 0) { (reg) &= ~(mask); } else { (reg) |= (mask); }
+#define SET_BITS(reg, mask, value)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \
+    if ((value) == 0) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               \
+        (reg) &= ~(mask);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             \
+    } else {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          \
+        (reg) |= (mask);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              \
+    }
 #define AXI_PCIE_HOST_1_00_A_REG(offset) _REG32(AXI_PCIE_HOST_1_00_A_CTRL_ADDR, offset)
 #define CLINT_REG(offset) _REG32(CLINT_CTRL_ADDR, offset)
 #define DEBUG_REG(offset) _REG32(DEBUG_CTRL_ADDR, offset)
@@ -88,6 +92,5 @@ static volatile u32 * const uart = (void *)(UART_CTRL_ADDR);
 
 #define PAYLOAD_DEST MEMORY_MEM_ADDR
 // Misc
-
 
 #endif /* _SIFIVE_PLATFORM_H */

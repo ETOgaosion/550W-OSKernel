@@ -83,9 +83,9 @@ void init_pcb_i(char *name, char *cmd, int pcb_i, task_type_t type, int pid, int
     target->uid.ruid = uid;
     target->uid.euid = uid;
     target->uid.suid = uid;
-    #ifdef RBTREE
+#ifdef RBTREE
     k_rbnode_init(&target->node, priority, (void *)target);
-    #endif
+#endif
     target->father_pid = father_pid;
     target->child_num = 0;
     k_bzero((void *)target->child_pids, sizeof(target->child_pids));
@@ -342,10 +342,10 @@ pcb_t *dequeue(list_head *queue, dequeue_way_t target, int policy) {
         list_del(&(ret->list));
         break;
     case DEQUEUE_TREE_PRIORITY:
-        #ifdef RBTREE
+#ifdef RBTREE
         ret = (pcb_t *)k_rbtree_maximum(&ready_tree)->value;
         k_rbtree_delete(&ready_tree, &ret->node);
-        #endif
+#endif
         break;
     default:
         break;
@@ -466,6 +466,7 @@ long k_pcb_scheduler(bool voluntary, bool skip_first) {
     local_flush_tlb_all();
     bool skip_first_cal = curr->status == TASK_EXITED;
     switch_to(curr, next_pcb, skip_first_cal | skip_first);
+    k_smp_sync_current_pcb();
     return 0;
 }
 
@@ -619,10 +620,10 @@ long exec(bool execve, int target_pid, int father_pid, const char *file_name, co
     uintptr_t child_argv = init_user_stack(&pcb[target_pid], &user_stack_kva, &user_stack, argc, argv, envpc, envp, file_name, pcb[target_pid].dynamic);
 
     init_context_stack(kernel_stack, user_stack, argc, (char **)child_argv, (ptr_t)process, &pcb[target_pid]);
-if (!execve) {
-    init_list_head(&pcb[target_pid].fd_head);
-    init_fd_pcb(&pcb[target_pid]);
-}
+    if (!execve) {
+        init_list_head(&pcb[target_pid].fd_head);
+        init_fd_pcb(&pcb[target_pid]);
+    }
 #ifdef RBTREE
     enqueue(&pcb[target_pid].list, NULL, ENQUEUE_LIST_PRIORITY);
 #else
@@ -700,7 +701,7 @@ long clone(unsigned long flags, void *stack, pid_t *parent_tid, void *tls, pid_t
     list_for_each_entry(pos, &pcb[fpid].fd_head, list) {
         fd_t *file = k_mm_malloc(sizeof(fd_t));
         k_memcpy(file, pos, sizeof(fd_t));
-        __list_add(&file->list, pcb[i].fd_head.prev, &pcb[i].fd_head);
+        list_add_tail(&file->list, &pcb[i].fd_head);
     }
 #ifdef RBTREE
     enqueue(&pcb[i].list, NULL, ENQUEUE_LIST_PRIORITY);

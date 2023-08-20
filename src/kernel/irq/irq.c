@@ -131,6 +131,8 @@ void k_syscall_init(void) {
     syscall[SYS_tgkill] = (long (*)())sys_tgkill;
     syscall[SYS_prctl] = (long (*)())sys_prctl;
     syscall[SYS_futex] = (long (*)())sys_futex;
+    syscall[SYS_set_robust_list] = (long (*)())sys_set_robust_list;
+    syscall[SYS_get_robust_list] = (long (*)())sys_get_robust_list;
     syscall[SYS_sched_setparam] = (long (*)())sys_sched_setparam;
     syscall[SYS_sched_setscheduler] = (long (*)())sys_sched_setscheduler;
     syscall[SYS_sched_getscheduler] = (long (*)())sys_sched_getscheduler;

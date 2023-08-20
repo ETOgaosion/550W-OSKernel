@@ -158,11 +158,6 @@ typedef struct sigaction_table {
     sigaction_t sigactions[NUM_MAX_SIGNAL];
 } sigaction_table_t;
 
-typedef struct timespec {
-    uint64_t tv_sec;  // seconds
-    uint64_t tv_nsec; // and nanoseconds
-} timespec_t;
-
 extern void enter_signal_trampoline();
 extern void exit_signal_trampoline();
 
@@ -176,4 +171,4 @@ long sys_tgkill(pid_t tgid, pid_t pid, int sig);
 long sys_rt_sigaction(int signum, const sigaction_t *act, sigaction_t *oldact, size_t sigsetsize);
 long sys_rt_sigprocmask(int how, sigset_t *set, sigset_t *oset, size_t sigsetsize);
 long sys_rt_sigreturn();
-int sys_rt_sigtimedwait(const sigset_t *restrict set, siginfo_t *restrict info, const struct timespec *restrict timeout);
+int sys_rt_sigtimedwait(const sigset_t *restrict set, siginfo_t *restrict info, const kernel_timespec_t *restrict timeout);

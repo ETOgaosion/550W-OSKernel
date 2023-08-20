@@ -67,6 +67,8 @@ int kernel_start(int mhartid) {
 
         k_resources_init();
 
+        k_futex_init();
+
         // read CPU frequency
         k_time_init();
 

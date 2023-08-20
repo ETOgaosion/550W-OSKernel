@@ -821,6 +821,14 @@ int fs_init() {
     ((dentry_t *)inode_table[inode_table[mounts_ino].i_upper].i_mapping)[inode_table[mounts_ino].i_offset].sn.file_size = k_strlen(mounts);
 
     sys_mkdirat(AT_FDCWD, "/dev", ATTR_DIRECTORY);
+    sys_mkdirat(AT_FDCWD, "/dev/shm", ATTR_DIRECTORY);
+    
+    int null_ino = k_openat(AT_FDCWD, "/dev/null", O_CREATE | O_RDONLY, 0);
+    if (null_ino == -1) {
+        k_print("> [FAT32 INIT] /dev/null init fail\n");
+    }
+    inode_table[null_ino].i_mapping = (ptr_t)dest;
+    ((dentry_t *)inode_table[inode_table[null_ino].i_upper].i_mapping)[inode_table[null_ino].i_offset].sn.file_size = 0;
 
     // in linkat [/proc/self/exe]
     // sys_mkdirat(AT_FDCWD,"/proc/self",ATTR_DIRECTORY);
@@ -1609,6 +1617,10 @@ ssize_t sys_read(int fd, char *buf, size_t count) {
     //     return 1;
     // }
 
+    if (k_strcmp(buf, "/dev/null") == 0) {
+        return k_strlen(buf);
+    }
+
     fd_t *file = get_fd(fd);
     if (!file) {
         return -1;
@@ -1658,6 +1670,11 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
     //     sys_screen_write_len((char *)buf, count);
     //     return count;
     // }
+
+    if (k_strcmp(buf, "/dev/null") == 0) {
+        return k_strlen(buf);
+    }
+    
     fd_t *file = get_fd(fd);
     if (!file) {
         return -1;
