@@ -90,7 +90,8 @@
 #define SYS_timerfd_create 85
 #define SYS_timerfd_settime 86
 #define SYS_timerfd_gettime 87
-#define SYS_symlink 88
+// #define SYS_symlink 88
+#define SYS_utimensat 88
 #define SYS_acct 89
 #define SYS_capget 90
 #define SYS_capset 91

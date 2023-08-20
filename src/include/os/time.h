@@ -81,6 +81,9 @@
 /* read-only bits */
 #define STA_RONLY (STA_PPSSIGNAL | STA_PPSJITTER | STA_PPSWANDER | STA_PPSERROR | STA_CLOCKERR | STA_NANO | STA_MODE | STA_CLK)
 
+#define UTIME_NOW 0x3fffffff
+#define UTIME_OMIT 0x3ffffffe
+
 typedef struct time_val {
     kernel_time64_t sec; // 自 Unix 纪元起的秒数
     long long usec;      // 微秒数

@@ -19,7 +19,6 @@ void k_time_init() {
     time_base = TIME_BASE_DEFAULT;
     k_time_get_nanotime((nanotime_val_t *)&boot_time);
     k_memcpy(&global_clocks.real_time_clock, &boot_time, sizeof(clock_t));
-    global_clocks.real_time_clock.nano_clock.tv_sec += 1690339653;
     k_memcpy(&global_clocks.tai_clock, &boot_time, sizeof(clock_t));
     k_bzero((void *)&global_clocks.monotonic_clock, sizeof(clock_t));
     k_bzero((void *)&global_clocks.boot_time_clock, sizeof(clock_t));

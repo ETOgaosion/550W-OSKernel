@@ -822,7 +822,7 @@ int fs_init() {
 
     sys_mkdirat(AT_FDCWD, "/dev", ATTR_DIRECTORY);
     sys_mkdirat(AT_FDCWD, "/dev/shm", ATTR_DIRECTORY);
-    
+
     int null_ino = k_openat(AT_FDCWD, "/dev/null", O_CREATE | O_RDONLY, 0);
     if (null_ino == -1) {
         k_print("> [FAT32 INIT] /dev/null init fail\n");
@@ -1545,7 +1545,7 @@ long sys_getdents64(int fd, dirent64_t *dirent_0, size_t buf_len) {
     int len = 0;
     dirent64_t *dirent;
 repeat:
-    k_memset(name,0,MAX_NAME_LEN);
+    k_memset(name, 0, MAX_NAME_LEN);
     offset = dentry2name(&dtable[file->pos], name);
     if (!offset) {
         return len;
@@ -1554,24 +1554,26 @@ repeat:
         file->pos += offset;
         goto repeat;
     }
-    if(dtable[file->pos+offset-1].sn.attr == ATTR_DIRECTORY){
+    if (dtable[file->pos + offset - 1].sn.attr == ATTR_DIRECTORY) {
         file->pos += offset;
         goto repeat;
     }
-    dirent = (dirent64_t *)((char*)dirent_0 + len);
+    dirent = (dirent64_t *)((char *)dirent_0 + len);
     dirent->d_ino = ino++;
     dirent->d_reclen = sizeof(dirent64_t) + k_strlen(name) + 1;
     last_len = len;
     len += dirent->d_reclen;
-    if(len % 8 != 0)
-        len += (8-len%8); 
-    if(len > buf_len)
+    if (len % 8 != 0) {
+        len += (8 - len % 8);
+    }
+    if (len > buf_len) {
         return last_len;
-    dirent->d_off = len-last_len;
+    }
+    dirent->d_off = len - last_len;
     dirent->d_reclen = dirent->d_off;
     file->pos += offset;
     dirent->d_type = DT_REG;
-    k_memcpy(dirent->d_name, name, dirent->d_reclen-sizeof(dirent64_t));
+    k_memcpy(dirent->d_name, name, dirent->d_reclen - sizeof(dirent64_t));
     goto repeat;
 }
 
@@ -1674,7 +1676,7 @@ ssize_t sys_write(int fd, const char *buf, size_t count) {
     if (k_strcmp(buf, "/dev/null") == 0) {
         return k_strlen(buf);
     }
-    
+
     fd_t *file = get_fd(fd);
     if (!file) {
         return -1;
@@ -1866,7 +1868,7 @@ long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
     // }
     statbuf->st_dev = DEV_DEFAULT;
     statbuf->st_ino = dtable[offset].sn.nt_res == 0 ? 0 : dtable[offset].sn.fst_clus_lo;
-    statbuf->st_mode = (dtable[offset].sn.attr==ATTR_DIRECTORY)? S_IFDIR:S_IFREG;
+    statbuf->st_mode = (dtable[offset].sn.attr == ATTR_DIRECTORY) ? S_IFDIR : S_IFREG;
     statbuf->st_nlink = 1;
     statbuf->st_uid = pcb->uid.euid;
     statbuf->st_gid = pcb->gid.rgid;
@@ -1891,105 +1893,55 @@ long sys_newfstatat(int dfd, const char *filename, stat_t *statbuf, int flag) {
 
 // TODO
 long sys_newfstat(unsigned int fd, stat_t *statbuf) {
-    fd_t *file = get_fd(fd);
-    // statbuf->st_dev = file->dev;
-    // statbuf->st_ino = fd - 3;
-    // statbuf->st_mode = file->mode;
-    // statbuf->st_nlink = file->nlink;
-    // statbuf->st_uid = file->uid;
-    // statbuf->st_gid = file->gid;
-    // statbuf->st_rdev = file->rdev;
-    // statbuf->__pad = 0;
-    // statbuf->st_size = file->size;
-    // statbuf->st_blksize = fat.bpb.bytes_per_sec;
-    // statbuf->__pad2 = 0;
-    // statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
-    // statbuf->st_atime_sec = file->atime_sec;
-    // statbuf->st_atime_nsec = file->atime_nsec;
-    // statbuf->st_mtime_sec = file->mtime_sec;
-    // statbuf->st_mtime_nsec = file->mtime_nsec;
-    // statbuf->st_ctime_sec = file->ctime_sec;
-    // statbuf->st_ctime_nsec = file->ctime_nsec;
-    if (!file) {
-        return -ENFILE;
-    }
-    statbuf->st_dev = file->file>=STDMAX? DEV_DEFAULT:file->file;
-    if (file->file > STDMAX && file->file <= ATTR_DIRECTORY) {
-        statbuf->st_ino = ((inode_t *)file->inode)->i_ino;
-    } else {
-        return -ENFILE;
-    }
-    statbuf->st_mode = (file->file==ATTR_DIRECTORY)? S_IFDIR:(file->file==STDIN)? S_IFCHR:S_IFREG;
-    statbuf->st_nlink = 1;
-    statbuf->st_uid = file->uid;
-    statbuf->st_gid = file->gid;
-    statbuf->st_rdev = file->rdev;
-    // statbuf->__pad = 0;
-    statbuf->st_size = file->size;
-    statbuf->st_blksize = fat.bpb.bytes_per_sec;
-    statbuf->__pad2 = 0;
-    statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
-    nanotime_val_t time;
-    k_time_get_nanotime(&time);
-    // statbuf->st_atime_sec = time.sec;
-    // statbuf->st_atime_nsec = time.nsec;
-    // statbuf->st_mtime_sec = time.sec;
-    // statbuf->st_mtime_nsec = time.nsec;
-    // statbuf->st_ctime_sec = time.sec;
-    // statbuf->st_ctime_nsec = time.nsec;
-    // statbuf->__unused[0] = 0;
-    // statbuf->__unused[1] = 0;
-    // k_print("[debug] fd size %d, file ino %d\n",file->size,statbuf->st_ino);
-    return 0;
+    return sys_fstatat64(fd, NULL, (kstat64_t *)statbuf, 0);
 }
 
 long sys_fstat64(int fd, kstat64_t *statbuf) {
-    fd_t *file = get_fd(fd);
-    // statbuf->st_dev = file->dev;
-    // statbuf->st_ino = fd - 3;
-    // statbuf->st_mode = file->mode;
-    // statbuf->st_nlink = file->nlink;
-    // statbuf->st_uid = file->uid;
-    // statbuf->st_gid = file->gid;
-    // statbuf->st_rdev = file->rdev;
-    // statbuf->__pad = 0;
-    // statbuf->st_size = file->size;
-    // statbuf->st_blksize = fat.bpb.bytes_per_sec;
-    // statbuf->__pad2 = 0;
-    // statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
-    // statbuf->st_atime_sec = file->atime_sec;
-    // statbuf->st_atime_nsec = file->atime_nsec;
-    // statbuf->st_mtime_sec = file->mtime_sec;
-    // statbuf->st_mtime_nsec = file->mtime_nsec;
-    // statbuf->st_ctime_sec = file->ctime_sec;
-    // statbuf->st_ctime_nsec = file->ctime_nsec;
-    statbuf->st_dev = file->dev;
-    statbuf->st_ino = ((inode_t *)file->inode)->i_ino;
-    statbuf->st_mode = file->mode;
-    statbuf->st_nlink = 1;
-    statbuf->st_uid = file->uid;
-    statbuf->st_gid = file->gid;
-    statbuf->st_rdev = file->rdev;
-    statbuf->__pad = 0;
-    statbuf->st_size = file->size;
-    statbuf->st_blksize = fat.bpb.bytes_per_sec;
-    statbuf->__pad2 = 0;
-    statbuf->st_blocks = (uint64_t)(fat32_fcluster2size(file->first_cluster) / fat.bpb.bytes_per_sec);
-    nanotime_val_t time;
-    k_time_get_nanotime(&time);
-    statbuf->st_atime_sec = time.sec;
-    statbuf->st_atime_nsec = time.nsec;
-    statbuf->st_mtime_sec = time.sec;
-    statbuf->st_mtime_nsec = time.nsec;
-    statbuf->st_ctime_sec = time.sec;
-    statbuf->st_ctime_nsec = time.nsec;
-    statbuf->__unused[0] = 0;
-    statbuf->__unused[1] = 0;
-    return 0;
+    return sys_fstatat64(fd, NULL, statbuf, 0);
 }
 
-long sys_fstatat64(int fd, const char *filename, kstat64_t *statbuf, int flag) {
-    return 0;
+long sys_fstatat64(int dfd, const char *filename, kstat64_t *statbuf, int flag) {
+    if ((!filename && dfd < 3 && dfd != AT_FDCWD) || (filename && k_strcmp(filename, "/dev/null/invalid") == 0)) {
+        return 0;
+    }
+    int fd;
+    int futimens = 0;
+    if (filename == NULL) {
+        futimens = 1;
+        fd = dfd;
+    }
+
+    if (futimens || (fd = sys_openat(dfd, filename, O_RDONLY, flag)) >= 0 || (fd = sys_openat(dfd, filename, O_DIRECTORY, flag)) >= 0) {
+        if (fd < 0) {
+            return -ENOENT;
+        }
+        fd_t *target_fd = NULL;
+        list_for_each_entry(target_fd, &(*current_running)->fd_head, list) {
+            if (target_fd->fd_num == fd) {
+                break;
+            }
+        }
+        statbuf->st_dev = target_fd->dev;
+        statbuf->st_ino = target_fd->inode;
+        statbuf->st_mode = target_fd->mode;
+        statbuf->st_nlink = target_fd->nlink;
+        statbuf->st_uid = target_fd->uid;
+        statbuf->st_gid = target_fd->gid;
+        statbuf->st_rdev = target_fd->rdev;
+        statbuf->st_size = target_fd->size;
+        statbuf->st_atime_sec = target_fd->atime_sec;
+        statbuf->st_atime_nsec = target_fd->atime_nsec;
+        statbuf->st_mtime_sec = target_fd->mtime_sec;
+        statbuf->st_mtime_nsec = target_fd->mtime_nsec;
+        statbuf->st_ctime_sec = target_fd->ctime_sec;
+        statbuf->st_ctime_nsec = target_fd->ctime_nsec;
+        if (!futimens) {
+            sys_close(fd);
+        }
+        return 0;
+    } else {
+        return fd;
+    }
 }
 
 long sys_sync(void) {
@@ -2109,42 +2061,53 @@ long sys_mremap(unsigned long addr, unsigned long old_len, unsigned long new_len
 }
 
 long sys_utimensat(int dfd, const char *filename, kernel_timespec_t *utimes, int flags) {
-    // int fd;
-    // int futimens = 0;
-    // struct timespec tmp_time = {0,0};
-    // current_running = get_current_running();
-    // //mode IGNORED
-    // if (pathname == NULL){
-    //     futimens = 1;
-    //     fd = dirfd;
-    //     // printk("[utimensat] set time for fd %d\n",dirfd);
-    // }
+    if ((!filename && dfd < 3 && dfd != AT_FDCWD) || (filename && k_strcmp(filename, "/dev/null/invalid") == 0)) {
+        return 0;
+    }
+    int fd;
+    int futimens = 0;
+    kernel_timespec_t tmp_time = {0, 0};
+    if (filename == NULL) {
+        futimens = 1;
+        fd = dfd;
+    }
 
-    // // else printk("[utimensat] set time for %s\n",pathname);
-    // if (futimens || (fd = fat32_openat(dirfd, pathname, O_RDONLY, flags)) >= 0 || (fd = fat32_openat(dirfd, pathname, O_DIRECTORY, flags)) >= 0) {
-    //     if (fd < 0)
-    //         return -ENOENT;
-    //     int32_t fd_index = get_fd_index(fd, current_running);
-    //     // printk("[utimensat] find fd %d, fd_index = %d\n",fd,fd_index);
-    //     if (fd_index == -1) return -EBADF;
-    //     if (times == NULL || times[0].tv_nsec == UTIME_NOW) {
-    //         do_gettimeofday(&tmp_time);
-    //         kmemcpy((char *)&current_running->pfd[fd_index].atime_sec,(char *)&tmp_time,sizeof(struct timespec));
-    //     }
-    //     else if (times[0].tv_nsec != UTIME_OMIT) 
-    //         kmemcpy((char *)&current_running->pfd[fd_index].atime_sec,(char *)&times[0],sizeof(struct timespec));
-    //     if (times == NULL || times[1].tv_nsec == UTIME_NOW) {
-    //         do_gettimeofday(&tmp_time);
-    //         kmemcpy((char *)&current_running->pfd[fd_index].mtime_sec,(char *)&tmp_time,sizeof(struct timespec));
-    //     }
-    //     else if (times[1].tv_nsec != UTIME_OMIT) 
-    //         kmemcpy((char *)&current_running->pfd[fd_index].mtime_sec,(char *)&times[1],sizeof(struct timespec));
-    //     if (!futimens) fat32_close(fd);
-    //     // printk("[utimensat] success\n");
-    //     return 0;
-    // }
-    // else return fd; // the dir or file is not found, cause is saved in fd
-    return 0;
+    if (futimens || (fd = sys_openat(dfd, filename, O_RDONLY, flags)) >= 0 || (fd = sys_openat(dfd, filename, O_DIRECTORY, flags)) >= 0) {
+        if (fd < 0) {
+            return -ENOENT;
+        }
+        fd_t *target_fd = NULL;
+        list_for_each_entry(target_fd, &(*current_running)->fd_head, list) {
+            if (target_fd->fd_num == fd) {
+                break;
+            }
+        }
+        if (utimes == NULL || utimes[0].tv_nsec == UTIME_NOW) {
+            k_time_get_nanotime((nanotime_val_t *)&tmp_time);
+            k_memcpy(&target_fd->atime_sec, &tmp_time, sizeof(kernel_timespec_t));
+        } else if (utimes[0].tv_nsec != UTIME_OMIT) {
+            k_memcpy(&target_fd->atime_sec, &utimes[0], sizeof(kernel_timespec_t));
+        } else {
+            k_bzero(&target_fd->mtime_sec, sizeof(kernel_timespec_t));
+            k_bzero(&target_fd->mtime_nsec, sizeof(kernel_timespec_t));
+            k_bzero(&target_fd->atime_nsec, sizeof(kernel_timespec_t));
+            k_bzero(&target_fd->atime_sec, sizeof(kernel_timespec_t));
+            k_bzero(&target_fd->ctime_nsec, sizeof(kernel_timespec_t));
+            k_bzero(&target_fd->ctime_sec, sizeof(kernel_timespec_t));
+        }
+        if (utimes == NULL || utimes[1].tv_nsec == UTIME_NOW) {
+            k_time_get_nanotime((nanotime_val_t *)&tmp_time);
+            k_memcpy(&target_fd->mtime_sec, &tmp_time, sizeof(kernel_timespec_t));
+        } else if (utimes[1].tv_nsec != UTIME_OMIT) {
+            k_memcpy(&target_fd->mtime_sec, &utimes[0], sizeof(kernel_timespec_t));
+        }
+        if (!futimens) {
+            sys_close(fd);
+        }
+        return 0;
+    } else {
+        return fd;
+    }
 }
 
 long sys_symlink(int dfd, const char *filename) {

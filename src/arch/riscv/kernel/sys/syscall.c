@@ -5,7 +5,7 @@
 long (*syscall[NUM_SYSCALLS])();
 
 void handle_syscall_exc(regs_context_t *regs, uint64_t interrupt, uint64_t cause, uint64_t sepc) {
-    if(syscall[regs->regs[reg_a7]] == (long (*)()) & sys_undefined_syscall) {
+    if (syscall[regs->regs[reg_a7]] == (long (*)()) & sys_undefined_syscall) {
         sys_undefined_syscall(regs, interrupt, cause, sepc);
     }
     // syscall[fn](arg1, arg2, arg3)

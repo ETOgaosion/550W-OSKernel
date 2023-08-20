@@ -80,7 +80,7 @@ int fd_alloc(int fd) {
     // get fd num
     if (fd == -1) {
         fd = get_fd_from_list();
-        if(fd >= MAX_FD_NUM) {
+        if (fd >= MAX_FD_NUM) {
             return -1;
         }
     } else {
