@@ -6,7 +6,7 @@
 #include <fs/fs.h>
 #include <os/mm.h>
 
-#define ELF_BUF_SIZE 10
+#define ELF_BUF_SIZE 1
 
 unsigned char *elf_files_binary_buf[ELF_BUF_SIZE] = {0};
 int elf_files_len_buf[ELF_BUF_SIZE] = {0};
