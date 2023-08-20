@@ -691,7 +691,7 @@ static void libc_test(bool execute) {
         {"./runtest.exe", "-w", "entry-static.exe", "wcsncpy_read_overflow"},
         {"./runtest.exe", "-w", "entry-static.exe", "wcsstr_false_negative"},
     };
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 98; i++) {
         pid = exec("runtest.exe", (char *const *)run_static_args[i], NULL);
         res = 0;
         waitpid(pid, &res, 0);
